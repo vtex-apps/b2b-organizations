@@ -1,0 +1,22 @@
+{
+  "store.organizations": {
+    "blocks": [
+      "flex-layout.row#title",
+    ]
+  },
+  "flex-layout.row#title": {
+    "children": ["flex-layout.col#title"]
+  },
+  "flex-layout.col#title": {
+    "children": ["rich-text#title"],
+    "props": {
+      "blockClass": "titleOrganization",
+      "preventVerticalStretch": true
+    }
+  },
+  "rich-text#title": {
+    "props": {
+      "text": "## Organization Signup"
+    }
+  }
+}

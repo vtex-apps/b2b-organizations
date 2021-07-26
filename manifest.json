@@ -1,9 +1,9 @@
 {
-  "name": "admin-example",
+  "name": "storefront-organizations",
   "vendor": "vtex",
-  "version": "0.0.2",
-  "title": "Example Admin App",
-  "description": "",
+  "version": "0.0.0",
+  "title": "Storefront Organizations App",
+  "description": "Organizations Signup interface, Organizations management, Moderation and integration with Storefront Permission",
   "mustUpdateAt": "2022-08-28",
   "scripts": {
     "postreleasy": "vtex publish"
@@ -15,6 +15,30 @@
     "react": "3.x",
     "admin": "0.x",
     "messages": "1.x",
-    "docs": "0.x"
-  }
+    "docs": "0.x",
+    "vtex.storefront-permissions": "0.x",
+    "store": "0.x",
+    "node": "6.x",
+    "graphql": "1.x"
+  },
+  "billingOptions": {
+    "support": {
+      "url": "https://support.vtex.com/hc/requests"
+    },
+    "type": "free",
+    "availableCountries": [
+      "*"
+    ]
+  },
+  "settingsSchema": {
+    "title": "Organization Admin",
+    "type": "object",
+    "properties": {
+      "masterEmail": {
+        "title": "Main admin email",
+        "description": "Only the user with this email address can do the initial setup",
+        "type": "string"
+      }
+    }
+  },
 }

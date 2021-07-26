@@ -1,0 +1,21 @@
+{
+  "name": "Organizations App",
+  "features": [
+    {
+      "label": "Moderate",
+      "value": "moderate"
+    },
+    {
+      "label": "Create",
+      "value": "create"
+    },
+    {
+      "label": "Remove",
+      "value": "remove"
+    },
+    {
+      "label": "Update",
+      "value": "update"
+    }
+  ]
+}
