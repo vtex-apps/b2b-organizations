@@ -1,3 +1,4 @@
+/* eslint-disable no-alert */
 import React, { Component, Fragment } from 'react'
 import {
   Table,
@@ -33,6 +34,7 @@ export default class UsersTable extends Component {
     let avatarScale = 'scale(1,1)'
     let fontSize = 'f5'
     let avatarColumnWidth = 100
+
     switch (tableDensity) {
       case 'low': {
         avatarScale = 'scale(0.9, 0.75)'
@@ -40,18 +42,21 @@ export default class UsersTable extends Component {
         avatarColumnWidth = 100
         break
       }
+
       case 'medium': {
         avatarScale = 'scale(0.82, 0.53)'
         fontSize = 'f6'
         avatarColumnWidth = 90
         break
       }
+
       case 'high': {
         avatarScale = 'scale(0.75, 0.32)'
         fontSize = 'f7'
         avatarColumnWidth = 75
         break
       }
+
       default: {
         avatarScale = 'scale(1,1)'
         fontSize = 'f5'
@@ -59,6 +64,7 @@ export default class UsersTable extends Component {
         break
       }
     }
+
     return {
       properties: {
         avatar: {
@@ -121,6 +127,7 @@ export default class UsersTable extends Component {
           // you should treat empty object cases only for alwaysVisibleFilters
           return 'Any'
         }
+
         return `${
           st.verb === '=' ? 'is' : st.verb === '!=' ? 'is not' : 'contains'
         } ${st.object}`
@@ -155,12 +162,9 @@ export default class UsersTable extends Component {
   }
 
   public render() {
-    const {
-      items,
-      searchValue,
-      filterStatements,
-      tableDensity,
-    }: any = this.state
+    const { items, searchValue, filterStatements, tableDensity }: any =
+      this.state
+
     return (
       <div>
         <Table
@@ -280,7 +284,7 @@ export default class UsersTable extends Component {
             totalItems: 100,
             main: {
               label: 'Send email',
-              handleCallback: (params: any) => alert('TODO: SHOW EMAIL FORM'),
+              handleCallback: () => alert('TODO: SHOW EMAIL FORM'),
             },
             others: [
               {

@@ -5,5 +5,18 @@
   "admin-example.navigation.search.kws": "test, mock, fake",
   "admin-example.navigation.details.search.kws": "details, mock, test, hello",
   "admin-example.navigation.table.search.kws": "table, mock, test, bye",
-  "admin-example.hello-world": "Example Admin"
+  "admin-example.hello-world": "Example Admin",
+  "store/b2b-organizations.not-authenticated": "You must be logged in to access this content.",
+  "store/b2b-organizations.request-new-organization.title": "Request New Organization",
+  "store/b2b-organizations.request-new-organization.organization-name.label": "Organization Name",
+  "store/b2b-organizations.request-new-organization.default-cost-center.title": "Default Cost Center",
+  "store/b2b-organizations.request-new-organization.default-cost-center-name.label": "Name",
+  "store/b2b-organizations.request-new-organization.default-cost-center-line1.label": "Address Line 1",
+  "store/b2b-organizations.request-new-organization.default-cost-center-line2.label": "Address Line 2",
+  "store/b2b-organizations.request-new-organization.default-cost-center-city.label": "City",
+  "store/b2b-organizations.request-new-organization.default-cost-center-state.label": "State",
+  "store/b2b-organizations.request-new-organization.default-cost-center-postal-code.label": "Postal Code",
+  "store/b2b-organizations.request-new-organization.submit-button.label": "Submit",
+  "store/b2b-organizations.request-new-organization.submit.toast-success": "Your request has been submitted",
+  "store/b2b-organizations.request-new-organization.submit.toast-failure": "Submission failed - see console for more information"
 }

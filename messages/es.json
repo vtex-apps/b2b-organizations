@@ -5,5 +5,18 @@
   "admin-example.navigation.search.kws": "teste, mock, fake",
   "admin-example.navigation.details.search.kws": "detalhe, mock, test, oi",
   "admin-example.navigation.table.search.kws": "tabela, mock, test, tchau",
-  "admin-example.hello-world": "Admin de ejemplo"
+  "admin-example.hello-world": "Admin de ejemplo",
+  "store/b2b-organizations.not-authenticated": "store/b2b-organizations.not-authenticated",
+  "store/b2b-organizations.request-new-organization.title": "store/b2b-organizations.request-new-organization.title",
+  "store/b2b-organizations.request-new-organization.organization-name.label": "store/b2b-organizations.request-new-organization.organization-name.label",
+  "store/b2b-organizations.request-new-organization.default-cost-center.title": "store/b2b-organizations.request-new-organization.default-cost-center.title",
+  "store/b2b-organizations.request-new-organization.default-cost-center-name.label": "store/b2b-organizations.request-new-organization.default-cost-center-name.label",
+  "store/b2b-organizations.request-new-organization.default-cost-center-line1.label": "store/b2b-organizations.request-new-organization.default-cost-center-line1.label",
+  "store/b2b-organizations.request-new-organization.default-cost-center-line2.label": "store/b2b-organizations.request-new-organization.default-cost-center-line2.label",
+  "store/b2b-organizations.request-new-organization.default-cost-center-city.label": "store/b2b-organizations.request-new-organization.default-cost-center-city.label",
+  "store/b2b-organizations.request-new-organization.default-cost-center-state.label": "store/b2b-organizations.request-new-organization.default-cost-center-state.label",
+  "store/b2b-organizations.request-new-organization.default-cost-center-postal-code.label": "store/b2b-organizations.request-new-organization.default-cost-center-postal-code.label",
+  "store/b2b-organizations.request-new-organization.submit-button.label": "store/b2b-organizations.request-new-organization.submit-button.label",
+  "store/b2b-organizations.request-new-organization.submit.toast-success": "store/b2b-organizations.request-new-organization.submit.toast-success",
+  "store/b2b-organizations.request-new-organization.submit.toast-failure": "store/b2b-organizations.request-new-organization.submit.toast-failure"
 }

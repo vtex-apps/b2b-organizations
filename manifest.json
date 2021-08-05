@@ -1,14 +1,17 @@
 {
-  "name": "storefront-organizations",
+  "name": "b2b-organizations",
   "vendor": "vtex",
   "version": "0.0.0",
-  "title": "Storefront Organizations App",
-  "description": "Organizations Signup interface, Organizations management, Moderation and integration with Storefront Permission",
+  "title": "B2B Organizations",
+  "description": "App to create and manage B2B Organizations and Cost Centers",
   "mustUpdateAt": "2022-08-28",
   "scripts": {
     "postreleasy": "vtex publish"
   },
   "dependencies": {
+    "vtex.b2b-organizations-graphql": "0.x",
+    "vtex.store": "2.x",
+    "vtex.css-handles": "0.x",
     "vtex.styleguide": "9.x"
   },
   "builders": {
@@ -16,29 +19,14 @@
     "admin": "0.x",
     "messages": "1.x",
     "docs": "0.x",
-    "vtex.storefront-permissions": "0.x",
-    "store": "0.x",
-    "node": "6.x",
-    "graphql": "1.x"
+    "store": "0.x"
   },
   "billingOptions": {
     "support": {
       "url": "https://support.vtex.com/hc/requests"
     },
     "type": "free",
-    "availableCountries": [
-      "*"
-    ]
+    "availableCountries": ["*"]
   },
-  "settingsSchema": {
-    "title": "Organization Admin",
-    "type": "object",
-    "properties": {
-      "masterEmail": {
-        "title": "Main admin email",
-        "description": "Only the user with this email address can do the initial setup",
-        "type": "string"
-      }
-    }
-  },
+  "$schema": "https://raw.githubusercontent.com/vtex/node-vtex-api/master/gen/manifest.schema"
 }
