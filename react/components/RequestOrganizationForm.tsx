@@ -8,15 +8,27 @@ import {
   PageHeader,
   PageBlock,
 } from 'vtex.styleguide'
+import {
+  AddressRules,
+  AddressContainer,
+  PostalCodeGetter,
+  CountrySelector,
+  AddressForm,
+} from 'vtex.address-form'
+import { StyleguideInput } from 'vtex.address-form/inputs'
+import { addValidation } from 'vtex.address-form/helpers'
 import { useCssHandles } from 'vtex.css-handles'
-import { useMutation } from 'react-apollo'
+import { useQuery, useMutation } from 'react-apollo'
 import { useIntl, FormattedMessage } from 'react-intl'
+import { useRuntime } from 'vtex.render-runtime'
+import 'vtex.country-codes/locales'
 
 import { getSession } from '../modules/session'
-import storageFactory from '../utils/storage'
+// import storageFactory from '../utils/storage'
 import CREATE_ORGANIZATION_REQUEST from '../graphql/createOrganizationRequest.graphql'
+import GET_LOGISTICS from '../graphql/getLogistics.graphql'
 
-const localStore = storageFactory(() => localStorage)
+// const localStore = storageFactory(() => localStorage)
 
 const useSessionResponse = () => {
   const [session, setSession] = useState<any>()
@@ -37,44 +49,93 @@ const useSessionResponse = () => {
   return session
 }
 
-let isAuthenticated =
-  JSON.parse(String(localStore.getItem('orderquote_isAuthenticated'))) ?? false
+// let isAuthenticated =
+//   JSON.parse(String(localStore.getItem('orderquote_isAuthenticated'))) ?? false
+const isAuthenticated = true
 
 const CSS_HANDLES = [
   'newOrganizationContainer',
   'newOrganizationInput',
+  'newOrganizationAddressForm',
   'newOrganizationButtonsContainer',
   'newOrganizationButtonSubmit',
 ] as const
 
+let gguid = 1
+
+function getGGUID() {
+  return (gguid++ * new Date().getTime() * -1).toString()
+}
+
+const getEmptyAddress = (country: string) => {
+  return {
+    addressId: getGGUID(),
+    addressType: 'commercial',
+    city: null,
+    complement: null,
+    country,
+    receiverName: '',
+    geoCoordinates: [],
+    neighborhood: null,
+    number: null,
+    postalCode: null,
+    reference: null,
+    state: null,
+    street: null,
+    addressQuery: null,
+  }
+}
+
 const RequestOrganizationForm: FC = () => {
   const { formatMessage } = useIntl()
+  const {
+    culture: { country },
+  } = useRuntime()
 
   const { showToast } = useContext(ToastContext)
   const sessionResponse: any = useSessionResponse()
   const handles = useCssHandles(CSS_HANDLES)
+  const { data } = useQuery(GET_LOGISTICS, { ssr: false })
   const [createOrganizationRequest] = useMutation(CREATE_ORGANIZATION_REQUEST)
+
+  const [addressState, setAddressState] = useState(() =>
+    addValidation(getEmptyAddress(country))
+  )
 
   const [formState, setFormState] = useState({
     organizationName: '',
+    firstName: '',
+    lastName: '',
+    email: '',
     defaultCostCenterName: '',
-    defaultCostCenterLine1: '',
-    defaultCostCenterLine2: '',
-    defaultCostCenterCity: '',
-    defaultCostCenterState: '',
-    defaultCostCenterPostalCode: '',
     isSubmitting: false,
   })
 
-  if (sessionResponse) {
-    isAuthenticated =
-      sessionResponse?.namespaces?.profile?.isAuthenticated?.value === 'true'
+  const [hasProfile, setHasProfile] = useState(false)
 
-    localStore.setItem(
-      'orderquote_isAuthenticated',
-      JSON.stringify(isAuthenticated)
-    )
-  }
+  // if (sessionResponse) {
+  //   isAuthenticated =
+  //     sessionResponse?.namespaces?.profile?.isAuthenticated?.value === 'true'
+
+  //   localStore.setItem(
+  //     'orderquote_isAuthenticated',
+  //     JSON.stringify(isAuthenticated)
+  //   )
+  // }
+
+  useEffect(() => {
+    if (!sessionResponse || hasProfile) return
+
+    if (sessionResponse.namespaces?.profile?.isAuthenticated?.value) {
+      setFormState({
+        ...formState,
+        firstName: sessionResponse.namespaces.profile.firstName?.value,
+        lastName: sessionResponse.namespaces.profile.lastName?.value,
+        email: sessionResponse.namespaces.profile.email?.value,
+      })
+      setHasProfile(true)
+    }
+  }, [sessionResponse])
 
   const translateMessage = (message: MessageDescriptor) => {
     return formatMessage(message)
@@ -90,6 +151,35 @@ const RequestOrganizationForm: FC = () => {
     showToast({ message, action })
   }
 
+  const translateCountries = () => {
+    const { shipsTo = [] } = data?.logistics
+
+    return shipsTo.map((code: string) => ({
+      label: formatMessage({ id: `country.${code}` }),
+      value: code,
+    }))
+  }
+
+  const handleAddressChange = (changedAddress: AddressFormFields) => {
+    const curAddress = addressState
+
+    const newAddress = { ...curAddress, ...changedAddress }
+
+    setAddressState(newAddress)
+  }
+
+  const isValidAddress = (address: AddressFormFields) => {
+    let hasInvalidField = false
+
+    for (const field in address) {
+      if (address[field].valid === false) {
+        hasInvalidField = true
+      }
+    }
+
+    return !hasInvalidField
+  }
+
   const handleSubmit = () => {
     setFormState({
       ...formState,
@@ -98,14 +188,28 @@ const RequestOrganizationForm: FC = () => {
 
     const organizationRequest = {
       name: formState.organizationName,
+      b2bCustomerAdmin: {
+        firstName: formState.firstName,
+        lastName: formState.lastName,
+        email: formState.email,
+      },
       defaultCostCenter: {
         name: formState.defaultCostCenterName,
         address: {
-          line1: formState.defaultCostCenterLine1,
-          line2: formState.defaultCostCenterLine2,
-          city: formState.defaultCostCenterCity,
-          state: formState.defaultCostCenterState,
-          postalCode: formState.defaultCostCenterPostalCode,
+          addressId: addressState.addressId.value,
+          addressType: addressState.addressType.value,
+          city: addressState.city.value,
+          complement: addressState.complement.value,
+          country: addressState.country.value,
+          receiverName: addressState.receiverName.value,
+          geoCoordinates: addressState.geoCoordinates.value,
+          neighborhood: addressState.neighborhood.value,
+          number: addressState.number.value,
+          postalCode: addressState.postalCode.value,
+          reference: addressState.reference.value,
+          state: addressState.state.value,
+          street: addressState.street.value,
+          addressQuery: addressState.addressQuery.value,
         },
       },
     }
@@ -133,6 +237,8 @@ const RequestOrganizationForm: FC = () => {
     })
   }
 
+  if (!data) return null
+
   return (
     <div className={`${handles.newOrganizationContainer} pv6 ph4 mw9 center`}>
       <Layout
@@ -141,6 +247,9 @@ const RequestOrganizationForm: FC = () => {
           <PageHeader
             title={translateMessage({
               id: 'store/b2b-organizations.request-new-organization.title',
+            })}
+            subtitle={translateMessage({
+              id: 'store/b2b-organizations.request-new-organization.helpText',
             })}
           />
         }
@@ -175,7 +284,71 @@ const RequestOrganizationForm: FC = () => {
             <PageBlock
               variation="full"
               title={translateMessage({
+                id: 'store/b2b-organizations.request-new-organization.b2b-customer-admin.title',
+              })}
+              subtitle={translateMessage({
+                id: 'store/b2b-organizations.request-new-organization.b2b-customer-admin.helpText',
+              })}
+            >
+              <div
+                className={`${handles.newOrganizationInput} mb5 flex flex-column`}
+              >
+                <Input
+                  size="large"
+                  label={translateMessage({
+                    id: 'store/b2b-organizations.request-new-organization.first-name.label',
+                  })}
+                  value={formState.firstName}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                    setFormState({
+                      ...formState,
+                      firstName: e.target.value,
+                    })
+                  }}
+                />
+              </div>
+              <div
+                className={`${handles.newOrganizationInput} mb5 flex flex-column`}
+              >
+                <Input
+                  size="large"
+                  label={translateMessage({
+                    id: 'store/b2b-organizations.request-new-organization.last-name.label',
+                  })}
+                  value={formState.lastName}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                    setFormState({
+                      ...formState,
+                      lastName: e.target.value,
+                    })
+                  }}
+                />
+              </div>
+              <div
+                className={`${handles.newOrganizationInput} mb5 flex flex-column`}
+              >
+                <Input
+                  size="large"
+                  label={translateMessage({
+                    id: 'store/b2b-organizations.request-new-organization.email.label',
+                  })}
+                  value={formState.email}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                    setFormState({
+                      ...formState,
+                      email: e.target.value,
+                    })
+                  }}
+                />
+              </div>
+            </PageBlock>
+            <PageBlock
+              variation="full"
+              title={translateMessage({
                 id: 'store/b2b-organizations.request-new-organization.default-cost-center.title',
+              })}
+              subtitle={translateMessage({
+                id: 'store/b2b-organizations.request-new-organization.default-cost-center.helpText',
               })}
             >
               <div
@@ -196,89 +369,33 @@ const RequestOrganizationForm: FC = () => {
                 />
               </div>
               <div
-                className={`${handles.newOrganizationInput} mb5 flex flex-column`}
+                className={`${handles.newOrganizationAddressForm} mb5 flex flex-column`}
               >
-                <Input
-                  size="large"
-                  label={translateMessage({
-                    id: 'store/b2b-organizations.request-new-organization.default-cost-center-line1.label',
-                  })}
-                  value={formState.defaultCostCenterLine1}
-                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                    setFormState({
-                      ...formState,
-                      defaultCostCenterLine1: e.target.value,
-                    })
-                  }}
-                />
-              </div>
-              <div
-                className={`${handles.newOrganizationInput} mb5 flex flex-column`}
-              >
-                <Input
-                  size="large"
-                  label={translateMessage({
-                    id: 'store/b2b-organizations.request-new-organization.default-cost-center-line2.label',
-                  })}
-                  value={formState.defaultCostCenterLine2}
-                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                    setFormState({
-                      ...formState,
-                      defaultCostCenterLine2: e.target.value,
-                    })
-                  }}
-                />
-              </div>
-              <div
-                className={`${handles.newOrganizationInput} mb5 flex flex-column`}
-              >
-                <Input
-                  size="large"
-                  label={translateMessage({
-                    id: 'store/b2b-organizations.request-new-organization.default-cost-center-city.label',
-                  })}
-                  value={formState.defaultCostCenterCity}
-                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                    setFormState({
-                      ...formState,
-                      defaultCostCenterCity: e.target.value,
-                    })
-                  }}
-                />
-              </div>
-              <div
-                className={`${handles.newOrganizationInput} mb5 flex flex-column`}
-              >
-                <Input
-                  size="large"
-                  label={translateMessage({
-                    id: 'store/b2b-organizations.request-new-organization.default-cost-center-state.label',
-                  })}
-                  value={formState.defaultCostCenterState}
-                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                    setFormState({
-                      ...formState,
-                      defaultCostCenterState: e.target.value,
-                    })
-                  }}
-                />
-              </div>
-              <div
-                className={`${handles.newOrganizationInput} mb5 flex flex-column`}
-              >
-                <Input
-                  size="large"
-                  label={translateMessage({
-                    id: 'store/b2b-organizations.request-new-organization.default-cost-center-postal-code.label',
-                  })}
-                  value={formState.defaultCostCenterPostalCode}
-                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                    setFormState({
-                      ...formState,
-                      defaultCostCenterPostalCode: e.target.value,
-                    })
-                  }}
-                />
+                <AddressRules
+                  country={addressState?.country?.value}
+                  shouldUseIOFetching
+                  useGeolocation={false}
+                >
+                  <AddressContainer
+                    address={addressState}
+                    Input={StyleguideInput}
+                    onChangeAddress={handleAddressChange}
+                    autoCompletePostalCode
+                  >
+                    <CountrySelector shipsTo={translateCountries()} />
+
+                    <PostalCodeGetter />
+
+                    <AddressForm
+                      Input={StyleguideInput}
+                      omitAutoCompletedFields={false}
+                      omitPostalCodeFields
+                      // notApplicableLabel={formatMessage({
+                      //   id: 'addresses.notApplicable',
+                      // })}
+                    />
+                  </AddressContainer>
+                </AddressRules>
               </div>
               <div
                 className={`${handles.newOrganizationButtonsContainer} mb5 flex flex-column items-end pt6`}
@@ -296,10 +413,12 @@ const RequestOrganizationForm: FC = () => {
                       disabled={
                         !formState.organizationName ||
                         !formState.defaultCostCenterName ||
-                        !formState.defaultCostCenterLine1 ||
-                        !formState.defaultCostCenterCity ||
-                        !formState.defaultCostCenterState ||
-                        !formState.defaultCostCenterPostalCode
+                        !formState.firstName ||
+                        !formState.lastName ||
+                        !formState.email ||
+                        !formState.email.includes('@') ||
+                        !formState.email.includes('.') ||
+                        !isValidAddress(addressState)
                       }
                     >
                       <FormattedMessage id="store/b2b-organizations.request-new-organization.submit-button.label" />
@@ -313,13 +432,6 @@ const RequestOrganizationForm: FC = () => {
       </Layout>
     </div>
   )
-}
-
-interface MessageDescriptor {
-  id: string
-  description?: string | Record<string, unknown>
-  defaultMessage?: string
-  values?: Record<string, unknown>
 }
 
 export default RequestOrganizationForm

@@ -1,0 +1,21 @@
+query GetCollections(
+  $searchKey: String
+  $page: Int
+  $pageSize: Int
+  $ascending: Boolean
+) {
+  collections(
+    searchKey: $searchKey
+    page: $page
+    pageSize: $pageSize
+    ascending: $ascending
+  ) @context(provider: "vtex.catalog-graphql") {
+    items {
+      id
+      name
+    }
+    paging {
+      total
+    }
+  }
+}

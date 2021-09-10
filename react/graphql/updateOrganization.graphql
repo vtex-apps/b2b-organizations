@@ -1,0 +1,17 @@
+mutation UpdateOrganization(
+  $id: ID!
+  $status: String!
+  $collections: [CollectionInput]
+  $priceTables: [String]
+) {
+  updateOrganization(
+    id: $id
+    status: $status
+    collections: $collections
+    priceTables: $priceTables
+  ) @context(provider: "vtex.b2b-organizations-graphql") {
+    id
+    status
+    message
+  }
+}

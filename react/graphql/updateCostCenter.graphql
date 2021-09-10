@@ -1,0 +1,8 @@
+mutation UpdateCostCenter($id: ID!, $input: CostCenterInput!) {
+  updateCostCenter(id: $id, input: $input)
+    @context(provider: "vtex.b2b-organizations-graphql") {
+    id
+    status
+    message
+  }
+}

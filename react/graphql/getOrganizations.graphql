@@ -1,0 +1,26 @@
+query GetOrganizations(
+  $status: [String]
+  $search: String
+  $page: Int
+  $pageSize: Int
+  $sortOrder: String
+  $sortedBy: String
+) {
+  getOrganizations(
+    status: $status
+    search: $search
+    page: $page
+    pageSize: $pageSize
+    sortOrder: $sortOrder
+    sortedBy: $sortedBy
+  ) @context(provider: "vtex.b2b-organizations-graphql") {
+    pagination {
+      total
+    }
+    data {
+      id
+      name
+      status
+    }
+  }
+}

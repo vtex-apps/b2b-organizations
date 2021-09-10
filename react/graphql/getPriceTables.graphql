@@ -1,0 +1,3 @@
+query GetPriceTables {
+  priceTables @context(provider: "vtex.admin-graphql")
+}

@@ -1,0 +1,8 @@
+mutation UpdateOrganizationRequest($id: ID!, $status: String!, $notes: String) {
+  updateOrganizationRequest(id: $id, status: $status, notes: $notes)
+    @context(provider: "vtex.b2b-organizations-graphql") {
+    id
+    status
+    message
+  }
+}

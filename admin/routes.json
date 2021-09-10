@@ -1,10 +1,29 @@
 {
-  "admin.app.example": {
-    "component": "AdminExample",
-    "path": "/admin/app/example"
+  "admin.app.b2b-organizations": {
+    "path": "/admin/app/b2b-organizations/*",
+    "around": ["layout"]
   },
-  "admin.app.example-detail": {
-    "component": "AdminExampleDetail",
-    "path": "/admin/app/example/:id"
+  "admin.app.b2b-organizations.organization-requests": {
+    "component": "OrganizationRequestsTable",
+    "path": "/admin/app/b2b-organizations/requests"
+  },
+  "admin.app.b2b-organizations.organization-request-details": {
+    "component": "OrganizationRequestDetails",
+    "path": "/admin/app/b2b-organizations/requests/:id"
+  },
+  "admin.app.b2b-organizations.organizations": {
+    "component": "OrganizationsTable",
+    "path": "/admin/app/b2b-organizations/organizations"
+  },
+  "admin.app.b2b-organizations.organization-details": {
+    "component": "OrganizationDetails",
+    "path": "/admin/app/b2b-organizations/organizations/:id"
+  },
+  "admin.app.b2b-organizations.costCenter-details": {
+    "component": "CostCenterDetails",
+    "path": "/admin/app/b2b-organizations/cost-centers/:id"
+  },
+  "layout": {
+    "component": "B2BAdminLayout"
   }
 }
