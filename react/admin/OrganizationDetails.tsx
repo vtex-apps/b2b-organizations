@@ -13,7 +13,7 @@ import {
   ModalDialog,
 } from 'vtex.styleguide'
 import { toast } from '@vtex/admin-ui'
-import { useIntl, FormattedMessage } from 'react-intl'
+import { useIntl, FormattedMessage, defineMessages } from 'react-intl'
 import { useRuntime } from 'vtex.render-runtime'
 import {
   AddressRules,
@@ -55,27 +55,98 @@ interface PriceTable {
   name: string
 }
 
+const adminPrefix = 'admin/b2b-organizations.'
+
+const messages = defineMessages({
+  statusActive: {
+    id: `${adminPrefix}organization-details.status.active`,
+  },
+  statusOnHold: {
+    id: `${adminPrefix}organization-details.status.on-hold`,
+  },
+  statusInactive: {
+    id: `${adminPrefix}organization-details.status.inactive`,
+  },
+  toastUpdateSuccess: {
+    id: `${adminPrefix}organization-details.toast.update-success`,
+  },
+  toastUpdateFailure: {
+    id: `${adminPrefix}organization-details.toast.update-failure`,
+  },
+  toastAddCostCenterSuccess: {
+    id: `${adminPrefix}organization-details.toast.add-costCenter-success`,
+  },
+  toastAddCostCenterFailure: {
+    id: `${adminPrefix}organization-details.toast.add-costCenter-failure`,
+  },
+  columnName: {
+    id: `${adminPrefix}organization-details.table.column-name.title`,
+  },
+  columnAddresses: {
+    id: `${adminPrefix}organization-details.table.column-addresses.title`,
+  },
+  pageTitle: {
+    id: `${adminPrefix}organization-details.title`,
+  },
+  back: {
+    id: `${adminPrefix}back`,
+  },
+  status: {
+    id: `${adminPrefix}organization-details.status`,
+  },
+  costCenters: {
+    id: `${adminPrefix}organization-details.costCenters`,
+  },
+  showRows: {
+    id: `${adminPrefix}showRows`,
+  },
+  of: {
+    id: `${adminPrefix}of`,
+  },
+  new: {
+    id: `${adminPrefix}organization-details.button.new`,
+  },
+  collections: {
+    id: `${adminPrefix}organization-details.collections`,
+  },
+  priceTables: {
+    id: `${adminPrefix}organization-details.price-tables`,
+  },
+  selectedRows: {
+    id: `${adminPrefix}selected-rows`,
+  },
+  removeFromOrg: {
+    id: `${adminPrefix}organization-details.remove-from-org`,
+  },
+  addToOrg: {
+    id: `${adminPrefix}organization-details.add-to-org`,
+  },
+  add: {
+    id: `${adminPrefix}organization-details.button.add`,
+  },
+  cancel: {
+    id: `${adminPrefix}organization-details.button.cancel`,
+  },
+  costCenterName: {
+    id: `${adminPrefix}costCenter-details.costCenter-name`,
+  },
+})
+
 const OrganizationDetails: FunctionComponent = () => {
   const { formatMessage, formatDate } = useIntl()
 
   const statusOptions = [
     {
       value: 'active',
-      label: formatMessage({
-        id: 'admin/b2b-organizations.organization-details.status.active',
-      }),
+      label: formatMessage(messages.statusActive),
     },
     {
       value: 'on-hold',
-      label: formatMessage({
-        id: 'admin/b2b-organizations.organization-details.status.on-hold',
-      }),
+      label: formatMessage(messages.statusOnHold),
     },
     {
       value: 'inactive',
-      label: formatMessage({
-        id: 'admin/b2b-organizations.organization-details.status.inactive',
-      }),
+      label: formatMessage(messages.statusInactive),
     },
   ]
 
@@ -296,9 +367,7 @@ const OrganizationDetails: FunctionComponent = () => {
         setLoadingState(false)
         toast.dispatch({
           type: 'success',
-          message: formatMessage({
-            id: 'admin/b2b-organizations.organization-details.toast.update-success',
-          }),
+          message: formatMessage(messages.toastUpdateSuccess),
         })
         refetch({ id: params?.id })
       })
@@ -307,9 +376,7 @@ const OrganizationDetails: FunctionComponent = () => {
         console.error(error)
         toast.dispatch({
           type: 'error',
-          message: formatMessage({
-            id: 'admin/b2b-organizations.organization-details.toast.update-failure',
-          }),
+          message: formatMessage(messages.toastUpdateFailure),
         })
       })
   }
@@ -399,9 +466,7 @@ const OrganizationDetails: FunctionComponent = () => {
         setLoadingState(false)
         toast.dispatch({
           type: 'success',
-          message: formatMessage({
-            id: 'admin/b2b-organizations.organization-details.toast.add-costCenter-success',
-          }),
+          message: formatMessage(messages.toastAddCostCenterSuccess),
         })
         refetchCostCenters({ ...costCenterPaginationState, id: params?.id })
       })
@@ -411,9 +476,7 @@ const OrganizationDetails: FunctionComponent = () => {
         console.error(error)
         toast.dispatch({
           type: 'error',
-          message: formatMessage({
-            id: 'admin/b2b-organizations.organization-details.toast.add-costCenter-failure',
-          }),
+          message: formatMessage(messages.toastAddCostCenterFailure),
         })
       })
   }
@@ -437,9 +500,7 @@ const OrganizationDetails: FunctionComponent = () => {
   const getSchema = () => ({
     properties: {
       name: {
-        title: formatMessage({
-          id: 'admin/b2b-organizations.organization-details.table.column-name.title', // 'Name'
-        }),
+        title: formatMessage(messages.columnName),
       },
     },
   })
@@ -447,14 +508,10 @@ const OrganizationDetails: FunctionComponent = () => {
   const getCostCenterSchema = () => ({
     properties: {
       name: {
-        title: formatMessage({
-          id: 'admin/b2b-organizations.organization-details.table.column-name.title', // 'Name'
-        }),
+        title: formatMessage(messages.columnName),
       },
       addresses: {
-        title: formatMessage({
-          id: 'admin/b2b-organizations.organization-details.table.column-addresses.title', // 'Addresses'
-        }),
+        title: formatMessage(messages.columnAddresses),
         cellRenderer: ({ rowData: { addresses } }: CellRendererProps) => (
           <span>{addresses.length}</span>
         ),
@@ -468,12 +525,8 @@ const OrganizationDetails: FunctionComponent = () => {
         fullWidth
         pageHeader={
           <PageHeader
-            title={formatMessage({
-              id: 'admin/b2b-organizations.organization-details.title', // "Organization Details"
-            })}
-            linkLabel={formatMessage({
-              id: 'admin/b2b-organizations.organization-details.button.back', // "Back"
-            })}
+            title={formatMessage(messages.pageTitle)}
+            linkLabel={formatMessage(messages.back)}
             onLinkClick={() => {
               navigate({
                 page: 'admin.app.b2b-organizations.organizations',
@@ -498,12 +551,8 @@ const OrganizationDetails: FunctionComponent = () => {
       fullWidth
       pageHeader={
         <PageHeader
-          title={formatMessage({
-            id: 'admin/b2b-organizations.organization-details.title', // "Organization Details"
-          })}
-          linkLabel={formatMessage({
-            id: 'admin/b2b-organizations.organization-details.button.back', // "Back"
-          })}
+          title={formatMessage(messages.pageTitle)}
+          linkLabel={formatMessage(messages.back)}
           onLinkClick={() => {
             navigate({
               page: 'admin.app.b2b-organizations.organizations',
@@ -538,12 +587,10 @@ const OrganizationDetails: FunctionComponent = () => {
           <Dropdown
             label={
               <h4 className="t-heading-5 mb0 pt3">
-                <FormattedMessage id="admin/b2b-organizations.organization-details.request-status" />
+                <FormattedMessage id="admin/b2b-organizations.organization-details.status" />
               </h4>
             }
-            placeholder={formatMessage({
-              id: 'admin/b2b-organizations.organization-details.request-status',
-            })}
+            placeholder={formatMessage(messages.status)}
             options={statusOptions}
             value={statusState}
             onChange={(_: any, v: string) => setStatusState(v)}
@@ -560,11 +607,7 @@ const OrganizationDetails: FunctionComponent = () => {
           })}
         </div>
       </PageBlock>
-      <PageBlock
-        title={formatMessage({
-          id: 'admin/b2b-organizations.organization-details.costCenters',
-        })}
-      >
+      <PageBlock title={formatMessage(messages.costCenters)}>
         <Table
           fullWidth
           schema={getCostCenterSchema()}
@@ -594,12 +637,8 @@ const OrganizationDetails: FunctionComponent = () => {
                     ?.total
                 : costCenterPaginationState.page *
                   costCenterPaginationState.pageSize,
-            textShowRows: formatMessage({
-              id: 'admin/b2b-organizations.organization-details.costCenters-table.showRows', // 'Show rows'
-            }),
-            textOf: formatMessage({
-              id: 'admin/b2b-organizations.organization-details.costCenters-table.of', // 'of'
-            }),
+            textShowRows: formatMessage(messages.showRows),
+            textOf: formatMessage(messages.of),
             totalItems:
               costCentersData?.getCostCentersByOrganizationId?.pagination
                 ?.total ?? 0,
@@ -607,20 +646,13 @@ const OrganizationDetails: FunctionComponent = () => {
           }}
           toolbar={{
             newLine: {
-              label: formatMessage({
-                id: 'admin/b2b-organizations.organization-details.button.new', // 'New'
-              }),
+              label: formatMessage(messages.new),
               handleCallback: () => setNewCostCenterModalState(true),
             },
           }}
         ></Table>
       </PageBlock>
-      <PageBlock
-        variation="half"
-        title={formatMessage({
-          id: 'admin/b2b-organizations.organization-details.collections',
-        })}
-      >
+      <PageBlock variation="half" title={formatMessage(messages.collections)}>
         <div>
           <h4 className="t-heading-4 mt0 mb0">
             <FormattedMessage id="admin/b2b-organizations.organization-details.assigned-to-org" />
@@ -632,19 +664,12 @@ const OrganizationDetails: FunctionComponent = () => {
             bulkActions={{
               texts: {
                 rowsSelected: (qty: number) =>
-                  formatMessage(
-                    {
-                      id: 'admin/b2b-organizations.organization-details.selected-rows',
-                    },
-                    {
-                      qty,
-                    }
-                  ),
+                  formatMessage(messages.selectedRows, {
+                    qty,
+                  }),
               },
               main: {
-                label: formatMessage({
-                  id: 'admin/b2b-organizations.organization-details.remove-from-org', // 'Remove from Org'
-                }),
+                label: formatMessage(messages.removeFromOrg),
                 handleCallback: (rowParams: any) =>
                   handleRemoveCollections(rowParams),
               },
@@ -674,31 +699,20 @@ const OrganizationDetails: FunctionComponent = () => {
                   ? collectionsData?.collections?.paging?.total
                   : collectionPaginationState.page *
                     collectionPaginationState.pageSize,
-              textShowRows: formatMessage({
-                id: 'admin/b2b-organizations.organization-details.collections-table.showRows', // 'Show rows'
-              }),
-              textOf: formatMessage({
-                id: 'admin/b2b-organizations.organization-details.collections-table.of', // 'of'
-              }),
+              textShowRows: formatMessage(messages.showRows),
+              textOf: formatMessage(messages.of),
               totalItems: collectionsData?.collections?.paging?.total ?? 0,
               rowsOptions: [25, 50, 100],
             }}
             bulkActions={{
               texts: {
                 rowsSelected: (qty: number) =>
-                  formatMessage(
-                    {
-                      id: 'admin/b2b-organizations.organization-details.selected-rows',
-                    },
-                    {
-                      qty,
-                    }
-                  ),
+                  formatMessage(messages.selectedRows, {
+                    qty,
+                  }),
               },
               main: {
-                label: formatMessage({
-                  id: 'admin/b2b-organizations.organization-details.add-to-org', // 'Add to Org'
-                }),
+                label: formatMessage(messages.addToOrg),
                 handleCallback: (rowParams: any) =>
                   handleAddCollections(rowParams),
               },
@@ -706,12 +720,7 @@ const OrganizationDetails: FunctionComponent = () => {
           />
         </div>
       </PageBlock>
-      <PageBlock
-        variation="half"
-        title={formatMessage({
-          id: 'admin/b2b-organizations.organization-details.price-tables', // 'Price Tables'
-        })}
-      >
+      <PageBlock variation="half" title={formatMessage(messages.priceTables)}>
         <div>
           <h4 className="t-heading-4 mt0 mb0">
             <FormattedMessage id="admin/b2b-organizations.organization-details.assigned-to-org" />
@@ -725,19 +734,12 @@ const OrganizationDetails: FunctionComponent = () => {
             bulkActions={{
               texts: {
                 rowsSelected: (qty: number) =>
-                  formatMessage(
-                    {
-                      id: 'admin/b2b-organizations.organization-details.selected-rows',
-                    },
-                    {
-                      qty,
-                    }
-                  ),
+                  formatMessage(messages.selectedRows, {
+                    qty,
+                  }),
               },
               main: {
-                label: formatMessage({
-                  id: 'admin/b2b-organizations.organization-details.remove-from-org', // 'Remove from Org'
-                }),
+                label: formatMessage(messages.removeFromOrg),
                 handleCallback: (rowParams: any) =>
                   handleRemovePriceTables(rowParams),
               },
@@ -755,19 +757,12 @@ const OrganizationDetails: FunctionComponent = () => {
             bulkActions={{
               texts: {
                 rowsSelected: (qty: number) =>
-                  formatMessage(
-                    {
-                      id: 'admin/b2b-organizations.organization-details.selected-rows',
-                    },
-                    {
-                      qty,
-                    }
-                  ),
+                  formatMessage(messages.selectedRows, {
+                    qty,
+                  }),
               },
               main: {
-                label: formatMessage({
-                  id: 'admin/b2b-organizations.organization-details.add-to-org', // 'Add to Org'
-                }),
+                label: formatMessage(messages.addToOrg),
                 handleCallback: (rowParams: any) =>
                   handleAddPriceTables(rowParams),
               },
@@ -779,17 +774,13 @@ const OrganizationDetails: FunctionComponent = () => {
         centered
         confirmation={{
           onClick: () => handleAddNewCostCenter(),
-          label: formatMessage({
-            id: 'admin/b2b-organizations.organization-details.button.add', // "Add"
-          }),
+          label: formatMessage(messages.add),
           disabled:
             !newCostCenterName || !isValidAddress(newCostCenterAddressState),
         }}
         cancelation={{
           onClick: () => handleCloseModal(),
-          label: formatMessage({
-            id: 'admin/b2b-organizations.organization-details.button.cancel', // "Cancel"
-          }),
+          label: formatMessage(messages.cancel),
         }}
         loading={loadingState}
         isOpen={newCostCenterModalState}
@@ -802,9 +793,7 @@ const OrganizationDetails: FunctionComponent = () => {
         <div className="w-100 mv6">
           <Input
             size="large"
-            label={formatMessage({
-              id: 'admin/b2b-organizations.costCenter-details.costCenter-name',
-            })}
+            label={formatMessage(messages.costCenterName)}
             value={newCostCenterName}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
               setNewCostCenterName(e.target.value)

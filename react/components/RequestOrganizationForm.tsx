@@ -19,16 +19,14 @@ import { StyleguideInput } from 'vtex.address-form/inputs'
 import { addValidation } from 'vtex.address-form/helpers'
 import { useCssHandles } from 'vtex.css-handles'
 import { useQuery, useMutation } from 'react-apollo'
-import { useIntl, FormattedMessage } from 'react-intl'
+import { useIntl, FormattedMessage, defineMessages } from 'react-intl'
 import { useRuntime } from 'vtex.render-runtime'
 import 'vtex.country-codes/locales'
 
 import { getSession } from '../modules/session'
-// import storageFactory from '../utils/storage'
+import { getEmptyAddress } from '../utils/addresses'
 import CREATE_ORGANIZATION_REQUEST from '../graphql/createOrganizationRequest.graphql'
 import GET_LOGISTICS from '../graphql/getLogistics.graphql'
-
-// const localStore = storageFactory(() => localStorage)
 
 const useSessionResponse = () => {
   const [session, setSession] = useState<any>()
@@ -49,8 +47,6 @@ const useSessionResponse = () => {
   return session
 }
 
-// let isAuthenticated =
-//   JSON.parse(String(localStore.getItem('orderquote_isAuthenticated'))) ?? false
 const isAuthenticated = true
 
 const CSS_HANDLES = [
@@ -61,30 +57,49 @@ const CSS_HANDLES = [
   'newOrganizationButtonSubmit',
 ] as const
 
-let gguid = 1
+const storePrefix = 'store/b2b-organizations.'
 
-function getGGUID() {
-  return (gguid++ * new Date().getTime() * -1).toString()
-}
-
-const getEmptyAddress = (country: string) => {
-  return {
-    addressId: getGGUID(),
-    addressType: 'commercial',
-    city: null,
-    complement: null,
-    country,
-    receiverName: '',
-    geoCoordinates: [],
-    neighborhood: null,
-    number: null,
-    postalCode: null,
-    reference: null,
-    state: null,
-    street: null,
-    addressQuery: null,
-  }
-}
+const messages = defineMessages({
+  toastSuccess: {
+    id: `${storePrefix}request-new-organization.submit.toast-success`,
+  },
+  toastFailure: {
+    id: `${storePrefix}request-new-organization.submit.toast-failure`,
+  },
+  pageTitle: {
+    id: `${storePrefix}request-new-organization.title`,
+  },
+  helpText: {
+    id: `${storePrefix}request-new-organization.helpText`,
+  },
+  organizationName: {
+    id: `${storePrefix}request-new-organization.organization-name.label`,
+  },
+  b2bCustomerAdmin: {
+    id: `${storePrefix}request-new-organization.b2b-customer-admin.title`,
+  },
+  b2bCustomerAdminHelpText: {
+    id: `${storePrefix}request-new-organization.b2b-customer-admin.helpText`,
+  },
+  firstName: {
+    id: `${storePrefix}request-new-organization.first-name.label`,
+  },
+  lastName: {
+    id: `${storePrefix}request-new-organization.last-name.label`,
+  },
+  email: {
+    id: `${storePrefix}request-new-organization.email.label`,
+  },
+  defaultCostCenter: {
+    id: `${storePrefix}request-new-organization.default-cost-center.title`,
+  },
+  defaultCostCenterHelpText: {
+    id: `${storePrefix}request-new-organization.default-cost-center.helpText`,
+  },
+  defaultCostCenterName: {
+    id: `${storePrefix}request-new-organization.default-cost-center-name.label`,
+  },
+})
 
 const RequestOrganizationForm: FC = () => {
   const { formatMessage } = useIntl()
@@ -113,16 +128,6 @@ const RequestOrganizationForm: FC = () => {
 
   const [hasProfile, setHasProfile] = useState(false)
 
-  // if (sessionResponse) {
-  //   isAuthenticated =
-  //     sessionResponse?.namespaces?.profile?.isAuthenticated?.value === 'true'
-
-  //   localStore.setItem(
-  //     'orderquote_isAuthenticated',
-  //     JSON.stringify(isAuthenticated)
-  //   )
-  // }
-
   useEffect(() => {
     if (!sessionResponse || hasProfile) return
 
@@ -141,14 +146,12 @@ const RequestOrganizationForm: FC = () => {
     return formatMessage(message)
   }
 
-  const toastMessage = (messsageKey: string) => {
-    const message = translateMessage({
-      id: messsageKey,
-    })
+  const toastMessage = (message: MessageDescriptor) => {
+    const translatedMessage = translateMessage(message)
 
     const action = undefined
 
-    showToast({ message, action })
+    showToast({ translatedMessage, action })
   }
 
   const translateCountries = () => {
@@ -220,15 +223,11 @@ const RequestOrganizationForm: FC = () => {
       },
     })
       .then(() => {
-        toastMessage(
-          'store/b2b-organizations.request-new-organization.submit.toast-success'
-        )
+        toastMessage(messages.toastSuccess)
       })
       .catch((error) => {
         console.error(error)
-        toastMessage(
-          'store/b2b-organizations.request-new-organization.submit.toast-failure'
-        )
+        toastMessage(messages.toastFailure)
       })
 
     setFormState({
@@ -245,12 +244,8 @@ const RequestOrganizationForm: FC = () => {
         fullWidth
         pageHeader={
           <PageHeader
-            title={translateMessage({
-              id: 'store/b2b-organizations.request-new-organization.title',
-            })}
-            subtitle={translateMessage({
-              id: 'store/b2b-organizations.request-new-organization.helpText',
-            })}
+            title={translateMessage(messages.pageTitle)}
+            subtitle={translateMessage(messages.helpText)}
           />
         }
       >
@@ -268,9 +263,7 @@ const RequestOrganizationForm: FC = () => {
               >
                 <Input
                   size="large"
-                  label={translateMessage({
-                    id: 'store/b2b-organizations.request-new-organization.organization-name.label',
-                  })}
+                  label={translateMessage(messages.organizationName)}
                   value={formState.organizationName}
                   onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                     setFormState({
@@ -283,21 +276,15 @@ const RequestOrganizationForm: FC = () => {
             </PageBlock>
             <PageBlock
               variation="full"
-              title={translateMessage({
-                id: 'store/b2b-organizations.request-new-organization.b2b-customer-admin.title',
-              })}
-              subtitle={translateMessage({
-                id: 'store/b2b-organizations.request-new-organization.b2b-customer-admin.helpText',
-              })}
+              title={translateMessage(messages.b2bCustomerAdmin)}
+              subtitle={translateMessage(messages.b2bCustomerAdminHelpText)}
             >
               <div
                 className={`${handles.newOrganizationInput} mb5 flex flex-column`}
               >
                 <Input
                   size="large"
-                  label={translateMessage({
-                    id: 'store/b2b-organizations.request-new-organization.first-name.label',
-                  })}
+                  label={translateMessage(messages.firstName)}
                   value={formState.firstName}
                   onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                     setFormState({
@@ -312,9 +299,7 @@ const RequestOrganizationForm: FC = () => {
               >
                 <Input
                   size="large"
-                  label={translateMessage({
-                    id: 'store/b2b-organizations.request-new-organization.last-name.label',
-                  })}
+                  label={translateMessage(messages.lastName)}
                   value={formState.lastName}
                   onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                     setFormState({
@@ -329,9 +314,7 @@ const RequestOrganizationForm: FC = () => {
               >
                 <Input
                   size="large"
-                  label={translateMessage({
-                    id: 'store/b2b-organizations.request-new-organization.email.label',
-                  })}
+                  label={translateMessage(messages.email)}
                   value={formState.email}
                   onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                     setFormState({
@@ -344,21 +327,15 @@ const RequestOrganizationForm: FC = () => {
             </PageBlock>
             <PageBlock
               variation="full"
-              title={translateMessage({
-                id: 'store/b2b-organizations.request-new-organization.default-cost-center.title',
-              })}
-              subtitle={translateMessage({
-                id: 'store/b2b-organizations.request-new-organization.default-cost-center.helpText',
-              })}
+              title={translateMessage(messages.defaultCostCenter)}
+              subtitle={translateMessage(messages.defaultCostCenterHelpText)}
             >
               <div
                 className={`${handles.newOrganizationInput} mb5 flex flex-column`}
               >
                 <Input
                   size="large"
-                  label={translateMessage({
-                    id: 'store/b2b-organizations.request-new-organization.default-cost-center-name.label',
-                  })}
+                  label={translateMessage(messages.defaultCostCenterName)}
                   value={formState.defaultCostCenterName}
                   onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                     setFormState({
@@ -390,9 +367,6 @@ const RequestOrganizationForm: FC = () => {
                       Input={StyleguideInput}
                       omitAutoCompletedFields={false}
                       omitPostalCodeFields
-                      // notApplicableLabel={formatMessage({
-                      //   id: 'addresses.notApplicable',
-                      // })}
                     />
                   </AddressContainer>
                 </AddressRules>

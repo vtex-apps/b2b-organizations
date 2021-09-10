@@ -14,7 +14,7 @@ import {
   ModalDialog,
 } from 'vtex.styleguide'
 import { toast } from '@vtex/admin-ui'
-import { useIntl, FormattedMessage } from 'react-intl'
+import { useIntl, FormattedMessage, defineMessages } from 'react-intl'
 import { useRuntime } from 'vtex.render-runtime'
 import {
   AddressRules,
@@ -32,6 +32,50 @@ import GET_COST_CENTER from '../graphql/getCostCenter.graphql'
 import UPDATE_COST_CENTER from '../graphql/updateCostCenter.graphql'
 import DELETE_COST_CENTER from '../graphql/deleteCostCenter.graphql'
 import GET_LOGISTICS from '../graphql/getLogistics.graphql'
+
+const adminPrefix = 'admin/b2b-organizations.'
+
+const messages = defineMessages({
+  toastUpdateSuccess: {
+    id: `${adminPrefix}costCenter-details.toast.update-success`,
+  },
+  toastUpdateFailure: {
+    id: `${adminPrefix}costCenter-details.toast.update-failure`,
+  },
+  toastDeleteFailure: {
+    id: `${adminPrefix}costCenter-details.toast.delete-failure`,
+  },
+  addressEdit: {
+    id: `${adminPrefix}costCenter-details.address.edit`,
+  },
+  addressDelete: {
+    id: `${adminPrefix}costCenter-details.address.delete`,
+  },
+  pageTitle: {
+    id: `${adminPrefix}costCenter-details.title`,
+  },
+  back: {
+    id: `${adminPrefix}back`,
+  },
+  costCenterName: {
+    id: `${adminPrefix}costCenter-details.costCenter-name`,
+  },
+  addresses: {
+    id: `${adminPrefix}costCenter-details.addresses`,
+  },
+  add: {
+    id: `${adminPrefix}costCenter-details.button.add`,
+  },
+  cancel: {
+    id: `${adminPrefix}costCenter-details.button.cancel`,
+  },
+  update: {
+    id: `${adminPrefix}costCenter-details.button.update`,
+  },
+  deleteConfirm: {
+    id: `${adminPrefix}costCenter-details.button.delete-confirm`,
+  },
+})
 
 const CostCenterDetails: FunctionComponent = () => {
   const { formatMessage } = useIntl()
@@ -112,9 +156,7 @@ const CostCenterDetails: FunctionComponent = () => {
       .then(() => {
         toast.dispatch({
           type: 'success',
-          message: formatMessage({
-            id: 'admin/b2b-organizations.costCenter-details.toast.update-success',
-          }),
+          message: formatMessage(messages.toastUpdateSuccess),
         })
         refetch()
         setLoadingState(false)
@@ -123,9 +165,7 @@ const CostCenterDetails: FunctionComponent = () => {
         console.error(error)
         toast.dispatch({
           type: 'error',
-          message: formatMessage({
-            id: 'admin/b2b-organizations.costCenter-details.toast.update-failure',
-          }),
+          message: formatMessage(messages.toastUpdateFailure),
         })
         setLoadingState(false)
       })
@@ -145,9 +185,7 @@ const CostCenterDetails: FunctionComponent = () => {
         console.error(error)
         toast.dispatch({
           type: 'error',
-          message: formatMessage({
-            id: 'admin/b2b-organizations.costCenter-details.toast.delete-failure',
-          }),
+          message: formatMessage(messages.toastDeleteFailure),
         })
         setLoadingState(false)
       })
@@ -254,15 +292,11 @@ const CostCenterDetails: FunctionComponent = () => {
 
   const options = (addressId: string) => [
     {
-      label: formatMessage({
-        id: 'admin/b2b-organizations.costCenter-details.address.edit',
-      }),
+      label: formatMessage(messages.addressEdit),
       onClick: () => handleEditAddressModal(addressId),
     },
     {
-      label: formatMessage({
-        id: 'admin/b2b-organizations.costCenter-details.address.delete',
-      }),
+      label: formatMessage(messages.addressDelete),
       onClick: () => handleDeleteAddressModal(addressId),
     },
   ]
@@ -273,12 +307,8 @@ const CostCenterDetails: FunctionComponent = () => {
         fullWidth
         pageHeader={
           <PageHeader
-            title={formatMessage({
-              id: 'admin/b2b-organizations.costCenter-details.title', // "Cost Center Details"
-            })}
-            linkLabel={formatMessage({
-              id: 'admin/b2b-organizations.costCenter-details.button.back', // "Back"
-            })}
+            title={formatMessage(messages.pageTitle)}
+            linkLabel={formatMessage(messages.back)}
             onLinkClick={() => {
               navigate({
                 page: 'admin.app.b2b-organizations.organizations',
@@ -303,12 +333,8 @@ const CostCenterDetails: FunctionComponent = () => {
       fullWidth
       pageHeader={
         <PageHeader
-          title={formatMessage({
-            id: 'admin/b2b-organizations.costCenter-details.title', // "Cost Center Details"
-          })}
-          linkLabel={formatMessage({
-            id: 'admin/b2b-organizations.costCenter-details.button.back', // "Back"
-          })}
+          title={formatMessage(messages.pageTitle)}
+          linkLabel={formatMessage(messages.back)}
           onLinkClick={() => {
             navigate({
               page: 'admin.app.b2b-organizations.organization-details',
@@ -339,9 +365,7 @@ const CostCenterDetails: FunctionComponent = () => {
       <PageBlock>
         <Input
           size="large"
-          label={formatMessage({
-            id: 'admin/b2b-organizations.costCenter-details.costCenter-name',
-          })}
+          label={formatMessage(messages.costCenterName)}
           value={costCenterName}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
             setCostCenterName(e.target.value)
@@ -349,11 +373,7 @@ const CostCenterDetails: FunctionComponent = () => {
           required
         />
       </PageBlock>
-      <PageBlock
-        title={formatMessage({
-          id: 'admin/b2b-organizations.costCenter-details.addresses', // "Addresses"
-        })}
-      >
+      <PageBlock title={formatMessage(messages.addresses)}>
         <div className="flex">
           {addresses.map((address: any, index) => {
             return (
@@ -403,16 +423,12 @@ const CostCenterDetails: FunctionComponent = () => {
         centered
         confirmation={{
           onClick: () => handleAddNewAddress(),
-          label: formatMessage({
-            id: 'admin/b2b-organizations.costCenter-details.button.add', // "Add"
-          }),
+          label: formatMessage(messages.add),
           disabled: !isValidAddress(newAddressState),
         }}
         cancelation={{
           onClick: () => handleCloseModals(),
-          label: formatMessage({
-            id: 'admin/b2b-organizations.costCenter-details.button.cancel', // "Cancel"
-          }),
+          label: formatMessage(messages.cancel),
         }}
         loading={loadingState}
         isOpen={newAddressModalState.isOpen}
@@ -448,16 +464,12 @@ const CostCenterDetails: FunctionComponent = () => {
         centered
         confirmation={{
           onClick: () => handleEditAddress(),
-          label: formatMessage({
-            id: 'admin/b2b-organizations.costCenter-details.button.update', // "Update"
-          }),
+          label: formatMessage(messages.update),
           disabled: !isValidAddress(editAddressState),
         }}
         cancelation={{
           onClick: () => handleCloseModals(),
-          label: formatMessage({
-            id: 'admin/b2b-organizations.costCenter-details.button.cancel', // "Cancel"
-          }),
+          label: formatMessage(messages.cancel),
         }}
         loading={loadingState}
         isOpen={editAddressModalState.isOpen}
@@ -493,15 +505,11 @@ const CostCenterDetails: FunctionComponent = () => {
         centered
         confirmation={{
           onClick: () => {},
-          label: formatMessage({
-            id: 'admin/b2b-organizations.costCenter-details.button.delete-confirm', // "Yes, delete"
-          }),
+          label: formatMessage(messages.deleteConfirm),
         }}
         cancelation={{
           onClick: () => handleCloseModals(),
-          label: formatMessage({
-            id: 'admin/b2b-organizations.costCenter-details.button.cancel', // "Cancel"
-          }),
+          label: formatMessage(messages.cancel),
         }}
         loading={loadingState}
         isOpen={deleteAddressModalState.isOpen}
@@ -518,15 +526,11 @@ const CostCenterDetails: FunctionComponent = () => {
         centered
         confirmation={{
           onClick: () => handleDeleteCostCenter(),
-          label: formatMessage({
-            id: 'admin/b2b-organizations.costCenter-details.button.delete-confirm', // "Yes, delete"
-          }),
+          label: formatMessage(messages.deleteConfirm),
         }}
         cancelation={{
           onClick: () => handleCloseModals(),
-          label: formatMessage({
-            id: 'admin/b2b-organizations.costCenter-details.button.cancel', // "Cancel"
-          }),
+          label: formatMessage(messages.cancel),
         }}
         loading={loadingState}
         isOpen={deleteCostCenterModalState.isOpen}

@@ -9,7 +9,7 @@ import {
   Tag,
   Checkbox,
 } from 'vtex.styleguide'
-import { useIntl } from 'react-intl'
+import { useIntl, defineMessages } from 'react-intl'
 import { useRuntime } from 'vtex.render-runtime'
 
 import GET_ORGANIZATION_REQUESTS from '../graphql/getOrganizationRequests.graphql'
@@ -47,6 +47,56 @@ const initialState = {
   sortedBy: 'created',
 }
 
+const adminPrefix = 'admin/b2b-organizations.'
+
+const messages = defineMessages({
+  columnName: {
+    id: `${adminPrefix}organization-requests-admin.table.column-name.title`,
+  },
+  columnAdmin: {
+    id: `${adminPrefix}organization-requests-admin.table.column-admin.title`,
+  },
+  columnStatus: {
+    id: `${adminPrefix}organization-requests-admin.table.column-status.title`,
+  },
+  columnCreated: {
+    id: `${adminPrefix}organization-requests-admin.table.column-created.title`,
+  },
+  view: {
+    id: `${adminPrefix}organization-requests-admin.table.view.label`,
+  },
+  pageTitle: {
+    id: `${adminPrefix}organization-requests-admin.title`,
+  },
+  emptyState: {
+    id: `${adminPrefix}organization-requests-admin.table.empty-state`,
+  },
+  showRows: {
+    id: `${adminPrefix}showRows`,
+  },
+  of: {
+    id: `${adminPrefix}of`,
+  },
+  searchPlaceholder: {
+    id: `${adminPrefix}organization-requests-admin.table.search.placeholder`,
+  },
+  clearFilters: {
+    id: `${adminPrefix}organization-requests-admin.table.clearFilters.label`,
+  },
+  statusFilter: {
+    id: `${adminPrefix}organization-requests-admin.table.statusFilter.label`,
+  },
+  filtersAll: {
+    id: `${adminPrefix}organization-requests-admin.table.filters.all`,
+  },
+  filtersNone: {
+    id: `${adminPrefix}organization-requests-admin.table.filters.none`,
+  },
+  filtersIncludes: {
+    id: `${adminPrefix}organization-requests-admin.table.filters.includes`,
+  },
+})
+
 const OrganizationRequestsTable: FunctionComponent = () => {
   const { formatMessage, formatDate } = useIntl()
   const { navigate } = useRuntime()
@@ -64,14 +114,10 @@ const OrganizationRequestsTable: FunctionComponent = () => {
   const getSchema = () => ({
     properties: {
       name: {
-        title: formatMessage({
-          id: 'admin/b2b-organizations.organization-requests-admin.table.column-name.title', // 'Name'
-        }),
+        title: formatMessage(messages.columnName),
       },
       b2bCustomerAdmin: {
-        title: formatMessage({
-          id: 'admin/b2b-organizations.organization-requests-admin.table.column-admin.title', // 'Admin User'
-        }),
+        title: formatMessage(messages.columnAdmin),
         cellRenderer: ({
           rowData: {
             b2bCustomerAdmin: { email },
@@ -79,18 +125,14 @@ const OrganizationRequestsTable: FunctionComponent = () => {
         }: CellRendererProps) => email,
       },
       status: {
-        title: formatMessage({
-          id: 'admin/b2b-organizations.organization-requests-admin.table.column-status.title', // 'Status'
-        }),
+        title: formatMessage(messages.columnStatus),
         cellRenderer: ({ rowData: { status } }: CellRendererProps) => (
           <Tag type={labelTypeByStatusMap[status]}>{status}</Tag>
         ),
         sortable: true,
       },
       created: {
-        title: formatMessage({
-          id: 'admin/b2b-organizations.organization-requests-admin.table.column-created.title', // 'Request Date'
-        }),
+        title: formatMessage(messages.columnCreated),
         cellRenderer: ({ rowData: { created } }: CellRendererProps) => {
           return (
             <>
@@ -301,10 +343,7 @@ const OrganizationRequestsTable: FunctionComponent = () => {
 
   const lineActions = [
     {
-      label: () =>
-        formatMessage({
-          id: 'admin/b2b-organizations.organization-requests-admin.table.view.label', // 'View'
-        }),
+      label: () => formatMessage(messages.view),
       onClick: ({ rowData: { id } }: CellRendererProps) => {
         if (!id) return
 
@@ -322,13 +361,7 @@ const OrganizationRequestsTable: FunctionComponent = () => {
   return (
     <Layout
       fullWidth
-      pageHeader={
-        <PageHeader
-          title={formatMessage({
-            id: 'admin/b2b-organizations.organization-requests-admin.title', // "Organization Requests"
-          })}
-        />
-      }
+      pageHeader={<PageHeader title={formatMessage(messages.pageTitle)} />}
     >
       <PageBlock>
         <Table
@@ -336,9 +369,7 @@ const OrganizationRequestsTable: FunctionComponent = () => {
           schema={getSchema()}
           fixFirstColumn
           loading={loading}
-          emptyStateLabel={formatMessage({
-            id: 'admin/b2b-organizations.organization-requests-admin.table.empty-state', // 'No organization requests found.'
-          })}
+          emptyStateLabel={formatMessage(messages.emptyState)}
           items={data?.getOrganizationRequests?.data}
           lineActions={lineActions}
           onRowClick={({ rowData: { id } }: CellRendererProps) => {
@@ -355,36 +386,24 @@ const OrganizationRequestsTable: FunctionComponent = () => {
             onRowsChange: handleRowsChange,
             currentItemFrom: (page - 1) * pageSize + 1,
             currentItemTo: total < page * pageSize ? total : page * pageSize,
-            textShowRows: formatMessage({
-              id: 'admin/b2b-organizations.organization-requests-admin.table.showRows', // 'Show rows'
-            }),
-            textOf: formatMessage({
-              id: 'admin/b2b-organizations.organization-requests-admin.table.of', // 'of'
-            }),
+            textShowRows: formatMessage(messages.showRows),
+            textOf: formatMessage(messages.of),
             totalItems: total ?? 0,
             rowsOptions: [25, 50, 100],
           }}
           toolbar={{
             inputSearch: {
               value: search,
-              placeholder: formatMessage({
-                id: 'admin/b2b-organizations.organization-requests-admin.table.search.placeholder', // 'Search'
-              }),
+              placeholder: formatMessage(messages.searchPlaceholder),
               onChange: handleInputSearchChange,
               onClear: handleInputSearchClear,
               onSubmit: handleInputSearchSubmit,
             },
             // Hiding this because the dropdown renders off of the screen
             // fields: {
-            //   label: formatMessage({
-            //     id: 'admin/b2b-organizations.organization-requests-admin.table.toggleFields.label', // 'Toggle visible fields'
-            //   }),
-            //   showAllLabel: formatMessage({
-            //     id: 'admin/b2b-organizations.organization-requests-admin.table.toggleFields.showAllLabel', // 'Show all'
-            //   }),
-            //   hideAllLabel: formatMessage({
-            //     id: 'admin/b2b-organizations.organization-requests-admin.table.toggleFields.hideAllLabel', // 'Hide all'
-            //   }),
+            //   label: '',
+            //   showAllLabel: '',
+            //   hideAllLabel: '',
             // },
           }}
           sort={{
@@ -396,21 +415,15 @@ const OrganizationRequestsTable: FunctionComponent = () => {
             alwaysVisibleFilters: ['status'],
             statements: filterState.filterStatements,
             onChangeStatements: handleFiltersChange,
-            clearAllFiltersButtonLabel: formatMessage({
-              id: 'admin/b2b-organizations.organization-requests-admin.table.clearFilters.label', // 'Clear filters'
-            }),
+            clearAllFiltersButtonLabel: formatMessage(messages.clearFilters),
             collapseLeft: true,
             options: {
               status: {
-                label: formatMessage({
-                  id: 'admin/b2b-organizations.organization-requests-admin.table.statusFilter.label', // 'Status'
-                }),
+                label: formatMessage(messages.statusFilter),
                 renderFilterLabel: (st: any) => {
                   if (!st || !st.object) {
                     // you should treat empty object cases only for alwaysVisibleFilters
-                    return formatMessage({
-                      id: 'admin/b2b-organizations.organization-requests-admin.table.filters.all', // 'All'
-                    })
+                    return formatMessage(messages.filtersAll)
                   }
 
                   const keys = st.object ? Object.keys(st.object) : []
@@ -427,21 +440,15 @@ const OrganizationRequestsTable: FunctionComponent = () => {
 
                   return `${
                     isAllTrue
-                      ? formatMessage({
-                          id: 'admin/b2b-organizations.organization-requests-admin.table.filters.all', // 'All'
-                        })
+                      ? formatMessage(messages.filtersAll)
                       : isAllFalse
-                      ? formatMessage({
-                          id: 'admin/b2b-organizations.organization-requests-admin.table.filters.none', // 'None'
-                        })
+                      ? formatMessage(messages.filtersNone)
                       : `${trueKeysLabel}`
                   }`
                 },
                 verbs: [
                   {
-                    label: formatMessage({
-                      id: 'admin/b2b-organizations.organization-requests-admin.table.filters.includes', // 'includes'
-                    }),
+                    label: formatMessage(messages.filtersIncludes),
                     value: 'includes',
                     object: statusSelectorObject,
                   },

@@ -11,7 +11,7 @@ import {
   ModalDialog,
   Input,
 } from 'vtex.styleguide'
-import { useIntl, FormattedMessage } from 'react-intl'
+import { useIntl, FormattedMessage, defineMessages } from 'react-intl'
 import { useRuntime } from 'vtex.render-runtime'
 import { toast } from '@vtex/admin-ui'
 import {
@@ -55,6 +55,71 @@ const initialState = {
   sortOrder: 'ASC',
   sortedBy: 'name',
 }
+
+const adminPrefix = 'admin/b2b-organizations.'
+
+const messages = defineMessages({
+  toastAddOrgSuccess: {
+    id: `${adminPrefix}organizations-admin.toast.add-organization-success`,
+  },
+  toastAddOrgFailure: {
+    id: `${adminPrefix}organizations-admin.toast.add-organization-failure`,
+  },
+  columnName: {
+    id: `${adminPrefix}organizations-admin.table.column-name.title`,
+  },
+  columnStatus: {
+    id: `${adminPrefix}organizations-admin.table.column-status.title`,
+  },
+  view: {
+    id: `${adminPrefix}organizations-admin.table.view.label`,
+  },
+  pageTitle: {
+    id: `${adminPrefix}organizations-admin.title`,
+  },
+  emptyState: {
+    id: `${adminPrefix}organizations-admin.table.empty-state`,
+  },
+  searchPlaceholder: {
+    id: `${adminPrefix}organizations-admin.table.search.placeholder`,
+  },
+  new: {
+    id: `${adminPrefix}organization-details.button.new`,
+  },
+  clearFilters: {
+    id: `${adminPrefix}organizations-admin.table.clearFilters.label`,
+  },
+  filterStatus: {
+    id: `${adminPrefix}organizations-admin.table.statusFilter.label`,
+  },
+  filtersAll: {
+    id: `${adminPrefix}organizations-admin.table.filters.all`,
+  },
+  filtersNone: {
+    id: `${adminPrefix}organizations-admin.table.filters.none`,
+  },
+  filtersIncludes: {
+    id: `${adminPrefix}organizations-admin.table.filters.includes`,
+  },
+  add: {
+    id: `${adminPrefix}organization-details.button.add`,
+  },
+  cancel: {
+    id: `${adminPrefix}organization-details.button.cancel`,
+  },
+  organizationName: {
+    id: `${adminPrefix}organizations-admin.add-organization.organization-name`,
+  },
+  defaultCostCenterName: {
+    id: `${adminPrefix}organizations-admin.add-organization.default-costCenter-name`,
+  },
+  showRows: {
+    id: `${adminPrefix}showRows`,
+  },
+  of: {
+    id: `${adminPrefix}of`,
+  },
+})
 
 const OrganizationsTable: FunctionComponent = () => {
   const { formatMessage } = useIntl()
@@ -130,9 +195,7 @@ const OrganizationsTable: FunctionComponent = () => {
         setLoadingState(false)
         toast.dispatch({
           type: 'success',
-          message: formatMessage({
-            id: 'admin/b2b-organizations.organizations-admin.toast.add-organization-success',
-          }),
+          message: formatMessage(messages.toastAddOrgSuccess),
         })
         refetch(initialState)
       })
@@ -142,9 +205,7 @@ const OrganizationsTable: FunctionComponent = () => {
         console.error(error)
         toast.dispatch({
           type: 'error',
-          message: formatMessage({
-            id: 'admin/b2b-organizations.organizations-admin.toast.add-organization-failure',
-          }),
+          message: formatMessage(messages.toastAddOrgFailure),
         })
       })
   }
@@ -169,14 +230,10 @@ const OrganizationsTable: FunctionComponent = () => {
   const getSchema = () => ({
     properties: {
       name: {
-        title: formatMessage({
-          id: 'admin/b2b-organizations.organizations-admin.table.column-name.title', // 'Name'
-        }),
+        title: formatMessage(messages.columnName),
       },
       status: {
-        title: formatMessage({
-          id: 'admin/b2b-organizations.organizations-admin.table.column-status.title', // 'Status'
-        }),
+        title: formatMessage(messages.columnStatus),
         cellRenderer: ({ rowData: { status } }: CellRendererProps) => (
           <Tag type={labelTypeByStatusMap[status]}>{status}</Tag>
         ),
@@ -379,10 +436,7 @@ const OrganizationsTable: FunctionComponent = () => {
 
   const lineActions = [
     {
-      label: () =>
-        formatMessage({
-          id: 'admin/b2b-organizations.organizations-admin.table.view.label', // 'View'
-        }),
+      label: () => formatMessage(messages.view),
       onClick: ({ rowData: { id } }: CellRendererProps) => {
         if (!id) return
 
@@ -400,13 +454,7 @@ const OrganizationsTable: FunctionComponent = () => {
   return (
     <Layout
       fullWidth
-      pageHeader={
-        <PageHeader
-          title={formatMessage({
-            id: 'admin/b2b-organizations.organizations-admin.title', // "Organizations"
-          })}
-        />
-      }
+      pageHeader={<PageHeader title={formatMessage(messages.pageTitle)} />}
     >
       <PageBlock>
         <Table
@@ -414,9 +462,7 @@ const OrganizationsTable: FunctionComponent = () => {
           schema={getSchema()}
           fixFirstColumn
           loading={loading}
-          emptyStateLabel={formatMessage({
-            id: 'admin/b2b-organizations.organizations-admin.table.empty-state', // 'No organizations found.'
-          })}
+          emptyStateLabel={formatMessage(messages.emptyState)}
           items={data?.getOrganizations?.data}
           lineActions={lineActions}
           onRowClick={({ rowData: { id } }: CellRendererProps) => {
@@ -433,29 +479,21 @@ const OrganizationsTable: FunctionComponent = () => {
             onRowsChange: handleRowsChange,
             currentItemFrom: (page - 1) * pageSize + 1,
             currentItemTo: total < page * pageSize ? total : page * pageSize,
-            textShowRows: formatMessage({
-              id: 'admin/b2b-organizations.organizations-admin.table.showRows', // 'Show rows'
-            }),
-            textOf: formatMessage({
-              id: 'admin/b2b-organizations.organizations-admin.table.of', // 'of'
-            }),
+            textShowRows: formatMessage(messages.showRows),
+            textOf: formatMessage(messages.of),
             totalItems: total ?? 0,
             rowsOptions: [25, 50, 100],
           }}
           toolbar={{
             inputSearch: {
               value: search,
-              placeholder: formatMessage({
-                id: 'admin/b2b-organizations.organizations-admin.table.search.placeholder', // 'Search'
-              }),
+              placeholder: formatMessage(messages.searchPlaceholder),
               onChange: handleInputSearchChange,
               onClear: handleInputSearchClear,
               onSubmit: handleInputSearchSubmit,
             },
             newLine: {
-              label: formatMessage({
-                id: 'admin/b2b-organizations.organization-details.button.new', // 'New'
-              }),
+              label: formatMessage(messages.new),
               handleCallback: () => setNewOrganizationModalState(true),
             },
           }}
@@ -468,21 +506,15 @@ const OrganizationsTable: FunctionComponent = () => {
             alwaysVisibleFilters: ['status'],
             statements: filterState.filterStatements,
             onChangeStatements: handleFiltersChange,
-            clearAllFiltersButtonLabel: formatMessage({
-              id: 'admin/b2b-organizations.organizations-admin.table.clearFilters.label', // 'Clear filters'
-            }),
+            clearAllFiltersButtonLabel: formatMessage(messages.clearFilters),
             collapseLeft: true,
             options: {
               status: {
-                label: formatMessage({
-                  id: 'admin/b2b-organizations.organizations-admin.table.statusFilter.label', // 'Status'
-                }),
+                label: formatMessage(messages.filterStatus),
                 renderFilterLabel: (st: any) => {
                   if (!st || !st.object) {
                     // you should treat empty object cases only for alwaysVisibleFilters
-                    return formatMessage({
-                      id: 'admin/b2b-organizations.organizations-admin.table.filters.all', // 'All'
-                    })
+                    return formatMessage(messages.filtersAll)
                   }
 
                   const keys = st.object ? Object.keys(st.object) : []
@@ -499,21 +531,15 @@ const OrganizationsTable: FunctionComponent = () => {
 
                   return `${
                     isAllTrue
-                      ? formatMessage({
-                          id: 'admin/b2b-organizations.organizations-admin.table.filters.all', // 'All'
-                        })
+                      ? formatMessage(messages.filtersAll)
                       : isAllFalse
-                      ? formatMessage({
-                          id: 'admin/b2b-organizations.organizations-admin.table.filters.none', // 'None'
-                        })
+                      ? formatMessage(messages.filtersNone)
                       : `${trueKeysLabel}`
                   }`
                 },
                 verbs: [
                   {
-                    label: formatMessage({
-                      id: 'admin/b2b-organizations.organizations-admin.table.filters.includes', // 'includes'
-                    }),
+                    label: formatMessage(messages.filtersIncludes),
                     value: 'includes',
                     object: statusSelectorObject,
                   },
@@ -527,9 +553,7 @@ const OrganizationsTable: FunctionComponent = () => {
         centered
         confirmation={{
           onClick: () => handleAddNewOrganization(),
-          label: formatMessage({
-            id: 'admin/b2b-organizations.organization-details.button.add', // "Add"
-          }),
+          label: formatMessage(messages.add),
           disabled:
             !newOrganizationName ||
             !newCostCenterName ||
@@ -537,9 +561,7 @@ const OrganizationsTable: FunctionComponent = () => {
         }}
         cancelation={{
           onClick: () => handleCloseModal(),
-          label: formatMessage({
-            id: 'admin/b2b-organizations.organization-details.button.cancel', // "Cancel"
-          }),
+          label: formatMessage(messages.cancel),
         }}
         loading={loadingState}
         isOpen={newOrganizationModalState}
@@ -552,9 +574,7 @@ const OrganizationsTable: FunctionComponent = () => {
         <div className="w-100 mv6">
           <Input
             size="large"
-            label={formatMessage({
-              id: 'admin/b2b-organizations.organizations-admin.add-organization.organization-name',
-            })}
+            label={formatMessage(messages.organizationName)}
             value={newOrganizationName}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
               setNewOrganizationName(e.target.value)
@@ -568,9 +588,7 @@ const OrganizationsTable: FunctionComponent = () => {
         <div className="w-100 mv6">
           <Input
             size="large"
-            label={formatMessage({
-              id: 'admin/b2b-organizations.organizations-admin.add-organization.default-costCenter-name',
-            })}
+            label={formatMessage(messages.defaultCostCenterName)}
             value={newCostCenterName}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
               setNewCostCenterName(e.target.value)

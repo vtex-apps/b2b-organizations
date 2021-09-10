@@ -11,13 +11,36 @@ import {
   Button,
 } from 'vtex.styleguide'
 import { toast } from '@vtex/admin-ui'
-import { useIntl, FormattedMessage } from 'react-intl'
+import { useIntl, FormattedMessage, defineMessages } from 'react-intl'
 import { useRuntime } from 'vtex.render-runtime'
 import { AddressRules, AddressSummary } from 'vtex.address-form'
 
 import { labelTypeByStatusMap } from './OrganizationRequestsTable'
 import GET_ORGANIZATION_REQUEST from '../graphql/getOrganizationRequest.graphql'
 import UPDATE_ORGANIZATION_REQUEST from '../graphql/updateOrganizationRequest.graphql'
+
+const adminPrefix = 'admin/b2b-organizations.'
+
+const messages = defineMessages({
+  toastCreatedSuccess: {
+    id: `${adminPrefix}organization-request-details.toast.created-success`,
+  },
+  toastUpdateSuccess: {
+    id: `${adminPrefix}organization-request-details.toast.update-success`,
+  },
+  toastUpdateFailure: {
+    id: `${adminPrefix}organization-request-details.toast.update-failure`,
+  },
+  pageTitle: {
+    id: `${adminPrefix}organization-request-details.title`,
+  },
+  back: {
+    id: `${adminPrefix}back`,
+  },
+  addNote: {
+    id: `${adminPrefix}organization-request-details.add-note.label`,
+  },
+})
 
 const OrganizationRequestDetails: FunctionComponent = () => {
   const { formatMessage, formatDate } = useIntl()
@@ -50,12 +73,10 @@ const OrganizationRequestDetails: FunctionComponent = () => {
         setLoadingState(false)
         toast.dispatch({
           type: 'success',
-          message: formatMessage({
-            id:
-              status === 'approved'
-                ? 'admin/b2b-organizations.organization-request-details.toast.created-success'
-                : 'admin/b2b-organizations.organization-request-details.toast.update-success',
-          }),
+          message:
+            status === 'approved'
+              ? formatMessage(messages.toastCreatedSuccess)
+              : formatMessage(messages.toastUpdateSuccess),
         })
         refetch({ id: params?.id })
       })
@@ -64,9 +85,7 @@ const OrganizationRequestDetails: FunctionComponent = () => {
         console.error(error)
         toast.dispatch({
           type: 'success',
-          message: formatMessage({
-            id: 'admin/b2b-organizations.organization-request-details.toast.update-failure',
-          }),
+          message: formatMessage(messages.toastUpdateFailure),
         })
       })
   }
@@ -77,12 +96,8 @@ const OrganizationRequestDetails: FunctionComponent = () => {
         fullWidth
         pageHeader={
           <PageHeader
-            title={formatMessage({
-              id: 'admin/b2b-organizations.organization-request-details.title', // "Organization Request"
-            })}
-            linkLabel={formatMessage({
-              id: 'admin/b2b-organizations.organization-request-details.button.back', // "Back"
-            })}
+            title={formatMessage(messages.pageTitle)}
+            linkLabel={formatMessage(messages.back)}
             onLinkClick={() => {
               navigate({
                 page: 'admin.app.b2b-organizations.organization-requests',
@@ -107,12 +122,8 @@ const OrganizationRequestDetails: FunctionComponent = () => {
       fullWidth
       pageHeader={
         <PageHeader
-          title={formatMessage({
-            id: 'admin/b2b-organizations.organization-request-details.title', // "Organization Request"
-          })}
-          linkLabel={formatMessage({
-            id: 'admin/b2b-organizations.organization-request-details.button.back', // "Back"
-          })}
+          title={formatMessage(messages.pageTitle)}
+          linkLabel={formatMessage(messages.back)}
           onLinkClick={() => {
             navigate({
               page: 'admin.app.b2b-organizations.organization-requests',
@@ -177,9 +188,7 @@ const OrganizationRequestDetails: FunctionComponent = () => {
           <Textarea
             label={
               <h4 className="t-heading-5 mb0 pt4">
-                {formatMessage({
-                  id: 'admin/b2b-organizations.organization-request-details.add-note.label', // Add Note
-                })}
+                {formatMessage(messages.addNote)}
               </h4>
             }
             value={notesState}
