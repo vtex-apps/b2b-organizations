@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "vtex.b2b-organizations-graphql": "0.x",
+    "vtex.storefront-permissions": "1.x",
     "vtex.catalog-graphql": "1.x",
     "vtex.admin-graphql": "2.x",
     "vtex.store-graphql": "2.x",
@@ -32,9 +33,7 @@
       "url": "https://support.vtex.com/hc/requests"
     },
     "type": "free",
-    "availableCountries": [
-      "*"
-    ]
+    "availableCountries": ["*"]
   },
   "$schema": "https://raw.githubusercontent.com/vtex/node-vtex-api/master/gen/manifest.schema"
 }
