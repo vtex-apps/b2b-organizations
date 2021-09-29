@@ -1,0 +1,44 @@
+{
+  "name": "B2B Organizations",
+  "features": [
+    {
+      "label": "See all orders",
+      "value": "all-orders",
+      "roles": [
+        "store-admin"
+      ]
+    },
+    {
+      "label": "See all orders under the same Organization",
+      "value": "organization-orders",
+      "roles": [
+        "store-admin",
+        "sales-admin",
+        "sales-manager"
+      ]
+    },
+    {
+      "label": "See all orders under the same Cost Center",
+      "value": "costcenter-orders",
+      "roles": [
+        "store-admin",
+        "sales-admin",
+        "sales-manager",
+        "sales-representative"
+      ]
+    },
+    {
+      "label": "See own orders only",
+      "value": "own-orders",
+      "roles": [
+        "store-admin",
+        "sales-admin",
+        "sales-manager",
+        "sales-representative",
+        "customer-admin",
+        "customer-approver",
+        "customer-buyer"
+      ]
+    }
+  ]
+}
