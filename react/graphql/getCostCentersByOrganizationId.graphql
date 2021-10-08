@@ -1,5 +1,5 @@
 query GetCostCentersByOrganizationId(
-  $id: ID!
+  $id: ID
   $search: String
   $page: Int
   $pageSize: Int

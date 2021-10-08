@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Added
+
+- Storefront UI for B2B customers to manage their organization
+
+### Fixed
+
+- Store admin can now delete cost center addresses
+
 ## [0.0.4] - 2021-10-29
 
 ### Fixed

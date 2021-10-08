@@ -1,8 +1,20 @@
 {
-  "store.organizations": {
+  "store.organization-request": {
     "required": ["request-organization"]
   },
   "request-organization": {
     "component": "RequestOrganizationForm"
+  },
+  "store.organization-details": {
+    "required": ["organization-details"]
+  },
+  "organization-details": {
+    "component": "StorefrontOrganizationDetails"
+  },
+  "store.costcenter-details": {
+    "required": ["costcenter-details"]
+  },
+  "costcenter-details": {
+    "component": "StorefrontCostCenterDetails"
   }
 }

@@ -1,4 +1,4 @@
-query GetOrganization($id: ID!) {
+query GetOrganization($id: ID) {
   getOrganizationById(id: $id)
     @context(provider: "vtex.b2b-organizations-graphql") {
     name
