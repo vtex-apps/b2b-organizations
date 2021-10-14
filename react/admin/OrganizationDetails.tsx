@@ -30,6 +30,7 @@ import GET_ORGANIZATION from '../graphql/getOrganization.graphql'
 import GET_LOGISTICS from '../graphql/getLogistics.graphql'
 import UPDATE_ORGANIZATION from '../graphql/updateOrganization.graphql'
 import GET_COLLECTIONS from '../graphql/getCollections.graphql'
+import GET_PAYMENT_TERMS from '../graphql/getPaymentTerms.graphql'
 import GET_PRICE_TABLES from '../graphql/getPriceTables.graphql'
 import GET_COST_CENTERS from '../graphql/getCostCentersByOrganizationId.graphql'
 import CREATE_COST_CENTER from '../graphql/createCostCenter.graphql'
@@ -52,6 +53,11 @@ interface Collection {
 }
 
 interface PriceTable {
+  name: string
+}
+
+interface PaymentTerm {
+  id: number
   name: string
 }
 
@@ -109,6 +115,9 @@ const messages = defineMessages({
   collections: {
     id: `${adminPrefix}organization-details.collections`,
   },
+  paymentTerms: {
+    id: `${adminPrefix}organization-details.paymentTerms`,
+  },
   priceTables: {
     id: `${adminPrefix}organization-details.price-tables`,
   },
@@ -160,6 +169,8 @@ const OrganizationDetails: FunctionComponent = () => {
   const [statusState, setStatusState] = useState('')
   const [collectionsState, setCollectionsState] = useState([] as Collection[])
   const [collectionOptions, setCollectionOptions] = useState([] as Collection[])
+  const [paymentTermsState, setPaymentTermsState] = useState([] as PaymentTerm[])
+  const [paymentTermsOptions, setPaymentTermsOptions] = useState([] as PaymentTerm[])
   const [priceTablesState, setPriceTablesState] = useState([] as string[])
   const [priceTableOptions, setPriceTableOptions] = useState([] as PriceTable[])
   const [costCenterPaginationState, setCostCenterPaginationState] = useState({
@@ -199,6 +210,10 @@ const OrganizationDetails: FunctionComponent = () => {
     { ssr: false }
   )
 
+  const { data: paymentTermsData } = useQuery<{getPaymentTerms: PaymentTerm[]}>(
+    GET_PAYMENT_TERMS,
+    { ssr: false }
+  )
   const { data: priceTablesData } = useQuery(GET_PRICE_TABLES, { ssr: false })
   const { data: logisticsData } = useQuery(GET_LOGISTICS, { ssr: false })
 
@@ -216,10 +231,10 @@ const OrganizationDetails: FunctionComponent = () => {
 
   useEffect(() => {
     if (!data?.getOrganizationById || statusState) return
-
     setOrganizationNameState(data.getOrganizationById.name)
     setStatusState(data.getOrganizationById.status)
     setCollectionsState(data.getOrganizationById.collections ?? [])
+    setPaymentTermsState(data.getOrganizationById.paymentTerms ?? [])
     setPriceTablesState(data.getOrganizationById.priceTables ?? [])
   }, [data])
 
@@ -252,6 +267,14 @@ const OrganizationDetails: FunctionComponent = () => {
 
     setCollectionOptions(collections)
   }, [collectionsData])
+
+  useEffect(() => {
+    if (!paymentTermsData?.getPaymentTerms?.length || paymentTermsOptions.length) {
+      return
+    }
+    
+    setPaymentTermsOptions(paymentTermsData.getPaymentTerms)
+  }, [paymentTermsData])
 
   const handleCostCentersPrevClick = () => {
     if (costCenterPaginationState.page === 1) return
@@ -359,6 +382,7 @@ const OrganizationDetails: FunctionComponent = () => {
       id: params?.id,
       status: statusState,
       collections,
+      paymentTerms: paymentTermsState,
       priceTables: priceTablesState,
     }
 
@@ -405,6 +429,27 @@ const OrganizationDetails: FunctionComponent = () => {
     )
 
     setCollectionsState(newCollectionList)
+  }
+
+  const handleAddPaymentTerms = (rowParams: {selectedRows: PaymentTerm[]}) => {
+    const { selectedRows = [] } = rowParams
+    
+    setPaymentTermsState([...paymentTermsState, ...selectedRows])
+  }
+  
+  const handleRemovePaymentTerms = (rowParams: {selectedRows: PaymentTerm[]}) => {
+    const { selectedRows = [] } = rowParams
+    const paymentTermsToRemove = [] as number[]
+
+    selectedRows.forEach((row) => {
+      paymentTermsToRemove.push(row.id)
+    })
+
+    const newPaymentTerms = paymentTermsState.filter(
+      (paymentTerm) => !paymentTermsToRemove.includes(paymentTerm.id)
+    )
+
+    setPaymentTermsState(newPaymentTerms)
   }
 
   const handleAddPriceTables = (rowParams: any) => {
@@ -715,6 +760,54 @@ const OrganizationDetails: FunctionComponent = () => {
                 label: formatMessage(messages.addToOrg),
                 handleCallback: (rowParams: any) =>
                   handleAddCollections(rowParams),
+              },
+            }}
+          />
+        </div>
+      </PageBlock>
+      <PageBlock variation="half" title={formatMessage(messages.paymentTerms)}>
+        <div>
+          <h4 className="t-heading-4 mt0 mb0">
+            <FormattedMessage id="admin/b2b-organizations.organization-details.assigned-to-org" />
+          </h4>
+          <Table
+            fullWidth
+            schema={getSchema()}
+            items={paymentTermsState}
+            bulkActions={{
+              texts: {
+                rowsSelected: (qty: number) =>
+                  formatMessage(messages.selectedRows, {
+                    qty,
+                  }),
+              },
+              main: {
+                label: formatMessage(messages.removeFromOrg),
+                handleCallback: (rowParams: any) =>
+                  handleRemovePaymentTerms(rowParams),
+              },
+            }}
+          />
+        </div>
+        <div>
+          <h4 className="t-heading-4 mt0 mb0">
+            <FormattedMessage id="admin/b2b-organizations.organization-details.available" />
+          </h4>
+          <Table
+            fullWidth
+            schema={getSchema()}
+            items={paymentTermsOptions}
+            bulkActions={{
+              texts: {
+                rowsSelected: (qty: number) =>
+                  formatMessage(messages.selectedRows, {
+                    qty,
+                  }),
+              },
+              main: {
+                label: formatMessage(messages.addToOrg),
+                handleCallback: (rowParams: any) =>
+                  handleAddPaymentTerms(rowParams),
               },
             }}
           />

@@ -66,6 +66,7 @@
   "admin/b2b-organizations.organization-details.created": "admin/b2b-organizations.organization-details.created",
   "admin/b2b-organizations.organization-details.organization-name": "admin/b2b-organizations.organization-details.organization-name",
   "admin/b2b-organizations.organization-details.collections": "admin/b2b-organizations.organization-details.collections",
+  "admin/b2b-organizations.organization-details.paymentTerms": "admin/b2b-organizations.organization-details.paymentTerms",
   "admin/b2b-organizations.organization-details.price-tables": "admin/b2b-organizations.organization-details.price-tables",
   "admin/b2b-organizations.organization-details.assigned-to-org": "admin/b2b-organizations.organization-details.assigned-to-org",
   "admin/b2b-organizations.organization-details.available": "admin/b2b-organizations.organization-details.available",
