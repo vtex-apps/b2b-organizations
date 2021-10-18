@@ -169,8 +169,6 @@ const OrganizationDetails: FunctionComponent = () => {
   const [statusState, setStatusState] = useState('')
   const [collectionsState, setCollectionsState] = useState([] as Collection[])
   const [collectionOptions, setCollectionOptions] = useState([] as Collection[])
-  const [paymentTermsState, setPaymentTermsState] = useState([] as PaymentTerm[])
-  const [paymentTermsOptions, setPaymentTermsOptions] = useState([] as PaymentTerm[])
   const [priceTablesState, setPriceTablesState] = useState([] as string[])
   const [priceTableOptions, setPriceTableOptions] = useState([] as PriceTable[])
   const [costCenterPaginationState, setCostCenterPaginationState] = useState({
@@ -182,6 +180,14 @@ const OrganizationDetails: FunctionComponent = () => {
     page: 1,
     pageSize: 25,
   })
+
+  const [paymentTermsState, setPaymentTermsState] = useState(
+    [] as PaymentTerm[]
+  )
+
+  const [paymentTermsOptions, setPaymentTermsOptions] = useState(
+    [] as PaymentTerm[]
+  )
 
   const [loadingState, setLoadingState] = useState(false)
   const [newCostCenterModalState, setNewCostCenterModalState] = useState(false)
@@ -210,10 +216,10 @@ const OrganizationDetails: FunctionComponent = () => {
     { ssr: false }
   )
 
-  const { data: paymentTermsData } = useQuery<{getPaymentTerms: PaymentTerm[]}>(
-    GET_PAYMENT_TERMS,
-    { ssr: false }
-  )
+  const { data: paymentTermsData } = useQuery<{
+    getPaymentTerms: PaymentTerm[]
+  }>(GET_PAYMENT_TERMS, { ssr: false })
+
   const { data: priceTablesData } = useQuery(GET_PRICE_TABLES, { ssr: false })
   const { data: logisticsData } = useQuery(GET_LOGISTICS, { ssr: false })
 
@@ -269,10 +275,13 @@ const OrganizationDetails: FunctionComponent = () => {
   }, [collectionsData])
 
   useEffect(() => {
-    if (!paymentTermsData?.getPaymentTerms?.length || paymentTermsOptions.length) {
+    if (
+      !paymentTermsData?.getPaymentTerms?.length ||
+      paymentTermsOptions.length
+    ) {
       return
     }
-    
+
     setPaymentTermsOptions(paymentTermsData.getPaymentTerms)
   }, [paymentTermsData])
 
@@ -431,13 +440,17 @@ const OrganizationDetails: FunctionComponent = () => {
     setCollectionsState(newCollectionList)
   }
 
-  const handleAddPaymentTerms = (rowParams: {selectedRows: PaymentTerm[]}) => {
+  const handleAddPaymentTerms = (rowParams: {
+    selectedRows: PaymentTerm[]
+  }) => {
     const { selectedRows = [] } = rowParams
-    
+
     setPaymentTermsState([...paymentTermsState, ...selectedRows])
   }
-  
-  const handleRemovePaymentTerms = (rowParams: {selectedRows: PaymentTerm[]}) => {
+
+  const handleRemovePaymentTerms = (rowParams: {
+    selectedRows: PaymentTerm[]
+  }) => {
     const { selectedRows = [] } = rowParams
     const paymentTermsToRemove = [] as number[]
 
