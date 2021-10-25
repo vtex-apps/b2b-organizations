@@ -11,7 +11,7 @@
     "@types/node": "^13.9.8",
     "@types/react": "^16.9.31",
     "@vtex/test-tools": "^3.3.2",
-    "@vtex/tsconfig": "^0.4.4",
+    "@vtex/tsconfig": "^0.6.0",
     "apollo-cache-inmemory": "^1.6.5",
     "graphql": "^14.6.0",
     "vtex.css-handles": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.css-handles@0.4.4/public/@types/vtex.css-handles",

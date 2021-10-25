@@ -8,6 +8,10 @@ query GetOrganization($id: ID!) {
       id
       name
     }
+    paymentTerms {
+      id
+      name
+    }
     priceTables
     costCenters
   }

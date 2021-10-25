@@ -37,7 +37,7 @@ const useSessionResponse = () => {
       return
     }
 
-    sessionPromise.then((sessionResponse) => {
+    sessionPromise.then(sessionResponse => {
       const { response } = sessionResponse
 
       setSession(response)
@@ -225,7 +225,7 @@ const RequestOrganizationForm: FC = () => {
       .then(() => {
         toastMessage(messages.toastSuccess)
       })
-      .catch((error) => {
+      .catch(error => {
         console.error(error)
         toastMessage(messages.toastFailure)
       })
