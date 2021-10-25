@@ -185,7 +185,7 @@ const OrganizationRequestsTable: FunctionComponent = () => {
                   const newValue = toggleValueByKey(`${opt}`)
                   const newValueKeys = Object.keys(newValue)
                   const isEmptyFilter = !newValueKeys.some(
-                    (key) => !newValue[key]
+                    key => !newValue[key]
                   )
 
                   onChange(isEmptyFilter ? null : newValue)
@@ -250,7 +250,7 @@ const OrganizationRequestsTable: FunctionComponent = () => {
   const handleFiltersChange = (statements: FilterStatement[]) => {
     const statuses = [] as string[]
 
-    statements.forEach((statement) => {
+    statements.forEach(statement => {
       if (!statement?.object) return
       const { subject, object } = statement
 
@@ -258,9 +258,9 @@ const OrganizationRequestsTable: FunctionComponent = () => {
         case 'status': {
           if (!object) return
           const keys = Object.keys(object)
-          const isAllTrue = !keys.some((key) => !object[key])
-          const isAllFalse = !keys.some((key) => object[key])
-          const trueKeys = keys.filter((key) => object[key])
+          const isAllTrue = !keys.some(key => !object[key])
+          const isAllFalse = !keys.some(key => object[key])
+          const trueKeys = keys.filter(key => object[key])
 
           if (isAllTrue) break
           if (isAllFalse) statuses.push('none')
@@ -427,9 +427,9 @@ const OrganizationRequestsTable: FunctionComponent = () => {
                   }
 
                   const keys = st.object ? Object.keys(st.object) : []
-                  const isAllTrue = !keys.some((key) => !st.object[key])
-                  const isAllFalse = !keys.some((key) => st.object[key])
-                  const trueKeys = keys.filter((key) => st.object[key])
+                  const isAllTrue = !keys.some(key => !st.object[key])
+                  const isAllFalse = !keys.some(key => st.object[key])
+                  const trueKeys = keys.filter(key => st.object[key])
                   let trueKeysLabel = ''
 
                   trueKeys.forEach((key, index) => {

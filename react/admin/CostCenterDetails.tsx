@@ -161,7 +161,7 @@ const CostCenterDetails: FunctionComponent = () => {
         refetch()
         setLoadingState(false)
       })
-      .catch((error) => {
+      .catch(error => {
         console.error(error)
         toast.dispatch({
           type: 'error',
@@ -181,7 +181,7 @@ const CostCenterDetails: FunctionComponent = () => {
           params: { id: data.getCostCenterById.organization },
         })
       })
-      .catch((error) => {
+      .catch(error => {
         console.error(error)
         toast.dispatch({
           type: 'error',
@@ -206,7 +206,7 @@ const CostCenterDetails: FunctionComponent = () => {
 
   const handleEditAddressModal = (addressId: string) => {
     const editAddress = addresses.find(
-      (address) => address.addressId === addressId
+      address => address.addressId === addressId
     )
 
     if (!editAddress) return
@@ -266,7 +266,7 @@ const CostCenterDetails: FunctionComponent = () => {
     const addressArray = addresses
 
     const addressIndex = addresses.findIndex(
-      (address) => address.addressId === addressId
+      address => address.addressId === addressId
     )
 
     addressArray[addressIndex] = {

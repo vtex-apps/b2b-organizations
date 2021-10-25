@@ -80,7 +80,7 @@ const OrganizationRequestDetails: FunctionComponent = () => {
         })
         refetch({ id: params?.id })
       })
-      .catch((error) => {
+      .catch(error => {
         setLoadingState(false)
         console.error(error)
         toast.dispatch({

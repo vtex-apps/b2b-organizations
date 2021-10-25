@@ -211,10 +211,10 @@ const OrganizationDetails: FunctionComponent = () => {
     }
   )
 
-  const { data: collectionsData, refetch: refetchCollections } = useQuery(
-    GET_COLLECTIONS,
-    { ssr: false }
-  )
+  const {
+    data: collectionsData,
+    refetch: refetchCollections,
+  } = useQuery(GET_COLLECTIONS, { ssr: false })
 
   const { data: paymentTermsData } = useQuery<{
     getPaymentTerms: PaymentTerm[]
@@ -383,7 +383,7 @@ const OrganizationDetails: FunctionComponent = () => {
   const handleUpdateOrganization = () => {
     setLoadingState(true)
 
-    const collections = collectionsState.map((collection) => {
+    const collections = collectionsState.map(collection => {
       return { name: collection.name, id: collection.collectionId }
     })
 
@@ -404,7 +404,7 @@ const OrganizationDetails: FunctionComponent = () => {
         })
         refetch({ id: params?.id })
       })
-      .catch((error) => {
+      .catch(error => {
         setLoadingState(false)
         console.error(error)
         toast.dispatch({
@@ -434,7 +434,7 @@ const OrganizationDetails: FunctionComponent = () => {
     })
 
     const newCollectionList = collectionsState.filter(
-      (collection) => !collectionsToRemove.includes(collection.collectionId)
+      collection => !collectionsToRemove.includes(collection.collectionId)
     )
 
     setCollectionsState(newCollectionList)
@@ -454,12 +454,12 @@ const OrganizationDetails: FunctionComponent = () => {
     const { selectedRows = [] } = rowParams
     const paymentTermsToRemove = [] as number[]
 
-    selectedRows.forEach((row) => {
+    selectedRows.forEach(row => {
       paymentTermsToRemove.push(row.id)
     })
 
     const newPaymentTerms = paymentTermsState.filter(
-      (paymentTerm) => !paymentTermsToRemove.includes(paymentTerm.id)
+      paymentTerm => !paymentTermsToRemove.includes(paymentTerm.id)
     )
 
     setPaymentTermsState(newPaymentTerms)
@@ -473,7 +473,7 @@ const OrganizationDetails: FunctionComponent = () => {
       newPriceTables.push(row.name)
     })
 
-    setPriceTablesState((prevState) => [...prevState, ...newPriceTables])
+    setPriceTablesState(prevState => [...prevState, ...newPriceTables])
   }
 
   const handleRemovePriceTables = (rowParams: any) => {
@@ -485,7 +485,7 @@ const OrganizationDetails: FunctionComponent = () => {
     })
 
     const newPriceTablesList = priceTablesState.filter(
-      (priceTable) => !priceTablesToRemove.includes(priceTable)
+      priceTable => !priceTablesToRemove.includes(priceTable)
     )
 
     setPriceTablesState(newPriceTablesList)
@@ -528,7 +528,7 @@ const OrganizationDetails: FunctionComponent = () => {
         })
         refetchCostCenters({ ...costCenterPaginationState, id: params?.id })
       })
-      .catch((error) => {
+      .catch(error => {
         setNewCostCenterModalState(false)
         setLoadingState(false)
         console.error(error)
@@ -834,7 +834,7 @@ const OrganizationDetails: FunctionComponent = () => {
           <Table
             fullWidth
             schema={getSchema()}
-            items={priceTablesState.map((priceTable) => {
+            items={priceTablesState.map(priceTable => {
               return { name: priceTable }
             })}
             bulkActions={{
