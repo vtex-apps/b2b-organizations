@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Fixed
+
+- Update toast usage to match new `@vtex/admin-ui` requirements
+- Allow organization names to be changed through `OrganizationDetails` admin component
+
 ## [0.0.3] - 2021-10-25
 
 ### Added

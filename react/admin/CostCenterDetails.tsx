@@ -13,7 +13,7 @@ import {
   Input,
   ModalDialog,
 } from 'vtex.styleguide'
-import { toast } from '@vtex/admin-ui'
+import { useToast } from '@vtex/admin-ui'
 import { useIntl, FormattedMessage, defineMessages } from 'react-intl'
 import { useRuntime } from 'vtex.render-runtime'
 import {
@@ -86,6 +86,8 @@ const CostCenterDetails: FunctionComponent = () => {
     navigate,
   } = useRuntime()
 
+  const showToast = useToast()
+
   const [loadingState, setLoadingState] = useState(false)
   const [costCenterName, setCostCenterName] = useState('')
   const [addresses, setAddresses] = useState([] as Address[])
@@ -154,7 +156,7 @@ const CostCenterDetails: FunctionComponent = () => {
 
     updateCostCenter({ variables })
       .then(() => {
-        toast.dispatch({
+        showToast({
           type: 'success',
           message: formatMessage(messages.toastUpdateSuccess),
         })
@@ -163,7 +165,7 @@ const CostCenterDetails: FunctionComponent = () => {
       })
       .catch(error => {
         console.error(error)
-        toast.dispatch({
+        showToast({
           type: 'error',
           message: formatMessage(messages.toastUpdateFailure),
         })
@@ -183,7 +185,7 @@ const CostCenterDetails: FunctionComponent = () => {
       })
       .catch(error => {
         console.error(error)
-        toast.dispatch({
+        showToast({
           type: 'error',
           message: formatMessage(messages.toastDeleteFailure),
         })

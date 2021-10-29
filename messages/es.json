@@ -27,6 +27,7 @@
   "admin/b2b-organizations.organizations-admin.table.column-status.title": "admin/b2b-organizations.organizations-admin.table.column-status.title",
   "admin/b2b-organizations.organizations-admin.table.view.label": "admin/b2b-organizations.organizations-admin.table.view.label",
   "admin/b2b-organizations.organizations-admin.title": "admin/b2b-organizations.organizations-admin.title",
+  "admin/b2b-organizations.organizations-admin.button.refetch": "admin/b2b-organizations.organizations-admin.button.refetch",
   "admin/b2b-organizations.organizations-admin.table.empty-state": "admin/b2b-organizations.organizations-admin.table.empty-state",
   "admin/b2b-organizations.organizations-admin.table.search.placeholder": "admin/b2b-organizations.organizations-admin.table.search.placeholder",
   "admin/b2b-organizations.organizations-admin.table.clearFilters.label": "admin/b2b-organizations.organizations-admin.table.clearFilters.label",

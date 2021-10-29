@@ -10,7 +10,7 @@ import {
   Spinner,
   Button,
 } from 'vtex.styleguide'
-import { toast } from '@vtex/admin-ui'
+import { useToast } from '@vtex/admin-ui'
 import { useIntl, FormattedMessage, defineMessages } from 'react-intl'
 import { useRuntime } from 'vtex.render-runtime'
 import { AddressRules, AddressSummary } from 'vtex.address-form'
@@ -50,6 +50,8 @@ const OrganizationRequestDetails: FunctionComponent = () => {
     navigate,
   } = useRuntime()
 
+  const showToast = useToast()
+
   const [notesState, setNotesState] = useState('')
   const [loadingState, setLoadingState] = useState(false)
 
@@ -71,7 +73,7 @@ const OrganizationRequestDetails: FunctionComponent = () => {
     updateOrganizationRequest({ variables })
       .then(() => {
         setLoadingState(false)
-        toast.dispatch({
+        showToast({
           type: 'success',
           message:
             status === 'approved'
@@ -83,7 +85,7 @@ const OrganizationRequestDetails: FunctionComponent = () => {
       .catch(error => {
         setLoadingState(false)
         console.error(error)
-        toast.dispatch({
+        showToast({
           type: 'success',
           message: formatMessage(messages.toastUpdateFailure),
         })

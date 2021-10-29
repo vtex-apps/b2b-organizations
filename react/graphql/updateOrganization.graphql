@@ -1,5 +1,6 @@
 mutation UpdateOrganization(
   $id: ID!
+  $name: String!
   $status: String!
   $collections: [CollectionInput]
   $paymentTerms: [PaymentTermInput]
@@ -7,6 +8,7 @@ mutation UpdateOrganization(
 ) {
   updateOrganization(
     id: $id
+    name: $name
     status: $status
     collections: $collections
     paymentTerms: $paymentTerms

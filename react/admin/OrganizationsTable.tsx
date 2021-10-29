@@ -10,10 +10,11 @@ import {
   Checkbox,
   ModalDialog,
   Input,
+  Button,
 } from 'vtex.styleguide'
 import { useIntl, FormattedMessage, defineMessages } from 'react-intl'
 import { useRuntime } from 'vtex.render-runtime'
-import { toast } from '@vtex/admin-ui'
+import { useToast } from '@vtex/admin-ui'
 import {
   AddressRules,
   AddressForm,
@@ -128,6 +129,8 @@ const OrganizationsTable: FunctionComponent = () => {
     culture: { country },
   } = useRuntime()
 
+  const showToast = useToast()
+
   const [filterState, setFilterState] = useState({
     filterStatements: [] as FilterStatement[],
   })
@@ -194,7 +197,10 @@ const OrganizationsTable: FunctionComponent = () => {
       .then(() => {
         setNewOrganizationModalState(false)
         setLoadingState(false)
-        toast.dispatch({
+        setNewOrganizationName('')
+        setNewCostCenterName('')
+        setNewCostCenterAddressState(addValidation(getEmptyAddress(country)))
+        showToast({
           type: 'success',
           message: formatMessage(messages.toastAddOrgSuccess),
         })
@@ -204,7 +210,7 @@ const OrganizationsTable: FunctionComponent = () => {
         setNewOrganizationModalState(false)
         setLoadingState(false)
         console.error(error)
-        toast.dispatch({
+        showToast({
           type: 'error',
           message: formatMessage(messages.toastAddOrgFailure),
         })
@@ -455,7 +461,13 @@ const OrganizationsTable: FunctionComponent = () => {
   return (
     <Layout
       fullWidth
-      pageHeader={<PageHeader title={formatMessage(messages.pageTitle)} />}
+      pageHeader={
+        <PageHeader title={formatMessage(messages.pageTitle)}>
+          <Button onClick={() => refetch()}>
+            <FormattedMessage id="admin/b2b-organizations.organizations-admin.button.refetch" />
+          </Button>
+        </PageHeader>
+      }
     >
       <PageBlock>
         <Table

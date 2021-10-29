@@ -12,7 +12,7 @@ import {
   Input,
   ModalDialog,
 } from 'vtex.styleguide'
-import { toast } from '@vtex/admin-ui'
+import { useToast } from '@vtex/admin-ui'
 import { useIntl, FormattedMessage, defineMessages } from 'react-intl'
 import { useRuntime } from 'vtex.render-runtime'
 import {
@@ -164,6 +164,8 @@ const OrganizationDetails: FunctionComponent = () => {
     route: { params },
     navigate,
   } = useRuntime()
+
+  const showToast = useToast()
 
   const [organizationNameState, setOrganizationNameState] = useState('')
   const [statusState, setStatusState] = useState('')
@@ -389,6 +391,7 @@ const OrganizationDetails: FunctionComponent = () => {
 
     const variables = {
       id: params?.id,
+      name: organizationNameState,
       status: statusState,
       collections,
       paymentTerms: paymentTermsState,
@@ -398,7 +401,7 @@ const OrganizationDetails: FunctionComponent = () => {
     updateOrganization({ variables })
       .then(() => {
         setLoadingState(false)
-        toast.dispatch({
+        showToast({
           type: 'success',
           message: formatMessage(messages.toastUpdateSuccess),
         })
@@ -407,7 +410,7 @@ const OrganizationDetails: FunctionComponent = () => {
       .catch(error => {
         setLoadingState(false)
         console.error(error)
-        toast.dispatch({
+        showToast({
           type: 'error',
           message: formatMessage(messages.toastUpdateFailure),
         })
@@ -522,7 +525,7 @@ const OrganizationDetails: FunctionComponent = () => {
       .then(() => {
         setNewCostCenterModalState(false)
         setLoadingState(false)
-        toast.dispatch({
+        showToast({
           type: 'success',
           message: formatMessage(messages.toastAddCostCenterSuccess),
         })
@@ -532,7 +535,7 @@ const OrganizationDetails: FunctionComponent = () => {
         setNewCostCenterModalState(false)
         setLoadingState(false)
         console.error(error)
-        toast.dispatch({
+        showToast({
           type: 'error',
           message: formatMessage(messages.toastAddCostCenterFailure),
         })

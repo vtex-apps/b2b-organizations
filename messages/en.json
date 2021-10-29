@@ -27,6 +27,7 @@
   "admin/b2b-organizations.organizations-admin.table.column-status.title": "Status",
   "admin/b2b-organizations.organizations-admin.table.view.label": "View",
   "admin/b2b-organizations.organizations-admin.title": "Organizations",
+  "admin/b2b-organizations.organizations-admin.button.refetch": "Refetch",
   "admin/b2b-organizations.organizations-admin.table.empty-state": "No organizations found.",
   "admin/b2b-organizations.organizations-admin.table.search.placeholder": "Search",
   "admin/b2b-organizations.organizations-admin.table.clearFilters.label": "Clear filters",
