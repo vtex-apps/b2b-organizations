@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [0.0.4] - 2021-10-29
+
 ### Fixed
 
 - Update toast usage to match new `@vtex/admin-ui` requirements
