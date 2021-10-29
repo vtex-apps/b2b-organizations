@@ -195,7 +195,7 @@ const OrganizationDetails: FunctionComponent = () => {
         toastMessage(messages.toastAddCostCenterSuccess)
         refetchCostCenters({ ...costCenterPaginationState })
       })
-      .catch((error) => {
+      .catch(error => {
         setNewCostCenterModalState(false)
         setLoadingState(false)
         console.error(error)

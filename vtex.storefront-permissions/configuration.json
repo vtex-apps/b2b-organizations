@@ -2,17 +2,22 @@
   "name": "B2B Organizations",
   "features": [
     {
+      "label": "Manage My Organization",
+      "value": "manage-organization",
+      "roles": ["customer-admin"]
+    },
+    {
       "label": "Create and Edit Cost Centers in Same Organization",
       "value": "create-cost-center-organization",
       "roles": ["customer-admin"]
     },
     {
-      "label": "Add Users to any Cost Center in Same Organization",
+      "label": "Add Organization Users to any Cost Center in Same Organization",
       "value": "add-users-organization",
       "roles": ["customer-admin"]
     },
     {
-      "label": "Remove Users from any Cost Center in Same Organization",
+      "label": "Remove Organization Users from any Cost Center in Same Organization",
       "value": "remove-users-organization",
       "roles": ["customer-admin"]
     }

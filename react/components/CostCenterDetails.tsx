@@ -146,7 +146,7 @@ const CostCenterDetails: FunctionComponent = () => {
         refetch()
         setLoadingState(false)
       })
-      .catch((error) => {
+      .catch(error => {
         console.error(error)
         toastMessage(messages.toastUpdateFailure)
         setLoadingState(false)
@@ -162,7 +162,7 @@ const CostCenterDetails: FunctionComponent = () => {
           params: { id: data.getCostCenterById.organization },
         })
       })
-      .catch((error) => {
+      .catch(error => {
         console.error(error)
         toastMessage(messages.toastDeleteFailure)
         setLoadingState(false)
@@ -182,7 +182,7 @@ const CostCenterDetails: FunctionComponent = () => {
 
   const handleEditAddressModal = (addressId: string) => {
     const editAddress = addresses.find(
-      (address) => address.addressId === addressId
+      address => address.addressId === addressId
     )
 
     if (!editAddress) return
@@ -224,7 +224,7 @@ const CostCenterDetails: FunctionComponent = () => {
     const addressArray = addresses
 
     const addressIndex = addresses.findIndex(
-      (address) => address.addressId === addressId
+      address => address.addressId === addressId
     )
 
     addressArray[addressIndex] = {
@@ -253,7 +253,7 @@ const CostCenterDetails: FunctionComponent = () => {
     const addressArray = addresses
 
     const addressIndex = addresses.findIndex(
-      (address) => address.addressId === addressId
+      address => address.addressId === addressId
     )
 
     addresses.splice(addressIndex, 1)
