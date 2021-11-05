@@ -1,0 +1,24 @@
+query GetCostCenterStorefront($id: ID!) {
+  getCostCenterByIdStorefront(id: $id)
+    @context(provider: "vtex.b2b-organizations-graphql") {
+    id
+    name
+    organization
+    addresses {
+      addressId
+      addressType
+      addressQuery
+      postalCode
+      country
+      receiverName
+      city
+      state
+      street
+      number
+      complement
+      neighborhood
+      geoCoordinates
+      reference
+    }
+  }
+}

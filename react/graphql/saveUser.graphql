@@ -1,0 +1,26 @@
+mutation SaveUser(
+  $id: ID
+  $roleId: ID!
+  $userId: ID
+  $orgId: ID
+  $costId: ID
+  $clId: ID
+  $canImpersonate: Boolean = false
+  $name: String!
+  $email: String!
+) {
+  saveUser(
+    id: $id
+    roleId: $roleId
+    userId: $userId
+    orgId: $orgId
+    costId: $costId
+    clId: $clId
+    canImpersonate: $canImpersonate
+    name: $name
+    email: $email
+  ) @context(provider: "vtex.b2b-organizations-graphql") {
+    id
+    status
+  }
+}

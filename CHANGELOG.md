@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Added
 
-- Storefront UI for B2B customers to manage their organization
+- Storefront UI for B2B customer admins to manage their organization (cost centers and users)
 
 ### Fixed
 

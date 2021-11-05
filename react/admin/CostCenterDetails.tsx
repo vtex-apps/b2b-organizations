@@ -297,7 +297,7 @@ const CostCenterDetails: FunctionComponent = () => {
     const addressArray = addresses
 
     const addressIndex = addresses.findIndex(
-      (address) => address.addressId === addressId
+      address => address.addressId === addressId
     )
 
     addresses.splice(addressIndex, 1)

@@ -1,6 +1,19 @@
 query GetUsers($organizationId: ID, $costCenterId: ID) {
   getUsers(organizationId: $organizationId, costCenterId: $costCenterId)
     @context(provider: "vtex.b2b-organizations-graphql") {
+    id
+    roleId
+    userId
     clId
+    orgId
+    costId
+    name
+    email
+    canImpersonate
+    role {
+      name
+    }
+    organizationName
+    costCenterName
   }
 }

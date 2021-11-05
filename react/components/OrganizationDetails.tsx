@@ -15,8 +15,9 @@ import { useRuntime } from 'vtex.render-runtime'
 import storageFactory from '../utils/storage'
 import { useSessionResponse } from '../modules/session'
 import NewCostCenterModal from './NewCostCenterModal'
-import GET_ORGANIZATION from '../graphql/getOrganization.graphql'
-import GET_COST_CENTERS from '../graphql/getCostCentersByOrganizationId.graphql'
+import OrganizationUsersTable from './OrganizationUsersTable'
+import GET_ORGANIZATION from '../graphql/getOrganizationStorefront.graphql'
+import GET_COST_CENTERS from '../graphql/getCostCentersByOrganizationIdStorefront.graphql'
 import CREATE_COST_CENTER from '../graphql/createCostCenter.graphql'
 
 interface CellRendererProps {
@@ -56,6 +57,9 @@ const messages = defineMessages({
   costCenters: {
     id: `${storePrefix}organization-details.costCenters`,
   },
+  users: {
+    id: `${storePrefix}organization-details.users`,
+  },
   showRows: {
     id: `${storePrefix}showRows`,
   },
@@ -69,7 +73,7 @@ const messages = defineMessages({
 
 const OrganizationDetails: FunctionComponent = () => {
   const {
-    // route: { params },
+    route: { params },
     navigate,
   } = useRuntime()
 
@@ -105,7 +109,11 @@ const OrganizationDetails: FunctionComponent = () => {
   const [loadingState, setLoadingState] = useState(false)
   const [newCostCenterModalState, setNewCostCenterModalState] = useState(false)
 
-  const { data, loading } = useQuery(GET_ORGANIZATION, { ssr: false })
+  const { data, loading } = useQuery(GET_ORGANIZATION, {
+    variables: { id: params?.id },
+    ssr: false,
+  })
+
   const { data: costCentersData, refetch: refetchCostCenters } = useQuery(
     GET_COST_CENTERS,
     {
@@ -254,13 +262,17 @@ const OrganizationDetails: FunctionComponent = () => {
   return (
     <Layout
       fullWidth
-      pageHeader={<PageHeader title={data.getOrganizationById?.name} />}
+      pageHeader={
+        <PageHeader title={data.getOrganizationByIdStorefront?.name} />
+      }
     >
       <PageBlock title={formatMessage(messages.costCenters)}>
         <Table
           fullWidth
           schema={getCostCenterSchema()}
-          items={costCentersData?.getCostCentersByOrganizationId?.data}
+          items={
+            costCentersData?.getCostCentersByOrganizationIdStorefront?.data
+          }
           onRowClick={({ rowData: { id } }: CellRendererProps) => {
             if (!id) return
 
@@ -278,19 +290,19 @@ const OrganizationDetails: FunctionComponent = () => {
                 costCenterPaginationState.pageSize +
               1,
             currentItemTo:
-              costCentersData?.getCostCentersByOrganizationId?.pagination
-                ?.total <
+              costCentersData?.getCostCentersByOrganizationIdStorefront
+                ?.pagination?.total <
               costCenterPaginationState.page *
                 costCenterPaginationState.pageSize
-                ? costCentersData?.getCostCentersByOrganizationId?.pagination
-                    ?.total
+                ? costCentersData?.getCostCentersByOrganizationIdStorefront
+                    ?.pagination?.total
                 : costCenterPaginationState.page *
                   costCenterPaginationState.pageSize,
             textShowRows: formatMessage(messages.showRows),
             textOf: formatMessage(messages.of),
             totalItems:
-              costCentersData?.getCostCentersByOrganizationId?.pagination
-                ?.total ?? 0,
+              costCentersData?.getCostCentersByOrganizationIdStorefront
+                ?.pagination?.total ?? 0,
             rowsOptions: [25, 50, 100],
           }}
           toolbar={{
@@ -300,6 +312,11 @@ const OrganizationDetails: FunctionComponent = () => {
             },
           }}
         ></Table>
+      </PageBlock>
+      <PageBlock title={formatMessage(messages.users)}>
+        <OrganizationUsersTable
+          organizationId={data.getOrganizationByIdStorefront?.id}
+        />
       </PageBlock>
       <NewCostCenterModal
         isOpen={newCostCenterModalState}

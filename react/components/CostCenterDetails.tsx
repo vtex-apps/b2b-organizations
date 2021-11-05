@@ -23,7 +23,7 @@ import NewAddressModal from './NewAddressModal'
 import EditAddressModal from './EditAddressModal'
 import DeleteAddressModal from './DeleteAddressModal'
 import DeleteCostCenterModal from './DeleteCostCenterModal'
-import GET_COST_CENTER from '../graphql/getCostCenter.graphql'
+import GET_COST_CENTER from '../graphql/getCostCenterStorefront.graphql'
 import UPDATE_COST_CENTER from '../graphql/updateCostCenter.graphql'
 import DELETE_COST_CENTER from '../graphql/deleteCostCenter.graphql'
 

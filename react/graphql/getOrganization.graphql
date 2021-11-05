@@ -1,6 +1,7 @@
 query GetOrganization($id: ID) {
   getOrganizationById(id: $id)
     @context(provider: "vtex.b2b-organizations-graphql") {
+    id
     name
     status
     created
