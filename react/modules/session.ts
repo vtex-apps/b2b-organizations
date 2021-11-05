@@ -50,7 +50,7 @@ export const useSessionResponse = () => {
       return
     }
 
-    sessionPromise.then((sessionResponse) => {
+    sessionPromise.then(sessionResponse => {
       const { response } = sessionResponse
 
       setSession(response)
