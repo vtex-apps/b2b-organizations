@@ -1,3 +1,5 @@
+import { useState, useEffect } from 'react'
+
 interface KeyValue {
   value: string
 }
@@ -37,4 +39,23 @@ export function getSession() {
         SessionPromise
       >)
     : null
+}
+
+export const useSessionResponse = () => {
+  const [session, setSession] = useState<unknown>()
+  const sessionPromise = getSession()
+
+  useEffect(() => {
+    if (!sessionPromise) {
+      return
+    }
+
+    sessionPromise.then(sessionResponse => {
+      const { response } = sessionResponse
+
+      setSession(response)
+    })
+  }, [sessionPromise])
+
+  return session
 }

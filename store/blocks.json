@@ -1,5 +1,11 @@
 {
-  "store.organizations": {
+  "store.organization-request": {
     "blocks": ["request-organization"]
+  },
+  "store.organization-details": {
+    "blocks": ["organization-details"]
+  },
+  "store.costcenter-details": {
+    "blocks": ["costcenter-details"]
   }
 }

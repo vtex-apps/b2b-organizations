@@ -292,6 +292,19 @@ const CostCenterDetails: FunctionComponent = () => {
     handleCloseModals()
   }
 
+  const handleDeleteAddress = () => {
+    const { addressId } = deleteAddressModalState
+    const addressArray = addresses
+
+    const addressIndex = addresses.findIndex(
+      address => address.addressId === addressId
+    )
+
+    addresses.splice(addressIndex, 1)
+    setAddresses(addressArray)
+    handleCloseModals()
+  }
+
   const options = (addressId: string) => [
     {
       label: formatMessage(messages.addressEdit),
@@ -506,7 +519,7 @@ const CostCenterDetails: FunctionComponent = () => {
       <ModalDialog
         centered
         confirmation={{
-          onClick: () => {},
+          onClick: () => handleDeleteAddress(),
           label: formatMessage(messages.deleteConfirm),
         }}
         cancelation={{

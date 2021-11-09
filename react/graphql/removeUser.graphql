@@ -1,0 +1,6 @@
+mutation RemoveUser($id: ID!, $userId: ID, $email: String!) {
+  removeUser(id: $id, userId: $userId, email: $email)
+    @context(provider: "vtex.b2b-organizations-graphql") {
+    status
+  }
+}
