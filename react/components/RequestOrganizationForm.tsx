@@ -148,10 +148,9 @@ const RequestOrganizationForm: FC = () => {
 
   const toastMessage = (message: MessageDescriptor) => {
     const translatedMessage = translateMessage(message)
-
     const action = undefined
 
-    showToast({ translatedMessage, action })
+    showToast({ message: translatedMessage, action })
   }
 
   const translateCountries = () => {
