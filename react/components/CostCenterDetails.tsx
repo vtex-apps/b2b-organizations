@@ -124,10 +124,14 @@ const CostCenterDetails: FunctionComponent = () => {
   const [deleteCostCenter] = useMutation(DELETE_COST_CENTER)
 
   useEffect(() => {
-    if (addresses.length || !data?.getCostCenterById?.addresses?.length) return
+    if (
+      addresses.length ||
+      !data?.getCostCenterByIdStorefront?.addresses?.length
+    )
+      return
 
-    setCostCenterName(data.getCostCenterById.name)
-    setAddresses(data.getCostCenterById.addresses)
+    setCostCenterName(data.getCostCenterByIdStorefront.name)
+    setAddresses(data.getCostCenterByIdStorefront.addresses)
   }, [data])
 
   const handleUpdateCostCenter = () => {
@@ -159,7 +163,7 @@ const CostCenterDetails: FunctionComponent = () => {
       .then(() => {
         navigate({
           page: 'store.organization-details',
-          params: { id: data.getCostCenterById.organization },
+          params: { id: data.getCostCenterByIdStorefront.organization },
         })
       })
       .catch(error => {
