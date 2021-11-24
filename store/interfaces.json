@@ -16,5 +16,8 @@
   },
   "costcenter-details": {
     "component": "StorefrontCostCenterDetails"
+  },
+  "b2b-user-widget": {
+    "component": "StorefrontUserWidget"
   }
 }
