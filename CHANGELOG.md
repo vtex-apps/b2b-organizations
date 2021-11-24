@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Added
+
+- Additional permission checks to storefront UI
+- Improved breadcrumb on cost center details page (storefront and admin)
+
 ## [0.1.0] - 2021-11-09
 
 ### Added
