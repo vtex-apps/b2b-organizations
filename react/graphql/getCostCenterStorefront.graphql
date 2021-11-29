@@ -1,4 +1,4 @@
-query GetCostCenterStorefront($id: ID!) {
+query GetCostCenterStorefront($id: ID) {
   getCostCenterByIdStorefront(id: $id)
     @context(provider: "vtex.b2b-organizations-graphql") {
     id

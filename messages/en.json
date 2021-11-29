@@ -177,5 +177,9 @@
   "store/b2b-organizations.user-details.costCenter": "Cost Center",
   "store/b2b-organizations.user-details.placeholder-costCenter": "Select a cost center",
   "store/b2b-organizations.user-details.role": "Role",
-  "store/b2b-organizations.user-details.placeholder-role": "Select a role"
+  "store/b2b-organizations.user-details.placeholder-role": "Select a role",
+  "store/b2b-organizations.user-widget.role": "My Role:",
+  "store/b2b-organizations.user-widget.organization": "My Organization:",
+  "store/b2b-organizations.user-widget.costCenter": "My Cost Center:",
+  "store/b2b-organizations.user-widget.manage-organization": "Manage Organization"
 }

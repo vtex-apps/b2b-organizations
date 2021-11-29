@@ -177,5 +177,9 @@
   "store/b2b-organizations.user-details.costCenter": "store/b2b-organizations.user-details.costCenter",
   "store/b2b-organizations.user-details.placeholder-costCenter": "store/b2b-organizations.user-details.placeholder-costCenter",
   "store/b2b-organizations.user-details.role": "store/b2b-organizations.user-details.role",
-  "store/b2b-organizations.user-details.placeholder-role": "store/b2b-organizations.user-details.placeholder-role"
+  "store/b2b-organizations.user-details.placeholder-role": "store/b2b-organizations.user-details.placeholder-role",
+  "store/b2b-organizations.user-widget.role": "store/b2b-organizations.user-widget.role",
+  "store/b2b-organizations.user-widget.organization": "store/b2b-organizations.user-widget.organization",
+  "store/b2b-organizations.user-widget.costCenter": "store/b2b-organizations.user-widget.costCenter",
+  "store/b2b-organizations.user-widget.manage-organization": "store/b2b-organizations.user-widget.manage-organization"
 }
