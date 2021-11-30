@@ -57,7 +57,7 @@ interface PriceTable {
 }
 
 interface PaymentTerm {
-  id: number
+  paymentTermId: number
   name: string
 }
 
@@ -239,10 +239,21 @@ const OrganizationDetails: FunctionComponent = () => {
 
   useEffect(() => {
     if (!data?.getOrganizationById || statusState) return
+
+    const collections =
+      data.getOrganizationById.collections?.map((collection: any) => {
+        return { name: collection.name, collectionId: collection.id }
+      }) ?? []
+
+    const paymentTerms =
+      data.getOrganizationById.paymentTerms?.map((paymentTerm: any) => {
+        return { name: paymentTerm.name, paymentTermId: paymentTerm.id }
+      }) ?? []
+
     setOrganizationNameState(data.getOrganizationById.name)
     setStatusState(data.getOrganizationById.status)
-    setCollectionsState(data.getOrganizationById.collections ?? [])
-    setPaymentTermsState(data.getOrganizationById.paymentTerms ?? [])
+    setCollectionsState(collections)
+    setPaymentTermsState(paymentTerms)
     setPriceTablesState(data.getOrganizationById.priceTables ?? [])
   }, [data])
 
@@ -284,7 +295,12 @@ const OrganizationDetails: FunctionComponent = () => {
       return
     }
 
-    setPaymentTermsOptions(paymentTermsData.getPaymentTerms)
+    const paymentTerms =
+      paymentTermsData.getPaymentTerms.map((paymentTerm: any) => {
+        return { name: paymentTerm.name, paymentTermId: paymentTerm.id }
+      }) ?? []
+
+    setPaymentTermsOptions(paymentTerms)
   }, [paymentTermsData])
 
   const handleCostCentersPrevClick = () => {
@@ -389,12 +405,16 @@ const OrganizationDetails: FunctionComponent = () => {
       return { name: collection.name, id: collection.collectionId }
     })
 
+    const paymentTerms = paymentTermsState.map(paymentTerm => {
+      return { name: paymentTerm.name, id: paymentTerm.paymentTermId }
+    })
+
     const variables = {
       id: params?.id,
       name: organizationNameState,
       status: statusState,
       collections,
-      paymentTerms: paymentTermsState,
+      paymentTerms,
       priceTables: priceTablesState,
     }
 
@@ -422,7 +442,13 @@ const OrganizationDetails: FunctionComponent = () => {
     const newCollections = [] as Collection[]
 
     selectedRows.forEach((row: any) => {
-      newCollections.push({ name: row.name, collectionId: row.collectionId })
+      if (
+        !collectionsState.some(
+          collection => collection.collectionId === row.collectionId
+        )
+      ) {
+        newCollections.push({ name: row.name, collectionId: row.collectionId })
+      }
     })
 
     setCollectionsState([...collectionsState, ...newCollections])
@@ -447,8 +473,22 @@ const OrganizationDetails: FunctionComponent = () => {
     selectedRows: PaymentTerm[]
   }) => {
     const { selectedRows = [] } = rowParams
+    const newPaymentTerms = [] as PaymentTerm[]
 
-    setPaymentTermsState([...paymentTermsState, ...selectedRows])
+    selectedRows.forEach((row: any) => {
+      if (
+        !paymentTermsState.some(
+          paymentTerm => paymentTerm.paymentTermId === row.paymentTermId
+        )
+      ) {
+        newPaymentTerms.push({
+          name: row.name,
+          paymentTermId: row.paymentTermId,
+        })
+      }
+    })
+
+    setPaymentTermsState([...paymentTermsState, ...newPaymentTerms])
   }
 
   const handleRemovePaymentTerms = (rowParams: {
@@ -458,11 +498,11 @@ const OrganizationDetails: FunctionComponent = () => {
     const paymentTermsToRemove = [] as number[]
 
     selectedRows.forEach(row => {
-      paymentTermsToRemove.push(row.id)
+      paymentTermsToRemove.push(row.paymentTermId)
     })
 
     const newPaymentTerms = paymentTermsState.filter(
-      paymentTerm => !paymentTermsToRemove.includes(paymentTerm.id)
+      paymentTerm => !paymentTermsToRemove.includes(paymentTerm.paymentTermId)
     )
 
     setPaymentTermsState(newPaymentTerms)
@@ -473,7 +513,9 @@ const OrganizationDetails: FunctionComponent = () => {
     const newPriceTables = [] as string[]
 
     selectedRows.forEach((row: any) => {
-      newPriceTables.push(row.name)
+      if (!priceTablesState.includes(row.name)) {
+        newPriceTables.push(row.name)
+      }
     })
 
     setPriceTablesState(prevState => [...prevState, ...newPriceTables])
