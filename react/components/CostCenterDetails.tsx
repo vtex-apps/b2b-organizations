@@ -14,7 +14,6 @@ import {
   ToastContext,
 } from 'vtex.styleguide'
 import { useIntl, FormattedMessage, defineMessages } from 'react-intl'
-import { useRuntime } from 'vtex.render-runtime'
 import { AddressRules, AddressSummary } from 'vtex.address-form'
 
 import storageFactory from '../utils/storage'
@@ -28,6 +27,18 @@ import GET_ORGANIZATION from '../graphql/getOrganizationStorefront.graphql'
 import UPDATE_COST_CENTER from '../graphql/updateCostCenter.graphql'
 import DELETE_COST_CENTER from '../graphql/deleteCostCenter.graphql'
 import GET_PERMISSIONS from '../graphql/getPermissions.graphql'
+
+interface RouterProps {
+  match: Match
+  history: any
+}
+
+interface Match {
+  isExact: boolean
+  params: any
+  path: string
+  url: string
+}
 
 const localStore = storageFactory(() => localStorage)
 let isAuthenticated =
@@ -66,13 +77,11 @@ const messages = defineMessages({
   },
 })
 
-const CostCenterDetails: FunctionComponent = () => {
+const CostCenterDetails: FunctionComponent<RouterProps> = ({
+  match: { params },
+  history,
+}) => {
   const { formatMessage } = useIntl()
-
-  const {
-    route: { params },
-    navigate,
-  } = useRuntime()
 
   const sessionResponse: any = useSessionResponse()
 
@@ -128,10 +137,7 @@ const CostCenterDetails: FunctionComponent = () => {
     GET_ORGANIZATION
   )
 
-  const {
-    data: permissionsData,
-    // loading: permissionsLoading,
-  } = useQuery(GET_PERMISSIONS, { ssr: false })
+  const { data: permissionsData } = useQuery(GET_PERMISSIONS, { ssr: false })
 
   const [updateCostCenter] = useMutation(UPDATE_COST_CENTER)
   const [deleteCostCenter] = useMutation(DELETE_COST_CENTER)
@@ -187,10 +193,9 @@ const CostCenterDetails: FunctionComponent = () => {
     setLoadingState(true)
     deleteCostCenter({ variables: { id: params?.id } })
       .then(() => {
-        navigate({
-          page: 'store.organization-details',
-          params: { id: data.getCostCenterByIdStorefront.organization },
-        })
+        history.push(
+          `/organization/${data.getCostCenterByIdStorefront.organization}`
+        )
       })
       .catch(error => {
         console.error(error)
@@ -311,9 +316,7 @@ const CostCenterDetails: FunctionComponent = () => {
             title={formatMessage(messages.pageTitle)}
             linkLabel={formatMessage(messages.back)}
             onLinkClick={() => {
-              navigate({
-                page: 'store.organization-details',
-              })
+              history.push(`/organization`)
             }}
           />
         }
@@ -334,9 +337,7 @@ const CostCenterDetails: FunctionComponent = () => {
             title={formatMessage(messages.pageTitle)}
             linkLabel={formatMessage(messages.back)}
             onLinkClick={() => {
-              navigate({
-                page: 'store.organization-details',
-              })
+              history.push(`/organization`)
             }}
           />
         }
@@ -363,10 +364,9 @@ const CostCenterDetails: FunctionComponent = () => {
             formatMessage(messages.back)
           }
           onLinkClick={() => {
-            navigate({
-              page: 'store.organization-details',
-              params: { id: data.getCostCenterByIdStorefront.organization },
-            })
+            history.push(
+              `/organization/${data.getCostCenterByIdStorefront.organization}`
+            )
           }}
         >
           <span className="mr4">

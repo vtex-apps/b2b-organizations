@@ -1,4 +1,10 @@
 {
+  "my-account-page.my-organization": {
+    "component": "MyOrganizationPage"
+  },
+  "my-account-link.my-organization": {
+    "component": "MyOrganizationLink"
+  },
   "store.organization-request": {
     "required": ["request-organization"]
   },

@@ -29,6 +29,7 @@ interface B2BUserSimple extends UserDetails {
 
 interface RoleSimple {
   name: string
+  slug: string
 }
 
 const storePrefix = 'store/b2b-organizations.'
@@ -174,15 +175,47 @@ const OrganizationUsersTable: FunctionComponent<Props> = ({
     properties: {
       email: {
         title: formatMessage(messages.columnEmail),
+        cellRenderer: ({ rowData: { email, role } }: CellRendererProps) => (
+          <span
+            className={
+              !canEdit || (canEdit && role.slug.indexOf('sales') > -1)
+                ? 'c-disabled'
+                : ''
+            }
+          >
+            {email}
+          </span>
+        ),
       },
       roleId: {
         title: formatMessage(messages.columnRole),
         cellRenderer: ({ rowData: { role } }: CellRendererProps) => (
-          <span>{role?.name ?? ''}</span>
+          <span
+            className={
+              !canEdit || (canEdit && role.slug.indexOf('sales') > -1)
+                ? 'c-disabled'
+                : ''
+            }
+          >
+            {role.name ?? ''}
+          </span>
         ),
       },
       costCenterName: {
         title: formatMessage(messages.columnCostCenter),
+        cellRenderer: ({
+          rowData: { costCenterName, role },
+        }: CellRendererProps) => (
+          <span
+            className={
+              !canEdit || (canEdit && role.slug.indexOf('sales') > -1)
+                ? 'c-disabled'
+                : ''
+            }
+          >
+            {costCenterName}
+          </span>
+        ),
       },
     },
   })
@@ -196,7 +229,12 @@ const OrganizationUsersTable: FunctionComponent<Props> = ({
         loading={loading}
         emptyStateLabel={formatMessage(messages.emptyState)}
         onRowClick={({ rowData }: CellRendererProps) => {
-          if (!rowData || !canEdit) return
+          if (
+            !rowData ||
+            !canEdit ||
+            (canEdit && rowData.role.slug.indexOf('sales') > -1)
+          )
+            return
 
           setEditUserDetails({
             id: rowData.id,

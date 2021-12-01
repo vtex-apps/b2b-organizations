@@ -10,7 +10,7 @@ import {
   ToastContext,
 } from 'vtex.styleguide'
 import { useQuery, useMutation } from 'react-apollo'
-import { useRuntime } from 'vtex.render-runtime'
+// import { useRuntime } from 'vtex.render-runtime'
 
 import storageFactory from '../utils/storage'
 import { useSessionResponse } from '../modules/session'
@@ -20,6 +20,18 @@ import GET_ORGANIZATION from '../graphql/getOrganizationStorefront.graphql'
 import GET_COST_CENTERS from '../graphql/getCostCentersByOrganizationIdStorefront.graphql'
 import CREATE_COST_CENTER from '../graphql/createCostCenter.graphql'
 import GET_PERMISSIONS from '../graphql/getPermissions.graphql'
+
+interface RouterProps {
+  match: Match
+  history: any
+}
+
+interface Match {
+  isExact: boolean
+  params: any
+  path: string
+  url: string
+}
 
 interface CellRendererProps {
   cellData: unknown
@@ -73,11 +85,11 @@ const messages = defineMessages({
   },
 })
 
-const OrganizationDetails: FunctionComponent = () => {
-  const {
-    route: { params },
-    navigate,
-  } = useRuntime()
+const OrganizationDetails: FunctionComponent<RouterProps> = ({
+  match: { params },
+  history,
+}) => {
+  // const { navigate, rootPath } = useRuntime()
 
   const sessionResponse: any = useSessionResponse()
 
@@ -295,10 +307,10 @@ const OrganizationDetails: FunctionComponent = () => {
           onRowClick={({ rowData: { id } }: CellRendererProps) => {
             if (!id) return
 
-            navigate({
-              page: 'store.costcenter-details',
-              params: { id },
-            })
+            history.push(`/cost-center/${id}`)
+            // navigate({
+            //   to: `${rootPath ?? ''}/account#/cost-center/${id}`,
+            // })
           }}
           pagination={{
             onNextClick: handleCostCentersNextClick,
