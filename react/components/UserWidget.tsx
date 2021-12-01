@@ -41,7 +41,7 @@ let isAuthenticated =
   false
 
 const UserWidget: FunctionComponent = () => {
-  const { navigate } = useRuntime()
+  const { navigate, rootPath } = useRuntime()
   const { formatMessage } = useIntl()
   const handles = useCssHandles(CSS_HANDLES)
 
@@ -109,7 +109,11 @@ const UserWidget: FunctionComponent = () => {
         <Button
           variation="secondary"
           size="small"
-          onClick={() => navigate({ page: 'store.organization-details' })}
+          onClick={() =>
+            navigate({
+              to: `${rootPath ?? ''}/account#/organization`,
+            })
+          }
         >
           {formatMessage(messages.manageOrganization)}
         </Button>

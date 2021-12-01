@@ -7,6 +7,19 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Added
+
+- My Organization link/page to My Account
+
+### Removed
+
+- `/organization/(:id)` and `/cost-center/:id` routes (these pages are now accessible via My Account)
+
+### Fixed
+
+- Payment Term and Collection IDs are now saved/loaded correctly in organizations admin UI
+- Sales users are no longer editable by organization users in storefront organization UI
+
 ## [0.2.0] - 2021-11-29
 
 ### Added

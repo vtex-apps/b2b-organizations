@@ -18,7 +18,9 @@
     "vtex.store": "2.x",
     "vtex.css-handles": "0.x",
     "vtex.styleguide": "9.x",
-    "vtex.storefront-permissions": "1.x"
+    "vtex.storefront-permissions": "1.x",
+    "vtex.my-account": "1.x",
+    "vtex.my-account-commons": "1.x"
   },
   "builders": {
     "react": "3.x",
@@ -33,9 +35,7 @@
       "url": "https://support.vtex.com/hc/requests"
     },
     "type": "free",
-    "availableCountries": [
-      "*"
-    ]
+    "availableCountries": ["*"]
   },
   "$schema": "https://raw.githubusercontent.com/vtex/node-vtex-api/master/gen/manifest.schema"
 }

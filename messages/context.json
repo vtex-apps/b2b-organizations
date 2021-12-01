@@ -102,6 +102,7 @@
   "admin/b2b-organizations.costCenter-details.address.delete": "admin/b2b-organizations.costCenter-details.address.delete",
   "admin/b2b-organizations.costCenter-details.delete-costCenter-confirmation": "admin/b2b-organizations.costCenter-details.delete-costCenter-confirmation",
   "admin/b2b-organizations.costCenter-details.delete-address-confirmation": "admin/b2b-organizations.costCenter-details.delete-address-confirmation",
+  "store/b2b-organizations.my-account-link": "store/b2b-organizations.my-account-link",
   "store/b2b-organizations.back": "store/b2b-organizations.back",
   "store/b2b-organizations.selected-rows": "store/b2b-organizations.selected-rows",
   "store/b2b-organizations.showRows": "store/b2b-organizations.showRows",
