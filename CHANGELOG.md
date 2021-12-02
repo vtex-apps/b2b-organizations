@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Added
+
+- Organization request form will now show an appropriate message if the current user has already submitted a request
+
 ## [0.3.0] - 2021-12-01
 
 ### Added

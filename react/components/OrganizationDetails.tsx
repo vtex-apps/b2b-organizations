@@ -10,7 +10,6 @@ import {
   ToastContext,
 } from 'vtex.styleguide'
 import { useQuery, useMutation } from 'react-apollo'
-// import { useRuntime } from 'vtex.render-runtime'
 
 import storageFactory from '../utils/storage'
 import { useSessionResponse } from '../modules/session'
@@ -89,8 +88,6 @@ const OrganizationDetails: FunctionComponent<RouterProps> = ({
   match: { params },
   history,
 }) => {
-  // const { navigate, rootPath } = useRuntime()
-
   const sessionResponse: any = useSessionResponse()
 
   if (sessionResponse) {
