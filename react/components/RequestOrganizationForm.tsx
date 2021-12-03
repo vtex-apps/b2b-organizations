@@ -239,7 +239,7 @@ const RequestOrganizationForm: FC = () => {
         requestId = response.data.createOrganizationRequest.id
         localStore.setItem('b2b-organizations_orgRequestId', requestId)
         toastMessage(messages.toastSuccess)
-        refetch()
+        refetch({ id: requestId })
         window.scrollTo({ top: 0, behavior: 'smooth' })
       })
       .catch(error => {
