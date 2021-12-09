@@ -148,7 +148,7 @@ const CostCenterDetails: FunctionComponent = () => {
     setCostCenterName(data.getCostCenterById.name)
     setAddresses(data.getCostCenterById.addresses)
     getOrganization({
-      variables: { id: data.getCostCenterByIdStorefront.organization },
+      variables: { id: data.getCostCenterById.organization },
     })
   }, [data])
 

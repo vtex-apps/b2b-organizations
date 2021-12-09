@@ -3,6 +3,10 @@ query GetCostCenter($id: ID!) {
     @context(provider: "vtex.b2b-organizations-graphql") {
     name
     organization
+    paymentTerms {
+      id
+      name
+    }
     addresses {
       addressId
       addressType
