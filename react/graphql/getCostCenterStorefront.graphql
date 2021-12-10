@@ -4,6 +4,10 @@ query GetCostCenterStorefront($id: ID) {
     id
     name
     organization
+    paymentTerms {
+      id
+      name
+    }
     addresses {
       addressId
       addressType

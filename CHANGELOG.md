@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Added
+
+- Organization admin can enable/disable specific payment term options per cost center
+
+### Fixed
+
+- Bug preventing cost center details page in admin from rendering
+
 ## [0.4.0] - 2021-12-06
 
 ### Added

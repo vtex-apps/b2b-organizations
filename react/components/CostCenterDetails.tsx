@@ -11,6 +11,7 @@ import {
   Button,
   Spinner,
   Input,
+  Toggle,
   ToastContext,
 } from 'vtex.styleguide'
 import { useIntl, FormattedMessage, defineMessages } from 'react-intl'
@@ -38,6 +39,11 @@ interface Match {
   params: any
   path: string
   url: string
+}
+
+interface PaymentTerm {
+  id: string
+  name: string
 }
 
 const localStore = storageFactory(() => localStorage)
@@ -75,6 +81,15 @@ const messages = defineMessages({
   addresses: {
     id: `${storePrefix}costCenter-details.addresses`,
   },
+  paymentTerms: {
+    id: `${storePrefix}costCenter-details.payment-terms`,
+  },
+  addressesSubtitle: {
+    id: `${storePrefix}costCenter-details.addresses.helpText`,
+  },
+  paymentTermsSubtitle: {
+    id: `${storePrefix}costCenter-details.payment-terms.helpText`,
+  },
 })
 
 const CostCenterDetails: FunctionComponent<RouterProps> = ({
@@ -109,6 +124,11 @@ const CostCenterDetails: FunctionComponent<RouterProps> = ({
   const [loadingState, setLoadingState] = useState(false)
   const [costCenterName, setCostCenterName] = useState('')
   const [addresses, setAddresses] = useState([] as Address[])
+  const [paymentTerms, setPaymentTerms] = useState([] as PaymentTerm[])
+  const [paymentTermOptions, setPaymentTermOptions] = useState(
+    [] as PaymentTerm[]
+  )
+
   const [newAddressModalState, setNewAddressModalState] = useState({
     isOpen: false,
   })
@@ -143,18 +163,33 @@ const CostCenterDetails: FunctionComponent<RouterProps> = ({
   const [deleteCostCenter] = useMutation(DELETE_COST_CENTER)
 
   useEffect(() => {
-    if (
-      addresses.length ||
-      !data?.getCostCenterByIdStorefront?.addresses?.length
-    )
-      return
+    if (!data?.getCostCenterByIdStorefront) return
 
     setCostCenterName(data.getCostCenterByIdStorefront.name)
     setAddresses(data.getCostCenterByIdStorefront.addresses)
+    setPaymentTerms(
+      data?.getCostCenterByIdStorefront?.paymentTerms?.length
+        ? data?.getCostCenterByIdStorefront?.paymentTerms
+        : []
+    )
     getOrganization({
       variables: { id: data.getCostCenterByIdStorefront.organization },
     })
   }, [data])
+
+  useEffect(() => {
+    const termOptions = organizationData?.getOrganizationByIdStorefront
+      ?.paymentTerms?.length
+      ? organizationData.getOrganizationByIdStorefront.paymentTerms
+      : []
+
+    setPaymentTermOptions(termOptions)
+
+    // enable all available payment terms by default
+    if (!paymentTerms.length) {
+      setPaymentTerms(termOptions)
+    }
+  }, [organizationData])
 
   useEffect(() => {
     if (!permissionsData) return
@@ -173,6 +208,7 @@ const CostCenterDetails: FunctionComponent<RouterProps> = ({
       input: {
         name: costCenterName,
         addresses,
+        paymentTerms,
       },
     }
 
@@ -296,6 +332,22 @@ const CostCenterDetails: FunctionComponent<RouterProps> = ({
     handleCloseModals()
   }
 
+  const handleTogglePaymentTerm = (id: string) => {
+    let newTerms = paymentTerms
+    const termOption = paymentTermOptions.find(term => term.id === id)
+
+    if (!termOption) return
+    const enabled = paymentTerms.find(term => term.id === id)
+
+    if (enabled) {
+      newTerms = paymentTerms.filter(term => term.id !== enabled.id)
+    } else {
+      newTerms.push(termOption)
+    }
+
+    setPaymentTerms(newTerms)
+  }
+
   const options = (addressId: string) => [
     {
       label: formatMessage(messages.addressEdit),
@@ -376,6 +428,7 @@ const CostCenterDetails: FunctionComponent<RouterProps> = ({
               disabled={
                 !costCenterName ||
                 !addresses.length ||
+                (paymentTermOptions.length > 0 && paymentTerms.length === 0) ||
                 !permissionsState.includes('create-cost-center-organization')
               }
               onClick={() => handleUpdateCostCenter()}
@@ -410,7 +463,36 @@ const CostCenterDetails: FunctionComponent<RouterProps> = ({
           required
         />
       </PageBlock>
-      <PageBlock title={formatMessage(messages.addresses)}>
+      {paymentTermOptions.length > 0 && (
+        <PageBlock
+          title={formatMessage(messages.paymentTerms)}
+          subtitle={formatMessage(messages.paymentTermsSubtitle)}
+        >
+          {paymentTermOptions.map((option, index) => {
+            const checked = paymentTerms.some(term => term.id === option.id)
+
+            return (
+              <div key={index} className="mv4">
+                <Toggle
+                  label={option.name}
+                  semantic
+                  checked={checked}
+                  onChange={() => handleTogglePaymentTerm(option.id)}
+                  disabled={
+                    !permissionsState.includes(
+                      'create-cost-center-organization'
+                    )
+                  }
+                ></Toggle>
+              </div>
+            )
+          })}
+        </PageBlock>
+      )}
+      <PageBlock
+        title={formatMessage(messages.addresses)}
+        subtitle={formatMessage(messages.addressesSubtitle)}
+      >
         <div className="flex">
           {addresses.map((address: any, index) => {
             return (
