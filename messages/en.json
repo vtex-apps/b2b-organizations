@@ -188,5 +188,9 @@
   "store/b2b-organizations.user-widget.role": "My Role:",
   "store/b2b-organizations.user-widget.organization": "My Organization:",
   "store/b2b-organizations.user-widget.costCenter": "My Cost Center:",
-  "store/b2b-organizations.user-widget.manage-organization": "Manage Organization"
+  "store/b2b-organizations.user-widget.manage-organization": "Manage Organization",
+  "store/b2b-organizations.user-widget.status": "Organization Status:",
+  "store/b2b-organizations.user-widget.status.active": "Active",
+  "store/b2b-organizations.user-widget.status.on-hold": "On Hold",
+  "store/b2b-organizations.user-widget.status.inactive": "Inactive"
 }

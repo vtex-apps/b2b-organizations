@@ -3,6 +3,7 @@ query GetOrganizationStorefront($id: ID) {
     @context(provider: "vtex.b2b-organizations-graphql") {
     id
     name
+    status
     paymentTerms {
       id
       name
