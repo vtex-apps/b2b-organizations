@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Added
+
+- Organization status now shown in `b2b-user-widget`
+
+### Fixed
+
+- "View" row action in admin organizations table
+
 ## [0.5.0] - 2021-12-10
 
 ### Added
