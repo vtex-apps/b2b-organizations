@@ -1,4 +1,10 @@
 {
+  "my-account-page.my-organization": {
+    "component": "MyOrganizationPage"
+  },
+  "my-account-link.my-organization": {
+    "component": "MyOrganizationLink"
+  },
   "store.organization-request": {
     "required": ["request-organization"]
   },
@@ -16,5 +22,8 @@
   },
   "costcenter-details": {
     "component": "StorefrontCostCenterDetails"
+  },
+  "b2b-user-widget": {
+    "component": "StorefrontUserWidget"
   }
 }

@@ -448,7 +448,7 @@ const OrganizationsTable: FunctionComponent = () => {
         if (!id) return
 
         navigate({
-          page: 'admin.app.b2b-organizations.organization-request-details',
+          page: 'admin.app.b2b-organizations.organization-details',
           params: { id },
         })
       },

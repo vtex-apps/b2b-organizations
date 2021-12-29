@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import type { FunctionComponent, ChangeEvent } from 'react'
 import { useIntl, defineMessages, FormattedMessage } from 'react-intl'
 import {
@@ -10,7 +10,6 @@ import {
   ToastContext,
 } from 'vtex.styleguide'
 import { useQuery, useMutation } from 'react-apollo'
-import { useRuntime } from 'vtex.render-runtime'
 
 import storageFactory from '../utils/storage'
 import { useSessionResponse } from '../modules/session'
@@ -19,6 +18,19 @@ import OrganizationUsersTable from './OrganizationUsersTable'
 import GET_ORGANIZATION from '../graphql/getOrganizationStorefront.graphql'
 import GET_COST_CENTERS from '../graphql/getCostCentersByOrganizationIdStorefront.graphql'
 import CREATE_COST_CENTER from '../graphql/createCostCenter.graphql'
+import GET_PERMISSIONS from '../graphql/getPermissions.graphql'
+
+interface RouterProps {
+  match: Match
+  history: any
+}
+
+interface Match {
+  isExact: boolean
+  params: any
+  path: string
+  url: string
+}
 
 interface CellRendererProps {
   cellData: unknown
@@ -34,7 +46,8 @@ interface CostCenterSimple {
 
 const localStore = storageFactory(() => localStorage)
 let isAuthenticated =
-  JSON.parse(String(localStore.getItem('orderquote_isAuthenticated'))) ?? false
+  JSON.parse(String(localStore.getItem('b2b-organizations_isAuthenticated'))) ??
+  false
 
 const storePrefix = 'store/b2b-organizations.'
 
@@ -71,12 +84,10 @@ const messages = defineMessages({
   },
 })
 
-const OrganizationDetails: FunctionComponent = () => {
-  const {
-    route: { params },
-    navigate,
-  } = useRuntime()
-
+const OrganizationDetails: FunctionComponent<RouterProps> = ({
+  match: { params },
+  history,
+}) => {
   const sessionResponse: any = useSessionResponse()
 
   if (sessionResponse) {
@@ -84,13 +95,12 @@ const OrganizationDetails: FunctionComponent = () => {
       sessionResponse?.namespaces?.profile?.isAuthenticated?.value === 'true'
 
     localStore.setItem(
-      'orderquote_isAuthenticated',
+      'b2b-organizations_isAuthenticated',
       JSON.stringify(isAuthenticated)
     )
   }
 
   const { formatMessage } = useIntl()
-
   const { showToast } = useContext(ToastContext)
 
   const toastMessage = (message: MessageDescriptor) => {
@@ -106,6 +116,7 @@ const OrganizationDetails: FunctionComponent = () => {
     pageSize: 25,
   })
 
+  const [permissionsState, setPermissionsState] = useState([] as string[])
   const [loadingState, setLoadingState] = useState(false)
   const [newCostCenterModalState, setNewCostCenterModalState] = useState(false)
 
@@ -114,15 +125,31 @@ const OrganizationDetails: FunctionComponent = () => {
     ssr: false,
   })
 
-  const { data: costCentersData, refetch: refetchCostCenters } = useQuery(
-    GET_COST_CENTERS,
-    {
-      variables: { ...costCenterPaginationState },
-      ssr: false,
-    }
-  )
+  const {
+    data: costCentersData,
+    loading: costCentersLoading,
+    refetch: refetchCostCenters,
+  } = useQuery(GET_COST_CENTERS, {
+    variables: { ...costCenterPaginationState },
+    ssr: false,
+  })
+
+  const {
+    data: permissionsData,
+    // loading: permissionsLoading,
+  } = useQuery(GET_PERMISSIONS, { ssr: false })
 
   const [createCostCenter] = useMutation(CREATE_COST_CENTER)
+
+  useEffect(() => {
+    if (!permissionsData) return
+
+    const { permissions = [] } = permissionsData.checkUserPermission ?? {}
+
+    if (permissions.length) {
+      setPermissionsState(permissions)
+    }
+  }, [permissionsData])
 
   const handleCostCentersPrevClick = () => {
     if (costCenterPaginationState.page === 1) return
@@ -273,13 +300,14 @@ const OrganizationDetails: FunctionComponent = () => {
           items={
             costCentersData?.getCostCentersByOrganizationIdStorefront?.data
           }
+          loading={costCentersLoading}
           onRowClick={({ rowData: { id } }: CellRendererProps) => {
             if (!id) return
 
-            navigate({
-              page: 'store.costcenter-details',
-              params: { id },
-            })
+            history.push(`/cost-center/${id}`)
+            // navigate({
+            //   to: `${rootPath ?? ''}/account#/cost-center/${id}`,
+            // })
           }}
           pagination={{
             onNextClick: handleCostCentersNextClick,
@@ -309,6 +337,9 @@ const OrganizationDetails: FunctionComponent = () => {
             newLine: {
               label: formatMessage(messages.new),
               handleCallback: () => setNewCostCenterModalState(true),
+              disabled: !permissionsState.includes(
+                'create-cost-center-organization'
+              ),
             },
           }}
         ></Table>
@@ -316,6 +347,7 @@ const OrganizationDetails: FunctionComponent = () => {
       <PageBlock title={formatMessage(messages.users)}>
         <OrganizationUsersTable
           organizationId={data.getOrganizationByIdStorefront?.id}
+          permissions={permissionsState}
         />
       </PageBlock>
       <NewCostCenterModal

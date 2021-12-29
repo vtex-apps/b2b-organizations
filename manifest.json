@@ -1,7 +1,7 @@
 {
   "name": "b2b-organizations",
   "vendor": "vtex",
-  "version": "0.1.0",
+  "version": "0.6.0",
   "title": "B2B Organizations",
   "description": "App to create and manage B2B Organizations and Cost Centers",
   "mustUpdateAt": "2022-08-28",
@@ -18,7 +18,9 @@
     "vtex.store": "2.x",
     "vtex.css-handles": "0.x",
     "vtex.styleguide": "9.x",
-    "vtex.storefront-permissions": "1.x"
+    "vtex.storefront-permissions": "1.x",
+    "vtex.my-account": "1.x",
+    "vtex.my-account-commons": "1.x"
   },
   "builders": {
     "react": "3.x",

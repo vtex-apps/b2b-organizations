@@ -12,6 +12,7 @@ query GetUsers($organizationId: ID, $costCenterId: ID) {
     canImpersonate
     role {
       name
+      slug
     }
     organizationName
     costCenterName

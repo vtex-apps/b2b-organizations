@@ -2,13 +2,5 @@
   "store.organization-request": {
     "title": "Organization Signup",
     "path": "/organization-request"
-  },
-  "store.organization-details": {
-    "title": "Organization Details",
-    "path": "/organization(/:id)"
-  },
-  "store.costcenter-details": {
-    "title": "Cost Center Details",
-    "path": "/cost-center/:id"
   }
 }

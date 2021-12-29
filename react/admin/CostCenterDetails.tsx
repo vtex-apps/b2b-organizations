@@ -1,6 +1,6 @@
 import type { FunctionComponent } from 'react'
 import React, { useEffect, useState } from 'react'
-import { useQuery, useMutation } from 'react-apollo'
+import { useQuery, useMutation, useLazyQuery } from 'react-apollo'
 import {
   Layout,
   PageHeader,
@@ -29,6 +29,7 @@ import { addValidation } from 'vtex.address-form/helpers'
 
 import { getEmptyAddress, isValidAddress } from '../utils/addresses'
 import GET_COST_CENTER from '../graphql/getCostCenter.graphql'
+import GET_ORGANIZATION from '../graphql/getOrganization.graphql'
 import UPDATE_COST_CENTER from '../graphql/updateCostCenter.graphql'
 import DELETE_COST_CENTER from '../graphql/deleteCostCenter.graphql'
 import GET_LOGISTICS from '../graphql/getLogistics.graphql'
@@ -123,6 +124,10 @@ const CostCenterDetails: FunctionComponent = () => {
     ssr: false,
   })
 
+  const [getOrganization, { data: organizationData }] = useLazyQuery(
+    GET_ORGANIZATION
+  )
+
   const { data: logisticsData } = useQuery(GET_LOGISTICS, { ssr: false })
 
   const [updateCostCenter] = useMutation(UPDATE_COST_CENTER)
@@ -142,6 +147,9 @@ const CostCenterDetails: FunctionComponent = () => {
 
     setCostCenterName(data.getCostCenterById.name)
     setAddresses(data.getCostCenterById.addresses)
+    getOrganization({
+      variables: { id: data.getCostCenterById.organization },
+    })
   }, [data])
 
   const handleUpdateCostCenter = () => {
@@ -174,7 +182,7 @@ const CostCenterDetails: FunctionComponent = () => {
   }
 
   const handleDeleteCostCenter = () => {
-    // add modal dialog
+    // TODO: add modal dialog
     setLoadingState(true)
     deleteCostCenter({ variables: { id: params?.id } })
       .then(() => {
@@ -349,7 +357,10 @@ const CostCenterDetails: FunctionComponent = () => {
       pageHeader={
         <PageHeader
           title={formatMessage(messages.pageTitle)}
-          linkLabel={formatMessage(messages.back)}
+          linkLabel={
+            organizationData?.getOrganizationById?.name ??
+            formatMessage(messages.back)
+          }
           onLinkClick={() => {
             navigate({
               page: 'admin.app.b2b-organizations.organization-details',

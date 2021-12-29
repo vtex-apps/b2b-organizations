@@ -13,6 +13,7 @@ import RemoveUserModal from './RemoveUserModal'
 
 interface Props {
   organizationId: string
+  permissions: string[]
 }
 
 interface CellRendererProps {
@@ -28,6 +29,7 @@ interface B2BUserSimple extends UserDetails {
 
 interface RoleSimple {
   name: string
+  slug: string
 }
 
 const storePrefix = 'store/b2b-organizations.'
@@ -70,6 +72,7 @@ const messages = defineMessages({
 
 const OrganizationUsersTable: FunctionComponent<Props> = ({
   organizationId,
+  permissions,
 }) => {
   const { formatMessage } = useIntl()
   const { showToast } = useContext(ToastContext)
@@ -82,7 +85,9 @@ const OrganizationUsersTable: FunctionComponent<Props> = ({
   const [removeUserModalOpen, setRemoveUserModalOpen] = useState(false)
   const [usersState, setUsersState] = useState([])
 
-  const { data, refetch } = useQuery(GET_USERS, {
+  const canEdit = permissions.includes('add-users-organization')
+
+  const { data, loading, refetch } = useQuery(GET_USERS, {
     variables: { organizationId },
     ssr: false,
     skip: !organizationId,
@@ -170,15 +175,47 @@ const OrganizationUsersTable: FunctionComponent<Props> = ({
     properties: {
       email: {
         title: formatMessage(messages.columnEmail),
+        cellRenderer: ({ rowData: { email, role } }: CellRendererProps) => (
+          <span
+            className={
+              !canEdit || (canEdit && role.slug.indexOf('sales') > -1)
+                ? 'c-disabled'
+                : ''
+            }
+          >
+            {email}
+          </span>
+        ),
       },
       roleId: {
         title: formatMessage(messages.columnRole),
         cellRenderer: ({ rowData: { role } }: CellRendererProps) => (
-          <span>{role?.name ?? ''}</span>
+          <span
+            className={
+              !canEdit || (canEdit && role.slug.indexOf('sales') > -1)
+                ? 'c-disabled'
+                : ''
+            }
+          >
+            {role.name ?? ''}
+          </span>
         ),
       },
       costCenterName: {
         title: formatMessage(messages.columnCostCenter),
+        cellRenderer: ({
+          rowData: { costCenterName, role },
+        }: CellRendererProps) => (
+          <span
+            className={
+              !canEdit || (canEdit && role.slug.indexOf('sales') > -1)
+                ? 'c-disabled'
+                : ''
+            }
+          >
+            {costCenterName}
+          </span>
+        ),
       },
     },
   })
@@ -189,9 +226,15 @@ const OrganizationUsersTable: FunctionComponent<Props> = ({
         fullWidth
         schema={getSchema()}
         items={usersState}
+        loading={loading}
         emptyStateLabel={formatMessage(messages.emptyState)}
         onRowClick={({ rowData }: CellRendererProps) => {
-          if (!rowData) return
+          if (
+            !rowData ||
+            !canEdit ||
+            (canEdit && rowData.role.slug.indexOf('sales') > -1)
+          )
+            return
 
           setEditUserDetails({
             id: rowData.id,
@@ -210,6 +253,7 @@ const OrganizationUsersTable: FunctionComponent<Props> = ({
           newLine: {
             label: formatMessage(messages.new),
             handleCallback: () => setAddUserModalOpen(true),
+            disabled: !canEdit,
           },
         }}
       />

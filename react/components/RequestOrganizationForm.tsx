@@ -7,6 +7,7 @@ import {
   Layout,
   PageHeader,
   PageBlock,
+  Alert,
 } from 'vtex.styleguide'
 import {
   AddressRules,
@@ -23,10 +24,15 @@ import { useIntl, FormattedMessage, defineMessages } from 'react-intl'
 import { useRuntime } from 'vtex.render-runtime'
 import 'vtex.country-codes/locales'
 
+import storageFactory from '../utils/storage'
 import { getSession } from '../modules/session'
 import { getEmptyAddress } from '../utils/addresses'
 import CREATE_ORGANIZATION_REQUEST from '../graphql/createOrganizationRequest.graphql'
+import GET_ORGANIZATION_REQUEST from '../graphql/getOrganizationRequest.graphql'
 import GET_LOGISTICS from '../graphql/getLogistics.graphql'
+
+const localStore = storageFactory(() => localStorage)
+let requestId = localStore.getItem('b2b-organizations_orgRequestId') ?? ''
 
 const useSessionResponse = () => {
   const [session, setSession] = useState<any>()
@@ -102,7 +108,7 @@ const messages = defineMessages({
 })
 
 const RequestOrganizationForm: FC = () => {
-  const { formatMessage } = useIntl()
+  const { formatMessage, formatDate } = useIntl()
   const {
     culture: { country },
   } = useRuntime()
@@ -111,6 +117,14 @@ const RequestOrganizationForm: FC = () => {
   const sessionResponse: any = useSessionResponse()
   const handles = useCssHandles(CSS_HANDLES)
   const { data } = useQuery(GET_LOGISTICS, { ssr: false })
+  const { data: existingRequestData, refetch } = useQuery(
+    GET_ORGANIZATION_REQUEST,
+    {
+      variables: { id: requestId },
+      skip: !requestId,
+    }
+  )
+
   const [createOrganizationRequest] = useMutation(CREATE_ORGANIZATION_REQUEST)
 
   const [addressState, setAddressState] = useState(() =>
@@ -148,10 +162,9 @@ const RequestOrganizationForm: FC = () => {
 
   const toastMessage = (message: MessageDescriptor) => {
     const translatedMessage = translateMessage(message)
-
     const action = undefined
 
-    showToast({ translatedMessage, action })
+    showToast({ message: translatedMessage, action })
   }
 
   const translateCountries = () => {
@@ -222,8 +235,12 @@ const RequestOrganizationForm: FC = () => {
         input: organizationRequest,
       },
     })
-      .then(() => {
+      .then(response => {
+        requestId = response.data.createOrganizationRequest.id
+        localStore.setItem('b2b-organizations_orgRequestId', requestId)
         toastMessage(messages.toastSuccess)
+        refetch({ id: requestId })
+        window.scrollTo({ top: 0, behavior: 'smooth' })
       })
       .catch(error => {
         console.error(error)
@@ -254,6 +271,51 @@ const RequestOrganizationForm: FC = () => {
             <div>
               <FormattedMessage id="store/b2b-organizations.not-authenticated" />
             </div>
+          </PageBlock>
+        ) : existingRequestData?.getOrganizationRequestById?.status ? (
+          <PageBlock>
+            {existingRequestData.getOrganizationRequestById.status ===
+              'pending' && (
+              <Alert type="warning">
+                <FormattedMessage
+                  id="store/b2b-organizations.request-new-organization.pending-request"
+                  values={{
+                    created: formatDate(
+                      existingRequestData.getOrganizationRequestById.created,
+                      {
+                        day: 'numeric',
+                        month: 'numeric',
+                        year: 'numeric',
+                      }
+                    ),
+                  }}
+                />
+              </Alert>
+            )}
+            {existingRequestData.getOrganizationRequestById.status ===
+              'approved' && (
+              <Alert type="success">
+                <FormattedMessage id="store/b2b-organizations.request-new-organization.approved-request" />
+              </Alert>
+            )}
+            {existingRequestData.getOrganizationRequestById.status ===
+              'declined' && (
+              <Alert type="error">
+                <FormattedMessage
+                  id="store/b2b-organizations.request-new-organization.declined-request"
+                  values={{
+                    created: formatDate(
+                      existingRequestData.getOrganizationRequestById.created,
+                      {
+                        day: 'numeric',
+                        month: 'numeric',
+                        year: 'numeric',
+                      }
+                    ),
+                  }}
+                />
+              </Alert>
+            )}
           </PageBlock>
         ) : (
           <Fragment>
