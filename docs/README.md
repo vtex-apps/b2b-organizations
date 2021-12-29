@@ -1,28 +1,34 @@
-# [ WORK IN PROGRESS ] Admin Example
+# B2B Organizations
 
-An example admin app that adds a menu button to the admin sidebar.
+Adds Organization and Cost Center management to the account, it also allow different management level according to the user Role
 
-# PREVIEW NOTICE :construction:
+This App is part of the [B2B Store Edition](https://github.com/vtex/b2b-store-edition), installing it without the related Apps may not result in a good experience
+## Functionalities
 
-We're working on the **admin builder**, which will allow you to define two files: `admin/routes.json` file with everything you need to create an admin interface (routes paths and components), and `admin/navigation.json` which alows your admin app to insert itself in the sidebar navigation. This is a temporary example!
-
-### How to develop admins
-
-1. Admins always declare routes in `/admin/app/<route>`
-
-2. Declare the `admin` builder in your manifest
-
-3. When installed, the user navigates to `/admin/<route>`, but your app runs in an iframe that points to `/admin/app/<route>`.
-
-4. You can develop directly in the `/admin/app` route for convenience, but don't forget to test it inside the iframe. :)
+- Organization Signup
+- Organization Management
+- Cost Center Management
+- User management
+- Custom Catalog per Organization
+- Pricetables per Organization
+- Payment Terms per Organization and Cost Center
+- Multiple addresses per Cost Center
 
 
-### Quickstart
+## Configuration
 
-1. Clone this repo
+[Install](https://vtex.io/docs/recipes/development/installing-an-app/) the `vtex.b2b-organizations` App by running `vtex install vtex.b2b-organizations` in your terminal.
 
-2. `yarn --cwd react/` for code completion
+After installation, you'll have a new route available to your store `/organization-request`. This route will allow Organizations to signup to your Store
 
-3. `vtex link`
+Once an Organization signup, you can approve their request from the Admin under the menu **Account Settings > B2B Organizations & Cost Centers > Organization Requests** (`/admin/b2b-organizations/requests`)
 
-4. Navigate to `workspace--account.myvtex.com/admin/app/example`
+To manage an Organization, head over **Account Settings > B2B Organizations & Cost Centers > Organizations**.
+
+It's possible to associate Price Tables, Collections and Payment Terms to an Organization, those are existing information within the Store Account
+
+- [Collections](https://help.vtex.com/tutorial/creating-collections-beta--yJBHqNMViOAnnnq4fyOye) 
+- [Price Tables](https://help.vtex.com/en/tutorial/creating-price-tables--58YmY2Iwggyw4WeSCGg24S) 
+- [Payment Terms](https://help.vtex.com/en/tutorial/setting-up-the-promissory-conector--7Gy0SJRVS0Qi2CuWMAqQc0) (Promissory)
+
+As an Organization, you can manage your Cost Center and Users under **My Account >  My Organization**
