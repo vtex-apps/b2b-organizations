@@ -1,9 +1,15 @@
-name: IO actions
-'on':
+name: "[QE] Lint"
+
+on:
+  workflow_dispatch:
   pull_request:
+    branches:
+      - master
+      - main
+
 jobs:
-  io-app-test:
-    name: IO app test
+  lint:
+    name: Lint
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
@@ -18,10 +24,9 @@ jobs:
       - uses: actions/cache@v1
         id: yarn-cache
         with:
-          path: '${{ steps.yarn-cache-dir-path.outputs.dir }}'
+          path: "${{ steps.yarn-cache-dir-path.outputs.dir }}"
           key: "${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}"
           restore-keys: |
             ${{ runner.os }}-yarn-
-      - name: Run test on every builder directory
-        uses: vtex/action-io-app-test@master
-        
+      - name: Lint project
+        uses: vtex/action-lint@master
