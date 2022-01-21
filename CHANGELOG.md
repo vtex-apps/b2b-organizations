@@ -7,7 +7,15 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Added
+
+- Documentation
+
 ## [0.6.1] - 2022-01-06
+
+### Added
+
+- SonarCloud quality analysis
 
 ## [0.6.0] - 2021-12-22
 
