@@ -148,7 +148,6 @@ const EditUserModal: FunctionComponent<Props> = ({
           </span>
         </div>
       }
-      loading={loading}
       isOpen={isOpen}
       onClose={() => handleCloseModal()}
       closeOnOverlayClick={false}

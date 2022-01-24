@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import type { FunctionComponent } from 'react'
-import { ModalDialog, Input } from 'vtex.styleguide'
+import { Modal, Input, Button } from 'vtex.styleguide'
 import { defineMessages, useIntl, FormattedMessage } from 'react-intl'
 import { useQuery } from 'react-apollo'
 import { useRuntime } from 'vtex.render-runtime'
@@ -77,20 +77,38 @@ const NewCostCenterModal: FunctionComponent<Props> = ({
   }
 
   return (
-    <ModalDialog
+    <Modal
       centered
-      confirmation={{
-        onClick: () =>
-          handleAddNewCostCenter(newCostCenterName, newCostCenterAddressState),
-        label: formatMessage(messages.add),
-        disabled:
-          !newCostCenterName || !isValidAddress(newCostCenterAddressState),
-      }}
-      cancelation={{
-        onClick: () => handleCloseModal(),
-        label: formatMessage(messages.cancel),
-      }}
-      loading={loading}
+      bottomBar={
+        <div className="nowrap">
+          <span className="mr4">
+            <Button
+              variation="tertiary"
+              onClick={() => handleCloseModal()}
+              isLoading={loading}
+            >
+              {formatMessage(messages.cancel)}
+            </Button>
+          </span>
+          <span>
+            <Button
+              variation="primary"
+              onClick={() =>
+                handleAddNewCostCenter(
+                  newCostCenterName,
+                  newCostCenterAddressState
+                )
+              }
+              isLoading={loading}
+              disabled={
+                !newCostCenterName || !isValidAddress(newCostCenterAddressState)
+              }
+            >
+              {formatMessage(messages.add)}
+            </Button>
+          </span>
+        </div>
+      }
       isOpen={isOpen}
       onClose={() => handleCloseModal()}
       closeOnOverlayClick={false}
@@ -100,6 +118,7 @@ const NewCostCenterModal: FunctionComponent<Props> = ({
       </p>
       <div className="w-100 mv6">
         <Input
+          autocomplete="off"
           size="large"
           label={formatMessage(messages.costCenterName)}
           value={newCostCenterName}
@@ -134,7 +153,7 @@ const NewCostCenterModal: FunctionComponent<Props> = ({
           />
         </AddressContainer>
       </AddressRules>
-    </ModalDialog>
+    </Modal>
   )
 }
 

@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import type { FunctionComponent } from 'react'
-import { ModalDialog } from 'vtex.styleguide'
+import { Modal, Button } from 'vtex.styleguide'
 import { defineMessages, useIntl } from 'react-intl'
 import { useQuery } from 'react-apollo'
 import { useRuntime } from 'vtex.render-runtime'
@@ -72,18 +72,31 @@ const NewAddressModal: FunctionComponent<Props> = ({
   }
 
   return (
-    <ModalDialog
+    <Modal
       centered
-      confirmation={{
-        onClick: () => handleAddNewAddress(newAddressState),
-        label: formatMessage(messages.add),
-        disabled: !isValidAddress(newAddressState),
-      }}
-      cancelation={{
-        onClick: () => handleCloseModals(),
-        label: formatMessage(messages.cancel),
-      }}
-      loading={loading}
+      bottomBar={
+        <div className="nowrap">
+          <span className="mr4">
+            <Button
+              variation="tertiary"
+              onClick={() => handleCloseModals()}
+              isLoading={loading}
+            >
+              {formatMessage(messages.cancel)}
+            </Button>
+          </span>
+          <span>
+            <Button
+              variation="primary"
+              onClick={() => handleAddNewAddress(newAddressState)}
+              isLoading={loading}
+              disabled={!isValidAddress(newAddressState)}
+            >
+              {formatMessage(messages.add)}
+            </Button>
+          </span>
+        </div>
+      }
       isOpen={isOpen}
       onClose={() => handleCloseModals()}
       closeOnOverlayClick={false}
@@ -110,7 +123,7 @@ const NewAddressModal: FunctionComponent<Props> = ({
           />
         </AddressContainer>
       </AddressRules>
-    </ModalDialog>
+    </Modal>
   )
 }
 

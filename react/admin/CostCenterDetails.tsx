@@ -11,6 +11,7 @@ import {
   Button,
   Spinner,
   Input,
+  Modal,
   ModalDialog,
 } from 'vtex.styleguide'
 import { useToast } from '@vtex/admin-ui'
@@ -390,6 +391,7 @@ const CostCenterDetails: FunctionComponent = () => {
     >
       <PageBlock>
         <Input
+          autocomplete="off"
           size="large"
           label={formatMessage(messages.costCenterName)}
           value={costCenterName}
@@ -445,18 +447,31 @@ const CostCenterDetails: FunctionComponent = () => {
       </PageBlock>
 
       {/* New Address Modal */}
-      <ModalDialog
+      <Modal
         centered
-        confirmation={{
-          onClick: () => handleAddNewAddress(),
-          label: formatMessage(messages.add),
-          disabled: !isValidAddress(newAddressState),
-        }}
-        cancelation={{
-          onClick: () => handleCloseModals(),
-          label: formatMessage(messages.cancel),
-        }}
-        loading={loadingState}
+        bottomBar={
+          <div className="nowrap">
+            <span className="mr4">
+              <Button
+                variation="tertiary"
+                onClick={() => handleCloseModals()}
+                isLoading={loadingState}
+              >
+                {formatMessage(messages.cancel)}
+              </Button>
+            </span>
+            <span>
+              <Button
+                variation="primary"
+                onClick={() => handleAddNewAddress()}
+                isLoading={loadingState}
+                disabled={!isValidAddress(newAddressState)}
+              >
+                {formatMessage(messages.add)}
+              </Button>
+            </span>
+          </div>
+        }
         isOpen={newAddressModalState.isOpen}
         onClose={() => handleCloseModals()}
         closeOnOverlayClick={false}
@@ -483,21 +498,34 @@ const CostCenterDetails: FunctionComponent = () => {
             />
           </AddressContainer>
         </AddressRules>
-      </ModalDialog>
+      </Modal>
 
       {/* Edit Address Modal */}
-      <ModalDialog
+      <Modal
         centered
-        confirmation={{
-          onClick: () => handleEditAddress(),
-          label: formatMessage(messages.update),
-          disabled: !isValidAddress(editAddressState),
-        }}
-        cancelation={{
-          onClick: () => handleCloseModals(),
-          label: formatMessage(messages.cancel),
-        }}
-        loading={loadingState}
+        bottomBar={
+          <div className="nowrap">
+            <span className="mr4">
+              <Button
+                variation="tertiary"
+                onClick={() => handleCloseModals()}
+                isLoading={loadingState}
+              >
+                {formatMessage(messages.cancel)}
+              </Button>
+            </span>
+            <span>
+              <Button
+                variation="primary"
+                onClick={() => handleEditAddress()}
+                isLoading={loadingState}
+                disabled={!isValidAddress(editAddressState)}
+              >
+                {formatMessage(messages.update)}
+              </Button>
+            </span>
+          </div>
+        }
         isOpen={editAddressModalState.isOpen}
         onClose={() => handleCloseModals()}
         closeOnOverlayClick={false}
@@ -524,7 +552,7 @@ const CostCenterDetails: FunctionComponent = () => {
             />
           </AddressContainer>
         </AddressRules>
-      </ModalDialog>
+      </Modal>
 
       {/* Delete Address Modal */}
       <ModalDialog

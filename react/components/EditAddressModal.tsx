@@ -1,6 +1,6 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import type { FunctionComponent } from 'react'
-import { ModalDialog } from 'vtex.styleguide'
+import { Modal, Button } from 'vtex.styleguide'
 import { defineMessages, useIntl } from 'react-intl'
 import { useQuery } from 'react-apollo'
 import { useRuntime } from 'vtex.render-runtime'
@@ -21,6 +21,7 @@ import GET_LOGISTICS from '../graphql/getLogistics.graphql'
 interface Props {
   loading: boolean
   isOpen: boolean
+  address: Address | null
   handleEditAddress: (address: AddressFormFields) => void
   handleCloseModals: () => void
 }
@@ -39,6 +40,7 @@ const messages = defineMessages({
 const EditAddressModal: FunctionComponent<Props> = ({
   loading,
   isOpen,
+  address,
   handleEditAddress,
   handleCloseModals,
 }) => {
@@ -71,19 +73,40 @@ const EditAddressModal: FunctionComponent<Props> = ({
     setEditAddressState(newAddress)
   }
 
+  useEffect(() => {
+    if (!address) return
+
+    setEditAddressState(addValidation(address))
+  }, [address])
+
+  if (!address) return null
+
   return (
-    <ModalDialog
+    <Modal
       centered
-      confirmation={{
-        onClick: () => handleEditAddress(editAddressState),
-        label: formatMessage(messages.update),
-        disabled: !isValidAddress(editAddressState),
-      }}
-      cancelation={{
-        onClick: () => handleCloseModals(),
-        label: formatMessage(messages.cancel),
-      }}
-      loading={loading}
+      bottomBar={
+        <div className="nowrap">
+          <span className="mr4">
+            <Button
+              variation="tertiary"
+              onClick={() => handleCloseModals()}
+              isLoading={loading}
+            >
+              {formatMessage(messages.cancel)}
+            </Button>
+          </span>
+          <span>
+            <Button
+              variation="primary"
+              onClick={() => handleEditAddress(editAddressState)}
+              isLoading={loading}
+              disabled={!isValidAddress(editAddressState)}
+            >
+              {formatMessage(messages.update)}
+            </Button>
+          </span>
+        </div>
+      }
       isOpen={isOpen}
       onClose={() => handleCloseModals()}
       closeOnOverlayClick={false}
@@ -110,7 +133,7 @@ const EditAddressModal: FunctionComponent<Props> = ({
           />
         </AddressContainer>
       </AddressRules>
-    </ModalDialog>
+    </Modal>
   )
 }
 

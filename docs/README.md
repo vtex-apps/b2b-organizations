@@ -74,7 +74,7 @@ Users designated as the Organization Admin of an organization may manage its det
 
 On the `My Organization` page, the Organization Admin may do the following:
 
-- add, edit, or remove cost centers (see [Cost Center Management](#cost-center-management-admin-storefront))
+- add, edit, or remove cost centers (see [Cost Center Management](#cost-center-management-admin--storefront))
 - add, edit, or remove users (see [User Management](#user-management-storefront))
 
 ### Cost Center Management (Admin & Storefront)

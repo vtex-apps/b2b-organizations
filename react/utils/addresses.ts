@@ -24,13 +24,14 @@ export const getEmptyAddress = (country: string) => {
 }
 
 export const isValidAddress = (address: AddressFormFields) => {
-  let hasInvalidField = false
+  // check for empty address
+  if (!address.street.value || !address.receiverName.value) return false
 
   for (const field in address) {
     if (address[field].valid === false) {
-      hasInvalidField = true
+      return false
     }
   }
 
-  return !hasInvalidField
+  return true
 }
