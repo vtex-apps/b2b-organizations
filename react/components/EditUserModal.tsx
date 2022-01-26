@@ -120,7 +120,7 @@ const EditUserModal: FunctionComponent<Props> = ({
             <Button
               variation="tertiary"
               onClick={() => handleCloseModal()}
-              isLoading={loading}
+              disabled={loading}
             >
               {formatMessage(messages.cancel)}
             </Button>
@@ -129,7 +129,7 @@ const EditUserModal: FunctionComponent<Props> = ({
             <Button
               variation="danger"
               onClick={() => handleRemoveUser()}
-              isLoading={loading}
+              disabled={loading}
             >
               {formatMessage(messages.remove)}
             </Button>

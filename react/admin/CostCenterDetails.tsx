@@ -455,7 +455,7 @@ const CostCenterDetails: FunctionComponent = () => {
               <Button
                 variation="tertiary"
                 onClick={() => handleCloseModals()}
-                isLoading={loadingState}
+                disabled={loadingState}
               >
                 {formatMessage(messages.cancel)}
               </Button>
@@ -509,7 +509,7 @@ const CostCenterDetails: FunctionComponent = () => {
               <Button
                 variation="tertiary"
                 onClick={() => handleCloseModals()}
-                isLoading={loadingState}
+                disabled={loadingState}
               >
                 {formatMessage(messages.cancel)}
               </Button>

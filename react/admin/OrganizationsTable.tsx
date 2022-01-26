@@ -570,7 +570,7 @@ const OrganizationsTable: FunctionComponent = () => {
               <Button
                 variation="tertiary"
                 onClick={() => handleCloseModal()}
-                isLoading={loadingState}
+                disabled={loadingState}
               >
                 {formatMessage(messages.cancel)}
               </Button>

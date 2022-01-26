@@ -85,7 +85,7 @@ const NewCostCenterModal: FunctionComponent<Props> = ({
             <Button
               variation="tertiary"
               onClick={() => handleCloseModal()}
-              isLoading={loading}
+              disabled={loading}
             >
               {formatMessage(messages.cancel)}
             </Button>

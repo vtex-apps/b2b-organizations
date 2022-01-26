@@ -80,7 +80,7 @@ const NewAddressModal: FunctionComponent<Props> = ({
             <Button
               variation="tertiary"
               onClick={() => handleCloseModals()}
-              isLoading={loading}
+              disabled={loading}
             >
               {formatMessage(messages.cancel)}
             </Button>
