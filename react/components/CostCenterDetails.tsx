@@ -135,6 +135,7 @@ const CostCenterDetails: FunctionComponent<RouterProps> = ({
 
   const [editAddressModalState, setEditAddressModalState] = useState({
     addressId: '',
+    editAddress: null as Address | null,
     isOpen: false,
   })
 
@@ -242,7 +243,11 @@ const CostCenterDetails: FunctionComponent<RouterProps> = ({
 
   const handleCloseModals = () => {
     setDeleteAddressModalState({ addressId: '', isOpen: false })
-    setEditAddressModalState({ addressId: '', isOpen: false })
+    setEditAddressModalState({
+      addressId: '',
+      editAddress: null,
+      isOpen: false,
+    })
     setNewAddressModalState({ isOpen: false })
     setDeleteCostCenterModalState({ isOpen: false })
   }
@@ -257,7 +262,7 @@ const CostCenterDetails: FunctionComponent<RouterProps> = ({
     )
 
     if (!editAddress) return
-    setEditAddressModalState({ addressId, isOpen: true })
+    setEditAddressModalState({ addressId, editAddress, isOpen: true })
   }
 
   const handleDeleteAddressModal = (addressId: string) => {
@@ -345,7 +350,8 @@ const CostCenterDetails: FunctionComponent<RouterProps> = ({
       newTerms.push(termOption)
     }
 
-    setPaymentTerms(newTerms)
+    // spread operator is used here so that react can see that the array has changed
+    setPaymentTerms([...newTerms])
   }
 
   const options = (addressId: string) => [
@@ -451,6 +457,7 @@ const CostCenterDetails: FunctionComponent<RouterProps> = ({
     >
       <PageBlock>
         <Input
+          autocomplete="off"
           size="large"
           label={formatMessage(messages.costCenterName)}
           value={costCenterName}
@@ -469,14 +476,12 @@ const CostCenterDetails: FunctionComponent<RouterProps> = ({
           subtitle={formatMessage(messages.paymentTermsSubtitle)}
         >
           {paymentTermOptions.map((option, index) => {
-            const checked = paymentTerms.some(term => term.id === option.id)
-
             return (
               <div key={index} className="mv4">
                 <Toggle
                   label={option.name}
                   semantic
-                  checked={checked}
+                  checked={paymentTerms.some(term => term.id === option.id)}
                   onChange={() => handleTogglePaymentTerm(option.id)}
                   disabled={
                     !permissionsState.includes(
@@ -494,7 +499,7 @@ const CostCenterDetails: FunctionComponent<RouterProps> = ({
         subtitle={formatMessage(messages.addressesSubtitle)}
       >
         <div className="flex">
-          {addresses.map((address: any, index) => {
+          {addresses.map((address: Address, index) => {
             return (
               <div key={index} className="w-25 ma3">
                 <Card>
@@ -553,6 +558,7 @@ const CostCenterDetails: FunctionComponent<RouterProps> = ({
       <EditAddressModal
         isOpen={editAddressModalState.isOpen}
         loading={loadingState}
+        address={editAddressModalState.editAddress}
         handleEditAddress={handleEditAddress}
         handleCloseModals={handleCloseModals}
       />

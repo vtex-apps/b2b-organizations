@@ -26,7 +26,8 @@ import 'vtex.country-codes/locales'
 
 import storageFactory from '../utils/storage'
 import { getSession } from '../modules/session'
-import { getEmptyAddress } from '../utils/addresses'
+import { validateEmail } from '../modules/formValidators'
+import { getEmptyAddress, isValidAddress } from '../utils/addresses'
 import CREATE_ORGANIZATION_REQUEST from '../graphql/createOrganizationRequest.graphql'
 import GET_ORGANIZATION_REQUEST from '../graphql/getOrganizationRequest.graphql'
 import GET_LOGISTICS from '../graphql/getLogistics.graphql'
@@ -184,18 +185,6 @@ const RequestOrganizationForm: FC = () => {
     setAddressState(newAddress)
   }
 
-  const isValidAddress = (address: AddressFormFields) => {
-    let hasInvalidField = false
-
-    for (const field in address) {
-      if (address[field].valid === false) {
-        hasInvalidField = true
-      }
-    }
-
-    return !hasInvalidField
-  }
-
   const handleSubmit = () => {
     setFormState({
       ...formState,
@@ -324,6 +313,7 @@ const RequestOrganizationForm: FC = () => {
                 className={`${handles.newOrganizationInput} mb5 flex flex-column`}
               >
                 <Input
+                  autocomplete="off"
                   size="large"
                   label={translateMessage(messages.organizationName)}
                   value={formState.organizationName}
@@ -396,6 +386,7 @@ const RequestOrganizationForm: FC = () => {
                 className={`${handles.newOrganizationInput} mb5 flex flex-column`}
               >
                 <Input
+                  autocomplete="off"
                   size="large"
                   label={translateMessage(messages.defaultCostCenterName)}
                   value={formState.defaultCostCenterName}
@@ -451,9 +442,7 @@ const RequestOrganizationForm: FC = () => {
                         !formState.defaultCostCenterName ||
                         !formState.firstName ||
                         !formState.lastName ||
-                        !formState.email ||
-                        !formState.email.includes('@') ||
-                        !formState.email.includes('.') ||
+                        !validateEmail(formState.email) ||
                         !isValidAddress(addressState)
                       }
                     >

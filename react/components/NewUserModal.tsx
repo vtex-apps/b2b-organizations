@@ -4,6 +4,7 @@ import { Modal, Button, Input, Dropdown } from 'vtex.styleguide'
 import { defineMessages, useIntl, FormattedMessage } from 'react-intl'
 import { useQuery } from 'react-apollo'
 
+import { validateEmail } from '../modules/formValidators'
 import GET_ROLES from '../graphql/getRoles.graphql'
 import GET_COST_CENTERS from '../graphql/getCostCentersByOrganizationIdStorefront.graphql'
 
@@ -134,7 +135,7 @@ const NewUserModal: FunctionComponent<Props> = ({
             <Button
               variation="tertiary"
               onClick={() => handleCloseModal()}
-              isLoading={loading}
+              disabled={loading}
             >
               {formatMessage(messages.cancel)}
             </Button>
@@ -146,9 +147,7 @@ const NewUserModal: FunctionComponent<Props> = ({
               isLoading={loading}
               disabled={
                 !userState.name ||
-                !userState.email ||
-                !userState.email.includes('@') ||
-                !userState.email.includes('.') ||
+                !validateEmail(userState.email) ||
                 !userState.orgId ||
                 !userState.costId ||
                 !userState.roleId
@@ -159,7 +158,6 @@ const NewUserModal: FunctionComponent<Props> = ({
           </span>
         </div>
       }
-      loading={loading}
       isOpen={isOpen}
       onClose={() => handleCloseModal()}
       closeOnOverlayClick={false}

@@ -8,7 +8,7 @@ import {
   Table,
   Tag,
   Checkbox,
-  ModalDialog,
+  Modal,
   Input,
   Button,
 } from 'vtex.styleguide'
@@ -562,21 +562,35 @@ const OrganizationsTable: FunctionComponent = () => {
           }}
         ></Table>
       </PageBlock>
-      <ModalDialog
+      <Modal
         centered
-        confirmation={{
-          onClick: () => handleAddNewOrganization(),
-          label: formatMessage(messages.add),
-          disabled:
-            !newOrganizationName ||
-            !newCostCenterName ||
-            !isValidAddress(newCostCenterAddressState),
-        }}
-        cancelation={{
-          onClick: () => handleCloseModal(),
-          label: formatMessage(messages.cancel),
-        }}
-        loading={loadingState}
+        bottomBar={
+          <div className="nowrap">
+            <span className="mr4">
+              <Button
+                variation="tertiary"
+                onClick={() => handleCloseModal()}
+                disabled={loadingState}
+              >
+                {formatMessage(messages.cancel)}
+              </Button>
+            </span>
+            <span>
+              <Button
+                variation="primary"
+                onClick={() => handleAddNewOrganization()}
+                isLoading={loadingState}
+                disabled={
+                  !newOrganizationName ||
+                  !newCostCenterName ||
+                  !isValidAddress(newCostCenterAddressState)
+                }
+              >
+                {formatMessage(messages.add)}
+              </Button>
+            </span>
+          </div>
+        }
         isOpen={newOrganizationModalState}
         onClose={() => handleCloseModal()}
         closeOnOverlayClick={false}
@@ -631,7 +645,7 @@ const OrganizationsTable: FunctionComponent = () => {
             />
           </AddressContainer>
         </AddressRules>
-      </ModalDialog>
+      </Modal>
     </Layout>
   )
 }

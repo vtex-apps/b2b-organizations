@@ -10,7 +10,7 @@ import {
   Spinner,
   Button,
   Input,
-  ModalDialog,
+  Modal,
 } from 'vtex.styleguide'
 import { useToast } from '@vtex/admin-ui'
 import { useIntl, FormattedMessage, defineMessages } from 'react-intl'
@@ -674,6 +674,7 @@ const OrganizationDetails: FunctionComponent = () => {
     >
       <PageBlock>
         <Input
+          autocomplete="off"
           size="large"
           label={
             <h4 className="t-heading-5 mb0 pt3">
@@ -696,7 +697,7 @@ const OrganizationDetails: FunctionComponent = () => {
             placeholder={formatMessage(messages.status)}
             options={statusOptions}
             value={statusState}
-            onChange={(_: any, v: string) => setStatusState(v)}
+            onChange={(_: void, v: string) => setStatusState(v)}
           />
         </div>
         <h4 className="t-heading-5 mb0 pt3">
@@ -921,19 +922,34 @@ const OrganizationDetails: FunctionComponent = () => {
           />
         </div>
       </PageBlock>
-      <ModalDialog
+      <Modal
         centered
-        confirmation={{
-          onClick: () => handleAddNewCostCenter(),
-          label: formatMessage(messages.add),
-          disabled:
-            !newCostCenterName || !isValidAddress(newCostCenterAddressState),
-        }}
-        cancelation={{
-          onClick: () => handleCloseModal(),
-          label: formatMessage(messages.cancel),
-        }}
-        loading={loadingState}
+        bottomBar={
+          <div className="nowrap">
+            <span className="mr4">
+              <Button
+                variation="tertiary"
+                onClick={() => handleCloseModal()}
+                disabled={loadingState}
+              >
+                {formatMessage(messages.cancel)}
+              </Button>
+            </span>
+            <span>
+              <Button
+                variation="primary"
+                onClick={() => handleAddNewCostCenter()}
+                isLoading={loadingState}
+                disabled={
+                  !newCostCenterName ||
+                  !isValidAddress(newCostCenterAddressState)
+                }
+              >
+                {formatMessage(messages.add)}
+              </Button>
+            </span>
+          </div>
+        }
         isOpen={newCostCenterModalState}
         onClose={() => handleCloseModal()}
         closeOnOverlayClick={false}
@@ -943,6 +959,7 @@ const OrganizationDetails: FunctionComponent = () => {
         </p>
         <div className="w-100 mv6">
           <Input
+            autocomplete="off"
             size="large"
             label={formatMessage(messages.costCenterName)}
             value={newCostCenterName}
@@ -977,7 +994,7 @@ const OrganizationDetails: FunctionComponent = () => {
             />
           </AddressContainer>
         </AddressRules>
-      </ModalDialog>
+      </Modal>
     </Layout>
   )
 }

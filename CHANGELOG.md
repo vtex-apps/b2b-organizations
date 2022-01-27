@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Fixed
+
+- Better validation for email addresses in forms
+- Better validation for required fields in forms
+- Ensure forms cannot be submitted multiple times by clicking multiple times
+- Ensure cost center addresses can be edited by org admin
+- Payment term toggle in admin cost center details page no longer behaves erratically
+
 ## [0.6.2] - 2022-01-21
 
 ### Added
