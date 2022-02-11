@@ -145,14 +145,17 @@ const RequestOrganizationForm: FC = () => {
     addValidation(getEmptyAddress(country))
   )
 
-  const [formState, setFormState] = useState({
+  const formStateModel = {
     organizationName: '',
     firstName: '',
     lastName: '',
     email: '',
     defaultCostCenterName: '',
     isSubmitting: false,
-  })
+    submitted: false,
+  }
+
+  const [formState, setFormState] = useState(formStateModel)
 
   const [hasProfile, setHasProfile] = useState(false)
 
@@ -200,7 +203,9 @@ const RequestOrganizationForm: FC = () => {
 
   const handleNewOrganizationRequest = () => {
     localStore.removeItem('b2b-organizations_orgRequestId')
-    window.location.reload()
+    setFormState({
+      ...formStateModel,
+    })
   }
 
   const handleSubmit = () => {
@@ -248,16 +253,21 @@ const RequestOrganizationForm: FC = () => {
         toastMessage(messages.toastSuccess)
         refetch({ id: requestId })
         window.scrollTo({ top: 0, behavior: 'smooth' })
+        setFormState({
+          ...formState,
+          isSubmitting: false,
+          submitted: true,
+        })
       })
       .catch(error => {
         console.error(error)
         toastMessage(messages.toastFailure)
+        setFormState({
+          ...formState,
+          isSubmitting: false,
+          submitted: false,
+        })
       })
-
-    setFormState({
-      ...formState,
-      isSubmitting: false,
-    })
   }
 
   if (!data) return null
@@ -285,7 +295,8 @@ const RequestOrganizationForm: FC = () => {
                   <FormattedMessage id="store/b2b-organizations.not-authenticated" />
                 </div>
               </PageBlock>
-            ) : existingRequestData?.getOrganizationRequestById?.status ? (
+            ) : formState.submitted &&
+              existingRequestData?.getOrganizationRequestById?.status ? (
               <PageBlock>
                 {existingRequestData.getOrganizationRequestById.status ===
                   'pending' && (
