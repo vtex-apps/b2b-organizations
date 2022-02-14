@@ -152,7 +152,7 @@ const RequestOrganizationForm: FC = () => {
     email: '',
     defaultCostCenterName: '',
     isSubmitting: false,
-    submitted: false,
+    submitted: true,
   }
 
   const [formState, setFormState] = useState(formStateModel)
@@ -205,6 +205,7 @@ const RequestOrganizationForm: FC = () => {
     localStore.removeItem('b2b-organizations_orgRequestId')
     setFormState({
       ...formStateModel,
+      submitted: false,
     })
   }
 
@@ -256,7 +257,6 @@ const RequestOrganizationForm: FC = () => {
         setFormState({
           ...formState,
           isSubmitting: false,
-          submitted: true,
         })
       })
       .catch(error => {
@@ -265,7 +265,6 @@ const RequestOrganizationForm: FC = () => {
         setFormState({
           ...formState,
           isSubmitting: false,
-          submitted: false,
         })
       })
   }
