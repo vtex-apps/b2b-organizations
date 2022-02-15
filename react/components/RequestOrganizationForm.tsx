@@ -207,12 +207,14 @@ const RequestOrganizationForm: FC = () => {
       ...formStateModel,
       submitted: false,
     })
+    setAddressState(() => addValidation(getEmptyAddress(country)))
   }
 
   const handleSubmit = () => {
     setFormState({
       ...formState,
       isSubmitting: true,
+      submitted: true,
     })
 
     const organizationRequest = {
@@ -257,6 +259,7 @@ const RequestOrganizationForm: FC = () => {
         setFormState({
           ...formState,
           isSubmitting: false,
+          submitted: true,
         })
       })
       .catch(error => {
