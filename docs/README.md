@@ -110,11 +110,11 @@ If a user is removed from an organization, their VTEX user account will continue
 
 To give storefront users visibility into their currently assigned organization, cost center, and role, this app provides a `b2b-user-widget` block which can be added to the account's store-theme. After installing the app:
 
-1. Modify your store-theme's `manifest.json` file to add this app to its `peerDependencies` like so:
+1. Modify your store-theme's `manifest.json` file to add this app to its `dependencies` like so:
 
 ```json
-"peerDependencies": {
-    "vtex.b2b-organizations": "0.x"
+"dependencies": {
+    "vtex.b2b-organizations": "1.x"
   },
 ```
 
