@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Added
+
+- Added a new button after the organization request form has been submitted which cleans the localStorage property in order to enable submitting another one if the user needs
+
 ## [0.6.3] - 2022-01-27
 
 ### Fixed

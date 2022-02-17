@@ -192,5 +192,6 @@
   "store/b2b-organizations.user-widget.status": "store/b2b-organizations.user-widget.status",
   "store/b2b-organizations.user-widget.status.active": "store/b2b-organizations.user-widget.status.active",
   "store/b2b-organizations.user-widget.status.on-hold": "store/b2b-organizations.user-widget.status.on-hold",
-  "store/b2b-organizations.user-widget.status.inactive": "store/b2b-organizations.user-widget.status.inactive"
+  "store/b2b-organizations.user-widget.status.inactive": "store/b2b-organizations.user-widget.status.inactive",
+  "store/b2b-organizations.request-new-organization.submit-button.create-new-request": "store/b2b-organizations.request-new-organization.submit-button.create-new-request"
 }

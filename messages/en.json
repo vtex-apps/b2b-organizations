@@ -192,5 +192,6 @@
   "store/b2b-organizations.user-widget.status": "Organization Status:",
   "store/b2b-organizations.user-widget.status.active": "Active",
   "store/b2b-organizations.user-widget.status.on-hold": "On Hold",
-  "store/b2b-organizations.user-widget.status.inactive": "Inactive"
+  "store/b2b-organizations.user-widget.status.inactive": "Inactive",
+  "store/b2b-organizations.request-new-organization.submit-button.create-new-request": "Create a new request"
 }
