@@ -226,9 +226,11 @@ const OrganizationDetails: FunctionComponent<RouterProps> = ({
     createCostCenter({ variables })
       .then(() => {
         setNewCostCenterModalState(false)
-        setLoadingState(false)
-        toastMessage(messages.toastAddCostCenterSuccess)
-        refetchCostCenters({ ...costCenterPaginationState })
+        setTimeout(() => {
+          setLoadingState(false)
+          toastMessage(messages.toastAddCostCenterSuccess)
+          refetchCostCenters({ ...costCenterPaginationState })
+        }, 500)
       })
       .catch(error => {
         setNewCostCenterModalState(false)
@@ -348,6 +350,7 @@ const OrganizationDetails: FunctionComponent<RouterProps> = ({
         <OrganizationUsersTable
           organizationId={data.getOrganizationByIdStorefront?.id}
           permissions={permissionsState}
+          refetchCostCenters={loadingState}
         />
       </PageBlock>
       <NewCostCenterModal
