@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [1.0.1] - 2022-03-02
+
 ### Fixed
 
 - After adding a cost center in the storefront UI, it will immediately be shown in the cost centers dropdown menu when adding or editing a user
