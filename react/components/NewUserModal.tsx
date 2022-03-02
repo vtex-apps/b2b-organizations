@@ -72,6 +72,7 @@ const NewUserModal: FunctionComponent<Props> = ({
 
   const { data: costCentersData } = useQuery(GET_COST_CENTERS, {
     variables: { id: organizationId, pageSize: 100 },
+    fetchPolicy: 'network-only',
     ssr: false,
   })
 
@@ -88,7 +89,7 @@ const NewUserModal: FunctionComponent<Props> = ({
       }
     )
 
-    setCostCenterOptions(options)
+    setCostCenterOptions([...options])
     setUserState({
       ...userState,
       costId: options[0].value,

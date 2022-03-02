@@ -14,6 +14,7 @@ import RemoveUserModal from './RemoveUserModal'
 interface Props {
   organizationId: string
   permissions: string[]
+  refetchCostCenters: boolean
 }
 
 interface CellRendererProps {
@@ -73,6 +74,7 @@ const messages = defineMessages({
 const OrganizationUsersTable: FunctionComponent<Props> = ({
   organizationId,
   permissions,
+  refetchCostCenters,
 }) => {
   const { formatMessage } = useIntl()
   const { showToast } = useContext(ToastContext)
@@ -257,22 +259,26 @@ const OrganizationUsersTable: FunctionComponent<Props> = ({
           },
         }}
       />
-      <NewUserModal
-        handleAddNewUser={handleAddUser}
-        handleCloseModal={handleCloseAddUserModal}
-        loading={addUserLoading}
-        isOpen={addUserModalOpen}
-        organizationId={organizationId}
-      />
-      <EditUserModal
-        handleUpdateUser={handleUpdateUser}
-        handleCloseModal={handleCloseUpdateUserModal}
-        handleRemoveUser={handleShowRemoveUserModal}
-        loading={updateUserLoading}
-        isOpen={editUserModalOpen}
-        organizationId={organizationId}
-        user={editUserDetails}
-      />
+      {refetchCostCenters ? null : (
+        <NewUserModal
+          handleAddNewUser={handleAddUser}
+          handleCloseModal={handleCloseAddUserModal}
+          loading={addUserLoading}
+          isOpen={addUserModalOpen}
+          organizationId={organizationId}
+        />
+      )}
+      {refetchCostCenters ? null : (
+        <EditUserModal
+          handleUpdateUser={handleUpdateUser}
+          handleCloseModal={handleCloseUpdateUserModal}
+          handleRemoveUser={handleShowRemoveUserModal}
+          loading={updateUserLoading}
+          isOpen={editUserModalOpen}
+          organizationId={organizationId}
+          user={editUserDetails}
+        />
+      )}
       <RemoveUserModal
         handleRemoveUser={handleRemoveUser}
         handleCloseModal={handleCloseRemoveUserModal}
