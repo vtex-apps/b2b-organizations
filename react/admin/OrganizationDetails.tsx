@@ -25,6 +25,7 @@ import {
 import { StyleguideInput } from 'vtex.address-form/inputs'
 import { addValidation } from 'vtex.address-form/helpers'
 
+import OrganizationUsersTable from '../components/OrganizationUsersTable'
 import { getEmptyAddress, isValidAddress } from '../utils/addresses'
 import GET_ORGANIZATION from '../graphql/getOrganization.graphql'
 import GET_LOGISTICS from '../graphql/getLogistics.graphql'
@@ -120,6 +121,9 @@ const messages = defineMessages({
   },
   priceTables: {
     id: `${adminPrefix}organization-details.price-tables`,
+  },
+  users: {
+    id: `${adminPrefix}organization-details.users`,
   },
   selectedRows: {
     id: `${adminPrefix}selected-rows`,
@@ -921,6 +925,14 @@ const OrganizationDetails: FunctionComponent = () => {
             }}
           />
         </div>
+      </PageBlock>
+      <PageBlock title={formatMessage(messages.users)}>
+        <OrganizationUsersTable
+          organizationId={params?.id}
+          permissions={[]}
+          refetchCostCenters={loadingState}
+          isAdmin={true}
+        />
       </PageBlock>
       <Modal
         centered

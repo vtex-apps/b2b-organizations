@@ -1,0 +1,5 @@
+query CheckImpersonation {
+  checkImpersonation @context(provider: "vtex.storefront-permissions") {
+    email
+  }
+}

@@ -307,9 +307,6 @@ const OrganizationDetails: FunctionComponent<RouterProps> = ({
             if (!id) return
 
             history.push(`/cost-center/${id}`)
-            // navigate({
-            //   to: `${rootPath ?? ''}/account#/cost-center/${id}`,
-            // })
           }}
           pagination={{
             onNextClick: handleCostCentersNextClick,

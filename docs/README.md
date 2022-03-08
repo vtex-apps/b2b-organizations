@@ -57,10 +57,11 @@ The admin user may also click on an existing organization to view or edit its de
 
 - The organization's name
 - The organization's status
-- The cost centers within the organization (see [Cost Center Management](#cost-center-management-admin-storefront))
+- The cost centers within the organization (see [Cost Center Management](#cost-center-management-admin--storefront))
 - The [product collections](https://help.vtex.com/tutorial/creating-collections-beta--yJBHqNMViOAnnnq4fyOye) assigned to the organization (these determine what products the organization users will see in the storefront)
 - The [payment terms](https://help.vtex.com/en/tutorial/setting-up-the-promissory-conector--7Gy0SJRVS0Qi2CuWMAqQc0) assigned to the organization (these determine what payment options are available to organization users in checkout -- note that these can be further customized per cost center)
 - The [price tables](https://help.vtex.com/en/tutorial/creating-price-tables--58YmY2Iwggyw4WeSCGg24S) assigned to the organization (these determine what prices the organization users will see in the storefront)
+- The users assigned to the organization (see [User Management](#user-management-admin--storefront))
 
 ⚠️ After making a change, be sure to click `Save` at the top of the page.
 
@@ -75,7 +76,7 @@ Users designated as the Organization Admin of an organization may manage its det
 On the `My Organization` page, the Organization Admin may do the following:
 
 - add, edit, or remove cost centers (see [Cost Center Management](#cost-center-management-admin--storefront))
-- add, edit, or remove users (see [User Management](#user-management-storefront))
+- add, edit, or remove users (see [User Management](#user-management-admin--storefront))
 
 ### Cost Center Management (Admin & Storefront)
 
@@ -94,21 +95,33 @@ In addition to the above actions, VTEX admin users have the ability to enable or
 
 > Technical note: Cost centers are stored in Masterdata, within the `cost_centers` data entity.
 
-### User Management (Storefront)
+### User Management (Admin & Storefront)
 
-Organization Admin users may manage the users of their organization via the `My Organization` page within My Account. This includes adding or removing users to or from their organization as well as changing the role or cost center assignment of existing users.
+VTEX admin users may manage organization users via the `Organizations` admin panel, and Organization Admin users may manage the users of their organization via the `My Organization` page within My Account. This includes adding or removing users to or from the organization as well as changing the role or cost center assignment of existing users.
 
 ⚠️ Users with the Organization Admin role may add, edit, or remove users with any of the following roles: `Organization Admin`, `Organization Approver`, and `Organization Buyer`.
+
+⚠️ Users with the Sales Admin role may add, edit, or remove users with any of the following roles: `Sales Admin`, `Sales Manager`, and `Sales Representative`.
 
 When adding users, if a VTEX profile does not already exist for the provided email address, it will automatically be created.
 
 If a user is removed from an organization, their VTEX user account will continue to exist, but their assigned organization, cost center, and role will be revoked.
 
-⚠️ VTEX admin users may manage B2B users using the [Customers Admin](https://developers.vtex.com/vtex-developer-docs/docs/vtex-admin-customers) app.
+⚠️ VTEX admin users may also manage B2B users using the [Customers Admin](https://developers.vtex.com/vtex-developer-docs/docs/vtex-admin-customers) app.
+
+### User Impersonation (Storefront)
+
+Users with the necessary permissions (by default, any of the Sales roles or the Organization Admin) may impersonate another user in order to temporarily apply that user's email, organization, and cost center to their storefront session. This allows the impersonating user to browse the site and see the prices, products, shipping addresses and payment methods that would be seen by the impersonated user. Additionally, the impersonating user may take actions on behalf of the impersonated user, such as placing orders (the impersonating user will still have the full use of their normal permissions).
+
+Impersonation can be initiated from the `My Organization` page within My Account. Within the list of Organization users, click the `...` to the right of each row and select `Impersonate User`.
+
+To stop impersonation, use the User Widget, described below.
 
 ### User Widget (Storefront)
 
-To give storefront users visibility into their currently assigned organization, cost center, and role, this app provides a `b2b-user-widget` block which can be added to the account's store-theme. After installing the app:
+To give storefront users visibility into their currently assigned organization, cost center, and role, this app provides a `b2b-user-widget` block which can be added to the account's store-theme. If impersonation is currently active, this block will also show the email of the user being impersonated, as well as providing a button to stop impersonation.
+
+To use this block, follow these steps after installing the app:
 
 1. Modify your store-theme's `manifest.json` file to add this app to its `dependencies` like so:
 
@@ -135,8 +148,12 @@ CSS handles are available for the Organization Request Form component and the Us
 | `newOrganizationButtonsContainer` |
 | `newOrganizationButtonSubmit`     |
 | `userWidgetContainer`             |
+| `userWidgetRow`                   |
 | `userWidgetItem`                  |
 | `userWidgetButton`                |
+| `userWidgetImpersonationItem`     |
+| `userWidgetImpersonationButton`   |
+| `userWidgetImpersonationError`    |
 
 <!-- DOCS-IGNORE:start -->
 

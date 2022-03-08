@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react'
 import type { FunctionComponent } from 'react'
 import { Modal, Button, Input, Dropdown } from 'vtex.styleguide'
-import { defineMessages, useIntl, FormattedMessage } from 'react-intl'
+import { defineMessages, useIntl } from 'react-intl'
 import { useQuery } from 'react-apollo'
 
 import { validateEmail } from '../modules/formValidators'
 import GET_ROLES from '../graphql/getRoles.graphql'
 import GET_COST_CENTERS from '../graphql/getCostCentersByOrganizationIdStorefront.graphql'
+import GET_COST_CENTERS_ADMIN from '../graphql/getCostCentersByOrganizationId.graphql'
 
 interface Props {
   loading: boolean
@@ -14,6 +15,7 @@ interface Props {
   handleAddNewUser: (user: UserInput) => void
   handleCloseModal: () => void
   organizationId: string
+  isAdmin?: boolean
 }
 
 interface DropdownOption {
@@ -22,8 +24,15 @@ interface DropdownOption {
 }
 
 const storePrefix = 'store/b2b-organizations.'
+const adminPrefix = 'admin/b2b-organizations.'
 
-const messages = defineMessages({
+const storeMessages = defineMessages({
+  addUser: {
+    id: `${storePrefix}organization-details.add-user`,
+  },
+  addUserHelp: {
+    id: `${storePrefix}organization-details.add-user.helpText`,
+  },
   add: {
     id: `${storePrefix}organization-details.button.add`,
   },
@@ -42,6 +51,45 @@ const messages = defineMessages({
   role: {
     id: `${storePrefix}user-details.placeholder-role`,
   },
+  userCostCenter: {
+    id: `${storePrefix}user-details.costCenter`,
+  },
+  userRole: {
+    id: `${storePrefix}user-details.role`,
+  },
+})
+
+const adminMessages = defineMessages({
+  addUser: {
+    id: `${adminPrefix}organization-details.add-user`,
+  },
+  addUserHelp: {
+    id: `${adminPrefix}organization-details.add-user.helpText`,
+  },
+  add: {
+    id: `${adminPrefix}organization-details.button.add`,
+  },
+  cancel: {
+    id: `${adminPrefix}organization-details.button.cancel`,
+  },
+  name: {
+    id: `${adminPrefix}user-details.name`,
+  },
+  email: {
+    id: `${adminPrefix}user-details.email`,
+  },
+  costCenter: {
+    id: `${adminPrefix}user-details.placeholder-costCenter`,
+  },
+  role: {
+    id: `${adminPrefix}user-details.placeholder-role`,
+  },
+  userCostCenter: {
+    id: `${adminPrefix}user-details.costCenter`,
+  },
+  userRole: {
+    id: `${adminPrefix}user-details.role`,
+  },
 })
 
 const NewUserModal: FunctionComponent<Props> = ({
@@ -50,6 +98,7 @@ const NewUserModal: FunctionComponent<Props> = ({
   handleAddNewUser,
   handleCloseModal,
   organizationId,
+  isAdmin = false,
 }) => {
   const { formatMessage } = useIntl()
   const [userState, setUserState] = useState({
@@ -70,24 +119,31 @@ const NewUserModal: FunctionComponent<Props> = ({
     ssr: false,
   })
 
-  const { data: costCentersData } = useQuery(GET_COST_CENTERS, {
-    variables: { id: organizationId, pageSize: 100 },
-    fetchPolicy: 'network-only',
-    ssr: false,
-  })
+  const { data: costCentersData } = useQuery(
+    isAdmin ? GET_COST_CENTERS_ADMIN : GET_COST_CENTERS,
+    {
+      variables: { id: organizationId, pageSize: 100 },
+      fetchPolicy: 'network-only',
+      ssr: false,
+    }
+  )
 
   useEffect(() => {
     if (
-      !costCentersData?.getCostCentersByOrganizationIdStorefront?.data?.length
+      !costCentersData?.getCostCentersByOrganizationIdStorefront?.data
+        ?.length &&
+      !costCentersData?.getCostCentersByOrganizationId?.data?.length
     ) {
       return
     }
 
-    const options = costCentersData.getCostCentersByOrganizationIdStorefront.data.map(
-      (costCenter: any) => {
-        return { label: costCenter.name, value: costCenter.id }
-      }
-    )
+    const data = isAdmin
+      ? costCentersData.getCostCentersByOrganizationId.data
+      : costCentersData.getCostCentersByOrganizationIdStorefront.data
+
+    const options = data.map((costCenter: any) => {
+      return { label: costCenter.name, value: costCenter.id }
+    })
 
     setCostCenterOptions([...options])
     setUserState({
@@ -138,7 +194,9 @@ const NewUserModal: FunctionComponent<Props> = ({
               onClick={() => handleCloseModal()}
               disabled={loading}
             >
-              {formatMessage(messages.cancel)}
+              {formatMessage(
+                isAdmin ? adminMessages.cancel : storeMessages.cancel
+              )}
             </Button>
           </span>
           <span>
@@ -154,7 +212,7 @@ const NewUserModal: FunctionComponent<Props> = ({
                 !userState.roleId
               }
             >
-              {formatMessage(messages.add)}
+              {formatMessage(isAdmin ? adminMessages.add : storeMessages.add)}
             </Button>
           </span>
         </div>
@@ -164,15 +222,19 @@ const NewUserModal: FunctionComponent<Props> = ({
       closeOnOverlayClick={false}
     >
       <p className="f3 f1-ns fw3 gray">
-        <FormattedMessage id="store/b2b-organizations.organization-details.add-user" />
+        {formatMessage(isAdmin ? adminMessages.addUser : storeMessages.addUser)}
       </p>
       <p>
-        <FormattedMessage id="store/b2b-organizations.organization-details.add-user.helpText" />
+        {formatMessage(
+          isAdmin ? adminMessages.addUserHelp : storeMessages.addUserHelp
+        )}
       </p>
       <div className="w-100 mv6">
         <Input
           size="large"
-          label={formatMessage(messages.name)}
+          label={formatMessage(
+            isAdmin ? adminMessages.name : storeMessages.name
+          )}
           value={userState.name}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
             setUserState({ ...userState, name: e.target.value })
@@ -183,7 +245,9 @@ const NewUserModal: FunctionComponent<Props> = ({
       <div className="w-100 mv6">
         <Input
           size="large"
-          label={formatMessage(messages.email)}
+          label={formatMessage(
+            isAdmin ? adminMessages.email : storeMessages.email
+          )}
           value={userState.email}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
             setUserState({ ...userState, email: e.target.value })
@@ -195,10 +259,16 @@ const NewUserModal: FunctionComponent<Props> = ({
         <Dropdown
           label={
             <h4 className="t-heading-5 mb0 pt3">
-              <FormattedMessage id="store/b2b-organizations.user-details.costCenter" />
+              {formatMessage(
+                isAdmin
+                  ? adminMessages.userCostCenter
+                  : storeMessages.userCostCenter
+              )}
             </h4>
           }
-          placeholder={formatMessage(messages.costCenter)}
+          placeholder={formatMessage(
+            isAdmin ? adminMessages.costCenter : storeMessages.costCenter
+          )}
           options={costCenterOptions}
           value={userState.costId}
           onChange={(_: any, v: string) =>
@@ -210,10 +280,14 @@ const NewUserModal: FunctionComponent<Props> = ({
         <Dropdown
           label={
             <h4 className="t-heading-5 mb0 pt3">
-              <FormattedMessage id="store/b2b-organizations.user-details.role" />
+              {formatMessage(
+                isAdmin ? adminMessages.userRole : storeMessages.userRole
+              )}
             </h4>
           }
-          placeholder={formatMessage(messages.role)}
+          placeholder={formatMessage(
+            isAdmin ? adminMessages.role : storeMessages.role
+          )}
           options={roleOptions}
           value={userState.roleId}
           onChange={(_: any, v: string) =>
