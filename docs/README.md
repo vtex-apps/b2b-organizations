@@ -135,8 +135,12 @@ CSS handles are available for the Organization Request Form component and the Us
 | `newOrganizationButtonsContainer` |
 | `newOrganizationButtonSubmit`     |
 | `userWidgetContainer`             |
+| `userWidgetRow`                   |
 | `userWidgetItem`                  |
 | `userWidgetButton`                |
+| `userWidgetImpersonationItem`     |
+| `userWidgetImpersonationButton`   |
+| `userWidgetImpersonationError`    |
 
 <!-- DOCS-IGNORE:start -->
 

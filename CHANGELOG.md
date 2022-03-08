@@ -7,6 +7,18 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Added
+
+- `Impersonate User` action in organization user list
+- Impersonation status in `b2b-user-widget`
+- `Stop Impersonation` action in `b2b-user-widget`
+- User list now shown in Organizations admin panel
+
+### Fixed
+
+- User list is now ordered alphabetically by email
+- Remove user mutation now receives correct variable
+
 ## [1.0.1] - 2022-03-02
 
 ### Fixed

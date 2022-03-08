@@ -1,7 +1,7 @@
-import React from 'react'
+import React, { useState } from 'react'
 import type { FunctionComponent } from 'react'
-import { useQuery } from 'react-apollo'
-import { useIntl, defineMessages } from 'react-intl'
+import { useQuery, useMutation } from 'react-apollo'
+import { useIntl, defineMessages, FormattedMessage } from 'react-intl'
 import { Button, Tag } from 'vtex.styleguide'
 import { useCssHandles } from 'vtex.css-handles'
 import { useRuntime } from 'vtex.render-runtime'
@@ -11,6 +11,8 @@ import { useSessionResponse } from '../modules/session'
 import GET_PERMISSIONS from '../graphql/getPermissions.graphql'
 import GET_ORGANIZATION from '../graphql/getOrganizationStorefront.graphql'
 import GET_COST_CENTER from '../graphql/getCostCenterStorefront.graphql'
+import CHECK_IMPERSONATION from '../graphql/checkImpersonation.graphql'
+import STOP_IMPERSONATION from '../graphql/impersonateUser.graphql'
 
 const storePrefix = 'store/b2b-organizations.'
 
@@ -39,12 +41,22 @@ const messages = defineMessages({
   manageOrganization: {
     id: `${storePrefix}user-widget.manage-organization`,
   },
+  impersonating: {
+    id: `${storePrefix}user-widget.impersonating`,
+  },
+  stopImpersonation: {
+    id: `${storePrefix}stop-impersonation`,
+  },
 })
 
 const CSS_HANDLES = [
   'userWidgetContainer',
+  'userWidgetRow',
   'userWidgetItem',
   'userWidgetButton',
+  'userWidgetImpersonationItem',
+  'userWidgetImpersonationButton',
+  'userWidgetImpersonationError',
 ] as const
 
 const localStore = storageFactory(() => localStorage)
@@ -56,6 +68,8 @@ const UserWidget: FunctionComponent = () => {
   const { navigate, rootPath } = useRuntime()
   const { formatMessage } = useIntl()
   const handles = useCssHandles(CSS_HANDLES)
+  const [loadingState, setLoadingState] = useState(false)
+  const [errorState, setErrorState] = useState(false)
 
   const sessionResponse: any = useSessionResponse()
 
@@ -83,6 +97,43 @@ const UserWidget: FunctionComponent = () => {
     ssr: false,
     skip: !isAuthenticated,
   })
+
+  const { data: impersonationData } = useQuery(CHECK_IMPERSONATION, {
+    ssr: false,
+    skip: !isAuthenticated,
+  })
+
+  const [stopImpersonation] = useMutation(STOP_IMPERSONATION)
+
+  // useEffect(() => {
+  //   const handleImpersonationUpdated = () => refetch()
+
+  //   window.addEventListener('impersonationUpdated', handleImpersonationUpdated)
+
+  //   return () => {
+  //     window.removeEventListener(
+  //       'impersonationUpdated',
+  //       handleImpersonationUpdated
+  //     )
+  //   }
+  // }, [refetch])
+
+  const handleStopImpersonation = async () => {
+    setLoadingState(true)
+    setErrorState(false)
+
+    stopImpersonation()
+      .then(() => {
+        // refetch()
+        // setLoadingState(false)
+        window.location.reload()
+      })
+      .catch(error => {
+        console.error(error)
+        setErrorState(true)
+        setLoadingState(false)
+      })
+  }
 
   const handleStatusMessage = (status: string) => {
     switch (status) {
@@ -122,45 +173,94 @@ const UserWidget: FunctionComponent = () => {
 
   return (
     <div
-      className={`${handles.userWidgetContainer} flex mv3 justify-end items-center`}
+      className={`${handles.userWidgetContainer} w-100 flex flex-column mv3`}
     >
-      <div
-        className={`${handles.userWidgetItem} pa3 br2 bg-base--inverted hover-bg-base--inverted active-bg-base--inverted c-on-base--inverted hover-c-on-base--inverted active-c-on-base--inverted dib mr3`}
-      >
-        {`${formatMessage(messages.organization)} ${
-          organizationData?.getOrganizationByIdStorefront?.name
-        }`}{' '}
-        {handleStatusMessage(
-          organizationData?.getOrganizationByIdStorefront?.status ?? ''
-        )}
-      </div>
-      <div
-        className={`${handles.userWidgetItem} pa3 br2 bg-base--inverted hover-bg-base--inverted active-bg-base--inverted c-on-base--inverted hover-c-on-base--inverted active-c-on-base--inverted dib mr3`}
-      >
-        {`${formatMessage(messages.costCenter)} ${
-          costCenterData?.getCostCenterByIdStorefront?.name
-        }`}
-      </div>
-      <div
-        className={`${handles.userWidgetItem} pa3 br2 bg-base--inverted hover-bg-base--inverted active-bg-base--inverted c-on-base--inverted hover-c-on-base--inverted active-c-on-base--inverted dib mr3`}
-      >
-        {`${formatMessage(messages.role)} ${
-          permissionsData?.checkUserPermission?.role?.name
-        }`}
-      </div>
-      <div className={`${handles.userWidgetButton} pa3`}>
-        <Button
-          variation="secondary"
-          size="small"
-          onClick={() =>
-            navigate({
-              to: `${rootPath ?? ''}/account#/organization`,
-            })
-          }
+      <div className={`${handles.userWidgetRow} flex justify-end items-center`}>
+        <div
+          className={`${handles.userWidgetItem} pa3 br2 bg-base--inverted hover-bg-base--inverted active-bg-base--inverted c-on-base--inverted hover-c-on-base--inverted active-c-on-base--inverted dib mr3`}
         >
-          {formatMessage(messages.manageOrganization)}
-        </Button>
+          {`${formatMessage(messages.organization)} ${
+            organizationData?.getOrganizationByIdStorefront?.name
+          }`}{' '}
+          {handleStatusMessage(
+            organizationData?.getOrganizationByIdStorefront?.status ?? ''
+          )}
+        </div>
+        <div
+          className={`${handles.userWidgetItem} pa3 br2 bg-base--inverted hover-bg-base--inverted active-bg-base--inverted c-on-base--inverted hover-c-on-base--inverted active-c-on-base--inverted dib mr3`}
+        >
+          {`${formatMessage(messages.costCenter)} ${
+            costCenterData?.getCostCenterByIdStorefront?.name
+          }`}
+        </div>
+        <div
+          className={`${handles.userWidgetItem} pa3 br2 bg-base--inverted hover-bg-base--inverted active-bg-base--inverted c-on-base--inverted hover-c-on-base--inverted active-c-on-base--inverted dib mr3`}
+        >
+          {`${formatMessage(messages.role)} ${
+            permissionsData?.checkUserPermission?.role?.name
+          }`}
+        </div>
+        <div className={`${handles.userWidgetButton} pa3`}>
+          <Button
+            variation="secondary"
+            size="small"
+            onClick={() =>
+              navigate({
+                to: `${rootPath ?? ''}/account#/organization`,
+              })
+            }
+          >
+            {formatMessage(messages.manageOrganization)}
+          </Button>
+        </div>
       </div>
+      {impersonationData?.checkImpersonation?.email && (
+        <div
+          className={`${handles.userWidgetRow} flex justify-end items-center`}
+        >
+          <div
+            className={`${handles.userWidgetImpersonationItem} pa3 br2 bg-base--inverted hover-bg-base--inverted active-bg-base--inverted c-on-base--inverted hover-c-on-base--inverted active-c-on-base--inverted dib mr3`}
+          >
+            {`${formatMessage(messages.impersonating)} ${
+              impersonationData.checkImpersonation.email
+            }`}
+          </div>
+          {/* <div
+            className={`${handles.userWidgetImpersonationItem} pa3 br2 bg-base--inverted hover-bg-base--inverted active-bg-base--inverted c-on-base--inverted hover-c-on-base--inverted active-c-on-base--inverted dib mr3`}
+          >
+            {`${formatMessage(messages.organization)} ${
+              impersonationData?.organizationName
+            }`}
+          </div>
+          <div
+            className={`${handles.userWidgetImpersonationItem} pa3 br2 bg-base--inverted hover-bg-base--inverted active-bg-base--inverted c-on-base--inverted hover-c-on-base--inverted active-c-on-base--inverted dib mr3`}
+          >
+            {`${formatMessage(messages.costCenter)} ${
+              impersonationData?.costCenterName
+            }`}
+          </div>
+          <div
+            className={`${handles.userWidgetImpersonationItem} pa3 br2 bg-base--inverted hover-bg-base--inverted active-bg-base--inverted c-on-base--inverted hover-c-on-base--inverted active-c-on-base--inverted dib mr3`}
+          >
+            {`${formatMessage(messages.role)} ${impersonationData?.role?.name}`}
+          </div> */}
+          <div className={`${handles.userWidgetImpersonationButton} pa3`}>
+            <Button
+              variation="danger"
+              size="small"
+              onClick={() => handleStopImpersonation()}
+              isLoading={loadingState}
+            >
+              {formatMessage(messages.stopImpersonation)}
+            </Button>
+            {errorState && (
+              <div className={`${handles.userWidgetImpersonationError} error`}>
+                <FormattedMessage id="store/b2b-organizations.stop-impersonation-error"></FormattedMessage>
+              </div>
+            )}
+          </div>
+        </div>
+      )}
     </div>
   )
 }
