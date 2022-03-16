@@ -5,6 +5,11 @@ on:
     branches:
       - feature/cypress
   workflow_dispatch:
+    inputs:
+        branch:
+          description: 'Branch to test'
+          required: true
+          default: master
 
 concurrency:
   group: ${{ github.workflow }}
