@@ -40,9 +40,10 @@ jobs:
         working-directory: ./cy-runner
 
       - name: Run Cypress Runner
-        run: yarn --silent cy-r
+        run: yarn cy-r
         env:
           VTEX_QE: ${{ secrets.VTEX_QE }}
+          NODE_NO_WARNINGS: 1
 
       - name: Save results
         uses: actions/upload-artifact@master
