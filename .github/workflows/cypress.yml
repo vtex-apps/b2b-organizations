@@ -39,12 +39,8 @@ jobs:
         run: yarn install --frozen-lockfile
         working-directory: ./cy-runner
 
-      - name: Create logs folder
-        run: mkdir logs
-        working-directory: ./cy-runner
-
       - name: Run Cypress Runner
-        run: yarn cy-r
+        run: yarn --silent cy-r
         env:
           VTEX_QE: ${{ secrets.VTEX_QE }}
 
