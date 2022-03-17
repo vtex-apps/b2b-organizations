@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [1.1.1] - 2022-03-17
+
 ### Added
 
 - Visual indicator for collections / payment terms / price tables that have been assigned to an organization (they now have a checkmark and are greyed out in the "available" list)
