@@ -11,6 +11,7 @@ import {
   Button,
   Input,
   Modal,
+  IconCheck,
 } from 'vtex.styleguide'
 import { useToast } from '@vtex/admin-ui'
 import { useIntl, FormattedMessage, defineMessages } from 'react-intl'
@@ -604,13 +605,71 @@ const OrganizationDetails: FunctionComponent = () => {
     setNewCostCenterAddressState(addValidation(getEmptyAddress(country)))
   }
 
-  const getSchema = () => ({
-    properties: {
-      name: {
-        title: formatMessage(messages.columnName),
+  const getSchema = (
+    type?: 'availablePriceTables' | 'availableCollections' | 'availablePayments'
+  ) => {
+    let cellRenderer
+
+    switch (type) {
+      case 'availablePriceTables':
+        cellRenderer = ({ rowData: { name } }: CellRendererProps) => {
+          const assigned = priceTablesState.includes(name)
+
+          return (
+            <span className={assigned ? 'c-disabled' : ''}>
+              {name}
+              {assigned && <IconCheck />}
+            </span>
+          )
+        }
+
+        break
+
+      case 'availableCollections':
+        cellRenderer = ({ rowData: { name } }: CellRendererProps) => {
+          const assigned = collectionsState.some(
+            collection => collection.name === name
+          )
+
+          return (
+            <span className={assigned ? 'c-disabled' : ''}>
+              {name}
+              {assigned && <IconCheck />}
+            </span>
+          )
+        }
+
+        break
+
+      case 'availablePayments':
+        cellRenderer = ({ rowData: { name } }: CellRendererProps) => {
+          const assigned = paymentTermsState.some(
+            payment => payment.name === name
+          )
+
+          return (
+            <span className={assigned ? 'c-disabled' : ''}>
+              {name}
+              {assigned && <IconCheck />}
+            </span>
+          )
+        }
+
+        break
+
+      default:
+        break
+    }
+
+    return {
+      properties: {
+        name: {
+          title: formatMessage(messages.columnName),
+          ...(cellRenderer && { cellRenderer }),
+        },
       },
-    },
-  })
+    }
+  }
 
   const getCostCenterSchema = () => ({
     properties: {
@@ -790,7 +849,7 @@ const OrganizationDetails: FunctionComponent = () => {
           </h4>
           <Table
             fullWidth
-            schema={getSchema()}
+            schema={getSchema('availableCollections')}
             items={collectionOptions}
             pagination={{
               onNextClick: handleCollectionsNextClick,
@@ -858,7 +917,7 @@ const OrganizationDetails: FunctionComponent = () => {
           </h4>
           <Table
             fullWidth
-            schema={getSchema()}
+            schema={getSchema('availablePayments')}
             items={paymentTermsOptions}
             bulkActions={{
               texts: {
@@ -908,7 +967,7 @@ const OrganizationDetails: FunctionComponent = () => {
           </h4>
           <Table
             fullWidth
-            schema={getSchema()}
+            schema={getSchema('availablePriceTables')}
             items={priceTableOptions}
             bulkActions={{
               texts: {
