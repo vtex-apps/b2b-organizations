@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Added 
+
+Added default shipping address UI option to my account and admin
+
 ## [1.1.1] - 2022-03-17
 
 ### Added
