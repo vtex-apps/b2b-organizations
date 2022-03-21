@@ -1,7 +1,3 @@
-// import CostCenterDetails from './admin/CostCenterDetails'
-
-import React from 'react'
-
-const CostCenterDetails = () => <React.Fragment>HERE</React.Fragment>
+import CostCenterDetails from './admin/CostCenterDetails'
 
 export default CostCenterDetails

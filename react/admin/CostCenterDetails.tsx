@@ -13,6 +13,7 @@ import {
   Input,
   Modal,
   ModalDialog,
+  Toggle,
 } from 'vtex.styleguide'
 import { useToast } from '@vtex/admin-ui'
 import { useIntl, FormattedMessage, defineMessages } from 'react-intl'
@@ -77,6 +78,9 @@ const messages = defineMessages({
   deleteConfirm: {
     id: `${adminPrefix}costCenter-details.button.delete-confirm`,
   },
+  defaultAddress: {
+    id: `${adminPrefix}costCenter-details.default-address`,
+  },
 })
 
 const CostCenterDetails: FunctionComponent = () => {
@@ -123,6 +127,7 @@ const CostCenterDetails: FunctionComponent = () => {
     variables: { id: params?.id },
     skip: !params?.id,
     ssr: false,
+    fetchPolicy: 'network-only',
   })
 
   const [getOrganization, { data: organizationData }] = useLazyQuery(
@@ -143,11 +148,35 @@ const CostCenterDetails: FunctionComponent = () => {
     }))
   }
 
+  const handleSetAddresses = (_addresses: Address[]) => {
+    if (!_addresses.find(item => item.checked))
+      setAddresses(
+        _addresses.map((item, index) => {
+          item.checked = index === 0
+
+          return item
+        })
+      )
+  }
+
+  const handleCheckDefault = (address: Address) => {
+    setAddresses(
+      addresses.map(item => {
+        item.checked = item === address
+
+        return item
+      })
+    )
+  }
+
   useEffect(() => {
+    if (data?.getCostCenterById?.addresses)
+      handleSetAddresses(data.getCostCenterById.addresses)
+
     if (addresses.length || !data?.getCostCenterById?.addresses?.length) return
 
     setCostCenterName(data.getCostCenterById.name)
-    setAddresses(data.getCostCenterById.addresses)
+
     getOrganization({
       variables: { id: data.getCostCenterById.organization },
     })
@@ -155,11 +184,18 @@ const CostCenterDetails: FunctionComponent = () => {
 
   const handleUpdateCostCenter = () => {
     setLoadingState(true)
+    const _addresses = [...addresses]
+
+    _addresses.sort(item => (item.checked ? -1 : 1))
     const variables = {
       id: params.id,
       input: {
         name: costCenterName,
-        addresses,
+        addresses: _addresses.map(item => {
+          delete item.checked
+
+          return item
+        }),
       },
     }
 
@@ -416,6 +452,15 @@ const CostCenterDetails: FunctionComponent = () => {
                       >
                         <AddressSummary canEditData={false} address={address} />
                       </AddressRules>
+                      <div className="mt5">
+                        <Toggle
+                          label={formatMessage(messages.defaultAddress)}
+                          semantic
+                          onChange={() => handleCheckDefault(address)}
+                          checked={address.checked}
+                          disabled={loadingState}
+                        ></Toggle>
+                      </div>
                     </div>
                     <div>
                       <ActionMenu

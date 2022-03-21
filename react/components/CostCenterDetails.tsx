@@ -90,6 +90,9 @@ const messages = defineMessages({
   paymentTermsSubtitle: {
     id: `${storePrefix}costCenter-details.payment-terms.helpText`,
   },
+  defaultAddress: {
+    id: `${storePrefix}costCenter-details.default-address`,
+  },
 })
 
 const CostCenterDetails: FunctionComponent<RouterProps> = ({
@@ -542,7 +545,7 @@ const CostCenterDetails: FunctionComponent<RouterProps> = ({
                       </AddressRules>
                       <div className="mt5">
                         <Toggle
-                          label="Default address"
+                          label={formatMessage(messages.defaultAddress)}
                           semantic
                           onChange={() => handleCheckDefault(address)}
                           checked={address.checked}
