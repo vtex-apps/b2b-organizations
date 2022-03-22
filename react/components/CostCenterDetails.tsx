@@ -167,14 +167,13 @@ const CostCenterDetails: FunctionComponent<RouterProps> = ({
   const [deleteCostCenter] = useMutation(DELETE_COST_CENTER)
 
   const handleSetAddresses = (_addresses: Address[]) => {
-    if (!_addresses.find(item => item.checked))
-      setAddresses(
-        _addresses.map((item, index) => {
-          item.checked = index === 0
+    setAddresses(
+      _addresses.map((item, index) => {
+        item.checked = index === 0
 
-          return item
-        })
-      )
+        return item
+      })
+    )
   }
 
   useEffect(() => {

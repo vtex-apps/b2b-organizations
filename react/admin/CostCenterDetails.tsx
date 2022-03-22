@@ -149,14 +149,13 @@ const CostCenterDetails: FunctionComponent = () => {
   }
 
   const handleSetAddresses = (_addresses: Address[]) => {
-    if (!_addresses.find(item => item.checked))
-      setAddresses(
-        _addresses.map((item, index) => {
-          item.checked = index === 0
+    setAddresses(
+      _addresses.map((item, index) => {
+        item.checked = index === 0
 
-          return item
-        })
-      )
+        return item
+      })
+    )
   }
 
   const handleCheckDefault = (address: Address) => {
@@ -170,11 +169,9 @@ const CostCenterDetails: FunctionComponent = () => {
   }
 
   useEffect(() => {
-    if (data?.getCostCenterById?.addresses)
-      handleSetAddresses(data.getCostCenterById.addresses)
+    if (!data?.getCostCenterById?.addresses?.length) return
 
-    if (addresses.length || !data?.getCostCenterById?.addresses?.length) return
-
+    handleSetAddresses(data.getCostCenterById.addresses)
     setCostCenterName(data.getCostCenterById.name)
 
     getOrganization({
