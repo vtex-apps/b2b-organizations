@@ -7,17 +7,18 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
-### Added 
+### Added
 
 - docs/images folder and its files to illustrate the documentation
 
 ### Changed
 
 - README.md file, reviewing the documentation
+- When attempting to impersonate a user, frontend will no longer block impersonation if the `userId` is null. The impersonation mutation from `vtex.b2b-organizations-graphql` will attempt to determine the `userId` from the user's `clId`. If it can't, an error will be returned which will trigger the frontend to display an appropriate message.
 
 ## [1.2.0] - 2022-03-22
 
-### Added 
+### Added
 
 Added default shipping address UI option to my account and admin
 
