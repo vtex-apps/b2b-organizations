@@ -35,7 +35,7 @@ You can install the **B2B Organizations** app by running `vtex install vtex.b2b-
 
 ## User widget configuration
 
-To enable the [user widget](#user-widget) in your storefront, this app provides a `b2b-user-widget block` that you can add to the account's store theme. We recommend that you add it to the store header, as shown below.
+To enable the [user widget](#user-widget) in your storefront, this app provides a `b2b-user-widget` block that you can add to the account's store theme. We recommend that you add it to the store header, as shown below.
 
 
 ![01-user-widget-header](https://raw.githubusercontent.com/vtex-apps/b2b-organizations/documentation-update/docs/images/01-user-widget-header.png)
