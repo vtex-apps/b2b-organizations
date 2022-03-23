@@ -429,7 +429,7 @@ The **B2B Organizations** app provides a set of four email templates to be sent 
 | **Organization Approved** | User with the Organization Admin role | The organization request has been approved. |
 | **Organization Created** | Users with a Sales Admin role | The organization has been created. |
 | **Organization Declined** | User with the Organization Admin role | The organization request has been declined. |
-| **Organization Status Changed** | User with the Organization Admin role | The organization status has changed. |
+| **Organization Status Changed** | Users with the Organization Admin role | The organization status has changed. |
 
 If you want to view or edit any of these templates, follow the steps below.
 
