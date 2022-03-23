@@ -103,7 +103,7 @@ strategy:
   organizationNegativeTestCases:
     enabled: true
     sendDashboard: false
-    hardTries: 0
+    hardTries: 1
     stopOnFail: false
     parallel: false
     runInOrder: true
@@ -112,7 +112,7 @@ strategy:
   addUsersInOrganizationA:
     enabled: true
     sendDashboard: false
-    hardTries: 0
+    hardTries: 1
     stopOnFail: false
     parallel: false
     runInOrder: true
@@ -124,7 +124,7 @@ strategy:
   organizationAUsersTestCases:
     enabled: true
     sendDashboard: false
-    hardTries: 0
+    hardTries: 1
     stopOnFail: false
     parallel: false
     runInOrder: true
@@ -142,7 +142,7 @@ strategy:
   addUsersInOrganizationB:
     enabled: true
     sendDashboard: false
-    hardTries: 0
+    hardTries: 1
     stopOnFail: false
     parallel: false
     runInOrder: true
@@ -153,7 +153,7 @@ strategy:
   organizationBUsersTestCases:
     enabled: true
     sendDashboard: false
-    hardTries: 0
+    hardTries: 1
     stopOnFail: false
     parallel: false
     runInOrder: true
