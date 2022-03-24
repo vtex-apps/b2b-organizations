@@ -6,10 +6,10 @@ on:
       - feature/cypress
   workflow_dispatch:
     inputs:
-        branch:
-          description: 'Branch to test'
-          required: true
-          default: master
+      branch:
+        description: 'Branch to test'
+        required: true
+        default: master
 
 concurrency:
   group: ${{ github.workflow }}
@@ -32,7 +32,7 @@ jobs:
           ref: ${{ github.event.pull_request.head.sha }}
 
       - name: Get Cypress Runner
-        run: git clone https://github.com/vtex-apps/cy-runner.git
+        run: git clone https://github.com/vtex-apps/cy-runner.git -b feature/b2b-parallel-execution
 
       - name: Cache
         uses: actions/cache@v2
