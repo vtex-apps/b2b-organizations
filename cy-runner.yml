@@ -27,7 +27,7 @@ base:
     enabled: false
     channel: some-channel
   cypress:
-    devMode: true
+    devMode: false
     runHeaded: false
     enabled: false
     projectId: xyza
