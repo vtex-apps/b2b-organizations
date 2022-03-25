@@ -28,6 +28,7 @@ interface Address {
   neighborhood: string
   geoCoordinates: number[]
   reference: string
+  checked?: boolean
 }
 
 interface MessageDescriptor {

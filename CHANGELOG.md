@@ -7,6 +7,29 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [1.2.1] - 2022-03-24
+
+### Added
+
+- docs/images folder and its files to illustrate the documentation
+
+### Changed
+
+- README.md file, reviewing the documentation
+- When attempting to impersonate a user, frontend will no longer block impersonation if the `userId` is null. The impersonation mutation from `vtex.b2b-organizations-graphql` will attempt to determine the `userId` from the user's `clId`. If it can't, an error will be returned which will trigger the frontend to display an appropriate message.
+
+## [1.2.0] - 2022-03-22
+
+### Added
+
+Added default shipping address UI option to my account and admin
+
+## [1.1.1] - 2022-03-17
+
+### Added
+
+- Visual indicator for collections / payment terms / price tables that have been assigned to an organization (they now have a checkmark and are greyed out in the "available" list)
+
 ## [1.1.0] - 2022-03-08
 
 ### Added

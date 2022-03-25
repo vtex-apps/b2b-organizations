@@ -90,6 +90,9 @@ const messages = defineMessages({
   paymentTermsSubtitle: {
     id: `${storePrefix}costCenter-details.payment-terms.helpText`,
   },
+  defaultAddress: {
+    id: `${storePrefix}costCenter-details.default-address`,
+  },
 })
 
 const CostCenterDetails: FunctionComponent<RouterProps> = ({
@@ -163,11 +166,21 @@ const CostCenterDetails: FunctionComponent<RouterProps> = ({
   const [updateCostCenter] = useMutation(UPDATE_COST_CENTER)
   const [deleteCostCenter] = useMutation(DELETE_COST_CENTER)
 
+  const handleSetAddresses = (_addresses: Address[]) => {
+    setAddresses(
+      _addresses.map((item, index) => {
+        item.checked = index === 0
+
+        return item
+      })
+    )
+  }
+
   useEffect(() => {
     if (!data?.getCostCenterByIdStorefront) return
 
     setCostCenterName(data.getCostCenterByIdStorefront.name)
-    setAddresses(data.getCostCenterByIdStorefront.addresses)
+    handleSetAddresses(data.getCostCenterByIdStorefront.addresses)
     setPaymentTerms(
       data?.getCostCenterByIdStorefront?.paymentTerms?.length
         ? data?.getCostCenterByIdStorefront?.paymentTerms
@@ -204,11 +217,18 @@ const CostCenterDetails: FunctionComponent<RouterProps> = ({
 
   const handleUpdateCostCenter = () => {
     setLoadingState(true)
+    const _addresses = [...addresses]
+
+    _addresses.sort(item => (item.checked ? -1 : 1))
     const variables = {
       id: params.id,
       input: {
         name: costCenterName,
-        addresses,
+        addresses: _addresses.map(item => {
+          delete item.checked
+
+          return item
+        }),
         paymentTerms,
       },
     }
@@ -293,6 +313,16 @@ const CostCenterDetails: FunctionComponent<RouterProps> = ({
 
     setAddresses([...addresses, newAddress])
     handleCloseModals()
+  }
+
+  const handleCheckDefault = (address: Address) => {
+    setAddresses(
+      addresses.map(item => {
+        item.checked = item === address
+
+        return item
+      })
+    )
   }
 
   const handleEditAddress = (modifiedAddress: AddressFormFields) => {
@@ -444,10 +474,10 @@ const CostCenterDetails: FunctionComponent<RouterProps> = ({
           </span>
           <Button
             variation="danger"
-            isLoading={loadingState}
             onClick={() => handleDeleteCostCenterModal()}
             disabled={
-              !permissionsState.includes('create-cost-center-organization')
+              !permissionsState.includes('create-cost-center-organization') ||
+              loadingState
             }
           >
             <FormattedMessage id="store/b2b-organizations.costCenter-details.button.delete" />
@@ -512,6 +542,19 @@ const CostCenterDetails: FunctionComponent<RouterProps> = ({
                       >
                         <AddressSummary canEditData={false} address={address} />
                       </AddressRules>
+                      <div className="mt5">
+                        <Toggle
+                          label={formatMessage(messages.defaultAddress)}
+                          semantic
+                          onChange={() => handleCheckDefault(address)}
+                          checked={address.checked}
+                          disabled={
+                            !permissionsState.includes(
+                              'create-cost-center-organization'
+                            ) || loadingState
+                          }
+                        ></Toggle>
+                      </div>
                     </div>
                     <div>
                       {permissionsState.includes(

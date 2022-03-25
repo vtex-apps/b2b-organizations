@@ -344,19 +344,27 @@ const OrganizationUsersTable: FunctionComponent<Props> = ({
       return
     }
 
-    if (!rowData.userId) {
-      showToast(formatMessage(storeMessages.toastImpersonateIdMissing))
-
-      return
-    }
-
     showToast(formatMessage(storeMessages.toastImpersonateStarting))
 
     impersonateUser({
       variables: { clId: rowData.clId, userId: rowData.userId },
     })
-      .then(() => {
-        window.location.reload()
+      .then(result => {
+        if (result?.data?.impersonateUser?.status === 'error') {
+          console.error(
+            'Impersonation error:',
+            result.data.impersonateUser.message
+          )
+          if (
+            result.data.impersonateUser.message === 'userId not found in CL'
+          ) {
+            showToast(formatMessage(storeMessages.toastImpersonateIdMissing))
+          } else {
+            showToast(formatMessage(storeMessages.toastImpersonateFailure))
+          }
+        } else {
+          window.location.reload()
+        }
       })
       .catch(error => {
         console.error(error)
