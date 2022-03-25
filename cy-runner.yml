@@ -82,15 +82,15 @@ workspace:
 
 strategy:
   # The strategies must be in order, with dependent tests last
-  organizationA:
-    enabled: true
-    sendDashboard: false
-    hardTries: 1
-    stopOnFail: false
-    parallel: false
-    runInOrder: true
-    specs:
-      - cypress-shared/integration/b2b/2.1.1*
+  # organizationA:
+  #   enabled: true
+  #   sendDashboard: false
+  #   hardTries: 1
+  #   stopOnFail: false
+  #   parallel: false
+  #   runInOrder: true
+  #   specs:
+  #     - cypress-shared/integration/b2b/2.1.1*
   organizationB:
     enabled: true
     sendDashboard: false
@@ -109,36 +109,36 @@ strategy:
     runInOrder: true
     specs:
       - cypress-shared/integration/b2b/2.1.3*
-  addUsersInOrganizationA:
-    enabled: true
-    sendDashboard: false
-    hardTries: 1
-    stopOnFail: false
-    parallel: false
-    runInOrder: true
-    specs:
-      - cypress-shared/integration/b2b/2.2*
-      - cypress-shared/integration/b2b/2.4*
-    dependency:
-      - organizationA
-  organizationAUsersTestCases:
-    enabled: true
-    sendDashboard: false
-    hardTries: 1
-    stopOnFail: false
-    parallel: false
-    runInOrder: true
-    specs:
-      - cypress-shared/integration/b2b/2.5*
-      - cypress-shared/integration/b2b/2.6*
-      - cypress-shared/integration/b2b/2.8*
-      - cypress-shared/integration/b2b/2.9*
-      - cypress-shared/integration/b2b/2.10*
-      - cypress-shared/integration/b2b/2.12*
-      - cypress-shared/integration/b2b/2.13*
-      - cypress-shared/integration/b2b/2.14*
-    dependency:
-      - addUsersInOrganizationA
+  # addUsersInOrganizationA:
+  #   enabled: true
+  #   sendDashboard: false
+  #   hardTries: 1
+  #   stopOnFail: false
+  #   parallel: false
+  #   runInOrder: true
+  #   specs:
+  #     - cypress-shared/integration/b2b/2.2*
+  #     - cypress-shared/integration/b2b/2.4*
+  #   dependency:
+  #     - organizationA
+  # organizationAUsersTestCases:
+  #   enabled: true
+  #   sendDashboard: false
+  #   hardTries: 1
+  #   stopOnFail: false
+  #   parallel: false
+  #   runInOrder: true
+  #   specs:
+  #     - cypress-shared/integration/b2b/2.5*
+  #     - cypress-shared/integration/b2b/2.6*
+  #     - cypress-shared/integration/b2b/2.8*
+  #     - cypress-shared/integration/b2b/2.9*
+  #     - cypress-shared/integration/b2b/2.10*
+  #     - cypress-shared/integration/b2b/2.12*
+  #     - cypress-shared/integration/b2b/2.13*
+  #     - cypress-shared/integration/b2b/2.14*
+  #   dependency:
+  #     - addUsersInOrganizationA
   addUsersInOrganizationB:
     enabled: true
     sendDashboard: false
