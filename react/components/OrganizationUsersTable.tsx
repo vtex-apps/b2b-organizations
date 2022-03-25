@@ -181,6 +181,7 @@ const OrganizationUsersTable: FunctionComponent<Props> = ({
 
   const { data, loading, refetch } = useQuery(GET_USERS, {
     variables: { organizationId },
+    fetchPolicy: 'network-only',
     ssr: false,
     skip: !organizationId,
   })

@@ -213,6 +213,7 @@ const OrganizationDetails: FunctionComponent = () => {
     GET_COST_CENTERS,
     {
       variables: { ...costCenterPaginationState, id: params?.id },
+      fetchPolicy: 'network-only',
       skip: !params?.id,
       ssr: false,
     }
