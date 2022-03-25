@@ -42,5 +42,4 @@ package-lock.json
 yarn-error.log
 node/package-lock.json
 react/package-lock.json
-/.VTEX_QE.json
-/cy-runner/
+cy-runner
