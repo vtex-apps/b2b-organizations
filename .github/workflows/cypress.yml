@@ -32,7 +32,7 @@ jobs:
           ref: ${{ github.event.pull_request.head.sha }}
 
       - name: Get Cypress Runner
-        run: git clone https://github.com/vtex-apps/cy-runner.git -b feature/b2b-parallel-execution
+        run: git clone https://github.com/vtex-apps/cy-runner.git
 
       - name: Cache
         uses: actions/cache@v2
