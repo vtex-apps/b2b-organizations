@@ -1,15 +1,25 @@
 name: '[QE] Cypress Runner'
 
 on:
-  push:
-    branches:
-      - feature/cypress
   workflow_dispatch:
     inputs:
       branch:
-        description: 'Branch to test'
+        description: 'Choose another branch to test'
         required: true
         default: master
+  pull_request:
+    branches:
+      - master
+      - main
+    types: 
+      - opened
+      - synchronize
+      - reopened
+      - ready_for_review
+    paths-ignore: 
+      - docs/**
+      - README.md     
+      - CHANGELOG.md
 
 concurrency:
   group: ${{ github.workflow }}
