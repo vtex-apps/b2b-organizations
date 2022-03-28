@@ -131,6 +131,7 @@ const OrganizationDetails: FunctionComponent<RouterProps> = ({
     refetch: refetchCostCenters,
   } = useQuery(GET_COST_CENTERS, {
     variables: { ...costCenterPaginationState },
+    fetchPolicy: 'network-only',
     ssr: false,
   })
 

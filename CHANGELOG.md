@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Fixed
+
+- Add `fetchPolicy: 'network-only'` to various queries to ensure fresh data
+
 ## [1.2.1] - 2022-03-24
 
 ### Added
