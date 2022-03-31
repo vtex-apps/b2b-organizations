@@ -72,7 +72,7 @@ workspace:
     - vtex.reviews-and-ratings@2.x
     - vtex.b2bstore@2.x
   removeApps:
-    - vtex.store-theme
+    - vtex.bitcot-qa-theme
   wipe:
     enabled: true
     stopOnFail: false
