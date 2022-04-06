@@ -12,7 +12,7 @@ import {
   Input,
   Button,
 } from 'vtex.styleguide'
-import { useIntl, FormattedMessage, defineMessages } from 'react-intl'
+import { useIntl, FormattedMessage } from 'react-intl'
 import { useRuntime } from 'vtex.render-runtime'
 import { useToast } from '@vtex/admin-ui'
 import {
@@ -25,6 +25,7 @@ import {
 import { StyleguideInput } from 'vtex.address-form/inputs'
 import { addValidation } from 'vtex.address-form/helpers'
 
+import { organizationMessages as messages } from './utils/messages'
 import { getEmptyAddress, isValidAddress } from '../utils/addresses'
 import GET_ORGANIZATIONS from '../graphql/getOrganizations.graphql'
 import GET_LOGISTICS from '../graphql/getLogistics.graphql'
@@ -57,71 +58,6 @@ const initialState = {
   sortedBy: 'name',
 }
 
-const adminPrefix = 'admin/b2b-organizations.'
-
-const messages = defineMessages({
-  toastAddOrgSuccess: {
-    id: `${adminPrefix}organizations-admin.toast.add-organization-success`,
-  },
-  toastAddOrgFailure: {
-    id: `${adminPrefix}organizations-admin.toast.add-organization-failure`,
-  },
-  columnName: {
-    id: `${adminPrefix}organizations-admin.table.column-name.title`,
-  },
-  columnStatus: {
-    id: `${adminPrefix}organizations-admin.table.column-status.title`,
-  },
-  view: {
-    id: `${adminPrefix}organizations-admin.table.view.label`,
-  },
-  pageTitle: {
-    id: `${adminPrefix}organizations-admin.title`,
-  },
-  emptyState: {
-    id: `${adminPrefix}organizations-admin.table.empty-state`,
-  },
-  searchPlaceholder: {
-    id: `${adminPrefix}organizations-admin.table.search.placeholder`,
-  },
-  new: {
-    id: `${adminPrefix}organization-details.button.new`,
-  },
-  clearFilters: {
-    id: `${adminPrefix}organizations-admin.table.clearFilters.label`,
-  },
-  filterStatus: {
-    id: `${adminPrefix}organizations-admin.table.statusFilter.label`,
-  },
-  filtersAll: {
-    id: `${adminPrefix}organizations-admin.table.filters.all`,
-  },
-  filtersNone: {
-    id: `${adminPrefix}organizations-admin.table.filters.none`,
-  },
-  filtersIncludes: {
-    id: `${adminPrefix}organizations-admin.table.filters.includes`,
-  },
-  add: {
-    id: `${adminPrefix}organization-details.button.add`,
-  },
-  cancel: {
-    id: `${adminPrefix}organization-details.button.cancel`,
-  },
-  organizationName: {
-    id: `${adminPrefix}organizations-admin.add-organization.organization-name`,
-  },
-  defaultCostCenterName: {
-    id: `${adminPrefix}organizations-admin.add-organization.default-costCenter-name`,
-  },
-  showRows: {
-    id: `${adminPrefix}showRows`,
-  },
-  of: {
-    id: `${adminPrefix}of`,
-  },
-})
-
 const OrganizationsTable: FunctionComponent = () => {
   const { formatMessage } = useIntl()
   const {
@@ -143,6 +79,11 @@ const OrganizationsTable: FunctionComponent = () => {
 
   const [newOrganizationName, setNewOrganizationName] = useState('')
   const [newCostCenterName, setNewCostCenterName] = useState('')
+  const [
+    newCostCenterBusinessDocument,
+    setNewCostCenterBusinessDocument,
+  ] = useState('')
+
   const [newCostCenterAddressState, setNewCostCenterAddressState] = useState(
     addValidation(getEmptyAddress(country))
   )
@@ -189,6 +130,7 @@ const OrganizationsTable: FunctionComponent = () => {
         defaultCostCenter: {
           name: newCostCenterName,
           address: newAddress,
+          businessDocument: newCostCenterBusinessDocument,
         },
       },
     }
@@ -199,6 +141,7 @@ const OrganizationsTable: FunctionComponent = () => {
         setLoadingState(false)
         setNewOrganizationName('')
         setNewCostCenterName('')
+        setNewCostCenterBusinessDocument('')
         setNewCostCenterAddressState(addValidation(getEmptyAddress(country)))
         showToast({
           type: 'success',
@@ -231,13 +174,14 @@ const OrganizationsTable: FunctionComponent = () => {
     setNewOrganizationModalState(false)
     setNewOrganizationName('')
     setNewCostCenterName('')
+    setNewCostCenterBusinessDocument('')
     setNewCostCenterAddressState(addValidation(getEmptyAddress(country)))
   }
 
   const getSchema = () => ({
     properties: {
       name: {
-        title: formatMessage(messages.columnName),
+        title: formatMessage(messages.tableColumnName),
       },
       status: {
         title: formatMessage(messages.columnStatus),
@@ -462,7 +406,7 @@ const OrganizationsTable: FunctionComponent = () => {
     <Layout
       fullWidth
       pageHeader={
-        <PageHeader title={formatMessage(messages.pageTitle)}>
+        <PageHeader title={formatMessage(messages.tablePageTitle)}>
           <Button onClick={() => refetch()}>
             <FormattedMessage id="admin/b2b-organizations.organizations-admin.button.refetch" />
           </Button>
@@ -475,7 +419,7 @@ const OrganizationsTable: FunctionComponent = () => {
           schema={getSchema()}
           fixFirstColumn
           loading={loading}
-          emptyStateLabel={formatMessage(messages.emptyState)}
+          emptyStateLabel={formatMessage(messages.organizationsEmptyState)}
           items={data?.getOrganizations?.data}
           lineActions={lineActions}
           onRowClick={({ rowData: { id } }: CellRendererProps) => {
@@ -621,6 +565,17 @@ const OrganizationsTable: FunctionComponent = () => {
               setNewCostCenterName(e.target.value)
             }}
             required
+          />
+        </div>
+        <div className="w-100 mv6">
+          <Input
+            size="large"
+            label={formatMessage(messages.businessDocument)}
+            value={newCostCenterBusinessDocument}
+            helpText={formatMessage(messages.businessDocumentHelp)}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+              setNewCostCenterBusinessDocument(e.target.value)
+            }}
           />
         </div>
         <AddressRules

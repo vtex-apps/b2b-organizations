@@ -1,6 +1,6 @@
 import React, { useState, useContext, useEffect } from 'react'
 import type { FunctionComponent, ChangeEvent } from 'react'
-import { useIntl, defineMessages, FormattedMessage } from 'react-intl'
+import { useIntl, FormattedMessage } from 'react-intl'
 import {
   Layout,
   PageHeader,
@@ -11,6 +11,7 @@ import {
 } from 'vtex.styleguide'
 import { useQuery, useMutation } from 'react-apollo'
 
+import { organizationMessages as messages } from './utils/messages'
 import storageFactory from '../utils/storage'
 import { useSessionResponse } from '../modules/session'
 import NewCostCenterModal from './NewCostCenterModal'
@@ -48,41 +49,6 @@ const localStore = storageFactory(() => localStorage)
 let isAuthenticated =
   JSON.parse(String(localStore.getItem('b2b-organizations_isAuthenticated'))) ??
   false
-
-const storePrefix = 'store/b2b-organizations.'
-
-const messages = defineMessages({
-  toastAddCostCenterSuccess: {
-    id: `${storePrefix}organization-details.toast.add-costCenter-success`,
-  },
-  toastAddCostCenterFailure: {
-    id: `${storePrefix}organization-details.toast.add-costCenter-failure`,
-  },
-  columnName: {
-    id: `${storePrefix}organization-details.table.column-name.title`,
-  },
-  columnAddresses: {
-    id: `${storePrefix}organization-details.table.column-addresses.title`,
-  },
-  pageTitle: {
-    id: `${storePrefix}organization-details.title`,
-  },
-  costCenters: {
-    id: `${storePrefix}organization-details.costCenters`,
-  },
-  users: {
-    id: `${storePrefix}organization-details.users`,
-  },
-  showRows: {
-    id: `${storePrefix}showRows`,
-  },
-  of: {
-    id: `${storePrefix}of`,
-  },
-  new: {
-    id: `${storePrefix}organization-details.button.new`,
-  },
-})
 
 const OrganizationDetails: FunctionComponent<RouterProps> = ({
   match: { params },
@@ -198,7 +164,11 @@ const OrganizationDetails: FunctionComponent<RouterProps> = ({
     })
   }
 
-  const handleAddNewCostCenter = (name: string, address: AddressFormFields) => {
+  const handleAddNewCostCenter = (
+    name: string,
+    address: AddressFormFields,
+    businessDocument: string
+  ) => {
     setLoadingState(true)
     const newAddress = {
       addressId: address.addressId.value,
@@ -221,6 +191,7 @@ const OrganizationDetails: FunctionComponent<RouterProps> = ({
       input: {
         name,
         addresses: [newAddress],
+        businessDocument,
       },
     }
 

@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import type { FunctionComponent } from 'react'
 import { Modal, Button } from 'vtex.styleguide'
-import { defineMessages, useIntl } from 'react-intl'
+import { useIntl } from 'react-intl'
 import { useQuery } from 'react-apollo'
 import { useRuntime } from 'vtex.render-runtime'
 import {
@@ -15,6 +15,7 @@ import { StyleguideInput } from 'vtex.address-form/inputs'
 import { addValidation } from 'vtex.address-form/helpers'
 import 'vtex.country-codes/locales'
 
+import { costCenterMessages as messages } from './utils/messages'
 import { getEmptyAddress, isValidAddress } from '../utils/addresses'
 import GET_LOGISTICS from '../graphql/getLogistics.graphql'
 
@@ -24,17 +25,6 @@ interface Props {
   handleAddNewAddress: (address: AddressFormFields) => void
   handleCloseModals: () => void
 }
-
-const storePrefix = 'store/b2b-organizations.'
-
-const messages = defineMessages({
-  add: {
-    id: `${storePrefix}costCenter-details.button.add`,
-  },
-  cancel: {
-    id: `${storePrefix}costCenter-details.button.cancel`,
-  },
-})
 
 const NewAddressModal: FunctionComponent<Props> = ({
   loading,

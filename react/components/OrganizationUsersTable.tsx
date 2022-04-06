@@ -1,10 +1,12 @@
 import React, { Fragment, useState, useEffect, useContext } from 'react'
 import type { FunctionComponent } from 'react'
-import { useIntl, defineMessages } from 'react-intl'
+import { useIntl } from 'react-intl'
 import { Table, ToastContext } from 'vtex.styleguide'
 import { useToast } from '@vtex/admin-ui'
 import { useQuery, useMutation } from 'react-apollo'
 
+import { organizationMessages as storeMessages } from './utils/messages'
+import { organizationMessages as adminMessages } from '../admin/utils/messages'
 import NewUserModal from './NewUserModal'
 import EditUserModal from './EditUserModal'
 import RemoveUserModal from './RemoveUserModal'
@@ -36,99 +38,6 @@ interface RoleSimple {
   name: string
   slug: string
 }
-
-const storePrefix = 'store/b2b-organizations.'
-const adminPrefix = 'admin/b2b-organizations.'
-
-const storeMessages = defineMessages({
-  columnEmail: {
-    id: `${storePrefix}organization-users.column.email`,
-  },
-  columnRole: {
-    id: `${storePrefix}organization-users.column.role`,
-  },
-  columnCostCenter: {
-    id: `${storePrefix}organization-users.column.costCenter`,
-  },
-  emptyState: {
-    id: `${storePrefix}organization-users.emptyState`,
-  },
-  toastAddSuccess: {
-    id: `${storePrefix}organization-users.toast.add-success`,
-  },
-  toastAddFailure: {
-    id: `${storePrefix}organization-users.toast.add-failure`,
-  },
-  toastUpdateSuccess: {
-    id: `${storePrefix}organization-users.toast.update-success`,
-  },
-  toastUpdateFailure: {
-    id: `${storePrefix}organization-users.toast.update-failure`,
-  },
-  toastRemoveSuccess: {
-    id: `${storePrefix}organization-users.toast.remove-success`,
-  },
-  toastRemoveFailure: {
-    id: `${storePrefix}organization-users.toast.remove-failure`,
-  },
-  toastImpersonateStarting: {
-    id: `${storePrefix}organization-users.toast.impersonate-starting`,
-  },
-  toastImpersonateSuccess: {
-    id: `${storePrefix}organization-users.toast.impersonate-success`,
-  },
-  toastImpersonateFailure: {
-    id: `${storePrefix}organization-users.toast.impersonate-failure`,
-  },
-  toastImpersonateForbidden: {
-    id: `${storePrefix}organization-users.toast.impersonate-forbidden`,
-  },
-  toastImpersonateIdMissing: {
-    id: `${storePrefix}organization-users.toast.impersonate-id-missing`,
-  },
-  new: {
-    id: `${storePrefix}organization-details.button.new`,
-  },
-  impersonate: {
-    id: `${storePrefix}organization-users.impersonate`,
-  },
-})
-
-const adminMessages = defineMessages({
-  columnEmail: {
-    id: `${adminPrefix}organization-users.column.email`,
-  },
-  columnRole: {
-    id: `${adminPrefix}organization-users.column.role`,
-  },
-  columnCostCenter: {
-    id: `${adminPrefix}organization-users.column.costCenter`,
-  },
-  emptyState: {
-    id: `${adminPrefix}organization-users.emptyState`,
-  },
-  toastAddSuccess: {
-    id: `${adminPrefix}organization-users.toast.add-success`,
-  },
-  toastAddFailure: {
-    id: `${adminPrefix}organization-users.toast.add-failure`,
-  },
-  toastUpdateSuccess: {
-    id: `${adminPrefix}organization-users.toast.update-success`,
-  },
-  toastUpdateFailure: {
-    id: `${adminPrefix}organization-users.toast.update-failure`,
-  },
-  toastRemoveSuccess: {
-    id: `${adminPrefix}organization-users.toast.remove-success`,
-  },
-  toastRemoveFailure: {
-    id: `${adminPrefix}organization-users.toast.remove-failure`,
-  },
-  new: {
-    id: `${adminPrefix}organization-details.button.new`,
-  },
-})
 
 const compareUsers = (a: B2BUserSimple, b: B2BUserSimple) => {
   if (a.email < b.email) {
@@ -211,8 +120,8 @@ const OrganizationUsersTable: FunctionComponent<Props> = ({
         contextualToast(
           formatMessage(
             isAdmin
-              ? adminMessages.toastAddSuccess
-              : storeMessages.toastAddSuccess
+              ? adminMessages.toastAddUserSuccess
+              : storeMessages.toastAddUserSuccess
           ),
           'success'
         )
@@ -224,8 +133,8 @@ const OrganizationUsersTable: FunctionComponent<Props> = ({
         contextualToast(
           formatMessage(
             isAdmin
-              ? adminMessages.toastAddFailure
-              : storeMessages.toastAddFailure
+              ? adminMessages.toastAddUserFailure
+              : storeMessages.toastAddUserFailure
           ),
           'error'
         )
@@ -246,8 +155,8 @@ const OrganizationUsersTable: FunctionComponent<Props> = ({
         contextualToast(
           formatMessage(
             isAdmin
-              ? adminMessages.toastUpdateSuccess
-              : storeMessages.toastUpdateSuccess
+              ? adminMessages.toastUpdateUserSuccess
+              : storeMessages.toastUpdateUserSuccess
           ),
           'success'
         )
@@ -259,8 +168,8 @@ const OrganizationUsersTable: FunctionComponent<Props> = ({
         contextualToast(
           formatMessage(
             isAdmin
-              ? adminMessages.toastUpdateFailure
-              : storeMessages.toastUpdateFailure
+              ? adminMessages.toastUpdateUserFailure
+              : storeMessages.toastUpdateUserFailure
           ),
           'error'
         )
@@ -292,8 +201,8 @@ const OrganizationUsersTable: FunctionComponent<Props> = ({
         contextualToast(
           formatMessage(
             isAdmin
-              ? adminMessages.toastRemoveSuccess
-              : storeMessages.toastRemoveSuccess
+              ? adminMessages.toastRemoveUserSuccess
+              : storeMessages.toastRemoveUserSuccess
           ),
           'success'
         )
@@ -305,8 +214,8 @@ const OrganizationUsersTable: FunctionComponent<Props> = ({
         contextualToast(
           formatMessage(
             isAdmin
-              ? adminMessages.toastRemoveFailure
-              : storeMessages.toastRemoveFailure
+              ? adminMessages.toastRemoveUserFailure
+              : storeMessages.toastRemoveUserFailure
           ),
           'error'
         )
@@ -451,7 +360,7 @@ const OrganizationUsersTable: FunctionComponent<Props> = ({
         items={usersState}
         loading={loading}
         emptyStateLabel={formatMessage(
-          isAdmin ? adminMessages.emptyState : storeMessages.emptyState
+          isAdmin ? adminMessages.usersEmptyState : storeMessages.emptyState
         )}
         lineActions={lineActions}
         onRowClick={({ rowData }: CellRendererProps) => {

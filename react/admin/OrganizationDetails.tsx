@@ -14,7 +14,7 @@ import {
   IconCheck,
 } from 'vtex.styleguide'
 import { useToast } from '@vtex/admin-ui'
-import { useIntl, FormattedMessage, defineMessages } from 'react-intl'
+import { useIntl, FormattedMessage } from 'react-intl'
 import { useRuntime } from 'vtex.render-runtime'
 import {
   AddressRules,
@@ -27,6 +27,7 @@ import { StyleguideInput } from 'vtex.address-form/inputs'
 import { addValidation } from 'vtex.address-form/helpers'
 
 import OrganizationUsersTable from '../components/OrganizationUsersTable'
+import { organizationMessages as messages } from './utils/messages'
 import { getEmptyAddress, isValidAddress } from '../utils/addresses'
 import GET_ORGANIZATION from '../graphql/getOrganization.graphql'
 import GET_LOGISTICS from '../graphql/getLogistics.graphql'
@@ -62,89 +63,6 @@ interface PaymentTerm {
   paymentTermId: number
   name: string
 }
-
-const adminPrefix = 'admin/b2b-organizations.'
-
-const messages = defineMessages({
-  statusActive: {
-    id: `${adminPrefix}organization-details.status.active`,
-  },
-  statusOnHold: {
-    id: `${adminPrefix}organization-details.status.on-hold`,
-  },
-  statusInactive: {
-    id: `${adminPrefix}organization-details.status.inactive`,
-  },
-  toastUpdateSuccess: {
-    id: `${adminPrefix}organization-details.toast.update-success`,
-  },
-  toastUpdateFailure: {
-    id: `${adminPrefix}organization-details.toast.update-failure`,
-  },
-  toastAddCostCenterSuccess: {
-    id: `${adminPrefix}organization-details.toast.add-costCenter-success`,
-  },
-  toastAddCostCenterFailure: {
-    id: `${adminPrefix}organization-details.toast.add-costCenter-failure`,
-  },
-  columnName: {
-    id: `${adminPrefix}organization-details.table.column-name.title`,
-  },
-  columnAddresses: {
-    id: `${adminPrefix}organization-details.table.column-addresses.title`,
-  },
-  pageTitle: {
-    id: `${adminPrefix}organization-details.title`,
-  },
-  back: {
-    id: `${adminPrefix}back`,
-  },
-  status: {
-    id: `${adminPrefix}organization-details.status`,
-  },
-  costCenters: {
-    id: `${adminPrefix}organization-details.costCenters`,
-  },
-  showRows: {
-    id: `${adminPrefix}showRows`,
-  },
-  of: {
-    id: `${adminPrefix}of`,
-  },
-  new: {
-    id: `${adminPrefix}organization-details.button.new`,
-  },
-  collections: {
-    id: `${adminPrefix}organization-details.collections`,
-  },
-  paymentTerms: {
-    id: `${adminPrefix}organization-details.paymentTerms`,
-  },
-  priceTables: {
-    id: `${adminPrefix}organization-details.price-tables`,
-  },
-  users: {
-    id: `${adminPrefix}organization-details.users`,
-  },
-  selectedRows: {
-    id: `${adminPrefix}selected-rows`,
-  },
-  removeFromOrg: {
-    id: `${adminPrefix}organization-details.remove-from-org`,
-  },
-  addToOrg: {
-    id: `${adminPrefix}organization-details.add-to-org`,
-  },
-  add: {
-    id: `${adminPrefix}organization-details.button.add`,
-  },
-  cancel: {
-    id: `${adminPrefix}organization-details.button.cancel`,
-  },
-  costCenterName: {
-    id: `${adminPrefix}costCenter-details.costCenter-name`,
-  },
-})
 
 const OrganizationDetails: FunctionComponent = () => {
   const { formatMessage, formatDate } = useIntl()
@@ -199,6 +117,11 @@ const OrganizationDetails: FunctionComponent = () => {
   const [loadingState, setLoadingState] = useState(false)
   const [newCostCenterModalState, setNewCostCenterModalState] = useState(false)
   const [newCostCenterName, setNewCostCenterName] = useState('')
+  const [
+    newCostCenterBusinessDocument,
+    setNewCostCenterBusinessDocument,
+  ] = useState('')
+
   const [newCostCenterAddressState, setNewCostCenterAddressState] = useState(
     addValidation(getEmptyAddress(country))
   )
@@ -566,6 +489,7 @@ const OrganizationDetails: FunctionComponent = () => {
       input: {
         name: newCostCenterName,
         addresses: [newAddress],
+        businessDocument: newCostCenterBusinessDocument,
       },
     }
 
@@ -665,7 +589,7 @@ const OrganizationDetails: FunctionComponent = () => {
     return {
       properties: {
         name: {
-          title: formatMessage(messages.columnName),
+          title: formatMessage(messages.detailsColumnName),
           ...(cellRenderer && { cellRenderer }),
         },
       },
@@ -675,7 +599,7 @@ const OrganizationDetails: FunctionComponent = () => {
   const getCostCenterSchema = () => ({
     properties: {
       name: {
-        title: formatMessage(messages.columnName),
+        title: formatMessage(messages.detailsColumnName),
       },
       addresses: {
         title: formatMessage(messages.columnAddresses),
@@ -692,7 +616,7 @@ const OrganizationDetails: FunctionComponent = () => {
         fullWidth
         pageHeader={
           <PageHeader
-            title={formatMessage(messages.pageTitle)}
+            title={formatMessage(messages.detailsPageTitle)}
             linkLabel={formatMessage(messages.back)}
             onLinkClick={() => {
               navigate({
@@ -718,7 +642,7 @@ const OrganizationDetails: FunctionComponent = () => {
       fullWidth
       pageHeader={
         <PageHeader
-          title={formatMessage(messages.pageTitle)}
+          title={formatMessage(messages.detailsPageTitle)}
           linkLabel={formatMessage(messages.back)}
           onLinkClick={() => {
             navigate({
@@ -1039,6 +963,18 @@ const OrganizationDetails: FunctionComponent = () => {
               setNewCostCenterName(e.target.value)
             }}
             required
+          />
+        </div>
+        <div className="w-100 mv6">
+          <Input
+            autocomplete="off"
+            size="large"
+            label={formatMessage(messages.businessDocument)}
+            helpText={formatMessage(messages.businessDocumentHelp)}
+            value={newCostCenterBusinessDocument}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+              setNewCostCenterBusinessDocument(e.target.value)
+            }}
           />
         </div>
         <div className="w-100 mv6">

@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import type { FunctionComponent } from 'react'
 import { Modal, Input, Button, Dropdown } from 'vtex.styleguide'
-import { defineMessages, useIntl } from 'react-intl'
+import { useIntl } from 'react-intl'
 import { useQuery } from 'react-apollo'
 
+import { organizationMessages as storeMessages } from './utils/messages'
+import { organizationMessages as adminMessages } from '../admin/utils/messages'
 import GET_ROLES from '../graphql/getRoles.graphql'
 import GET_COST_CENTERS from '../graphql/getCostCentersByOrganizationIdStorefront.graphql'
 import GET_COST_CENTERS_ADMIN from '../graphql/getCostCentersByOrganizationId.graphql'
@@ -23,69 +25,6 @@ interface DropdownOption {
   value: string
   label: string
 }
-
-const storePrefix = 'store/b2b-organizations.'
-const adminPrefix = 'admin/b2b-organizations.'
-
-const storeMessages = defineMessages({
-  editUser: {
-    id: `${storePrefix}organization-details.edit-user`,
-  },
-  save: {
-    id: `${storePrefix}organization-details.button.save`,
-  },
-  cancel: {
-    id: `${storePrefix}organization-details.button.cancel`,
-  },
-  remove: {
-    id: `${storePrefix}organization-details.button.remove-user`,
-  },
-  email: {
-    id: `${storePrefix}user-details.email`,
-  },
-  costCenter: {
-    id: `${storePrefix}user-details.placeholder-costCenter`,
-  },
-  role: {
-    id: `${storePrefix}user-details.placeholder-role`,
-  },
-  userCostCenter: {
-    id: `${storePrefix}user-details.costCenter`,
-  },
-  userRole: {
-    id: `${storePrefix}user-details.role`,
-  },
-})
-
-const adminMessages = defineMessages({
-  editUser: {
-    id: `${adminPrefix}organization-details.edit-user`,
-  },
-  save: {
-    id: `${adminPrefix}organization-details.button.save`,
-  },
-  cancel: {
-    id: `${adminPrefix}organization-details.button.cancel`,
-  },
-  remove: {
-    id: `${adminPrefix}organization-details.button.remove-user`,
-  },
-  email: {
-    id: `${adminPrefix}user-details.email`,
-  },
-  costCenter: {
-    id: `${adminPrefix}user-details.placeholder-costCenter`,
-  },
-  role: {
-    id: `${adminPrefix}user-details.placeholder-role`,
-  },
-  userCostCenter: {
-    id: `${adminPrefix}user-details.costCenter`,
-  },
-  userRole: {
-    id: `${adminPrefix}user-details.role`,
-  },
-})
 
 const EditUserModal: FunctionComponent<Props> = ({
   loading,
@@ -185,7 +124,7 @@ const EditUserModal: FunctionComponent<Props> = ({
               disabled={loading}
             >
               {formatMessage(
-                isAdmin ? adminMessages.remove : storeMessages.remove
+                isAdmin ? adminMessages.removeUser : storeMessages.removeUser
               )}
             </Button>
           </span>

@@ -1,7 +1,9 @@
 import React from 'react'
 import type { FunctionComponent } from 'react'
 import { ModalDialog } from 'vtex.styleguide'
-import { defineMessages, useIntl, FormattedMessage } from 'react-intl'
+import { useIntl, FormattedMessage } from 'react-intl'
+
+import { costCenterMessages as messages } from './utils/messages'
 
 interface Props {
   loading: boolean
@@ -9,17 +11,6 @@ interface Props {
   handleDeleteAddress: () => void
   handleCloseModals: () => void
 }
-
-const storePrefix = 'store/b2b-organizations.'
-
-const messages = defineMessages({
-  deleteConfirm: {
-    id: `${storePrefix}costCenter-details.button.delete-confirm`,
-  },
-  cancel: {
-    id: `${storePrefix}costCenter-details.button.cancel`,
-  },
-})
 
 const DeleteAddressModal: FunctionComponent<Props> = ({
   loading,

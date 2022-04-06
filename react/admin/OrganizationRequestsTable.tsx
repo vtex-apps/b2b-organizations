@@ -9,9 +9,10 @@ import {
   Tag,
   Checkbox,
 } from 'vtex.styleguide'
-import { useIntl, defineMessages } from 'react-intl'
+import { useIntl } from 'react-intl'
 import { useRuntime } from 'vtex.render-runtime'
 
+import { organizationRequestMessages as messages } from './utils/messages'
 import GET_ORGANIZATION_REQUESTS from '../graphql/getOrganizationRequests.graphql'
 
 interface CellRendererProps {
@@ -47,56 +48,6 @@ const initialState = {
   sortedBy: 'created',
 }
 
-const adminPrefix = 'admin/b2b-organizations.'
-
-const messages = defineMessages({
-  columnName: {
-    id: `${adminPrefix}organization-requests-admin.table.column-name.title`,
-  },
-  columnAdmin: {
-    id: `${adminPrefix}organization-requests-admin.table.column-admin.title`,
-  },
-  columnStatus: {
-    id: `${adminPrefix}organization-requests-admin.table.column-status.title`,
-  },
-  columnCreated: {
-    id: `${adminPrefix}organization-requests-admin.table.column-created.title`,
-  },
-  view: {
-    id: `${adminPrefix}organization-requests-admin.table.view.label`,
-  },
-  pageTitle: {
-    id: `${adminPrefix}organization-requests-admin.title`,
-  },
-  emptyState: {
-    id: `${adminPrefix}organization-requests-admin.table.empty-state`,
-  },
-  showRows: {
-    id: `${adminPrefix}showRows`,
-  },
-  of: {
-    id: `${adminPrefix}of`,
-  },
-  searchPlaceholder: {
-    id: `${adminPrefix}organization-requests-admin.table.search.placeholder`,
-  },
-  clearFilters: {
-    id: `${adminPrefix}organization-requests-admin.table.clearFilters.label`,
-  },
-  statusFilter: {
-    id: `${adminPrefix}organization-requests-admin.table.statusFilter.label`,
-  },
-  filtersAll: {
-    id: `${adminPrefix}organization-requests-admin.table.filters.all`,
-  },
-  filtersNone: {
-    id: `${adminPrefix}organization-requests-admin.table.filters.none`,
-  },
-  filtersIncludes: {
-    id: `${adminPrefix}organization-requests-admin.table.filters.includes`,
-  },
-})
-
 const OrganizationRequestsTable: FunctionComponent = () => {
   const { formatMessage, formatDate } = useIntl()
   const { navigate } = useRuntime()
@@ -108,6 +59,7 @@ const OrganizationRequestsTable: FunctionComponent = () => {
 
   const { data, loading, refetch } = useQuery(GET_ORGANIZATION_REQUESTS, {
     variables: initialState,
+    fetchPolicy: 'network-only',
     ssr: false,
   })
 
@@ -361,7 +313,7 @@ const OrganizationRequestsTable: FunctionComponent = () => {
   return (
     <Layout
       fullWidth
-      pageHeader={<PageHeader title={formatMessage(messages.pageTitle)} />}
+      pageHeader={<PageHeader title={formatMessage(messages.tablePageTitle)} />}
     >
       <PageBlock>
         <Table
