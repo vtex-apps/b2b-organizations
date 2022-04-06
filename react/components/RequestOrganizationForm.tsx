@@ -21,10 +21,11 @@ import { StyleguideInput } from 'vtex.address-form/inputs'
 import { addValidation } from 'vtex.address-form/helpers'
 import { useCssHandles } from 'vtex.css-handles'
 import { useQuery, useMutation } from 'react-apollo'
-import { useIntl, FormattedMessage, defineMessages } from 'react-intl'
+import { useIntl, FormattedMessage } from 'react-intl'
 import { useRuntime } from 'vtex.render-runtime'
 import 'vtex.country-codes/locales'
 
+import { organizationRequestMessages as messages } from './utils/messages'
 import storageFactory from '../utils/storage'
 import { getSession } from '../modules/session'
 import { validateEmail } from '../modules/formValidators'
@@ -64,50 +65,6 @@ const CSS_HANDLES = [
   'newOrganizationButtonsContainer',
   'newOrganizationButtonSubmit',
 ] as const
-
-const storePrefix = 'store/b2b-organizations.'
-
-const messages = defineMessages({
-  toastSuccess: {
-    id: `${storePrefix}request-new-organization.submit.toast-success`,
-  },
-  toastFailure: {
-    id: `${storePrefix}request-new-organization.submit.toast-failure`,
-  },
-  pageTitle: {
-    id: `${storePrefix}request-new-organization.title`,
-  },
-  helpText: {
-    id: `${storePrefix}request-new-organization.helpText`,
-  },
-  organizationName: {
-    id: `${storePrefix}request-new-organization.organization-name.label`,
-  },
-  b2bCustomerAdmin: {
-    id: `${storePrefix}request-new-organization.b2b-customer-admin.title`,
-  },
-  b2bCustomerAdminHelpText: {
-    id: `${storePrefix}request-new-organization.b2b-customer-admin.helpText`,
-  },
-  firstName: {
-    id: `${storePrefix}request-new-organization.first-name.label`,
-  },
-  lastName: {
-    id: `${storePrefix}request-new-organization.last-name.label`,
-  },
-  email: {
-    id: `${storePrefix}request-new-organization.email.label`,
-  },
-  defaultCostCenter: {
-    id: `${storePrefix}request-new-organization.default-cost-center.title`,
-  },
-  defaultCostCenterHelpText: {
-    id: `${storePrefix}request-new-organization.default-cost-center.helpText`,
-  },
-  defaultCostCenterName: {
-    id: `${storePrefix}request-new-organization.default-cost-center-name.label`,
-  },
-})
 
 const CreateNewOrganizationRequest = (props: any) => {
   return (
@@ -151,6 +108,7 @@ const RequestOrganizationForm: FC = () => {
     lastName: '',
     email: '',
     defaultCostCenterName: '',
+    businessDocument: '',
     isSubmitting: false,
     submitted: true,
   }
@@ -242,6 +200,7 @@ const RequestOrganizationForm: FC = () => {
           street: addressState.street.value,
           addressQuery: addressState.addressQuery.value,
         },
+        businessDocument: formState.businessDocument,
       },
     }
 
@@ -383,6 +342,7 @@ const RequestOrganizationForm: FC = () => {
                           organizationName: e.target.value,
                         })
                       }}
+                      required
                     />
                   </div>
                 </PageBlock>
@@ -456,6 +416,23 @@ const RequestOrganizationForm: FC = () => {
                         setFormState({
                           ...formState,
                           defaultCostCenterName: e.target.value,
+                        })
+                      }}
+                    />
+                  </div>
+                  <div
+                    className={`${handles.newOrganizationInput} mb5 flex flex-column`}
+                  >
+                    <Input
+                      autocomplete="off"
+                      size="large"
+                      label={translateMessage(messages.businessDocument)}
+                      helpText={translateMessage(messages.businessDocumentHelp)}
+                      value={formState.businessDocument}
+                      onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                        setFormState({
+                          ...formState,
+                          businessDocument: e.target.value,
                         })
                       }}
                     />

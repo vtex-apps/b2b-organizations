@@ -23,5 +23,6 @@ query GetCostCenter($id: ID!) {
       geoCoordinates
       reference
     }
+    businessDocument
   }
 }

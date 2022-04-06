@@ -16,7 +16,7 @@ import {
   Toggle,
 } from 'vtex.styleguide'
 import { useToast } from '@vtex/admin-ui'
-import { useIntl, FormattedMessage, defineMessages } from 'react-intl'
+import { useIntl, FormattedMessage } from 'react-intl'
 import { useRuntime } from 'vtex.render-runtime'
 import {
   AddressRules,
@@ -29,59 +29,13 @@ import {
 import { StyleguideInput } from 'vtex.address-form/inputs'
 import { addValidation } from 'vtex.address-form/helpers'
 
+import { costCenterMessages as messages } from './utils/messages'
 import { getEmptyAddress, isValidAddress } from '../utils/addresses'
 import GET_COST_CENTER from '../graphql/getCostCenter.graphql'
 import GET_ORGANIZATION from '../graphql/getOrganization.graphql'
 import UPDATE_COST_CENTER from '../graphql/updateCostCenter.graphql'
 import DELETE_COST_CENTER from '../graphql/deleteCostCenter.graphql'
 import GET_LOGISTICS from '../graphql/getLogistics.graphql'
-
-const adminPrefix = 'admin/b2b-organizations.'
-
-const messages = defineMessages({
-  toastUpdateSuccess: {
-    id: `${adminPrefix}costCenter-details.toast.update-success`,
-  },
-  toastUpdateFailure: {
-    id: `${adminPrefix}costCenter-details.toast.update-failure`,
-  },
-  toastDeleteFailure: {
-    id: `${adminPrefix}costCenter-details.toast.delete-failure`,
-  },
-  addressEdit: {
-    id: `${adminPrefix}costCenter-details.address.edit`,
-  },
-  addressDelete: {
-    id: `${adminPrefix}costCenter-details.address.delete`,
-  },
-  pageTitle: {
-    id: `${adminPrefix}costCenter-details.title`,
-  },
-  back: {
-    id: `${adminPrefix}back`,
-  },
-  costCenterName: {
-    id: `${adminPrefix}costCenter-details.costCenter-name`,
-  },
-  addresses: {
-    id: `${adminPrefix}costCenter-details.addresses`,
-  },
-  add: {
-    id: `${adminPrefix}costCenter-details.button.add`,
-  },
-  cancel: {
-    id: `${adminPrefix}costCenter-details.button.cancel`,
-  },
-  update: {
-    id: `${adminPrefix}costCenter-details.button.update`,
-  },
-  deleteConfirm: {
-    id: `${adminPrefix}costCenter-details.button.delete-confirm`,
-  },
-  defaultAddress: {
-    id: `${adminPrefix}costCenter-details.default-address`,
-  },
-})
 
 const CostCenterDetails: FunctionComponent = () => {
   const { formatMessage } = useIntl()
@@ -96,6 +50,7 @@ const CostCenterDetails: FunctionComponent = () => {
 
   const [loadingState, setLoadingState] = useState(false)
   const [costCenterName, setCostCenterName] = useState('')
+  const [businessDocument, setBusinessDocument] = useState('')
   const [addresses, setAddresses] = useState([] as Address[])
   const [newAddressModalState, setNewAddressModalState] = useState({
     isOpen: false,
@@ -174,6 +129,10 @@ const CostCenterDetails: FunctionComponent = () => {
     handleSetAddresses(data.getCostCenterById.addresses)
     setCostCenterName(data.getCostCenterById.name)
 
+    if (data.getCostCenterById.businessDocument) {
+      setBusinessDocument(data.getCostCenterById.businessDocument)
+    }
+
     getOrganization({
       variables: { id: data.getCostCenterById.organization },
     })
@@ -193,6 +152,7 @@ const CostCenterDetails: FunctionComponent = () => {
 
           return item
         }),
+        businessDocument,
       },
     }
 
@@ -203,6 +163,7 @@ const CostCenterDetails: FunctionComponent = () => {
           message: formatMessage(messages.toastUpdateSuccess),
         })
         refetch()
+        handleSetAddresses(_addresses)
         setLoadingState(false)
       })
       .catch(error => {
@@ -432,6 +393,18 @@ const CostCenterDetails: FunctionComponent = () => {
             setCostCenterName(e.target.value)
           }}
           required
+        />
+      </PageBlock>
+      <PageBlock>
+        <Input
+          autocomplete="off"
+          size="large"
+          label={formatMessage(messages.businessDocument)}
+          helpText={formatMessage(messages.businessDocumentHelp)}
+          value={businessDocument}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+            setBusinessDocument(e.target.value)
+          }}
         />
       </PageBlock>
       <PageBlock title={formatMessage(messages.addresses)}>
