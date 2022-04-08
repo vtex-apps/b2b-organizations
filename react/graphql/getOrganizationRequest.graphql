@@ -25,6 +25,7 @@ query GetOrganizationRequest($id: ID!) {
         geoCoordinates
         reference
       }
+      businessDocument
     }
   }
 }

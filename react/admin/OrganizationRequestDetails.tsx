@@ -11,36 +11,14 @@ import {
   Button,
 } from 'vtex.styleguide'
 import { useToast } from '@vtex/admin-ui'
-import { useIntl, FormattedMessage, defineMessages } from 'react-intl'
+import { useIntl, FormattedMessage } from 'react-intl'
 import { useRuntime } from 'vtex.render-runtime'
 import { AddressRules, AddressSummary } from 'vtex.address-form'
 
+import { organizationRequestMessages as messages } from './utils/messages'
 import { labelTypeByStatusMap } from './OrganizationRequestsTable'
 import GET_ORGANIZATION_REQUEST from '../graphql/getOrganizationRequest.graphql'
 import UPDATE_ORGANIZATION_REQUEST from '../graphql/updateOrganizationRequest.graphql'
-
-const adminPrefix = 'admin/b2b-organizations.'
-
-const messages = defineMessages({
-  toastCreatedSuccess: {
-    id: `${adminPrefix}organization-request-details.toast.created-success`,
-  },
-  toastUpdateSuccess: {
-    id: `${adminPrefix}organization-request-details.toast.update-success`,
-  },
-  toastUpdateFailure: {
-    id: `${adminPrefix}organization-request-details.toast.update-failure`,
-  },
-  pageTitle: {
-    id: `${adminPrefix}organization-request-details.title`,
-  },
-  back: {
-    id: `${adminPrefix}back`,
-  },
-  addNote: {
-    id: `${adminPrefix}organization-request-details.add-note.label`,
-  },
-})
 
 const OrganizationRequestDetails: FunctionComponent = () => {
   const { formatMessage, formatDate } = useIntl()
@@ -98,7 +76,7 @@ const OrganizationRequestDetails: FunctionComponent = () => {
         fullWidth
         pageHeader={
           <PageHeader
-            title={formatMessage(messages.pageTitle)}
+            title={formatMessage(messages.detailsPageTitle)}
             linkLabel={formatMessage(messages.back)}
             onLinkClick={() => {
               navigate({
@@ -124,7 +102,7 @@ const OrganizationRequestDetails: FunctionComponent = () => {
       fullWidth
       pageHeader={
         <PageHeader
-          title={formatMessage(messages.pageTitle)}
+          title={formatMessage(messages.detailsPageTitle)}
           linkLabel={formatMessage(messages.back)}
           onLinkClick={() => {
             navigate({
@@ -170,6 +148,20 @@ const OrganizationRequestDetails: FunctionComponent = () => {
         </h4>
         <div className="mt4">
           {data.getOrganizationRequestById.defaultCostCenter.name}
+          {data.getOrganizationRequestById.defaultCostCenter
+            .businessDocument && (
+            <div>
+              <FormattedMessage
+                id="admin/b2b-organizations.organization-request-details.default-cost-center.businessDocument"
+                values={{
+                  businessDocument:
+                    data.getOrganizationRequestById.defaultCostCenter
+                      .businessDocument,
+                }}
+              />
+            </div>
+          )}
+          <br />
 
           <AddressRules
             country={

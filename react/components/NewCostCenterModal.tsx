@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import type { FunctionComponent } from 'react'
 import { Modal, Input, Button } from 'vtex.styleguide'
-import { defineMessages, useIntl, FormattedMessage } from 'react-intl'
+import { useIntl, FormattedMessage } from 'react-intl'
 import { useQuery } from 'react-apollo'
 import { useRuntime } from 'vtex.render-runtime'
 import {
@@ -15,29 +15,20 @@ import { StyleguideInput } from 'vtex.address-form/inputs'
 import { addValidation } from 'vtex.address-form/helpers'
 import 'vtex.country-codes/locales'
 
+import { costCenterMessages as messages } from './utils/messages'
 import { getEmptyAddress, isValidAddress } from '../utils/addresses'
 import GET_LOGISTICS from '../graphql/getLogistics.graphql'
 
 interface Props {
   loading: boolean
   isOpen: boolean
-  handleAddNewCostCenter: (name: string, address: AddressFormFields) => void
+  handleAddNewCostCenter: (
+    name: string,
+    address: AddressFormFields,
+    businessDocument: string
+  ) => void
   handleCloseModal: () => void
 }
-
-const storePrefix = 'store/b2b-organizations.'
-
-const messages = defineMessages({
-  add: {
-    id: `${storePrefix}organization-details.button.add`,
-  },
-  cancel: {
-    id: `${storePrefix}organization-details.button.cancel`,
-  },
-  costCenterName: {
-    id: `${storePrefix}costCenter-details.costCenter-name`,
-  },
-})
 
 const NewCostCenterModal: FunctionComponent<Props> = ({
   loading,
@@ -51,6 +42,11 @@ const NewCostCenterModal: FunctionComponent<Props> = ({
 
   const { formatMessage } = useIntl()
   const [newCostCenterName, setNewCostCenterName] = useState('')
+  const [
+    newCostCenterBusinessDocument,
+    setNewCostCenterBusinessDocument,
+  ] = useState('')
+
   const [newCostCenterAddressState, setNewCostCenterAddressState] = useState(
     addValidation(getEmptyAddress(country))
   )
@@ -96,7 +92,8 @@ const NewCostCenterModal: FunctionComponent<Props> = ({
               onClick={() =>
                 handleAddNewCostCenter(
                   newCostCenterName,
-                  newCostCenterAddressState
+                  newCostCenterAddressState,
+                  newCostCenterBusinessDocument
                 )
               }
               isLoading={loading}
@@ -126,6 +123,18 @@ const NewCostCenterModal: FunctionComponent<Props> = ({
             setNewCostCenterName(e.target.value)
           }}
           required
+        />
+      </div>
+      <div className="w-100 mv6">
+        <Input
+          autocomplete="off"
+          size="large"
+          label={formatMessage(messages.businessDocument)}
+          helpText={formatMessage(messages.businessDocumentHelp)}
+          value={newCostCenterBusinessDocument}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+            setNewCostCenterBusinessDocument(e.target.value)
+          }}
         />
       </div>
       <div className="w-100 mv6">

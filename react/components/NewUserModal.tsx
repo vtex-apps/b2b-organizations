@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import type { FunctionComponent } from 'react'
 import { Modal, Button, Input, Dropdown } from 'vtex.styleguide'
-import { defineMessages, useIntl } from 'react-intl'
+import { useIntl } from 'react-intl'
 import { useQuery } from 'react-apollo'
 
+import { organizationMessages as storeMessages } from './utils/messages'
+import { organizationMessages as adminMessages } from '../admin/utils/messages'
 import { validateEmail } from '../modules/formValidators'
 import GET_ROLES from '../graphql/getRoles.graphql'
 import GET_COST_CENTERS from '../graphql/getCostCentersByOrganizationIdStorefront.graphql'
@@ -22,75 +24,6 @@ interface DropdownOption {
   value: string
   label: string
 }
-
-const storePrefix = 'store/b2b-organizations.'
-const adminPrefix = 'admin/b2b-organizations.'
-
-const storeMessages = defineMessages({
-  addUser: {
-    id: `${storePrefix}organization-details.add-user`,
-  },
-  addUserHelp: {
-    id: `${storePrefix}organization-details.add-user.helpText`,
-  },
-  add: {
-    id: `${storePrefix}organization-details.button.add`,
-  },
-  cancel: {
-    id: `${storePrefix}organization-details.button.cancel`,
-  },
-  name: {
-    id: `${storePrefix}user-details.name`,
-  },
-  email: {
-    id: `${storePrefix}user-details.email`,
-  },
-  costCenter: {
-    id: `${storePrefix}user-details.placeholder-costCenter`,
-  },
-  role: {
-    id: `${storePrefix}user-details.placeholder-role`,
-  },
-  userCostCenter: {
-    id: `${storePrefix}user-details.costCenter`,
-  },
-  userRole: {
-    id: `${storePrefix}user-details.role`,
-  },
-})
-
-const adminMessages = defineMessages({
-  addUser: {
-    id: `${adminPrefix}organization-details.add-user`,
-  },
-  addUserHelp: {
-    id: `${adminPrefix}organization-details.add-user.helpText`,
-  },
-  add: {
-    id: `${adminPrefix}organization-details.button.add`,
-  },
-  cancel: {
-    id: `${adminPrefix}organization-details.button.cancel`,
-  },
-  name: {
-    id: `${adminPrefix}user-details.name`,
-  },
-  email: {
-    id: `${adminPrefix}user-details.email`,
-  },
-  costCenter: {
-    id: `${adminPrefix}user-details.placeholder-costCenter`,
-  },
-  role: {
-    id: `${adminPrefix}user-details.placeholder-role`,
-  },
-  userCostCenter: {
-    id: `${adminPrefix}user-details.costCenter`,
-  },
-  userRole: {
-    id: `${adminPrefix}user-details.role`,
-  },
-})
 
 const NewUserModal: FunctionComponent<Props> = ({
   loading,

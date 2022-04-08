@@ -14,9 +14,10 @@ import {
   Toggle,
   ToastContext,
 } from 'vtex.styleguide'
-import { useIntl, FormattedMessage, defineMessages } from 'react-intl'
+import { useIntl, FormattedMessage } from 'react-intl'
 import { AddressRules, AddressSummary } from 'vtex.address-form'
 
+import { costCenterMessages as messages } from './utils/messages'
 import storageFactory from '../utils/storage'
 import { useSessionResponse } from '../modules/session'
 import NewAddressModal from './NewAddressModal'
@@ -51,50 +52,6 @@ let isAuthenticated =
   JSON.parse(String(localStore.getItem('b2b-organizations_isAuthenticated'))) ??
   false
 
-const storePrefix = 'store/b2b-organizations.'
-
-const messages = defineMessages({
-  toastUpdateSuccess: {
-    id: `${storePrefix}costCenter-details.toast.update-success`,
-  },
-  toastUpdateFailure: {
-    id: `${storePrefix}costCenter-details.toast.update-failure`,
-  },
-  toastDeleteFailure: {
-    id: `${storePrefix}costCenter-details.toast.delete-failure`,
-  },
-  addressEdit: {
-    id: `${storePrefix}costCenter-details.address.edit`,
-  },
-  addressDelete: {
-    id: `${storePrefix}costCenter-details.address.delete`,
-  },
-  pageTitle: {
-    id: `${storePrefix}costCenter-details.title`,
-  },
-  back: {
-    id: `${storePrefix}back`,
-  },
-  costCenterName: {
-    id: `${storePrefix}costCenter-details.costCenter-name`,
-  },
-  addresses: {
-    id: `${storePrefix}costCenter-details.addresses`,
-  },
-  paymentTerms: {
-    id: `${storePrefix}costCenter-details.payment-terms`,
-  },
-  addressesSubtitle: {
-    id: `${storePrefix}costCenter-details.addresses.helpText`,
-  },
-  paymentTermsSubtitle: {
-    id: `${storePrefix}costCenter-details.payment-terms.helpText`,
-  },
-  defaultAddress: {
-    id: `${storePrefix}costCenter-details.default-address`,
-  },
-})
-
 const CostCenterDetails: FunctionComponent<RouterProps> = ({
   match: { params },
   history,
@@ -126,6 +83,7 @@ const CostCenterDetails: FunctionComponent<RouterProps> = ({
   const [permissionsState, setPermissionsState] = useState([] as string[])
   const [loadingState, setLoadingState] = useState(false)
   const [costCenterName, setCostCenterName] = useState('')
+  const [businessDocument, setBusinessDocument] = useState('')
   const [addresses, setAddresses] = useState([] as Address[])
   const [paymentTerms, setPaymentTerms] = useState([] as PaymentTerm[])
   const [paymentTermOptions, setPaymentTermOptions] = useState(
@@ -186,6 +144,10 @@ const CostCenterDetails: FunctionComponent<RouterProps> = ({
         ? data?.getCostCenterByIdStorefront?.paymentTerms
         : []
     )
+    if (data?.getCostCenterByIdStorefront?.businessDocument) {
+      setBusinessDocument(data.getCostCenterByIdStorefront.businessDocument)
+    }
+
     getOrganization({
       variables: { id: data.getCostCenterByIdStorefront.organization },
     })
@@ -230,6 +192,7 @@ const CostCenterDetails: FunctionComponent<RouterProps> = ({
           return item
         }),
         paymentTerms,
+        businessDocument,
       },
     }
 
@@ -237,6 +200,7 @@ const CostCenterDetails: FunctionComponent<RouterProps> = ({
       .then(() => {
         toastMessage(messages.toastUpdateSuccess)
         refetch()
+        handleSetAddresses(_addresses)
         setLoadingState(false)
       })
       .catch(error => {
@@ -498,6 +462,21 @@ const CostCenterDetails: FunctionComponent<RouterProps> = ({
             !permissionsState.includes('create-cost-center-organization')
           }
           required
+        />
+      </PageBlock>
+      <PageBlock>
+        <Input
+          autocomplete="off"
+          size="large"
+          label={formatMessage(messages.businessDocument)}
+          value={businessDocument}
+          helpText={formatMessage(messages.businessDocumentHelp)}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+            setBusinessDocument(e.target.value)
+          }}
+          readOnly={
+            !permissionsState.includes('create-cost-center-organization')
+          }
         />
       </PageBlock>
       {paymentTermOptions.length > 0 && (

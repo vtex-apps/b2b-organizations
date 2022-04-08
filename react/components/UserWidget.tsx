@@ -1,11 +1,12 @@
 import React, { useState } from 'react'
 import type { FunctionComponent } from 'react'
 import { useQuery, useMutation } from 'react-apollo'
-import { useIntl, defineMessages, FormattedMessage } from 'react-intl'
+import { useIntl, FormattedMessage } from 'react-intl'
 import { Button, Tag } from 'vtex.styleguide'
 import { useCssHandles } from 'vtex.css-handles'
 import { useRuntime } from 'vtex.render-runtime'
 
+import { userWidgetMessages as messages } from './utils/messages'
 import storageFactory from '../utils/storage'
 import { useSessionResponse } from '../modules/session'
 import GET_PERMISSIONS from '../graphql/getPermissions.graphql'
@@ -13,41 +14,6 @@ import GET_ORGANIZATION from '../graphql/getOrganizationStorefront.graphql'
 import GET_COST_CENTER from '../graphql/getCostCenterStorefront.graphql'
 import CHECK_IMPERSONATION from '../graphql/checkImpersonation.graphql'
 import STOP_IMPERSONATION from '../graphql/impersonateUser.graphql'
-
-const storePrefix = 'store/b2b-organizations.'
-
-const messages = defineMessages({
-  role: {
-    id: `${storePrefix}user-widget.role`,
-  },
-  organization: {
-    id: `${storePrefix}user-widget.organization`,
-  },
-  costCenter: {
-    id: `${storePrefix}user-widget.costCenter`,
-  },
-  status: {
-    id: `${storePrefix}user-widget.status`,
-  },
-  active: {
-    id: `${storePrefix}user-widget.status.active`,
-  },
-  onHold: {
-    id: `${storePrefix}user-widget.status.on-hold`,
-  },
-  inactive: {
-    id: `${storePrefix}user-widget.status.inactive`,
-  },
-  manageOrganization: {
-    id: `${storePrefix}user-widget.manage-organization`,
-  },
-  impersonating: {
-    id: `${storePrefix}user-widget.impersonating`,
-  },
-  stopImpersonation: {
-    id: `${storePrefix}stop-impersonation`,
-  },
-})
 
 const CSS_HANDLES = [
   'userWidgetContainer',

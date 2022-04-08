@@ -1,7 +1,10 @@
 import React from 'react'
 import type { FunctionComponent } from 'react'
 import { ModalDialog } from 'vtex.styleguide'
-import { defineMessages, useIntl } from 'react-intl'
+import { useIntl } from 'react-intl'
+
+import { organizationMessages as storeMessages } from './utils/messages'
+import { organizationMessages as adminMessages } from '../admin/utils/messages'
 
 interface Props {
   loading: boolean
@@ -11,39 +14,6 @@ interface Props {
   handleCloseModal: () => void
   isAdmin?: boolean
 }
-
-const storePrefix = 'store/b2b-organizations.'
-const adminPrefix = 'admin/b2b-organizations.'
-
-const storeMessages = defineMessages({
-  remove: {
-    id: `${storePrefix}organization-details.button.remove-user-confirm`,
-  },
-  cancel: {
-    id: `${storePrefix}organization-details.button.cancel`,
-  },
-  removeUser: {
-    id: `${storePrefix}organization-details.remove-user`,
-  },
-  removeUserHelp: {
-    id: `${storePrefix}organization-details.remove-user.helpText`,
-  },
-})
-
-const adminMessages = defineMessages({
-  remove: {
-    id: `${adminPrefix}organization-details.button.remove-user-confirm`,
-  },
-  cancel: {
-    id: `${adminPrefix}organization-details.button.cancel`,
-  },
-  removeUser: {
-    id: `${adminPrefix}organization-details.remove-user`,
-  },
-  removeUserHelp: {
-    id: `${adminPrefix}organization-details.remove-user.helpText`,
-  },
-})
 
 const RemoveUserModal: FunctionComponent<Props> = ({
   loading,
@@ -62,7 +32,9 @@ const RemoveUserModal: FunctionComponent<Props> = ({
       confirmation={{
         onClick: () => handleRemoveUser(),
         label: formatMessage(
-          isAdmin ? adminMessages.remove : storeMessages.remove
+          isAdmin
+            ? adminMessages.removeUserConfirm
+            : storeMessages.removeUserConfirm
         ),
         isDangerous: true,
       }}
