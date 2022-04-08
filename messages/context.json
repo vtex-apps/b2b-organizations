@@ -147,6 +147,8 @@
   "store/b2b-organizations.request-new-organization.submit-button.label": "store/b2b-organizations.request-new-organization.submit-button.label",
   "store/b2b-organizations.request-new-organization.submit.toast-success": "store/b2b-organizations.request-new-organization.submit.toast-success",
   "store/b2b-organizations.request-new-organization.submit.toast-failure": "store/b2b-organizations.request-new-organization.submit.toast-failure",
+  "store/b2b-organizations.request-new-organization.submit.toast-duplicate-pending": "store/b2b-organizations.request-new-organization.submit.toast-duplicate-pending",
+  "store/b2b-organizations.request-new-organization.submit.toast-duplicate-approved": "store/b2b-organizations.request-new-organization.submit.toast-duplicate-approved",
   "store/b2b-organizations.request-new-organization.helpText": "store/b2b-organizations.request-new-organization.helpText",
   "store/b2b-organizations.request-new-organization.b2b-customer-admin.helpText": "store/b2b-organizations.request-new-organization.b2b-customer-admin.helpText",
   "store/b2b-organizations.request-new-organization.default-cost-center.helpText": "store/b2b-organizations.request-new-organization.default-cost-center.helpText",

@@ -195,6 +195,12 @@ export const organizationRequestMessages = defineMessages({
   toastFailure: {
     id: `${storePrefix}request-new-organization.submit.toast-failure`,
   },
+  toastPending: {
+    id: `${storePrefix}request-new-organization.submit.toast-duplicate-pending`,
+  },
+  toastApproved: {
+    id: `${storePrefix}request-new-organization.submit.toast-duplicate-approved`,
+  },
   pageTitle: {
     id: `${storePrefix}request-new-organization.title`,
   },

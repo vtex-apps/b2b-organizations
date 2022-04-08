@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Added
+
+ - Add duplicate check for an email that is already associated with a pending or approved request
+
 ## [1.3.0] - 2022-04-08
 
 ### Added
