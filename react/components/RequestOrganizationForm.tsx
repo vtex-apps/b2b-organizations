@@ -32,6 +32,7 @@ import { validateEmail } from '../modules/formValidators'
 import { getEmptyAddress, isValidAddress } from '../utils/addresses'
 import CREATE_ORGANIZATION_REQUEST from '../graphql/createOrganizationRequest.graphql'
 import GET_ORGANIZATION_REQUEST from '../graphql/getOrganizationRequest.graphql'
+import GET_ORGANIZATION_REQUESTS from '../graphql/getOrganizationRequests.graphql'
 import GET_LOGISTICS from '../graphql/getLogistics.graphql'
 
 const localStore = storageFactory(() => localStorage)
@@ -111,9 +112,35 @@ const RequestOrganizationForm: FC = () => {
     businessDocument: '',
     isSubmitting: false,
     submitted: true,
+    duplicateStatus: '',
   }
 
   const [formState, setFormState] = useState(formStateModel)
+
+  const { data: duplicateCheckData } = useQuery(GET_ORGANIZATION_REQUESTS, {
+    variables: {
+      status: ['pending', 'approved'],
+      search: formState.email,
+      page: 1,
+      pageSize: 25,
+      sortOrder: 'DESC',
+      sortedBy: 'created',
+    },
+    ssr: false,
+  })
+
+  useEffect(() => {
+    if (
+      duplicateCheckData?.getOrganizationRequests?.data &&
+      duplicateCheckData.getOrganizationRequests.data[0] !== undefined
+    ) {
+      setFormState({
+        ...formState,
+        duplicateStatus:
+          duplicateCheckData.getOrganizationRequests.data[0].status,
+      })
+    }
+  }, [duplicateCheckData])
 
   const [hasProfile, setHasProfile] = useState(false)
 
@@ -169,6 +196,22 @@ const RequestOrganizationForm: FC = () => {
   }
 
   const handleSubmit = () => {
+    if (
+      formState.duplicateStatus === 'approved' ||
+      formState.duplicateStatus === 'pending'
+    ) {
+      if (formState.duplicateStatus === 'pending')
+        toastMessage(messages.toastPending)
+      else toastMessage(messages.toastApproved)
+
+      setFormState({
+        ...formState,
+        isSubmitting: false,
+      })
+
+      return
+    }
+
     setFormState({
       ...formState,
       isSubmitting: true,
