@@ -195,10 +195,7 @@ const RequestOrganizationForm: FC = () => {
     setAddressState(() => addValidation(getEmptyAddress(country)))
   }
 
-  console.log("Hey " + JSON.stringify(formState.organizationName))
-
   const handleSubmit = () => {
-    console.log("Hey " + JSON.stringify(formState.organizationName))
     if (
       formState.duplicateStatus === 'approved' ||
       formState.duplicateStatus === 'pending'
