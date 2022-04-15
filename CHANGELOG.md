@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Added
 
-- Added a sessionStorage remove item when a new impersonation or stop impersonation is called
+- Added a sessionStorage remove item "b2b-checkout-settings" when a new impersonation or stop impersonation is called
 
 ## [1.4.0] - 2022-04-08
 
