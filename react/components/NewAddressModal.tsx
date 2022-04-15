@@ -1,13 +1,13 @@
-import React, { useState } from 'react'
 import type { FunctionComponent } from 'react'
-import { Modal, Button } from 'vtex.styleguide'
+import React, { useEffect, useState } from 'react'
+import { Button, Modal, Toggle } from 'vtex.styleguide'
 import { useIntl } from 'react-intl'
 import { useQuery } from 'react-apollo'
 import { useRuntime } from 'vtex.render-runtime'
 import {
-  AddressRules,
-  AddressForm,
   AddressContainer,
+  AddressForm,
+  AddressRules,
   CountrySelector,
   PostalCodeGetter,
 } from 'vtex.address-form'
@@ -38,9 +38,12 @@ const NewAddressModal: FunctionComponent<Props> = ({
 
   const { formatMessage } = useIntl()
 
-  const [newAddressState, setNewAddressState] = useState(() =>
-    addValidation(getEmptyAddress(country))
-  )
+  const [newAddressState, setNewAddressState] = useState(() => {
+    return {
+      ...addValidation(getEmptyAddress(country)),
+      checked: false,
+    }
+  })
 
   const { data: logisticsData } = useQuery(GET_LOGISTICS, { ssr: false })
 
@@ -53,10 +56,20 @@ const NewAddressModal: FunctionComponent<Props> = ({
     }))
   }
 
-  const handleNewAddressChange = (changedAddress: AddressFormFields) => {
-    const curAddress = newAddressState
+  useEffect(() => {
+    if (isOpen) {
+      setNewAddressState({
+        ...addValidation(getEmptyAddress(country)),
+        checked: false,
+      })
+    }
+  }, [isOpen])
 
-    const newAddress = { ...curAddress, ...changedAddress }
+  const handleNewAddressChange = (changedAddress: AddressFormFields) => {
+    const newAddress = {
+      ...newAddressState,
+      ...changedAddress,
+    }
 
     setNewAddressState(newAddress)
   }
@@ -111,6 +124,18 @@ const NewAddressModal: FunctionComponent<Props> = ({
             omitAutoCompletedFields={false}
             omitPostalCodeFields
           />
+          <div className="mb6">
+            <Toggle
+              checked={newAddressState.checked}
+              onChange={() =>
+                setNewAddressState((prevState: AddressFormFields) => ({
+                  ...newAddressState,
+                  checked: !prevState.checked,
+                }))
+              }
+              label={formatMessage(messages.defaultAddress)}
+            />
+          </div>
         </AddressContainer>
       </AddressRules>
     </Modal>
