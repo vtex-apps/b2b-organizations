@@ -71,27 +71,16 @@ const UserWidget: FunctionComponent = () => {
 
   const [stopImpersonation] = useMutation(STOP_IMPERSONATION)
 
-  // useEffect(() => {
-  //   const handleImpersonationUpdated = () => refetch()
-
-  //   window.addEventListener('impersonationUpdated', handleImpersonationUpdated)
-
-  //   return () => {
-  //     window.removeEventListener(
-  //       'impersonationUpdated',
-  //       handleImpersonationUpdated
-  //     )
-  //   }
-  // }, [refetch])
-
   const handleStopImpersonation = async () => {
     setLoadingState(true)
     setErrorState(false)
 
     stopImpersonation()
       .then(() => {
-        // refetch()
-        // setLoadingState(false)
+        if (sessionStorage.getItem('b2b-checkout-settings')) {
+          sessionStorage.removeItem('b2b-checkout-settings')
+        }
+
         window.location.reload()
       })
       .catch(error => {
@@ -191,25 +180,6 @@ const UserWidget: FunctionComponent = () => {
               impersonationData.checkImpersonation.email
             }`}
           </div>
-          {/* <div
-            className={`${handles.userWidgetImpersonationItem} pa3 br2 bg-base--inverted hover-bg-base--inverted active-bg-base--inverted c-on-base--inverted hover-c-on-base--inverted active-c-on-base--inverted dib mr3`}
-          >
-            {`${formatMessage(messages.organization)} ${
-              impersonationData?.organizationName
-            }`}
-          </div>
-          <div
-            className={`${handles.userWidgetImpersonationItem} pa3 br2 bg-base--inverted hover-bg-base--inverted active-bg-base--inverted c-on-base--inverted hover-c-on-base--inverted active-c-on-base--inverted dib mr3`}
-          >
-            {`${formatMessage(messages.costCenter)} ${
-              impersonationData?.costCenterName
-            }`}
-          </div>
-          <div
-            className={`${handles.userWidgetImpersonationItem} pa3 br2 bg-base--inverted hover-bg-base--inverted active-bg-base--inverted c-on-base--inverted hover-c-on-base--inverted active-c-on-base--inverted dib mr3`}
-          >
-            {`${formatMessage(messages.role)} ${impersonationData?.role?.name}`}
-          </div> */}
           <div className={`${handles.userWidgetImpersonationButton} pa3`}>
             <Button
               variation="danger"
@@ -221,7 +191,7 @@ const UserWidget: FunctionComponent = () => {
             </Button>
             {errorState && (
               <div className={`${handles.userWidgetImpersonationError} error`}>
-                <FormattedMessage id="store/b2b-organizations.stop-impersonation-error"></FormattedMessage>
+                <FormattedMessage id="store/b2b-organizations.stop-impersonation-error" />
               </div>
             )}
           </div>

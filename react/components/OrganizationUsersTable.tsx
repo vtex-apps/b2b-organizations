@@ -256,6 +256,10 @@ const OrganizationUsersTable: FunctionComponent<Props> = ({
 
     showToast(formatMessage(storeMessages.toastImpersonateStarting))
 
+    if (sessionStorage.getItem('b2b-checkout-settings')) {
+      sessionStorage.removeItem('b2b-checkout-settings')
+    }
+
     impersonateUser({
       variables: { clId: rowData.clId, userId: rowData.userId },
     })
