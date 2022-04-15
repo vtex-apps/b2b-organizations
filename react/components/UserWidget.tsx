@@ -14,6 +14,7 @@ import GET_ORGANIZATION from '../graphql/getOrganizationStorefront.graphql'
 import GET_COST_CENTER from '../graphql/getCostCenterStorefront.graphql'
 import CHECK_IMPERSONATION from '../graphql/checkImpersonation.graphql'
 import STOP_IMPERSONATION from '../graphql/impersonateUser.graphql'
+import { B2B_CHECKOUT_SESSION_KEY } from '../utils/constants'
 
 const CSS_HANDLES = [
   'userWidgetContainer',
@@ -77,8 +78,8 @@ const UserWidget: FunctionComponent = () => {
 
     stopImpersonation()
       .then(() => {
-        if (sessionStorage.getItem('b2b-checkout-settings')) {
-          sessionStorage.removeItem('b2b-checkout-settings')
+        if (sessionStorage.getItem(B2B_CHECKOUT_SESSION_KEY)) {
+          sessionStorage.removeItem(B2B_CHECKOUT_SESSION_KEY)
         }
 
         window.location.reload()
