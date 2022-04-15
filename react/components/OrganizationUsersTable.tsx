@@ -15,6 +15,7 @@ import SAVE_USER from '../graphql/saveUser.graphql'
 import REMOVE_USER from '../graphql/removeUser.graphql'
 import GET_COST_CENTER from '../graphql/getCostCenterStorefront.graphql'
 import IMPERSONATE_USER from '../graphql/impersonateUser.graphql'
+import { B2B_CHECKOUT_SESSION_KEY } from '../utils/constants'
 
 interface Props {
   organizationId: string
@@ -255,6 +256,10 @@ const OrganizationUsersTable: FunctionComponent<Props> = ({
     }
 
     showToast(formatMessage(storeMessages.toastImpersonateStarting))
+
+    if (sessionStorage.getItem(B2B_CHECKOUT_SESSION_KEY)) {
+      sessionStorage.removeItem(B2B_CHECKOUT_SESSION_KEY)
+    }
 
     impersonateUser({
       variables: { clId: rowData.clId, userId: rowData.userId },
