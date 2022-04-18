@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Added
+
+- Added a new feature on creating the new address on the cost center which allows the user to set as the default address the new one.
+
 ## [1.5.0] - 2022-04-15
 
 ### Added
