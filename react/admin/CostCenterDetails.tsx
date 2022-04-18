@@ -252,7 +252,20 @@ const CostCenterDetails: FunctionComponent = () => {
       state: newAddressState.state.value,
       street: newAddressState.street.value,
       addressQuery: newAddressState.addressQuery.value,
+      checked: false,
     }
+
+    const newAddresses = [...addresses, newAddress]
+
+    setAddresses(
+      newAddresses.map(item => {
+        if (newAddressState.checked) {
+          item.checked = item === newAddress
+        }
+
+        return item
+      })
+    )
 
     setAddresses([...addresses, newAddress])
     handleCloseModals()
@@ -429,7 +442,7 @@ const CostCenterDetails: FunctionComponent = () => {
                           onChange={() => handleCheckDefault(address)}
                           checked={address.checked}
                           disabled={loadingState}
-                        ></Toggle>
+                        />
                       </div>
                     </div>
                     <div>
@@ -511,6 +524,18 @@ const CostCenterDetails: FunctionComponent = () => {
               omitAutoCompletedFields={false}
               omitPostalCodeFields
             />
+            <div className="mb6">
+              <Toggle
+                checked={newAddressState.checked}
+                onChange={() =>
+                  setNewAddressState((prevState: AddressFormFields) => ({
+                    ...newAddressState,
+                    checked: !prevState.checked,
+                  }))
+                }
+                label={formatMessage(messages.defaultAddress)}
+              />
+            </div>
           </AddressContainer>
         </AddressRules>
       </Modal>

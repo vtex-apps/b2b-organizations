@@ -275,7 +275,18 @@ const CostCenterDetails: FunctionComponent<RouterProps> = ({
       addressQuery: address.addressQuery.value,
     } as Address
 
-    setAddresses([...addresses, newAddress])
+    const newAddresses = [...addresses, newAddress]
+
+    setAddresses(
+      newAddresses.map(item => {
+        if (address.checked) {
+          item.checked = item === newAddress
+        }
+
+        return item
+      })
+    )
+
     handleCloseModals()
   }
 
@@ -497,7 +508,7 @@ const CostCenterDetails: FunctionComponent<RouterProps> = ({
                       'create-cost-center-organization'
                     )
                   }
-                ></Toggle>
+                />
               </div>
             )
           })}
@@ -532,7 +543,7 @@ const CostCenterDetails: FunctionComponent<RouterProps> = ({
                               'create-cost-center-organization'
                             ) || loadingState
                           }
-                        ></Toggle>
+                        />
                       </div>
                     </div>
                     <div>
