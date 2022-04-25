@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [1.6.1] - 2022-04-25
+
 ### Fixed
 
 - Fixed duplicate check to get the status from createOrganizationRequest instead of checking it in RequestOrganizationForm.tsx
