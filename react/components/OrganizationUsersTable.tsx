@@ -11,7 +11,8 @@ import NewUserModal from './NewUserModal'
 import EditUserModal from './EditUserModal'
 import RemoveUserModal from './RemoveUserModal'
 import GET_USERS from '../graphql/getUsers.graphql'
-import SAVE_USER from '../graphql/saveUser.graphql'
+import ADD_USER from '../graphql/addUser.graphql'
+import UPDATE_USER from '../graphql/updateUser.graphql'
 import REMOVE_USER from '../graphql/removeUser.graphql'
 import GET_COST_CENTER from '../graphql/getCostCenterStorefront.graphql'
 import IMPERSONATE_USER from '../graphql/impersonateUser.graphql'
@@ -101,7 +102,8 @@ const OrganizationUsersTable: FunctionComponent<Props> = ({
     skip: isAdmin,
   })
 
-  const [saveUser] = useMutation(SAVE_USER)
+  const [addUser] = useMutation(ADD_USER)
+  const [updateUser] = useMutation(UPDATE_USER)
   const [removeUser] = useMutation(REMOVE_USER)
   const [impersonateUser] = useMutation(IMPERSONATE_USER)
 
@@ -115,7 +117,7 @@ const OrganizationUsersTable: FunctionComponent<Props> = ({
 
   const handleAddUser = (user: UserInput) => {
     setAddUserLoading(true)
-    saveUser({ variables: user })
+    addUser({ variables: user })
       .then(() => {
         setAddUserModalOpen(false)
         contextualToast(
@@ -149,7 +151,7 @@ const OrganizationUsersTable: FunctionComponent<Props> = ({
 
   const handleUpdateUser = (user: UserDetails) => {
     setUpdateUserLoading(true)
-    saveUser({ variables: user })
+    updateUser({ variables: user })
       .then(() => {
         setEditUserModalOpen(false)
         setEditUserDetails({} as UserDetails)
