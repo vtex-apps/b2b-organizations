@@ -128,8 +128,10 @@ const OrganizationUsersTable: FunctionComponent<Props> = ({
           ),
           'success'
         )
-        setAddUserLoading(false)
-        refetch()
+        setTimeout(() => {
+          setAddUserLoading(false)
+          refetch()
+        }, 2000)
       })
       .catch(error => {
         console.error(error)
@@ -163,8 +165,10 @@ const OrganizationUsersTable: FunctionComponent<Props> = ({
           ),
           'success'
         )
-        setUpdateUserLoading(false)
-        refetch()
+        setTimeout(() => {
+          setUpdateUserLoading(false)
+          refetch()
+        }, 2000)
       })
       .catch(error => {
         console.error(error)
@@ -365,7 +369,7 @@ const OrganizationUsersTable: FunctionComponent<Props> = ({
         fullWidth
         schema={getSchema()}
         items={usersState}
-        loading={loading}
+        loading={loading || addUserLoading || updateUserLoading}
         emptyStateLabel={formatMessage(
           isAdmin ? adminMessages.usersEmptyState : storeMessages.emptyState
         )}
