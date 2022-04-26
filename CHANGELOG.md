@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Added
+
+- Changed the saveUser mutation to addUser and saveUser mutations
+
+### Fixed
+
+- Added a setTimeout and set the loader until the user's table is loaded 
+
 ## [1.6.0] - 2022-04-18
 
 ### Added
