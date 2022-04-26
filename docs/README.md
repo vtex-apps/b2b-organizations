@@ -1,4 +1,4 @@
-📢 Use this project, [contribute](https://github.com/vtex-apps/b2b-organizations) to it or open issues to help evolve it using [Store Discussion](https://github.com/vtex-apps/store-discussion).
+=� Use this project, [contribute](https://github.com/vtex-apps/b2b-organizations) to it or open issues to help evolve it using [Store Discussion](https://github.com/vtex-apps/store-discussion).
 
 # B2B Organizations
 
@@ -10,19 +10,19 @@
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 <!-- DOCS-IGNORE:end -->
 
-> ℹ The **B2B Organizations** app is part of VTEX’s [B2B Suite](https://developers.vtex.com/vtex-developer-docs/docs/vtex-b2b-suite) solution: a collection of apps that allow stores to manage organizations, storefront roles and permissions, and checkout settings for B2B commerce relationships. We recommend that you use it alongside the other apps in this suite for all functionalities to work as expected.
+> 9 The **B2B Organizations** app is part of VTEXs [B2B Suite](https://developers.vtex.com/vtex-developer-docs/docs/vtex-b2b-suite) solution: a collection of apps that allow stores to manage organizations, storefront roles and permissions, and checkout settings for B2B commerce relationships. We recommend that you use it alongside the other apps in this suite for all functionalities to work as expected.
 
 In the B2B model, sales goals go beyond a high order conversion rate. They include simplifying the relationship between companies, reducing costs, and increasing performance by providing the customer with the best possible shopping experience.
 
 B2B commerce relations are usually complex and often require a customized service. Therefore, grouping different users from the same company under an organization, and defining custom payment methods, product selections, and prices for each customer are common tasks in this scenario.
 
-The **B2B Organizations** app enables you to group B2B users into organizations. You can assign specific payment methods, price tables, and product collections to each organization, allowing all of the organization’s users to share the same commercial conditions. Each organization is further segmented into one or more cost centers, with its own shipping addresses.
+The **B2B Organizations** app enables you to group B2B users into organizations. You can assign specific payment methods, price tables, and product collections to each organization, allowing all of the organizations users to share the same commercial conditions. Each organization is further segmented into one or more cost centers, with its own shipping addresses.
 
 ## Before you start
 
 First, make sure you have the [VTEX IO CLI (Command Line Interface)](https://developers.vtex.com/vtex-developer-docs/docs/vtex-io-documentation-vtex-io-cli-install) installed in your machine.
 
-Note that installing B2B Organizations will also result in [Storefront Permissions](https://developers.vtex.com/vtex-developer-docs/docs/vtex-storefront-permissions) being installed as a dependency app – it allows you to grant specific storefront roles for B2B users in an organization. This is especially useful for organizations with multiple users who have different responsibilities, such as placing orders, approving orders or managing the organization users. See the [Storefront Permissions](https://developers.vtex.com/vtex-developer-docs/docs/vtex-storefront-permissions) app documentation for information on the available roles and how to customize their permissions.
+Note that installing B2B Organizations will also result in [Storefront Permissions](https://developers.vtex.com/vtex-developer-docs/docs/vtex-storefront-permissions) being installed as a dependency app  it allows you to grant specific storefront roles for B2B users in an organization. This is especially useful for organizations with multiple users who have different responsibilities, such as placing orders, approving orders or managing the organization users. See the [Storefront Permissions](https://developers.vtex.com/vtex-developer-docs/docs/vtex-storefront-permissions) app documentation for information on the available roles and how to customize their permissions.
 
 If you want to be able to manage roles and permissions on the VTEX Admin, you must install [Storefront Permissions UI](https://developers.vtex.com/vtex-developer-docs/docs/vtex-storefront-permissions-ui) as well.
 
@@ -38,7 +38,7 @@ To enable the [user widget](#user-widget) in your storefront, this app provides 
 
 Follow the instructions below to display the user widget.
 
-1. Open your store theme app’s repository in your local files.
+1. Open your store theme apps repository in your local files.
 2. In the `manifest.json` file, under `dependencies`, add `"vtex.b2b-organizations": "1.x"`, like so:
 
    ```json
@@ -169,7 +169,7 @@ The **B2B Organizations** app adds the following functionalities and components 
 </tbody>
 </table>
 
-> ℹ This app can also be used together with [B2B Quotes](https://developers.vtex.com/vtex-developer-docs/docs/vtex-orderquote), allowing order quotes to be managed at the organization level. Please read our B2B Quotes documentation for more details.
+> 9 This app can also be used together with [B2B Quotes](https://developers.vtex.com/vtex-developer-docs/docs/vtex-orderquote), allowing order quotes to be managed at the organization level. Please read our B2B Quotes documentation for more details.
 
 ### VTEX Admin
 
@@ -189,7 +189,7 @@ Each organization can have a status of **pending**, **approved** or **declined**
 
 To review a request, you must:
 
-1. Click on a request from the table – or click on <img src="https://user-images.githubusercontent.com/77292838/159766633-dfcb818f-6bd7-4cd0-92dc-9c682fb50d04.png" width="10" alt-text="00-ellipsis"/> > `View`.
+1. Click on a request from the table  or click on <img src="https://user-images.githubusercontent.com/77292838/159766633-dfcb818f-6bd7-4cd0-92dc-9c682fb50d04.png" width="10" alt-text="00-ellipsis"/> > `View`.
 2. Write a comment on the **Add note** field, if necessary.
 3. Click on `Approve` or `Decline`.
 
@@ -239,7 +239,7 @@ You can manually create a new organization on the **Organizations** page. Follow
 
 ![05-add-organization](https://user-images.githubusercontent.com/77292838/159766663-e1b2005a-0c2d-4bec-84ad-612007f17d64.gif)
 
-> ℹ Additional cost centers and addresses may be added after creating the organization, as explained in the next section of this documentation.
+> 9 Additional cost centers and addresses may be added after creating the organization, as explained in the next section of this documentation.
 
 #### Organization Details
 
@@ -254,7 +254,7 @@ In the **Organizations Details** page, you can see and edit the information of a
 
 You can access this page by going to **Account Settings** > **B2B Organizations & Cost Centers** > **Organizations** in the VTEX Admin and clicking on the organization whose details you want to view, or on <img src="https://user-images.githubusercontent.com/77292838/159766633-dfcb818f-6bd7-4cd0-92dc-9c682fb50d04.png" width="10" alt-text="00-ellipsis"/> > `View`.
 
-> ℹ Note that assigning collections, payment terms, and price tables to an organization is optional. If these are not assigned, users of the organization will see the store’s default catalog, have access to all payment methods, and see the store's default pricing.
+> 9 Note that assigning collections, payment terms, and price tables to an organization is optional. If these are not assigned, users of the organization will see the stores default catalog, have access to all payment methods, and see the store's default pricing.
 
 ##### Organization Name and Status
 
@@ -272,9 +272,9 @@ In the **Cost Centers** section, you can view all the cost centers associated wi
 
 ![07-cost-centers](https://user-images.githubusercontent.com/77292838/159766678-0fd6c361-e1e6-470b-a9fc-c98b530c05e9.png)
 
-> ℹ Each organization must have at least one cost center.
+> 9 Each organization must have at least one cost center.
 
-By default, each cost center will allow all of the [payment terms](#payment-terms) that have been assigned to the parent organization. However, **Organization Admin** users have the ability to enable or disable individual payment terms at the cost center level – see [Manage Cost Centers](#manage-cost-centers) for more information on this.
+By default, each cost center will allow all of the [payment terms](#payment-terms) that have been assigned to the parent organization. However, **Organization Admin** users have the ability to enable or disable individual payment terms at the cost center level  see [Manage Cost Centers](#manage-cost-centers) for more information on this.
 
 To create a new cost center, follow the steps below.
 
@@ -298,7 +298,7 @@ You can view or edit the details of an existing cost center by clicking on it in
 
 This will lead you to the **Cost Center Details** page, where you can:
 
-- View or edit the cost center’s **Name** and **Addresses**.
+- View or edit the cost centers **Name** and **Addresses**.
 - View or edit the cost center's **Business Document**.
 - Add a new shipping address associated with the cost center.
 - Delete the cost center
@@ -307,7 +307,7 @@ This will lead you to the **Cost Center Details** page, where you can:
 
 The optional **Business Document** field may be used to store a Tax ID, VAT ID, CNPJ, or similar business identifier. If a Business Document is present in a user's cost center, it will be applied as the `corporateDocument` in the user's profile and therefore attached to any orders placed by the user.
 
-> ⚠️ The shipping addresses assigned to a cost center will be available to that cost center's users at checkout if you install [B2B Checkout Settings](https://developers.vtex.com/vtex-developer-docs/docs/vtex-b2b-checkout-settings). No other addresses will be available. Therefore, each cost center must have at least one shipping address.
+> � The shipping addresses assigned to a cost center will be available to that cost center's users at checkout if you install [B2B Checkout Settings](https://developers.vtex.com/vtex-developer-docs/docs/vtex-b2b-checkout-settings). No other addresses will be available. Therefore, each cost center must have at least one shipping address.
 
 To edit or delete an existing address, click <img src="https://user-images.githubusercontent.com/77292838/159766633-dfcb818f-6bd7-4cd0-92dc-9c682fb50d04.png" width="10" alt-text="00-ellipsis"/> next to it and select **Edit** or **Delete**.
 
@@ -330,7 +330,7 @@ If you want to delete the cost center, click on `Delete` instead.
 
 ##### Collections
 
-> ℹ You must use the **Collections Beta** solution to be able to associate collections to organizations using **B2B Organizations**. Read our article on [Creating Collections Beta](https://help.vtex.com/tutorial/creating-collections-beta--yJBHqNMViOAnnnq4fyOye) for more information.
+> 9 You must use the **Collections Beta** solution to be able to associate collections to organizations using **B2B Organizations**. Read our article on [Creating Collections Beta](https://help.vtex.com/tutorial/creating-collections-beta--yJBHqNMViOAnnnq4fyOye) for more information.
 
 This section allows you to manage the [product collections](https://help.vtex.com/tutorial/creating-collections-beta--yJBHqNMViOAnnnq4fyOye) assigned to the organization. Your selections define the assortment of products the organization users will see in the storefront.
 
@@ -352,7 +352,7 @@ To remove a payment term, select the option you want to remove from the **Assign
 
 ![11-payment-terms](https://user-images.githubusercontent.com/77292838/159766697-27de2f5b-18b3-4067-a4f1-81da8fb61bc0.gif)
 
-> ℹ To customize the checkout according to each organization user’s role, you need to install and configure [B2B Checkout Settings](https://github.com/vtex-apps/b2b-checkout-settings).
+> 9 To customize the checkout according to each organization users role, you need to install and configure [B2B Checkout Settings](https://github.com/vtex-apps/b2b-checkout-settings).
 
 ##### Price Tables
 
@@ -373,7 +373,7 @@ This section presents a list of users associated with the organization, showing 
 To add a new user to the organization, follow these steps:
 
 1. In the **Users** list, click on the `New` button.
-2. Fill in the user’s information, as illustrated below.
+2. Fill in the users information, as illustrated below.
    - **Name:** full name of the user.
    - **Email:** email of the user.
    - **Cost Center:** cost center the user will be associated with.
@@ -389,7 +389,7 @@ To edit or remove an existing user, follow these steps:
 1. Click on the user you want to edit or delete in the **Users** list.
 2. Edit the desired information.
 
-   You can change the user’s **Cost Center** and their **Role**.
+   You can change the users **Cost Center** and their **Role**.
 
    If you want to remove the user from the organization, click `Remove user` instead and skip the next step.
 
@@ -399,7 +399,7 @@ To edit or remove an existing user, follow these steps:
 
 If a user is removed from an organization, their account will continue to exist in the store, but they will no longer be assigned to an organization, a cost center, and a B2B role. Thus, they will no longer have access to details of their organization in the **My Organization** page. Instead, they will have the ability to [request the creation of a new organization](#request-new-organization), if necessary.
 
-> ℹ As an optional feature, you can install the [Admin Customers](https://developers.vtex.com/vtex-developer-docs/docs/vtex-admin-customers) app for additional customer management capabilities on the VTEX Admin.
+> 9 As an optional feature, you can install the [Admin Customers](https://developers.vtex.com/vtex-developer-docs/docs/vtex-admin-customers) app for additional customer management capabilities on the VTEX Admin.
 
 #### Email templates
 
@@ -438,7 +438,7 @@ You can see the data entity names in the table below.
 
 ### Storefront
 
-Storefront capabilities, in turn, are accessible to B2B customers who visit a supplier’s store, provided that they are logged in and have the required permissions.
+Storefront capabilities, in turn, are accessible to B2B customers who visit a suppliers store, provided that they are logged in and have the required permissions.
 
 The following sections describe what your customer can do in your storefront, after you've finished setting up the B2B Organizations app.
 
@@ -468,7 +468,7 @@ A B2B user who is not already part of an organization can request the creation o
 
 ![17-organization-request](https://user-images.githubusercontent.com/77292838/159766733-14da23e9-55d6-44e8-8cfc-95d62e3b4ade.gif)
 
-After submitting the form, the request will be sent to a queue for review by the B2B store administrator – for more details on this, refer to the [Organization Requests](#organization-requests) section.
+After submitting the form, the request will be sent to a queue for review by the B2B store administrator  for more details on this, refer to the [Organization Requests](#organization-requests) section.
 
 The user designated as the **Organization Admin** for the new organization will receive an email notification when the request has either been approved or declined by the store administrator. You can learn more about this notification in the [Email templates](#email-templates) section.
 
@@ -502,7 +502,7 @@ To add a new cost center, they should go to **My Account > My Organization**, wh
 
 In addition, **Organization Admins** can enable specific payment terms for a cost center, by using the toggle button to activate or deactivate the payment terms assigned to the organization, as shown below.
 
-> ⚠️ This section will only be available on the **My Organization** page if [payment terms](#payment-terms) have previously been assigned to the organization by the VTEX Admin users.
+> � This section will only be available on the **My Organization** page if [payment terms](#payment-terms) have previously been assigned to the organization by the VTEX Admin users.
 
 ![19-payment-terms-cost-center](https://user-images.githubusercontent.com/77292838/159766775-dd0a17bd-8418-401b-a377-7d4c9ed0cf11.png)
 
@@ -539,7 +539,7 @@ To give storefront users visibility into their currently assigned organization, 
 
 ![21-user-widget](https://user-images.githubusercontent.com/77292838/159766781-8edabb7e-292c-4c8e-a88e-ae937ec7db86.png)
 
-> ℹ To display the user widget, it is necessary to follow the instructions in the [User widget configuration](#user-widget-configuration) section.
+> 9 To display the user widget, it is necessary to follow the instructions in the [User widget configuration](#user-widget-configuration) section.
 
 If users click `Manage organization`, they can access the **My Organization** page directly.
 
@@ -549,7 +549,7 @@ In case impersonation is currently active, this block will also show the email o
 
 <!-- DOCS-IGNORE:start -->
 
-## Contributors ✨
+## Contributors (
 
 Thanks goes to these wonderful people:
 
@@ -564,3 +564,8 @@ Thanks goes to these wonderful people:
 This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind are welcome!
 
 <!-- DOCS-IGNORE:end -->
+
+
+**Upcoming documentation:**
+
+ - [[B2BORG-96] Fix duplicate check](https://github.com/vtex-apps/b2b-organizations/pull/29)
