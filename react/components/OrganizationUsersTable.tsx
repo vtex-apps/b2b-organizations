@@ -118,21 +118,39 @@ const OrganizationUsersTable: FunctionComponent<Props> = ({
   const handleAddUser = (user: UserInput) => {
     setAddUserLoading(true)
     addUser({ variables: user })
-      .then(() => {
-        setAddUserModalOpen(false)
-        contextualToast(
-          formatMessage(
-            isAdmin
-              ? adminMessages.toastAddUserSuccess
-              : storeMessages.toastAddUserSuccess
-          ),
-          'success'
-        )
-        setTimeout(() => {
-          setAddUserLoading(false)
-          refetch()
-        }, 2000)
-      })
+      .then(
+        ({
+          data: {
+            addUser: { status },
+          },
+        }) => {
+          setAddUserModalOpen(false)
+          if (status === 'error') {
+            contextualToast(
+              formatMessage(
+                isAdmin
+                  ? adminMessages.toastAddUserFailure
+                  : storeMessages.toastAddUserFailure
+              ),
+              'error'
+            )
+          } else {
+            contextualToast(
+              formatMessage(
+                isAdmin
+                  ? adminMessages.toastAddUserSuccess
+                  : storeMessages.toastAddUserSuccess
+              ),
+              'success'
+            )
+          }
+
+          setTimeout(() => {
+            setAddUserLoading(false)
+            refetch()
+          }, 2000)
+        }
+      )
       .catch(error => {
         console.error(error)
         contextualToast(
@@ -154,22 +172,40 @@ const OrganizationUsersTable: FunctionComponent<Props> = ({
   const handleUpdateUser = (user: UserDetails) => {
     setUpdateUserLoading(true)
     updateUser({ variables: user })
-      .then(() => {
-        setEditUserModalOpen(false)
-        setEditUserDetails({} as UserDetails)
-        contextualToast(
-          formatMessage(
-            isAdmin
-              ? adminMessages.toastUpdateUserSuccess
-              : storeMessages.toastUpdateUserSuccess
-          ),
-          'success'
-        )
-        setTimeout(() => {
-          setUpdateUserLoading(false)
-          refetch()
-        }, 2000)
-      })
+      .then(
+        ({
+          data: {
+            updateUser: { status },
+          },
+        }) => {
+          setEditUserModalOpen(false)
+          setEditUserDetails({} as UserDetails)
+          if (status === 'error') {
+            contextualToast(
+              formatMessage(
+                isAdmin
+                  ? adminMessages.toastUpdateUserFailure
+                  : storeMessages.toastUpdateUserFailure
+              ),
+              'error'
+            )
+          } else {
+            contextualToast(
+              formatMessage(
+                isAdmin
+                  ? adminMessages.toastUpdateUserSuccess
+                  : storeMessages.toastUpdateUserSuccess
+              ),
+              'success'
+            )
+          }
+
+          setTimeout(() => {
+            setUpdateUserLoading(false)
+            refetch()
+          }, 2000)
+        }
+      )
       .catch(error => {
         console.error(error)
         contextualToast(
