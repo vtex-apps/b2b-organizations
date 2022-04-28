@@ -211,6 +211,7 @@ const RequestOrganizationForm: FC = () => {
     })
       .then(response => {
         const statusRequest = response.data.createOrganizationRequest.status
+
         if (statusRequest === 'pending') {
           toastMessage(messages.toastPending)
           setFormState({

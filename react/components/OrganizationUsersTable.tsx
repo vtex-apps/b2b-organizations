@@ -11,7 +11,8 @@ import NewUserModal from './NewUserModal'
 import EditUserModal from './EditUserModal'
 import RemoveUserModal from './RemoveUserModal'
 import GET_USERS from '../graphql/getUsers.graphql'
-import SAVE_USER from '../graphql/saveUser.graphql'
+import ADD_USER from '../graphql/addUser.graphql'
+import UPDATE_USER from '../graphql/updateUser.graphql'
 import REMOVE_USER from '../graphql/removeUser.graphql'
 import GET_COST_CENTER from '../graphql/getCostCenterStorefront.graphql'
 import IMPERSONATE_USER from '../graphql/impersonateUser.graphql'
@@ -101,7 +102,8 @@ const OrganizationUsersTable: FunctionComponent<Props> = ({
     skip: isAdmin,
   })
 
-  const [saveUser] = useMutation(SAVE_USER)
+  const [addUser] = useMutation(ADD_USER)
+  const [updateUser] = useMutation(UPDATE_USER)
   const [removeUser] = useMutation(REMOVE_USER)
   const [impersonateUser] = useMutation(IMPERSONATE_USER)
 
@@ -115,20 +117,40 @@ const OrganizationUsersTable: FunctionComponent<Props> = ({
 
   const handleAddUser = (user: UserInput) => {
     setAddUserLoading(true)
-    saveUser({ variables: user })
-      .then(() => {
-        setAddUserModalOpen(false)
-        contextualToast(
-          formatMessage(
-            isAdmin
-              ? adminMessages.toastAddUserSuccess
-              : storeMessages.toastAddUserSuccess
-          ),
-          'success'
-        )
-        setAddUserLoading(false)
-        refetch()
-      })
+    addUser({ variables: user })
+      .then(
+        ({
+          data: {
+            addUser: { status },
+          },
+        }) => {
+          setAddUserModalOpen(false)
+          if (status === 'error') {
+            contextualToast(
+              formatMessage(
+                isAdmin
+                  ? adminMessages.toastAddUserFailure
+                  : storeMessages.toastAddUserFailure
+              ),
+              'error'
+            )
+          } else {
+            contextualToast(
+              formatMessage(
+                isAdmin
+                  ? adminMessages.toastAddUserSuccess
+                  : storeMessages.toastAddUserSuccess
+              ),
+              'success'
+            )
+          }
+
+          setTimeout(() => {
+            setAddUserLoading(false)
+            refetch()
+          }, 2000)
+        }
+      )
       .catch(error => {
         console.error(error)
         contextualToast(
@@ -149,21 +171,41 @@ const OrganizationUsersTable: FunctionComponent<Props> = ({
 
   const handleUpdateUser = (user: UserDetails) => {
     setUpdateUserLoading(true)
-    saveUser({ variables: user })
-      .then(() => {
-        setEditUserModalOpen(false)
-        setEditUserDetails({} as UserDetails)
-        contextualToast(
-          formatMessage(
-            isAdmin
-              ? adminMessages.toastUpdateUserSuccess
-              : storeMessages.toastUpdateUserSuccess
-          ),
-          'success'
-        )
-        setUpdateUserLoading(false)
-        refetch()
-      })
+    updateUser({ variables: user })
+      .then(
+        ({
+          data: {
+            updateUser: { status },
+          },
+        }) => {
+          setEditUserModalOpen(false)
+          setEditUserDetails({} as UserDetails)
+          if (status === 'error') {
+            contextualToast(
+              formatMessage(
+                isAdmin
+                  ? adminMessages.toastUpdateUserFailure
+                  : storeMessages.toastUpdateUserFailure
+              ),
+              'error'
+            )
+          } else {
+            contextualToast(
+              formatMessage(
+                isAdmin
+                  ? adminMessages.toastUpdateUserSuccess
+                  : storeMessages.toastUpdateUserSuccess
+              ),
+              'success'
+            )
+          }
+
+          setTimeout(() => {
+            setUpdateUserLoading(false)
+            refetch()
+          }, 2000)
+        }
+      )
       .catch(error => {
         console.error(error)
         contextualToast(
@@ -363,7 +405,7 @@ const OrganizationUsersTable: FunctionComponent<Props> = ({
         fullWidth
         schema={getSchema()}
         items={usersState}
-        loading={loading}
+        loading={loading || addUserLoading || updateUserLoading}
         emptyStateLabel={formatMessage(
           isAdmin ? adminMessages.usersEmptyState : storeMessages.emptyState
         )}
