@@ -2,5 +2,6 @@ mutation CreateOrganizationRequest($input: OrganizationInput!) {
   createOrganizationRequest(input: $input)
     @context(provider: "vtex.b2b-organizations-graphql") {
     id
+    status
   }
 }
