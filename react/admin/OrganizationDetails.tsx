@@ -35,12 +35,13 @@ import UPDATE_ORGANIZATION from '../graphql/updateOrganization.graphql'
 import GET_COLLECTIONS from '../graphql/getCollections.graphql'
 import GET_PAYMENT_TERMS from '../graphql/getPaymentTerms.graphql'
 import GET_PRICE_TABLES from '../graphql/getPriceTables.graphql'
+import GET_SALES_CHANNELS from '../graphql/getSalesChannels.graphql'
 import GET_COST_CENTERS from '../graphql/getCostCentersByOrganizationId.graphql'
 import CREATE_COST_CENTER from '../graphql/createCostCenter.graphql'
 
-interface CellRendererProps {
+interface CellRendererProps<RowType> {
   cellData: unknown
-  rowData: CostCenterSimple
+  rowData: RowType
   updateCellMeasurements: () => void
 }
 
@@ -56,7 +57,8 @@ interface Collection {
 }
 
 interface PriceTable {
-  name: string
+  tableId: string
+  name?: string
 }
 
 interface PaymentTerm {
@@ -152,6 +154,9 @@ const OrganizationDetails: FunctionComponent = () => {
   }>(GET_PAYMENT_TERMS, { ssr: false })
 
   const { data: priceTablesData } = useQuery(GET_PRICE_TABLES, { ssr: false })
+  const { data: salesChannelsData } = useQuery(GET_SALES_CHANNELS, {
+    ssr: false,
+  })
   const { data: logisticsData } = useQuery(GET_LOGISTICS, { ssr: false })
 
   const translateCountries = () => {
@@ -187,18 +192,32 @@ const OrganizationDetails: FunctionComponent = () => {
   }, [data])
 
   useEffect(() => {
-    if (!priceTablesData?.priceTables?.length || priceTableOptions.length) {
+    if (
+      !priceTablesData?.priceTables?.length ||
+      !salesChannelsData?.salesChannels?.length
+    ) {
       return
     }
 
     const options = [] as PriceTable[]
 
+    salesChannelsData.salesChannels.forEach(
+      (channel: { id: string; name: string }) => {
+        options.push({
+          tableId: channel.id,
+          name: `${channel.name} (${channel.id})`,
+        })
+      }
+    )
+
     priceTablesData.priceTables.forEach((priceTable: string) => {
-      options.push({ name: priceTable })
+      if (!options.find(option => option.tableId === priceTable)) {
+        options.push({ tableId: priceTable })
+      }
     })
 
     setPriceTableOptions(options)
-  }, [priceTablesData])
+  }, [priceTablesData, salesChannelsData])
 
   useEffect(() => {
     if (
@@ -441,9 +460,9 @@ const OrganizationDetails: FunctionComponent = () => {
     const { selectedRows = [] } = rowParams
     const newPriceTables = [] as string[]
 
-    selectedRows.forEach((row: any) => {
-      if (!priceTablesState.includes(row.name)) {
-        newPriceTables.push(row.name)
+    selectedRows.forEach((row: PriceTable) => {
+      if (!priceTablesState.includes(row.tableId)) {
+        newPriceTables.push(row.tableId)
       }
     })
 
@@ -454,8 +473,8 @@ const OrganizationDetails: FunctionComponent = () => {
     const { selectedRows = [] } = rowParams
     const priceTablesToRemove = [] as string[]
 
-    selectedRows.forEach((row: any) => {
-      priceTablesToRemove.push(row.name)
+    selectedRows.forEach((row: PriceTable) => {
+      priceTablesToRemove.push(row.tableId)
     })
 
     const newPriceTablesList = priceTablesState.filter(
@@ -537,12 +556,14 @@ const OrganizationDetails: FunctionComponent = () => {
 
     switch (type) {
       case 'availablePriceTables':
-        cellRenderer = ({ rowData: { name } }: CellRendererProps) => {
-          const assigned = priceTablesState.includes(name)
+        cellRenderer = ({
+          rowData: { tableId, name },
+        }: CellRendererProps<PriceTable>) => {
+          const assigned = priceTablesState.includes(tableId)
 
           return (
             <span className={assigned ? 'c-disabled' : ''}>
-              {name}
+              {name ?? tableId}
               {assigned && <IconCheck />}
             </span>
           )
@@ -551,7 +572,9 @@ const OrganizationDetails: FunctionComponent = () => {
         break
 
       case 'availableCollections':
-        cellRenderer = ({ rowData: { name } }: CellRendererProps) => {
+        cellRenderer = ({
+          rowData: { name },
+        }: CellRendererProps<Collection>) => {
           const assigned = collectionsState.some(
             collection => collection.name === name
           )
@@ -567,7 +590,9 @@ const OrganizationDetails: FunctionComponent = () => {
         break
 
       case 'availablePayments':
-        cellRenderer = ({ rowData: { name } }: CellRendererProps) => {
+        cellRenderer = ({
+          rowData: { name },
+        }: CellRendererProps<PaymentTerm>) => {
           const assigned = paymentTermsState.some(
             payment => payment.name === name
           )
@@ -603,7 +628,9 @@ const OrganizationDetails: FunctionComponent = () => {
       },
       addresses: {
         title: formatMessage(messages.columnAddresses),
-        cellRenderer: ({ rowData: { addresses } }: CellRendererProps) => (
+        cellRenderer: ({
+          rowData: { addresses },
+        }: CellRendererProps<CostCenterSimple>) => (
           <span>{addresses.length}</span>
         ),
       },
@@ -704,7 +731,9 @@ const OrganizationDetails: FunctionComponent = () => {
           fullWidth
           schema={getCostCenterSchema()}
           items={costCentersData?.getCostCentersByOrganizationId?.data}
-          onRowClick={({ rowData: { id } }: CellRendererProps) => {
+          onRowClick={({
+            rowData: { id },
+          }: CellRendererProps<CostCenterSimple>) => {
             if (!id) return
 
             navigate({
@@ -869,7 +898,13 @@ const OrganizationDetails: FunctionComponent = () => {
             fullWidth
             schema={getSchema()}
             items={priceTablesState.map(priceTable => {
-              return { name: priceTable }
+              return {
+                tableId: priceTable,
+                name:
+                  priceTableOptions.find(
+                    option => option.tableId === priceTable
+                  )?.name ?? priceTable,
+              }
             })}
             bulkActions={{
               texts: {
