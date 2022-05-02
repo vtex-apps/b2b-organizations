@@ -29,7 +29,9 @@ base:
   cypress:
     devMode: false
     runHeaded: false
-    enabled: false
+    getCookies: true
+    maxJobs: 3
+    quiet: true
     projectId: xyza
     video: true
     videoCompression: false
@@ -44,6 +46,7 @@ base:
     pageLoadTimeout: 45000
     browser: chrome
     chromeWebSecurity: false
+    sorry: false
   stateFiles:
     - .organization.json
     - .quotes.json
@@ -76,24 +79,25 @@ workspace:
   wipe:
     enabled: true
     stopOnFail: false
-    spec: cypress-shared/integration/b2b/wipe.spec.js
+    specs:
+      - cypress-shared/integration/b2b/wipe.spec.js
   teardown:
     enabled: true
 
 strategy:
   # The strategies must be in order, with dependent tests last
-  # organizationA:
-  #   enabled: true
-  #   sendDashboard: false
-  #   hardTries: 1
-  #   stopOnFail: false
-  #   parallel: false
-  #   runInOrder: true
-  #   specs:
-  #     - cypress-shared/integration/b2b/2.1.1*
+  organizationA:
+    enabled: false
+    sendDashboard: true
+    hardTries: 1
+    stopOnFail: false
+    parallel: false
+    runInOrder: true
+    specs:
+      - cypress-shared/integration/b2b/2.1.1*
   organizationB:
     enabled: true
-    sendDashboard: false
+    sendDashboard: true
     hardTries: 1
     stopOnFail: false
     parallel: false
@@ -102,46 +106,47 @@ strategy:
       - cypress-shared/integration/b2b/2.1.2*
   organizationNegativeTestCases:
     enabled: true
-    sendDashboard: false
+    sendDashboard: true
     hardTries: 1
     stopOnFail: false
     parallel: false
     runInOrder: true
     specs:
       - cypress-shared/integration/b2b/2.1.3*
-  # addUsersInOrganizationA:
-  #   enabled: true
-  #   sendDashboard: false
-  #   hardTries: 1
-  #   stopOnFail: false
-  #   parallel: false
-  #   runInOrder: true
-  #   specs:
-  #     - cypress-shared/integration/b2b/2.2*
-  #     - cypress-shared/integration/b2b/2.4*
-  #   dependency:
-  #     - organizationA
-  # organizationAUsersTestCases:
-  #   enabled: true
-  #   sendDashboard: false
-  #   hardTries: 1
-  #   stopOnFail: false
-  #   parallel: false
-  #   runInOrder: true
-  #   specs:
-  #     - cypress-shared/integration/b2b/2.5*
-  #     - cypress-shared/integration/b2b/2.6*
-  #     - cypress-shared/integration/b2b/2.8*
-  #     - cypress-shared/integration/b2b/2.9*
-  #     - cypress-shared/integration/b2b/2.10*
-  #     - cypress-shared/integration/b2b/2.12*
-  #     - cypress-shared/integration/b2b/2.13*
-  #     - cypress-shared/integration/b2b/2.14*
-  #   dependency:
-  #     - addUsersInOrganizationA
+  addUsersInOrganizationA:
+    enabled: false
+    sendDashboard: true
+    hardTries: 1
+    stopOnFail: false
+    parallel: false
+    runInOrder: true
+    specs:
+      - cypress-shared/integration/b2b/2.2*
+      - cypress-shared/integration/b2b/2.4*
+    dependency:
+      - cypress-shared/integration/b2b/2.1.1*
+  organizationAUsersTestCases:
+    enabled: false
+    sendDashboard: true
+    hardTries: 1
+    stopOnFail: false
+    parallel: false
+    runInOrder: true
+    specs:
+      - cypress-shared/integration/b2b/2.5*
+      - cypress-shared/integration/b2b/2.6*
+      - cypress-shared/integration/b2b/2.8*
+      - cypress-shared/integration/b2b/2.9*
+      - cypress-shared/integration/b2b/2.10*
+      - cypress-shared/integration/b2b/2.12*
+      - cypress-shared/integration/b2b/2.13*
+      - cypress-shared/integration/b2b/2.14*
+    dependency:
+      - cypress-shared/integration/b2b/2.2*
+      - cypress-shared/integration/b2b/2.4*
   addUsersInOrganizationB:
     enabled: true
-    sendDashboard: false
+    sendDashboard: true
     hardTries: 1
     stopOnFail: false
     parallel: false
@@ -149,10 +154,10 @@ strategy:
     specs:
       - cypress-shared/integration/b2b/2.3*
     dependency:
-      - organizationB
+      - cypress-shared/integration/b2b/2.1.2*
   organizationBUsersTestCases:
     enabled: true
-    sendDashboard: false
+    sendDashboard: true
     hardTries: 1
     stopOnFail: false
     parallel: false
@@ -161,4 +166,4 @@ strategy:
       - cypress-shared/integration/b2b/2.7*
       - cypress-shared/integration/b2b/2.11*
     dependency:
-      - addUsersInOrganizationB
+      - cypress-shared/integration/b2b/2.3*
