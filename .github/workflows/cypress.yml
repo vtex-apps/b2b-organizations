@@ -9,7 +9,7 @@ on:
         default: master
   schedule:
     # 7:30 AM UTC = 3:30 AM EDT
-    - cron: '30 7 * * *'
+    - cron: '30 7 * * MON-FRI'
   pull_request:
     branches:
       - master
@@ -30,9 +30,7 @@ concurrency:
 
 jobs:
   Cypress:
-    runs-on: macos-10.15
-    # To avoid waste Cypress tests,
-    # lets run it only when the pull request is ready.
+    runs-on: ubuntu-latest
     if: github.event.pull_request.draft == false
     steps:
       - name: Checkout App
@@ -68,3 +66,4 @@ jobs:
         with:
           name: cy-runner-logs
           path: cy-runner/logs
+          retention-days: 3
