@@ -108,6 +108,9 @@ export const organizationMessages = defineMessages({
   userCostCenter: {
     id: `${adminPrefix}user-details.costCenter`,
   },
+  userOrganization: {
+    id: `${adminPrefix}user-details.organization`,
+  },
   userRole: {
     id: `${adminPrefix}user-details.role`,
   },

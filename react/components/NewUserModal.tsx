@@ -10,6 +10,7 @@ import { validateEmail } from '../modules/formValidators'
 import GET_ROLES from '../graphql/getRoles.graphql'
 import GET_COST_CENTERS from '../graphql/getCostCentersByOrganizationIdStorefront.graphql'
 import GET_COST_CENTERS_ADMIN from '../graphql/getCostCentersByOrganizationId.graphql'
+import OrganizationsAutocomplete from './OrganizationsAutocomplete'
 
 interface Props {
   loading: boolean
@@ -18,6 +19,8 @@ interface Props {
   handleCloseModal: () => void
   organizationId: string
   isAdmin?: boolean
+  canEdit?: boolean
+  canEditSales?: boolean
 }
 
 interface DropdownOption {
@@ -32,6 +35,8 @@ const NewUserModal: FunctionComponent<Props> = ({
   handleCloseModal,
   organizationId,
   isAdmin = false,
+  canEdit,
+  canEditSales,
 }) => {
   const { formatMessage } = useIntl()
   const [userState, setUserState] = useState({
@@ -40,26 +45,45 @@ const NewUserModal: FunctionComponent<Props> = ({
     orgId: organizationId,
     costId: '',
     roleId: '',
-  })
+  } as any)
 
   const [costCenterOptions, setCostCenterOptions] = useState(
     [] as DropdownOption[]
   )
 
+  const [organizationState, setOrganizationState] = useState(organizationId)
   const [roleOptions, setRoleOptions] = useState([] as DropdownOption[])
 
   const { data: rolesData } = useQuery(GET_ROLES, {
     ssr: false,
   })
 
-  const { data: costCentersData } = useQuery(
-    isAdmin ? GET_COST_CENTERS_ADMIN : GET_COST_CENTERS,
-    {
-      variables: { id: organizationId, pageSize: 100 },
-      fetchPolicy: 'network-only',
-      ssr: false,
+  const {
+    data: costCentersData,
+    refetch,
+    loading: costCenterLoading,
+  } = useQuery(isAdmin ? GET_COST_CENTERS_ADMIN : GET_COST_CENTERS, {
+    variables: {
+      id: organizationId,
+      pageSize: 100,
+      isSalesAdmin: canEditSales,
+    },
+    fetchPolicy: 'network-only',
+    ssr: false,
+  })
+
+  useEffect(() => {
+    if (!organizationState) {
+      return
     }
-  )
+
+    setUserState({ ...userState, orgId: organizationState })
+    refetch({
+      id: organizationState,
+      pageSize: 100,
+      isSalesAdmin: canEditSales,
+    })
+  }, [organizationState])
 
   useEffect(() => {
     if (
@@ -90,8 +114,10 @@ const NewUserModal: FunctionComponent<Props> = ({
       return
     }
 
-    const filteredArray = rolesData.listRoles.filter((role: any) =>
-      role.slug.includes('customer')
+    const filteredArray = rolesData.listRoles.filter(
+      (role: any) =>
+        (role.slug.includes('customer') && canEdit) ||
+        (role.slug.includes('sales') && canEditSales)
     )
 
     const options = filteredArray.map((role: any) => {
@@ -189,6 +215,19 @@ const NewUserModal: FunctionComponent<Props> = ({
         />
       </div>
       <div className="w-100 mv6">
+        <p>
+          {formatMessage(
+            isAdmin
+              ? adminMessages.userOrganization
+              : storeMessages.userOrganization
+          )}
+        </p>
+        <OrganizationsAutocomplete
+          organizationId={organizationId}
+          onChange={event => setOrganizationState(event.value as string)}
+        />
+      </div>
+      <div className="w-100 mv6">
         <Dropdown
           label={
             <h4 className="t-heading-5 mb0 pt3">
@@ -202,6 +241,7 @@ const NewUserModal: FunctionComponent<Props> = ({
           placeholder={formatMessage(
             isAdmin ? adminMessages.costCenter : storeMessages.costCenter
           )}
+          disabled={costCenterLoading}
           options={costCenterOptions}
           value={userState.costId}
           onChange={(_: any, v: string) =>
@@ -221,6 +261,7 @@ const NewUserModal: FunctionComponent<Props> = ({
           placeholder={formatMessage(
             isAdmin ? adminMessages.role : storeMessages.role
           )}
+          disabled={costCenterLoading}
           options={roleOptions}
           value={userState.roleId}
           onChange={(_: any, v: string) =>

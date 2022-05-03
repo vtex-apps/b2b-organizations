@@ -5,6 +5,7 @@ query GetCostCentersByOrganizationIdStorefront(
   $pageSize: Int
   $sortOrder: String
   $sortedBy: String
+  $isSalesAdmin: Boolean
 ) {
   getCostCentersByOrganizationIdStorefront(
     id: $id
@@ -13,6 +14,7 @@ query GetCostCentersByOrganizationIdStorefront(
     pageSize: $pageSize
     sortOrder: $sortOrder
     sortedBy: $sortedBy
+    isSalesAdmin: $isSalesAdmin
   ) @context(provider: "vtex.b2b-organizations-graphql") {
     pagination {
       total

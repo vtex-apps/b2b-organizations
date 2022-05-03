@@ -19,6 +19,8 @@ interface Props {
   handleCloseModal: () => void
   organizationId: string
   isAdmin?: boolean
+  canEdit?: boolean
+  canEditSales?: boolean
 }
 
 interface DropdownOption {
@@ -35,6 +37,8 @@ const EditUserModal: FunctionComponent<Props> = ({
   handleCloseModal,
   organizationId,
   isAdmin = false,
+  canEdit,
+  canEditSales,
 }) => {
   const { formatMessage } = useIntl()
   const [userState, setUserState] = useState({} as UserDetails)
@@ -82,8 +86,10 @@ const EditUserModal: FunctionComponent<Props> = ({
       return
     }
 
-    const filteredArray = rolesData.listRoles.filter((role: any) =>
-      role.slug.includes('customer')
+    const filteredArray = rolesData.listRoles.filter(
+      (role: any) =>
+        (role.slug.includes('customer') && canEdit) ||
+        (role.slug.includes('sales') && canEditSales)
     )
 
     const options = filteredArray.map((role: any) => {

@@ -1,5 +1,5 @@
 import React, { Fragment, useState, useEffect, useContext } from 'react'
-import type { FunctionComponent } from 'react'
+import type { FunctionComponent, ChangeEvent } from 'react'
 import { useIntl } from 'react-intl'
 import { Table, ToastContext } from 'vtex.styleguide'
 import { useToast } from '@vtex/admin-ui'
@@ -22,6 +22,7 @@ interface Props {
   permissions: string[]
   refetchCostCenters: boolean
   isAdmin?: boolean
+  isSalesAdmin?: boolean
 }
 
 interface CellRendererProps {
@@ -33,6 +34,7 @@ interface CellRendererProps {
 interface B2BUserSimple extends UserDetails {
   costCenterName: string
   role: RoleSimple
+  organizationName: string
 }
 
 interface RoleSimple {
@@ -41,15 +43,17 @@ interface RoleSimple {
 }
 
 const compareUsers = (a: B2BUserSimple, b: B2BUserSimple) => {
-  if (a.email < b.email) {
-    return -1
-  }
+  return a.email.toLowerCase() < b.email.toLowerCase() ? -1 : 1
+}
 
-  if (a.email > b.email) {
-    return 1
-  }
-
-  return 0
+const initialState = {
+  search: '',
+  page: 1,
+  pageSize: 25,
+  sortOrder: 'ASC',
+  sortedBy: 'email',
+  organizationId: null,
+  organizations: ['active', 'on-hold', 'inactive'],
 }
 
 const OrganizationUsersTable: FunctionComponent<Props> = ({
@@ -57,6 +61,7 @@ const OrganizationUsersTable: FunctionComponent<Props> = ({
   permissions,
   refetchCostCenters,
   isAdmin = false,
+  isSalesAdmin = false,
 }) => {
   const { formatMessage } = useIntl()
   const { showToast } = useContext(ToastContext)
@@ -90,11 +95,17 @@ const OrganizationUsersTable: FunctionComponent<Props> = ({
   )
 
   const { data, loading, refetch } = useQuery(GET_USERS, {
-    variables: { organizationId },
+    variables: {
+      organizationId: isSalesAdmin ? null : organizationId,
+      ...initialState,
+    },
     fetchPolicy: 'network-only',
     ssr: false,
+    notifyOnNetworkStatusChange: true,
     skip: !organizationId,
   })
+
+  const [variableState, setVariables] = useState(initialState)
 
   const { data: costCenterData } = useQuery(GET_COST_CENTER, {
     ssr: false,
@@ -106,9 +117,9 @@ const OrganizationUsersTable: FunctionComponent<Props> = ({
   const [impersonateUser] = useMutation(IMPERSONATE_USER)
 
   useEffect(() => {
-    if (!data?.getUsers?.length) return
+    if (!data?.getUsers?.data?.length) return
 
-    const users = data.getUsers.sort(compareUsers)
+    const users = data.getUsers.data.sort(compareUsers)
 
     setUsersState(users)
   }, [data])
@@ -287,8 +298,8 @@ const OrganizationUsersTable: FunctionComponent<Props> = ({
       })
   }
 
-  const getSchema = () => ({
-    properties: {
+  const getSchema = () => {
+    const properties = {
       email: {
         title: formatMessage(
           isAdmin ? adminMessages.columnEmail : storeMessages.columnEmail
@@ -319,33 +330,144 @@ const OrganizationUsersTable: FunctionComponent<Props> = ({
                 : ''
             }
           >
-            {role.name ?? ''}
+            {role?.name ?? ''}
           </span>
         ),
       },
-      costCenterName: {
-        title: formatMessage(
-          isAdmin
-            ? adminMessages.columnCostCenter
-            : storeMessages.columnCostCenter
-        ),
+    } as any
+
+    if (isSalesAdmin) {
+      properties.organizationName = {
+        title: formatMessage(storeMessages.columnOrganizationName),
         cellRenderer: ({
-          rowData: { costCenterName, role },
-        }: CellRendererProps) => (
-          <span
-            className={
-              (!canEdit && !canEditSales) ||
-              (canEdit && !canEditSales && role.slug.indexOf('sales') > -1)
-                ? 'c-disabled'
-                : ''
-            }
-          >
-            {costCenterName}
-          </span>
-        ),
-      },
-    },
-  })
+          rowData: { organizationName },
+        }: CellRendererProps) => <span>{organizationName}</span>,
+      }
+    }
+
+    properties.costCenterName = {
+      title: formatMessage(
+        isAdmin
+          ? adminMessages.columnCostCenter
+          : storeMessages.columnCostCenter
+      ),
+      cellRenderer: ({
+        rowData: { costCenterName, role },
+      }: CellRendererProps) => (
+        <span
+          className={
+            (!canEdit && !canEditSales) ||
+            (canEdit && !canEditSales && role.slug.indexOf('sales') > -1)
+              ? 'c-disabled'
+              : ''
+          }
+        >
+          {costCenterName}
+        </span>
+      ),
+    }
+
+    return { properties }
+  }
+
+  const handleNextClick = () => {
+    const newPage = variableState.page + 1
+
+    setVariables({
+      ...variableState,
+      page: newPage,
+    })
+
+    refetch({
+      ...variableState,
+      page: newPage,
+    })
+  }
+
+  const handlePrevClick = () => {
+    if (variableState.page === 1) return
+
+    const newPage = variableState.page - 1
+
+    setVariables({
+      ...variableState,
+      page: newPage,
+    })
+
+    refetch({
+      ...variableState,
+      page: newPage,
+    })
+  }
+
+  const handleRowsChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const {
+      target: { value },
+    } = e
+
+    setVariables({
+      ...variableState,
+      page: 1,
+      pageSize: +value,
+    })
+
+    refetch({
+      ...variableState,
+      page: 1,
+      pageSize: +value,
+    })
+  }
+
+  const handleInputSearchChange = (e: React.FormEvent<HTMLInputElement>) => {
+    const {
+      currentTarget: { value },
+    } = e
+
+    setVariables({
+      ...variableState,
+      search: value,
+    })
+  }
+
+  const handleInputSearchClear = () => {
+    setVariables({
+      ...variableState,
+      search: '',
+    })
+
+    refetch({
+      ...variableState,
+      search: '',
+      page: 1,
+    })
+  }
+
+  const handleInputSearchSubmit = () => {
+    refetch({
+      ...variableState,
+      page: 1,
+    })
+  }
+
+  const handleSort = ({
+    sortOrder,
+    sortedBy,
+  }: {
+    sortOrder: string
+    sortedBy: string
+  }) => {
+    setVariables({
+      ...variableState,
+      sortOrder,
+      sortedBy,
+    })
+    refetch({
+      ...variableState,
+      page: 1,
+      sortOrder,
+      sortedBy,
+    })
+  }
 
   const lineActions = isAdmin
     ? null
@@ -356,6 +478,9 @@ const OrganizationUsersTable: FunctionComponent<Props> = ({
             handleImpersonation(rowData),
         },
       ]
+
+  const { page, pageSize, search, sortedBy, sortOrder } = variableState
+  const { total } = data?.getUsers?.pagination ?? 0
 
   return (
     <Fragment>
@@ -368,15 +493,45 @@ const OrganizationUsersTable: FunctionComponent<Props> = ({
           isAdmin ? adminMessages.usersEmptyState : storeMessages.emptyState
         )}
         lineActions={lineActions}
+        sort={{
+          sortedBy,
+          sortOrder,
+        }}
+        pagination={{
+          onNextClick: handleNextClick,
+          onPrevClick: handlePrevClick,
+          onRowsChange: handleRowsChange,
+          currentItemFrom: (page - 1) * pageSize + 1,
+          currentItemTo: total < page * pageSize ? total : page * pageSize,
+          textShowRows: formatMessage(storeMessages.showRows),
+          textOf: formatMessage(isAdmin ? adminMessages.of : storeMessages.of),
+          totalItems: total ?? 0,
+          rowsOptions: [25, 50, 100],
+        }}
+        toolbar={{
+          inputSearch: {
+            value: search,
+            placeholder: formatMessage(
+              isAdmin
+                ? adminMessages.searchPlaceholder
+                : storeMessages.searchPlaceholder
+            ),
+            onChange: handleInputSearchChange,
+            onClear: handleInputSearchClear,
+            onSubmit: handleInputSearchSubmit,
+          },
+          newLine: {
+            label: formatMessage(
+              isAdmin ? adminMessages.new : storeMessages.new
+            ),
+            handleCallback: () => setAddUserModalOpen(true),
+            disabled: !canEdit && !canEditSales,
+          },
+        }}
+        onSort={handleSort}
         onRowClick={({ rowData }: CellRendererProps) => {
-          if (
-            !rowData ||
-            (!canEdit && !canEditSales) ||
-            (canEdit &&
-              !canEditSales &&
-              rowData.role.slug.indexOf('sales') > -1)
-          )
-            return
+          if (!canEdit && !canEditSales) return
+          if (!rowData.role?.slug.match(/sales/) && canEditSales) return
 
           setEditUserDetails({
             id: rowData.id,
@@ -391,15 +546,6 @@ const OrganizationUsersTable: FunctionComponent<Props> = ({
           })
           setEditUserModalOpen(true)
         }}
-        toolbar={{
-          newLine: {
-            label: formatMessage(
-              isAdmin ? adminMessages.new : storeMessages.new
-            ),
-            handleCallback: () => setAddUserModalOpen(true),
-            disabled: !canEdit,
-          },
-        }}
       />
       {refetchCostCenters ? null : (
         <NewUserModal
@@ -409,6 +555,8 @@ const OrganizationUsersTable: FunctionComponent<Props> = ({
           isOpen={addUserModalOpen}
           organizationId={organizationId}
           isAdmin={isAdmin}
+          canEdit={canEdit}
+          canEditSales={canEditSales}
         />
       )}
       {refetchCostCenters ? null : (
@@ -421,6 +569,8 @@ const OrganizationUsersTable: FunctionComponent<Props> = ({
           organizationId={organizationId}
           user={editUserDetails}
           isAdmin={isAdmin}
+          canEdit={canEdit}
+          canEditSales={canEditSales}
         />
       )}
       <RemoveUserModal

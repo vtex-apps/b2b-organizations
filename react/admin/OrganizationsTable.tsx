@@ -504,7 +504,7 @@ const OrganizationsTable: FunctionComponent = () => {
               },
             },
           }}
-        ></Table>
+        />
       </PageBlock>
       <Modal
         centered
