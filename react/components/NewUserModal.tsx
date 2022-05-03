@@ -222,10 +222,12 @@ const NewUserModal: FunctionComponent<Props> = ({
               : storeMessages.userOrganization
           )}
         </p>
-        <OrganizationsAutocomplete
-          organizationId={organizationId}
-          onChange={event => setOrganizationState(event.value as string)}
-        />
+        {isOpen && canEditSales && (
+          <OrganizationsAutocomplete
+            organizationId={organizationId}
+            onChange={event => setOrganizationState(event.value as string)}
+          />
+        )}
       </div>
       <div className="w-100 mv6">
         <Dropdown

@@ -157,6 +157,7 @@ const OrganizationDetails: FunctionComponent = () => {
   const { data: salesChannelsData } = useQuery(GET_SALES_CHANNELS, {
     ssr: false,
   })
+
   const { data: logisticsData } = useQuery(GET_LOGISTICS, { ssr: false })
 
   const translateCountries = () => {
@@ -269,7 +270,7 @@ const OrganizationDetails: FunctionComponent = () => {
   }
 
   const handleCostCentersNextClick = () => {
-    const newPage = costCenterPaginationState.page + 1
+    const newPage = (costCenterPaginationState.page as number) + 1
 
     setCostCenterPaginationState({
       ...costCenterPaginationState,
@@ -317,7 +318,7 @@ const OrganizationDetails: FunctionComponent = () => {
   }
 
   const handleCollectionsNextClick = () => {
-    const newPage = collectionPaginationState.page + 1
+    const newPage = (collectionPaginationState.page as number) + 1
 
     setCollectionPaginationState({
       ...collectionPaginationState,

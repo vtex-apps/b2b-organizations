@@ -31,6 +31,7 @@ const OrganizationsAutocomplete = ({ onChange, organizationId }: Props) => {
   const { data: organization } = useQuery(GET_ORGANIZATION_BY_ID, {
     variables: { id: organizationId },
     ssr: false,
+    fetchPolicy: 'network-only',
     notifyOnNetworkStatusChange: true,
   })
 

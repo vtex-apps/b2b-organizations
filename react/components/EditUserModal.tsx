@@ -9,6 +9,7 @@ import { organizationMessages as adminMessages } from '../admin/utils/messages'
 import GET_ROLES from '../graphql/getRoles.graphql'
 import GET_COST_CENTERS from '../graphql/getCostCentersByOrganizationIdStorefront.graphql'
 import GET_COST_CENTERS_ADMIN from '../graphql/getCostCentersByOrganizationId.graphql'
+import OrganizationsAutocomplete from './OrganizationsAutocomplete'
 
 interface Props {
   loading: boolean
@@ -46,20 +47,39 @@ const EditUserModal: FunctionComponent<Props> = ({
     [] as DropdownOption[]
   )
 
+  const [organizationState, setOrganizationState] = useState(organizationId)
   const [roleOptions, setRoleOptions] = useState([] as DropdownOption[])
 
   const { data: rolesData } = useQuery(GET_ROLES, {
     ssr: false,
   })
 
-  const { data: costCentersData } = useQuery(
-    isAdmin ? GET_COST_CENTERS_ADMIN : GET_COST_CENTERS,
-    {
-      variables: { id: organizationId, pageSize: 100 },
-      fetchPolicy: 'network-only',
-      ssr: false,
+  const {
+    data: costCentersData,
+    refetch,
+    loading: costCenterLoading,
+  } = useQuery(isAdmin ? GET_COST_CENTERS_ADMIN : GET_COST_CENTERS, {
+    variables: {
+      id: organizationId,
+      pageSize: 100,
+      isSalesAdmin: canEditSales,
+    },
+    fetchPolicy: 'network-only',
+    ssr: false,
+  })
+
+  useEffect(() => {
+    if (!organizationState) {
+      return
     }
-  )
+
+    setUserState({ ...userState, orgId: organizationState })
+    refetch({
+      id: organizationState,
+      pageSize: 100,
+      isSalesAdmin: canEditSales,
+    })
+  }, [organizationState])
 
   useEffect(() => {
     if (
@@ -168,6 +188,21 @@ const EditUserModal: FunctionComponent<Props> = ({
         />
       </div>
       <div className="w-100 mv6">
+        <p>
+          {formatMessage(
+            isAdmin
+              ? adminMessages.userOrganization
+              : storeMessages.userOrganization
+          )}
+        </p>
+        {isOpen && canEditSales && (
+          <OrganizationsAutocomplete
+            organizationId={organizationId}
+            onChange={event => setOrganizationState(event.value as string)}
+          />
+        )}
+      </div>
+      <div className="w-100 mv6">
         <Dropdown
           label={
             <h4 className="t-heading-5 mb0 pt3">
@@ -181,6 +216,7 @@ const EditUserModal: FunctionComponent<Props> = ({
           placeholder={formatMessage(
             isAdmin ? adminMessages.costCenter : storeMessages.costCenter
           )}
+          disabled={costCenterLoading}
           options={costCenterOptions}
           value={userState.costId}
           onChange={(_: any, v: string) =>
@@ -200,6 +236,7 @@ const EditUserModal: FunctionComponent<Props> = ({
           placeholder={formatMessage(
             isAdmin ? adminMessages.role : storeMessages.role
           )}
+          disabled={costCenterLoading}
           options={roleOptions}
           value={userState.roleId}
           onChange={(_: any, v: string) =>
