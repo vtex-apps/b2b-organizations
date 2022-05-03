@@ -9,19 +9,19 @@ on:
         default: master
   schedule:
     # 7:30 AM UTC = 3:30 AM EDT
-    - cron: '30 7 * * *'               
+    - cron: '30 7 * * MON-FRI'
   pull_request:
     branches:
       - master
       - main
-    types: 
+    types:
       - opened
       - synchronize
       - reopened
       - ready_for_review
-    paths-ignore: 
+    paths-ignore:
       - docs/**
-      - README.md     
+      - README.md
       - CHANGELOG.md
 
 concurrency:
@@ -31,13 +31,8 @@ concurrency:
 jobs:
   Cypress:
     runs-on: ubuntu-latest
+    if: github.event.pull_request.draft == false
     steps:
-      - name: Install Chrome
-        uses: browser-actions/setup-chrome@latest
-
-      - name: Check Chrome version
-        run: chrome --version
-
       - name: Checkout App
         uses: actions/checkout@v2
         with:
@@ -54,7 +49,9 @@ jobs:
           key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
 
       - name: Install Cypress
-        run: yarn install --frozen-lockfile
+        run: |
+          rm -rf .git
+          yarn install --frozen-lockfile
         working-directory: ./cy-runner
 
       - name: Run Cypress Runner
@@ -69,3 +66,4 @@ jobs:
         with:
           name: cy-runner-logs
           path: cy-runner/logs
+          retention-days: 3

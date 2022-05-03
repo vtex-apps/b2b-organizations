@@ -7,11 +7,27 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [1.8.0] - 2022-05-02
+
+### Added
+
+- Include trade policies in price table listing
+
+## [1.7.0] - 2022-04-28
+
+### Added
+
+- Changed the saveUser mutation to addUser and saveUser mutations
+
+### Fixed
+
+- Added a setTimeout and set the loader until the user's table is loaded
+
 ## [1.6.1] - 2022-04-25
 
 ### Fixed
 
-- Fixed duplicate check to get the status from createOrganizationRequest instead of checking it in RequestOrganizationForm.tsx
+- Fixed duplicate check to get the status from createOrganizationRequest instead of checking it in RequestOrganizationForm.tsx 
 
 ## [1.6.0] - 2022-04-18
 

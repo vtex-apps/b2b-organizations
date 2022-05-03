@@ -1,0 +1,6 @@
+query GetSalesChannels {
+  salesChannels @context(provider: "vtex.admin-graphql") {
+    id
+    name
+  }
+}

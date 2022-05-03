@@ -1,0 +1,54 @@
+name: '[QE] SonarCloud'
+
+on:  
+  pull_request_target:
+    branches:
+    - master
+    - main
+    types:
+    - labeled
+    
+jobs:
+  sonarcloud:
+    name: SonarCloud
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    if: ${{ github.event_name == 'push' ||
+            ( 
+              github.event_name == 'pull_request_target' &&
+              contains(github.event.label.name, 'safe to test')
+            )
+         }}    
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+        ref: ${{ github.event.pull_request.head.sha }}
+
+    - name: Cache
+      uses: actions/cache@v2
+      with:
+        path: '**/node_modules'
+        key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
+
+    - name: Install base dependencies
+      run: yarn install --frozen-lockfile
+      if: steps.cache-node-modules.outputs.cache-hit != 'true'
+
+    - name: Install react dependencies
+      run: yarn install --frozen-lockfile
+      if: steps.cache-node-modules.outputs.cache-hit != 'true'
+      working-directory: ./react
+
+    - name: SonarCloud Scan
+      uses: SonarSource/sonarcloud-github-action@master
+      with:
+          args: >
+            -Dsonar.pullrequest.key=${{ github.event.pull_request.number }} 
+            -Dsonar.pullrequest.branch=${{ github.event.pull_request.head.ref }} 
+            -Dsonar.scm.revision=${{ github.event.pull_request.head.sha }} 
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
+        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
