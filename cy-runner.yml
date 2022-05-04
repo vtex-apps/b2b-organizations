@@ -87,24 +87,17 @@ workspace:
 strategy:
   # The strategies must be in order, with dependent tests last
   organizationA:
-    enabled: false
+    enabled: true
     sendDashboard: true
     hardTries: 1
     stopOnFail: false
-    parallel: false
+    parallel: true
     runInOrder: true
     specs:
       - cypress-shared/integration/b2b/2.1.1*
-  organizationB:
-    enabled: true
-    sendDashboard: true
-    hardTries: 1
-    stopOnFail: false
-    parallel: false
-    runInOrder: true
-    specs:
       - cypress-shared/integration/b2b/2.1.2*
-  organizationNegativeTestCases:
+      - cypress-shared/integration/b2b/2.1.3*
+  multiOrgRequests:
     enabled: true
     sendDashboard: true
     hardTries: 1
@@ -112,7 +105,9 @@ strategy:
     parallel: false
     runInOrder: true
     specs:
-      - cypress-shared/integration/b2b/2.1.3*
+      - cypress-shared/integration/b2b/2.1.4*
+    dependency:
+      - cypress-shared/integration/b2b/2.1.2*
   addUsersInOrganizationA:
     enabled: false
     sendDashboard: true
@@ -154,7 +149,7 @@ strategy:
     specs:
       - cypress-shared/integration/b2b/2.3*
     dependency:
-      - cypress-shared/integration/b2b/2.1.2*
+      - cypress-shared/integration/b2b/2.1.4*
   organizationBUsersTestCases:
     enabled: true
     sendDashboard: true
