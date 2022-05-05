@@ -22,6 +22,7 @@ interface Props {
   isAdmin?: boolean
   canEdit?: boolean
   canEditSales?: boolean
+  isSalesAdmin: boolean
 }
 
 interface DropdownOption {
@@ -40,6 +41,7 @@ const EditUserModal: FunctionComponent<Props> = ({
   isAdmin = false,
   canEdit,
   canEditSales,
+  isSalesAdmin,
 }) => {
   const { formatMessage } = useIntl()
   const [userState, setUserState] = useState({} as UserDetails)
@@ -106,11 +108,17 @@ const EditUserModal: FunctionComponent<Props> = ({
       return
     }
 
-    const filteredArray = rolesData.listRoles.filter(
-      (role: any) =>
-        (role.slug.includes('customer') && canEdit) ||
-        (role.slug.includes('sales') && canEditSales)
-    )
+    const filteredArray = rolesData.listRoles.filter((role: any) => {
+      if (role.slug.includes('customer') && canEdit) {
+        return true
+      }
+
+      if (role.slug.includes('sales') && canEditSales) {
+        return !(role.slug.includes('sales-admin') && !isSalesAdmin)
+      }
+
+      return false
+    })
 
     const options = filteredArray.map((role: any) => {
       return { label: role.name, value: role.id }
@@ -187,21 +195,22 @@ const EditUserModal: FunctionComponent<Props> = ({
           disabled
         />
       </div>
-      <div className="w-100 mv6">
-        <p>
-          {formatMessage(
-            isAdmin
-              ? adminMessages.userOrganization
-              : storeMessages.userOrganization
-          )}
-        </p>
-        {isOpen && canEditSales && (
+      {isOpen && canEditSales && (
+        <div className="w-100 mv6">
+          <p className="mb3">
+            {formatMessage(
+              isAdmin
+                ? adminMessages.userOrganization
+                : storeMessages.userOrganization
+            )}
+          </p>
+
           <OrganizationsAutocomplete
             organizationId={organizationId}
             onChange={event => setOrganizationState(event.value as string)}
           />
-        )}
-      </div>
+        </div>
+      )}
       <div className="w-100 mv6">
         <Dropdown
           label={

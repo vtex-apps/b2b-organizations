@@ -85,7 +85,11 @@ const OrganizationUsersTable: FunctionComponent<Props> = ({
   }
 
   const canEdit = isAdmin || permissions.includes('add-users-organization')
-  const canEditSales = isAdmin || permissions.includes('add-sales-users-all')
+  const canEditSales =
+    isAdmin ||
+    permissions.includes('add-sales-users-all') ||
+    permissions.includes('add-sales-users-current')
+
   const canImpersonateAll = permissions.includes('impersonate-users-all')
   const canImpersonateOrg = permissions.includes(
     'impersonate-users-organization'
@@ -97,8 +101,8 @@ const OrganizationUsersTable: FunctionComponent<Props> = ({
 
   const { data, loading, refetch } = useQuery(GET_USERS, {
     variables: {
-      organizationId: isSalesAdmin ? null : organizationId,
       ...initialState,
+      organizationId: isSalesAdmin ? null : organizationId,
     },
     fetchPolicy: 'network-only',
     ssr: false,
@@ -572,8 +576,17 @@ const OrganizationUsersTable: FunctionComponent<Props> = ({
         }}
         onSort={handleSort}
         onRowClick={({ rowData }: CellRendererProps) => {
-          if (!canEdit && !canEditSales) return
-          if (!rowData.role?.slug.match(/sales/) && canEditSales) return
+          if (
+            !isAdmin &&
+            ((!canEdit && !canEditSales) ||
+              (rowData.role?.slug.match(/sales-admin/) &&
+                !isSalesAdmin &&
+                !canEdit) ||
+              (!rowData.role?.slug.match(/sales/) && canEditSales) ||
+              (rowData.role?.slug.match(/sales/) && canEdit))
+          ) {
+            return
+          }
 
           setEditUserDetails({
             id: rowData.id,
@@ -589,7 +602,7 @@ const OrganizationUsersTable: FunctionComponent<Props> = ({
           setEditUserModalOpen(true)
         }}
       />
-      {refetchCostCenters ? null : (
+      {refetchCostCenters || !addUserModalOpen ? null : (
         <NewUserModal
           handleAddNewUser={handleAddUser}
           handleCloseModal={handleCloseAddUserModal}
@@ -599,9 +612,10 @@ const OrganizationUsersTable: FunctionComponent<Props> = ({
           isAdmin={isAdmin}
           canEdit={canEdit}
           canEditSales={canEditSales}
+          isSalesAdmin={isSalesAdmin}
         />
       )}
-      {refetchCostCenters ? null : (
+      {refetchCostCenters || !editUserModalOpen ? null : (
         <EditUserModal
           handleUpdateUser={handleUpdateUser}
           handleCloseModal={handleCloseUpdateUserModal}
@@ -613,6 +627,7 @@ const OrganizationUsersTable: FunctionComponent<Props> = ({
           isAdmin={isAdmin}
           canEdit={canEdit}
           canEditSales={canEditSales}
+          isSalesAdmin={isSalesAdmin}
         />
       )}
       <RemoveUserModal
