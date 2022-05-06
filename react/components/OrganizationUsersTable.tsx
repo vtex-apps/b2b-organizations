@@ -60,7 +60,6 @@ const initialState = {
 const OrganizationUsersTable: FunctionComponent<Props> = ({
   organizationId,
   permissions,
-  refetchCostCenters,
   isAdmin = false,
   isSalesAdmin = false,
 }) => {
@@ -345,20 +344,17 @@ const OrganizationUsersTable: FunctionComponent<Props> = ({
   }
 
   const getSchema = () => {
+    const isEnabled = ({ role: { slug } }: { role: { slug: string } }) =>
+      (!canEdit && !canEditSales) ||
+      (canEdit && !canEditSales && slug.indexOf('sales') > -1)
+
     const properties = {
       email: {
         title: formatMessage(
           isAdmin ? adminMessages.columnEmail : storeMessages.columnEmail
         ),
         cellRenderer: ({ rowData: { email, role } }: CellRendererProps) => (
-          <span
-            className={
-              (!canEdit && !canEditSales) ||
-              (canEdit && !canEditSales && role.slug.indexOf('sales') > -1)
-                ? 'c-disabled'
-                : ''
-            }
-          >
+          <span className={isEnabled({ role }) ? 'c-disabled' : ''}>
             {email}
           </span>
         ),
@@ -368,49 +364,35 @@ const OrganizationUsersTable: FunctionComponent<Props> = ({
           isAdmin ? adminMessages.columnRole : storeMessages.columnRole
         ),
         cellRenderer: ({ rowData: { role } }: CellRendererProps) => (
-          <span
-            className={
-              (!canEdit && !canEditSales) ||
-              (canEdit && !canEditSales && role.slug.indexOf('sales') > -1)
-                ? 'c-disabled'
-                : ''
-            }
-          >
+          <span className={isEnabled({ role }) ? 'c-disabled' : ''}>
             {role?.name ?? ''}
           </span>
         ),
       },
-    } as any
-
-    if (isSalesAdmin) {
-      properties.organizationName = {
+      organizationName: {
         title: formatMessage(storeMessages.columnOrganizationName),
         cellRenderer: ({
           rowData: { organizationName },
         }: CellRendererProps) => <span>{organizationName}</span>,
-      }
+      },
+      costCenterName: {
+        title: formatMessage(
+          isAdmin
+            ? adminMessages.columnCostCenter
+            : storeMessages.columnCostCenter
+        ),
+        cellRenderer: ({
+          rowData: { costCenterName, role },
+        }: CellRendererProps) => (
+          <span className={isEnabled({ role }) ? 'c-disabled' : ''}>
+            {costCenterName}
+          </span>
+        ),
+      },
     }
 
-    properties.costCenterName = {
-      title: formatMessage(
-        isAdmin
-          ? adminMessages.columnCostCenter
-          : storeMessages.columnCostCenter
-      ),
-      cellRenderer: ({
-        rowData: { costCenterName, role },
-      }: CellRendererProps) => (
-        <span
-          className={
-            (!canEdit && !canEditSales) ||
-            (canEdit && !canEditSales && role.slug.indexOf('sales') > -1)
-              ? 'c-disabled'
-              : ''
-          }
-        >
-          {costCenterName}
-        </span>
-      ),
+    if (!isSalesAdmin) {
+      delete properties.organizationName
     }
 
     return { properties }
@@ -495,23 +477,50 @@ const OrganizationUsersTable: FunctionComponent<Props> = ({
     })
   }
 
+  const handleRowClick = ({ rowData }: CellRendererProps) => {
+    if (
+      !isAdmin &&
+      ((!canEdit && !canEditSales) ||
+        (rowData.role?.slug.match(/sales-admin/) &&
+          !isSalesAdmin &&
+          !canEdit) ||
+        (!rowData.role?.slug.match(/sales/) && canEditSales) ||
+        (rowData.role?.slug.match(/sales/) && canEdit))
+    ) {
+      return
+    }
+
+    setEditUserDetails({
+      id: rowData.id,
+      roleId: rowData.roleId,
+      userId: rowData.userId,
+      clId: rowData.clId,
+      orgId: rowData.orgId,
+      costId: rowData.costId,
+      name: rowData.name,
+      email: rowData.email,
+      canImpersonate: rowData.canImpersonate,
+    })
+    setEditUserModalOpen(true)
+  }
+
   const handleSort = ({
-    sortOrder,
-    sortedBy,
+    sortOrder: _sortOrder,
+    sortedBy: _sortedBy,
   }: {
     sortOrder: string
     sortedBy: string
   }) => {
     setVariables({
       ...variableState,
-      sortOrder,
-      sortedBy,
+      sortOrder: _sortOrder,
+      sortedBy: _sortedBy,
     })
     refetch({
       ...variableState,
       page: 1,
-      sortOrder,
-      sortedBy,
+      sortOrder: _sortOrder,
+      sortedBy: _sortedBy,
     })
   }
 
@@ -527,6 +536,36 @@ const OrganizationUsersTable: FunctionComponent<Props> = ({
 
   const { page, pageSize, search, sortedBy, sortOrder } = variableState
   const { total } = data?.getUsers?.pagination ?? 0
+  const toolbar = {
+    inputSearch: {
+      value: search,
+      placeholder: formatMessage(
+        isAdmin
+          ? adminMessages.searchPlaceholder
+          : storeMessages.searchPlaceholder
+      ),
+      onChange: handleInputSearchChange,
+      onClear: handleInputSearchClear,
+      onSubmit: handleInputSearchSubmit,
+    },
+    newLine: {
+      label: formatMessage(isAdmin ? adminMessages.new : storeMessages.new),
+      handleCallback: () => setAddUserModalOpen(true),
+      disabled: !canEdit && !canEditSales,
+    },
+  }
+
+  const pagination = {
+    onNextClick: handleNextClick,
+    onPrevClick: handlePrevClick,
+    onRowsChange: handleRowsChange,
+    currentItemFrom: (page - 1) * pageSize + 1,
+    currentItemTo: total < page * pageSize ? total : page * pageSize,
+    textShowRows: formatMessage(storeMessages.showRows),
+    textOf: formatMessage(isAdmin ? adminMessages.of : storeMessages.of),
+    totalItems: total ?? 0,
+    rowsOptions: [25, 50, 100],
+  }
 
   return (
     <Fragment>
@@ -543,66 +582,12 @@ const OrganizationUsersTable: FunctionComponent<Props> = ({
           sortedBy,
           sortOrder,
         }}
-        pagination={{
-          onNextClick: handleNextClick,
-          onPrevClick: handlePrevClick,
-          onRowsChange: handleRowsChange,
-          currentItemFrom: (page - 1) * pageSize + 1,
-          currentItemTo: total < page * pageSize ? total : page * pageSize,
-          textShowRows: formatMessage(storeMessages.showRows),
-          textOf: formatMessage(isAdmin ? adminMessages.of : storeMessages.of),
-          totalItems: total ?? 0,
-          rowsOptions: [25, 50, 100],
-        }}
-        toolbar={{
-          inputSearch: {
-            value: search,
-            placeholder: formatMessage(
-              isAdmin
-                ? adminMessages.searchPlaceholder
-                : storeMessages.searchPlaceholder
-            ),
-            onChange: handleInputSearchChange,
-            onClear: handleInputSearchClear,
-            onSubmit: handleInputSearchSubmit,
-          },
-          newLine: {
-            label: formatMessage(
-              isAdmin ? adminMessages.new : storeMessages.new
-            ),
-            handleCallback: () => setAddUserModalOpen(true),
-            disabled: !canEdit && !canEditSales,
-          },
-        }}
+        pagination={pagination}
+        toolbar={toolbar}
         onSort={handleSort}
-        onRowClick={({ rowData }: CellRendererProps) => {
-          if (
-            !isAdmin &&
-            ((!canEdit && !canEditSales) ||
-              (rowData.role?.slug.match(/sales-admin/) &&
-                !isSalesAdmin &&
-                !canEdit) ||
-              (!rowData.role?.slug.match(/sales/) && canEditSales) ||
-              (rowData.role?.slug.match(/sales/) && canEdit))
-          ) {
-            return
-          }
-
-          setEditUserDetails({
-            id: rowData.id,
-            roleId: rowData.roleId,
-            userId: rowData.userId,
-            clId: rowData.clId,
-            orgId: rowData.orgId,
-            costId: rowData.costId,
-            name: rowData.name,
-            email: rowData.email,
-            canImpersonate: rowData.canImpersonate,
-          })
-          setEditUserModalOpen(true)
-        }}
+        onRowClick={handleRowClick}
       />
-      {refetchCostCenters || !addUserModalOpen ? null : (
+      {addUserModalOpen && (
         <NewUserModal
           handleAddNewUser={handleAddUser}
           handleCloseModal={handleCloseAddUserModal}
@@ -615,7 +600,7 @@ const OrganizationUsersTable: FunctionComponent<Props> = ({
           isSalesAdmin={isSalesAdmin}
         />
       )}
-      {refetchCostCenters || !editUserModalOpen ? null : (
+      {editUserModalOpen && (
         <EditUserModal
           handleUpdateUser={handleUpdateUser}
           handleCloseModal={handleCloseUpdateUserModal}
