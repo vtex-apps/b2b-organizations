@@ -90,8 +90,13 @@ const OrganizationDetails: FunctionComponent<RouterProps> = ({
 
   const [permissionsState, setPermissionsState] = useState([] as string[])
   const [roleState, setRoleState] = useState(null as Role | null)
+
   const isSalesAdmin = useCallback((): boolean => {
     return roleState !== null && new RegExp(/sales-admin/g).test(roleState.slug)
+  }, [roleState])
+
+  const isSales = useCallback((): boolean => {
+    return roleState !== null && new RegExp(/sales-/g).test(roleState.slug)
   }, [roleState])
 
   const [loadingState, setLoadingState] = useState(false)
@@ -286,7 +291,7 @@ const OrganizationDetails: FunctionComponent<RouterProps> = ({
         )
       }
     >
-      {roleState && !isSalesAdmin() && (
+      {roleState && !isSales() && (
         <PageBlock title={formatMessage(messages.costCenters)}>
           <Table
             fullWidth
