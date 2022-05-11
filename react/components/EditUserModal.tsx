@@ -109,6 +109,8 @@ const EditUserModal: FunctionComponent<Props> = ({
     }
 
     const filteredArray = rolesData.listRoles.filter((role: any) => {
+      if (isAdmin) return true
+
       if (role.slug.includes('customer') && canEdit) {
         return true
       }
