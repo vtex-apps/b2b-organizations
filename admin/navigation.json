@@ -8,10 +8,6 @@
     {
       "labelId": "admin/b2b-organizations.organizations.navigation.label",
       "path": "/admin/b2b-organizations/organizations"
-    },
-    {
-      "labelId": "admin/b2b-organizations.organization-requests.navigation.label",
-      "path": "/admin/b2b-organizations/requests"
     }
   ]
 }

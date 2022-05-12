@@ -1,14 +1,7 @@
 import type { FunctionComponent, ChangeEvent } from 'react'
-import React, { useState } from 'react'
+import React, { Fragment, useState } from 'react'
 import { useQuery } from 'react-apollo'
-import {
-  Layout,
-  PageHeader,
-  PageBlock,
-  Table,
-  Tag,
-  Checkbox,
-} from 'vtex.styleguide'
+import { Table, Tag, Checkbox } from 'vtex.styleguide'
 import { useIntl } from 'react-intl'
 import { useRuntime } from 'vtex.render-runtime'
 
@@ -311,106 +304,101 @@ const OrganizationRequestsTable: FunctionComponent = () => {
   const { page, pageSize, search, sortedBy, sortOrder } = variableState
 
   return (
-    <Layout
-      fullWidth
-      pageHeader={<PageHeader title={formatMessage(messages.tablePageTitle)} />}
-    >
-      <PageBlock>
-        <Table
-          fullWidth
-          schema={getSchema()}
-          fixFirstColumn
-          loading={loading}
-          emptyStateLabel={formatMessage(messages.emptyState)}
-          items={data?.getOrganizationRequests?.data}
-          lineActions={lineActions}
-          onRowClick={({ rowData: { id } }: CellRendererProps) => {
-            if (!id) return
+    <Fragment>
+      <Table
+        fullWidth
+        schema={getSchema()}
+        fixFirstColumn
+        loading={loading}
+        emptyStateLabel={formatMessage(messages.emptyState)}
+        items={data?.getOrganizationRequests?.data}
+        lineActions={lineActions}
+        onRowClick={({ rowData: { id } }: CellRendererProps) => {
+          if (!id) return
 
-            navigate({
-              page: 'admin.app.b2b-organizations.organization-request-details',
-              params: { id },
-            })
-          }}
-          pagination={{
-            onNextClick: handleNextClick,
-            onPrevClick: handlePrevClick,
-            onRowsChange: handleRowsChange,
-            currentItemFrom: (page - 1) * pageSize + 1,
-            currentItemTo: total < page * pageSize ? total : page * pageSize,
-            textShowRows: formatMessage(messages.showRows),
-            textOf: formatMessage(messages.of),
-            totalItems: total ?? 0,
-            rowsOptions: [25, 50, 100],
-          }}
-          toolbar={{
-            inputSearch: {
-              value: search,
-              placeholder: formatMessage(messages.searchPlaceholder),
-              onChange: handleInputSearchChange,
-              onClear: handleInputSearchClear,
-              onSubmit: handleInputSearchSubmit,
-            },
-            // Hiding this because the dropdown renders off of the screen
-            // fields: {
-            //   label: '',
-            //   showAllLabel: '',
-            //   hideAllLabel: '',
-            // },
-          }}
-          sort={{
-            sortedBy,
-            sortOrder,
-          }}
-          onSort={handleSort}
-          filters={{
-            alwaysVisibleFilters: ['status'],
-            statements: filterState.filterStatements,
-            onChangeStatements: handleFiltersChange,
-            clearAllFiltersButtonLabel: formatMessage(messages.clearFilters),
-            collapseLeft: true,
-            options: {
-              status: {
-                label: formatMessage(messages.statusFilter),
-                renderFilterLabel: (st: any) => {
-                  if (!st || !st.object) {
-                    // you should treat empty object cases only for alwaysVisibleFilters
-                    return formatMessage(messages.filtersAll)
-                  }
+          navigate({
+            page: 'admin.app.b2b-organizations.organization-request-details',
+            params: { id },
+          })
+        }}
+        pagination={{
+          onNextClick: handleNextClick,
+          onPrevClick: handlePrevClick,
+          onRowsChange: handleRowsChange,
+          currentItemFrom: (page - 1) * pageSize + 1,
+          currentItemTo: total < page * pageSize ? total : page * pageSize,
+          textShowRows: formatMessage(messages.showRows),
+          textOf: formatMessage(messages.of),
+          totalItems: total ?? 0,
+          rowsOptions: [25, 50, 100],
+        }}
+        toolbar={{
+          inputSearch: {
+            value: search,
+            placeholder: formatMessage(messages.searchPlaceholder),
+            onChange: handleInputSearchChange,
+            onClear: handleInputSearchClear,
+            onSubmit: handleInputSearchSubmit,
+          },
+          // Hiding this because the dropdown renders off of the screen
+          // fields: {
+          //   label: '',
+          //   showAllLabel: '',
+          //   hideAllLabel: '',
+          // },
+        }}
+        sort={{
+          sortedBy,
+          sortOrder,
+        }}
+        onSort={handleSort}
+        filters={{
+          alwaysVisibleFilters: ['status'],
+          statements: filterState.filterStatements,
+          onChangeStatements: handleFiltersChange,
+          clearAllFiltersButtonLabel: formatMessage(messages.clearFilters),
+          collapseLeft: true,
+          options: {
+            status: {
+              label: formatMessage(messages.statusFilter),
+              renderFilterLabel: (st: any) => {
+                if (!st || !st.object) {
+                  // you should treat empty object cases only for alwaysVisibleFilters
+                  return formatMessage(messages.filtersAll)
+                }
 
-                  const keys = st.object ? Object.keys(st.object) : []
-                  const isAllTrue = !keys.some(key => !st.object[key])
-                  const isAllFalse = !keys.some(key => st.object[key])
-                  const trueKeys = keys.filter(key => st.object[key])
-                  let trueKeysLabel = ''
+                const keys = st.object ? Object.keys(st.object) : []
+                const isAllTrue = !keys.some(key => !st.object[key])
+                const isAllFalse = !keys.some(key => st.object[key])
+                const trueKeys = keys.filter(key => st.object[key])
+                let trueKeysLabel = ''
 
-                  trueKeys.forEach((key, index) => {
-                    trueKeysLabel += `${key}${
-                      index === trueKeys.length - 1 ? '' : ', '
-                    }`
-                  })
-
-                  return `${
-                    isAllTrue
-                      ? formatMessage(messages.filtersAll)
-                      : isAllFalse
-                      ? formatMessage(messages.filtersNone)
-                      : `${trueKeysLabel}`
+                trueKeys.forEach((key, index) => {
+                  trueKeysLabel += `${key}${
+                    index === trueKeys.length - 1 ? '' : ', '
                   }`
-                },
-                verbs: [
-                  {
-                    label: formatMessage(messages.filtersIncludes),
-                    value: 'includes',
-                    object: statusSelectorObject,
-                  },
-                ],
+                })
+
+                return `${
+                  isAllTrue
+                    ? formatMessage(messages.filtersAll)
+                    : isAllFalse
+                    ? formatMessage(messages.filtersNone)
+                    : `${trueKeysLabel}`
+                }`
               },
+              verbs: [
+                {
+                  label: formatMessage(messages.filtersIncludes),
+                  value: 'includes',
+                  object: statusSelectorObject,
+                },
+              ],
             },
-          }}
-        ></Table>
-      </PageBlock>
-    </Layout>
+          },
+        }}
+      />
+    </Fragment>
   )
 }
 

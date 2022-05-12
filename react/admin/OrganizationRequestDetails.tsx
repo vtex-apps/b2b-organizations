@@ -106,7 +106,7 @@ const OrganizationRequestDetails: FunctionComponent = () => {
           linkLabel={formatMessage(messages.back)}
           onLinkClick={() => {
             navigate({
-              page: 'admin.app.b2b-organizations.organization-requests',
+              page: 'admin.app.b2b-organizations.organizations',
             })
           }}
         />
