@@ -10,45 +10,26 @@ import {
   Spinner,
   Button,
   Input,
-  Modal,
   IconCheck,
 } from 'vtex.styleguide'
 import { useToast } from '@vtex/admin-ui'
 import { useIntl, FormattedMessage } from 'react-intl'
 import { useRuntime } from 'vtex.render-runtime'
-import {
-  AddressRules,
-  AddressForm,
-  AddressContainer,
-  CountrySelector,
-  PostalCodeGetter,
-} from 'vtex.address-form'
-import { StyleguideInput } from 'vtex.address-form/inputs'
-import { addValidation } from 'vtex.address-form/helpers'
 
 import OrganizationUsersTable from '../components/OrganizationUsersTable'
 import { organizationMessages as messages } from './utils/messages'
-import { getEmptyAddress, isValidAddress } from '../utils/addresses'
 import GET_ORGANIZATION from '../graphql/getOrganization.graphql'
-import GET_LOGISTICS from '../graphql/getLogistics.graphql'
 import UPDATE_ORGANIZATION from '../graphql/updateOrganization.graphql'
 import GET_COLLECTIONS from '../graphql/getCollections.graphql'
 import GET_PAYMENT_TERMS from '../graphql/getPaymentTerms.graphql'
 import GET_PRICE_TABLES from '../graphql/getPriceTables.graphql'
 import GET_SALES_CHANNELS from '../graphql/getSalesChannels.graphql'
-import GET_COST_CENTERS from '../graphql/getCostCentersByOrganizationId.graphql'
-import CREATE_COST_CENTER from '../graphql/createCostCenter.graphql'
+import OrganizationDetailsConstCenters from './OrganizationDetails/OrganizationDetailsConstCenters'
 
-interface CellRendererProps<RowType> {
+export interface CellRendererProps<RowType> {
   cellData: unknown
   rowData: RowType
   updateCellMeasurements: () => void
-}
-
-interface CostCenterSimple {
-  id: string
-  name: string
-  addresses: Address[]
 }
 
 interface Collection {
@@ -85,7 +66,6 @@ const OrganizationDetails: FunctionComponent = () => {
   ]
 
   const {
-    culture: { country },
     route: { params },
     navigate,
   } = useRuntime()
@@ -98,10 +78,6 @@ const OrganizationDetails: FunctionComponent = () => {
   const [collectionOptions, setCollectionOptions] = useState([] as Collection[])
   const [priceTablesState, setPriceTablesState] = useState([] as string[])
   const [priceTableOptions, setPriceTableOptions] = useState([] as PriceTable[])
-  const [costCenterPaginationState, setCostCenterPaginationState] = useState({
-    page: 1,
-    pageSize: 25,
-  })
 
   const [collectionPaginationState, setCollectionPaginationState] = useState({
     page: 1,
@@ -117,32 +93,12 @@ const OrganizationDetails: FunctionComponent = () => {
   )
 
   const [loadingState, setLoadingState] = useState(false)
-  const [newCostCenterModalState, setNewCostCenterModalState] = useState(false)
-  const [newCostCenterName, setNewCostCenterName] = useState('')
-  const [
-    newCostCenterBusinessDocument,
-    setNewCostCenterBusinessDocument,
-  ] = useState('')
-
-  const [newCostCenterAddressState, setNewCostCenterAddressState] = useState(
-    addValidation(getEmptyAddress(country))
-  )
 
   const { data, loading, refetch } = useQuery(GET_ORGANIZATION, {
     variables: { id: params?.id },
     skip: !params?.id,
     ssr: false,
   })
-
-  const { data: costCentersData, refetch: refetchCostCenters } = useQuery(
-    GET_COST_CENTERS,
-    {
-      variables: { ...costCenterPaginationState, id: params?.id },
-      fetchPolicy: 'network-only',
-      skip: !params?.id,
-      ssr: false,
-    }
-  )
 
   const {
     data: collectionsData,
@@ -157,19 +113,8 @@ const OrganizationDetails: FunctionComponent = () => {
   const { data: salesChannelsData } = useQuery(GET_SALES_CHANNELS, {
     ssr: false,
   })
-  const { data: logisticsData } = useQuery(GET_LOGISTICS, { ssr: false })
-
-  const translateCountries = () => {
-    const { shipsTo = [] } = logisticsData?.logistics ?? {}
-
-    return shipsTo.map((code: string) => ({
-      label: formatMessage({ id: `country.${code}` }),
-      value: code,
-    }))
-  }
 
   const [updateOrganization] = useMutation(UPDATE_ORGANIZATION)
-  const [createCostCenter] = useMutation(CREATE_COST_CENTER)
 
   useEffect(() => {
     if (!data?.getOrganizationById || statusState) return
@@ -250,55 +195,6 @@ const OrganizationDetails: FunctionComponent = () => {
 
     setPaymentTermsOptions(paymentTerms)
   }, [paymentTermsData])
-
-  const handleCostCentersPrevClick = () => {
-    if (costCenterPaginationState.page === 1) return
-
-    const newPage = costCenterPaginationState.page - 1
-
-    setCostCenterPaginationState({
-      ...costCenterPaginationState,
-      page: newPage,
-    })
-
-    refetchCostCenters({
-      ...costCenterPaginationState,
-      id: params?.id,
-      page: newPage,
-    })
-  }
-
-  const handleCostCentersNextClick = () => {
-    const newPage = costCenterPaginationState.page + 1
-
-    setCostCenterPaginationState({
-      ...costCenterPaginationState,
-      page: newPage,
-    })
-
-    refetchCostCenters({
-      ...costCenterPaginationState,
-      id: params?.id,
-      page: newPage,
-    })
-  }
-
-  const handleCostCentersRowsChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const {
-      target: { value },
-    } = e
-
-    setCostCenterPaginationState({
-      page: 1,
-      pageSize: +value,
-    })
-
-    refetchCostCenters({
-      id: params?.id,
-      page: 1,
-      pageSize: +value,
-    })
-  }
 
   const handleCollectionsPrevClick = () => {
     if (collectionPaginationState.page === 1) return
@@ -484,71 +380,6 @@ const OrganizationDetails: FunctionComponent = () => {
     setPriceTablesState(newPriceTablesList)
   }
 
-  const handleAddNewCostCenter = () => {
-    setLoadingState(true)
-    const newAddress = {
-      addressId: newCostCenterAddressState.addressId.value,
-      addressType: newCostCenterAddressState.addressType.value,
-      city: newCostCenterAddressState.city.value,
-      complement: newCostCenterAddressState.complement.value,
-      country: newCostCenterAddressState.country.value,
-      receiverName: newCostCenterAddressState.receiverName.value,
-      geoCoordinates: newCostCenterAddressState.geoCoordinates.value,
-      neighborhood: newCostCenterAddressState.neighborhood.value,
-      number: newCostCenterAddressState.number.value,
-      postalCode: newCostCenterAddressState.postalCode.value,
-      reference: newCostCenterAddressState.reference.value,
-      state: newCostCenterAddressState.state.value,
-      street: newCostCenterAddressState.street.value,
-      addressQuery: newCostCenterAddressState.addressQuery.value,
-    }
-
-    const variables = {
-      organizationId: params.id,
-      input: {
-        name: newCostCenterName,
-        addresses: [newAddress],
-        businessDocument: newCostCenterBusinessDocument,
-      },
-    }
-
-    createCostCenter({ variables })
-      .then(() => {
-        setNewCostCenterModalState(false)
-        setLoadingState(false)
-        showToast({
-          type: 'success',
-          message: formatMessage(messages.toastAddCostCenterSuccess),
-        })
-        refetchCostCenters({ ...costCenterPaginationState, id: params?.id })
-      })
-      .catch(error => {
-        setNewCostCenterModalState(false)
-        setLoadingState(false)
-        console.error(error)
-        showToast({
-          type: 'error',
-          message: formatMessage(messages.toastAddCostCenterFailure),
-        })
-      })
-  }
-
-  const handleNewCostCenterAddressChange = (
-    changedAddress: AddressFormFields
-  ) => {
-    const curAddress = newCostCenterAddressState
-
-    const newAddress = { ...curAddress, ...changedAddress }
-
-    setNewCostCenterAddressState(newAddress)
-  }
-
-  const handleCloseModal = () => {
-    setNewCostCenterModalState(false)
-    setNewCostCenterName('')
-    setNewCostCenterAddressState(addValidation(getEmptyAddress(country)))
-  }
-
   const getSchema = (
     type?: 'availablePriceTables' | 'availableCollections' | 'availablePayments'
   ) => {
@@ -621,22 +452,6 @@ const OrganizationDetails: FunctionComponent = () => {
     }
   }
 
-  const getCostCenterSchema = () => ({
-    properties: {
-      name: {
-        title: formatMessage(messages.detailsColumnName),
-      },
-      addresses: {
-        title: formatMessage(messages.columnAddresses),
-        cellRenderer: ({
-          rowData: { addresses },
-        }: CellRendererProps<CostCenterSimple>) => (
-          <span>{addresses.length}</span>
-        ),
-      },
-    },
-  })
-
   if (!data) {
     return (
       <Layout
@@ -687,6 +502,31 @@ const OrganizationDetails: FunctionComponent = () => {
         </PageHeader>
       }
     >
+      {/* <HashRouter ref={routerRef}> */}
+      {/*  <Tabs> */}
+      {/*    <Tab */}
+      {/*      label={formatMessage(messages.tablePageTitle)} */}
+      {/*      active={tab === 'organizations'} */}
+      {/*      onClick={() => handleTabChange('organizations')} */}
+      {/*    /> */}
+      {/*    <Tab */}
+      {/*      label={formatMessage(requestMessages.tablePageTitle)} */}
+      {/*      active={tab === 'requests'} */}
+      {/*      onClick={() => handleTabChange('requests')} */}
+      {/*    /> */}
+      {/*  </Tabs> */}
+      {/*  <Container> */}
+      {/*    <Switch> */}
+      {/*      <Route path="/organizations" exact component={OrganizationsList} /> */}
+      {/*      <Route */}
+      {/*        path="/requests" */}
+      {/*        exact */}
+      {/*        component={OrganizationRequestsTable} */}
+      {/*      /> */}
+      {/*    </Switch> */}
+      {/*  </Container> */}
+      {/* </HashRouter> */}
+
       <PageBlock>
         <Input
           autocomplete="off"
@@ -726,53 +566,11 @@ const OrganizationDetails: FunctionComponent = () => {
           })}
         </div>
       </PageBlock>
-      <PageBlock title={formatMessage(messages.costCenters)}>
-        <Table
-          fullWidth
-          schema={getCostCenterSchema()}
-          items={costCentersData?.getCostCentersByOrganizationId?.data}
-          onRowClick={({
-            rowData: { id },
-          }: CellRendererProps<CostCenterSimple>) => {
-            if (!id) return
-
-            navigate({
-              page: 'admin.app.b2b-organizations.costCenter-details',
-              params: { id },
-            })
-          }}
-          pagination={{
-            onNextClick: handleCostCentersNextClick,
-            onPrevClick: handleCostCentersPrevClick,
-            onRowsChange: handleCostCentersRowsChange,
-            currentItemFrom:
-              (costCenterPaginationState.page - 1) *
-                costCenterPaginationState.pageSize +
-              1,
-            currentItemTo:
-              costCentersData?.getCostCentersByOrganizationId?.pagination
-                ?.total <
-              costCenterPaginationState.page *
-                costCenterPaginationState.pageSize
-                ? costCentersData?.getCostCentersByOrganizationId?.pagination
-                    ?.total
-                : costCenterPaginationState.page *
-                  costCenterPaginationState.pageSize,
-            textShowRows: formatMessage(messages.showRows),
-            textOf: formatMessage(messages.of),
-            totalItems:
-              costCentersData?.getCostCentersByOrganizationId?.pagination
-                ?.total ?? 0,
-            rowsOptions: [25, 50, 100],
-          }}
-          toolbar={{
-            newLine: {
-              label: formatMessage(messages.new),
-              handleCallback: () => setNewCostCenterModalState(true),
-            },
-          }}
-        ></Table>
-      </PageBlock>
+      <OrganizationDetailsConstCenters
+        setLoadingState={setLoadingState}
+        showToast={showToast}
+        loadingState={loadingState}
+      />
       <PageBlock variation="half" title={formatMessage(messages.collections)}>
         <div>
           <h4 className="t-heading-4 mt0 mb0">
@@ -953,91 +751,6 @@ const OrganizationDetails: FunctionComponent = () => {
           isAdmin={true}
         />
       </PageBlock>
-      <Modal
-        centered
-        bottomBar={
-          <div className="nowrap">
-            <span className="mr4">
-              <Button
-                variation="tertiary"
-                onClick={() => handleCloseModal()}
-                disabled={loadingState}
-              >
-                {formatMessage(messages.cancel)}
-              </Button>
-            </span>
-            <span>
-              <Button
-                variation="primary"
-                onClick={() => handleAddNewCostCenter()}
-                isLoading={loadingState}
-                disabled={
-                  !newCostCenterName ||
-                  !isValidAddress(newCostCenterAddressState)
-                }
-              >
-                {formatMessage(messages.add)}
-              </Button>
-            </span>
-          </div>
-        }
-        isOpen={newCostCenterModalState}
-        onClose={() => handleCloseModal()}
-        closeOnOverlayClick={false}
-      >
-        <p className="f3 f1-ns fw3 gray">
-          <FormattedMessage id="admin/b2b-organizations.organization-details.add-costCenter" />
-        </p>
-        <div className="w-100 mv6">
-          <Input
-            autocomplete="off"
-            size="large"
-            label={formatMessage(messages.costCenterName)}
-            value={newCostCenterName}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-              setNewCostCenterName(e.target.value)
-            }}
-            required
-          />
-        </div>
-        <div className="w-100 mv6">
-          <Input
-            autocomplete="off"
-            size="large"
-            label={formatMessage(messages.businessDocument)}
-            helpText={formatMessage(messages.businessDocumentHelp)}
-            value={newCostCenterBusinessDocument}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-              setNewCostCenterBusinessDocument(e.target.value)
-            }}
-          />
-        </div>
-        <div className="w-100 mv6">
-          <FormattedMessage id="admin/b2b-organizations.organization-details.add-costCenter.helpText" />
-        </div>
-        <AddressRules
-          country={newCostCenterAddressState?.country?.value}
-          shouldUseIOFetching
-          useGeolocation={false}
-        >
-          <AddressContainer
-            address={newCostCenterAddressState}
-            Input={StyleguideInput}
-            onChangeAddress={handleNewCostCenterAddressChange}
-            autoCompletePostalCode
-          >
-            <CountrySelector shipsTo={translateCountries()} />
-
-            <PostalCodeGetter />
-
-            <AddressForm
-              Input={StyleguideInput}
-              omitAutoCompletedFields={false}
-              omitPostalCodeFields
-            />
-          </AddressContainer>
-        </AddressRules>
-      </Modal>
     </Layout>
   )
 }
