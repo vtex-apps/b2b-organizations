@@ -17,7 +17,7 @@ const OrganizationDetailsCollections = ({
   collectionsState,
   setCollectionsState,
 }: {
-  getSchema: (argument?: any) => void
+  getSchema: (argument?: any) => any
   collectionsState: Collection[]
   setCollectionsState: (value: any) => void
 }) => {
@@ -144,6 +144,21 @@ const OrganizationDetailsCollections = ({
     setCollectionsState([...collectionsState, ...newCollections])
   }
 
+  const bulkActions = (handleCallback: (params: any) => void) => {
+    return {
+      texts: {
+        rowsSelected: (qty: number) =>
+          formatMessage(messages.selectedRows, {
+            qty,
+          }),
+      },
+      main: {
+        label: formatMessage(messages.removeFromOrg),
+        handleCallback,
+      },
+    }
+  }
+
   return (
     <Fragment>
       <PageBlock variation="half" title={formatMessage(messages.collections)}>
@@ -155,19 +170,7 @@ const OrganizationDetailsCollections = ({
             fullWidth
             schema={getSchema()}
             items={collectionsState}
-            bulkActions={{
-              texts: {
-                rowsSelected: (qty: number) =>
-                  formatMessage(messages.selectedRows, {
-                    qty,
-                  }),
-              },
-              main: {
-                label: formatMessage(messages.removeFromOrg),
-                handleCallback: (rowParams: any) =>
-                  handleRemoveCollections(rowParams),
-              },
-            }}
+            bulkActions={bulkActions(handleRemoveCollections)}
           />
         </div>
         <div>
@@ -198,19 +201,7 @@ const OrganizationDetailsCollections = ({
               totalItems: collectionsData?.collections?.paging?.total ?? 0,
               rowsOptions: [25, 50, 100],
             }}
-            bulkActions={{
-              texts: {
-                rowsSelected: (qty: number) =>
-                  formatMessage(messages.selectedRows, {
-                    qty,
-                  }),
-              },
-              main: {
-                label: formatMessage(messages.addToOrg),
-                handleCallback: (rowParams: any) =>
-                  handleAddCollections(rowParams),
-              },
-            }}
+            bulkActions={bulkActions(handleAddCollections)}
           />
         </div>
       </PageBlock>

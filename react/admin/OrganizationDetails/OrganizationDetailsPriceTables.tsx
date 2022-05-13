@@ -101,6 +101,21 @@ const OrganizationDetailsPriceTables = ({
     setPriceTablesState((prevState: any) => [...prevState, ...newPriceTables])
   }
 
+  const bulkActions = (handleCallback: (params: any) => void) => {
+    return {
+      texts: {
+        rowsSelected: (qty: number) =>
+          formatMessage(messages.selectedRows, {
+            qty,
+          }),
+      },
+      main: {
+        label: formatMessage(messages.removeFromOrg),
+        handleCallback,
+      },
+    }
+  }
+
   return (
     <Fragment>
       <PageBlock variation="half" title={formatMessage(messages.priceTables)}>
@@ -120,19 +135,7 @@ const OrganizationDetailsPriceTables = ({
                   )?.name ?? priceTable,
               }
             })}
-            bulkActions={{
-              texts: {
-                rowsSelected: (qty: number) =>
-                  formatMessage(messages.selectedRows, {
-                    qty,
-                  }),
-              },
-              main: {
-                label: formatMessage(messages.removeFromOrg),
-                handleCallback: (rowParams: any) =>
-                  handleRemovePriceTables(rowParams),
-              },
-            }}
+            bulkActions={bulkActions(handleRemovePriceTables)}
           />
         </div>
         <div>
@@ -143,19 +146,7 @@ const OrganizationDetailsPriceTables = ({
             fullWidth
             schema={getSchema('availablePriceTables')}
             items={priceTableOptions}
-            bulkActions={{
-              texts: {
-                rowsSelected: (qty: number) =>
-                  formatMessage(messages.selectedRows, {
-                    qty,
-                  }),
-              },
-              main: {
-                label: formatMessage(messages.addToOrg),
-                handleCallback: (rowParams: any) =>
-                  handleAddPriceTables(rowParams),
-              },
-            }}
+            bulkActions={bulkActions(handleAddPriceTables)}
           />
         </div>
       </PageBlock>

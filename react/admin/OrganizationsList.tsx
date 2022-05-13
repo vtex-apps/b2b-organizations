@@ -1,14 +1,14 @@
-import type { FunctionComponent, ChangeEvent } from 'react'
+import type { ChangeEvent, FunctionComponent } from 'react'
 import React, { Fragment, useState } from 'react'
-import { useQuery, useMutation } from 'react-apollo'
-import { Table, Tag, Checkbox, Modal, Input, Button } from 'vtex.styleguide'
-import { useIntl, FormattedMessage } from 'react-intl'
+import { useMutation, useQuery } from 'react-apollo'
+import { Button, Checkbox, Input, Modal, Table, Tag } from 'vtex.styleguide'
+import { FormattedMessage, useIntl } from 'react-intl'
 import { useRuntime } from 'vtex.render-runtime'
 import { useToast } from '@vtex/admin-ui'
 import {
-  AddressRules,
-  AddressForm,
   AddressContainer,
+  AddressForm,
+  AddressRules,
   CountrySelector,
   PostalCodeGetter,
 } from 'vtex.address-form'
@@ -198,12 +198,10 @@ const OrganizationsList: FunctionComponent = () => {
     } as Record<string, unknown>
 
     const toggleValueByKey = (key: string) => {
-      const newValue = {
+      return {
         ...(value || initialValue),
         [key]: value ? !value[key] : false,
       }
-
-      return newValue
     }
 
     return (
@@ -288,23 +286,18 @@ const OrganizationsList: FunctionComponent = () => {
       if (!statement?.object) return
       const { subject, object } = statement
 
-      switch (subject) {
-        case 'status': {
-          if (!object) return
-          const keys = Object.keys(object)
-          const isAllTrue = !keys.some(key => !object[key])
-          const isAllFalse = !keys.some(key => object[key])
-          const trueKeys = keys.filter(key => object[key])
-
-          if (isAllTrue) break
-          if (isAllFalse) statuses.push('none')
-          statuses.push(...trueKeys)
-          break
-        }
-
-        default:
-          break
+      if (subject !== 'status' || !object) {
+        return
       }
+
+      const keys = Object.keys(object)
+      const isAllTrue = !keys.some(key => !object[key])
+      const isAllFalse = !keys.some(key => object[key])
+      const trueKeys = keys.filter(key => object[key])
+
+      if (isAllTrue) return
+      if (isAllFalse) statuses.push('none')
+      statuses.push(...trueKeys)
     })
 
     setFilterState({
@@ -355,37 +348,39 @@ const OrganizationsList: FunctionComponent = () => {
     })
   }
 
+  const onRowClick = ({ rowData: { id } }: CellRendererProps) => {
+    if (!id) return
+
+    navigate({
+      page: 'admin.app.b2b-organizations.organization-details',
+      params: { id },
+    })
+  }
+
   const handleSort = ({
-    sortOrder,
-    sortedBy,
+    sortOrder: _sortOrder,
+    sortedBy: _sortedBy,
   }: {
     sortOrder: string
     sortedBy: string
   }) => {
     setVariables({
       ...variableState,
-      sortOrder,
-      sortedBy,
+      sortOrder: _sortOrder,
+      sortedBy: _sortedBy,
     })
     refetch({
       ...variableState,
       page: 1,
-      sortOrder,
-      sortedBy,
+      sortOrder: _sortOrder,
+      sortedBy: _sortedBy,
     })
   }
 
   const lineActions = [
     {
       label: () => formatMessage(messages.view),
-      onClick: ({ rowData: { id } }: CellRendererProps) => {
-        if (!id) return
-
-        navigate({
-          page: 'admin.app.b2b-organizations.organization-details',
-          params: { id },
-        })
-      },
+      onClick: onRowClick,
     },
   ]
 
@@ -402,14 +397,7 @@ const OrganizationsList: FunctionComponent = () => {
         emptyStateLabel={formatMessage(messages.organizationsEmptyState)}
         items={data?.getOrganizations?.data}
         lineActions={lineActions}
-        onRowClick={({ rowData: { id } }: CellRendererProps) => {
-          if (!id) return
-
-          navigate({
-            page: 'admin.app.b2b-organizations.organization-details',
-            params: { id },
-          })
-        }}
+        onRowClick={onRowClick}
         pagination={{
           onNextClick: handleNextClick,
           onPrevClick: handlePrevClick,
@@ -466,13 +454,10 @@ const OrganizationsList: FunctionComponent = () => {
                   }`
                 })
 
-                return `${
-                  isAllTrue
-                    ? formatMessage(messages.filtersAll)
-                    : isAllFalse
-                    ? formatMessage(messages.filtersNone)
-                    : `${trueKeysLabel}`
-                }`
+                if (isAllTrue) return formatMessage(messages.filtersAll)
+                if (isAllFalse) return formatMessage(messages.filtersNone)
+
+                return trueKeysLabel.toString()
               },
               verbs: [
                 {

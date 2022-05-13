@@ -103,6 +103,21 @@ const OrganizationDetailsPayTerms = ({
     setPaymentTermsState([...paymentTermsState, ...newPaymentTerms])
   }
 
+  const bulkActions = (handleCallback: (params: any) => void) => {
+    return {
+      texts: {
+        rowsSelected: (qty: number) =>
+          formatMessage(messages.selectedRows, {
+            qty,
+          }),
+      },
+      main: {
+        label: formatMessage(messages.removeFromOrg),
+        handleCallback,
+      },
+    }
+  }
+
   return (
     <Fragment>
       <PageBlock variation="half" title={formatMessage(messages.paymentTerms)}>
@@ -114,19 +129,7 @@ const OrganizationDetailsPayTerms = ({
             fullWidth
             schema={getSchema()}
             items={paymentTermsState}
-            bulkActions={{
-              texts: {
-                rowsSelected: (qty: number) =>
-                  formatMessage(messages.selectedRows, {
-                    qty,
-                  }),
-              },
-              main: {
-                label: formatMessage(messages.removeFromOrg),
-                handleCallback: (rowParams: any) =>
-                  handleRemovePaymentTerms(rowParams),
-              },
-            }}
+            bulkActions={bulkActions(handleRemovePaymentTerms)}
           />
         </div>
         <div>
@@ -137,19 +140,7 @@ const OrganizationDetailsPayTerms = ({
             fullWidth
             schema={getSchema('availablePayments')}
             items={paymentTermsOptions}
-            bulkActions={{
-              texts: {
-                rowsSelected: (qty: number) =>
-                  formatMessage(messages.selectedRows, {
-                    qty,
-                  }),
-              },
-              main: {
-                label: formatMessage(messages.addToOrg),
-                handleCallback: (rowParams: any) =>
-                  handleAddPaymentTerms(rowParams),
-              },
-            }}
+            bulkActions={bulkActions(handleAddPaymentTerms)}
           />
         </div>
       </PageBlock>
