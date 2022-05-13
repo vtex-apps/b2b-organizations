@@ -24,6 +24,7 @@ const OrganizationsTable = () => {
   const { tab, handleTabChange, routerRef } = useHashRouter({
     sessionKey: SESSION_STORAGE_KEY,
     defaultPath: 'organizations',
+    routes: ['organizations', 'requests'],
   })
 
   return (

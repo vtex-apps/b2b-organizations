@@ -3,9 +3,11 @@ import React, { useEffect, useRef, useState } from 'react'
 const useHashRouter = ({
   sessionKey,
   defaultPath,
+  routes,
 }: {
   sessionKey: string
   defaultPath: string
+  routes: string[]
 }) => {
   const [tab, setTab] = React.useState('')
   const [location, setLocation] = useState(null as any)
@@ -33,7 +35,9 @@ const useHashRouter = ({
 
   useEffect(() => {
     if (!routerRef?.current) return
-    if (routerRef.current?.history?.location.pathname === '/') {
+    const { pathname } = routerRef.current?.history?.location
+
+    if (pathname === '/' || !routes.includes(pathname.replace('/', ''))) {
       const sessionTab = sessionStorage.getItem(sessionKey)
 
       routerRef.current?.history?.push(

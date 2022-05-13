@@ -62,10 +62,6 @@ const OrganizationDetails: FunctionComponent = () => {
   )
 
   // const routerRef = useRef(null as any)
-  const { tab, handleTabChange, routerRef } = useHashRouter({
-    sessionKey: SESSION_STORAGE_KEY,
-    defaultPath: 'default',
-  })
 
   const [loadingState, setLoadingState] = useState(false)
 
@@ -223,6 +219,7 @@ const OrganizationDetails: FunctionComponent = () => {
   /**
    * Data Variables
    */
+
   const tabsList = [
     {
       label: formatMessage(messages.default),
@@ -290,6 +287,12 @@ const OrganizationDetails: FunctionComponent = () => {
       ),
     },
   ]
+
+  const { tab, handleTabChange, routerRef } = useHashRouter({
+    sessionKey: SESSION_STORAGE_KEY,
+    defaultPath: 'default',
+    routes: tabsList.map(_tab => _tab.tab),
+  })
 
   return (
     <Layout
