@@ -28,6 +28,7 @@ import type { PriceTable } from './OrganizationDetails/OrganizationDetailsPriceT
 import OrganizationDetailsPriceTables from './OrganizationDetails/OrganizationDetailsPriceTables'
 import OrganizationDetailsUsers from './OrganizationDetails/OrganizationDetailsUsers'
 import OrganizationDetailsDefault from './OrganizationDetails/OrganizationDetailsDefault'
+import useHashRouter from './OrganizationDetails/useHashRouter'
 
 export interface CellRendererProps<RowType> {
   cellData: unknown
@@ -61,9 +62,12 @@ const OrganizationDetails: FunctionComponent = () => {
   )
 
   const routerRef = useRef(null as any)
+  const { tab, handleTabChange } = useHashRouter({
+    routerRef,
+    sessionKey: SESSION_STORAGE_KEY,
+  })
+
   const [loadingState, setLoadingState] = useState(false)
-  const [tab, setTab] = useState('')
-  const [location, setLocation] = useState(null as any)
 
   /**
    * Queries
@@ -119,20 +123,6 @@ const OrganizationDetails: FunctionComponent = () => {
           message: formatMessage(messages.toastUpdateFailure),
         })
       })
-  }
-
-  const setupTab = (_tab: string) => {
-    sessionStorage.setItem(SESSION_STORAGE_KEY, _tab)
-    setTab(_tab)
-  }
-
-  const handleTabChange = (_tab: string) => {
-    if (!routerRef?.current) {
-      return
-    }
-
-    routerRef.current?.history?.push(`/${_tab}`)
-    setupTab(_tab)
   }
 
   const getSchema = (
@@ -229,25 +219,6 @@ const OrganizationDetails: FunctionComponent = () => {
     setPaymentTermsState(paymentTerms)
     setPriceTablesState(data.getOrganizationById.priceTables ?? [])
   }, [data])
-
-  useEffect(() => {
-    if (!location) return
-
-    setupTab(location.pathname.replace('/', ''))
-  }, [location])
-
-  useEffect(() => {
-    if (!routerRef?.current) return
-    if (routerRef.current?.history?.location.pathname === '/') {
-      const sessionTab = sessionStorage.getItem('organization-tab')
-
-      routerRef.current?.history?.push(
-        sessionTab ? `/${sessionTab}` : '/organizations'
-      )
-    }
-
-    setLocation(routerRef.current?.history?.location)
-  }, [routerRef])
 
   /**
    * Data Variables

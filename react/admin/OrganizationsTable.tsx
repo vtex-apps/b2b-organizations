@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useRef } from 'react'
 import { PageHeader, PageBlock, Layout, Tabs, Tab } from 'vtex.styleguide'
 import { useIntl } from 'react-intl'
 import { HashRouter, Switch, Route } from 'react-router-dom'
@@ -9,6 +9,7 @@ import {
 } from './utils/messages'
 import OrganizationsList from './OrganizationsList'
 import OrganizationRequestsTable from './OrganizationRequestsTable'
+import useHashRouter from './OrganizationDetails/useHashRouter'
 
 const SESSION_STORAGE_KEY = 'organization-tab'
 
@@ -20,42 +21,11 @@ const Container = ({ children }: any) => (
 
 const OrganizationsTable = () => {
   const { formatMessage } = useIntl()
-  const [tab, setTab] = React.useState('organizations')
-  const routerRef = useRef(null as any)
-  const [location, setLocation] = useState(null as any)
-
-  const setupTab = (_tab: string) => {
-    sessionStorage.setItem(SESSION_STORAGE_KEY, _tab)
-    setTab(_tab)
-  }
-
-  const handleTabChange = (_tab: string) => {
-    if (!routerRef?.current) {
-      return
-    }
-
-    routerRef.current?.history?.push(`/${_tab}`)
-    setupTab(_tab)
-  }
-
-  useEffect(() => {
-    if (!location) return
-
-    setupTab(location.pathname.replace('/', ''))
-  }, [location])
-
-  useEffect(() => {
-    if (!routerRef?.current) return
-    if (routerRef.current?.history?.location.pathname === '/') {
-      const sessionTab = sessionStorage.getItem('organization-tab')
-
-      routerRef.current?.history?.push(
-        sessionTab ? `/${sessionTab}` : '/organizations'
-      )
-    }
-
-    setLocation(routerRef.current?.history?.location)
-  }, [routerRef])
+  const routerRef = useRef(null)
+  const { tab, handleTabChange } = useHashRouter({
+    routerRef,
+    sessionKey: SESSION_STORAGE_KEY,
+  })
 
   return (
     <Layout
