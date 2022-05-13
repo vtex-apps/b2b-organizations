@@ -68,7 +68,6 @@ const NewUserModal: FunctionComponent<Props> = ({
     variables: {
       id: organizationId,
       pageSize: 100,
-      isSalesAdmin: canEditSales,
     },
     fetchPolicy: 'network-only',
     ssr: false,
@@ -83,7 +82,6 @@ const NewUserModal: FunctionComponent<Props> = ({
     refetch({
       id: organizationState,
       pageSize: 100,
-      isSalesAdmin: canEditSales,
     })
   }, [organizationState])
 
