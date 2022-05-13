@@ -1,4 +1,4 @@
-import React, { useRef } from 'react'
+import React from 'react'
 import { PageHeader, PageBlock, Layout, Tabs, Tab } from 'vtex.styleguide'
 import { useIntl } from 'react-intl'
 import { HashRouter, Switch, Route } from 'react-router-dom'
@@ -21,10 +21,9 @@ const Container = ({ children }: any) => (
 
 const OrganizationsTable = () => {
   const { formatMessage } = useIntl()
-  const routerRef = useRef(null)
-  const { tab, handleTabChange } = useHashRouter({
-    routerRef,
+  const { tab, handleTabChange, routerRef } = useHashRouter({
     sessionKey: SESSION_STORAGE_KEY,
+    defaultPath: 'organizations',
   })
 
   return (

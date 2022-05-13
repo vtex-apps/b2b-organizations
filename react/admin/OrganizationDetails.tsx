@@ -1,5 +1,5 @@
 import type { FunctionComponent } from 'react'
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useQuery, useMutation } from 'react-apollo'
 import {
   Layout,
@@ -61,10 +61,10 @@ const OrganizationDetails: FunctionComponent = () => {
     [] as PaymentTerm[]
   )
 
-  const routerRef = useRef(null as any)
-  const { tab, handleTabChange } = useHashRouter({
-    routerRef,
+  // const routerRef = useRef(null as any)
+  const { tab, handleTabChange, routerRef } = useHashRouter({
     sessionKey: SESSION_STORAGE_KEY,
+    defaultPath: 'default',
   })
 
   const [loadingState, setLoadingState] = useState(false)
@@ -225,7 +225,7 @@ const OrganizationDetails: FunctionComponent = () => {
    */
   const tabsList = [
     {
-      label: 'Default',
+      label: formatMessage(messages.default),
       tab: 'default',
       component: (
         <OrganizationDetailsDefault
@@ -238,7 +238,7 @@ const OrganizationDetails: FunctionComponent = () => {
       ),
     },
     {
-      label: 'Cost Centers',
+      label: formatMessage(messages.costCenters),
       tab: 'cost-centers',
       component: (
         <OrganizationDetailsConstCenters
@@ -249,7 +249,7 @@ const OrganizationDetails: FunctionComponent = () => {
       ),
     },
     {
-      label: 'Collections',
+      label: formatMessage(messages.collections),
       tab: 'collections',
       component: (
         <OrganizationDetailsCollections
@@ -260,7 +260,7 @@ const OrganizationDetails: FunctionComponent = () => {
       ),
     },
     {
-      label: 'Pay terms',
+      label: formatMessage(messages.paymentTerms),
       tab: 'pay-terms',
 
       component: (
@@ -272,7 +272,7 @@ const OrganizationDetails: FunctionComponent = () => {
       ),
     },
     {
-      label: 'Price Tables',
+      label: formatMessage(messages.priceTables),
       tab: 'price-tables',
       component: (
         <OrganizationDetailsPriceTables
@@ -283,7 +283,7 @@ const OrganizationDetails: FunctionComponent = () => {
       ),
     },
     {
-      label: 'Users',
+      label: formatMessage(messages.users),
       tab: 'users',
       component: (
         <OrganizationDetailsUsers params={params} loadingState={loadingState} />
@@ -334,7 +334,7 @@ const OrganizationDetails: FunctionComponent = () => {
             <Switch>
               {tabsList.map(({ tab: path, component }) => (
                 <Route path={`/${path}`} exact>
-                  {component}
+                  <div className="mt6">{component}</div>
                 </Route>
               ))}
             </Switch>

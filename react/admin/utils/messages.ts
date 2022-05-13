@@ -96,6 +96,9 @@ export const organizationMessages = defineMessages({
   removeUser: {
     id: `${adminPrefix}organization-details.button.remove-user`,
   },
+  default: {
+    id: `${adminPrefix}organization-details.default`,
+  },
   email: {
     id: `${adminPrefix}user-details.email`,
   },
