@@ -10,6 +10,7 @@ import {
   Tab,
   Spinner,
   PageBlock,
+  Alert,
 } from 'vtex.styleguide'
 import { useToast } from '@vtex/admin-ui'
 import { useIntl, FormattedMessage } from 'react-intl'
@@ -57,6 +58,7 @@ const OrganizationDetails: FunctionComponent = () => {
   const [statusState, setStatusState] = useState('')
   const [collectionsState, setCollectionsState] = useState([] as Collection[])
   const [priceTablesState, setPriceTablesState] = useState([] as string[])
+  const [errorState, setErrorState] = useState('')
   const [paymentTermsState, setPaymentTermsState] = useState(
     [] as PaymentTerm[]
   )
@@ -83,6 +85,14 @@ const OrganizationDetails: FunctionComponent = () => {
    * Functions
    */
   const handleUpdateOrganization = () => {
+    setErrorState('')
+
+    if (!organizationNameState || organizationNameState.trim().length === 0) {
+      setErrorState(formatMessage(messages.organizationNameRequired))
+
+      return
+    }
+
     setLoadingState(true)
 
     const collections = collectionsState.map(collection => {
@@ -333,7 +343,11 @@ const OrganizationDetails: FunctionComponent = () => {
                 />
               ))}
             </Tabs>
-
+            {errorState && errorState.length > 0 && (
+              <Alert type="error" className="mt6 mb6">
+                {errorState}
+              </Alert>
+            )}
             <Switch>
               {tabsList.map(({ tab: path, component }) => (
                 <Route path={`/${path}`} exact>

@@ -27,11 +27,34 @@ const useHashRouter = ({
     setupTab(_tab)
   }
 
+  const onHashChange = () => {
+    const hash = window.location.hash.replace('#/', '')
+
+    if (routes.includes(hash)) {
+      setupTab(hash)
+    }
+  }
+
   useEffect(() => {
     if (!location) return
-
     setupTab(location.pathname.replace('/', ''))
   }, [location?.pathname])
+
+  useEffect(() => {
+    let lastHash = window.location.hash
+    const handleHashChange = () => {
+      if (lastHash !== window.location.hash) {
+        lastHash = window.location.hash
+        onHashChange()
+      }
+    }
+
+    const interval = setInterval(handleHashChange, 400)
+
+    return () => {
+      clearInterval(interval)
+    }
+  }, [])
 
   useEffect(() => {
     if (!routerRef?.current) return

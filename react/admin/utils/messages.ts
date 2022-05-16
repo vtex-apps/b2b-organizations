@@ -99,6 +99,9 @@ export const organizationMessages = defineMessages({
   default: {
     id: `${adminPrefix}organization-details.default`,
   },
+  organizationNameRequired: {
+    id: `${adminPrefix}organization-details.organization-name-required`,
+  },
   email: {
     id: `${adminPrefix}user-details.email`,
   },
