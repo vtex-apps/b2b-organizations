@@ -1,353 +1,98 @@
-import type { FunctionComponent, ChangeEvent } from 'react'
+import type { FunctionComponent } from 'react'
 import React, { useEffect, useState } from 'react'
 import { useQuery, useMutation } from 'react-apollo'
 import {
   Layout,
   PageHeader,
-  PageBlock,
-  Table,
-  Dropdown,
-  Spinner,
   Button,
-  Input,
-  Modal,
   IconCheck,
+  Tabs,
+  Tab,
+  Spinner,
+  PageBlock,
+  Alert,
 } from 'vtex.styleguide'
 import { useToast } from '@vtex/admin-ui'
 import { useIntl, FormattedMessage } from 'react-intl'
 import { useRuntime } from 'vtex.render-runtime'
-import {
-  AddressRules,
-  AddressForm,
-  AddressContainer,
-  CountrySelector,
-  PostalCodeGetter,
-} from 'vtex.address-form'
-import { StyleguideInput } from 'vtex.address-form/inputs'
-import { addValidation } from 'vtex.address-form/helpers'
+import { HashRouter, Route, Switch } from 'react-router-dom'
 
-import OrganizationUsersTable from '../components/OrganizationUsersTable'
 import { organizationMessages as messages } from './utils/messages'
-import { getEmptyAddress, isValidAddress } from '../utils/addresses'
 import GET_ORGANIZATION from '../graphql/getOrganization.graphql'
-import GET_LOGISTICS from '../graphql/getLogistics.graphql'
 import UPDATE_ORGANIZATION from '../graphql/updateOrganization.graphql'
-import GET_COLLECTIONS from '../graphql/getCollections.graphql'
-import GET_PAYMENT_TERMS from '../graphql/getPaymentTerms.graphql'
-import GET_PRICE_TABLES from '../graphql/getPriceTables.graphql'
-import GET_SALES_CHANNELS from '../graphql/getSalesChannels.graphql'
-import GET_COST_CENTERS from '../graphql/getCostCentersByOrganizationId.graphql'
-import CREATE_COST_CENTER from '../graphql/createCostCenter.graphql'
+import OrganizationDetailsConstCenters from './OrganizationDetails/OrganizationDetailsConstCenters'
+import type { Collection } from './OrganizationDetails/OrganizationDetailsCollections'
+import OrganizationDetailsCollections from './OrganizationDetails/OrganizationDetailsCollections'
+import type { PaymentTerm } from './OrganizationDetails/OrganizationDetailsPayTerms'
+import OrganizationDetailsPayTerms from './OrganizationDetails/OrganizationDetailsPayTerms'
+import type { PriceTable } from './OrganizationDetails/OrganizationDetailsPriceTables'
+import OrganizationDetailsPriceTables from './OrganizationDetails/OrganizationDetailsPriceTables'
+import OrganizationDetailsUsers from './OrganizationDetails/OrganizationDetailsUsers'
+import OrganizationDetailsDefault from './OrganizationDetails/OrganizationDetailsDefault'
+import useHashRouter from './OrganizationDetails/useHashRouter'
 
-interface CellRendererProps<RowType> {
+export interface CellRendererProps<RowType> {
   cellData: unknown
   rowData: RowType
   updateCellMeasurements: () => void
 }
 
-interface CostCenterSimple {
-  id: string
-  name: string
-  addresses: Address[]
-}
-
-interface Collection {
-  collectionId: string
-  name: string
-}
-
-interface PriceTable {
-  tableId: string
-  name?: string
-}
-
-interface PaymentTerm {
-  paymentTermId: number
-  name: string
-}
+const SESSION_STORAGE_KEY = 'organization-details-tab'
 
 const OrganizationDetails: FunctionComponent = () => {
-  const { formatMessage, formatDate } = useIntl()
-
-  const statusOptions = [
-    {
-      value: 'active',
-      label: formatMessage(messages.statusActive),
-    },
-    {
-      value: 'on-hold',
-      label: formatMessage(messages.statusOnHold),
-    },
-    {
-      value: 'inactive',
-      label: formatMessage(messages.statusInactive),
-    },
-  ]
-
+  /**
+   * Hooks
+   */
+  const { formatMessage } = useIntl()
   const {
-    culture: { country },
     route: { params },
     navigate,
   } = useRuntime()
 
   const showToast = useToast()
 
+  /**
+   * States
+   */
   const [organizationNameState, setOrganizationNameState] = useState('')
   const [statusState, setStatusState] = useState('')
   const [collectionsState, setCollectionsState] = useState([] as Collection[])
-  const [collectionOptions, setCollectionOptions] = useState([] as Collection[])
   const [priceTablesState, setPriceTablesState] = useState([] as string[])
-  const [priceTableOptions, setPriceTableOptions] = useState([] as PriceTable[])
-  const [costCenterPaginationState, setCostCenterPaginationState] = useState({
-    page: 1,
-    pageSize: 25,
-  })
-
-  const [collectionPaginationState, setCollectionPaginationState] = useState({
-    page: 1,
-    pageSize: 25,
-  })
-
+  const [errorState, setErrorState] = useState('')
   const [paymentTermsState, setPaymentTermsState] = useState(
     [] as PaymentTerm[]
   )
 
-  const [paymentTermsOptions, setPaymentTermsOptions] = useState(
-    [] as PaymentTerm[]
-  )
+  // const routerRef = useRef(null as any)
 
   const [loadingState, setLoadingState] = useState(false)
-  const [newCostCenterModalState, setNewCostCenterModalState] = useState(false)
-  const [newCostCenterName, setNewCostCenterName] = useState('')
-  const [
-    newCostCenterBusinessDocument,
-    setNewCostCenterBusinessDocument,
-  ] = useState('')
 
-  const [newCostCenterAddressState, setNewCostCenterAddressState] = useState(
-    addValidation(getEmptyAddress(country))
-  )
-
+  /**
+   * Queries
+   */
   const { data, loading, refetch } = useQuery(GET_ORGANIZATION, {
     variables: { id: params?.id },
     skip: !params?.id,
     ssr: false,
   })
 
-  const { data: costCentersData, refetch: refetchCostCenters } = useQuery(
-    GET_COST_CENTERS,
-    {
-      variables: { ...costCenterPaginationState, id: params?.id },
-      fetchPolicy: 'network-only',
-      skip: !params?.id,
-      ssr: false,
-    }
-  )
-
-  const {
-    data: collectionsData,
-    refetch: refetchCollections,
-  } = useQuery(GET_COLLECTIONS, { ssr: false })
-
-  const { data: paymentTermsData } = useQuery<{
-    getPaymentTerms: PaymentTerm[]
-  }>(GET_PAYMENT_TERMS, { ssr: false })
-
-  const { data: priceTablesData } = useQuery(GET_PRICE_TABLES, { ssr: false })
-  const { data: salesChannelsData } = useQuery(GET_SALES_CHANNELS, {
-    ssr: false,
-  })
-
-  const { data: logisticsData } = useQuery(GET_LOGISTICS, { ssr: false })
-
-  const translateCountries = () => {
-    const { shipsTo = [] } = logisticsData?.logistics ?? {}
-
-    return shipsTo.map((code: string) => ({
-      label: formatMessage({ id: `country.${code}` }),
-      value: code,
-    }))
-  }
-
+  /**
+   * Mutations
+   */
   const [updateOrganization] = useMutation(UPDATE_ORGANIZATION)
-  const [createCostCenter] = useMutation(CREATE_COST_CENTER)
 
-  useEffect(() => {
-    if (!data?.getOrganizationById || statusState) return
-
-    const collections =
-      data.getOrganizationById.collections?.map((collection: any) => {
-        return { name: collection.name, collectionId: collection.id }
-      }) ?? []
-
-    const paymentTerms =
-      data.getOrganizationById.paymentTerms?.map((paymentTerm: any) => {
-        return { name: paymentTerm.name, paymentTermId: paymentTerm.id }
-      }) ?? []
-
-    setOrganizationNameState(data.getOrganizationById.name)
-    setStatusState(data.getOrganizationById.status)
-    setCollectionsState(collections)
-    setPaymentTermsState(paymentTerms)
-    setPriceTablesState(data.getOrganizationById.priceTables ?? [])
-  }, [data])
-
-  useEffect(() => {
-    if (
-      !priceTablesData?.priceTables?.length ||
-      !salesChannelsData?.salesChannels?.length
-    ) {
-      return
-    }
-
-    const options = [] as PriceTable[]
-
-    salesChannelsData.salesChannels.forEach(
-      (channel: { id: string; name: string }) => {
-        options.push({
-          tableId: channel.id,
-          name: `${channel.name} (${channel.id})`,
-        })
-      }
-    )
-
-    priceTablesData.priceTables.forEach((priceTable: string) => {
-      if (!options.find(option => option.tableId === priceTable)) {
-        options.push({ tableId: priceTable })
-      }
-    })
-
-    setPriceTableOptions(options)
-  }, [priceTablesData, salesChannelsData])
-
-  useEffect(() => {
-    if (
-      !collectionsData?.collections?.items?.length ||
-      collectionOptions.length
-    ) {
-      return
-    }
-
-    const collections =
-      collectionsData.collections.items.map((collection: any) => {
-        return { name: collection.name, collectionId: collection.id }
-      }) ?? []
-
-    setCollectionOptions(collections)
-  }, [collectionsData])
-
-  useEffect(() => {
-    if (
-      !paymentTermsData?.getPaymentTerms?.length ||
-      paymentTermsOptions.length
-    ) {
-      return
-    }
-
-    const paymentTerms =
-      paymentTermsData.getPaymentTerms.map((paymentTerm: any) => {
-        return { name: paymentTerm.name, paymentTermId: paymentTerm.id }
-      }) ?? []
-
-    setPaymentTermsOptions(paymentTerms)
-  }, [paymentTermsData])
-
-  const handleCostCentersPrevClick = () => {
-    if (costCenterPaginationState.page === 1) return
-
-    const newPage = costCenterPaginationState.page - 1
-
-    setCostCenterPaginationState({
-      ...costCenterPaginationState,
-      page: newPage,
-    })
-
-    refetchCostCenters({
-      ...costCenterPaginationState,
-      id: params?.id,
-      page: newPage,
-    })
-  }
-
-  const handleCostCentersNextClick = () => {
-    const newPage = (costCenterPaginationState.page as number) + 1
-
-    setCostCenterPaginationState({
-      ...costCenterPaginationState,
-      page: newPage,
-    })
-
-    refetchCostCenters({
-      ...costCenterPaginationState,
-      id: params?.id,
-      page: newPage,
-    })
-  }
-
-  const handleCostCentersRowsChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const {
-      target: { value },
-    } = e
-
-    setCostCenterPaginationState({
-      page: 1,
-      pageSize: +value,
-    })
-
-    refetchCostCenters({
-      id: params?.id,
-      page: 1,
-      pageSize: +value,
-    })
-  }
-
-  const handleCollectionsPrevClick = () => {
-    if (collectionPaginationState.page === 1) return
-
-    const newPage = collectionPaginationState.page - 1
-
-    setCollectionPaginationState({
-      ...collectionPaginationState,
-      page: newPage,
-    })
-
-    refetchCollections({
-      ...collectionPaginationState,
-      page: newPage,
-    })
-  }
-
-  const handleCollectionsNextClick = () => {
-    const newPage = (collectionPaginationState.page as number) + 1
-
-    setCollectionPaginationState({
-      ...collectionPaginationState,
-      page: newPage,
-    })
-
-    refetchCollections({
-      ...collectionPaginationState,
-      page: newPage,
-    })
-  }
-
-  const handleRowsChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const {
-      target: { value },
-    } = e
-
-    setCollectionPaginationState({
-      page: 1,
-      pageSize: +value,
-    })
-
-    refetchCollections({
-      page: 1,
-      pageSize: +value,
-    })
-  }
-
+  /**
+   * Functions
+   */
   const handleUpdateOrganization = () => {
+    setErrorState('')
+
+    if (!organizationNameState || organizationNameState.trim().length === 0) {
+      setErrorState(formatMessage(messages.organizationNameRequired))
+
+      return
+    }
+
     setLoadingState(true)
 
     const collections = collectionsState.map(collection => {
@@ -384,170 +129,6 @@ const OrganizationDetails: FunctionComponent = () => {
           message: formatMessage(messages.toastUpdateFailure),
         })
       })
-  }
-
-  const handleAddCollections = (rowParams: any) => {
-    const { selectedRows = [] } = rowParams
-    const newCollections = [] as Collection[]
-
-    selectedRows.forEach((row: any) => {
-      if (
-        !collectionsState.some(
-          collection => collection.collectionId === row.collectionId
-        )
-      ) {
-        newCollections.push({ name: row.name, collectionId: row.collectionId })
-      }
-    })
-
-    setCollectionsState([...collectionsState, ...newCollections])
-  }
-
-  const handleRemoveCollections = (rowParams: any) => {
-    const { selectedRows = [] } = rowParams
-    const collectionsToRemove = [] as string[]
-
-    selectedRows.forEach((row: any) => {
-      collectionsToRemove.push(row.collectionId)
-    })
-
-    const newCollectionList = collectionsState.filter(
-      collection => !collectionsToRemove.includes(collection.collectionId)
-    )
-
-    setCollectionsState(newCollectionList)
-  }
-
-  const handleAddPaymentTerms = (rowParams: {
-    selectedRows: PaymentTerm[]
-  }) => {
-    const { selectedRows = [] } = rowParams
-    const newPaymentTerms = [] as PaymentTerm[]
-
-    selectedRows.forEach((row: any) => {
-      if (
-        !paymentTermsState.some(
-          paymentTerm => paymentTerm.paymentTermId === row.paymentTermId
-        )
-      ) {
-        newPaymentTerms.push({
-          name: row.name,
-          paymentTermId: row.paymentTermId,
-        })
-      }
-    })
-
-    setPaymentTermsState([...paymentTermsState, ...newPaymentTerms])
-  }
-
-  const handleRemovePaymentTerms = (rowParams: {
-    selectedRows: PaymentTerm[]
-  }) => {
-    const { selectedRows = [] } = rowParams
-    const paymentTermsToRemove = [] as number[]
-
-    selectedRows.forEach(row => {
-      paymentTermsToRemove.push(row.paymentTermId)
-    })
-
-    const newPaymentTerms = paymentTermsState.filter(
-      paymentTerm => !paymentTermsToRemove.includes(paymentTerm.paymentTermId)
-    )
-
-    setPaymentTermsState(newPaymentTerms)
-  }
-
-  const handleAddPriceTables = (rowParams: any) => {
-    const { selectedRows = [] } = rowParams
-    const newPriceTables = [] as string[]
-
-    selectedRows.forEach((row: PriceTable) => {
-      if (!priceTablesState.includes(row.tableId)) {
-        newPriceTables.push(row.tableId)
-      }
-    })
-
-    setPriceTablesState(prevState => [...prevState, ...newPriceTables])
-  }
-
-  const handleRemovePriceTables = (rowParams: any) => {
-    const { selectedRows = [] } = rowParams
-    const priceTablesToRemove = [] as string[]
-
-    selectedRows.forEach((row: PriceTable) => {
-      priceTablesToRemove.push(row.tableId)
-    })
-
-    const newPriceTablesList = priceTablesState.filter(
-      priceTable => !priceTablesToRemove.includes(priceTable)
-    )
-
-    setPriceTablesState(newPriceTablesList)
-  }
-
-  const handleAddNewCostCenter = () => {
-    setLoadingState(true)
-    const newAddress = {
-      addressId: newCostCenterAddressState.addressId.value,
-      addressType: newCostCenterAddressState.addressType.value,
-      city: newCostCenterAddressState.city.value,
-      complement: newCostCenterAddressState.complement.value,
-      country: newCostCenterAddressState.country.value,
-      receiverName: newCostCenterAddressState.receiverName.value,
-      geoCoordinates: newCostCenterAddressState.geoCoordinates.value,
-      neighborhood: newCostCenterAddressState.neighborhood.value,
-      number: newCostCenterAddressState.number.value,
-      postalCode: newCostCenterAddressState.postalCode.value,
-      reference: newCostCenterAddressState.reference.value,
-      state: newCostCenterAddressState.state.value,
-      street: newCostCenterAddressState.street.value,
-      addressQuery: newCostCenterAddressState.addressQuery.value,
-    }
-
-    const variables = {
-      organizationId: params.id,
-      input: {
-        name: newCostCenterName,
-        addresses: [newAddress],
-        businessDocument: newCostCenterBusinessDocument,
-      },
-    }
-
-    createCostCenter({ variables })
-      .then(() => {
-        setNewCostCenterModalState(false)
-        setLoadingState(false)
-        showToast({
-          type: 'success',
-          message: formatMessage(messages.toastAddCostCenterSuccess),
-        })
-        refetchCostCenters({ ...costCenterPaginationState, id: params?.id })
-      })
-      .catch(error => {
-        setNewCostCenterModalState(false)
-        setLoadingState(false)
-        console.error(error)
-        showToast({
-          type: 'error',
-          message: formatMessage(messages.toastAddCostCenterFailure),
-        })
-      })
-  }
-
-  const handleNewCostCenterAddressChange = (
-    changedAddress: AddressFormFields
-  ) => {
-    const curAddress = newCostCenterAddressState
-
-    const newAddress = { ...curAddress, ...changedAddress }
-
-    setNewCostCenterAddressState(newAddress)
-  }
-
-  const handleCloseModal = () => {
-    setNewCostCenterModalState(false)
-    setNewCostCenterName('')
-    setNewCostCenterAddressState(addValidation(getEmptyAddress(country)))
   }
 
   const getSchema = (
@@ -622,48 +203,106 @@ const OrganizationDetails: FunctionComponent = () => {
     }
   }
 
-  const getCostCenterSchema = () => ({
-    properties: {
-      name: {
-        title: formatMessage(messages.detailsColumnName),
-      },
-      addresses: {
-        title: formatMessage(messages.columnAddresses),
-        cellRenderer: ({
-          rowData: { addresses },
-        }: CellRendererProps<CostCenterSimple>) => (
-          <span>{addresses.length}</span>
-        ),
-      },
-    },
-  })
+  /**
+   * Effects
+   */
+  useEffect(() => {
+    if (!data?.getOrganizationById || statusState) return
 
-  if (!data) {
-    return (
-      <Layout
-        fullWidth
-        pageHeader={
-          <PageHeader
-            title={formatMessage(messages.detailsPageTitle)}
-            linkLabel={formatMessage(messages.back)}
-            onLinkClick={() => {
-              navigate({
-                page: 'admin.app.b2b-organizations.organizations',
-              })
-            }}
-          />
-        }
-      >
-        <PageBlock>
-          {loading ? (
-            <Spinner />
-          ) : (
-            <FormattedMessage id="admin/b2b-organizations.organization-details.empty-state" />
-          )}
-        </PageBlock>
-      </Layout>
-    )
-  }
+    const collections =
+      data.getOrganizationById.collections?.map((collection: any) => {
+        return { name: collection.name, collectionId: collection.id }
+      }) ?? []
+
+    const paymentTerms =
+      data.getOrganizationById.paymentTerms?.map((paymentTerm: any) => {
+        return { name: paymentTerm.name, paymentTermId: paymentTerm.id }
+      }) ?? []
+
+    setOrganizationNameState(data.getOrganizationById.name)
+    setStatusState(data.getOrganizationById.status)
+    setCollectionsState(collections)
+    setPaymentTermsState(paymentTerms)
+    setPriceTablesState(data.getOrganizationById.priceTables ?? [])
+  }, [data])
+
+  /**
+   * Data Variables
+   */
+
+  const tabsList = [
+    {
+      label: formatMessage(messages.default),
+      tab: 'default',
+      component: (
+        <OrganizationDetailsDefault
+          organizationNameState={organizationNameState}
+          setOrganizationNameState={setOrganizationNameState}
+          statusState={statusState}
+          setStatusState={setStatusState}
+          data={data}
+        />
+      ),
+    },
+    {
+      label: formatMessage(messages.costCenters),
+      tab: 'cost-centers',
+      component: (
+        <OrganizationDetailsConstCenters
+          setLoadingState={setLoadingState}
+          showToast={showToast}
+          loadingState={loadingState}
+        />
+      ),
+    },
+    {
+      label: formatMessage(messages.collections),
+      tab: 'collections',
+      component: (
+        <OrganizationDetailsCollections
+          getSchema={getSchema}
+          collectionsState={collectionsState}
+          setCollectionsState={setCollectionsState}
+        />
+      ),
+    },
+    {
+      label: formatMessage(messages.paymentTerms),
+      tab: 'pay-terms',
+
+      component: (
+        <OrganizationDetailsPayTerms
+          getSchema={getSchema}
+          paymentTermsState={paymentTermsState}
+          setPaymentTermsState={setPaymentTermsState}
+        />
+      ),
+    },
+    {
+      label: formatMessage(messages.priceTables),
+      tab: 'price-tables',
+      component: (
+        <OrganizationDetailsPriceTables
+          getSchema={getSchema}
+          priceTablesState={priceTablesState}
+          setPriceTablesState={setPriceTablesState}
+        />
+      ),
+    },
+    {
+      label: formatMessage(messages.users),
+      tab: 'users',
+      component: (
+        <OrganizationDetailsUsers params={params} loadingState={loadingState} />
+      ),
+    },
+  ]
+
+  const { tab, handleTabChange, routerRef } = useHashRouter({
+    sessionKey: SESSION_STORAGE_KEY,
+    defaultPath: 'default',
+    routes: tabsList.map(_tab => _tab.tab),
+  })
 
   return (
     <Layout
@@ -688,357 +327,41 @@ const OrganizationDetails: FunctionComponent = () => {
         </PageHeader>
       }
     >
-      <PageBlock>
-        <Input
-          autocomplete="off"
-          size="large"
-          label={
-            <h4 className="t-heading-5 mb0 pt3">
-              <FormattedMessage id="admin/b2b-organizations.organization-details.organization-name" />
-            </h4>
-          }
-          value={organizationNameState}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-            setOrganizationNameState(e.target.value)
-          }}
-          required
-        />
-        <div className="pv3">
-          <Dropdown
-            label={
-              <h4 className="t-heading-5 mb0 pt3">
-                <FormattedMessage id="admin/b2b-organizations.organization-details.status" />
-              </h4>
-            }
-            placeholder={formatMessage(messages.status)}
-            options={statusOptions}
-            value={statusState}
-            onChange={(_: void, v: string) => setStatusState(v)}
-          />
-        </div>
-        <h4 className="t-heading-5 mb0 pt3">
-          <FormattedMessage id="admin/b2b-organizations.organization-details.created" />
-        </h4>
-        <div className="mv3">
-          {formatDate(data.getOrganizationById.created, {
-            day: 'numeric',
-            month: 'numeric',
-            year: 'numeric',
-          })}
-        </div>
-      </PageBlock>
-      <PageBlock title={formatMessage(messages.costCenters)}>
-        <Table
-          fullWidth
-          schema={getCostCenterSchema()}
-          items={costCentersData?.getCostCentersByOrganizationId?.data}
-          onRowClick={({
-            rowData: { id },
-          }: CellRendererProps<CostCenterSimple>) => {
-            if (!id) return
-
-            navigate({
-              page: 'admin.app.b2b-organizations.costCenter-details',
-              params: { id },
-            })
-          }}
-          pagination={{
-            onNextClick: handleCostCentersNextClick,
-            onPrevClick: handleCostCentersPrevClick,
-            onRowsChange: handleCostCentersRowsChange,
-            currentItemFrom:
-              (costCenterPaginationState.page - 1) *
-                costCenterPaginationState.pageSize +
-              1,
-            currentItemTo:
-              costCentersData?.getCostCentersByOrganizationId?.pagination
-                ?.total <
-              costCenterPaginationState.page *
-                costCenterPaginationState.pageSize
-                ? costCentersData?.getCostCentersByOrganizationId?.pagination
-                    ?.total
-                : costCenterPaginationState.page *
-                  costCenterPaginationState.pageSize,
-            textShowRows: formatMessage(messages.showRows),
-            textOf: formatMessage(messages.of),
-            totalItems:
-              costCentersData?.getCostCentersByOrganizationId?.pagination
-                ?.total ?? 0,
-            rowsOptions: [25, 50, 100],
-          }}
-          toolbar={{
-            newLine: {
-              label: formatMessage(messages.new),
-              handleCallback: () => setNewCostCenterModalState(true),
-            },
-          }}
-        ></Table>
-      </PageBlock>
-      <PageBlock variation="half" title={formatMessage(messages.collections)}>
-        <div>
-          <h4 className="t-heading-4 mt0 mb0">
-            <FormattedMessage id="admin/b2b-organizations.organization-details.assigned-to-org" />
-          </h4>
-          <Table
-            fullWidth
-            schema={getSchema()}
-            items={collectionsState}
-            bulkActions={{
-              texts: {
-                rowsSelected: (qty: number) =>
-                  formatMessage(messages.selectedRows, {
-                    qty,
-                  }),
-              },
-              main: {
-                label: formatMessage(messages.removeFromOrg),
-                handleCallback: (rowParams: any) =>
-                  handleRemoveCollections(rowParams),
-              },
-            }}
-          />
-        </div>
-        <div>
-          <h4 className="t-heading-4 mt0 mb0">
-            <FormattedMessage id="admin/b2b-organizations.organization-details.available" />
-          </h4>
-          <Table
-            fullWidth
-            schema={getSchema('availableCollections')}
-            items={collectionOptions}
-            pagination={{
-              onNextClick: handleCollectionsNextClick,
-              onPrevClick: handleCollectionsPrevClick,
-              onRowsChange: handleRowsChange,
-              currentItemFrom:
-                (collectionPaginationState.page - 1) *
-                  collectionPaginationState.pageSize +
-                1,
-              currentItemTo:
-                collectionsData?.collections?.paging?.total <
-                collectionPaginationState.page *
-                  collectionPaginationState.pageSize
-                  ? collectionsData?.collections?.paging?.total
-                  : collectionPaginationState.page *
-                    collectionPaginationState.pageSize,
-              textShowRows: formatMessage(messages.showRows),
-              textOf: formatMessage(messages.of),
-              totalItems: collectionsData?.collections?.paging?.total ?? 0,
-              rowsOptions: [25, 50, 100],
-            }}
-            bulkActions={{
-              texts: {
-                rowsSelected: (qty: number) =>
-                  formatMessage(messages.selectedRows, {
-                    qty,
-                  }),
-              },
-              main: {
-                label: formatMessage(messages.addToOrg),
-                handleCallback: (rowParams: any) =>
-                  handleAddCollections(rowParams),
-              },
-            }}
-          />
-        </div>
-      </PageBlock>
-      <PageBlock variation="half" title={formatMessage(messages.paymentTerms)}>
-        <div>
-          <h4 className="t-heading-4 mt0 mb0">
-            <FormattedMessage id="admin/b2b-organizations.organization-details.assigned-to-org" />
-          </h4>
-          <Table
-            fullWidth
-            schema={getSchema()}
-            items={paymentTermsState}
-            bulkActions={{
-              texts: {
-                rowsSelected: (qty: number) =>
-                  formatMessage(messages.selectedRows, {
-                    qty,
-                  }),
-              },
-              main: {
-                label: formatMessage(messages.removeFromOrg),
-                handleCallback: (rowParams: any) =>
-                  handleRemovePaymentTerms(rowParams),
-              },
-            }}
-          />
-        </div>
-        <div>
-          <h4 className="t-heading-4 mt0 mb0">
-            <FormattedMessage id="admin/b2b-organizations.organization-details.available" />
-          </h4>
-          <Table
-            fullWidth
-            schema={getSchema('availablePayments')}
-            items={paymentTermsOptions}
-            bulkActions={{
-              texts: {
-                rowsSelected: (qty: number) =>
-                  formatMessage(messages.selectedRows, {
-                    qty,
-                  }),
-              },
-              main: {
-                label: formatMessage(messages.addToOrg),
-                handleCallback: (rowParams: any) =>
-                  handleAddPaymentTerms(rowParams),
-              },
-            }}
-          />
-        </div>
-      </PageBlock>
-      <PageBlock variation="half" title={formatMessage(messages.priceTables)}>
-        <div>
-          <h4 className="t-heading-4 mt0 mb0">
-            <FormattedMessage id="admin/b2b-organizations.organization-details.assigned-to-org" />
-          </h4>
-          <Table
-            fullWidth
-            schema={getSchema()}
-            items={priceTablesState.map(priceTable => {
-              return {
-                tableId: priceTable,
-                name:
-                  priceTableOptions.find(
-                    option => option.tableId === priceTable
-                  )?.name ?? priceTable,
-              }
-            })}
-            bulkActions={{
-              texts: {
-                rowsSelected: (qty: number) =>
-                  formatMessage(messages.selectedRows, {
-                    qty,
-                  }),
-              },
-              main: {
-                label: formatMessage(messages.removeFromOrg),
-                handleCallback: (rowParams: any) =>
-                  handleRemovePriceTables(rowParams),
-              },
-            }}
-          />
-        </div>
-        <div>
-          <h4 className="t-heading-4 mt0 mb0">
-            <FormattedMessage id="admin/b2b-organizations.organization-details.available" />
-          </h4>
-          <Table
-            fullWidth
-            schema={getSchema('availablePriceTables')}
-            items={priceTableOptions}
-            bulkActions={{
-              texts: {
-                rowsSelected: (qty: number) =>
-                  formatMessage(messages.selectedRows, {
-                    qty,
-                  }),
-              },
-              main: {
-                label: formatMessage(messages.addToOrg),
-                handleCallback: (rowParams: any) =>
-                  handleAddPriceTables(rowParams),
-              },
-            }}
-          />
-        </div>
-      </PageBlock>
-      <PageBlock title={formatMessage(messages.users)}>
-        <OrganizationUsersTable
-          organizationId={params?.id}
-          permissions={[]}
-          refetchCostCenters={loadingState}
-          isAdmin={true}
-        />
-      </PageBlock>
-      <Modal
-        centered
-        bottomBar={
-          <div className="nowrap">
-            <span className="mr4">
-              <Button
-                variation="tertiary"
-                onClick={() => handleCloseModal()}
-                disabled={loadingState}
-              >
-                {formatMessage(messages.cancel)}
-              </Button>
-            </span>
-            <span>
-              <Button
-                variation="primary"
-                onClick={() => handleAddNewCostCenter()}
-                isLoading={loadingState}
-                disabled={
-                  !newCostCenterName ||
-                  !isValidAddress(newCostCenterAddressState)
-                }
-              >
-                {formatMessage(messages.add)}
-              </Button>
-            </span>
-          </div>
-        }
-        isOpen={newCostCenterModalState}
-        onClose={() => handleCloseModal()}
-        closeOnOverlayClick={false}
-      >
-        <p className="f3 f1-ns fw3 gray">
-          <FormattedMessage id="admin/b2b-organizations.organization-details.add-costCenter" />
-        </p>
-        <div className="w-100 mv6">
-          <Input
-            autocomplete="off"
-            size="large"
-            label={formatMessage(messages.costCenterName)}
-            value={newCostCenterName}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-              setNewCostCenterName(e.target.value)
-            }}
-            required
-          />
-        </div>
-        <div className="w-100 mv6">
-          <Input
-            autocomplete="off"
-            size="large"
-            label={formatMessage(messages.businessDocument)}
-            helpText={formatMessage(messages.businessDocumentHelp)}
-            value={newCostCenterBusinessDocument}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-              setNewCostCenterBusinessDocument(e.target.value)
-            }}
-          />
-        </div>
-        <div className="w-100 mv6">
-          <FormattedMessage id="admin/b2b-organizations.organization-details.add-costCenter.helpText" />
-        </div>
-        <AddressRules
-          country={newCostCenterAddressState?.country?.value}
-          shouldUseIOFetching
-          useGeolocation={false}
-        >
-          <AddressContainer
-            address={newCostCenterAddressState}
-            Input={StyleguideInput}
-            onChangeAddress={handleNewCostCenterAddressChange}
-            autoCompletePostalCode
-          >
-            <CountrySelector shipsTo={translateCountries()} />
-
-            <PostalCodeGetter />
-
-            <AddressForm
-              Input={StyleguideInput}
-              omitAutoCompletedFields={false}
-              omitPostalCodeFields
-            />
-          </AddressContainer>
-        </AddressRules>
-      </Modal>
+      {loading ? (
+        <PageBlock>
+          <Spinner />
+        </PageBlock>
+      ) : (
+        (data && (
+          <HashRouter ref={routerRef}>
+            <Tabs>
+              {tabsList.map((item: { label: string; tab: string }) => (
+                <Tab
+                  label={item.label}
+                  active={tab === item.tab}
+                  onClick={() => handleTabChange(item.tab)}
+                />
+              ))}
+            </Tabs>
+            {errorState && errorState.length > 0 && (
+              <Alert type="error" className="mt6 mb6">
+                {errorState}
+              </Alert>
+            )}
+            <Switch>
+              {tabsList.map(({ tab: path, component }) => (
+                <Route path={`/${path}`} exact>
+                  <div className="mt6">{component}</div>
+                </Route>
+              ))}
+            </Switch>
+          </HashRouter>
+        )) ?? (
+          <PageBlock>
+            <FormattedMessage id="admin/b2b-organizations.organization-details.empty-state" />
+          </PageBlock>
+        )
+      )}
     </Layout>
   )
 }

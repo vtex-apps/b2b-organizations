@@ -13,6 +13,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Added a permission to sales manager to handle the users (manager and representative)
 - Enabled all the roles on the admin UI interface organization add and edit 
 
+## [1.9.0] - 2022-05-17
+
+### Added
+
+- Added on the Organizations' page the navigation tabs to switch between organizations and organizations requests
+- Added on the Organizations details page the navigation tabs to switch between the components being organized
+
 ## [1.8.0] - 2022-05-02
 
 ### Added
