@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [1.9.0] - 2022-05-17
+
 ### Added
 
 - Added on the Organizations' page the navigation tabs to switch between organizations and organizations requests
