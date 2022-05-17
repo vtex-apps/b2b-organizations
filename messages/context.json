@@ -92,6 +92,8 @@
   "admin/b2b-organizations.organization-details.edit-user": "admin/b2b-organizations.organization-details.edit-user",
   "admin/b2b-organizations.organization-details.remove-user": "admin/b2b-organizations.organization-details.remove-user",
   "admin/b2b-organizations.organization-details.remove-user.helpText": "admin/b2b-organizations.organization-details.remove-user.helpText",
+  "admin/b2b-organizations.organization-details.default": "admin/b2b-organizations.organization-details.default",
+  "admin/b2b-organizations.organization-details.organization-name-required": "admin/b2b-organizations.organization-details.organization-name-required",
   "admin/b2b-organizations.costCenter-details.toast.update-success": "admin/b2b-organizations.costCenter-details.toast.update-success",
   "admin/b2b-organizations.costCenter-details.toast.update-failure": "admin/b2b-organizations.costCenter-details.toast.update-failure",
   "admin/b2b-organizations.costCenter-details.toast.delete-failure": "admin/b2b-organizations.costCenter-details.toast.delete-failure",
