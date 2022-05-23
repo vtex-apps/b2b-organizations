@@ -122,9 +122,9 @@ const OrganizationUsersTable: FunctionComponent<Props> = ({
   const [impersonateUser] = useMutation(IMPERSONATE_USER)
 
   useEffect(() => {
-    if (!data?.getUsers?.data?.length) return
+    if (!data?.getUsersPaginated?.data?.length) return
 
-    const users = data.getUsers.data.sort(compareUsers)
+    const users = data.getUsersPaginated.data.sort(compareUsers)
 
     setUsersState(users)
   }, [data])
@@ -346,7 +346,8 @@ const OrganizationUsersTable: FunctionComponent<Props> = ({
   const getSchema = () => {
     const isEnabled = ({ role: { slug } }: { role: { slug: string } }) =>
       (!canEdit && !canEditSales) ||
-      (canEdit && !canEditSales && slug.indexOf('sales') > -1)
+      (canEdit && !canEditSales && slug.includes('sales')) ||
+      (!canEdit && canEditSales && !slug.includes('sales'))
 
     const properties = {
       email: {
@@ -535,7 +536,7 @@ const OrganizationUsersTable: FunctionComponent<Props> = ({
       ]
 
   const { page, pageSize, search, sortedBy, sortOrder } = variableState
-  const { total } = data?.getUsers?.pagination ?? 0
+  const { total } = data?.getUsersPaginated?.pagination ?? 0
   const toolbar = {
     inputSearch: {
       value: search,

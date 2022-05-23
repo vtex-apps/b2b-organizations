@@ -92,7 +92,7 @@
   "admin/b2b-organizations.organization-details.edit-user": "Edit User",
   "admin/b2b-organizations.organization-details.remove-user": "Remove User",
   "admin/b2b-organizations.organization-details.remove-user.helpText": "Are you sure you want to remove the user {email}? Their user account will continue to exist, but they will no longer have access to this organization.",
-  "admin/b2b-organizations.organization-details.sales-admin-title": "Sales Admin View",
+  "admin/b2b-organizations.organization-details.sales-admin-title": "Manage Sales Users",
   "admin/b2b-organizations.organization-details.default": "General",
   "admin/b2b-organizations.organization-details.organization-name-required": "The organization name is required.",
   "admin/b2b-organizations.costCenter-details.toast.update-success": "Cost center updated successfully",

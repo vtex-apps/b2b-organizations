@@ -7,7 +7,7 @@ query GetUsers(
   $sortOrder: String
   $sortedBy: String
 ) {
-  getUsers(
+  getUsersPaginated(
     organizationId: $organizationId
     costCenterId: $costCenterId
     page: $page
