@@ -183,7 +183,7 @@
   "store/b2b-organizations.organization-details.edit-user": "Edit User",
   "store/b2b-organizations.organization-details.remove-user": "Remove User",
   "store/b2b-organizations.organization-details.remove-user.helpText": "Are you sure you want to remove the user {email}? Their user account will continue to exist, but they will no longer have access to your organization.",
-  "store/b2b-organizations.organization-details.sales-admin-title": "Sales Admin View",
+  "store/b2b-organizations.organization-details.sales-admin-title": "Manage Sales Users",
   "store/b2b-organizations.costCenter-details.toast.update-success": "Cost center updated successfully",
   "store/b2b-organizations.costCenter-details.toast.update-failure": "Update failed, see console for details",
   "store/b2b-organizations.costCenter-details.toast.delete-failure": "Deletion failed, see console for details",
