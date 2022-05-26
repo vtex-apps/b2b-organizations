@@ -206,6 +206,7 @@ const EditUserModal: FunctionComponent<Props> = ({
           </p>
 
           <OrganizationsAutocomplete
+            isAdmin={isAdmin}
             organizationId={organizationId}
             onChange={event => setOrganizationState(event.value as string)}
           />

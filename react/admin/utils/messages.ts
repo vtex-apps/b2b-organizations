@@ -48,6 +48,9 @@ export const organizationMessages = defineMessages({
   of: {
     id: `${adminPrefix}of`,
   },
+  autocompleteSearching: {
+    id: `${adminPrefix}autocomplete-searching`,
+  },
   new: {
     id: `${adminPrefix}organization-details.button.new`,
   },

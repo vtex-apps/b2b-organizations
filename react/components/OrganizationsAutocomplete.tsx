@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import { useQuery } from 'react-apollo'
 import { AutocompleteInput } from 'vtex.styleguide'
+import { useIntl } from 'react-intl'
 
 import GET_ORGANIZATIONS from '../graphql/getOrganizations.graphql'
 import GET_ORGANIZATION_BY_ID from '../graphql/getOrganization.graphql'
+import { organizationMessages as adminMessages } from '../admin/utils/messages'
+import { organizationMessages as storeMessages } from './utils/messages'
 
 const initialState = {
   status: ['active', 'on-hold', 'inactive'],
@@ -17,9 +20,14 @@ const initialState = {
 interface Props {
   onChange: (value: { value: string | null; label: string }) => void
   organizationId: string
+  isAdmin: boolean
 }
 
-const OrganizationsAutocomplete = ({ onChange, organizationId }: Props) => {
+const OrganizationsAutocomplete = ({
+  onChange,
+  organizationId,
+  isAdmin,
+}: Props) => {
   const [term, setTerm] = useState('')
   const [values, setValues] = useState([] as any)
   const { data, loading, refetch } = useQuery(GET_ORGANIZATIONS, {
@@ -34,6 +42,8 @@ const OrganizationsAutocomplete = ({ onChange, organizationId }: Props) => {
     fetchPolicy: 'network-only',
     notifyOnNetworkStatusChange: true,
   })
+
+  const { formatMessage } = useIntl()
 
   const options = {
     onSelect: (value: any) => onChange(value),
@@ -86,7 +96,11 @@ const OrganizationsAutocomplete = ({ onChange, organizationId }: Props) => {
       setTerm(_term)
     },
     onClear,
-    placeholder: 'Search organization...',
+    placeholder: `${formatMessage(
+      isAdmin
+        ? adminMessages.autocompleteSearching
+        : storeMessages.autocompleteSearching
+    )}...`,
     value: term,
   }
 

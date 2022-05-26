@@ -57,6 +57,28 @@ const initialState = {
   organizations: ['active', 'on-hold', 'inactive'],
 }
 
+const ruleClickEnabled = ({
+  isAdmin,
+  canEditSales,
+  slug,
+  canEdit,
+  isSalesAdmin,
+}: {
+  isAdmin: boolean
+  canEditSales: boolean
+  slug: string
+  canEdit: boolean
+  isSalesAdmin: boolean
+}) => {
+  return (
+    !isAdmin &&
+    ((!canEdit && !canEditSales) ||
+      (slug.match(/sales-admin/) && !isSalesAdmin && !canEdit) ||
+      (!slug.match(/sales/) && canEditSales) ||
+      (slug.match(/sales/) && canEdit))
+  )
+}
+
 const OrganizationUsersTable: FunctionComponent<Props> = ({
   organizationId,
   permissions,
@@ -345,9 +367,13 @@ const OrganizationUsersTable: FunctionComponent<Props> = ({
 
   const getSchema = () => {
     const isEnabled = ({ role: { slug } }: { role: { slug: string } }) =>
-      (!canEdit && !canEditSales) ||
-      (canEdit && !canEditSales && slug.includes('sales')) ||
-      (!canEdit && canEditSales && !slug.includes('sales'))
+      ruleClickEnabled({
+        isAdmin,
+        canEditSales,
+        slug,
+        canEdit,
+        isSalesAdmin,
+      })
 
     const properties = {
       email: {
@@ -373,8 +399,12 @@ const OrganizationUsersTable: FunctionComponent<Props> = ({
       organizationName: {
         title: formatMessage(storeMessages.columnOrganizationName),
         cellRenderer: ({
-          rowData: { organizationName },
-        }: CellRendererProps) => <span>{organizationName}</span>,
+          rowData: { organizationName, role },
+        }: CellRendererProps) => (
+          <span className={isEnabled({ role }) ? 'c-disabled' : ''}>
+            {organizationName}
+          </span>
+        ),
       },
       costCenterName: {
         title: formatMessage(
@@ -480,28 +510,25 @@ const OrganizationUsersTable: FunctionComponent<Props> = ({
 
   const handleRowClick = ({ rowData }: CellRendererProps) => {
     if (
-      !isAdmin &&
-      ((!canEdit && !canEditSales) ||
-        (rowData.role?.slug.match(/sales-admin/) &&
-          !isSalesAdmin &&
-          !canEdit) ||
-        (!rowData.role?.slug.match(/sales/) && canEditSales) ||
-        (rowData.role?.slug.match(/sales/) && canEdit))
-    ) {
-      return
-    }
-
-    setEditUserDetails({
-      id: rowData.id,
-      roleId: rowData.roleId,
-      userId: rowData.userId,
-      clId: rowData.clId,
-      orgId: rowData.orgId,
-      costId: rowData.costId,
-      name: rowData.name,
-      email: rowData.email,
-      canImpersonate: rowData.canImpersonate,
-    })
+      !ruleClickEnabled({
+        isAdmin,
+        canEditSales,
+        slug: rowData.role?.slug ?? '',
+        canEdit,
+        isSalesAdmin,
+      })
+    )
+      setEditUserDetails({
+        id: rowData.id,
+        roleId: rowData.roleId,
+        userId: rowData.userId,
+        clId: rowData.clId,
+        orgId: rowData.orgId,
+        costId: rowData.costId,
+        name: rowData.name,
+        email: rowData.email,
+        canImpersonate: rowData.canImpersonate,
+      })
     setEditUserModalOpen(true)
   }
 

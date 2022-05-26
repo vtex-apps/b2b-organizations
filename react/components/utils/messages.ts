@@ -132,6 +132,9 @@ export const organizationMessages = defineMessages({
   of: {
     id: `${storePrefix}of`,
   },
+  autocompleteSearching: {
+    id: `${storePrefix}autocomplete-searching`,
+  },
   new: {
     id: `${storePrefix}organization-details.button.new`,
   },
