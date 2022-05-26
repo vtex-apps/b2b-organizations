@@ -20,6 +20,7 @@ import GET_ORGANIZATION from '../graphql/getOrganizationStorefront.graphql'
 import GET_COST_CENTERS from '../graphql/getCostCentersByOrganizationIdStorefront.graphql'
 import CREATE_COST_CENTER from '../graphql/createCostCenter.graphql'
 import GET_PERMISSIONS from '../graphql/getPermissions.graphql'
+import OrganizationsWithoutSalesManager from './OrganizationsWithoutSalesManager'
 
 interface RouterProps {
   match: Match
@@ -341,6 +342,9 @@ const OrganizationDetails: FunctionComponent<RouterProps> = ({
           />
         </PageBlock>
       )}
+
+      {roleState && isSalesAdmin() && <OrganizationsWithoutSalesManager />}
+
       <PageBlock title={formatMessage(messages.users)}>
         {roleState && (
           <OrganizationUsersTable

@@ -201,6 +201,15 @@ export const organizationMessages = defineMessages({
   salesAdminTitle: {
     id: `${storePrefix}organization-details.sales-admin-title`,
   },
+  organizationsWithoutSalesManager: {
+    id: `${storePrefix}organization-details.organizations-without-sales-manager-title`,
+  },
+  organizationsWithoutSalesManagerOK: {
+    id: `${storePrefix}organization-details.organizations-without-sales-manager-ok`,
+  },
+  organizationsWithoutSalesManagerWarning: {
+    id: `${storePrefix}organization-details.organizations-without-sales-manager-warning`,
+  },
 })
 
 export const organizationRequestMessages = defineMessages({
