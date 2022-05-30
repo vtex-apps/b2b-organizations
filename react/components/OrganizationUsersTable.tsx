@@ -134,6 +134,15 @@ const OrganizationUsersTable: FunctionComponent<Props> = ({
               ),
               'error'
             )
+          } else if (status === 'duplicated') {
+            contextualToast(
+              formatMessage(
+                isAdmin
+                  ? adminMessages.toastUserDuplicated
+                  : storeMessages.toastUserDuplicated
+              ),
+              'error'
+            )
           } else {
             contextualToast(
               formatMessage(
