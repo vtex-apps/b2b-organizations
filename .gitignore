@@ -26,9 +26,7 @@ Desktop.ini
 $RECYCLE.BIN/
 
 # App specific
-node_modules/
-node/node_modules/
-react/node_modules/
+**/node_modules/
 docs/_book/
 .tmp
 .idea
@@ -36,10 +34,6 @@ docs/_book/
 npm-debug.log
 .build/
 lib
-.eslintrc
 *.orig
-package-lock.json
 yarn-error.log
-node/package-lock.json
-react/package-lock.json
 cy-runner
