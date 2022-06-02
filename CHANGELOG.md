@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased]
 
 ### Added
+
 - Added new features to sales admin, a new UI to handle the users
 - Added the UI pagination to users list
 - Added a permission to sales manager to handle the users (manager and representative)
