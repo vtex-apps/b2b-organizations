@@ -70,7 +70,7 @@ const ruleClickEnabled = ({
   canEdit: boolean
   isSalesAdmin: boolean
 }) => {
-  return (
+  return !(
     !isAdmin &&
     ((!canEdit && !canEditSales) ||
       (slug.match(/sales-admin/) && !isSalesAdmin && !canEdit) ||
@@ -390,7 +390,7 @@ const OrganizationUsersTable: FunctionComponent<Props> = ({
           isAdmin ? adminMessages.columnEmail : storeMessages.columnEmail
         ),
         cellRenderer: ({ rowData: { email, role } }: CellRendererProps) => (
-          <span className={isEnabled({ role }) ? 'c-disabled' : ''}>
+          <span className={!isEnabled({ role }) ? 'c-disabled' : ''}>
             {email}
           </span>
         ),
@@ -400,7 +400,7 @@ const OrganizationUsersTable: FunctionComponent<Props> = ({
           isAdmin ? adminMessages.columnRole : storeMessages.columnRole
         ),
         cellRenderer: ({ rowData: { role } }: CellRendererProps) => (
-          <span className={isEnabled({ role }) ? 'c-disabled' : ''}>
+          <span className={!isEnabled({ role }) ? 'c-disabled' : ''}>
             {role?.name ?? ''}
           </span>
         ),
@@ -410,7 +410,7 @@ const OrganizationUsersTable: FunctionComponent<Props> = ({
         cellRenderer: ({
           rowData: { organizationName, role },
         }: CellRendererProps) => (
-          <span className={isEnabled({ role }) ? 'c-disabled' : ''}>
+          <span className={!isEnabled({ role }) ? 'c-disabled' : ''}>
             {organizationName}
           </span>
         ),
@@ -424,7 +424,7 @@ const OrganizationUsersTable: FunctionComponent<Props> = ({
         cellRenderer: ({
           rowData: { costCenterName, role },
         }: CellRendererProps) => (
-          <span className={isEnabled({ role }) ? 'c-disabled' : ''}>
+          <span className={!isEnabled({ role }) ? 'c-disabled' : ''}>
             {costCenterName}
           </span>
         ),
@@ -526,18 +526,21 @@ const OrganizationUsersTable: FunctionComponent<Props> = ({
         canEdit,
         isSalesAdmin,
       })
-    )
-      setEditUserDetails({
-        id: rowData.id,
-        roleId: rowData.roleId,
-        userId: rowData.userId,
-        clId: rowData.clId,
-        orgId: rowData.orgId,
-        costId: rowData.costId,
-        name: rowData.name,
-        email: rowData.email,
-        canImpersonate: rowData.canImpersonate,
-      })
+    ) {
+      return
+    }
+
+    setEditUserDetails({
+      id: rowData.id,
+      roleId: rowData.roleId,
+      userId: rowData.userId,
+      clId: rowData.clId,
+      orgId: rowData.orgId,
+      costId: rowData.costId,
+      name: rowData.name,
+      email: rowData.email,
+      canImpersonate: rowData.canImpersonate,
+    })
     setEditUserModalOpen(true)
   }
 
