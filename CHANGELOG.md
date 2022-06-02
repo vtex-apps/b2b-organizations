@@ -14,6 +14,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Enabled all the roles on the admin UI interface organization add and edit 
 - Added a new UI component to handle the organizations without a sales manager
 
+## [1.9.1] - 2022-06-01
+
+### Added
+
+- Added handling to the addUser mutation by showing the correct message when the user already exists
+
 ## [1.9.0] - 2022-05-17
 
 ### Added
