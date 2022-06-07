@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useQuery } from 'react-apollo'
-import { AutocompleteInput } from 'vtex.styleguide'
+import { AutocompleteInput, Input } from 'vtex.styleguide'
 import { useIntl } from 'react-intl'
 
 import GET_ORGANIZATIONS from '../graphql/getOrganizations.graphql'
@@ -21,12 +21,14 @@ interface Props {
   onChange: (value: { value: string | null; label: string }) => void
   organizationId: string
   isAdmin: boolean
+  disabled?: boolean
 }
 
 const OrganizationsAutocomplete = ({
   onChange,
   organizationId,
   isAdmin,
+  disabled,
 }: Props) => {
   const [term, setTerm] = useState('')
   const [values, setValues] = useState([] as any)
@@ -104,7 +106,11 @@ const OrganizationsAutocomplete = ({
     value: term,
   }
 
-  return <AutocompleteInput input={input} options={options} />
+  return disabled ? (
+    <Input disabled={disabled} value={term} />
+  ) : (
+    <AutocompleteInput input={input} options={options} />
+  )
 }
 
 export default OrganizationsAutocomplete

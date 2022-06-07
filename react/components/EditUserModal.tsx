@@ -74,7 +74,12 @@ const EditUserModal: FunctionComponent<Props> = ({
       return
     }
 
-    setUserState({ ...userState, orgId: organizationState })
+    setUserState({
+      ...userState,
+      orgId: organizationState,
+      costId: user.orgId !== organizationState ? '' : user.costId,
+    })
+
     refetch({
       id: organizationState,
       pageSize: 100,
@@ -195,7 +200,7 @@ const EditUserModal: FunctionComponent<Props> = ({
           disabled
         />
       </div>
-      {isOpen && canEditSales && (
+      {isOpen && canEditSales && isSalesAdmin && (
         <div className="w-100 mv6">
           <p className="mb3">
             {formatMessage(
@@ -226,7 +231,7 @@ const EditUserModal: FunctionComponent<Props> = ({
           placeholder={formatMessage(
             isAdmin ? adminMessages.costCenter : storeMessages.costCenter
           )}
-          disabled={costCenterLoading}
+          disabled={costCenterLoading || (canEditSales && !isSalesAdmin)}
           options={costCenterOptions}
           value={userState.costId}
           onChange={(_: any, v: string) =>

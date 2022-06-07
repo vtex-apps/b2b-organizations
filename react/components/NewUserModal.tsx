@@ -233,6 +233,7 @@ const NewUserModal: FunctionComponent<Props> = ({
           </p>
 
           <OrganizationsAutocomplete
+            disabled={!isAdmin && !isSalesAdmin}
             isAdmin={isAdmin}
             organizationId={organizationId}
             onChange={event => setOrganizationState(event.value as string)}
