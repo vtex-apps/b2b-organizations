@@ -288,7 +288,7 @@ const OrganizationUsersTable: FunctionComponent<Props> = ({
     if (
       !canImpersonateAll &&
       canImpersonateOrg &&
-      rowData.role.slug.includes('admin')
+      !rowData.role.slug.includes('customer')
     ) {
       showToast(formatMessage(storeMessages.toastImpersonateForbidden))
 
