@@ -225,6 +225,12 @@ export const organizationRequestMessages = defineMessages({
   email: {
     id: `${storePrefix}request-new-organization.email.label`,
   },
+  cpf: {
+    id: `${storePrefix}request-new-organization.cpf.label`,
+  },
+  telephone: {
+    id: `${storePrefix}request-new-organization.telephone.label`,
+  },
   defaultCostCenter: {
     id: `${storePrefix}request-new-organization.default-cost-center.title`,
   },

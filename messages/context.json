@@ -144,6 +144,8 @@
   "store/b2b-organizations.request-new-organization.first-name.label": "store/b2b-organizations.request-new-organization.first-name.label",
   "store/b2b-organizations.request-new-organization.last-name.label": "store/b2b-organizations.request-new-organization.last-name.label",
   "store/b2b-organizations.request-new-organization.email.label": "store/b2b-organizations.request-new-organization.email.label",
+  "store/b2b-organizations.request-new-organization.cpf.label": "store/b2b-organizations.request-new-organization.cpf.label",
+  "store/b2b-organizations.request-new-organization.telephone.label": "store/b2b-organizations.request-new-organization.telephone.label",
   "store/b2b-organizations.request-new-organization.default-cost-center.title": "store/b2b-organizations.request-new-organization.default-cost-center.title",
   "store/b2b-organizations.request-new-organization.default-cost-center-name.label": "store/b2b-organizations.request-new-organization.default-cost-center-name.label",
   "store/b2b-organizations.request-new-organization.submit-button.label": "store/b2b-organizations.request-new-organization.submit-button.label",

@@ -144,6 +144,8 @@
   "store/b2b-organizations.request-new-organization.first-name.label": "First Name",
   "store/b2b-organizations.request-new-organization.last-name.label": "Last Name",
   "store/b2b-organizations.request-new-organization.email.label": "Email Address",
+  "store/b2b-organizations.request-new-organization.cpf.label": "CPF",
+  "store/b2b-organizations.request-new-organization.telephone.label": "Cellphone",
   "store/b2b-organizations.request-new-organization.default-cost-center.title": "Default Cost Center",
   "store/b2b-organizations.request-new-organization.default-cost-center-name.label": "Cost Center Name",
   "store/b2b-organizations.request-new-organization.submit-button.label": "Submit",

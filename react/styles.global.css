@@ -6,3 +6,210 @@ body,
 .render-provider {
   height: 100%;
 }
+
+
+
+.customb2b-pageHeader{
+  display: block;
+  margin: 150px auto 30px;
+  max-width: 586px;
+}
+
+.customb2b-pageHeader h1{
+  text-align: center;
+  font: normal normal medium 38px/46px Poppins;
+  letter-spacing: 0px;
+  color: #CC083C;
+  margin: 10px 0;
+}
+.customb2b-pageHeader h3{
+  text-align: center;
+  font: normal normal normal 14px/18px Poppins;
+  letter-spacing: 0px;
+  color: #CC083C;
+  opacity: 1;
+  margin: 10px 0;
+
+}
+.customb2b-pageHeader h4{
+  text-align: center;
+  font: normal normal normal 12px/16px Poppins;
+  letter-spacing: 0px;
+  color: #4F575C;
+  opacity: 1;
+  margin: 0;
+}
+
+.customb2b-pageBody{
+  background: #FAFAFA 0% 0% no-repeat padding-box;
+  border-radius: 6px;
+  padding: 30px 30px;
+  max-width: 586px;
+  margin: auto;
+}
+
+.customb2b-pageBody *:not(input):not(select):not(.vtex-checkbox__box):not(.vtex-checkbox__box-wrapper):not(.vtex-checkbox__container):not(.vtex-checkbox__inner-container):not(.vtex-dropdown__button):not(.vtex-dropdown__container){
+  background: transparent;
+  border: 0;
+  margin: 0;
+  padding: 0;
+}
+
+.customb2b-pageBody *{
+  font: normal normal normal 13px/18px Poppins;
+}
+
+.customb2b-pageBody input:not([type=checkbox]),select,.vtex-dropdown__container{
+  background: #fff !important;
+  border-radius: 2px !important;
+  border: 1px solid #eee !important;
+  height: 38px !important;
+}
+
+.styleguide__layout.bg-muted-5{
+  background-color: transparent !important;
+}
+
+.customb2b-pageBody .styleguide__pageBlock{
+  padding: 10px 0 20px;
+}
+
+.customb2b-pageBody .styleguide__pageBlock div h2{
+  width: 100%;
+  font: normal normal 600 16px/35px Poppins;
+  letter-spacing: 0px;
+  color: #12576E;
+  margin: 0;
+}
+
+.customb2b-pageBody .styleguide__pageBlock div h2 + div{
+  width: 100%;
+  font: normal normal normal 12px/14px Poppins;
+  letter-spacing: 0px;
+  color: #4F575C;
+  margin: 0;
+}
+
+.customb2b-pageBody .styleguide__pageBlock div.styleguide__box{
+  padding: 20px 0 25px;
+}
+
+
+.customb2b-pageBody .form-group-flex{
+  display: flex;
+  gap: 20px;
+  width: 100%;
+}
+
+.customb2b-pageBody .form-group-flex button{
+  max-width: 150px;
+  background-color: #CC083C !important;
+  color: #fff;
+  height: 38px;
+  margin-top: auto !important;
+  margin-right: auto;
+  width: 100%;
+  font: normal normal normal 13px/18px Poppins;
+  text-transform: capitalize;
+
+}
+
+.customb2b-pageBody .form-group-flex > div{
+  width: 100%;
+}
+
+/* Form geral */
+
+.customb2b-pageBody .hppardis-b2b-organizations-1-x-newOrganizationInput input{
+  margin-top: 10px !important;
+}
+
+.customb2b-pageBody .hppardis-b2b-organizations-1-x-newOrganizationInput span{
+  margin-top: 5px !important;
+  font: normal normal normal 13px/18px Poppins;
+  color: #111;
+}
+
+/* Form empresa */
+
+.customb2b-pageBody .vtex-dropdown .vtex-dropdown__container{
+  margin-top: 10px !important;
+}
+
+.customb2b-pageBody .vtex-dropdown span{
+  margin-top: 5px !important;
+  font: normal normal normal 13px/18px Poppins;
+  color: #111;
+}
+.customb2b-pageBody .ie-flex{
+  display: flex;
+  gap: 20px;
+  flex-direction: row;
+}
+.customb2b-pageBody .ie-flex .vtex-checkbox__line-container{
+  height: 38px;
+  margin-top: auto !important;
+  justify-content: center;
+  align-items: center;
+}
+
+.customb2b-pageBody .icms-flex > div .vtex-checkbox__line-container{
+  height: 30px;
+  margin-top: 10px !important;
+  justify-content: center;
+  align-items: center;
+}
+.customb2b-pageBody .icms-flex > div {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+}
+
+.customb2b-pageBody .icms-flex > label {
+  margin-top: 5px !important;
+  display: block;
+}
+
+/* Form Adress */
+.customb2b-pageBody .vtex-address-form__country{
+  display: none;
+}
+.customb2b-pageBody .vtex-address-form__postalCode{
+  width: 50%;
+  min-width: 283px;
+}
+
+.customb2b-pageBody .vtex-address-form__postalCode-forgottenURL{
+  display: none;
+}
+
+.customb2b-pageBody .vtex-address-form__container{
+  display: grid;
+}
+
+
+
+
+/* Documentos anexados */
+.file-button{
+  margin-top: 10px !important;
+  margin-bottom: 20px !important;
+}
+
+.file-button input{
+  display: none;
+}
+
+.file-button label{
+  color: #12576E !important;
+  background: #fff !important;
+  border: 1px solid #12576E !important;
+  border-radius: 2px;
+  width: 155px;
+  height: 38px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font: normal normal normal 13px/18px Poppins;
+  cursor: pointer;
+}
