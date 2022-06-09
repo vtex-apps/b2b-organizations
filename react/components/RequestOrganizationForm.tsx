@@ -614,6 +614,7 @@ const RequestOrganizationForm: FC = () => {
                             autocomplete="off"
                             size="large"
                             label={"Razão Social"}
+                            readonly={true}
                             value={formState.organizationName}
                             onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                               setFormState({
@@ -643,9 +644,9 @@ const RequestOrganizationForm: FC = () => {
                           />
                           <Checkbox
                             checked={formState.organizationIE == "Isento"}
-                            id="option-0"
+                            id="Isento"
                             label="Isento?"
-                            name="default-checkbox-group"
+                            name="Isento"
                             onChange={() => {
                               formState.organizationIE == "Isento" ?
                                 setFormState({
@@ -741,16 +742,6 @@ const RequestOrganizationForm: FC = () => {
                       </>
                       : null
                     }
-                    <div
-                      className={`${handles.newOrganizationButtonsContainer} mb5 flex flex-column items-end pt6`}
-                    >
-                      <div className="flex justify-content flex-row">
-                        <div
-                          className={`no-wrap ${handles.newOrganizationButtonSubmit}`}
-                        >
-                        </div>
-                      </div>
-                    </div>
                   </PageBlock>
                   {!lockFunc ?
                     <>
@@ -804,8 +795,8 @@ const RequestOrganizationForm: FC = () => {
                         >
                           <Checkbox
                             checked={formState.newsletter}
-                            id="option-0"
-                            name="default-checkbox-group"
+                            id="newsletter"
+                            name="newsletter"
                             label={"Gostaria de receber newsletter com promoções mais sobre a Pardis"}
                             onChange={() => {
                               setFormState({
@@ -814,17 +805,21 @@ const RequestOrganizationForm: FC = () => {
                               })
 
                             }}
-                            value="option-0"
+                            value="newsletter"
                           />
+                        </div>
+                        <div
+                          className={`${handles.newOrganizationInput}`}
+                        >
                           <Checkbox
                             checked={permission}
-                            id="option-0"
-                            name="default-checkbox-group"
+                            id="permission"
+                            name="permission"
                             label={"Estou de acordo com os Termos e Condições e Políticas de Privacidade"}
                             onChange={() => {
                               setPermission(!permission)
                             }}
-                            value="option-0"
+                            value="permission"
                           />
                         </div>
                       </PageBlock>

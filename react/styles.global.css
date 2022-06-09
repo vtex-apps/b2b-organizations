@@ -11,7 +11,7 @@ body,
 
 .customb2b-pageHeader{
   display: block;
-  margin: 150px auto 30px;
+  margin: 10px auto 30px;
   max-width: 586px;
 }
 
@@ -59,6 +59,10 @@ body,
   font: normal normal normal 13px/18px Poppins;
 }
 
+.customb2b-pageBody .styleguide__pageBlock > div > div h2 + div{
+  margin-bottom: 20px o !important;
+}
+
 .customb2b-pageBody input:not([type=checkbox]),select,.vtex-dropdown__container{
   background: #fff !important;
   border-radius: 2px !important;
@@ -72,6 +76,10 @@ body,
 
 .customb2b-pageBody .styleguide__pageBlock{
   padding: 10px 0 20px;
+}
+
+.customb2b-pageBody .styleguide__pageBlock{
+  margin-top: 35px !important;
 }
 
 .customb2b-pageBody .styleguide__pageBlock div h2{
@@ -92,6 +100,9 @@ body,
 
 .customb2b-pageBody .styleguide__pageBlock div.styleguide__box{
   padding: 20px 0 25px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 
 
@@ -120,7 +131,7 @@ body,
 
 /* Form geral */
 
-.customb2b-pageBody .hppardis-b2b-organizations-1-x-newOrganizationInput input{
+.customb2b-pageBody .hppardis-b2b-organizations-1-x-newOrganizationInput input:not([type=checkbox]){
   margin-top: 10px !important;
 }
 
@@ -175,24 +186,63 @@ body,
   display: none;
 }
 .customb2b-pageBody .vtex-address-form__postalCode{
-  width: 50%;
-  min-width: 283px;
+  width: 253px;
+  min-width: 253px;
 }
 
 .customb2b-pageBody .vtex-address-form__postalCode-forgottenURL{
   display: none;
 }
 
+.customb2b-pageBody .vtex-address-form__steet{
+  grid-area: endereco;
+}
+
+.customb2b-pageBody .vtex-address-form__number{
+  grid-area: numero;
+}
+
+.customb2b-pageBody .vtex-address-form__complement{
+  grid-area: complemento;
+}
+
+.customb2b-pageBody .vtex-address-form__neighborhood{
+  grid-area: bairro;
+}
+
+.customb2b-pageBody .vtex-address-form__city{
+  grid-area: cidade;
+}
+
+.customb2b-pageBody .vtex-address-form__state{
+  grid-area: estado;
+}
+
+.customb2b-pageBody .vtex-address-form__receiverName{
+  grid-area: destinatario;
+}
+
 .customb2b-pageBody .vtex-address-form__container{
   display: grid;
+  gap: 15px 20px;
+  padding-top: 20px !important;
+  grid-template-areas: "endereco endereco" "numero complemento" "bairro cidade" "estado destinatario";
 }
+.customb2b-pageBody .vtex-address-form__container > div label span{
+  margin-top: 5px !important;
+}
+.customb2b-pageBody .vtex-address-form__container > div label > div{
+  margin-top: 15px !important; 
+}
+
+
 
 
 
 
 /* Documentos anexados */
 .file-button{
-  margin-top: 10px !important;
+  margin-top: 20px !important;
   margin-bottom: 20px !important;
 }
 
