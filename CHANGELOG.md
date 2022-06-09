@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Added
+
+- Added new features to sales admin, a new UI to handle the users
+- Added the UI pagination to users list
+- Added a permission to sales manager to handle the users (manager and representative)
+- Enabled all the roles on the admin UI interface organization add and edit 
+- Added a new UI component to handle the organizations without a sales manager
+
 ## [1.9.1] - 2022-06-01
 
 ### Added

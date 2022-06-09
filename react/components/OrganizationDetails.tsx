@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from 'react'
+import React, { useState, useContext, useEffect, useCallback } from 'react'
 import type { FunctionComponent, ChangeEvent } from 'react'
 import { useIntl, FormattedMessage } from 'react-intl'
 import {
@@ -20,6 +20,7 @@ import GET_ORGANIZATION from '../graphql/getOrganizationStorefront.graphql'
 import GET_COST_CENTERS from '../graphql/getCostCentersByOrganizationIdStorefront.graphql'
 import CREATE_COST_CENTER from '../graphql/createCostCenter.graphql'
 import GET_PERMISSIONS from '../graphql/getPermissions.graphql'
+import OrganizationsWithoutSalesManager from './OrganizationsWithoutSalesManager'
 
 interface RouterProps {
   match: Match
@@ -43,6 +44,12 @@ interface CostCenterSimple {
   id: string
   name: string
   addresses: Address[]
+}
+
+interface Role {
+  id: string
+  name: string
+  slug: string
 }
 
 const localStore = storageFactory(() => localStorage)
@@ -83,6 +90,16 @@ const OrganizationDetails: FunctionComponent<RouterProps> = ({
   })
 
   const [permissionsState, setPermissionsState] = useState([] as string[])
+  const [roleState, setRoleState] = useState(null as Role | null)
+
+  const isSalesAdmin = useCallback((): boolean => {
+    return roleState !== null && new RegExp(/sales-admin/g).test(roleState.slug)
+  }, [roleState])
+
+  const isSales = useCallback((): boolean => {
+    return roleState !== null && new RegExp(/sales-/g).test(roleState.slug)
+  }, [roleState])
+
   const [loadingState, setLoadingState] = useState(false)
   const [newCostCenterModalState, setNewCostCenterModalState] = useState(false)
 
@@ -111,10 +128,14 @@ const OrganizationDetails: FunctionComponent<RouterProps> = ({
   useEffect(() => {
     if (!permissionsData) return
 
-    const { permissions = [] } = permissionsData.checkUserPermission ?? {}
+    const { permissions = [], role } = permissionsData.checkUserPermission ?? {}
 
     if (permissions.length) {
       setPermissionsState(permissions)
+    }
+
+    if (role) {
+      setRoleState(role)
     }
   }, [permissionsData])
 
@@ -264,63 +285,75 @@ const OrganizationDetails: FunctionComponent<RouterProps> = ({
     <Layout
       fullWidth
       pageHeader={
-        <PageHeader title={data.getOrganizationByIdStorefront?.name} />
+        roleState && !isSalesAdmin() ? (
+          <PageHeader title={data.getOrganizationByIdStorefront?.name} />
+        ) : (
+          <PageHeader title={formatMessage(messages.salesAdminTitle)} />
+        )
       }
     >
-      <PageBlock title={formatMessage(messages.costCenters)}>
-        <Table
-          fullWidth
-          schema={getCostCenterSchema()}
-          items={
-            costCentersData?.getCostCentersByOrganizationIdStorefront?.data
-          }
-          loading={costCentersLoading}
-          onRowClick={({ rowData: { id } }: CellRendererProps) => {
-            if (!id) return
+      {roleState && !isSales() && (
+        <PageBlock title={formatMessage(messages.costCenters)}>
+          <Table
+            fullWidth
+            schema={getCostCenterSchema()}
+            items={
+              costCentersData?.getCostCentersByOrganizationIdStorefront?.data
+            }
+            loading={costCentersLoading}
+            onRowClick={({ rowData: { id } }: CellRendererProps) => {
+              if (!id) return
 
-            history.push(`/cost-center/${id}`)
-          }}
-          pagination={{
-            onNextClick: handleCostCentersNextClick,
-            onPrevClick: handleCostCentersPrevClick,
-            onRowsChange: handleCostCentersRowsChange,
-            currentItemFrom:
-              (costCenterPaginationState.page - 1) *
-                costCenterPaginationState.pageSize +
-              1,
-            currentItemTo:
-              costCentersData?.getCostCentersByOrganizationIdStorefront
-                ?.pagination?.total <
-              costCenterPaginationState.page *
-                costCenterPaginationState.pageSize
-                ? costCentersData?.getCostCentersByOrganizationIdStorefront
-                    ?.pagination?.total
-                : costCenterPaginationState.page *
-                  costCenterPaginationState.pageSize,
-            textShowRows: formatMessage(messages.showRows),
-            textOf: formatMessage(messages.of),
-            totalItems:
-              costCentersData?.getCostCentersByOrganizationIdStorefront
-                ?.pagination?.total ?? 0,
-            rowsOptions: [25, 50, 100],
-          }}
-          toolbar={{
-            newLine: {
-              label: formatMessage(messages.new),
-              handleCallback: () => setNewCostCenterModalState(true),
-              disabled: !permissionsState.includes(
-                'create-cost-center-organization'
-              ),
-            },
-          }}
-        ></Table>
-      </PageBlock>
+              history.push(`/cost-center/${id}`)
+            }}
+            pagination={{
+              onNextClick: handleCostCentersNextClick,
+              onPrevClick: handleCostCentersPrevClick,
+              onRowsChange: handleCostCentersRowsChange,
+              currentItemFrom:
+                (costCenterPaginationState.page - 1) *
+                  costCenterPaginationState.pageSize +
+                1,
+              currentItemTo:
+                costCentersData?.getCostCentersByOrganizationIdStorefront
+                  ?.pagination?.total <
+                costCenterPaginationState.page *
+                  costCenterPaginationState.pageSize
+                  ? costCentersData?.getCostCentersByOrganizationIdStorefront
+                      ?.pagination?.total
+                  : costCenterPaginationState.page *
+                    costCenterPaginationState.pageSize,
+              textShowRows: formatMessage(messages.showRows),
+              textOf: formatMessage(messages.of),
+              totalItems:
+                costCentersData?.getCostCentersByOrganizationIdStorefront
+                  ?.pagination?.total ?? 0,
+              rowsOptions: [25, 50, 100],
+            }}
+            toolbar={{
+              newLine: {
+                label: formatMessage(messages.new),
+                handleCallback: () => setNewCostCenterModalState(true),
+                disabled: !permissionsState.includes(
+                  'create-cost-center-organization'
+                ),
+              },
+            }}
+          />
+        </PageBlock>
+      )}
+
+      {roleState && isSalesAdmin() && <OrganizationsWithoutSalesManager />}
+
       <PageBlock title={formatMessage(messages.users)}>
-        <OrganizationUsersTable
-          organizationId={data.getOrganizationByIdStorefront?.id}
-          permissions={permissionsState}
-          refetchCostCenters={loadingState}
-        />
+        {roleState && (
+          <OrganizationUsersTable
+            organizationId={data.getOrganizationByIdStorefront?.id}
+            permissions={permissionsState}
+            refetchCostCenters={loadingState}
+            isSalesAdmin={isSalesAdmin()}
+          />
+        )}
       </PageBlock>
       <NewCostCenterModal
         isOpen={newCostCenterModalState}

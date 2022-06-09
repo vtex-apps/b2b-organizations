@@ -27,6 +27,11 @@
       "roles": ["sales-admin"]
     },
     {
+      "label": "Add Sales Users to current Organization",
+      "value": "add-sales-users-current",
+      "roles": ["sales-manager"]
+    },
+    {
       "label": "Remove Sales Users from any Organization",
       "value": "remove-sales-users-all",
       "roles": ["sales-admin"]
