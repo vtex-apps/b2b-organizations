@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Added
+
+- Added addressID duplicate check, and set hashcode of the address string as the addressID
+
 ## [1.10.0] - 2022-06-09
 
 ### Added
@@ -14,7 +18,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Added new features to sales admin, a new UI to handle the users
 - Added the UI pagination to users list
 - Added a permission to sales manager to handle the users (manager and representative)
-- Enabled all the roles on the admin UI interface organization add and edit 
+- Enabled all the roles on the admin UI interface organization add and edit
 - Added a new UI component to handle the organizations without a sales manager
 
 ## [1.9.1] - 2022-06-01
@@ -50,7 +54,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Fixed
 
-- Fixed duplicate check to get the status from createOrganizationRequest instead of checking it in RequestOrganizationForm.tsx 
+- Fixed duplicate check to get the status from createOrganizationRequest instead of checking it in RequestOrganizationForm.tsx
 
 ## [1.6.0] - 2022-04-18
 
@@ -68,7 +72,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Added
 
- - Add duplicate check for an email that is already associated with a pending or approved request
+- Add duplicate check for an email that is already associated with a pending or approved request
 
 ## [1.3.0] - 2022-04-08
 

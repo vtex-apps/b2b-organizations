@@ -42,6 +42,9 @@ export const costCenterMessages = defineMessages({
   defaultAddress: {
     id: `${storePrefix}costCenter-details.default-address`,
   },
+  duplicateAddress: {
+    id: `${storePrefix}costCenter-details.duplicate-address`,
+  },
   businessDocument: {
     id: `${storePrefix}costCenter-details.businessDocument`,
   },

@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import type { FunctionComponent } from 'react'
 import React, { useEffect, useState } from 'react'
 import { useQuery, useMutation, useLazyQuery } from 'react-apollo'
@@ -30,7 +31,7 @@ import { StyleguideInput } from 'vtex.address-form/inputs'
 import { addValidation } from 'vtex.address-form/helpers'
 
 import { costCenterMessages as messages } from './utils/messages'
-import { getEmptyAddress, isValidAddress } from '../utils/addresses'
+import { setGUID, getEmptyAddress, isValidAddress } from '../utils/addresses'
 import GET_COST_CENTER from '../graphql/getCostCenter.graphql'
 import GET_ORGANIZATION from '../graphql/getOrganization.graphql'
 import UPDATE_COST_CENTER from '../graphql/updateCostCenter.graphql'
@@ -237,38 +238,57 @@ const CostCenterDetails: FunctionComponent = () => {
   }
 
   const handleAddNewAddress = () => {
-    const newAddress = {
-      addressId: newAddressState.addressId.value,
-      addressType: newAddressState.addressType.value,
-      city: newAddressState.city.value,
-      complement: newAddressState.complement.value,
-      country: newAddressState.country.value,
-      receiverName: newAddressState.receiverName.value,
-      geoCoordinates: newAddressState.geoCoordinates.value,
-      neighborhood: newAddressState.neighborhood.value,
-      number: newAddressState.number.value,
-      postalCode: newAddressState.postalCode.value,
-      reference: newAddressState.reference.value,
-      state: newAddressState.state.value,
-      street: newAddressState.street.value,
-      addressQuery: newAddressState.addressQuery.value,
-      checked: false,
-    }
+    const uid = setGUID(newAddressState)
 
-    const newAddresses = [...addresses, newAddress]
-
-    setAddresses(
-      newAddresses.map(item => {
-        if (newAddressState.checked) {
-          item.checked = item === newAddress
-        }
-
-        return item
-      })
+    const duplicated = data?.getCostCenterById?.addresses?.find(
+      (item: any) => item.addressId === uid
     )
 
-    setAddresses([...addresses, newAddress])
-    handleCloseModals()
+    let dupError = false
+
+    if (duplicated !== undefined) {
+      dupError = duplicated.postalCode === newAddressState.postalCode.value
+    }
+
+    if (!dupError) {
+      const newAddress = {
+        addressId: uid,
+        addressType: newAddressState.addressType.value,
+        city: newAddressState.city.value,
+        complement: newAddressState.complement.value,
+        country: newAddressState.country.value,
+        receiverName: newAddressState.receiverName.value,
+        geoCoordinates: newAddressState.geoCoordinates.value,
+        neighborhood: newAddressState.neighborhood.value,
+        number: newAddressState.number.value,
+        postalCode: newAddressState.postalCode.value,
+        reference: newAddressState.reference.value,
+        state: newAddressState.state.value,
+        street: newAddressState.street.value,
+        addressQuery: newAddressState.addressQuery.value,
+        checked: false,
+      }
+
+      const newAddresses = [...addresses, newAddress]
+
+      setAddresses(
+        newAddresses.map(item => {
+          if (newAddressState.checked) {
+            item.checked = item === newAddress
+          }
+
+          return item
+        })
+      )
+
+      setAddresses([...addresses, newAddress])
+      handleCloseModals()
+    } else {
+      showToast({
+        type: 'error',
+        message: formatMessage(messages.duplicateAddress),
+      })
+    }
   }
 
   const handleEditAddressChange = (changedAddress: AddressFormFields) => {

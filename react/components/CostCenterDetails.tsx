@@ -19,6 +19,7 @@ import { AddressRules, AddressSummary } from 'vtex.address-form'
 
 import { costCenterMessages as messages } from './utils/messages'
 import storageFactory from '../utils/storage'
+import { setGUID } from '../utils/addresses'
 import { useSessionResponse } from '../modules/session'
 import NewAddressModal from './NewAddressModal'
 import EditAddressModal from './EditAddressModal'
@@ -258,36 +259,55 @@ const CostCenterDetails: FunctionComponent<RouterProps> = ({
   }
 
   const handleAddNewAddress = (address: AddressFormFields) => {
-    const newAddress = {
-      addressId: address.addressId.value,
-      addressType: address.addressType.value,
-      city: address.city.value,
-      complement: address.complement.value,
-      country: address.country.value,
-      receiverName: address.receiverName.value,
-      geoCoordinates: address.geoCoordinates.value,
-      neighborhood: address.neighborhood.value,
-      number: address.number.value,
-      postalCode: address.postalCode.value,
-      reference: address.reference.value,
-      state: address.state.value,
-      street: address.street.value,
-      addressQuery: address.addressQuery.value,
-    } as Address
+    const uid = setGUID(address)
 
-    const newAddresses = [...addresses, newAddress]
-
-    setAddresses(
-      newAddresses.map(item => {
-        if (address.checked) {
-          item.checked = item === newAddress
-        }
-
-        return item
-      })
+    const duplicated = data?.getCostCenterByIdStorefront?.addresses?.find(
+      (item: any) => item.addressId === uid
     )
 
-    handleCloseModals()
+    let dupError = false
+
+    if (duplicated !== undefined) {
+      dupError = duplicated.postalCode === address.postalCode.value
+    }
+
+    if (!dupError) {
+      const newAddress = {
+        addressId: uid,
+        addressType: address.addressType.value,
+        city: address.city.value,
+        complement: address.complement.value,
+        country: address.country.value,
+        receiverName: address.receiverName.value,
+        geoCoordinates: address.geoCoordinates.value,
+        neighborhood: address.neighborhood.value,
+        number: address.number.value,
+        postalCode: address.postalCode.value,
+        reference: address.reference.value,
+        state: address.state.value,
+        street: address.street.value,
+        addressQuery: address.addressQuery.value,
+      } as Address
+
+      const newAddresses = [...addresses, newAddress]
+
+      setAddresses(
+        newAddresses.map(item => {
+          if (address.checked) {
+            item.checked = item === newAddress
+          }
+
+          return item
+        })
+      )
+
+      handleCloseModals()
+    } else {
+      showToast({
+        type: 'error',
+        message: formatMessage(messages.duplicateAddress),
+      })
+    }
   }
 
   const handleCheckDefault = (address: Address) => {
