@@ -1,20 +1,40 @@
-query GetUsers($organizationId: ID, $costCenterId: ID) {
-  getUsers(organizationId: $organizationId, costCenterId: $costCenterId)
-    @context(provider: "vtex.b2b-organizations-graphql") {
-    id
-    roleId
-    userId
-    clId
-    orgId
-    costId
-    name
-    email
-    canImpersonate
-    role {
+query GetUsers(
+  $organizationId: ID
+  $costCenterId: ID
+  $page: Int
+  $pageSize: Int
+  $search: String
+  $sortOrder: String
+  $sortedBy: String
+) {
+  getUsersPaginated(
+    organizationId: $organizationId
+    costCenterId: $costCenterId
+    page: $page
+    pageSize: $pageSize
+    search: $search
+    sortOrder: $sortOrder
+    sortedBy: $sortedBy
+  ) @context(provider: "vtex.b2b-organizations-graphql") {
+    data {
+      id
+      roleId
+      userId
+      clId
+      orgId
+      costId
       name
-      slug
+      email
+      canImpersonate
+      role {
+        name
+        slug
+      }
+      organizationName
+      costCenterName
     }
-    organizationName
-    costCenterName
+    pagination {
+      total
+    }
   }
 }

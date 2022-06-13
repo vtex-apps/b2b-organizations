@@ -9,6 +9,7 @@ import { organizationMessages as adminMessages } from '../admin/utils/messages'
 import GET_ROLES from '../graphql/getRoles.graphql'
 import GET_COST_CENTERS from '../graphql/getCostCentersByOrganizationIdStorefront.graphql'
 import GET_COST_CENTERS_ADMIN from '../graphql/getCostCentersByOrganizationId.graphql'
+import OrganizationsAutocomplete from './OrganizationsAutocomplete'
 
 interface Props {
   loading: boolean
@@ -19,6 +20,9 @@ interface Props {
   handleCloseModal: () => void
   organizationId: string
   isAdmin?: boolean
+  canEdit?: boolean
+  canEditSales?: boolean
+  isSalesAdmin: boolean
 }
 
 interface DropdownOption {
@@ -35,6 +39,9 @@ const EditUserModal: FunctionComponent<Props> = ({
   handleCloseModal,
   organizationId,
   isAdmin = false,
+  canEdit,
+  canEditSales,
+  isSalesAdmin,
 }) => {
   const { formatMessage } = useIntl()
   const [userState, setUserState] = useState({} as UserDetails)
@@ -42,20 +49,42 @@ const EditUserModal: FunctionComponent<Props> = ({
     [] as DropdownOption[]
   )
 
+  const [organizationState, setOrganizationState] = useState(organizationId)
   const [roleOptions, setRoleOptions] = useState([] as DropdownOption[])
 
   const { data: rolesData } = useQuery(GET_ROLES, {
     ssr: false,
   })
 
-  const { data: costCentersData } = useQuery(
-    isAdmin ? GET_COST_CENTERS_ADMIN : GET_COST_CENTERS,
-    {
-      variables: { id: organizationId, pageSize: 100 },
-      fetchPolicy: 'network-only',
-      ssr: false,
+  const {
+    data: costCentersData,
+    refetch,
+    loading: costCenterLoading,
+  } = useQuery(isAdmin ? GET_COST_CENTERS_ADMIN : GET_COST_CENTERS, {
+    variables: {
+      id: organizationId,
+      pageSize: 100,
+    },
+    fetchPolicy: 'network-only',
+    ssr: false,
+  })
+
+  useEffect(() => {
+    if (!organizationState) {
+      return
     }
-  )
+
+    setUserState({
+      ...userState,
+      orgId: organizationState,
+      costId: user.orgId !== organizationState ? '' : user.costId,
+    })
+
+    refetch({
+      id: organizationState,
+      pageSize: 100,
+    })
+  }, [organizationState])
 
   useEffect(() => {
     if (
@@ -82,9 +111,19 @@ const EditUserModal: FunctionComponent<Props> = ({
       return
     }
 
-    const filteredArray = rolesData.listRoles.filter((role: any) =>
-      role.slug.includes('customer')
-    )
+    const filteredArray = rolesData.listRoles.filter((role: any) => {
+      if (isAdmin) return true
+
+      if (role.slug.includes('customer') && canEdit) {
+        return true
+      }
+
+      if (role.slug.includes('sales') && canEditSales) {
+        return !(role.slug.includes('sales-admin') && !isSalesAdmin)
+      }
+
+      return false
+    })
 
     const options = filteredArray.map((role: any) => {
       return { label: role.name, value: role.id }
@@ -161,6 +200,23 @@ const EditUserModal: FunctionComponent<Props> = ({
           disabled
         />
       </div>
+      {isOpen && canEditSales && isSalesAdmin && (
+        <div className="w-100 mv6">
+          <p className="mb3">
+            {formatMessage(
+              isAdmin
+                ? adminMessages.userOrganization
+                : storeMessages.userOrganization
+            )}
+          </p>
+
+          <OrganizationsAutocomplete
+            isAdmin={isAdmin}
+            organizationId={organizationId}
+            onChange={event => setOrganizationState(event.value as string)}
+          />
+        </div>
+      )}
       <div className="w-100 mv6">
         <Dropdown
           label={
@@ -175,6 +231,7 @@ const EditUserModal: FunctionComponent<Props> = ({
           placeholder={formatMessage(
             isAdmin ? adminMessages.costCenter : storeMessages.costCenter
           )}
+          disabled={costCenterLoading || (canEditSales && !isSalesAdmin)}
           options={costCenterOptions}
           value={userState.costId}
           onChange={(_: any, v: string) =>
@@ -194,6 +251,7 @@ const EditUserModal: FunctionComponent<Props> = ({
           placeholder={formatMessage(
             isAdmin ? adminMessages.role : storeMessages.role
           )}
+          disabled={costCenterLoading}
           options={roleOptions}
           value={userState.roleId}
           onChange={(_: any, v: string) =>

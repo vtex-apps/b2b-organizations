@@ -1,0 +1,8 @@
+query GetOrganizationsWithoutSalesManager {
+  getOrganizationsWithoutSalesManager
+    @context(provider: "vtex.b2b-organizations-graphql") {
+    id
+    name
+    status
+  }
+}

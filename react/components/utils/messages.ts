@@ -87,6 +87,9 @@ export const organizationMessages = defineMessages({
   userCostCenter: {
     id: `${storePrefix}user-details.costCenter`,
   },
+  userOrganization: {
+    id: `${storePrefix}user-details.organization`,
+  },
   userRole: {
     id: `${storePrefix}user-details.role`,
   },
@@ -129,6 +132,9 @@ export const organizationMessages = defineMessages({
   of: {
     id: `${storePrefix}of`,
   },
+  autocompleteSearching: {
+    id: `${storePrefix}autocomplete-searching`,
+  },
   new: {
     id: `${storePrefix}organization-details.button.new`,
   },
@@ -140,6 +146,12 @@ export const organizationMessages = defineMessages({
   },
   columnCostCenter: {
     id: `${storePrefix}organization-users.column.costCenter`,
+  },
+  columnOrganizationName: {
+    id: `${storePrefix}organization-users.column.organizationName`,
+  },
+  searchPlaceholder: {
+    id: `${storePrefix}organization-users.table.search.placeholder`,
   },
   emptyState: {
     id: `${storePrefix}organization-users.emptyState`,
@@ -188,6 +200,18 @@ export const organizationMessages = defineMessages({
   },
   removeUserHelp: {
     id: `${storePrefix}organization-details.remove-user.helpText`,
+  },
+  salesAdminTitle: {
+    id: `${storePrefix}organization-details.sales-admin-title`,
+  },
+  organizationsWithoutSalesManager: {
+    id: `${storePrefix}organization-details.organizations-without-sales-manager-title`,
+  },
+  organizationsWithoutSalesManagerOK: {
+    id: `${storePrefix}organization-details.organizations-without-sales-manager-ok`,
+  },
+  organizationsWithoutSalesManagerWarning: {
+    id: `${storePrefix}organization-details.organizations-without-sales-manager-warning`,
   },
 })
 
