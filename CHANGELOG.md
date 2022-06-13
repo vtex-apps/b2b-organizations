@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Fixed
+
+- Fixed on the sales roles impersonation customer users 
+
 ## [1.10.0] - 2022-06-09
 
 ### Added
