@@ -24,6 +24,7 @@ query GetCostCenterStorefront($id: ID) {
       geoCoordinates
       reference
     }
+    phoneNumber
     businessDocument
   }
 }
