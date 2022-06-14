@@ -267,6 +267,9 @@ export const costCenterMessages = defineMessages({
   defaultAddress: {
     id: `${adminPrefix}costCenter-details.default-address`,
   },
+  duplicateAddress: {
+    id: `${adminPrefix}costCenter-details.duplicate-address`,
+  },
 })
 
 export const organizationRequestMessages = defineMessages({
