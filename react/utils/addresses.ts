@@ -1,4 +1,4 @@
-function hashCode(arg: null | string | number | number[]) {
+const hashCode = function hash(arg: null | string | number | number[]) {
   const str = arg === null ? '' : arg.toString()
 
   if (str.length === 0) {

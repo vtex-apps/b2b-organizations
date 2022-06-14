@@ -244,13 +244,14 @@ const CostCenterDetails: FunctionComponent = () => {
       (item: any) => item.addressId === uid
     )
 
-    let dupError = false
+    let isDuplicatedError = false
 
     if (duplicated !== undefined) {
-      dupError = duplicated.postalCode === newAddressState.postalCode.value
+      isDuplicatedError =
+        duplicated.postalCode === newAddressState.postalCode.value
     }
 
-    if (!dupError) {
+    if (!isDuplicatedError) {
       const newAddress = {
         addressId: uid,
         addressType: newAddressState.addressType.value,

@@ -265,13 +265,13 @@ const CostCenterDetails: FunctionComponent<RouterProps> = ({
       (item: any) => item.addressId === uid
     )
 
-    let dupError = false
+    let isDuplicatedError = false
 
     if (duplicated !== undefined) {
-      dupError = duplicated.postalCode === address.postalCode.value
+      isDuplicatedError = duplicated.postalCode === address.postalCode.value
     }
 
-    if (!dupError) {
+    if (!isDuplicatedError) {
       const newAddress = {
         addressId: uid,
         addressType: address.addressType.value,
