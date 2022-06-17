@@ -135,6 +135,9 @@ export const organizationMessages = defineMessages({
   of: {
     id: `${storePrefix}of`,
   },
+  invalidSchema: {
+    id: `${storePrefix}invalid-schema`,
+  },
   autocompleteSearching: {
     id: `${storePrefix}autocomplete-searching`,
   },

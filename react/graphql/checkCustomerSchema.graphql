@@ -1,0 +1,3 @@
+query CheckCustomerSchema {
+  checkCustomerSchema @context(provider: "vtex.storefront-permissions")
+}

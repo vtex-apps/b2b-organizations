@@ -15,6 +15,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Added
 
+- Added a warning message when the customer schema is invalid
+
+
+### Added
+
 - Github Action to trigger manual tests by dispatch
 
 ## [1.10.2] - 2022-06-14
