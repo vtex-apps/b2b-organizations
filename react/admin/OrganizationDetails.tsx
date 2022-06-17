@@ -20,7 +20,7 @@ import { HashRouter, Route, Switch } from 'react-router-dom'
 import { organizationMessages as messages } from './utils/messages'
 import GET_ORGANIZATION from '../graphql/getOrganization.graphql'
 import UPDATE_ORGANIZATION from '../graphql/updateOrganization.graphql'
-import OrganizationDetailsConstCenters from './OrganizationDetails/OrganizationDetailsConstCenters'
+import OrganizationDetailsCostCenters from './OrganizationDetails/OrganizationDetailsCostCenters'
 import type { Collection } from './OrganizationDetails/OrganizationDetailsCollections'
 import OrganizationDetailsCollections from './OrganizationDetails/OrganizationDetailsCollections'
 import type { PaymentTerm } from './OrganizationDetails/OrganizationDetailsPayTerms'
@@ -55,6 +55,10 @@ const OrganizationDetails: FunctionComponent = () => {
    * States
    */
   const [organizationNameState, setOrganizationNameState] = useState('')
+  const [organizationTradeNameState, setOrganizationTradeNameState] = useState(
+    ''
+  )
+
   const [statusState, setStatusState] = useState('')
   const [collectionsState, setCollectionsState] = useState([] as Collection[])
   const [priceTablesState, setPriceTablesState] = useState([] as string[])
@@ -106,6 +110,7 @@ const OrganizationDetails: FunctionComponent = () => {
     const variables = {
       id: params?.id,
       name: organizationNameState,
+      tradeName: organizationTradeNameState,
       status: statusState,
       collections,
       paymentTerms,
@@ -210,16 +215,21 @@ const OrganizationDetails: FunctionComponent = () => {
     if (!data?.getOrganizationById || statusState) return
 
     const collections =
-      data.getOrganizationById.collections?.map((collection: any) => {
-        return { name: collection.name, collectionId: collection.id }
-      }) ?? []
+      data.getOrganizationById.collections?.map(
+        (collection: { name: string; id: string }) => {
+          return { name: collection.name, collectionId: collection.id }
+        }
+      ) ?? []
 
     const paymentTerms =
-      data.getOrganizationById.paymentTerms?.map((paymentTerm: any) => {
-        return { name: paymentTerm.name, paymentTermId: paymentTerm.id }
-      }) ?? []
+      data.getOrganizationById.paymentTerms?.map(
+        (paymentTerm: { name: string; id: string }) => {
+          return { name: paymentTerm.name, paymentTermId: paymentTerm.id }
+        }
+      ) ?? []
 
     setOrganizationNameState(data.getOrganizationById.name)
+    setOrganizationTradeNameState(data.getOrganizationById.tradeName ?? '')
     setStatusState(data.getOrganizationById.status)
     setCollectionsState(collections)
     setPaymentTermsState(paymentTerms)
@@ -238,6 +248,8 @@ const OrganizationDetails: FunctionComponent = () => {
         <OrganizationDetailsDefault
           organizationNameState={organizationNameState}
           setOrganizationNameState={setOrganizationNameState}
+          organizationTradeNameState={organizationTradeNameState}
+          setOrganizationTradeNameState={setOrganizationTradeNameState}
           statusState={statusState}
           setStatusState={setStatusState}
           data={data}
@@ -248,7 +260,7 @@ const OrganizationDetails: FunctionComponent = () => {
       label: formatMessage(messages.costCenters),
       tab: 'cost-centers',
       component: (
-        <OrganizationDetailsConstCenters
+        <OrganizationDetailsCostCenters
           setLoadingState={setLoadingState}
           showToast={showToast}
           loadingState={loadingState}

@@ -45,6 +45,12 @@ export const costCenterMessages = defineMessages({
   duplicateAddress: {
     id: `${storePrefix}costCenter-details.duplicate-address`,
   },
+  phoneNumber: {
+    id: `${storePrefix}costCenter-details.phoneNumber`,
+  },
+  phoneNumberHelp: {
+    id: `${storePrefix}costCenter-details.phoneNumber.helpText`,
+  },
   businessDocument: {
     id: `${storePrefix}costCenter-details.businessDocument`,
   },
@@ -219,6 +225,12 @@ export const organizationMessages = defineMessages({
   organizationsWithoutSalesManagerWarning: {
     id: `${storePrefix}organization-details.organizations-without-sales-manager-warning`,
   },
+  tradeName: {
+    id: `${storePrefix}organizations-details.tradeName`,
+  },
+  tradeNameHelp: {
+    id: `${storePrefix}organizations-details.tradeName.helpText`,
+  },
 })
 
 export const organizationRequestMessages = defineMessages({
@@ -243,6 +255,12 @@ export const organizationRequestMessages = defineMessages({
   organizationName: {
     id: `${storePrefix}request-new-organization.organization-name.label`,
   },
+  tradeName: {
+    id: `${storePrefix}request-new-organization.tradeName`,
+  },
+  tradeNameHelp: {
+    id: `${storePrefix}request-new-organization.tradeName.helpText`,
+  },
   b2bCustomerAdmin: {
     id: `${storePrefix}request-new-organization.b2b-customer-admin.title`,
   },
@@ -266,6 +284,12 @@ export const organizationRequestMessages = defineMessages({
   },
   defaultCostCenterName: {
     id: `${storePrefix}request-new-organization.default-cost-center-name.label`,
+  },
+  phoneNumber: {
+    id: `${storePrefix}request-new-organization.phoneNumber`,
+  },
+  phoneNumberHelp: {
+    id: `${storePrefix}request-new-organization.phoneNumber.helpText`,
   },
   businessDocument: {
     id: `${storePrefix}request-new-organization.businessDocument`,

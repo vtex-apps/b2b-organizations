@@ -90,6 +90,12 @@ export const organizationMessages = defineMessages({
   businessDocumentHelp: {
     id: `${adminPrefix}costCenter-details.businessDocument.helpText`,
   },
+  phoneNumber: {
+    id: `${adminPrefix}costCenter-details.phoneNumber`,
+  },
+  phoneNumberHelp: {
+    id: `${adminPrefix}costCenter-details.phoneNumber.helpText`,
+  },
   editUser: {
     id: `${adminPrefix}organization-details.edit-user`,
   },
@@ -104,6 +110,12 @@ export const organizationMessages = defineMessages({
   },
   organizationNameRequired: {
     id: `${adminPrefix}organization-details.organization-name-required`,
+  },
+  tradeName: {
+    id: `${adminPrefix}organization-details.tradeName`,
+  },
+  tradeNameHelp: {
+    id: `${adminPrefix}organization-details.tradeName.helpText`,
   },
   email: {
     id: `${adminPrefix}user-details.email`,
@@ -245,6 +257,12 @@ export const costCenterMessages = defineMessages({
   },
   costCenterName: {
     id: `${adminPrefix}costCenter-details.costCenter-name`,
+  },
+  phoneNumber: {
+    id: `${adminPrefix}costCenter-details.phoneNumber`,
+  },
+  phoneNumberHelp: {
+    id: `${adminPrefix}costCenter-details.phoneNumber.helpText`,
   },
   businessDocument: {
     id: `${adminPrefix}costCenter-details.businessDocument`,
