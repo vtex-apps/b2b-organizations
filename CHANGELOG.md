@@ -21,7 +21,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Added
 
-- UI support for organization `tradeName` and cost center `phoneNumber` fields
 - Github Action to trigger manual tests by dispatch
 
 ## [1.10.2] - 2022-06-14
