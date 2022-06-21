@@ -147,6 +147,9 @@ export const organizationMessages = defineMessages({
   toastAddUserSuccess: {
     id: `${adminPrefix}organization-users.toast.add-success`,
   },
+  toastUserDuplicatedOrganization: {
+    id: `${adminPrefix}organization-users.toast.duplicated-organization`,
+  },
   toastUserDuplicated: {
     id: `${adminPrefix}organization-users.toast.duplicated`,
   },
