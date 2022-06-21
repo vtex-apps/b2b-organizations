@@ -121,12 +121,9 @@
   "admin/b2b-organizations.costCenter-details.delete-costCenter-confirmation": "admin/b2b-organizations.costCenter-details.delete-costCenter-confirmation",
   "admin/b2b-organizations.costCenter-details.delete-address-confirmation": "admin/b2b-organizations.costCenter-details.delete-address-confirmation",
   "admin/b2b-organizations.costCenter-details.default-address": "admin/b2b-organizations.costCenter-details.default-address",
-<<<<<<< HEAD
   "admin/b2b-organizations.costCenter-details.duplicate-address": "admin/b2b-organizations.costCenter-details.duplicate-address",
-=======
   "admin/b2b-organizations.costCenter-details.phoneNumber": "admin/b2b-organizations.costCenter-details.phoneNumber",
   "admin/b2b-organizations.costCenter-details.phoneNumber.helpText": "admin/b2b-organizations.costCenter-details.phoneNumber.helpText",
->>>>>>> b63f363... [B2BORG-118] UI for tradeName and phoneNumber
   "admin/b2b-organizations.costCenter-details.businessDocument": "admin/b2b-organizations.costCenter-details.businessDocument",
   "admin/b2b-organizations.costCenter-details.businessDocument.helpText": "admin/b2b-organizations.costCenter-details.businessDocument.helpTest",
   "admin/b2b-organizations.organization-users.column.email": "admin/b2b-organizations.organization-users.column.email",
