@@ -31,6 +31,7 @@ import { getSession } from '../modules/session'
 import { validateEmail } from '../modules/formValidators'
 import { getEmptyAddress, isValidAddress } from '../utils/addresses'
 import CREATE_ORGANIZATION_REQUEST from '../graphql/createOrganizationRequest.graphql'
+import UPDATE_ORGANIZATION_REQUEST from '../graphql/updateOrganizationRequest.graphql'
 import GET_ORGANIZATION_REQUEST from '../graphql/getOrganizationRequest.graphql'
 import GET_LOGISTICS from '../graphql/getLogistics.graphql'
 
@@ -168,6 +169,8 @@ const RequestOrganizationForm: FC = () => {
     setAddressState(() => addValidation(getEmptyAddress(country)))
   }
 
+  const [updateOrganizationRequest] = useMutation(UPDATE_ORGANIZATION_REQUEST)
+
   const handleSubmit = () => {
     setFormState({
       ...formState,
@@ -229,6 +232,17 @@ const RequestOrganizationForm: FC = () => {
           localStore.setItem('b2b-organizations_orgRequestId', requestId)
           toastMessage(messages.toastSuccess)
           refetch({ id: requestId })
+          updateOrganizationRequest({
+            variables: {
+              id: requestId,
+              status: "approved"
+            },
+          }).then(response => {
+            toastMessage(messages.toastSuccess)
+            console.log(response)
+          }).catch(err => {
+            console.log(err)
+          })
           window.scrollTo({ top: 0, behavior: 'smooth' })
           setFormState({
             ...formState,
