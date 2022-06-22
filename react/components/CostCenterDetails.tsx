@@ -143,14 +143,14 @@ const CostCenterDetails: FunctionComponent<RouterProps> = ({
       organization: fetchedOrganization,
       name: fetchedName,
       addresses: fetchedAddresses,
-      paymentTerms: fetchedPaymentTerms = [],
+      paymentTerms: fetchedPaymentTerms,
       phoneNumber: fetchedPhoneNumber = '',
       businessDocument: fetchedBusinessDocument = '',
     } = data.getCostCenterByIdStorefront
 
     setCostCenterName(fetchedName)
     handleSetAddresses(fetchedAddresses)
-    setPaymentTerms(fetchedPaymentTerms)
+    setPaymentTerms(fetchedPaymentTerms ?? [])
 
     if (fetchedPhoneNumber) {
       setPhoneNumber(fetchedPhoneNumber)
@@ -169,14 +169,14 @@ const CostCenterDetails: FunctionComponent<RouterProps> = ({
     if (!organizationData?.getOrganizationByIdStorefront) return
 
     const {
-      paymentTerms: fetchedPaymentTermOptions = [],
+      paymentTerms: fetchedPaymentTermOptions,
     } = organizationData.getOrganizationByIdStorefront
 
-    setPaymentTermOptions(fetchedPaymentTermOptions)
+    setPaymentTermOptions(fetchedPaymentTermOptions ?? [])
 
     // enable all available payment terms by default
     if (paymentTerms && !paymentTerms.length) {
-      setPaymentTerms(fetchedPaymentTermOptions)
+      setPaymentTerms(fetchedPaymentTermOptions ?? [])
     }
   }, [organizationData])
 
@@ -185,7 +185,7 @@ const CostCenterDetails: FunctionComponent<RouterProps> = ({
 
     const { permissions = [] } = permissionsData.checkUserPermission ?? {}
 
-    if (permissions.length) {
+    if (permissions?.length) {
       setPermissionsState(permissions)
     }
   }, [permissionsData])
