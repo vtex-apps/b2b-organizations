@@ -218,7 +218,13 @@ const RequestOrganizationForm: FC = () => {
       .then(response => {
         const statusRequest = response.data.createOrganizationRequest.status
 
-        if (statusRequest === 'approved') {
+        if (statusRequest === 'pending') {
+          toastMessage(messages.toastPending)
+          setFormState({
+            ...formState,
+            isSubmitting: false,
+          })
+        } else if (statusRequest === 'approved') {
           toastMessage(messages.toastApproved)
           setFormState({
             ...formState,

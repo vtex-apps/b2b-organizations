@@ -1,7 +1,6 @@
-mutation DeleteCostCenter($id: ID!) {
-  deleteCostCenter(id: $id)
+mutation SaveB2BSettings($input: B2BSettingsInput!) {
+  saveB2BSettings(input: $input)
     @context(provider: "syatt.b2b-organizations-graphql") {
-    id
     status
     message
   }

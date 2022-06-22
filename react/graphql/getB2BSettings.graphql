@@ -1,0 +1,10 @@
+query GetB2BSettings {
+  getB2BSettings @context(provider: "syatt.b2b-organizations-graphql") {
+    defaultPriceTables
+    autoApprove
+    defaultPaymentTerms {
+      id
+      name
+    }
+  }
+}
