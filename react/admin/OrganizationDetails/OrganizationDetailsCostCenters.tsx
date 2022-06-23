@@ -21,6 +21,7 @@ import { organizationMessages as messages } from '../utils/messages'
 import { getEmptyAddress, isValidAddress } from '../../utils/addresses'
 import CREATE_COST_CENTER from '../../graphql/createCostCenter.graphql'
 import GET_LOGISTICS from '../../graphql/getLogistics.graphql'
+import { validatePhoneNumber } from '../../modules/formValidators'
 
 interface CostCenterSimple {
   id: string
@@ -28,7 +29,7 @@ interface CostCenterSimple {
   addresses: Address[]
 }
 
-const OrganizationDetailsConstCenters = ({
+const OrganizationDetailsCostCenters = ({
   setLoadingState,
   showToast,
   loadingState,
@@ -58,6 +59,7 @@ const OrganizationDetailsConstCenters = ({
 
   const [newCostCenterModalState, setNewCostCenterModalState] = useState(false)
   const [newCostCenterName, setNewCostCenterName] = useState('')
+  const [newCostCenterPhoneNumber, setNewCostCenterPhoneNumber] = useState('')
   const [
     newCostCenterBusinessDocument,
     setNewCostCenterBusinessDocument,
@@ -297,7 +299,9 @@ const OrganizationDetailsConstCenters = ({
                 isLoading={loadingState}
                 disabled={
                   !newCostCenterName ||
-                  !isValidAddress(newCostCenterAddressState)
+                  !isValidAddress(newCostCenterAddressState) ||
+                  (newCostCenterPhoneNumber &&
+                    !validatePhoneNumber(newCostCenterPhoneNumber))
                 }
               >
                 {formatMessage(messages.add)}
@@ -322,6 +326,22 @@ const OrganizationDetailsConstCenters = ({
               setNewCostCenterName(e.target.value)
             }}
             required
+          />
+        </div>
+        <div className="w-100 mv6">
+          <Input
+            autocomplete="off"
+            size="large"
+            label={formatMessage(messages.phoneNumber)}
+            helpText={formatMessage(messages.phoneNumberHelp)}
+            value={newCostCenterPhoneNumber}
+            error={
+              newCostCenterPhoneNumber &&
+              !validatePhoneNumber(newCostCenterPhoneNumber)
+            }
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+              setNewCostCenterPhoneNumber(e.target.value)
+            }}
           />
         </div>
         <div className="w-100 mv6">
@@ -366,4 +386,4 @@ const OrganizationDetailsConstCenters = ({
   )
 }
 
-export default OrganizationDetailsConstCenters
+export default OrganizationDetailsCostCenters
