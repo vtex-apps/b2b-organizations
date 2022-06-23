@@ -409,7 +409,11 @@ const CostCenterDetails: FunctionComponent = () => {
             <Button
               variation="primary"
               isLoading={loadingState}
-              disabled={!costCenterName || !addresses.length}
+              disabled={
+                !costCenterName ||
+                !addresses.length ||
+                (phoneNumber && !validatePhoneNumber(phoneNumber))
+              }
               onClick={() => handleUpdateCostCenter()}
             >
               <FormattedMessage id="admin/b2b-organizations.costCenter-details.button.save" />
