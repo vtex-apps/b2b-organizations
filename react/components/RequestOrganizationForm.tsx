@@ -33,7 +33,6 @@ import { getEmptyAddress, isValidAddress } from '../utils/addresses'
 import CREATE_ORGANIZATION_REQUEST from '../graphql/createOrganizationRequest.graphql'
 import GET_ORGANIZATION_REQUEST from '../graphql/getOrganizationRequest.graphql'
 import GET_LOGISTICS from '../graphql/getLogistics.graphql'
-import CheckCustomerSchema from './CheckCustomerSchema'
 
 const localStore = storageFactory(() => localStorage)
 let requestId = localStore.getItem('b2b-organizations_orgRequestId') ?? ''
@@ -548,9 +547,6 @@ const RequestOrganizationForm: FC = () => {
           />
         }
       >
-        <div className="mb5">
-          <CheckCustomerSchema isAdmin={false} />
-        </div>
         {loading ? (
           <span style={{ display: 'flex', justifyContent: 'center' }}>
             <Spinner size={40} />
