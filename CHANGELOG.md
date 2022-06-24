@@ -12,6 +12,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Added a warning message when the customer schema is invalid.
 
 ## [1.11.0] - 2022-06-23
+- 
+### Added
+- UI support for organization `tradeName` and cost center `phoneNumber` fields
 
 ## [1.10.3] - 2022-06-22
 
@@ -21,7 +24,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Added
 
-- UI support for organization `tradeName` and cost center `phoneNumber` fields
 - Github Action to trigger manual tests by dispatch
 
 ## [1.10.2] - 2022-06-14
