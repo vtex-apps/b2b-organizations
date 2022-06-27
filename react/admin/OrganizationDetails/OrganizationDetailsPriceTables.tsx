@@ -97,7 +97,7 @@ const OrganizationDetailsPriceTables = ({
         newPriceTables.push(row.tableId)
       }
     })
-
+    console.log(priceTablesState, newPriceTables)
     setPriceTablesState((prevState: any) => [...prevState, ...newPriceTables])
   }
 

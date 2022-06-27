@@ -10,6 +10,7 @@ import {
 import OrganizationsList from './OrganizationsList'
 import OrganizationRequestsTable from './OrganizationRequestsTable'
 import useHashRouter from './OrganizationDetails/useHashRouter'
+import AutoApproveSettings from './AutoApproveSettings'
 
 const SESSION_STORAGE_KEY = 'organization-tab'
 
@@ -44,6 +45,11 @@ const OrganizationsTable = () => {
             active={tab === 'requests'}
             onClick={() => handleTabChange('requests')}
           />
+          <Tab
+            label={formatMessage(requestMessages.tablePageTitle)}
+            active={tab === 'settings'}
+            onClick={() => handleTabChange('settings')}
+          />
         </Tabs>
         <Container>
           <Switch>
@@ -52,6 +58,11 @@ const OrganizationsTable = () => {
               path="/requests"
               exact
               component={OrganizationRequestsTable}
+            />
+            <Route
+              path="/settings"
+              exact
+              component={AutoApproveSettings}
             />
           </Switch>
         </Container>

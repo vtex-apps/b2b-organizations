@@ -111,15 +111,17 @@ const OrganizationDetails: FunctionComponent = () => {
       paymentTerms,
       priceTables: priceTablesState,
     }
+    console.log(variables)
 
     updateOrganization({ variables })
-      .then(() => {
+      .then((res) => {
         setLoadingState(false)
         showToast({
           type: 'success',
           message: formatMessage(messages.toastUpdateSuccess),
         })
         refetch({ id: params?.id })
+        console.log(res)
       })
       .catch(error => {
         setLoadingState(false)
