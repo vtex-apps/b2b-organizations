@@ -7,4 +7,3 @@ api.defaults.headers.common['Authorization'] = '0KwgmGRYjSxW6CHIv8CJeooWerGkxBaS
 api.defaults.headers.common['Content-Type'] = 'application/json'
 
 export default api
-  

@@ -35,6 +35,7 @@ import CREATE_ORGANIZATION_REQUEST from '../graphql/createOrganizationRequest.gr
 import GET_ORGANIZATION_REQUEST from '../graphql/getOrganizationRequest.graphql'
 import GET_LOGISTICS from '../graphql/getLogistics.graphql'
 
+import axios from 'axios';
 import api from './utils/api'
 
 import '../styles.global.css'
@@ -84,11 +85,48 @@ const CreateNewOrganizationRequest = (props: any) => {
   )
 }
 
+interface ModalMessage {
+  title: string,
+  message: string,
+  buttonText: string,
+  buttonLink: string,
+  active: boolean
+}
+
+const ModalOrganizationMessage = (props: any) => {
+  const settings: ModalMessage = props.settings
+  return (<Fragment>
+    {settings.active ?
+      <div className='modal-organization__shadow'>
+        <article className='modal-organization__box'>
+          <header className='modal-organization__header'>
+            {settings.title}
+          </header>
+          <p className='modal-organization__message'>{settings.message}</p>
+          <footer className='modal-organization__footer'>
+            <a className='modal-organization__button' onClick={() => { props.toggleActiveModal() }} href={settings.buttonLink != '' ? settings.buttonLink : undefined} >{settings.buttonText}</a>
+          </footer>
+        </article>
+      </div>
+      : null}
+  </Fragment>)
+}
+
 const RequestOrganizationForm: FC = () => {
   const { formatMessage, formatDate } = useIntl()
   const {
     culture: { country },
   } = useRuntime()
+
+  const [modalSettings, setModalSettings] = useState<ModalMessage>(
+    {
+      title: 'Cadastro enviado!',
+      message: 'Vamos analisar os dados enviados e liberar o seu cadastro. Aguarde nosso e-mail com mais informações e liberar seu cadastro em até 24 horas. Por enquanto, você já pode comprar itens de USO LIVRE.',
+      buttonText: 'Voltar para a loja',
+      buttonLink: '/',
+      active: false
+    }
+  )
 
   const [permission, setPermission] = useState<boolean>(false)
 
@@ -156,6 +194,7 @@ const RequestOrganizationForm: FC = () => {
     return formatMessage(message)
   }
 
+
   const toastMessage = (message: MessageDescriptor) => {
     const translatedMessage = translateMessage(message)
     const action = undefined
@@ -186,11 +225,7 @@ const RequestOrganizationForm: FC = () => {
       }).then((data: any) => {
         //input all camps
 
-        //unlock unseen inputs
-        setLockFunc(false)
 
-        //remove loading here
-        setLoadFunc(false)
 
         console.log(data?.data)
 
@@ -201,26 +236,80 @@ const RequestOrganizationForm: FC = () => {
             ...formState,
             businessDocument: data?.data?.data[0]?.cnpj,
             organizationName: data?.data?.data[0]?.razao_social,
-
           })
-          return data?.data
+
+          if (data?.data?.data[0]?.situacao_cadastral === "ATIVA") {
+
+            api.post('/sintegra/unificada', {
+              cnpj: cnpj,
+              uf: data?.data?.data[0]?.endereco_uf
+            }).then((response: any) => {
+              console.log(response)
+              if (response?.data?.code != 200) {
+                setModalSettings({
+                  title: 'Ocorreu um erro!',
+                  message: `${response?.data?.code_message} Você pode continuar preenchendo os dados no formulário abaixo.`,
+                  buttonText: 'Fechar mensagem',
+                  buttonLink: '',
+                  active: true
+                })
+              } else {
+                setFormState({
+                  ...formState,
+                  organizationIE: response?.data?.data[0]?.inscricao_estadual
+                })
+              }
+              //unlock unseen inputs
+              setLockFunc(false)
+
+              //remove loading here
+              setLoadFunc(false)
+              return [data?.data, response?.data]
+
+            })
+          } else {
+            setModalSettings({
+              title: 'Seu CNPJ consta como inativo!',
+              message: 'Você deverá regularizar sua situação. E em caso de dúvidas, entre em contato com o sac.',
+              buttonText: 'Voltar para a loja',
+              buttonLink: '/',
+              active: true
+            })
+          }
+
+
+
         }
       }).catch((err) => {
         //remove loading here
         setLoadFunc(false)
-
+        setModalSettings({
+          title: 'Erro!',
+          message: 'Ocorreu um erro ao recuperar os dados do CNPJ informado.',
+          buttonText: 'Fechar mensagem',
+          buttonLink: '',
+          active: true
+        })
         console.error(err)
       })
     }
   }
 
   const handleAddressChange = (changedAddress: AddressFormFields) => {
-    console.log(changedAddress)
     const curAddress = addressState
 
     const newAddress = { ...curAddress, ...changedAddress }
 
     setAddressState(newAddress)
+  }
+
+  function getBase64(file: Blob) {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = error => reject(error);
+    });
   }
 
   const handleNewOrganizationRequest = () => {
@@ -245,18 +334,18 @@ const RequestOrganizationForm: FC = () => {
         firstName: formState.firstName,
         lastName: formState.lastName,
         email: formState.email,
-        cpf: formState.cpf,
-        telephone: formState.telephone
+        // cpf: formState.cpf,
+        // telephone: formState.telephone
       },
       defaultCostCenter: {
         name: formState.organizationName,
-        type: formState.organizationType,
-        public: formState.organizationPublic,
-        ie: formState.organizationIE,
-        icms: formState.organizationICMS,
-        area: formState.organizationArea,
-        phone: formState.organizationPhone,
-        newsletter: formState.newsletter,
+        // type: formState.organizationType,
+        // public: formState.organizationPublic,
+        // ie: formState.organizationIE,
+        // icms: formState.organizationICMS,
+        // area: formState.organizationArea,
+        // phone: formState.organizationPhone,
+        // newsletter: formState.newsletter,
         address: {
           addressId: addressState.addressId.value,
           addressType: addressState.addressType.value,
@@ -277,6 +366,65 @@ const RequestOrganizationForm: FC = () => {
       },
     }
 
+
+    const options = {
+      method: 'POST',
+      url: 'https://hppardis.environment.com.br/api/dataentities/MO/documents',
+      headers: { Accept: 'application/vnd.vtex.ds.v10+json', 'Content-Type': 'application/json' },
+      data: {
+        name: formState.organizationName,
+        cnpj: formState.businessDocument,
+        phone: formState.organizationPhone,
+        public: formState.organizationPublic,
+        ie: formState.organizationIE,
+        icms: formState.organizationICMS,
+        type: formState.organizationType,
+        area: formState.organizationArea
+      }
+    };
+
+    axios.request(options).then(function (response) {
+      console.log(response.data);
+      var contentfile
+
+      var id = response.data.id
+      var input = document.querySelector('.file-button > input[type="file"]') as HTMLInputElement;
+
+      if (input != null) {
+        // 👉️ input has type HTMLInputElement here
+        var file = input.files
+
+        if (file != null) {
+          getBase64(file[0]).then(
+            data => contentfile = data
+          );
+        }
+
+      }
+      if (contentfile) {
+        const form = new FormData();
+
+        form.append('file', `${contentfile}`)
+
+        const options = {
+          method: 'POST',
+          url: `https://hppardis.environment.com.br/api/dataentities/MO/documents/${id}/arquivo/attachments`,
+          headers: { 'Content-Type': 'multipart/form-data; boundary=---011000010111000001101001' },
+          data: '[form]'
+        };
+
+        axios.request(options).then(function (res) {
+          console.log(res.data);
+        }).catch(function (error) {
+          console.error(error);
+        });
+      }
+
+    }).catch(function (error) {
+      console.error(error);
+    });
+
+
     createOrganizationRequest({
       variables: {
         input: organizationRequest,
@@ -285,17 +433,32 @@ const RequestOrganizationForm: FC = () => {
       .then(response => {
         const statusRequest = response.data.createOrganizationRequest.status
 
+
         if (statusRequest === 'pending') {
           toastMessage(messages.toastPending)
           setFormState({
             ...formState,
             isSubmitting: false,
           })
+          setModalSettings({
+            title: 'Cadastro pendente!',
+            message: 'Estamos analisando os dados enviados e após isso vamos liberar o seu cadastro. Aguarde nosso e-mail com mais informações e liberar seu cadastro em até 24 horas. Por enquanto, você já pode comprar itens de USO LIVRE.',
+            buttonText: 'Voltar para a loja',
+            buttonLink: '/',
+            active: true
+          })
         } else if (statusRequest === 'approved') {
           toastMessage(messages.toastApproved)
           setFormState({
             ...formState,
             isSubmitting: false,
+          })
+          setModalSettings({
+            title: 'Cadastro Aprovado!',
+            message: '',
+            buttonText: 'Voltar para a loja',
+            buttonLink: '/',
+            active: true
           })
         } else {
           requestId = response.data.createOrganizationRequest.id
@@ -308,6 +471,14 @@ const RequestOrganizationForm: FC = () => {
             isSubmitting: false,
             submitted: true,
           })
+          setModalSettings({
+            title: 'Cadastro enviado!',
+            message: 'Vamos analisar os dados enviados e liberar o seu cadastro. Aguarde nosso e-mail com mais informações e liberar seu cadastro em até 24 horas. Por enquanto, você já pode comprar itens de USO LIVRE.',
+            buttonText: 'Voltar para a loja',
+            buttonLink: '/',
+            active: true
+          })
+
         }
       })
       .catch(error => {
@@ -620,6 +791,7 @@ const RequestOrganizationForm: FC = () => {
                               setFormState({
                                 ...formState,
                                 organizationName: e.target.value,
+                                defaultCostCenterName: e.target.value,
                               })
                             }}
                             required
@@ -702,12 +874,17 @@ const RequestOrganizationForm: FC = () => {
                             size="large"
                             label={"Área de atuação"}
                             options={[
-                              { value: 'Option One', label: 'Option One' },
-                              { value: 'Option Two', label: 'Option Two' },
-                              { value: 'Option Three', label: 'Option Three' },
-                              { value: 'Option Four', label: 'Option Four' },
+                              { value: 'Clínica Médica', label: 'Clínica Médica' },
+                              { value: 'Clínica Odontológica', label: 'Clínica Odontológica' },
+                              { value: 'Estética', label: 'Estética' },
+                              { value: 'Farmácia', label: 'Farmácia' },
+                              { value: 'Hospital', label: 'Hospital' },
+                              { value: 'Laboratório de Análises', label: 'Laboratório de Análises' },
+                              { value: 'Instituição de Ensino', label: 'Instituição de Ensino' },
+                              { value: 'Veterinária & Pet', label: 'Veterinária & Pet' },
+                              { value: 'Outros', label: 'Outros' }
                             ]}
-                            value={'Option One'}
+                            value={formState.organizationType}
                             onChange={(__: any, value: string) => {
                               setFormState({
                                 ...formState,
@@ -843,12 +1020,12 @@ const RequestOrganizationForm: FC = () => {
                           }}
                           disabled={
                             !formState.organizationName ||
-                            !formState.defaultCostCenterName ||
                             !formState.firstName ||
                             !formState.lastName ||
                             !validateEmail(formState.email) ||
                             !isValidAddress(addressState) ||
-                            !permission
+                            !permission ||
+                            !formState.isSubmitting
                           }
                         >
                           Enviar Cadastro
@@ -863,6 +1040,15 @@ const RequestOrganizationForm: FC = () => {
           </Fragment>
         )}
       </Layout>
+      <ModalOrganizationMessage settings={modalSettings} toggleActiveModal={() => {
+        setModalSettings({
+          title: '',
+          message: '',
+          buttonLink: '',
+          buttonText: '',
+          active: false
+        })
+      }} />
     </div>
   )
 }

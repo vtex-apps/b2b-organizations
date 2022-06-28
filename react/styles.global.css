@@ -9,20 +9,21 @@ body,
 
 
 
-.customb2b-pageHeader{
+.customb2b-pageHeader {
   display: block;
   margin: 10px auto 30px;
   max-width: 586px;
 }
 
-.customb2b-pageHeader h1{
+.customb2b-pageHeader h1 {
   text-align: center;
   font: normal normal medium 38px/46px Poppins;
   letter-spacing: 0px;
   color: #CC083C;
   margin: 10px 0;
 }
-.customb2b-pageHeader h3{
+
+.customb2b-pageHeader h3 {
   text-align: center;
   font: normal normal normal 14px/18px Poppins;
   letter-spacing: 0px;
@@ -31,7 +32,8 @@ body,
   margin: 10px 0;
 
 }
-.customb2b-pageHeader h4{
+
+.customb2b-pageHeader h4 {
   text-align: center;
   font: normal normal normal 12px/16px Poppins;
   letter-spacing: 0px;
@@ -40,7 +42,7 @@ body,
   margin: 0;
 }
 
-.customb2b-pageBody{
+.customb2b-pageBody {
   background: #FAFAFA 0% 0% no-repeat padding-box;
   border-radius: 6px;
   padding: 30px 30px;
@@ -48,41 +50,43 @@ body,
   margin: auto;
 }
 
-.customb2b-pageBody *:not(input):not(select):not(.vtex-checkbox__box):not(.vtex-checkbox__box-wrapper):not(.vtex-checkbox__container):not(.vtex-checkbox__inner-container):not(.vtex-dropdown__button):not(.vtex-dropdown__container){
+.customb2b-pageBody *:not(input):not(select):not(.vtex-checkbox__box):not(.vtex-checkbox__box-wrapper):not(.vtex-checkbox__container):not(.vtex-checkbox__inner-container):not(.vtex-dropdown__button):not(.vtex-dropdown__container) {
   background: transparent;
   border: 0;
   margin: 0;
   padding: 0;
 }
 
-.customb2b-pageBody *{
+.customb2b-pageBody * {
   font: normal normal normal 13px/18px Poppins;
 }
 
-.customb2b-pageBody .styleguide__pageBlock > div > div h2 + div{
+.customb2b-pageBody .styleguide__pageBlock>div>div h2+div {
   margin-bottom: 20px o !important;
 }
 
-.customb2b-pageBody input:not([type=checkbox]),select,.vtex-dropdown__container{
+.customb2b-pageBody input:not([type=checkbox]),
+select,
+.vtex-dropdown__container {
   background: #fff !important;
   border-radius: 2px !important;
   border: 1px solid #eee !important;
   height: 38px !important;
 }
 
-.styleguide__layout.bg-muted-5{
+.styleguide__layout.bg-muted-5 {
   background-color: transparent !important;
 }
 
-.customb2b-pageBody .styleguide__pageBlock{
+.customb2b-pageBody .styleguide__pageBlock {
   padding: 10px 0 20px;
 }
 
-.customb2b-pageBody .styleguide__pageBlock{
+.customb2b-pageBody .styleguide__pageBlock {
   margin-top: 35px !important;
 }
 
-.customb2b-pageBody .styleguide__pageBlock div h2{
+.customb2b-pageBody .styleguide__pageBlock div h2 {
   width: 100%;
   font: normal normal 600 16px/35px Poppins;
   letter-spacing: 0px;
@@ -90,7 +94,7 @@ body,
   margin: 0;
 }
 
-.customb2b-pageBody .styleguide__pageBlock div h2 + div{
+.customb2b-pageBody .styleguide__pageBlock div h2+div {
   width: 100%;
   font: normal normal normal 12px/14px Poppins;
   letter-spacing: 0px;
@@ -98,7 +102,7 @@ body,
   margin: 0;
 }
 
-.customb2b-pageBody .styleguide__pageBlock div.styleguide__box{
+.customb2b-pageBody .styleguide__pageBlock div.styleguide__box {
   padding: 20px 0 25px;
   display: flex;
   flex-direction: column;
@@ -106,13 +110,13 @@ body,
 }
 
 
-.customb2b-pageBody .form-group-flex{
+.customb2b-pageBody .form-group-flex {
   display: flex;
   gap: 20px;
   width: 100%;
 }
 
-.customb2b-pageBody .form-group-flex button{
+.customb2b-pageBody .form-group-flex button {
   max-width: 150px;
   background-color: #CC083C !important;
   color: #fff;
@@ -125,17 +129,17 @@ body,
 
 }
 
-.customb2b-pageBody .form-group-flex > div{
+.customb2b-pageBody .form-group-flex>div {
   width: 100%;
 }
 
 /* Form geral */
 
-.customb2b-pageBody .hppardis-b2b-organizations-1-x-newOrganizationInput input:not([type=checkbox]){
+.customb2b-pageBody .hppardis-b2b-organizations-1-x-newOrganizationInput input:not([type=checkbox]) {
   margin-top: 10px !important;
 }
 
-.customb2b-pageBody .hppardis-b2b-organizations-1-x-newOrganizationInput span{
+.customb2b-pageBody .hppardis-b2b-organizations-1-x-newOrganizationInput span {
   margin-top: 5px !important;
   font: normal normal normal 13px/18px Poppins;
   color: #111;
@@ -143,96 +147,102 @@ body,
 
 /* Form empresa */
 
-.customb2b-pageBody .vtex-dropdown .vtex-dropdown__container{
+.customb2b-pageBody .vtex-dropdown .vtex-dropdown__container {
   margin-top: 10px !important;
 }
 
-.customb2b-pageBody .vtex-dropdown span{
+.customb2b-pageBody .vtex-dropdown span {
   margin-top: 5px !important;
   font: normal normal normal 13px/18px Poppins;
   color: #111;
 }
-.customb2b-pageBody .ie-flex{
+
+.customb2b-pageBody .ie-flex {
   display: flex;
   gap: 20px;
   flex-direction: row;
 }
-.customb2b-pageBody .ie-flex .vtex-checkbox__line-container{
+
+.customb2b-pageBody .ie-flex .vtex-checkbox__line-container {
   height: 38px;
   margin-top: auto !important;
   justify-content: center;
   align-items: center;
 }
 
-.customb2b-pageBody .icms-flex > div .vtex-checkbox__line-container{
+.customb2b-pageBody .icms-flex>div .vtex-checkbox__line-container {
   height: 30px;
   margin-top: 10px !important;
   justify-content: center;
   align-items: center;
 }
-.customb2b-pageBody .icms-flex > div {
+
+.customb2b-pageBody .icms-flex>div {
   display: flex;
   flex-direction: row;
   gap: 20px;
 }
 
-.customb2b-pageBody .icms-flex > label {
+.customb2b-pageBody .icms-flex>label {
   margin-top: 5px !important;
   display: block;
 }
 
 /* Form Adress */
-.customb2b-pageBody .vtex-address-form__country{
+.customb2b-pageBody .vtex-address-form__country {
   display: none;
 }
-.customb2b-pageBody .vtex-address-form__postalCode{
+
+.customb2b-pageBody .vtex-address-form__postalCode {
   width: 253px;
   min-width: 253px;
 }
 
-.customb2b-pageBody .vtex-address-form__postalCode-forgottenURL{
+.customb2b-pageBody .vtex-address-form__postalCode-forgottenURL {
   display: none;
 }
 
-.customb2b-pageBody .vtex-address-form__steet{
+.customb2b-pageBody .vtex-address-form__steet {
   grid-area: endereco;
 }
 
-.customb2b-pageBody .vtex-address-form__number{
+.customb2b-pageBody .vtex-address-form__number {
   grid-area: numero;
 }
 
-.customb2b-pageBody .vtex-address-form__complement{
+.customb2b-pageBody .vtex-address-form__complement {
   grid-area: complemento;
 }
 
-.customb2b-pageBody .vtex-address-form__neighborhood{
+.customb2b-pageBody .vtex-address-form__neighborhood {
   grid-area: bairro;
 }
 
-.customb2b-pageBody .vtex-address-form__city{
+.customb2b-pageBody .vtex-address-form__city {
   grid-area: cidade;
 }
 
-.customb2b-pageBody .vtex-address-form__state{
+.customb2b-pageBody .vtex-address-form__state {
   grid-area: estado;
 }
 
-.customb2b-pageBody .vtex-address-form__receiverName{
+.customb2b-pageBody .vtex-address-form__receiverName {
   grid-area: destinatario;
 }
 
-.customb2b-pageBody .vtex-address-form__container{
+.customb2b-pageBody .vtex-address-form__container {
   display: grid;
   gap: 15px 20px;
   padding-top: 20px !important;
-  grid-template-areas: "endereco endereco" "numero complemento" "bairro cidade" "estado destinatario";
+  grid-template-areas: "endereco endereco""numero complemento""bairro cidade""estado destinatario";
 }
-.customb2b-pageBody .vtex-address-form__container > div label span{
+
+.customb2b-pageBody .vtex-address-form__container>div label span {
   margin-top: 5px !important;
 }
-.customb2b-pageBody .vtex-address-form__container > div label > div{
-  margin-top: 15px !important; 
+
+.customb2b-pageBody .vtex-address-form__container>div label>div {
+  margin-top: 15px !important;
 }
 
 
@@ -241,16 +251,16 @@ body,
 
 
 /* Documentos anexados */
-.file-button{
+.file-button {
   margin-top: 20px !important;
   margin-bottom: 20px !important;
 }
 
-.file-button input{
+.file-button input {
   display: none;
 }
 
-.file-button label{
+.file-button label {
   color: #12576E !important;
   background: #fff !important;
   border: 1px solid #12576E !important;
@@ -260,6 +270,99 @@ body,
   display: flex;
   justify-content: center;
   align-items: center;
-  font: normal normal normal 13px/18px Poppins;
+  font-size: 13px;
+  line-height: 18px;
+  cursor: pointer;
+}
+
+
+
+/* Modal */
+.modal-organization__shadow {
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+  background: #00000088;
+  z-index: 999999;
+  padding: 15px;
+}
+
+.modal-organization__box {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 30px 40px;
+  width: 100%;
+  max-width: 536px;
+  height: auto;
+  background: #FFFFFF 0% 0% no-repeat padding-box;
+  box-shadow: 0px 15px 30px #00000012;
+  border-radius: 6px;
+}
+
+.modal-organization__header {
+  text-align: center;
+  font-size: 38px;
+  line-height: 46px;
+  font-weight: 500;
+  letter-spacing: 0px;
+  color: #12576E;
+  margin-bottom: 12px;
+}
+
+.modal-organization__message {
+  text-align: center;
+  font-size: 15px;
+  line-height: 20px;
+  letter-spacing: 0px;
+  color: #12576E;
+}
+
+.modal-organization__footer {
+  margin: 40px auto 0;
+}
+
+.modal-organization__button {
+  width: 184px;
+  height: 38px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #0F4658 0% 0% no-repeat padding-box;
+  border-radius: 2px;
+  text-align: center;
+  font-size: 13px;
+  line-height: 18px;
+  letter-spacing: 0px;
+  color: #FFFFFF;
+  cursor: pointer;
+}
+
+
+.hppardis-b2b-organizations-1-x-newOrganizationButtonsContainer {
+  align-items: center;
+  justify-content: center;
+}
+
+.hppardis-b2b-organizations-1-x-newOrganizationButtonsContainer button {
+  width: 184px !important;
+  height: 38px !important;
+  background: #12576E 0% 0% no-repeat padding-box !important;
+  border-radius: 2px !important;
+  text-align: center !important;
+  font-size: 13px !important;
+  line-height: 18px !important;
+  font-weight: 400 !important;
+  text-transform: none !important;
+  letter-spacing: 0px !important;
+  color: #FFFFFF !important;
+  justify-content: center !important;
+  align-items: center !important;
+  display: flex !important;
   cursor: pointer;
 }
