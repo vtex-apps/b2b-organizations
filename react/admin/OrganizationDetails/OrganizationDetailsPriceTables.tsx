@@ -110,7 +110,7 @@ const OrganizationDetailsPriceTables = ({
           }),
       },
       main: {
-        label: formatMessage(messages.removeFromOrg),
+        label: formatMessage(messages.addToOrg),
         handleCallback,
       },
     }
