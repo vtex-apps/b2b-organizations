@@ -10,32 +10,32 @@ import GET_PRICE_TABLES from '../graphql/getPriceTables.graphql'
 import GET_SALES_CHANNELS from '../graphql/getSalesChannels.graphql'
 import GET_PAYMENT_TERMS from '../graphql/getPaymentTerms.graphql'
 
-import { 
-    Table, 
-    IconCheck, 
-    // Tag, 
-    Checkbox 
+import {
+  Table,
+  IconCheck,
+  // Tag, 
+  Checkbox
 } from 'vtex.styleguide'
 
 export interface CellRendererProps<RowType> {
-    cellData: unknown
-    rowData: RowType
-    updateCellMeasurements: () => void
-  }
+  cellData: unknown
+  rowData: RowType
+  updateCellMeasurements: () => void
+}
 
 export default function AutoApproveSettings() {
-    const { formatMessage } = useIntl()
+  const { formatMessage } = useIntl()
 
-    const [priceTableOptions, setPriceTableOptions] = useState([] as PriceTable[])
-    const [paymentTermsOptions, setPaymentTermsOptions] = useState(
-        [] as PaymentTerm[]
-      )
-    const [priceTablesState, setPriceTablesState] = useState([] as string[])
-    const [paymentTermsState, setPaymentTermsState] = useState(
-        [] as PaymentTerm[]
-      )
-    const [autoApproveState, setAutoApproveState] = useState(false)
-    
+  const [priceTableOptions, setPriceTableOptions] = useState([] as PriceTable[])
+  const [paymentTermsOptions, setPaymentTermsOptions] = useState(
+    [] as PaymentTerm[]
+  )
+  const [priceTablesState, setPriceTablesState] = useState([] as string[])
+  const [paymentTermsState, setPaymentTermsState] = useState(
+    [] as PaymentTerm[]
+  )
+  const [autoApproveState, setAutoApproveState] = useState(false)
+
 
   /**
    * Queries
@@ -87,134 +87,174 @@ export default function AutoApproveSettings() {
     setPriceTableOptions(options)
   }, [priceTablesData, salesChannelsData, paymentTermsData])
 
-  const bulkActions = (handleCallback: (params: any) => void) => {
+  const bulkActions = (handleCallback: (params: any) => void, handleRemoveCallback: (params: any) => void) => {
     return {
       texts: {
         rowsSelected: (qty: number) =>
           formatMessage(messages.selectedRows, {
             qty,
           }),
+          secondaryActionsLabel: 'Add or Remove settings',
       },
-      main: {
-        label: formatMessage(messages.removeFromOrg),
-        handleCallback,
+      others: [
+        {
+          label: "Add to settings",
+          handleCallback,
+        },
+        {
+          label: "Remove from settings",
+          handleCallback: handleRemoveCallback,
+        }
+      ],
+    }
+  }
+
+  const getSchema = (
+    type?: 'availablePriceTables' | 'availableCollections' | 'availablePayments'
+  ) => {
+    let cellRenderer
+
+    switch (type) {
+      case 'availablePriceTables':
+        cellRenderer = ({
+          rowData: { tableId, name },
+        }: CellRendererProps<PriceTable>) => {
+          const assigned = priceTablesState.includes(tableId)
+
+          return (
+            <span className={assigned ? 'c-disabled' : ''}>
+              {name ?? tableId}
+              {assigned && <IconCheck />}
+            </span>
+          )
+        }
+
+        break
+
+      case 'availablePayments':
+        cellRenderer = ({
+          rowData: { name },
+        }: CellRendererProps<PaymentTerm>) => {
+          const assigned = paymentTermsState.some(
+            payment => payment.name === name
+          )
+
+          return (
+            <span className={assigned ? 'c-disabled' : ''}>
+              {name}
+              {assigned && <IconCheck />}
+            </span>
+          )
+        }
+
+        break
+
+      default:
+        break
+    }
+
+    return {
+      properties: {
+        name: {
+          title: formatMessage(messages.detailsColumnName),
+          ...(cellRenderer && { cellRenderer }),
+        },
       },
     }
   }
 
-    const getSchema = (
-        type?: 'availablePriceTables' | 'availableCollections' | 'availablePayments'
-      ) => {
-        let cellRenderer
-    
-        switch (type) {
-          case 'availablePriceTables':
-            cellRenderer = ({
-              rowData: { tableId, name },
-            }: CellRendererProps<PriceTable>) => {
-              const assigned = priceTablesState.includes(tableId)
-    
-              return (
-                <span className={assigned ? 'c-disabled' : ''}>
-                  {name ?? tableId}
-                  {assigned && <IconCheck />}
-                </span>
-              )
-            }
-    
-            break
-    
-          case 'availablePayments':
-            cellRenderer = ({
-              rowData: { name },
-            }: CellRendererProps<PaymentTerm>) => {
-              const assigned = paymentTermsState.some(
-                payment => payment.name === name
-              )
-    
-              return (
-                <span className={assigned ? 'c-disabled' : ''}>
-                  {name}
-                  {assigned && <IconCheck />}
-                </span>
-              )
-            }
-    
-            break
-    
-          default:
-            break
-        }
-    
-        return {
-          properties: {
-            name: {
-              title: formatMessage(messages.detailsColumnName),
-              ...(cellRenderer && { cellRenderer }),
-            },
-          },
-        }
-      }
+  const handleAddPriceTables = (rowParams: any) => {
+    const { selectedRows = [] } = rowParams
+    const newPriceTables = [] as string[]
 
-      const handleAddPriceTables = (rowParams: any) => {
-        const { selectedRows = [] } = rowParams
-        const newPriceTables = [] as string[]
-    
-        selectedRows.forEach((row: PriceTable) => {
-          if (!priceTablesState.includes(row.tableId)) {
-            newPriceTables.push(row.tableId)
-          }
+    selectedRows.forEach((row: PriceTable) => {
+      if (!priceTablesState.includes(row.tableId)) {
+        newPriceTables.push(row.tableId)
+      }
+    })
+    setPriceTablesState((prevState: any) => [...prevState, ...newPriceTables])
+  }
+
+  const handleAddPaymentTerms = (rowParams: {
+    selectedRows: PaymentTerm[]
+  }) => {
+    const { selectedRows = [] } = rowParams
+    const newPaymentTerms = [] as PaymentTerm[]
+
+    selectedRows.forEach((row: any) => {
+      if (
+        !paymentTermsState.some(
+          paymentTerm => paymentTerm.paymentTermId === row.paymentTermId
+        )
+      ) {
+        newPaymentTerms.push({
+          name: row.name,
+          paymentTermId: row.paymentTermId,
         })
-        console.log(priceTablesState, newPriceTables)
-        setPriceTablesState((prevState: any) => [...prevState, ...newPriceTables])
       }
+    })
 
-      const handleAddPaymentTerms = (rowParams: {
-        selectedRows: PaymentTerm[]
-      }) => {
-        const { selectedRows = [] } = rowParams
-        const newPaymentTerms = [] as PaymentTerm[]
-    
-        selectedRows.forEach((row: any) => {
-          if (
-            !paymentTermsState.some(
-              paymentTerm => paymentTerm.paymentTermId === row.paymentTermId
-            )
-          ) {
-            newPaymentTerms.push({
-              name: row.name,
-              paymentTermId: row.paymentTermId,
-            })
-          }
-        })
-    
-        setPaymentTermsState([...paymentTermsState, ...newPaymentTerms])
-      }
+    setPaymentTermsState([...paymentTermsState, ...newPaymentTerms])
+  }
 
-    return (
-        <>
-        <div>
-        <Checkbox
-    checked={autoApproveState}
-    id="option-1"
-    label="Auto approve new organizations"
-    name="default-checkbox-group"
-    onChange={() => setAutoApproveState(!autoApproveState)}
-    value="option-1"
-  />
-        </div>
-        <Table
-            fullWidth
-            schema={getSchema('availablePayments')}
-            items={paymentTermsOptions}
-            bulkActions={bulkActions(handleAddPaymentTerms)}
-          />
-        <Table
-            fullWidth
-            schema={getSchema('availablePriceTables')}
-            items={priceTableOptions}
-            bulkActions={bulkActions(handleAddPriceTables)}
-          />
-        </>
+  const handleRemovePriceTables = (rowParams: any) => {
+    const { selectedRows = [] } = rowParams
+    const priceTablesToRemove = [] as string[]
+
+    selectedRows.forEach((row: PriceTable) => {
+      priceTablesToRemove.push(row.tableId)
+    })
+
+    const newPriceTablesList = priceTablesState.filter(
+      priceTable => !priceTablesToRemove.includes(priceTable)
     )
+
+    setPriceTablesState(newPriceTablesList)
+  }
+
+  const handleRemovePaymentTerms = (rowParams: {
+    selectedRows: PaymentTerm[]
+  }) => {
+    const { selectedRows = [] } = rowParams
+    const paymentTermsToRemove = [] as number[]
+
+    selectedRows.forEach(row => {
+      paymentTermsToRemove.push(row.paymentTermId)
+    })
+
+    const newPaymentTerms = paymentTermsState.filter(
+      paymentTerm => !paymentTermsToRemove.includes(paymentTerm.paymentTermId)
+    )
+
+    setPaymentTermsState(newPaymentTerms)
+  }
+
+  return (
+    <>
+      <div>
+        <Checkbox
+          checked={autoApproveState}
+          id="option-1"
+          label="Auto approve new organizations"
+          name="default-checkbox-group"
+          onChange={() => setAutoApproveState(!autoApproveState)}
+          value="option-1"
+        />
+      </div>
+      <h4 className="mt6">Available Payment terms</h4>
+      <Table
+        fullWidth
+        schema={getSchema('availablePayments')}
+        items={paymentTermsOptions}
+        bulkActions={bulkActions(handleAddPaymentTerms, handleRemovePaymentTerms)}
+      />
+      <h4 className="mt6">Available Price tables</h4>
+      <Table
+        fullWidth
+        schema={getSchema('availablePriceTables')}
+        items={priceTableOptions}
+        bulkActions={bulkActions(handleAddPriceTables, handleRemovePriceTables)}
+      />
+    </>
+  )
 }

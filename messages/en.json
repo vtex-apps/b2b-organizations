@@ -8,6 +8,7 @@
   "admin/b2b-organizations.showRows": "Show rows",
   "admin/b2b-organizations.of": "of",
   "admin/b2b-organizations.autocomplete-searching": "Search organization",
+  "admin/b2b-organizations.organization-settings-admin.title": "Settings",
   "admin/b2b-organizations.organization-requests-admin.table.column-name.title": "Organization Name",
   "admin/b2b-organizations.organization-requests-admin.table.column-admin.title": "Admin User",
   "admin/b2b-organizations.organization-requests-admin.table.column-status.title": "Status",

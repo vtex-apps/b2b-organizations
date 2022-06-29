@@ -6,6 +6,7 @@ import { HashRouter, Switch, Route } from 'react-router-dom'
 import {
   organizationMessages as messages,
   organizationRequestMessages as requestMessages,
+  organizationSettingsMessages as settingMessages,
 } from './utils/messages'
 import OrganizationsList from './OrganizationsList'
 import OrganizationRequestsTable from './OrganizationRequestsTable'
@@ -46,7 +47,7 @@ const OrganizationsTable = () => {
             onClick={() => handleTabChange('requests')}
           />
           <Tab
-            label={formatMessage(requestMessages.tablePageTitle)}
+            label={formatMessage(settingMessages.tablePageTitle)}
             active={tab === 'settings'}
             onClick={() => handleTabChange('settings')}
           />
