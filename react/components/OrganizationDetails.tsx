@@ -185,11 +185,17 @@ const OrganizationDetails: FunctionComponent<RouterProps> = ({
     })
   }
 
-  const handleAddNewCostCenter = (
-    name: string,
-    address: AddressFormFields,
+  const handleAddNewCostCenter = ({
+    name,
+    address,
+    phoneNumber,
+    businessDocument,
+  }: {
+    name: string
+    address: AddressFormFields
+    phoneNumber: string
     businessDocument: string
-  ) => {
+  }) => {
     setLoadingState(true)
     const newAddress = {
       addressId: address.addressId.value,
@@ -212,6 +218,7 @@ const OrganizationDetails: FunctionComponent<RouterProps> = ({
       input: {
         name,
         addresses: [newAddress],
+        phoneNumber,
         businessDocument,
       },
     }

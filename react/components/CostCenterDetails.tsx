@@ -19,6 +19,8 @@ import { AddressRules, AddressSummary } from 'vtex.address-form'
 
 import { costCenterMessages as messages } from './utils/messages'
 import storageFactory from '../utils/storage'
+import { setGUID } from '../utils/addresses'
+import { validatePhoneNumber } from '../modules/formValidators'
 import { useSessionResponse } from '../modules/session'
 import NewAddressModal from './NewAddressModal'
 import EditAddressModal from './EditAddressModal'
@@ -83,6 +85,7 @@ const CostCenterDetails: FunctionComponent<RouterProps> = ({
   const [permissionsState, setPermissionsState] = useState([] as string[])
   const [loadingState, setLoadingState] = useState(false)
   const [costCenterName, setCostCenterName] = useState('')
+  const [phoneNumber, setPhoneNumber] = useState('')
   const [businessDocument, setBusinessDocument] = useState('')
   const [addresses, setAddresses] = useState([] as Address[])
   const [paymentTerms, setPaymentTerms] = useState([] as PaymentTerm[])
@@ -136,34 +139,44 @@ const CostCenterDetails: FunctionComponent<RouterProps> = ({
 
   useEffect(() => {
     if (!data?.getCostCenterByIdStorefront) return
+    const {
+      organization: fetchedOrganization,
+      name: fetchedName,
+      addresses: fetchedAddresses,
+      paymentTerms: fetchedPaymentTerms,
+      phoneNumber: fetchedPhoneNumber = '',
+      businessDocument: fetchedBusinessDocument = '',
+    } = data.getCostCenterByIdStorefront
 
-    setCostCenterName(data.getCostCenterByIdStorefront.name)
-    handleSetAddresses(data.getCostCenterByIdStorefront.addresses)
-    setPaymentTerms(
-      data?.getCostCenterByIdStorefront?.paymentTerms?.length
-        ? data?.getCostCenterByIdStorefront?.paymentTerms
-        : []
-    )
-    if (data?.getCostCenterByIdStorefront?.businessDocument) {
-      setBusinessDocument(data.getCostCenterByIdStorefront.businessDocument)
+    setCostCenterName(fetchedName)
+    handleSetAddresses(fetchedAddresses)
+    setPaymentTerms(fetchedPaymentTerms ?? [])
+
+    if (fetchedPhoneNumber) {
+      setPhoneNumber(fetchedPhoneNumber)
+    }
+
+    if (fetchedBusinessDocument) {
+      setBusinessDocument(fetchedBusinessDocument)
     }
 
     getOrganization({
-      variables: { id: data.getCostCenterByIdStorefront.organization },
+      variables: { id: fetchedOrganization },
     })
   }, [data])
 
   useEffect(() => {
-    const termOptions = organizationData?.getOrganizationByIdStorefront
-      ?.paymentTerms?.length
-      ? organizationData.getOrganizationByIdStorefront.paymentTerms
-      : []
+    if (!organizationData?.getOrganizationByIdStorefront) return
 
-    setPaymentTermOptions(termOptions)
+    const {
+      paymentTerms: fetchedPaymentTermOptions,
+    } = organizationData.getOrganizationByIdStorefront
+
+    setPaymentTermOptions(fetchedPaymentTermOptions ?? [])
 
     // enable all available payment terms by default
-    if (!paymentTerms.length) {
-      setPaymentTerms(termOptions)
+    if (paymentTerms && !paymentTerms.length) {
+      setPaymentTerms(fetchedPaymentTermOptions ?? [])
     }
   }, [organizationData])
 
@@ -172,7 +185,7 @@ const CostCenterDetails: FunctionComponent<RouterProps> = ({
 
     const { permissions = [] } = permissionsData.checkUserPermission ?? {}
 
-    if (permissions.length) {
+    if (permissions?.length) {
       setPermissionsState(permissions)
     }
   }, [permissionsData])
@@ -192,6 +205,7 @@ const CostCenterDetails: FunctionComponent<RouterProps> = ({
           return item
         }),
         paymentTerms,
+        phoneNumber,
         businessDocument,
       },
     }
@@ -258,36 +272,55 @@ const CostCenterDetails: FunctionComponent<RouterProps> = ({
   }
 
   const handleAddNewAddress = (address: AddressFormFields) => {
-    const newAddress = {
-      addressId: address.addressId.value,
-      addressType: address.addressType.value,
-      city: address.city.value,
-      complement: address.complement.value,
-      country: address.country.value,
-      receiverName: address.receiverName.value,
-      geoCoordinates: address.geoCoordinates.value,
-      neighborhood: address.neighborhood.value,
-      number: address.number.value,
-      postalCode: address.postalCode.value,
-      reference: address.reference.value,
-      state: address.state.value,
-      street: address.street.value,
-      addressQuery: address.addressQuery.value,
-    } as Address
+    const uid = setGUID(address)
 
-    const newAddresses = [...addresses, newAddress]
-
-    setAddresses(
-      newAddresses.map(item => {
-        if (address.checked) {
-          item.checked = item === newAddress
-        }
-
-        return item
-      })
+    const duplicated = data?.getCostCenterByIdStorefront?.addresses?.find(
+      (item: any) => item.addressId === uid
     )
 
-    handleCloseModals()
+    let isDuplicatedError = false
+
+    if (duplicated !== undefined) {
+      isDuplicatedError = duplicated.postalCode === address.postalCode.value
+    }
+
+    if (!isDuplicatedError) {
+      const newAddress = {
+        addressId: uid,
+        addressType: address.addressType.value,
+        city: address.city.value,
+        complement: address.complement.value,
+        country: address.country.value,
+        receiverName: address.receiverName.value,
+        geoCoordinates: address.geoCoordinates.value,
+        neighborhood: address.neighborhood.value,
+        number: address.number.value,
+        postalCode: address.postalCode.value,
+        reference: address.reference.value,
+        state: address.state.value,
+        street: address.street.value,
+        addressQuery: address.addressQuery.value,
+      } as Address
+
+      const newAddresses = [...addresses, newAddress]
+
+      setAddresses(
+        newAddresses.map(item => {
+          if (address.checked) {
+            item.checked = item === newAddress
+          }
+
+          return item
+        })
+      )
+
+      handleCloseModals()
+    } else {
+      showToast({
+        type: 'error',
+        message: formatMessage(messages.duplicateAddress),
+      })
+    }
   }
 
   const handleCheckDefault = (address: Address) => {
@@ -440,6 +473,7 @@ const CostCenterDetails: FunctionComponent<RouterProps> = ({
                 !costCenterName ||
                 !addresses.length ||
                 (paymentTermOptions.length > 0 && paymentTerms.length === 0) ||
+                (phoneNumber && !validatePhoneNumber(phoneNumber)) ||
                 !permissionsState.includes('create-cost-center-organization')
               }
               onClick={() => handleUpdateCostCenter()}
@@ -474,21 +508,37 @@ const CostCenterDetails: FunctionComponent<RouterProps> = ({
           }
           required
         />
-      </PageBlock>
-      <PageBlock>
-        <Input
-          autocomplete="off"
-          size="large"
-          label={formatMessage(messages.businessDocument)}
-          value={businessDocument}
-          helpText={formatMessage(messages.businessDocumentHelp)}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-            setBusinessDocument(e.target.value)
-          }}
-          readOnly={
-            !permissionsState.includes('create-cost-center-organization')
-          }
-        />
+        <div className="mt6">
+          <Input
+            autocomplete="off"
+            size="large"
+            label={formatMessage(messages.phoneNumber)}
+            value={phoneNumber}
+            helpText={formatMessage(messages.phoneNumberHelp)}
+            error={phoneNumber && !validatePhoneNumber(phoneNumber)}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+              setPhoneNumber(e.target.value)
+            }}
+            readOnly={
+              !permissionsState.includes('create-cost-center-organization')
+            }
+          />
+        </div>
+        <div className="mt6">
+          <Input
+            autocomplete="off"
+            size="large"
+            label={formatMessage(messages.businessDocument)}
+            value={businessDocument}
+            helpText={formatMessage(messages.businessDocumentHelp)}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+              setBusinessDocument(e.target.value)
+            }}
+            readOnly={
+              !permissionsState.includes('create-cost-center-organization')
+            }
+          />
+        </div>
       </PageBlock>
       {paymentTermOptions.length > 0 && (
         <PageBlock

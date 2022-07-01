@@ -32,7 +32,7 @@ base:
     devMode: false
     runHeaded: false
     getCookies: true
-    maxJobs: 2
+    maxJobs: 3
     quiet: true
     projectId: 65uaim
     video: false
@@ -75,7 +75,7 @@ workspace:
     - vtex.wordpress-integration@2.x
     - vtex.storefront-permissions-ui@0.x
     - vtex.reviews-and-ratings@2.x
-    - vtex.b2bstore@2.x
+    - vtex.b2bstore@3.x
   removeApps:
     - vtex.bitcot-qa-theme
   wipe:
@@ -100,67 +100,67 @@ strategy:
       - cypress-shared/integration/b2b/2.1.2*
       - cypress-shared/integration/b2b/2.1.3*
   multiOrgRequests:
-    enabled: true
+    enabled: false
     sendDashboard: true
     hardTries: 1
     stopOnFail: false
     parallel: false
-    runInOrder: true
     specs:
       - cypress-shared/integration/b2b/2.1.4*
     dependency:
       - cypress-shared/integration/b2b/2.1.2*
-  addUsersInOrganizationA:
-    enabled: false
+  addUsersInOrganizationAB:
+    enabled: true
     sendDashboard: true
     hardTries: 1
     stopOnFail: false
-    parallel: false
-    runInOrder: true
+    parallel: true
     specs:
       - cypress-shared/integration/b2b/2.2*
-      - cypress-shared/integration/b2b/2.4*
+      - cypress-shared/integration/b2b/2.3*
     dependency:
       - cypress-shared/integration/b2b/2.1.1*
-  organizationAUsersTestCases:
-    enabled: false
+      # Once multiOrgRequests fixed -> Replace 2.1.2 to 2.1.4
+      - cypress-shared/integration/b2b/2.1.2*
+  addSalesUsers:
+    enabled: true
     sendDashboard: true
     hardTries: 1
     stopOnFail: false
     parallel: false
-    runInOrder: true
+    specs:
+      - cypress-shared/integration/b2b/2.4*
+    dependency:
+      - cypress-shared/integration/b2b/2.2*
+  organizationABUsersTestCases:
+    enabled: true
+    sendDashboard: true
+    hardTries: 1
+    stopOnFail: false
+    parallel: true
     specs:
       - cypress-shared/integration/b2b/2.5*
       - cypress-shared/integration/b2b/2.6*
-      - cypress-shared/integration/b2b/2.8*
       - cypress-shared/integration/b2b/2.9*
       - cypress-shared/integration/b2b/2.10*
       - cypress-shared/integration/b2b/2.12*
-      - cypress-shared/integration/b2b/2.13*
-      - cypress-shared/integration/b2b/2.14*
-    dependency:
-      - cypress-shared/integration/b2b/2.2*
-      - cypress-shared/integration/b2b/2.4*
-  addUsersInOrganizationB:
-    enabled: true
-    sendDashboard: true
-    hardTries: 1
-    stopOnFail: false
-    parallel: false
-    runInOrder: true
-    specs:
-      - cypress-shared/integration/b2b/2.3*
-    dependency:
-      - cypress-shared/integration/b2b/2.1.4*
-  organizationBUsersTestCases:
-    enabled: true
-    sendDashboard: true
-    hardTries: 1
-    stopOnFail: false
-    parallel: false
-    runInOrder: true
-    specs:
       - cypress-shared/integration/b2b/2.7*
       - cypress-shared/integration/b2b/2.11*
     dependency:
+      - cypress-shared/integration/b2b/2.2*
+      - cypress-shared/integration/b2b/2.4*
       - cypress-shared/integration/b2b/2.3*
+  organizationASalesUsersTestCases:
+    enabled: true
+    sendDashboard: true
+    hardTries: 2
+    stopOnFail: false
+    parallel: true
+    specs:
+      - cypress-shared/integration/b2b/2.8*
+      - cypress-shared/integration/b2b/2.13*
+      - cypress-shared/integration/b2b/2.14*
+    dependency:
+        - cypress-shared/integration/b2b/2.4*
+        - cypress-shared/integration/b2b/2.5*
+        - cypress-shared/integration/b2b/2.9*

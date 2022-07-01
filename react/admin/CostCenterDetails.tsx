@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import type { FunctionComponent } from 'react'
 import React, { useEffect, useState } from 'react'
 import { useQuery, useMutation, useLazyQuery } from 'react-apollo'
@@ -30,7 +31,8 @@ import { StyleguideInput } from 'vtex.address-form/inputs'
 import { addValidation } from 'vtex.address-form/helpers'
 
 import { costCenterMessages as messages } from './utils/messages'
-import { getEmptyAddress, isValidAddress } from '../utils/addresses'
+import { setGUID, getEmptyAddress, isValidAddress } from '../utils/addresses'
+import { validatePhoneNumber } from '../modules/formValidators'
 import GET_COST_CENTER from '../graphql/getCostCenter.graphql'
 import GET_ORGANIZATION from '../graphql/getOrganization.graphql'
 import UPDATE_COST_CENTER from '../graphql/updateCostCenter.graphql'
@@ -50,6 +52,7 @@ const CostCenterDetails: FunctionComponent = () => {
 
   const [loadingState, setLoadingState] = useState(false)
   const [costCenterName, setCostCenterName] = useState('')
+  const [phoneNumber, setPhoneNumber] = useState('')
   const [businessDocument, setBusinessDocument] = useState('')
   const [addresses, setAddresses] = useState([] as Address[])
   const [newAddressModalState, setNewAddressModalState] = useState({
@@ -133,10 +136,21 @@ const CostCenterDetails: FunctionComponent = () => {
       setBusinessDocument(data.getCostCenterById.businessDocument)
     }
 
+    if (data.getCostCenterById.phoneNumber) {
+      setPhoneNumber(data.getCostCenterById.phoneNumber)
+    }
+
     getOrganization({
       variables: { id: data.getCostCenterById.organization },
     })
   }, [data])
+
+  const navigateToParentOrganization = () => {
+    navigate({
+      page: 'admin.app.b2b-organizations.organization-details',
+      params: { id: data.getCostCenterById.organization },
+    })
+  }
 
   const handleUpdateCostCenter = () => {
     setLoadingState(true)
@@ -152,6 +166,7 @@ const CostCenterDetails: FunctionComponent = () => {
 
           return item
         }),
+        phoneNumber,
         businessDocument,
       },
     }
@@ -181,10 +196,7 @@ const CostCenterDetails: FunctionComponent = () => {
     setLoadingState(true)
     deleteCostCenter({ variables: { id: params?.id } })
       .then(() => {
-        navigate({
-          page: 'admin.app.b2b-organizations.organization-details',
-          params: { id: data.getCostCenterById.organization },
-        })
+        navigateToParentOrganization()
       })
       .catch(error => {
         console.error(error)
@@ -237,38 +249,58 @@ const CostCenterDetails: FunctionComponent = () => {
   }
 
   const handleAddNewAddress = () => {
-    const newAddress = {
-      addressId: newAddressState.addressId.value,
-      addressType: newAddressState.addressType.value,
-      city: newAddressState.city.value,
-      complement: newAddressState.complement.value,
-      country: newAddressState.country.value,
-      receiverName: newAddressState.receiverName.value,
-      geoCoordinates: newAddressState.geoCoordinates.value,
-      neighborhood: newAddressState.neighborhood.value,
-      number: newAddressState.number.value,
-      postalCode: newAddressState.postalCode.value,
-      reference: newAddressState.reference.value,
-      state: newAddressState.state.value,
-      street: newAddressState.street.value,
-      addressQuery: newAddressState.addressQuery.value,
-      checked: false,
-    }
+    const uid = setGUID(newAddressState)
 
-    const newAddresses = [...addresses, newAddress]
-
-    setAddresses(
-      newAddresses.map(item => {
-        if (newAddressState.checked) {
-          item.checked = item === newAddress
-        }
-
-        return item
-      })
+    const duplicated = data?.getCostCenterById?.addresses?.find(
+      (item: any) => item.addressId === uid
     )
 
-    setAddresses([...addresses, newAddress])
-    handleCloseModals()
+    let isDuplicatedError = false
+
+    if (duplicated !== undefined) {
+      isDuplicatedError =
+        duplicated.postalCode === newAddressState.postalCode.value
+    }
+
+    if (!isDuplicatedError) {
+      const newAddress = {
+        addressId: uid,
+        addressType: newAddressState.addressType.value,
+        city: newAddressState.city.value,
+        complement: newAddressState.complement.value,
+        country: newAddressState.country.value,
+        receiverName: newAddressState.receiverName.value,
+        geoCoordinates: newAddressState.geoCoordinates.value,
+        neighborhood: newAddressState.neighborhood.value,
+        number: newAddressState.number.value,
+        postalCode: newAddressState.postalCode.value,
+        reference: newAddressState.reference.value,
+        state: newAddressState.state.value,
+        street: newAddressState.street.value,
+        addressQuery: newAddressState.addressQuery.value,
+        checked: false,
+      }
+
+      const newAddresses = [...addresses, newAddress]
+
+      setAddresses(
+        newAddresses.map(item => {
+          if (newAddressState.checked) {
+            item.checked = item === newAddress
+          }
+
+          return item
+        })
+      )
+
+      setAddresses([...addresses, newAddress])
+      handleCloseModals()
+    } else {
+      showToast({
+        type: 'error',
+        message: formatMessage(messages.duplicateAddress),
+      })
+    }
   }
 
   const handleEditAddressChange = (changedAddress: AddressFormFields) => {
@@ -370,17 +402,18 @@ const CostCenterDetails: FunctionComponent = () => {
             formatMessage(messages.back)
           }
           onLinkClick={() => {
-            navigate({
-              page: 'admin.app.b2b-organizations.organization-details',
-              params: { id: data.getCostCenterById.organization },
-            })
+            navigateToParentOrganization()
           }}
         >
           <span className="mr4">
             <Button
               variation="primary"
               isLoading={loadingState}
-              disabled={!costCenterName || !addresses.length}
+              disabled={
+                !costCenterName ||
+                !addresses.length ||
+                (phoneNumber && !validatePhoneNumber(phoneNumber))
+              }
               onClick={() => handleUpdateCostCenter()}
             >
               <FormattedMessage id="admin/b2b-organizations.costCenter-details.button.save" />
@@ -407,18 +440,31 @@ const CostCenterDetails: FunctionComponent = () => {
           }}
           required
         />
-      </PageBlock>
-      <PageBlock>
-        <Input
-          autocomplete="off"
-          size="large"
-          label={formatMessage(messages.businessDocument)}
-          helpText={formatMessage(messages.businessDocumentHelp)}
-          value={businessDocument}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-            setBusinessDocument(e.target.value)
-          }}
-        />
+        <div className="mt6">
+          <Input
+            autocomplete="off"
+            size="large"
+            label={formatMessage(messages.phoneNumber)}
+            helpText={formatMessage(messages.phoneNumberHelp)}
+            error={phoneNumber && !validatePhoneNumber(phoneNumber)}
+            value={phoneNumber}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+              setPhoneNumber(e.target.value)
+            }}
+          />
+        </div>
+        <div className="mt6">
+          <Input
+            autocomplete="off"
+            size="large"
+            label={formatMessage(messages.businessDocument)}
+            helpText={formatMessage(messages.businessDocumentHelp)}
+            value={businessDocument}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+              setBusinessDocument(e.target.value)
+            }}
+          />
+        </div>
       </PageBlock>
       <PageBlock title={formatMessage(messages.addresses)}>
         <div className="flex">
@@ -493,7 +539,10 @@ const CostCenterDetails: FunctionComponent = () => {
                 variation="primary"
                 onClick={() => handleAddNewAddress()}
                 isLoading={loadingState}
-                disabled={!isValidAddress(newAddressState)}
+                disabled={
+                  (phoneNumber && !validatePhoneNumber(phoneNumber)) ||
+                  !isValidAddress(newAddressState)
+                }
               >
                 {formatMessage(messages.add)}
               </Button>

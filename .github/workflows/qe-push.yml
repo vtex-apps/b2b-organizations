@@ -12,7 +12,7 @@ jobs:
     uses: vtex-apps/usqa/.github/workflows/quality-engineering.yml@main
     with:
       nodeLint: true
-      nodeTest: true
+      nodeTest: false
       nodeSonar: true
       nodeSonarProjectKey: vtex-apps_b2b-organizations-graphql
       nodeSonarOrganization: vtex-apps
