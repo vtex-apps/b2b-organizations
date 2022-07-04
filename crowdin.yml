@@ -1,3 +1,6 @@
-files:
-  - source: /messages/en.json
-    translation: /messages/%two_letters_code%.json
+"files": [
+  {
+    "source" : "/messages/en.json",
+    "translation" : "/%original_path%/%two_letters_code%.%file_extension%",
+  }
+]
