@@ -79,8 +79,6 @@ const OrganizationDetailsPayTerms = ({
     )
 
     setPaymentTermsState(newPaymentTerms)
-
-    return messages.removeFromOrg
   }
 
   const handleAddPaymentTerms = (rowParams: {
