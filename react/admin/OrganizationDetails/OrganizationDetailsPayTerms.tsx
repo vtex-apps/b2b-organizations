@@ -79,6 +79,7 @@ const OrganizationDetailsPayTerms = ({
     )
 
     setPaymentTermsState(newPaymentTerms)
+    return messages.removeFromOrg
   }
 
   const handleAddPaymentTerms = (rowParams: {
@@ -112,7 +113,7 @@ const OrganizationDetailsPayTerms = ({
           }),
       },
       main: {
-        label: formatMessage(messages.addToOrg),
+        label: formatMessage(handleCallback.name === 'handleRemovePaymentTerms' ? messages.removeFromOrg : messages.addToOrg),
         handleCallback,
       },
     }
