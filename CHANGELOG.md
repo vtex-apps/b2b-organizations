@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [1.11.2] - 2022-07-06
+### Fixed
+- Fixed organization bulk action button text.
+
 ## [1.11.1] - 2022-07-04
 
 ### Added
