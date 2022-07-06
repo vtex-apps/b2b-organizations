@@ -11,6 +11,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 - Added a warning message when the customer schema is invalid.
 
+## [1.11.1] - 2022-07-04
+
+### Added
+
+- Initial Crowdin integration
+
 ## [1.11.0] - 2022-06-23
 - 
 ### Added
