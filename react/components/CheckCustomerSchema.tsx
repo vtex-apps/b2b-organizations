@@ -24,9 +24,16 @@ const CheckCustomerSchema = ({ isAdmin }: { isAdmin: boolean }) => {
     <Fragment>
       {isInvalidSchema && (
         <Alert type="warning">
-          {formatMessage(
-            isAdmin ? adminMessages.invalidSchema : storeMessages.invalidSchema
-          )}
+          <a
+            href="https://developers.vtex.com/vtex-developer-docs/docs/vtex-b2b-suite"
+            target="_blank"
+          >
+            {formatMessage(
+              isAdmin
+                ? adminMessages.invalidSchema
+                : storeMessages.invalidSchema
+            )}
+          </a>
         </Alert>
       )}
     </Fragment>
