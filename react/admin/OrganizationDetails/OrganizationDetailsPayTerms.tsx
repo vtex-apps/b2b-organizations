@@ -112,7 +112,11 @@ const OrganizationDetailsPayTerms = ({
           }),
       },
       main: {
-        label: formatMessage(messages.removeFromOrg),
+        label: formatMessage(
+          handleCallback.name === 'handleRemovePaymentTerms'
+            ? messages.removeFromOrg
+            : messages.addToOrg
+        ),
         handleCallback,
       },
     }
