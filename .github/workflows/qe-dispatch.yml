@@ -6,6 +6,9 @@ on:
       cyRunnerBranch:
         description: 'Which branch to use on Cy-Runner?'
         default: 'main'
+      cyRunnerTimeOut:
+        description: 'Wait how much time (in minutes) for the job to complete?'
+        default: '30'
 
 jobs:
   quality-engineering:
@@ -14,6 +17,7 @@ jobs:
     with:
       cypress: true
       cyRunnerBranch: ${{ inputs.cyRunnerBranch }}
+      cyRunnerTimeOut: ${{ fromJSON(github.event.inputs.cyRunnerTimeOut) }}
     secrets:
       githubToken: ${{ secrets.GITHUB_TOKEN }}
       cypressJson: ${{ secrets.VTEX_QE }}
