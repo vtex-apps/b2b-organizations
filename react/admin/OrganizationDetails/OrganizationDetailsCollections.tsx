@@ -153,7 +153,11 @@ const OrganizationDetailsCollections = ({
           }),
       },
       main: {
-        label: formatMessage(messages.removeFromOrg),
+        label: formatMessage(
+          handleCallback.name === 'handleRemoveCollections'
+            ? messages.removeFromOrg
+            : messages.addToOrg
+        ),
         handleCallback,
       },
     }
