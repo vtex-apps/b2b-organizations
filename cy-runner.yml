@@ -99,15 +99,17 @@ strategy:
       - cypress-shared/integration/b2b/2.1.2*
       - cypress-shared/integration/b2b/2.1.3*
   multiOrgRequests:
-    enabled: false
+    enabled: true
     sendDashboard: true
     hardTries: 1
     stopOnFail: false
-    parallel: false
+    parallel: true
     specs:
       - cypress-shared/integration/b2b/2.1.4*
     dependency:
+      - cypress-shared/integration/b2b/2.1.1*
       - cypress-shared/integration/b2b/2.1.2*
+      - cypress-shared/integration/b2b/2.1.3*
   addUsersInOrganizationAB:
     enabled: true
     sendDashboard: true
@@ -119,8 +121,8 @@ strategy:
       - cypress-shared/integration/b2b/2.3*
     dependency:
       - cypress-shared/integration/b2b/2.1.1*
-      # Once multiOrgRequests fixed -> Replace 2.1.2 to 2.1.4
       - cypress-shared/integration/b2b/2.1.2*
+      - cypress-shared/integration/b2b/2.1.3*
   addSalesUsers:
     enabled: true
     sendDashboard: true
@@ -131,6 +133,7 @@ strategy:
       - cypress-shared/integration/b2b/2.4*
     dependency:
       - cypress-shared/integration/b2b/2.2*
+      - cypress-shared/integration/b2b/2.3*
   organizationABBuyersTestCases:
     enabled: true
     sendDashboard: true
@@ -148,7 +151,7 @@ strategy:
   organizationABApproversTestCases:
     enabled: true
     sendDashboard: true
-    hardTries: 1
+    hardTries: 2
     stopOnFail: false
     parallel: true
     specs:
