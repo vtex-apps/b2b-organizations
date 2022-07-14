@@ -1,7 +1,7 @@
 {
   "name": "b2b-organizations",
   "vendor": "hppardis",
-  "version": "1.9.0",
+  "version": "1.9.2",
   "title": "B2B Organizations",
   "description": "App to create and manage B2B Organizations and Cost Centers",
   "mustUpdateAt": "2022-08-28",

@@ -29,8 +29,9 @@ import 'vtex.country-codes/locales'
 import { organizationRequestMessages as messages } from './utils/messages'
 import storageFactory from '../utils/storage'
 import { getSession } from '../modules/session'
-import { validateEmail } from '../modules/formValidators'
-import { getEmptyAddress, isValidAddress } from '../utils/addresses'
+// import { validateEmail } from '../modules/formValidators'
+// import { getEmptyAddress, isValidAddress } from '../utils/addresses'
+import { getEmptyAddress } from '../utils/addresses'
 import CREATE_ORGANIZATION_REQUEST from '../graphql/createOrganizationRequest.graphql'
 import GET_ORGANIZATION_REQUEST from '../graphql/getOrganizationRequest.graphql'
 import GET_LOGISTICS from '../graphql/getLogistics.graphql'
@@ -129,6 +130,10 @@ const RequestOrganizationForm: FC = () => {
   )
 
   const [permission, setPermission] = useState<boolean>(false)
+
+
+  const [empresa, setEmpresa] = useState<any>({razao: '',ie: '',icms: ''})
+
 
   const { showToast } = useContext(ToastContext)
   const sessionResponse: any = useSessionResponse()
@@ -232,6 +237,10 @@ const RequestOrganizationForm: FC = () => {
         if (data?.data?.code == 200) {
 
           console.log(data?.data?.data)
+          setEmpresa({
+            ...empresa,
+            razao: data?.data?.data[0]?.razao_social
+          })
           setFormState({
             ...formState,
             businessDocument: data?.data?.data[0]?.cnpj,
@@ -245,28 +254,24 @@ const RequestOrganizationForm: FC = () => {
               uf: data?.data?.data[0]?.endereco_uf
             }).then((response: any) => {
               console.log(response)
-              if (response?.data?.code != 200) {
-                setModalSettings({
-                  title: 'Ocorreu um erro!',
-                  message: `${response?.data?.code_message} Você pode continuar preenchendo os dados no formulário abaixo.`,
-                  buttonText: 'Fechar mensagem',
-                  buttonLink: '',
-                  active: true
-                })
-              } else {
+              if (response?.data?.code == 200) {
                 setFormState({
                   ...formState,
                   organizationIE: response?.data?.data[0]?.inscricao_estadual
                 })
+                setEmpresa({
+                  ...empresa,
+                  ie: response?.data?.data[0]?.inscricao_estadual
+                })
               }
-              //unlock unseen inputs
-              setLockFunc(false)
-
-              //remove loading here
-              setLoadFunc(false)
               return [data?.data, response?.data]
 
             })
+            //unlock unseen inputs
+            setLockFunc(false)
+
+            //remove loading here
+            setLoadFunc(false)
           } else {
             setModalSettings({
               title: 'Seu CNPJ consta como inativo!',
@@ -322,6 +327,7 @@ const RequestOrganizationForm: FC = () => {
   }
 
   const handleSubmit = () => {
+    console.log('click')
     setFormState({
       ...formState,
       isSubmitting: true,
@@ -334,18 +340,18 @@ const RequestOrganizationForm: FC = () => {
         firstName: formState.firstName,
         lastName: formState.lastName,
         email: formState.email,
-        // cpf: formState.cpf,
-        // telephone: formState.telephone
+        cpf: formState.cpf,
+        telephone: formState.telephone
       },
       defaultCostCenter: {
         name: formState.organizationName,
-        // type: formState.organizationType,
-        // public: formState.organizationPublic,
-        // ie: formState.organizationIE,
-        // icms: formState.organizationICMS,
-        // area: formState.organizationArea,
-        // phone: formState.organizationPhone,
-        // newsletter: formState.newsletter,
+        type: formState.organizationType,
+        public: formState.organizationPublic,
+        ie: formState.organizationIE,
+        icms: formState.organizationICMS,
+        area: formState.organizationArea,
+        phone: formState.organizationPhone,
+        newsletter: formState.newsletter,
         address: {
           addressId: addressState.addressId.value,
           addressType: addressState.addressType.value,
@@ -433,6 +439,7 @@ const RequestOrganizationForm: FC = () => {
       .then(response => {
         const statusRequest = response.data.createOrganizationRequest.status
 
+        console.log(response)
 
         if (statusRequest === 'pending') {
           toastMessage(messages.toastPending)
@@ -597,7 +604,7 @@ const RequestOrganizationForm: FC = () => {
                 <div className='customb2b-pageBody'>
                   <PageBlock
                     variation="full"
-                    title={"Dados do administrador"}
+                    title={"Dados do usuário"}
                     subtitle={"O usuário abaixo será atribuído como administrador da organização, e será notificado por e-mail quando o cadastro for aprovado."}
                   >
                     <div className='form-group-flex'>
@@ -785,7 +792,7 @@ const RequestOrganizationForm: FC = () => {
                             autocomplete="off"
                             size="large"
                             label={"Razão Social"}
-                            readonly={true}
+                            readonly={empresa.razao != ''}
                             value={formState.organizationName}
                             onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                               setFormState({
@@ -804,7 +811,7 @@ const RequestOrganizationForm: FC = () => {
                             autocomplete="off"
                             size="large"
                             label={"IE"}
-                            disabled={formState.organizationIE == "Isento"}
+                            disabled={formState.organizationIE == "Isento" || empresa.ie != ''}
                             value={formState.organizationIE}
                             onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                               setFormState({
@@ -815,6 +822,7 @@ const RequestOrganizationForm: FC = () => {
                             required
                           />
                           <Checkbox
+                            disabled={empresa.ie != ''}
                             checked={formState.organizationIE == "Isento"}
                             id="Isento"
                             label="Isento?"
@@ -924,8 +932,8 @@ const RequestOrganizationForm: FC = () => {
                     <>
                       <PageBlock
                         variation="full"
-                        title={"Endereço"}
-                        subtitle={"O endereço deve ser o mesmo do cadastro CNPJ, e será utilizado para entrega e cobrança."}
+                        title={"Endereço de Cadastro/Faturamento"}
+                        subtitle={"O endereço de entrega poderá ser inserido na minha conta em minha organização/centro de custo desde que seja dentro do mesmo estado (UF) do endereço de cadastro informado acima."}
                       >
                         <div
                           className={`${handles.newOrganizationAddressForm} mb5 flex flex-column`}
@@ -959,13 +967,17 @@ const RequestOrganizationForm: FC = () => {
                       <PageBlock
                         variation="full"
                         title={"Anexo de Comprovantes"}
-                        subtitle={"Você pode anexar documentos para agilizar o processo de analise do cadastro da sua organização, como o Cartão CNPJ e outros (formatos aceitos: jpg, png ou pdf).\n\n Trabalhamos com itens de uso restrito, conforme legislação, por isso é necessário anexar o documento abaixo: Licença Sanitária Municipal Vigente"}
+                        subtitle={"Comercializamos itens de uso restrito, conforme legislação, por isso é necessário anexar o documento abaixo: Licença Sanitária Municipal Vigente"}
                       >
-                        <div className='file-button'>
-                          <label htmlFor={"documents"}>Escolher arquivos</label>
-                          <input type={"file"} accept={'image/*, .pdf'} id={"documents"} name={"documents"} multiple />
-                        </div>
+                        <div className='file'>
 
+                          <div className='file-button'>
+                            <label htmlFor={"documents"}>Anexar arquivos</label>
+                            <input type={"file"} accept={'image/*, .pdf'} id={"documents"} name={"documents"} multiple />
+                          </div>
+
+                          <span className='file-warning'>Formatos aceitos: jpg, png e pdf</span>
+                        </div>
 
                         <div
                           className={`${handles.newOrganizationInput}`}
@@ -1018,15 +1030,6 @@ const RequestOrganizationForm: FC = () => {
                           onClick={() => {
                             handleSubmit()
                           }}
-                          disabled={
-                            !formState.organizationName ||
-                            !formState.firstName ||
-                            !formState.lastName ||
-                            !validateEmail(formState.email) ||
-                            !isValidAddress(addressState) ||
-                            !permission ||
-                            !formState.isSubmitting
-                          }
                         >
                           Enviar Cadastro
                         </Button>
