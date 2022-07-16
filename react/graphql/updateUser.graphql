@@ -15,7 +15,7 @@ mutation UpdateUser(
     costId: $costId
     clId: $clId
     canImpersonate: $canImpersonate
-  ) @context(provider: "vtex.b2b-organizations-graphql") {
+  ) @context(provider: "hppardis.b2b-organizations-graphql") {
     id
     status
   }

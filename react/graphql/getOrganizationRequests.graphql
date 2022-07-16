@@ -13,7 +13,7 @@ query GetOrganizationRequests(
     pageSize: $pageSize
     sortOrder: $sortOrder
     sortedBy: $sortedBy
-  ) @context(provider: "vtex.b2b-organizations-graphql") {
+  ) @context(provider: "hppardis.b2b-organizations-graphql") {
     pagination {
       total
     }

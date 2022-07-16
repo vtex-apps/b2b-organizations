@@ -892,11 +892,11 @@ const RequestOrganizationForm: FC = () => {
                               { value: 'Veterinária & Pet', label: 'Veterinária & Pet' },
                               { value: 'Outros', label: 'Outros' }
                             ]}
-                            value={formState.organizationType}
+                            value={formState.organizationArea}
                             onChange={(__: any, value: string) => {
                               setFormState({
                                 ...formState,
-                                organizationType: value,
+                                organizationArea: value,
                               })
                             }}
                             required

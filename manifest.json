@@ -9,7 +9,7 @@
     "postreleasy": "vtex publish"
   },
   "dependencies": {
-    "vtex.b2b-organizations-graphql": "0.x",
+    "hppardis.b2b-organizations-graphql": "0.x",
     "vtex.catalog-graphql": "1.x",
     "vtex.admin-graphql": "2.x",
     "vtex.store-graphql": "2.x",

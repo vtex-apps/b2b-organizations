@@ -13,7 +13,7 @@ mutation UpdateOrganization(
     collections: $collections
     paymentTerms: $paymentTerms
     priceTables: $priceTables
-  ) @context(provider: "vtex.b2b-organizations-graphql") {
+  ) @context(provider: "hppardis.b2b-organizations-graphql") {
     id
     status
     message

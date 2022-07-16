@@ -1,6 +1,6 @@
 query GetOrganizationRequest($id: ID!) {
   getOrganizationRequestById(id: $id)
-    @context(provider: "vtex.b2b-organizations-graphql") {
+    @context(provider: "hppardis.b2b-organizations-graphql") {
     name
     b2bCustomerAdmin {
       email

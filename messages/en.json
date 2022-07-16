@@ -132,7 +132,7 @@
   "admin/b2b-organizations.user-details.placeholder-costCenter": "Select a cost center",
   "admin/b2b-organizations.user-details.role": "Role",
   "admin/b2b-organizations.user-details.placeholder-role": "Select a role",
-  "store/b2b-organizations.my-account-link": "My Organization",
+  "store/b2b-organizations.my-account-link": "Company registration",
   "store/b2b-organizations.back": "Back",
   "store/b2b-organizations.selected-rows": "Selected rows: {qty}",
   "store/b2b-organizations.showRows": "Show rows",

@@ -141,7 +141,11 @@ const OrganizationRequestDetails: FunctionComponent = () => {
           <FormattedMessage id="admin/b2b-organizations.organization-request-details.b2b-customer-admin" />
         </h4>
         <div className="mv3">
-          {data.getOrganizationRequestById.b2bCustomerAdmin.email}
+          {data.getOrganizationRequestById.b2bCustomerAdmin.email}<br />
+          {data.getOrganizationRequestById.b2bCustomerAdmin.cpf}<br />
+          {data.getOrganizationRequestById.b2bCustomerAdmin.telephone}<br />
+
+
         </div>
         <h4 className="t-heading-5 mb0 pt4">
           <FormattedMessage id="admin/b2b-organizations.organization-request-details.default-cost-center" />
@@ -161,6 +165,13 @@ const OrganizationRequestDetails: FunctionComponent = () => {
               />
             </div>
           )}
+          
+          Tipo: {data.getOrganizationRequestById.defaultCostCenter.type}<br />
+          Publico: {data.getOrganizationRequestById.defaultCostCenter.organizationPublic}<br />
+          Inscrição estadual: {data.getOrganizationRequestById.defaultCostCenter.ie}<br />
+          ICMS: {data.getOrganizationRequestById.defaultCostCenter.icms}<br />
+          Area de atuação: {data.getOrganizationRequestById.defaultCostCenter.area}<br />
+          Telefone: {data.getOrganizationRequestById.defaultCostCenter.phone}<br />
           <br />
 
           <AddressRules
