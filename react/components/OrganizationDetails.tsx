@@ -113,6 +113,14 @@ const OrganizationDetails: FunctionComponent<RouterProps> = ({
 
     const { permissions = [] } = permissionsData.checkUserPermission ?? {}
 
+    if(permissionsData.checkUserPermission.role.slug == "customer-admin"){
+      permissions.push('add-users-organization')
+      permissions.push('create-cost-center-organization')
+    }
+
+    console.log(permissions)
+
+
     if (permissions.length) {
       setPermissionsState(permissions)
     }

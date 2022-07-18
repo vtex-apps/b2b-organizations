@@ -169,7 +169,7 @@ const OrganizationRequestDetails: FunctionComponent = () => {
           Tipo: {data.getOrganizationRequestById.defaultCostCenter.type}<br />
           Publico: {data.getOrganizationRequestById.defaultCostCenter.organizationPublic}<br />
           Inscrição estadual: {data.getOrganizationRequestById.defaultCostCenter.ie}<br />
-          ICMS: {data.getOrganizationRequestById.defaultCostCenter.icms}<br />
+          ICMS: {data.getOrganizationRequestById.defaultCostCenter.icms ? 'Sim' : 'Não'}<br />
           Area de atuação: {data.getOrganizationRequestById.defaultCostCenter.area}<br />
           Telefone: {data.getOrganizationRequestById.defaultCostCenter.phone}<br />
           <br />

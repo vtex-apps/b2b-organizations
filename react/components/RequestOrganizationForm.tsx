@@ -346,7 +346,7 @@ const RequestOrganizationForm: FC = () => {
       defaultCostCenter: {
         name: formState.organizationName,
         type: formState.organizationType,
-        public: formState.organizationPublic,
+        organizationPublic: formState.organizationPublic,
         ie: formState.organizationIE,
         icms: formState.organizationICMS,
         area: formState.organizationArea,

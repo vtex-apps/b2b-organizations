@@ -24,5 +24,12 @@ query GetCostCenter($id: ID!) {
       reference
     }
     businessDocument
+    type
+    organizationPublic
+    ie
+    icms
+    area
+    phone
+    newsletter
   }
 }

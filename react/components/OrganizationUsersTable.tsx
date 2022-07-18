@@ -79,6 +79,8 @@ const OrganizationUsersTable: FunctionComponent<Props> = ({
     }
   }
 
+  console.log(permissions)
+
   const canEdit = isAdmin || permissions.includes('add-users-organization')
   const canEditSales = isAdmin || permissions.includes('add-sales-users-all')
   const canImpersonateAll = permissions.includes('impersonate-users-all')

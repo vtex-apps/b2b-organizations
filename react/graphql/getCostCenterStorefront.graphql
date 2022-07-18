@@ -25,5 +25,12 @@ query GetCostCenterStorefront($id: ID) {
       reference
     }
     businessDocument
+    type
+    organizationPublic
+    ie
+    icms
+    area
+    phone
+    newsletter
   }
 }
