@@ -1,6 +1,6 @@
 {
   "name": "b2b-organizations",
-  "vendor": "hppardis",
+  "vendor": "hermespardini",
   "version": "1.10.0",
   "title": "B2B Organizations",
   "description": "App to create and manage B2B Organizations and Cost Centers",
@@ -9,7 +9,7 @@
     "postreleasy": "vtex publish"
   },
   "dependencies": {
-    "hppardis.b2b-organizations-graphql": "0.x",
+    "hermespardini.b2b-organizations-graphql": "0.x",
     "vtex.catalog-graphql": "1.x",
     "vtex.admin-graphql": "2.x",
     "vtex.store-graphql": "2.x",
