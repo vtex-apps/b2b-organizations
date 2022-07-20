@@ -11,8 +11,16 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 - Added a warning message when the customer schema is invalid.
 
-## [1.11.2] - 2022-07-06
+## [1.11.3] - 2022-07-19
+
 ### Fixed
+
+- Fixed on update the user data, and it disappeared from the list
+
+## [1.11.2] - 2022-07-06
+
+### Fixed
+
 - Fixed organization bulk action button text.
 
 ## [1.11.1] - 2022-07-04
