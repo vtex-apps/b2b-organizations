@@ -11,6 +11,16 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 - Added a warning message when the customer schema is invalid.
 
+## [1.12.0] - 2022-07-21
+
+### Added
+
+- Translations for all Storefront languages.
+
+### Fixed
+
+- English translations.
+
 ## [1.11.3] - 2022-07-19
 
 ### Fixed
