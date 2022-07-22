@@ -9,6 +9,8 @@
   "admin/b2b-organizations.of": "admin/b2b-organizations.of",
   "admin/b2b-organizations.autocomplete-searching": "admin/b2b-organizations.autocomplete-searching",
   "admin/b2b-organizations.organization-settings-admin.title": "admin/b2b-organizations.organization-settings-admin.title",
+  "admin/b2b-organizations.organization-settings-admin.toast.update-success": "admin/b2b-organizations.organization-settings-admin.toast.update-success",
+  "admin/b2b-organizations.organization-settings-admin.toast.update-failure": "admin/b2b-organizations.organization-settings-admin.toast.update-failure",
   "admin/b2b-organizations.organization-requests-admin.table.column-name.title": "admin/b2b-organizations.organization-requests-admin.table.column-name.title",
   "admin/b2b-organizations.organization-requests-admin.table.column-admin.title": "admin/b2b-organizations.organization-requests-admin.table.column-admin.title",
   "admin/b2b-organizations.organization-requests-admin.table.column-status.title": "admin/b2b-organizations.organization-requests-admin.table.column-status.title",

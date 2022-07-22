@@ -32,8 +32,10 @@ import { validateEmail } from '../modules/formValidators'
 import { getEmptyAddress, isValidAddress } from '../utils/addresses'
 import CREATE_ORGANIZATION_REQUEST from '../graphql/createOrganizationRequest.graphql'
 import UPDATE_ORGANIZATION_REQUEST from '../graphql/updateOrganizationRequest.graphql'
+import UPDATE_ORGANIZATION from '../graphql/updateOrganization.graphql'
 import GET_ORGANIZATION_REQUEST from '../graphql/getOrganizationRequest.graphql'
 import GET_LOGISTICS from '../graphql/getLogistics.graphql'
+import GET_B2BSETTINGS from '../graphql/getB2BSettings.graphql'
 
 const localStore = storageFactory(() => localStorage)
 let requestId = localStore.getItem('b2b-organizations_orgRequestId') ?? ''
@@ -97,6 +99,11 @@ const RequestOrganizationForm: FC = () => {
     }
   )
 
+  const { data: b2bSettings } = useQuery(GET_B2BSETTINGS, { ssr: false })
+  const paymentTerms = b2bSettings?.getB2BSettings?.data[0]?.defaultPaymentTerms
+  const autoApprove = b2bSettings?.getB2BSettings?.data[0]?.autoApprove
+  const priceTables = b2bSettings?.getB2BSettings?.data[0]?.defaultPriceTables
+  
   const [createOrganizationRequest] = useMutation(CREATE_ORGANIZATION_REQUEST)
 
   const [addressState, setAddressState] = useState(() =>
@@ -170,6 +177,7 @@ const RequestOrganizationForm: FC = () => {
   }
 
   const [updateOrganizationRequest] = useMutation(UPDATE_ORGANIZATION_REQUEST)
+  const [updateOrganization] = useMutation(UPDATE_ORGANIZATION)
 
   const handleSubmit = () => {
     setFormState({
@@ -214,7 +222,6 @@ const RequestOrganizationForm: FC = () => {
     })
       .then(response => {
         const statusRequest = response.data.createOrganizationRequest.status
-
         if (statusRequest === 'pending') {
           toastMessage(messages.toastPending)
           setFormState({
@@ -232,17 +239,33 @@ const RequestOrganizationForm: FC = () => {
           localStore.setItem('b2b-organizations_orgRequestId', requestId)
           toastMessage(messages.toastSuccess)
           refetch({ id: requestId })
-          updateOrganizationRequest({
-            variables: {
-              id: requestId,
-              status: "approved"
-            },
-          }).then(response => {
-            toastMessage(messages.toastSuccess)
-            console.log(response)
-          }).catch(err => {
-            console.log(err)
-          })
+          if(autoApprove) {
+            updateOrganizationRequest({
+              variables: {
+                id: requestId,
+                status: "approved"
+              },
+            }).then(response => {
+              toastMessage(messages.toastSuccess)
+              const orgId = response.data.updateOrganizationRequest.id
+              updateOrganization({
+                variables: {
+                  id: orgId,
+                  name: formState.organizationName,
+                  status: "approved",
+                  priceTables: priceTables,
+                  paymentTerms: paymentTerms
+                },
+              }).then(response => {
+                toastMessage(messages.toastSuccess)
+                console.log(response)
+              }).catch(err => {
+                console.log(err)
+              })
+            }).catch(err => {
+              console.log(err)
+            })
+          }
           window.scrollTo({ top: 0, behavior: 'smooth' })
           setFormState({
             ...formState,

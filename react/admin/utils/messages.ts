@@ -343,10 +343,10 @@ export const organizationSettingsMessages = defineMessages({
     id: `${adminPrefix}organization-request-details.toast.created-success`,
   },
   toastUpdateSuccess: {
-    id: `${adminPrefix}organization-request-details.toast.update-success`,
+    id: `${adminPrefix}organization-settings-admin.toast.update-success`,
   },
   toastUpdateFailure: {
-    id: `${adminPrefix}organization-request-details.toast.update-failure`,
+    id: `${adminPrefix}organization-settings-admin.toast.update-failure`,
   },
   detailsPageTitle: {
     id: `${adminPrefix}organization-request-details.title`,

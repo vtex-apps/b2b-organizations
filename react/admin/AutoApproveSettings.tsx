@@ -1,19 +1,30 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
 import { useIntl } from 'react-intl'
-import { useQuery } from 'react-apollo'
+import {
+  useQuery,
+  useMutation
+}
+  from 'react-apollo'
 
 import type { PriceTable } from './OrganizationDetails/OrganizationDetailsPriceTables'
 import type { PaymentTerm } from './OrganizationDetails/OrganizationDetailsPayTerms'
 
-import { organizationMessages as messages } from './utils/messages'
+import {
+  organizationMessages as messages,
+  organizationSettingsMessages as settingMessage
+} from './utils/messages'
 import GET_PRICE_TABLES from '../graphql/getPriceTables.graphql'
 import GET_SALES_CHANNELS from '../graphql/getSalesChannels.graphql'
 import GET_PAYMENT_TERMS from '../graphql/getPaymentTerms.graphql'
+import GET_B2BSETTINGS from '../graphql/getB2BSettings.graphql'
+import SAVE_B2BSETTINGS from '../graphql/saveB2BSettings.graphql'
 
 import {
+  Alert,
   Table,
   IconCheck,
-  // Tag, 
+  Button,
+  ToastContext,
   Checkbox
 } from 'vtex.styleguide'
 
@@ -36,6 +47,8 @@ export default function AutoApproveSettings() {
   )
   const [autoApproveState, setAutoApproveState] = useState(false)
 
+  const [alertState, setAlertState] = useState(false)
+
 
   /**
    * Queries
@@ -49,10 +62,30 @@ export default function AutoApproveSettings() {
     getPaymentTerms: PaymentTerm[]
   }>(GET_PAYMENT_TERMS, { ssr: false })
 
+  const { data: b2bSettings } = useQuery(GET_B2BSETTINGS, {
+    ssr: false,
+  })
+
+  const paymentTerm = b2bSettings?.getB2BSettings?.data[0]?.defaultPaymentTerms
+  const autoApprove = b2bSettings?.getB2BSettings?.data[0]?.autoApprove
+  const priceTables = b2bSettings?.getB2BSettings?.data[0]?.defaultPriceTables
+
+  const [saveB2BSettingsRequest] = useMutation(SAVE_B2BSETTINGS)
+
   /**
    * Effects
    */
   useEffect(() => {
+    if (b2bSettings?.getB2BSettings?.data[0]) {
+      toastMessage(settingMessage.toastUpdateSuccess)
+      setAutoApproveState(autoApprove)
+      setPriceTablesState(priceTables)
+      const selectedPaymentTerms =
+        paymentTerm?.map((paymentTerm: any) => {
+          return { name: paymentTerm.name, paymentTermId: paymentTerm.id }
+        })
+      setPaymentTermsState(selectedPaymentTerms)
+    }
     if (
       !priceTablesData?.priceTables?.length ||
       !salesChannelsData?.salesChannels?.length
@@ -94,7 +127,7 @@ export default function AutoApproveSettings() {
           formatMessage(messages.selectedRows, {
             qty,
           }),
-          secondaryActionsLabel: 'Add or Remove settings',
+        secondaryActionsLabel: 'Add or Remove settings',
       },
       others: [
         {
@@ -108,6 +141,46 @@ export default function AutoApproveSettings() {
       ],
     }
   }
+
+  const { showToast } = useContext(ToastContext)
+
+  const translateMessage = (message: MessageDescriptor) => {
+    return formatMessage(message)
+  }
+
+  const toastMessage = (message: MessageDescriptor) => {
+    const translatedMessage = translateMessage(message)
+    const action = undefined
+
+    showToast({ message: translatedMessage, duration: 5000, action })
+  }
+
+  const saveB2BSettings = () => {
+    const selectedPaymentTerms =
+      paymentTermsState?.map((paymentTerm: any) => {
+        return { name: paymentTerm.name, id: paymentTerm.paymentTermId }
+      })
+
+    const B2BSettingsInput = {
+      autoApprove: autoApproveState,
+      defaultPaymentTerms: selectedPaymentTerms,
+      defaultPriceTables: priceTablesState
+    }
+
+    saveB2BSettingsRequest({
+      variables: {
+        input: B2BSettingsInput
+      }
+    }).then(response => {
+      console.log(response)
+      setAlertState(true)
+    }).catch(err => {
+      console.log(err)
+      toastMessage(settingMessage.toastUpdateFailure)
+    })
+  }
+
+
 
   const getSchema = (
     type?: 'availablePriceTables' | 'availableCollections' | 'availablePayments'
@@ -175,9 +248,7 @@ export default function AutoApproveSettings() {
     setPriceTablesState((prevState: any) => [...prevState, ...newPriceTables])
   }
 
-  const handleAddPaymentTerms = (rowParams: {
-    selectedRows: PaymentTerm[]
-  }) => {
+  const handleAddPaymentTerms = (rowParams: any) => {
     const { selectedRows = [] } = rowParams
     const newPaymentTerms = [] as PaymentTerm[]
 
@@ -228,10 +299,9 @@ export default function AutoApproveSettings() {
 
     setPaymentTermsState(newPaymentTerms)
   }
-
   return (
     <>
-      <div>
+      <div className="flex justify-between items-center">
         <Checkbox
           checked={autoApproveState}
           id="option-1"
@@ -240,6 +310,7 @@ export default function AutoApproveSettings() {
           onChange={() => setAutoApproveState(!autoApproveState)}
           value="option-1"
         />
+        <Button variation="primary" onClick={() => { saveB2BSettings() }}>Save Settings</Button>
       </div>
       <h4 className="mt6">Available Payment terms</h4>
       <Table
@@ -255,6 +326,16 @@ export default function AutoApproveSettings() {
         items={priceTableOptions}
         bulkActions={bulkActions(handleAddPriceTables, handleRemovePriceTables)}
       />
+      <div className="absolute">
+        { 
+          alertState ? 
+            <Alert type="success" onClose={() => setAlertState(false)} autoClose={5000}>
+              Settings were updated successfully.
+            </Alert> 
+          : null
+        }
+
+      </div>
     </>
   )
 }
