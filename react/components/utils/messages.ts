@@ -138,6 +138,9 @@ export const organizationMessages = defineMessages({
   showRows: {
     id: `${storePrefix}showRows`,
   },
+  checkItOut: {
+    id: `${storePrefix}check-it-out`,
+  },
   of: {
     id: `${storePrefix}of`,
   },
