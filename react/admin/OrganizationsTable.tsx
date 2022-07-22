@@ -10,6 +10,7 @@ import {
 import OrganizationsList from './OrganizationsList'
 import OrganizationRequestsTable from './OrganizationRequestsTable'
 import useHashRouter from './OrganizationDetails/useHashRouter'
+import CheckCustomerSchema from '../components/CheckCustomerSchema'
 
 const SESSION_STORAGE_KEY = 'organization-tab'
 
@@ -46,6 +47,9 @@ const OrganizationsTable = () => {
           />
         </Tabs>
         <Container>
+          <div className="mb5">
+            <CheckCustomerSchema isAdmin={true} />
+          </div>
           <Switch>
             <Route path="/organizations" exact component={OrganizationsList} />
             <Route
