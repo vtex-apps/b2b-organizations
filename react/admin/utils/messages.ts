@@ -48,6 +48,12 @@ export const organizationMessages = defineMessages({
   of: {
     id: `${adminPrefix}of`,
   },
+  checkItOut: {
+    id: `${adminPrefix}check-it-out`,
+  },
+  invalidSchema: {
+    id: `${adminPrefix}invalid-schema`,
+  },
   autocompleteSearching: {
     id: `${adminPrefix}autocomplete-searching`,
   },

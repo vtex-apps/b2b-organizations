@@ -138,8 +138,14 @@ export const organizationMessages = defineMessages({
   showRows: {
     id: `${storePrefix}showRows`,
   },
+  checkItOut: {
+    id: `${storePrefix}check-it-out`,
+  },
   of: {
     id: `${storePrefix}of`,
+  },
+  invalidSchema: {
+    id: `${storePrefix}invalid-schema`,
   },
   autocompleteSearching: {
     id: `${storePrefix}autocomplete-searching`,
