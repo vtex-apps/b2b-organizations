@@ -1,7 +1,14 @@
 import React, { useEffect, useState, useContext } from 'react'
 import { useIntl } from 'react-intl'
 import { useQuery, useMutation } from 'react-apollo'
-
+import {
+  Alert,
+  Table,
+  IconCheck,
+  Button,
+  ToastContext,
+  Checkbox
+} from 'vtex.styleguide'
 
 import type { PriceTable } from './OrganizationDetails/OrganizationDetailsPriceTables'
 import type { PaymentTerm } from './OrganizationDetails/OrganizationDetailsPayTerms'
@@ -15,16 +22,6 @@ import GET_SALES_CHANNELS from '../graphql/getSalesChannels.graphql'
 import GET_PAYMENT_TERMS from '../graphql/getPaymentTerms.graphql'
 import GET_B2BSETTINGS from '../graphql/getB2BSettings.graphql'
 import SAVE_B2BSETTINGS from '../graphql/saveB2BSettings.graphql'
-
-import {
-  Alert,
-  Table,
-  IconCheck,
-  Button,
-  ToastContext,
-  Checkbox
-} from 'vtex.styleguide'
-
 export interface CellRendererProps<RowType> {
   cellData: unknown
   rowData: RowType
