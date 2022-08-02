@@ -65,6 +65,18 @@ export default function AutoApproveSettings() {
 
   const [saveB2BSettingsRequest] = useMutation(SAVE_B2BSETTINGS)
 
+  const { showToast } = useContext(ToastContext)
+
+  const translateMessage = (message: MessageDescriptor) => {
+    return formatMessage(message)
+  }
+
+  const toastMessage = (message: MessageDescriptor) => {
+    const translatedMessage = translateMessage(message)
+    const action = undefined
+
+    showToast({ message: translatedMessage, duration: 5000, action })
+  }
   /**
    * Effects
    */
@@ -126,19 +138,6 @@ export default function AutoApproveSettings() {
         handleCallback,
       },
     }
-  }
-
-  const { showToast } = useContext(ToastContext)
-
-  const translateMessage = (message: MessageDescriptor) => {
-    return formatMessage(message)
-  }
-
-  const toastMessage = (message: MessageDescriptor) => {
-    const translatedMessage = translateMessage(message)
-    const action = undefined
-
-    showToast({ message: translatedMessage, duration: 5000, action })
   }
 
   const saveB2BSettings = () => {
