@@ -120,25 +120,33 @@ export default function AutoApproveSettings() {
     setPriceTableOptions(options)
   }, [priceTablesData, salesChannelsData, paymentTermsData])
 
-  const bulkActions = (handleCallback: (params: any) => void, handleRemoveCallback: (params: any) => void) => {
+
+  // const bulkActions = (handleCallback: (params: any) => void) => {
+  //   return {
+  //     texts: {
+  //       rowsSelected: (qty: number) =>
+  //         formatMessage(messages.selectedRows, {
+  //           qty,
+  //         }),
+  //     },
+  //     main: {
+  //       label: formatMessage(messages.removeFromOrg),
+  //       handleCallback,
+  //     },
+  //   }
+  // }
+  const bulkActions = (handleCallback: (params: any) => void) => {
     return {
       texts: {
         rowsSelected: (qty: number) =>
           formatMessage(messages.selectedRows, {
             qty,
           }),
-        secondaryActionsLabel: 'Add or Remove settings',
       },
-      others: [
-        {
-          label: "Add to settings",
-          handleCallback,
-        },
-        {
-          label: "Remove from settings",
-          handleCallback: handleRemoveCallback,
-        }
-      ],
+      main: {
+        label: formatMessage(messages.removeFromOrg),
+        handleCallback,
+      },
     }
   }
 
@@ -171,8 +179,7 @@ export default function AutoApproveSettings() {
       variables: {
         input: B2BSettingsInput
       }
-    }).then(response => {
-      console.log(response)
+    }).then(() => {
       setAlertState(true)
     }).catch(err => {
       console.log(err)
@@ -312,20 +319,56 @@ export default function AutoApproveSettings() {
         />
         <Button variation="primary" onClick={() => { saveB2BSettings() }}>Save Settings</Button>
       </div>
-      <h4 className="mt6">Available Payment terms</h4>
-      <Table
-        fullWidth
-        schema={getSchema('availablePayments')}
-        items={paymentTermsOptions}
-        bulkActions={bulkActions(handleAddPaymentTerms, handleRemovePaymentTerms)}
-      />
-      <h4 className="mt6">Available Price tables</h4>
-      <Table
-        fullWidth
-        schema={getSchema('availablePriceTables')}
-        items={priceTableOptions}
-        bulkActions={bulkActions(handleAddPriceTables, handleRemovePriceTables)}
-      />
+      <div className="flex w-100">
+        <div style= {{ marginRight: "4rem"}}>
+          <h4 className="mt6">Selected Price Terms</h4>
+          <Table
+              fullWidth
+              schema={getSchema()}
+              items={paymentTermsState}
+              bulkActions={bulkActions(handleRemovePaymentTerms)}
+          />
+        </div>
+        <div>
+          <h4 className="mt6">Available Payment terms</h4>
+          <Table
+            fullWidth
+            schema={getSchema('availablePayments')}
+            items={paymentTermsOptions}
+            bulkActions={bulkActions(handleAddPaymentTerms)}
+          />
+        </div>
+        
+        
+      </div>
+      <div className="flex w-100">
+        <div style= {{ marginRight: "4rem"}}>
+          <h4 className="mt6">Selected Price tables</h4>
+          <Table
+                fullWidth
+                schema={getSchema()}
+                items={priceTablesState.map(priceTable => {
+                  return {
+                    tableId: priceTable,
+                    name:
+                      priceTableOptions.find(
+                        option => option.tableId === priceTable
+                      )?.name ?? priceTable,
+                  }
+                })}
+                bulkActions={bulkActions(handleRemovePriceTables)}
+              />
+        </div>
+        <div>
+          <h4 className="mt6">Available Price tables</h4>
+          <Table
+            fullWidth
+            schema={getSchema('availablePriceTables')}
+            items={priceTableOptions}
+            bulkActions={bulkActions(handleAddPriceTables)}
+          />
+        </div>
+      </div>
       <div className="absolute">
         { 
           alertState ? 
