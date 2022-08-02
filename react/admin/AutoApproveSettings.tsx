@@ -1,10 +1,7 @@
 import React, { useEffect, useState, useContext } from 'react'
 import { useIntl } from 'react-intl'
-import {
-  useQuery,
-  useMutation
-}
-  from 'react-apollo'
+import { useQuery, useMutation } from 'react-apollo'
+
 
 import type { PriceTable } from './OrganizationDetails/OrganizationDetailsPriceTables'
 import type { PaymentTerm } from './OrganizationDetails/OrganizationDetailsPayTerms'
@@ -93,12 +90,12 @@ export default function AutoApproveSettings() {
       return
     }
 
-    const paymentTerms =
+    const filteredPaymentTerms =
       paymentTermsData?.getPaymentTerms.map((paymentTerm: any) => {
         return { name: paymentTerm.name, paymentTermId: paymentTerm.id }
       }) ?? []
 
-    setPaymentTermsOptions(paymentTerms)
+    setPaymentTermsOptions(filteredPaymentTerms)
 
     const options = [] as PriceTable[]
 
@@ -120,21 +117,6 @@ export default function AutoApproveSettings() {
     setPriceTableOptions(options)
   }, [priceTablesData, salesChannelsData, paymentTermsData])
 
-
-  // const bulkActions = (handleCallback: (params: any) => void) => {
-  //   return {
-  //     texts: {
-  //       rowsSelected: (qty: number) =>
-  //         formatMessage(messages.selectedRows, {
-  //           qty,
-  //         }),
-  //     },
-  //     main: {
-  //       label: formatMessage(messages.removeFromOrg),
-  //       handleCallback,
-  //     },
-  //   }
-  // }
   const bulkActions = (handleCallback: (params: any) => void) => {
     return {
       texts: {
