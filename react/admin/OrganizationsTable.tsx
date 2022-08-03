@@ -60,11 +60,7 @@ const OrganizationsTable = () => {
               exact
               component={OrganizationRequestsTable}
             />
-            <Route
-              path="/settings"
-              exact
-              component={AutoApproveSettings}
-            />
+            <Route path="/settings" exact component={AutoApproveSettings} />
           </Switch>
         </Container>
       </HashRouter>

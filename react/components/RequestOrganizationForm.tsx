@@ -103,7 +103,7 @@ const RequestOrganizationForm: FC = () => {
   // const paymentTerms = b2bSettings?.getB2BSettings?.data[0]?.defaultPaymentTerms
   // const autoApprove = b2bSettings?.getB2BSettings?.data[0]?.autoApprove
   // const priceTables = b2bSettings?.getB2BSettings?.data[0]?.defaultPriceTables
-  
+
   const [createOrganizationRequest] = useMutation(CREATE_ORGANIZATION_REQUEST)
 
   const [addressState, setAddressState] = useState(() =>
@@ -222,6 +222,7 @@ const RequestOrganizationForm: FC = () => {
     })
       .then(response => {
         const statusRequest = response.data.createOrganizationRequest.status
+
         if (statusRequest === 'pending') {
           toastMessage(messages.toastPending)
           setFormState({
