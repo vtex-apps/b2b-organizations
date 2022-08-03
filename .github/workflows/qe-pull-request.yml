@@ -14,7 +14,7 @@ on:
 jobs:
   quality-engineering:
     name: QE
-    uses: vtex-apps/usqa/.github/workflows/quality-engineering.yml@main
+    uses: vtex-apps/usqa/.github/workflows/quality-engineering.yml@v1.0.0
     with:
       danger: true
       dangerRequireChangelog: false
@@ -24,6 +24,7 @@ jobs:
       nodeSonarProjectKey: vtex-apps_b2b-organizations
       nodeSonarOrganization: vtex-apps
       cypress: true
+      cyRunnerTimeOut: 40
     secrets:
       githubToken: ${{ secrets.GITHUB_TOKEN }}
       sonarToken: ${{ secrets.SONAR_TOKEN }}
