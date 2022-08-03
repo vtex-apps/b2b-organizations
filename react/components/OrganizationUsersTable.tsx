@@ -170,6 +170,15 @@ const OrganizationUsersTable: FunctionComponent<Props> = ({
               ),
               'error'
             )
+          } else if (status === 'duplicated-organization') {
+            contextualToast(
+              formatMessage(
+                isAdmin
+                  ? adminMessages.toastUserDuplicatedOrganization
+                  : storeMessages.toastUserDuplicatedOrganization
+              ),
+              'error'
+            )
           } else if (status === 'duplicated') {
             contextualToast(
               formatMessage(
@@ -601,7 +610,9 @@ const OrganizationUsersTable: FunctionComponent<Props> = ({
     onRowsChange: handleRowsChange,
     currentItemFrom: (page - 1) * pageSize + 1,
     currentItemTo: total < page * pageSize ? total : page * pageSize,
-    textShowRows: formatMessage(storeMessages.showRows),
+    textShowRows: formatMessage(
+      isAdmin ? adminMessages.showRows : storeMessages.showRows
+    ),
     textOf: formatMessage(isAdmin ? adminMessages.of : storeMessages.of),
     totalItems: total ?? 0,
     rowsOptions: [25, 50, 100],

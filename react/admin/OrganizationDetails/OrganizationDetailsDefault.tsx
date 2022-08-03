@@ -1,16 +1,29 @@
 import { Dropdown, Input, PageBlock } from 'vtex.styleguide'
 import { FormattedMessage, useIntl } from 'react-intl'
 import React, { Fragment } from 'react'
+import type { FunctionComponent } from 'react'
 
 import { organizationMessages as messages } from '../utils/messages'
 
-const OrganizationDetailsDefault = ({
+interface Props {
+  organizationNameState: string
+  setOrganizationNameState: (value: string) => void
+  organizationTradeNameState: string
+  setOrganizationTradeNameState: (value: string) => void
+  statusState: string
+  setStatusState: (value: string) => void
+  data: any
+}
+
+const OrganizationDetailsDefault: FunctionComponent<Props> = ({
   organizationNameState,
   setOrganizationNameState,
+  organizationTradeNameState,
+  setOrganizationTradeNameState,
   statusState,
   setStatusState,
   data,
-}: any) => {
+}) => {
   /**
    * Hooks
    */
@@ -51,6 +64,24 @@ const OrganizationDetailsDefault = ({
           }}
           required
         />
+        <div className="pv3">
+          <Input
+            autocomplete="off"
+            size="large"
+            label={
+              <h4 className="t-heading-5 mb0 pt3">
+                <FormattedMessage id="admin/b2b-organizations.organization-details.tradeName" />
+              </h4>
+            }
+            helpText={
+              <FormattedMessage id="admin/b2b-organizations.organization-details.tradeName.helpText" />
+            }
+            value={organizationTradeNameState}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+              setOrganizationTradeNameState(e.target.value)
+            }}
+          />
+        </div>
         <div className="pv3">
           <Dropdown
             label={

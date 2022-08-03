@@ -110,7 +110,11 @@ const OrganizationDetailsPriceTables = ({
           }),
       },
       main: {
-        label: formatMessage(messages.removeFromOrg),
+        label: formatMessage(
+          handleCallback.name === 'handleRemovePriceTables'
+            ? messages.removeFromOrg
+            : messages.addToOrg
+        ),
         handleCallback,
       },
     }
