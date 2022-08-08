@@ -266,6 +266,6 @@
   "store/b2b-organizations.request-new-organization.attach-file.label":"store/b2b-organizations.request-new-organization.attach-file.label",
   "store/b2b-organizations.request-new-organization.attach-file.acceptedFormats":"store/b2b-organizations.request-new-organization.attach-file.acceptedFormats",
   "store/b2b-organizations.request-new-organization.required-fields-panel.title":"store/b2b-organizations.request-new-organization.required-fields-panel.title",
-  "store/b2b-organizations.request-new-organization.state-registration-initials": "store/b2b-organizations.request-new-organization.state-registration-initials"
-
+  "store/b2b-organizations.request-new-organization.state-registration-initials": "store/b2b-organizations.request-new-organization.state-registration-initials",
+  "store/b2b-organizations.request-new-organization.required-fields-panel.user-data": "store/b2b-organizations.request-new-organization.required-fields-panel.user-data"
 }
