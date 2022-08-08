@@ -25,7 +25,7 @@ export const getEmptyAddress = (country: string) => {
 
 export const isValidAddress = (address: AddressFormFields) => {
   // check for empty address
-  if (!address.street.value || !address.receiverName.value) return false
+  if (!address.street.value || !address.receiverName.value || !address.state.value) return false
 
   for (const field in address) {
     if (address[field].valid === false) {

@@ -135,11 +135,7 @@ select,
 
 /* Form geral */
 
-.customb2b-pageBody .hppardis-b2b-organizations-1-x-newOrganizationInput input:not([type=checkbox]) {
-  margin-top: 10px !important;
-}
-
-.customb2b-pageBody .hppardis-b2b-organizations-1-x-newOrganizationInput span {
+.customb2b-pageBody .hermespardini-b2b-organizations-1-x-newOrganizationInput span {
   margin-top: 5px !important;
   font: normal normal normal 13px/18px Poppins;
   color: #111;
@@ -257,7 +253,6 @@ select,
   color: #707070;
 }
 .file-button {
-  margin-top: 20px !important;
   margin-bottom: 5px !important;
 }
 
@@ -349,12 +344,12 @@ select,
 }
 
 
-.hppardis-b2b-organizations-1-x-newOrganizationButtonsContainer {
-  align-items: center;
-  justify-content: center;
+.hermespardini-b2b-organizations-1-x-newOrganizationButtonsContainer {
+  align-items: center !important;
+  justify-content: center !important;
 }
 
-.hppardis-b2b-organizations-1-x-newOrganizationButtonsContainer button {
+.hermespardini-b2b-organizations-1-x-newOrganizationButtonsContainer button {
   width: 184px !important;
   height: 38px !important;
   background: #12576E 0% 0% no-repeat padding-box !important;
@@ -370,4 +365,31 @@ select,
   align-items: center !important;
   display: flex !important;
   cursor: pointer;
+}
+
+.hermespardini-b2b-organizations-1-x-newOrganizationButtonsContainer button[disabled] {
+  width: 184px !important;
+  height: 38px !important;
+  background: #696969 0% 0% no-repeat padding-box !important;
+  border-radius: 2px !important;
+  text-align: center !important;
+  font-size: 13px !important;
+  line-height: 18px !important;
+  font-weight: 400 !important;
+  text-transform: none !important;
+  letter-spacing: 0px !important;
+  color: #FFFFFF !important;
+  justify-content: center !important;
+  align-items: center !important;
+  display: flex !important;
+  cursor: pointer;
+}
+
+
+.styleguide__pageBlock > div:first-child{
+  margin-bottom: 20px !important;
+}
+
+.vtex-input-prefix__group{
+  height: 38px;
 }

@@ -172,12 +172,12 @@ const CostCenterDetails: FunctionComponent<RouterProps> = ({
 
     const { permissions = [] } = permissionsData.checkUserPermission ?? {}
 
-    if(permissionsData.checkUserPermission.role.slug == "customer-admin"){
-      permissions.push('add-users-organization')
-      permissions.push('create-cost-center-organization')
-    }
+    // if(permissionsData.checkUserPermission.role.slug == "customer-admin"){
+    //   permissions.push('add-users-organization')
+    //   permissions.push('create-cost-center-organization')
+    // }
 
-    console.log(permissions)
+    // console.log(permissions)
 
     if (permissions.length) {
       setPermissionsState(permissions)
@@ -260,9 +260,6 @@ const CostCenterDetails: FunctionComponent<RouterProps> = ({
     setDeleteAddressModalState({ addressId, isOpen: true })
   }
 
-  const handleDeleteCostCenterModal = () => {
-    setDeleteCostCenterModalState({ isOpen: true })
-  }
 
   const handleAddNewAddress = (address: AddressFormFields) => {
     const newAddress = {
@@ -349,22 +346,6 @@ const CostCenterDetails: FunctionComponent<RouterProps> = ({
     handleCloseModals()
   }
 
-  const handleTogglePaymentTerm = (id: string) => {
-    let newTerms = paymentTerms
-    const termOption = paymentTermOptions.find(term => term.id === id)
-
-    if (!termOption) return
-    const enabled = paymentTerms.find(term => term.id === id)
-
-    if (enabled) {
-      newTerms = paymentTerms.filter(term => term.id !== enabled.id)
-    } else {
-      newTerms.push(termOption)
-    }
-
-    // spread operator is used here so that react can see that the array has changed
-    setPaymentTerms([...newTerms])
-  }
 
   const options = (addressId: string) => [
     {
@@ -451,19 +432,9 @@ const CostCenterDetails: FunctionComponent<RouterProps> = ({
               }
               onClick={() => handleUpdateCostCenter()}
             >
-              <FormattedMessage id="store/b2b-organizations.costCenter-details.button.save" />
+              Salvar
             </Button>
           </span>
-          <Button
-            variation="danger"
-            onClick={() => handleDeleteCostCenterModal()}
-            disabled={
-              !permissionsState.includes('create-cost-center-organization') ||
-              loadingState
-            }
-          >
-            <FormattedMessage id="store/b2b-organizations.costCenter-details.button.delete" />
-          </Button>
         </PageHeader>
       }
     >
@@ -497,30 +468,6 @@ const CostCenterDetails: FunctionComponent<RouterProps> = ({
           }
         />
       </PageBlock>
-      {paymentTermOptions.length > 0 && (
-        <PageBlock
-          title={formatMessage(messages.paymentTerms)}
-          subtitle={formatMessage(messages.paymentTermsSubtitle)}
-        >
-          {paymentTermOptions.map((option, index) => {
-            return (
-              <div key={index} className="mv4">
-                <Toggle
-                  label={option.name}
-                  semantic
-                  checked={paymentTerms.some(term => term.id === option.id)}
-                  onChange={() => handleTogglePaymentTerm(option.id)}
-                  disabled={
-                    !permissionsState.includes(
-                      'create-cost-center-organization'
-                    )
-                  }
-                />
-              </div>
-            )
-          })}
-        </PageBlock>
-      )}
       <PageBlock
         title={formatMessage(messages.addresses)}
         subtitle={formatMessage(messages.addressesSubtitle)}

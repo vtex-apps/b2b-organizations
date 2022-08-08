@@ -246,6 +246,66 @@ export const organizationRequestMessages = defineMessages({
   businessDocumentHelp: {
     id: `${storePrefix}request-new-organization.businessDocument.helpText`,
   },
+  userData: {
+    id: `${storePrefix}request-new-organization.user-data`,
+  },
+  formContainerSubTitle: {
+    id: `${storePrefix}request-new-organization.form-container-subtitle`,
+  },
+  organizationData: {
+    id: `${storePrefix}request-new-organization.organization-data`,
+  },
+  organizationDataDescription: {
+    id: `${storePrefix}request-new-organization.organization-data-description`,
+  },
+  cnpjLabel: {
+    id: `${storePrefix}request-new-organization.cnpj.label`
+  },
+  free: {
+    id: `${storePrefix}request-new-organization.free`
+  },
+  yes: {
+    id: `${storePrefix}request-new-organization.yes`
+  },
+  no: {
+    id: `${storePrefix}request-new-organization.no`
+  },
+  occupationArea: {
+    id: `${storePrefix}request-new-organization.occupationArea`
+  },
+  occupationAreaDescription: {
+    id: `${storePrefix}request-new-organization.occupationAreaDescription`
+  },
+  landline: {
+    id: `${storePrefix}request-new-organization.landline.label`
+  },
+  registerBillingAddress: {
+    id: `${storePrefix}request-new-organization.register-billing-address`
+  },
+  registerBillingAddressDescription: {
+    id: `${storePrefix}request-new-organization.register-billing-address-description`
+  },
+  proofAttachment: {
+    id: `${storePrefix}request-new-organization.proof-attachment`
+  },
+  proofAttachmentDescription: {
+    id: `${storePrefix}request-new-organization.proof-attachment-description`
+  },
+  newsletterLabel: {
+    id: `${storePrefix}request-new-organization.newsletter.label`
+  },
+  privacyPoliciesLabel: {
+    id: `${storePrefix}request-new-organization.privacyPolicies.label`
+  },
+  stateRegistrationInitials: {
+    id: `${storePrefix}request-new-organization.state-registration-initials`
+  },
+  attachFiles: {
+    id: `${storePrefix}request-new-organization.attach-file.label`
+  },
+  acceptTermsAndConditions: {
+    id: `${storePrefix}request-new-organization.accept-terms-and-conditions`
+  }
 })
 
 export const userWidgetMessages = defineMessages({

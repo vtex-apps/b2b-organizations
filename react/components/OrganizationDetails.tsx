@@ -113,12 +113,12 @@ const OrganizationDetails: FunctionComponent<RouterProps> = ({
 
     const { permissions = [] } = permissionsData.checkUserPermission ?? {}
 
-    if(permissionsData.checkUserPermission.role.slug == "customer-admin"){
-      permissions.push('add-users-organization')
-      permissions.push('create-cost-center-organization')
-    }
+    // if(permissionsData.checkUserPermission.role.slug == "customer-admin"){
+    //   permissions.push('add-users-organization')
+    //   permissions.push('create-cost-center-organization')
+    // }
 
-    console.log(permissions)
+    // console.log(permissions)
 
 
     if (permissions.length) {
@@ -311,15 +311,6 @@ const OrganizationDetails: FunctionComponent<RouterProps> = ({
               costCentersData?.getCostCentersByOrganizationIdStorefront
                 ?.pagination?.total ?? 0,
             rowsOptions: [25, 50, 100],
-          }}
-          toolbar={{
-            newLine: {
-              label: formatMessage(messages.new),
-              handleCallback: () => setNewCostCenterModalState(true),
-              disabled: !permissionsState.includes(
-                'create-cost-center-organization'
-              ),
-            },
           }}
         ></Table>
       </PageBlock>
