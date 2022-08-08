@@ -384,12 +384,6 @@ export const organizationRequestMessages = defineMessages({
 })
 
 export const organizationSettingsMessages = defineMessages({
-  toastUpdateSuccess: {
-    id: `${adminPrefix}organization-settings-admin.toast.update-success`,
-  },
-  toastUpdateFailure: {
-    id: `${adminPrefix}organization-settings-admin.toast.update-failure`,
-  },
   tablePageTitle: {
     id: `${adminPrefix}organization-settings-admin.title`,
   },
@@ -412,9 +406,6 @@ export const organizationSettingsMessages = defineMessages({
     id: `${adminPrefix}organization-settings-admin.availablePriceTablesTitle`,
   },
   //syatt messages
-  tablePageTitle: {
-    id: `${adminPrefix}organization-settings-admin.title`,
-  },
   bindingTitle: {
     id: `${adminPrefix}organization-settings-select.binding.title`,
   },

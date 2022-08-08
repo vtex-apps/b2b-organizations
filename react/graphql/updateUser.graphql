@@ -19,7 +19,7 @@ mutation UpdateUser(
     canImpersonate: $canImpersonate
     name: $name
     email: $email
-  ) @context(provider: "syatt.b2b-organizations-graphql") {
+  ) @context(provider: "vtex.b2b-organizations-graphql") {
     id
     status
   }

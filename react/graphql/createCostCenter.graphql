@@ -1,6 +1,6 @@
 mutation CreateCostCenter($organizationId: ID, $input: CostCenterInput!) {
   createCostCenter(organizationId: $organizationId, input: $input)
-    @context(provider: "syatt.b2b-organizations-graphql") {
+    @context(provider: "vtex.b2b-organizations-graphql") {
     id
   }
 }
