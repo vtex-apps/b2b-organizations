@@ -1,0 +1,55 @@
+{
+  "name": "B2B Organizations",
+  "features": [
+    {
+      "label": "Manage My Organization",
+      "value": "manage-organization",
+      "roles": ["customer-admin"]
+    },
+    {
+      "label": "Create and Edit Cost Centers in Same Organization",
+      "value": "create-cost-center-organization",
+      "roles": ["customer-admin"]
+    },
+    {
+      "label": "Add Organization Users to any Cost Center in Same Organization",
+      "value": "add-users-organization",
+      "roles": ["customer-admin"]
+    },
+    {
+      "label": "Remove Organization Users from any Cost Center in Same Organization",
+      "value": "remove-users-organization",
+      "roles": ["customer-admin"]
+    },
+    {
+      "label": "Add Sales Users to any Organization",
+      "value": "add-sales-users-all",
+      "roles": ["sales-admin"]
+    },
+    {
+      "label": "Add Sales Users to current Organization",
+      "value": "add-sales-users-current",
+      "roles": ["sales-manager"]
+    },
+    {
+      "label": "Remove Sales Users from any Organization",
+      "value": "remove-sales-users-all",
+      "roles": ["sales-admin"]
+    },
+    {
+      "label": "Impersonate Organization Users in Same Cost Center",
+      "value": "impersonate-users-costcenter",
+      "roles": ["sales-representative"]
+    },
+    {
+      "label": "Impersonate Organization Users in Same Organization",
+      "value": "impersonate-users-organization",
+      "roles": ["customer-admin", "sales-manager"]
+    },
+    {
+      "label": "Impersonate Organization Users in Any Organization",
+      "value": "impersonate-users-all",
+      "roles": ["sales-admin"]
+    }
+  ]
+}

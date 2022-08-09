@@ -6,6 +6,8 @@ mutation UpdateUser(
   $costId: ID
   $clId: ID
   $canImpersonate: Boolean = false
+  $name: String
+  $email: String
 ) {
   updateUser(
     id: $id
@@ -15,7 +17,9 @@ mutation UpdateUser(
     costId: $costId
     clId: $clId
     canImpersonate: $canImpersonate
-  ) @context(provider: "hppardis.b2b-organizations-graphql") {
+    name: $name
+    email: $email
+  ) @context(provider: "vtex.b2b-organizations-graphql") {
     id
     status
   }

@@ -18,15 +18,22 @@ import 'vtex.country-codes/locales'
 import { costCenterMessages as messages } from './utils/messages'
 import { getEmptyAddress, isValidAddress } from '../utils/addresses'
 import GET_LOGISTICS from '../graphql/getLogistics.graphql'
+import { validatePhoneNumber } from '../modules/formValidators'
 
 interface Props {
   loading: boolean
   isOpen: boolean
-  handleAddNewCostCenter: (
-    name: string,
-    address: AddressFormFields,
+  handleAddNewCostCenter: ({
+    name,
+    address,
+    phoneNumber,
+    businessDocument,
+  }: {
+    name: string
+    address: AddressFormFields
+    phoneNumber: string
     businessDocument: string
-  ) => void
+  }) => void
   handleCloseModal: () => void
 }
 
@@ -42,6 +49,7 @@ const NewCostCenterModal: FunctionComponent<Props> = ({
 
   const { formatMessage } = useIntl()
   const [newCostCenterName, setNewCostCenterName] = useState('')
+  const [newCostCenterPhoneNumber, setNewCostCenterPhoneNumber] = useState('')
   const [
     newCostCenterBusinessDocument,
     setNewCostCenterBusinessDocument,
@@ -90,15 +98,19 @@ const NewCostCenterModal: FunctionComponent<Props> = ({
             <Button
               variation="primary"
               onClick={() =>
-                handleAddNewCostCenter(
-                  newCostCenterName,
-                  newCostCenterAddressState,
-                  newCostCenterBusinessDocument
-                )
+                handleAddNewCostCenter({
+                  name: newCostCenterName,
+                  address: newCostCenterAddressState,
+                  phoneNumber: newCostCenterPhoneNumber,
+                  businessDocument: newCostCenterBusinessDocument,
+                })
               }
               isLoading={loading}
               disabled={
-                !newCostCenterName || !isValidAddress(newCostCenterAddressState)
+                !newCostCenterName ||
+                !isValidAddress(newCostCenterAddressState) ||
+                (newCostCenterPhoneNumber &&
+                  !validatePhoneNumber(newCostCenterPhoneNumber))
               }
             >
               {formatMessage(messages.add)}
@@ -123,6 +135,22 @@ const NewCostCenterModal: FunctionComponent<Props> = ({
             setNewCostCenterName(e.target.value)
           }}
           required
+        />
+      </div>
+      <div className="w-100 mv6">
+        <Input
+          autocomplete="off"
+          size="large"
+          label={formatMessage(messages.phoneNumber)}
+          helpText={formatMessage(messages.phoneNumberHelp)}
+          value={newCostCenterPhoneNumber}
+          error={
+            newCostCenterPhoneNumber &&
+            !validatePhoneNumber(newCostCenterPhoneNumber)
+          }
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+            setNewCostCenterPhoneNumber(e.target.value)
+          }}
         />
       </div>
       <div className="w-100 mv6">

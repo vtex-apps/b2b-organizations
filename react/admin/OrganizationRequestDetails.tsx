@@ -1,5 +1,5 @@
 import type { FunctionComponent, ChangeEvent } from 'react'
-import React, { useState } from 'react'
+import React, { useState, Fragment } from 'react'
 import { useQuery, useMutation } from 'react-apollo'
 import {
   Layout,
@@ -137,6 +137,16 @@ const OrganizationRequestDetails: FunctionComponent = () => {
           <FormattedMessage id="admin/b2b-organizations.organization-request-details.organization-name" />
         </h4>
         <div className="mv3">{data.getOrganizationRequestById.name}</div>
+        {data.getOrganizationRequestById.tradeName && (
+          <Fragment>
+            <h4 className="t-heading-5 mb0 pt4">
+              <FormattedMessage id="admin/b2b-organizations.organization-request-details.tradeName" />
+            </h4>
+            <div className="mv3">
+              {data.getOrganizationRequestById.tradeName}
+            </div>
+          </Fragment>
+        )}
         <h4 className="t-heading-5 mb0 pt4">
           <FormattedMessage id="admin/b2b-organizations.organization-request-details.b2b-customer-admin" />
         </h4>
@@ -152,6 +162,18 @@ const OrganizationRequestDetails: FunctionComponent = () => {
         </h4>
         <div className="mt4">
           {data.getOrganizationRequestById.defaultCostCenter.name}
+          {data.getOrganizationRequestById.defaultCostCenter.phoneNumber && (
+            <div>
+              <FormattedMessage
+                id="admin/b2b-organizations.organization-request-details.default-cost-center.phoneNumber"
+                values={{
+                  phoneNumber:
+                    data.getOrganizationRequestById.defaultCostCenter
+                      .phoneNumber,
+                }}
+              />
+            </div>
+          )}
           {data.getOrganizationRequestById.defaultCostCenter
             .businessDocument && (
             <div>

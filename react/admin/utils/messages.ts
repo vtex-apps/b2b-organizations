@@ -48,6 +48,15 @@ export const organizationMessages = defineMessages({
   of: {
     id: `${adminPrefix}of`,
   },
+  checkItOut: {
+    id: `${adminPrefix}check-it-out`,
+  },
+  invalidSchema: {
+    id: `${adminPrefix}invalid-schema`,
+  },
+  autocompleteSearching: {
+    id: `${adminPrefix}autocomplete-searching`,
+  },
   new: {
     id: `${adminPrefix}organization-details.button.new`,
   },
@@ -87,6 +96,12 @@ export const organizationMessages = defineMessages({
   businessDocumentHelp: {
     id: `${adminPrefix}costCenter-details.businessDocument.helpText`,
   },
+  phoneNumber: {
+    id: `${adminPrefix}costCenter-details.phoneNumber`,
+  },
+  phoneNumberHelp: {
+    id: `${adminPrefix}costCenter-details.phoneNumber.helpText`,
+  },
   editUser: {
     id: `${adminPrefix}organization-details.edit-user`,
   },
@@ -102,6 +117,12 @@ export const organizationMessages = defineMessages({
   organizationNameRequired: {
     id: `${adminPrefix}organization-details.organization-name-required`,
   },
+  tradeName: {
+    id: `${adminPrefix}organization-details.tradeName`,
+  },
+  tradeNameHelp: {
+    id: `${adminPrefix}organization-details.tradeName.helpText`,
+  },
   email: {
     id: `${adminPrefix}user-details.email`,
   },
@@ -113,6 +134,9 @@ export const organizationMessages = defineMessages({
   },
   userCostCenter: {
     id: `${adminPrefix}user-details.costCenter`,
+  },
+  userOrganization: {
+    id: `${adminPrefix}user-details.organization`,
   },
   userRole: {
     id: `${adminPrefix}user-details.role`,
@@ -140,6 +164,12 @@ export const organizationMessages = defineMessages({
   },
   toastAddUserSuccess: {
     id: `${adminPrefix}organization-users.toast.add-success`,
+  },
+  toastUserDuplicatedOrganization: {
+    id: `${adminPrefix}organization-users.toast.duplicated-organization`,
+  },
+  toastUserDuplicated: {
+    id: `${adminPrefix}organization-users.toast.duplicated`,
   },
   toastAddUserFailure: {
     id: `${adminPrefix}organization-users.toast.add-failure`,
@@ -234,6 +264,12 @@ export const costCenterMessages = defineMessages({
   costCenterName: {
     id: `${adminPrefix}costCenter-details.costCenter-name`,
   },
+  phoneNumber: {
+    id: `${adminPrefix}costCenter-details.phoneNumber`,
+  },
+  phoneNumberHelp: {
+    id: `${adminPrefix}costCenter-details.phoneNumber.helpText`,
+  },
   businessDocument: {
     id: `${adminPrefix}costCenter-details.businessDocument`,
   },
@@ -257,6 +293,9 @@ export const costCenterMessages = defineMessages({
   },
   defaultAddress: {
     id: `${adminPrefix}costCenter-details.default-address`,
+  },
+  duplicateAddress: {
+    id: `${adminPrefix}costCenter-details.duplicate-address`,
   },
 })
 

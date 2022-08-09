@@ -211,6 +211,7 @@ const RequestOrganizationForm: FC = () => {
     organizationPhone: '',
     newsletter: false,
     firstName: '',
+    tradeName: '',
     lastName: '',
     email: '',
     cpf: '',
@@ -384,6 +385,7 @@ const RequestOrganizationForm: FC = () => {
 
     const organizationRequest = {
       name: formState.organizationName,
+      tradeName: formState.tradeName,
       b2bCustomerAdmin: {
         firstName: formState.firstName,
         lastName: formState.lastName,
@@ -472,6 +474,533 @@ const RequestOrganizationForm: FC = () => {
   }
 
   if (!data) return null
+  const renderIfSubmitted =
+    formState.submitted &&
+      existingRequestData?.getOrganizationRequestById?.status ? (
+      <PageBlock>
+        {existingRequestData.getOrganizationRequestById.status ===
+          'pending' && (
+            <Fragment>
+              <div className="mb5">
+                <Alert type="warning">
+                  <FormattedMessage
+                    id="store/b2b-organizations.request-new-organization.pending-request"
+                    values={{
+                      created: formatDate(
+                        existingRequestData.getOrganizationRequestById.created,
+                        {
+                          day: 'numeric',
+                          month: 'numeric',
+                          year: 'numeric',
+                        }
+                      ),
+                    }}
+                  />
+                </Alert>
+              </div>
+              <CreateNewOrganizationRequest
+                onClick={handleNewOrganizationRequest}
+              />
+            </Fragment>
+          )}
+        {existingRequestData.getOrganizationRequestById.status ===
+          'approved' && (
+            <Fragment>
+              <div className="mb5">
+                <Alert type="success">
+                  <FormattedMessage id="store/b2b-organizations.request-new-organization.approved-request" />
+                </Alert>
+              </div>
+              <CreateNewOrganizationRequest
+                onClick={handleNewOrganizationRequest}
+              />
+            </Fragment>
+          )}
+        {existingRequestData.getOrganizationRequestById.status ===
+          'declined' && (
+            <Fragment>
+              <div className="mb5">
+                <Alert type="error">
+                  <FormattedMessage
+                    id="store/b2b-organizations.request-new-organization.declined-request"
+                    values={{
+                      created: formatDate(
+                        existingRequestData.getOrganizationRequestById.created,
+                        {
+                          day: 'numeric',
+                          month: 'numeric',
+                          year: 'numeric',
+                        }
+                      ),
+                    }}
+                  />
+                </Alert>
+              </div>
+              <CreateNewOrganizationRequest
+                onClick={handleNewOrganizationRequest}
+              />
+            </Fragment>
+          )}
+      </PageBlock>
+    ) : (
+      <Fragment>
+        <div className='customb2b-pageBody'>
+
+          <PageBlock
+            variation="full"
+            title={formatMessage(messages.userData)}
+            subtitle={formatMessage(messages.formContainerSubTitle)}
+          >
+            <div className='form-group-flex'>
+
+              <div
+                className={`${handles.newOrganizationInput} mb5 flex flex-column`}
+              >
+                <Input
+                  size="large"
+                  label={translateMessage(messages.firstName)}
+                  value={formState.firstName}
+                  placeholder={"Nome"}
+
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                    setFormState({
+                      ...formState,
+                      firstName: e.target.value,
+                    })
+                  }}
+                />
+              </div>
+              <div
+                className={`${handles.newOrganizationInput} mb5 flex flex-column`}
+              >
+                <Input
+                  size="large"
+                  label={translateMessage(messages.lastName)}
+                  value={formState.lastName}
+                  placeholder={translateMessage(messages.lastName)}
+
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                    setFormState({
+                      ...formState,
+                      lastName: e.target.value,
+                    })
+                  }}
+                />
+              </div>
+            </div>
+            <div
+              className={`${handles.newOrganizationInput} mb5 flex flex-column`}
+            >
+              <Input
+                size="large"
+                label={translateMessage(messages.email)}
+                value={formState.email}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                  setFormState({
+                    ...formState,
+                    email: e.target.value,
+                  })
+                }}
+              />
+            </div>
+            <div className='form-group-flex'>
+
+              <div
+                className={`${handles.newOrganizationInput} mb5 flex flex-column`}
+              >
+                <Input
+                  size="large"
+                  label={translateMessage(messages.cpf)}
+                  value={formState.cpf}
+                  maxLength={'14'}
+                  placeholder={"000.000.000-00"}
+
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+
+                    setFormState({
+                      ...formState,
+                      cpf: formataCPF(e.target.value),
+                    })
+                  }}
+                />
+              </div>
+              <div
+                className={`${handles.newOrganizationInput} mb5 flex flex-column`}
+              >
+                <Input
+                  size="large"
+                  label={translateMessage(messages.telephone)}
+                  value={formState.telephone}
+                  maxLength={'15'}
+
+                  placeholder={"(00) 00000-000"}
+
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                    setFormState({
+                      ...formState,
+                      telephone: formataPhone(e.target.value),
+                    })
+                  }}
+                />
+              </div>
+            </div>
+          </PageBlock>
+          <PageBlock
+            variation="full"
+            title={translateMessage(messages.organizationData)}
+            subtitle={translateMessage(messages.organizationDataDescription)}
+          >
+
+            <div className='form-group-flex'>
+              <div
+                className={`${handles.newOrganizationInput} mb5 flex flex-column`}
+              >
+                <Input
+                  autocomplete="off"
+                  size="large"
+                  label={translateMessage(messages.cnpjLabel)}
+                  value={formState.businessDocument}
+                  placeholder={"00.000.000/0000-00"}
+                  maxLength={'18'}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+
+                    setFormState({
+                      ...formState,
+                      businessDocument: formataCNPJ(e.target.value),
+                    })
+                  }}
+                />
+              </div>
+              <div
+                className={`${handles.newOrganizationInput} mb5 flex flex-column`}
+              >
+              </div>
+            </div>
+            <>
+              <div
+                className={`${handles.newOrganizationInput} mb5 flex flex-column`}
+              >
+                <Input
+                  autocomplete="off"
+                  size="large"
+                  label={translateMessage(messages.organizationName)}
+                  value={formState.organizationName}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                    setFormState({
+                      ...formState,
+                      organizationName: e.target.value,
+                      defaultCostCenterName: e.target.value,
+                    })
+                  }}
+                  required
+                />
+              </div>
+              <div
+                className={`${handles.newOrganizationInput} mb5 flex flex-column`}
+              >
+                <Input
+                  autocomplete="off"
+                  size="large"
+                  label={translateMessage(messages.tradeName)}
+                  helpText={translateMessage(messages.tradeNameHelp)}
+                  value={formState.tradeName}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                    setFormState({
+                      ...formState,
+                      tradeName: e.target.value,
+                    })
+                  }}
+                />
+              </div>
+              <div
+                className={`${handles.newOrganizationInput} ie-flex`}
+              >
+                <Input
+                  autocomplete="off"
+                  size="large"
+                  label={"IE"}
+                  readOnly={formState.organizationIE == "Isento"}
+                  value={formState.organizationIE}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                    setFormState({
+                      ...formState,
+                      organizationIE: e.target.value,
+                    })
+                  }}
+                  required
+                />
+                <Checkbox
+                  checked={formState.organizationIE == "Isento"}
+                  id="Isento"
+                  label={`${translateMessage(messages.free)}?`}
+                  name="Isento"
+                  onChange={() => {
+                    formState.organizationIE == "Isento" ?
+                      setFormState({
+                        ...formState,
+                        organizationIE: "",
+                      })
+                      : setFormState({
+                        ...formState,
+                        organizationIE: "Isento",
+                      })
+                  }}
+                />
+              </div>
+
+              <div
+                className={`${handles.newOrganizationInput} icms-flex`}
+              >
+                <label>Contribuinte ICMS</label>
+                <div>
+                  <Checkbox
+                    checked={formState.organizationICMS}
+                    id="option-0"
+                    name="default-checkbox-group"
+                    label={translateMessage(messages.yes)}
+                    onChange={() => {
+                      setFormState({
+                        ...formState,
+                        organizationICMS: true,
+                      })
+                    }}
+                    value="option-0"
+                  />
+                  <Checkbox
+                    checked={formState.organizationICMS === false}
+                    id="option-0"
+                    name="default-checkbox-group"
+                    label={translateMessage(messages.no)}
+                    onChange={() => {
+                      setFormState({
+                        ...formState,
+                        organizationICMS: false,
+                      })
+                    }}
+                    value="option-0"
+                  />
+                </div>
+              </div>
+
+              <div
+                className={`${handles.newOrganizationInput} mb5 flex flex-column`}
+              >
+                <Dropdown
+                  size="large"
+                  label={translateMessage(messages.occupationArea)}
+                  options={[
+                    { value: 'Clínica Médica', label: 'Clínica Médica' },
+                    { value: 'Clínica Odontológica', label: 'Clínica Odontológica' },
+                    { value: 'Estética', label: 'Estética' },
+                    { value: 'Farmácia', label: 'Farmácia' },
+                    { value: 'Hospital', label: 'Hospital' },
+                    { value: 'Laboratório de Análises', label: 'Laboratório de Análises' },
+                    { value: 'Instituição de Ensino', label: 'Instituição de Ensino' },
+                    { value: 'Veterinária & Pet', label: 'Veterinária & Pet' },
+                    { value: organizationAreaOthersValue, label: 'Outros' }
+                  ]}
+                  value={formState.organizationArea}
+                  onChange={(__: any, value: string) => {
+                    setFormState({
+                      ...formState,
+                      organizationArea: value,
+                    })
+                  }}
+                  required
+                />
+              </div>
+
+              {
+                formState.organizationArea === organizationAreaOthersValue &&
+                <div
+                  className={`${handles.newOrganizationInput} mb5 flex flex-column`}
+                >
+                  <Input
+                    autocomplete="off"
+                    size="large"
+                    label={translateMessage(messages.occupationAreaDescription)}
+                    maxLength={'50'}
+                    value={formState.organizationAreaOthers}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                      setFormState({
+                        ...formState,
+                        organizationAreaOthers: e.target.value,
+                      })
+                    }}
+                    required
+                  />
+                </div>
+              }
+
+
+              <div className='form-group-flex'>
+
+                <div
+                  className={`${handles.newOrganizationInput} mb5 flex flex-column`}
+                >
+                  <Input
+                    autocomplete="off"
+                    size="large"
+                    label={translateMessage(messages.landline)}
+                    placeholder={"+55 (11) 12345-1234"}
+                    maxLength={'18'}
+                    value={formState.organizationPhone}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                      setFormState({
+                        ...formState,
+                        organizationPhone: formataPhoneEmpresa(e.target.value),
+                      })
+                    }}
+                    required
+                  />
+                </div>
+                <div></div>
+              </div>
+            </>
+          </PageBlock>
+          <>
+            <PageBlock
+              variation="full"
+              title={translateMessage(messages.registerBillingAddress)}
+              subtitle={translateMessage(messages.registerBillingAddressDescription)}
+            >
+              <div
+                className={`${handles.newOrganizationAddressForm} mb5 flex flex-column`}
+              >
+                <AddressRules
+                  country={addressState?.country?.value}
+                  shouldUseIOFetching
+                  useGeolocation={false}
+                >
+                  <AddressContainer
+                    address={addressState}
+                    Input={StyleguideInput}
+                    onChangeAddress={handleAddressChange}
+                    autoCompletePostalCode
+                  >
+                    <CountrySelector shipsTo={translateCountries()} />
+
+                    <PostalCodeGetter />
+
+                    <AddressForm
+                      Input={StyleguideInput}
+                      omitAutoCompletedFields={false}
+                      omitPostalCodeFields
+                    />
+                  </AddressContainer>
+                </AddressRules>
+              </div>
+
+
+            </PageBlock>
+            <PageBlock
+              variation="full"
+              title={translateMessage(messages.proofAttachment)}
+              subtitle={translateMessage(messages.proofAttachmentDescription)}
+            >
+              <div className='file'>
+
+                <div className='file-button'>
+                  <label htmlFor={"documents"}>
+                    <FormattedMessage id="store/b2b-organizations.request-new-organization.attach-file.label" />
+                  </label>
+                  <input type={"file"} accept={'image/*, .pdf'} id={"documents"} name={"documents"}
+                    onChange={(ev) => {
+                      setFormState({
+                        ...formState,
+                        file: ev.target?.files?.[0],
+                      })
+
+                    }}
+                    multiple />
+                </div>
+
+                <span className='file-warning'>
+                  <FormattedMessage id="store/b2b-organizations.request-new-organization.attach-file.acceptedFormats" />
+                </span>
+              </div>
+
+              <div
+                className={`${handles.newOrganizationInput}`}
+              >
+                <Checkbox
+                  checked={formState.newsletter}
+                  id="newsletter"
+                  name="newsletter"
+                  label={translateMessage(messages.newsletterLabel)}
+                  onChange={() => {
+                    setFormState({
+                      ...formState,
+                      newsletter: !formState.newsletter,
+                    })
+
+                  }}
+                  value="newsletter"
+                />
+              </div>
+              <div
+                className={`${handles.newOrganizationInput}`}
+              >
+                <Checkbox
+                  checked={permission}
+                  id="permission"
+                  name="permission"
+                  label={translateMessage(messages.privacyPoliciesLabel)}
+                  onChange={() => {
+                    setPermission(!permission)
+                  }}
+                  value="permission"
+                />
+              </div>
+            </PageBlock>
+          </>
+        </div>
+        <div
+          className={`${handles.newOrganizationButtonsContainer} mb5 flex flex-column items-end pt6`}
+        >
+          <div className="flex justify-content flex-row w-100 justify-center">
+            <div
+              className={`no-wrap w-100 flex flex-column items-center justify-center ${handles.newOrganizationButtonSubmit}`}
+            >
+              {
+                pendings.length
+                  ? <div className='ba bw1 b--dark-red w-100 pv4 ph6 mb6' style={{ borderColor: '#d89d9d', maxWidth: '550px' }}>
+                    <span className='db tc b mb4' style={{ color: '#b30000' }}>
+                      <FormattedMessage id="store/b2b-organizations.request-new-organization.required-fields-panel.title" />
+                    </span>
+
+                    {
+                      pendings.map((pending: string) => <PendingItem key={pending}>{pending}</PendingItem>)
+                    }
+                  </div>
+                  : false
+              }
+              <Button
+                variation="primary"
+                isLoading={formState.isSubmitting}
+                onClick={() => {
+                  handleSubmit()
+                }}
+                disabled={pendings.length}
+              >
+                Enviar Cadastro
+              </Button>
+
+            </div>
+          </div>
+        </div>
+      </Fragment>
+    )
+
+  const renderIfAuthenticated = !isAuthenticated ? (
+    <PageBlock>
+      <div>
+        <FormattedMessage id="store/b2b-organizations.not-authenticated" />
+      </div>
+    </PageBlock>
+  ) : (
+    renderIfSubmitted
+  )
 
   return (
     <div className={`${handles.newOrganizationContainer} pv6 ph4 mw9 center`}>
@@ -497,515 +1026,7 @@ const RequestOrganizationForm: FC = () => {
             <Spinner size={40} />
           </span>
         ) : (
-          <Fragment>
-            {!isAuthenticated ? (
-              <PageBlock>
-                <div>
-                  <FormattedMessage id="store/b2b-organizations.not-authenticated" />
-                </div>
-              </PageBlock>
-            ) : formState.submitted &&
-              existingRequestData?.getOrganizationRequestById?.status ? (
-              <PageBlock>
-                {existingRequestData.getOrganizationRequestById.status ===
-                  'pending' && (
-                    <Fragment>
-                      <div className="mb5">
-                        <Alert type="warning">
-                          <FormattedMessage
-                            id="store/b2b-organizations.request-new-organization.pending-request"
-                            values={{
-                              created: formatDate(
-                                existingRequestData.getOrganizationRequestById
-                                  .created,
-                                {
-                                  day: 'numeric',
-                                  month: 'numeric',
-                                  year: 'numeric',
-                                }
-                              ),
-                            }}
-                          />
-                        </Alert>
-                      </div>
-                      <CreateNewOrganizationRequest
-                        onClick={handleNewOrganizationRequest}
-                      />
-                    </Fragment>
-                  )}
-                {existingRequestData.getOrganizationRequestById.status ===
-                  'approved' && (
-                    <Fragment>
-                      <div className="mb5">
-                        <Alert type="success">
-                          <FormattedMessage id="store/b2b-organizations.request-new-organization.approved-request" />
-                        </Alert>
-                      </div>
-                      <CreateNewOrganizationRequest
-                        onClick={handleNewOrganizationRequest}
-                      />
-                    </Fragment>
-                  )}
-                {existingRequestData.getOrganizationRequestById.status ===
-                  'declined' && (
-                    <Fragment>
-                      <div className="mb5">
-                        <Alert type="error">
-                          <FormattedMessage
-                            id="store/b2b-organizations.request-new-organization.declined-request"
-                            values={{
-                              created: formatDate(
-                                existingRequestData.getOrganizationRequestById
-                                  .created,
-                                {
-                                  day: 'numeric',
-                                  month: 'numeric',
-                                  year: 'numeric',
-                                }
-                              ),
-                            }}
-                          />
-                        </Alert>
-                      </div>
-                      <CreateNewOrganizationRequest
-                        onClick={handleNewOrganizationRequest}
-                      />
-                    </Fragment>
-                  )}
-              </PageBlock>
-            ) : (
-              <Fragment>
-                <div className='customb2b-pageBody'>
-                  
-                  <PageBlock
-                    variation="full"
-                    title={formatMessage(messages.userData)}
-                    subtitle={formatMessage(messages.formContainerSubTitle)}
-                  >
-                    <div className='form-group-flex'>
-
-                      <div
-                        className={`${handles.newOrganizationInput} mb5 flex flex-column`}
-                      >
-                        <Input
-                          size="large"
-                          label={translateMessage(messages.firstName)}
-                          value={formState.firstName}
-                          placeholder={"Nome"}
-
-                          onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                            setFormState({
-                              ...formState,
-                              firstName: e.target.value,
-                            })
-                          }}
-                        />
-                      </div>
-                      <div
-                        className={`${handles.newOrganizationInput} mb5 flex flex-column`}
-                      >
-                        <Input
-                          size="large"
-                          label={translateMessage(messages.lastName)}
-                          value={formState.lastName}
-                          placeholder={translateMessage(messages.lastName)}
-
-                          onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                            setFormState({
-                              ...formState,
-                              lastName: e.target.value,
-                            })
-                          }}
-                        />
-                      </div>
-                    </div>
-                    <div
-                      className={`${handles.newOrganizationInput} mb5 flex flex-column`}
-                    >
-                      <Input
-                        size="large"
-                        label={translateMessage(messages.email)}
-                        value={formState.email}
-                        onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                          setFormState({
-                            ...formState,
-                            email: e.target.value,
-                          })
-                        }}
-                      />
-                    </div>
-                    <div className='form-group-flex'>
-
-                      <div
-                        className={`${handles.newOrganizationInput} mb5 flex flex-column`}
-                      >
-                        <Input
-                          size="large"
-                          label={translateMessage(messages.cpf)}
-                          value={formState.cpf}
-                          maxLength={'14'}
-                          placeholder={"000.000.000-00"}
-
-                          onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-
-                            setFormState({
-                              ...formState,
-                              cpf: formataCPF(e.target.value),
-                            })
-                          }}
-                        />
-                      </div>
-                      <div
-                        className={`${handles.newOrganizationInput} mb5 flex flex-column`}
-                      >
-                        <Input
-                          size="large"
-                          label={translateMessage(messages.telephone)}
-                          value={formState.telephone}
-                          maxLength={'15'}
-
-                          placeholder={"(00) 00000-000"}
-
-                          onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                            setFormState({
-                              ...formState,
-                              telephone: formataPhone(e.target.value),
-                            })
-                          }}
-                        />
-                      </div>
-                    </div>
-                  </PageBlock>
-                  <PageBlock
-                    variation="full"
-                    title={translateMessage(messages.organizationData)}
-                    subtitle={translateMessage(messages.organizationDataDescription)}
-                  >
-
-                    <div className='form-group-flex'>
-                      <div
-                        className={`${handles.newOrganizationInput} mb5 flex flex-column`}
-                      >
-                        <Input
-                          autocomplete="off"
-                          size="large"
-                          label={translateMessage(messages.cnpjLabel)}
-                          value={formState.businessDocument}
-                          placeholder={"00.000.000/0000-00"}
-                          maxLength={'18'}
-                          onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                            
-                            setFormState({
-                              ...formState,
-                              businessDocument: formataCNPJ(e.target.value),
-                            })
-                          }}
-                        />
-                      </div>
-                      <div
-                        className={`${handles.newOrganizationInput} mb5 flex flex-column`}
-                      >
-                      </div>
-                    </div>
-                      <>
-                        <div
-                          className={`${handles.newOrganizationInput} mb5 flex flex-column`}
-                        >
-                          <Input
-                            autocomplete="off"
-                            size="large"
-                            label={translateMessage(messages.organizationName)}
-                            value={formState.organizationName}
-                            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                              setFormState({
-                                ...formState,
-                                organizationName: e.target.value,
-                                defaultCostCenterName: e.target.value,
-                              })
-                            }}
-                            required
-                          />
-                        </div>
-                        <div
-                          className={`${handles.newOrganizationInput} ie-flex`}
-                        >
-                          <Input
-                            autocomplete="off"
-                            size="large"
-                            label={"IE"}
-                            readOnly={formState.organizationIE == "Isento"}
-                            value={formState.organizationIE}
-                            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                              setFormState({
-                                ...formState,
-                                organizationIE: e.target.value,
-                              })
-                            }}
-                            required
-                          />
-                          <Checkbox
-                            checked={formState.organizationIE == "Isento"}
-                            id="Isento"
-                            label={`${translateMessage(messages.free)}?`}
-                            name="Isento"
-                            onChange={() => {
-                              formState.organizationIE == "Isento" ?
-                                setFormState({
-                                  ...formState,
-                                  organizationIE: "",
-                                })
-                                : setFormState({
-                                  ...formState,
-                                  organizationIE: "Isento",
-                                })
-                            }}
-                          />
-                        </div>
-
-                        <div
-                          className={`${handles.newOrganizationInput} icms-flex`}
-                        >
-                          <label>Contribuinte ICMS</label>
-                          <div>
-                            <Checkbox
-                              checked={formState.organizationICMS}
-                              id="option-0"
-                              name="default-checkbox-group"
-                              label={translateMessage(messages.yes)}
-                              onChange={() => {
-                                setFormState({
-                                  ...formState,
-                                  organizationICMS: true,
-                                })
-                              }}
-                              value="option-0"
-                            />
-                            <Checkbox
-                              checked={formState.organizationICMS === false}
-                              id="option-0"
-                              name="default-checkbox-group"
-                              label={translateMessage(messages.no)}
-                              onChange={() => {
-                                setFormState({
-                                  ...formState,
-                                  organizationICMS: false,
-                                })
-                              }}
-                              value="option-0"
-                            />
-                          </div>
-                        </div>
-
-                        <div
-                          className={`${handles.newOrganizationInput} mb5 flex flex-column`}
-                        >
-                          <Dropdown
-                            size="large"
-                            label={translateMessage(messages.occupationArea)}
-                            options={[
-                              { value: 'Clínica Médica', label: 'Clínica Médica' },
-                              { value: 'Clínica Odontológica', label: 'Clínica Odontológica' },
-                              { value: 'Estética', label: 'Estética' },
-                              { value: 'Farmácia', label: 'Farmácia' },
-                              { value: 'Hospital', label: 'Hospital' },
-                              { value: 'Laboratório de Análises', label: 'Laboratório de Análises' },
-                              { value: 'Instituição de Ensino', label: 'Instituição de Ensino' },
-                              { value: 'Veterinária & Pet', label: 'Veterinária & Pet' },
-                              { value: organizationAreaOthersValue, label: 'Outros' }
-                            ]}
-                            value={formState.organizationArea}
-                            onChange={(__: any, value: string) => {
-                              setFormState({
-                                ...formState,
-                                organizationArea: value,
-                              })
-                            }}
-                            required
-                          />
-                        </div>
-
-                        {
-                          formState.organizationArea === organizationAreaOthersValue &&
-                          <div
-                            className={`${handles.newOrganizationInput} mb5 flex flex-column`}
-                          >
-                            <Input
-                              autocomplete="off"
-                              size="large"
-                              label={translateMessage(messages.occupationAreaDescription)}
-                              maxLength={'50'}
-                              value={formState.organizationAreaOthers}
-                              onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                                setFormState({
-                                  ...formState,
-                                  organizationAreaOthers: e.target.value,
-                                })
-                              }}
-                              required
-                            />
-                          </div>
-                        }
-
-
-                        <div className='form-group-flex'>
-
-                          <div
-                            className={`${handles.newOrganizationInput} mb5 flex flex-column`}
-                          >
-                            <Input
-                              autocomplete="off"
-                              size="large"
-                              label={translateMessage(messages.landline)}
-                              placeholder={"+55 (11) 12345-1234"}
-                              maxLength={'18'}
-                              value={formState.organizationPhone}
-                              onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                                setFormState({
-                                  ...formState,
-                                  organizationPhone: formataPhoneEmpresa(e.target.value),
-                                })
-                              }}
-                              required
-                            />
-                          </div>
-                          <div></div>
-                        </div>
-                      </>
-                  </PageBlock>
-                  <>
-                    <PageBlock
-                      variation="full"
-                      title={translateMessage(messages.registerBillingAddress)}
-                      subtitle={translateMessage(messages.registerBillingAddressDescription)}
-                    >
-                      <div
-                        className={`${handles.newOrganizationAddressForm} mb5 flex flex-column`}
-                      >
-                        <AddressRules
-                          country={addressState?.country?.value}
-                          shouldUseIOFetching
-                          useGeolocation={false}
-                        >
-                          <AddressContainer
-                            address={addressState}
-                            Input={StyleguideInput}
-                            onChangeAddress={handleAddressChange}
-                            autoCompletePostalCode
-                          >
-                            <CountrySelector shipsTo={translateCountries()} />
-
-                            <PostalCodeGetter />
-
-                            <AddressForm
-                              Input={StyleguideInput}
-                              omitAutoCompletedFields={false}
-                              omitPostalCodeFields
-                            />
-                          </AddressContainer>
-                        </AddressRules>
-                      </div>
-
-
-                    </PageBlock>
-                    <PageBlock
-                      variation="full"
-                      title={translateMessage(messages.proofAttachment)}
-                      subtitle={translateMessage(messages.proofAttachmentDescription)}
-                    >
-                      <div className='file'>
-
-                        <div className='file-button'>
-                          <label htmlFor={"documents"}>
-                            <FormattedMessage id="store/b2b-organizations.request-new-organization.attach-file.label" />
-                          </label>
-                          <input type={"file"} accept={'image/*, .pdf'} id={"documents"} name={"documents"}
-                            onChange={(ev) => {
-                              setFormState({
-                                ...formState,
-                                file: ev.target?.files?.[0],
-                              })
-
-                            }}
-                            multiple />
-                        </div>
-
-                        <span className='file-warning'>
-                          <FormattedMessage id="store/b2b-organizations.request-new-organization.attach-file.acceptedFormats" />
-                        </span>
-                      </div>
-
-                      <div
-                        className={`${handles.newOrganizationInput}`}
-                      >
-                        <Checkbox
-                          checked={formState.newsletter}
-                          id="newsletter"
-                          name="newsletter"
-                          label={translateMessage(messages.newsletterLabel)}
-                          onChange={() => {
-                            setFormState({
-                              ...formState,
-                              newsletter: !formState.newsletter,
-                            })
-
-                          }}
-                          value="newsletter"
-                        />
-                      </div>
-                      <div
-                        className={`${handles.newOrganizationInput}`}
-                      >
-                        <Checkbox
-                          checked={permission}
-                          id="permission"
-                          name="permission"
-                          label={translateMessage(messages.privacyPoliciesLabel)}
-                          onChange={() => {
-                            setPermission(!permission)
-                          }}
-                          value="permission"
-                        />
-                      </div>
-                    </PageBlock>
-                  </>
-                </div>
-                <div
-                  className={`${handles.newOrganizationButtonsContainer} mb5 flex flex-column items-end pt6`}
-                >
-                  <div className="flex justify-content flex-row w-100 justify-center">
-                    <div
-                      className={`no-wrap w-100 flex flex-column items-center justify-center ${handles.newOrganizationButtonSubmit}`}
-                    >
-                      {
-                        pendings.length
-                          ? <div className='ba bw1 b--dark-red w-100 pv4 ph6 mb6' style={{ borderColor: '#d89d9d', maxWidth: '550px' }}>
-                            <span className='db tc b mb4' style={{ color: '#b30000' }}>
-                              <FormattedMessage id="store/b2b-organizations.request-new-organization.required-fields-panel.title" />
-                              </span>
-
-                            {
-                              pendings.map((pending: string) => <PendingItem key={pending}>{pending}</PendingItem>)
-                            }
-                          </div>
-                          : false
-                      }
-                      <Button
-                        variation="primary"
-                        isLoading={formState.isSubmitting}
-                        onClick={() => {
-                          handleSubmit()
-                        }}
-                        disabled={pendings.length}
-                      >
-                        Enviar Cadastro
-                      </Button>
-
-                    </div>
-                  </div>
-                </div>
-              </Fragment>
-            )}
-          </Fragment>
+          <Fragment>{renderIfAuthenticated}</Fragment>
         )}
       </Layout>
       <ModalOrganizationMessage settings={modalSettings} toggleActiveModal={() => {

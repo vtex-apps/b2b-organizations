@@ -7,9 +7,82 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
-## [1.0.0] - 2022-07-19
+## [1.12.1] - 2022-07-22
 
-## [1.10.0] - 2022-07-18
+### Added
+
+- Added a warning message when the customer schema is invalid.
+
+## [1.12.0] - 2022-07-21
+
+### Added
+
+- Translations for all Storefront languages.
+
+### Fixed
+
+- English translations.
+
+## [1.11.3] - 2022-07-19
+
+### Fixed
+
+- Fixed on update the user data, and it disappeared from the list
+
+## [1.11.2] - 2022-07-06
+
+### Fixed
+
+- Fixed organization bulk action button text.
+
+## [1.11.1] - 2022-07-04
+
+### Added
+
+- Initial Crowdin integration
+
+## [1.11.0] - 2022-06-23
+- 
+### Added
+- UI support for organization `tradeName` and cost center `phoneNumber` fields
+
+## [1.10.3] - 2022-06-22
+
+### Added
+
+- Add error messages improvement
+
+### Added
+
+- Github Action to trigger manual tests by dispatch
+
+## [1.10.2] - 2022-06-14
+
+### Added
+
+- Added addressID duplicate check, and set hashcode of the address string as the addressID
+
+## [1.10.1] - 2022-06-13
+
+### Fixed
+
+- Fixed on the sales roles impersonation customer users
+
+## [1.10.0] - 2022-06-09
+
+### Added
+
+- Added new features to sales admin, a new UI to handle the users
+- Added the UI pagination to users list
+- Added a permission to sales manager to handle the users (manager and representative)
+- Enabled all the roles on the admin UI interface organization add and edit
+- Added a new UI component to handle the organizations without a sales manager
+
+## [1.9.1] - 2022-06-01
+
+### Added
+
+- Added handling to the addUser mutation by showing the correct message when the user already exists
 
 ## [1.9.0] - 2022-05-17
 
@@ -38,7 +111,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Fixed
 
-- Fixed duplicate check to get the status from createOrganizationRequest instead of checking it in RequestOrganizationForm.tsx 
+- Fixed duplicate check to get the status from createOrganizationRequest instead of checking it in RequestOrganizationForm.tsx
 
 ## [1.6.0] - 2022-04-18
 
@@ -56,7 +129,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Added
 
- - Add duplicate check for an email that is already associated with a pending or approved request
+- Add duplicate check for an email that is already associated with a pending or approved request
 
 ## [1.3.0] - 2022-04-08
 

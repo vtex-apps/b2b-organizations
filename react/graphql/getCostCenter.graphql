@@ -23,6 +23,7 @@ query GetCostCenter($id: ID!) {
       geoCoordinates
       reference
     }
+    phoneNumber
     businessDocument
     type
     organizationPublic

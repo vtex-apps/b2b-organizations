@@ -4,7 +4,8 @@ const EMAIL_REGEX = /^[A-z0-9"+_-]+(?:\.[A-z0-9+_-]+)*@(?:[A-z0-9](?:[A-z0-9-]*[
 
 // https://regex101.com/r/5dVM9R/1
 // If you change the regex, don't forget to go to the link above, update it there and save.
-const PHONE_REGEX = /([0-9]|\(|\)|\+| |-)+/
+// eslint-disable-next-line no-useless-escape
+const PHONE_REGEX = /^([0-9]|\(|\)|\+|\ |\-)+$/
 
 export function validateEmail(email: string) {
   return EMAIL_REGEX.test(email)

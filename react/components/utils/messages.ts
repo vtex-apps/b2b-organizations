@@ -42,6 +42,15 @@ export const costCenterMessages = defineMessages({
   defaultAddress: {
     id: `${storePrefix}costCenter-details.default-address`,
   },
+  duplicateAddress: {
+    id: `${storePrefix}costCenter-details.duplicate-address`,
+  },
+  phoneNumber: {
+    id: `${storePrefix}costCenter-details.phoneNumber`,
+  },
+  phoneNumberHelp: {
+    id: `${storePrefix}costCenter-details.phoneNumber.helpText`,
+  },
   businessDocument: {
     id: `${storePrefix}costCenter-details.businessDocument`,
   },
@@ -87,6 +96,9 @@ export const organizationMessages = defineMessages({
   userCostCenter: {
     id: `${storePrefix}user-details.costCenter`,
   },
+  userOrganization: {
+    id: `${storePrefix}user-details.organization`,
+  },
   userRole: {
     id: `${storePrefix}user-details.role`,
   },
@@ -126,8 +138,17 @@ export const organizationMessages = defineMessages({
   showRows: {
     id: `${storePrefix}showRows`,
   },
+  checkItOut: {
+    id: `${storePrefix}check-it-out`,
+  },
   of: {
     id: `${storePrefix}of`,
+  },
+  invalidSchema: {
+    id: `${storePrefix}invalid-schema`,
+  },
+  autocompleteSearching: {
+    id: `${storePrefix}autocomplete-searching`,
   },
   new: {
     id: `${storePrefix}organization-details.button.new`,
@@ -141,11 +162,23 @@ export const organizationMessages = defineMessages({
   columnCostCenter: {
     id: `${storePrefix}organization-users.column.costCenter`,
   },
+  columnOrganizationName: {
+    id: `${storePrefix}organization-users.column.organizationName`,
+  },
+  searchPlaceholder: {
+    id: `${storePrefix}organization-users.table.search.placeholder`,
+  },
   emptyState: {
     id: `${storePrefix}organization-users.emptyState`,
   },
   toastAddUserSuccess: {
     id: `${storePrefix}organization-users.toast.add-success`,
+  },
+  toastUserDuplicated: {
+    id: `${storePrefix}organization-users.toast.duplicated`,
+  },
+  toastUserDuplicatedOrganization: {
+    id: `${storePrefix}organization-users.toast.duplicated-organization`,
   },
   toastAddUserFailure: {
     id: `${storePrefix}organization-users.toast.add-failure`,
@@ -186,6 +219,24 @@ export const organizationMessages = defineMessages({
   removeUserHelp: {
     id: `${storePrefix}organization-details.remove-user.helpText`,
   },
+  salesAdminTitle: {
+    id: `${storePrefix}organization-details.sales-admin-title`,
+  },
+  organizationsWithoutSalesManager: {
+    id: `${storePrefix}organization-details.organizations-without-sales-manager-title`,
+  },
+  organizationsWithoutSalesManagerOK: {
+    id: `${storePrefix}organization-details.organizations-without-sales-manager-ok`,
+  },
+  organizationsWithoutSalesManagerWarning: {
+    id: `${storePrefix}organization-details.organizations-without-sales-manager-warning`,
+  },
+  tradeName: {
+    id: `${storePrefix}organizations-details.tradeName`,
+  },
+  tradeNameHelp: {
+    id: `${storePrefix}organizations-details.tradeName.helpText`,
+  },
 })
 
 export const organizationRequestMessages = defineMessages({
@@ -209,6 +260,12 @@ export const organizationRequestMessages = defineMessages({
   },
   organizationName: {
     id: `${storePrefix}request-new-organization.organization-name.label`,
+  },
+  tradeName: {
+    id: `${storePrefix}request-new-organization.tradeName`,
+  },
+  tradeNameHelp: {
+    id: `${storePrefix}request-new-organization.tradeName.helpText`,
   },
   b2bCustomerAdmin: {
     id: `${storePrefix}request-new-organization.b2b-customer-admin.title`,
@@ -239,6 +296,12 @@ export const organizationRequestMessages = defineMessages({
   },
   defaultCostCenterName: {
     id: `${storePrefix}request-new-organization.default-cost-center-name.label`,
+  },
+  phoneNumber: {
+    id: `${storePrefix}request-new-organization.phoneNumber`,
+  },
+  phoneNumberHelp: {
+    id: `${storePrefix}request-new-organization.phoneNumber.helpText`,
   },
   businessDocument: {
     id: `${storePrefix}request-new-organization.businessDocument`,

@@ -20,6 +20,7 @@ import { getEmptyAddress, isValidAddress } from '../utils/addresses'
 import GET_ORGANIZATIONS from '../graphql/getOrganizations.graphql'
 import GET_LOGISTICS from '../graphql/getLogistics.graphql'
 import CREATE_ORGANIZATION from '../graphql/createOrganization.graphql'
+import { validatePhoneNumber } from '../modules/formValidators'
 
 interface CellRendererProps {
   cellData: unknown
@@ -69,6 +70,7 @@ const OrganizationsList: FunctionComponent = () => {
 
   const [newOrganizationName, setNewOrganizationName] = useState('')
   const [newCostCenterName, setNewCostCenterName] = useState('')
+  const [newCostCenterPhoneNumber, setNewCostCenterPhoneNumber] = useState('')
   const [
     newCostCenterBusinessDocument,
     setNewCostCenterBusinessDocument,
@@ -93,6 +95,14 @@ const OrganizationsList: FunctionComponent = () => {
       label: formatMessage({ id: `country.${code}` }),
       value: code,
     }))
+  }
+
+  const resetNewOrganizationForm = () => {
+    setNewOrganizationName('')
+    setNewCostCenterName('')
+    setNewCostCenterPhoneNumber('')
+    setNewCostCenterBusinessDocument('')
+    setNewCostCenterAddressState(addValidation(getEmptyAddress(country)))
   }
 
   const handleAddNewOrganization = () => {
@@ -120,6 +130,7 @@ const OrganizationsList: FunctionComponent = () => {
         defaultCostCenter: {
           name: newCostCenterName,
           address: newAddress,
+          phoneNumber: newCostCenterPhoneNumber,
           businessDocument: newCostCenterBusinessDocument,
         },
       },
@@ -129,10 +140,7 @@ const OrganizationsList: FunctionComponent = () => {
       .then(() => {
         setNewOrganizationModalState(false)
         setLoadingState(false)
-        setNewOrganizationName('')
-        setNewCostCenterName('')
-        setNewCostCenterBusinessDocument('')
-        setNewCostCenterAddressState(addValidation(getEmptyAddress(country)))
+        resetNewOrganizationForm()
         showToast({
           type: 'success',
           message: formatMessage(messages.toastAddOrgSuccess),
@@ -162,10 +170,7 @@ const OrganizationsList: FunctionComponent = () => {
 
   const handleCloseModal = () => {
     setNewOrganizationModalState(false)
-    setNewOrganizationName('')
-    setNewCostCenterName('')
-    setNewCostCenterBusinessDocument('')
-    setNewCostCenterAddressState(addValidation(getEmptyAddress(country)))
+    resetNewOrganizationForm()
   }
 
   const getSchema = () => ({
@@ -492,7 +497,9 @@ const OrganizationsList: FunctionComponent = () => {
                 disabled={
                   !newOrganizationName ||
                   !newCostCenterName ||
-                  !isValidAddress(newCostCenterAddressState)
+                  !isValidAddress(newCostCenterAddressState) ||
+                  (newCostCenterPhoneNumber &&
+                    !validatePhoneNumber(newCostCenterPhoneNumber))
                 }
               >
                 {formatMessage(messages.add)}
@@ -530,6 +537,21 @@ const OrganizationsList: FunctionComponent = () => {
               setNewCostCenterName(e.target.value)
             }}
             required
+          />
+        </div>
+        <div className="w-100 mv6">
+          <Input
+            size="large"
+            label={formatMessage(messages.phoneNumber)}
+            value={newCostCenterPhoneNumber}
+            error={
+              newCostCenterPhoneNumber &&
+              !validatePhoneNumber(newCostCenterPhoneNumber)
+            }
+            helpText={formatMessage(messages.phoneNumberHelp)}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+              setNewCostCenterPhoneNumber(e.target.value)
+            }}
           />
         </div>
         <div className="w-100 mv6">

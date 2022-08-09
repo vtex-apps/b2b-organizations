@@ -2,6 +2,7 @@ query GetOrganizationRequest($id: ID!) {
   getOrganizationRequestById(id: $id)
     @context(provider: "hppardis.b2b-organizations-graphql") {
     name
+    tradeName
     b2bCustomerAdmin {
       email
     }
@@ -25,6 +26,7 @@ query GetOrganizationRequest($id: ID!) {
         geoCoordinates
         reference
       }
+      phoneNumber
       businessDocument
       type
       organizationPublic

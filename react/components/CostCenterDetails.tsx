@@ -19,6 +19,8 @@ import { AddressRules, AddressSummary } from 'vtex.address-form'
 
 import { costCenterMessages as messages } from './utils/messages'
 import storageFactory from '../utils/storage'
+import { setGUID } from '../utils/addresses'
+import { validatePhoneNumber } from '../modules/formValidators'
 import { useSessionResponse } from '../modules/session'
 import NewAddressModal from './NewAddressModal'
 import EditAddressModal from './EditAddressModal'
@@ -83,6 +85,7 @@ const CostCenterDetails: FunctionComponent<RouterProps> = ({
   const [permissionsState, setPermissionsState] = useState([] as string[])
   const [loadingState, setLoadingState] = useState(false)
   const [costCenterName, setCostCenterName] = useState('')
+  const [phoneNumber, setPhoneNumber] = useState('')
   const [businessDocument, setBusinessDocument] = useState('')
   const [addresses, setAddresses] = useState([] as Address[])
   const [paymentTerms, setPaymentTerms] = useState([] as PaymentTerm[])
@@ -136,34 +139,44 @@ const CostCenterDetails: FunctionComponent<RouterProps> = ({
 
   useEffect(() => {
     if (!data?.getCostCenterByIdStorefront) return
+    const {
+      organization: fetchedOrganization,
+      name: fetchedName,
+      addresses: fetchedAddresses,
+      paymentTerms: fetchedPaymentTerms,
+      phoneNumber: fetchedPhoneNumber = '',
+      businessDocument: fetchedBusinessDocument = '',
+    } = data.getCostCenterByIdStorefront
 
-    setCostCenterName(data.getCostCenterByIdStorefront.name)
-    handleSetAddresses(data.getCostCenterByIdStorefront.addresses)
-    setPaymentTerms(
-      data?.getCostCenterByIdStorefront?.paymentTerms?.length
-        ? data?.getCostCenterByIdStorefront?.paymentTerms
-        : []
-    )
-    if (data?.getCostCenterByIdStorefront?.businessDocument) {
-      setBusinessDocument(data.getCostCenterByIdStorefront.businessDocument)
+    setCostCenterName(fetchedName)
+    handleSetAddresses(fetchedAddresses)
+    setPaymentTerms(fetchedPaymentTerms ?? [])
+
+    if (fetchedPhoneNumber) {
+      setPhoneNumber(fetchedPhoneNumber)
+    }
+
+    if (fetchedBusinessDocument) {
+      setBusinessDocument(fetchedBusinessDocument)
     }
 
     getOrganization({
-      variables: { id: data.getCostCenterByIdStorefront.organization },
+      variables: { id: fetchedOrganization },
     })
   }, [data])
 
   useEffect(() => {
-    const termOptions = organizationData?.getOrganizationByIdStorefront
-      ?.paymentTerms?.length
-      ? organizationData.getOrganizationByIdStorefront.paymentTerms
-      : []
+    if (!organizationData?.getOrganizationByIdStorefront) return
 
-    setPaymentTermOptions(termOptions)
+    const {
+      paymentTerms: fetchedPaymentTermOptions,
+    } = organizationData.getOrganizationByIdStorefront
+
+    setPaymentTermOptions(fetchedPaymentTermOptions ?? [])
 
     // enable all available payment terms by default
-    if (!paymentTerms.length) {
-      setPaymentTerms(termOptions)
+    if (paymentTerms && !paymentTerms.length) {
+      setPaymentTerms(fetchedPaymentTermOptions ?? [])
     }
   }, [organizationData])
 
@@ -172,14 +185,7 @@ const CostCenterDetails: FunctionComponent<RouterProps> = ({
 
     const { permissions = [] } = permissionsData.checkUserPermission ?? {}
 
-    // if(permissionsData.checkUserPermission.role.slug == "customer-admin"){
-    //   permissions.push('add-users-organization')
-    //   permissions.push('create-cost-center-organization')
-    // }
-
-    // console.log(permissions)
-
-    if (permissions.length) {
+    if (permissions?.length) {
       setPermissionsState(permissions)
     }
   }, [permissionsData])
@@ -199,6 +205,7 @@ const CostCenterDetails: FunctionComponent<RouterProps> = ({
           return item
         }),
         paymentTerms,
+        phoneNumber,
         businessDocument,
       },
     }
@@ -260,38 +267,60 @@ const CostCenterDetails: FunctionComponent<RouterProps> = ({
     setDeleteAddressModalState({ addressId, isOpen: true })
   }
 
+  const handleDeleteCostCenterModal = () => {
+    setDeleteCostCenterModalState({ isOpen: true })
+  }
 
   const handleAddNewAddress = (address: AddressFormFields) => {
-    const newAddress = {
-      addressId: address.addressId.value,
-      addressType: address.addressType.value,
-      city: address.city.value,
-      complement: address.complement.value,
-      country: address.country.value,
-      receiverName: address.receiverName.value,
-      geoCoordinates: address.geoCoordinates.value,
-      neighborhood: address.neighborhood.value,
-      number: address.number.value,
-      postalCode: address.postalCode.value,
-      reference: address.reference.value,
-      state: address.state.value,
-      street: address.street.value,
-      addressQuery: address.addressQuery.value,
-    } as Address
+    const uid = setGUID(address)
 
-    const newAddresses = [...addresses, newAddress]
-
-    setAddresses(
-      newAddresses.map(item => {
-        if (address.checked) {
-          item.checked = item === newAddress
-        }
-
-        return item
-      })
+    const duplicated = data?.getCostCenterByIdStorefront?.addresses?.find(
+      (item: any) => item.addressId === uid
     )
 
-    handleCloseModals()
+    let isDuplicatedError = false
+
+    if (duplicated !== undefined) {
+      isDuplicatedError = duplicated.postalCode === address.postalCode.value
+    }
+
+    if (!isDuplicatedError) {
+      const newAddress = {
+        addressId: uid,
+        addressType: address.addressType.value,
+        city: address.city.value,
+        complement: address.complement.value,
+        country: address.country.value,
+        receiverName: address.receiverName.value,
+        geoCoordinates: address.geoCoordinates.value,
+        neighborhood: address.neighborhood.value,
+        number: address.number.value,
+        postalCode: address.postalCode.value,
+        reference: address.reference.value,
+        state: address.state.value,
+        street: address.street.value,
+        addressQuery: address.addressQuery.value,
+      } as Address
+
+      const newAddresses = [...addresses, newAddress]
+
+      setAddresses(
+        newAddresses.map(item => {
+          if (address.checked) {
+            item.checked = item === newAddress
+          }
+
+          return item
+        })
+      )
+
+      handleCloseModals()
+    } else {
+      showToast({
+        type: 'error',
+        message: formatMessage(messages.duplicateAddress),
+      })
+    }
   }
 
   const handleCheckDefault = (address: Address) => {
@@ -346,6 +375,22 @@ const CostCenterDetails: FunctionComponent<RouterProps> = ({
     handleCloseModals()
   }
 
+  const handleTogglePaymentTerm = (id: string) => {
+    let newTerms = paymentTerms
+    const termOption = paymentTermOptions.find(term => term.id === id)
+
+    if (!termOption) return
+    const enabled = paymentTerms.find(term => term.id === id)
+
+    if (enabled) {
+      newTerms = paymentTerms.filter(term => term.id !== enabled.id)
+    } else {
+      newTerms.push(termOption)
+    }
+
+    // spread operator is used here so that react can see that the array has changed
+    setPaymentTerms([...newTerms])
+  }
 
   const options = (addressId: string) => [
     {
@@ -428,13 +473,24 @@ const CostCenterDetails: FunctionComponent<RouterProps> = ({
                 !costCenterName ||
                 !addresses.length ||
                 (paymentTermOptions.length > 0 && paymentTerms.length === 0) ||
+                (phoneNumber && !validatePhoneNumber(phoneNumber)) ||
                 !permissionsState.includes('create-cost-center-organization')
               }
               onClick={() => handleUpdateCostCenter()}
             >
-              Salvar
+              <FormattedMessage id="store/b2b-organizations.costCenter-details.button.save" />
             </Button>
           </span>
+          <Button
+            variation="danger"
+            onClick={() => handleDeleteCostCenterModal()}
+            disabled={
+              !permissionsState.includes('create-cost-center-organization') ||
+              loadingState
+            }
+          >
+            <FormattedMessage id="store/b2b-organizations.costCenter-details.button.delete" />
+          </Button>
         </PageHeader>
       }
     >
@@ -468,6 +524,30 @@ const CostCenterDetails: FunctionComponent<RouterProps> = ({
           }
         />
       </PageBlock>
+      {paymentTermOptions.length > 0 && (
+        <PageBlock
+          title={formatMessage(messages.paymentTerms)}
+          subtitle={formatMessage(messages.paymentTermsSubtitle)}
+        >
+          {paymentTermOptions.map((option, index) => {
+            return (
+              <div key={index} className="mv4">
+                <Toggle
+                  label={option.name}
+                  semantic
+                  checked={paymentTerms.some(term => term.id === option.id)}
+                  onChange={() => handleTogglePaymentTerm(option.id)}
+                  disabled={
+                    !permissionsState.includes(
+                      'create-cost-center-organization'
+                    )
+                  }
+                />
+              </div>
+            )
+          })}
+        </PageBlock>
+      )}
       <PageBlock
         title={formatMessage(messages.addresses)}
         subtitle={formatMessage(messages.addressesSubtitle)}
