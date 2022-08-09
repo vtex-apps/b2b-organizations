@@ -1,12 +1,12 @@
 const types = {
-  ORGANIZATION: 'ORGANIZATION'
+  ORGANIZATION: 'ORGANIZATION',
 }
 
 const masterData = {
   [types.ORGANIZATION]: {
     acronym: 'MO',
-    image: 'arquivo'
-  }
+    image: 'arquivo',
+  },
 }
 
 export { masterData, types }

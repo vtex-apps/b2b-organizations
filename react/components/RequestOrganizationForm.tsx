@@ -1,5 +1,5 @@
-import { FC, useRef } from 'react'
-import React, { useState, useContext, useEffect, Fragment } from 'react'
+import type { FC } from 'react'
+import React, { useRef, useState, useContext, useEffect, Fragment } from 'react'
 import {
   Input,
   Button,
@@ -9,7 +9,7 @@ import {
   Alert,
   Spinner,
   Dropdown,
-  Checkbox
+  Checkbox,
 } from 'vtex.styleguide'
 import {
   AddressRules,
@@ -24,8 +24,8 @@ import { useCssHandles } from 'vtex.css-handles'
 import { useQuery, useMutation } from 'react-apollo'
 import { useIntl, FormattedMessage } from 'react-intl'
 import { useRuntime } from 'vtex.render-runtime'
-import 'vtex.country-codes/locales'
 
+import 'vtex.country-codes/locales'
 import { organizationRequestMessages as messages } from './utils/messages'
 import storageFactory from '../utils/storage'
 import { getSession } from '../modules/session'
@@ -35,7 +35,6 @@ import { getEmptyAddress } from '../utils/addresses'
 import CREATE_ORGANIZATION_REQUEST from '../graphql/createOrganizationRequest.graphql'
 import GET_ORGANIZATION_REQUEST from '../graphql/getOrganizationRequest.graphql'
 import GET_LOGISTICS from '../graphql/getLogistics.graphql'
-
 import '../styles.global.css'
 import createOrganization from '../requests/createOrganization'
 import attachFileToEntity from '../utils/attachFileToEntity'
@@ -87,73 +86,88 @@ const CreateNewOrganizationRequest = (props: any) => {
 }
 
 interface ModalMessage {
-  title: string,
-  message: string,
-  buttonText: string,
-  buttonLink: string,
+  title: string
+  message: string
+  buttonText: string
+  buttonLink: string
   active: boolean
 }
 
-
 function formataCNPJ(cnpj: string) {
-  //retira os caracteres indesejados...
-  cnpj = cnpj.replace(/[^\d]/g, "");
+  // retira os caracteres indesejados...
+  cnpj = cnpj.replace(/[^\d]/g, '')
 
-  //realizar a formatação...
-  return cnpj.replace(/(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/, "$1.$2.$3/$4-$5");
+  // realizar a formatação...
+  return cnpj.replace(/(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/, '$1.$2.$3/$4-$5')
 }
 
 function formataCPF(cpf: string) {
-  //retira os caracteres indesejados...
-  cpf = cpf.replace(/[^\d]/g, "");
+  // retira os caracteres indesejados...
+  cpf = cpf.replace(/[^\d]/g, '')
 
-  //realizar a formatação...
-  return cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4");
+  // realizar a formatação...
+  return cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4')
 }
 
 function formataPhone(phone: string) {
-  //retira os caracteres indesejados...
-  phone = phone.replace(/[^\d]/g, "");
+  // retira os caracteres indesejados...
+  phone = phone.replace(/[^\d]/g, '')
 
-  //realizar a formatação...
-  return phone.replace(/(\d{2})(\d{5})(\d{4})/, "($1) $2-$3");
+  // realizar a formatação...
+  return phone.replace(/(\d{2})(\d{5})(\d{4})/, '($1) $2-$3')
 }
 
 function formataPhoneEmpresa(phone: string) {
-  //retira os caracteres indesejados...
-  phone = phone.replace(/[^\d]/g, "");
+  // retira os caracteres indesejados...
+  phone = phone.replace(/[^\d]/g, '')
 
-  //realizar a formatação...
-  return phone.replace(/(\d{2})(\d{2})(\d{5})(\d{4})/, "+$1 ($2) $3-$4");
+  // realizar a formatação...
+  return phone.replace(/(\d{2})(\d{2})(\d{5})(\d{4})/, '+$1 ($2) $3-$4')
 }
 
 function removeLettersAndSymbols(text: string) {
-  //retira os caracteres indesejados...
-  return text.replace(/[^\d]/g, "");
-
+  // retira os caracteres indesejados...
+  return text.replace(/[^\d]/g, '')
 }
 
 const ModalOrganizationMessage = (props: any) => {
-  const settings: ModalMessage = props.settings
-  return (<Fragment>
-    {settings.active ?
-      <div className='modal-organization__shadow'>
-        <article className='modal-organization__box'>
-          <header className='modal-organization__header'>
-            {settings.title}
-          </header>
-          <p className='modal-organization__message'>{settings.message}</p>
-          <footer className='modal-organization__footer'>
-            <a className='modal-organization__button' onClick={() => { props.toggleActiveModal() }} href={settings.buttonLink != '' ? settings.buttonLink : undefined} >{settings.buttonText}</a>
-          </footer>
-        </article>
-      </div>
-      : null}
-  </Fragment>)
+  const { settings } = props
+
+  return (
+    <Fragment>
+      {settings.active ? (
+        <div className="modal-organization__shadow">
+          <article className="modal-organization__box">
+            <header className="modal-organization__header">
+              {settings.title}
+            </header>
+            <p className="modal-organization__message">{settings.message}</p>
+            <footer className="modal-organization__footer">
+              <a
+                className="modal-organization__button"
+                onClick={() => {
+                  props.toggleActiveModal()
+                }}
+                href={
+                  settings.buttonLink !== '' ? settings.buttonLink : undefined
+                }
+              >
+                {settings.buttonText}
+              </a>
+            </footer>
+          </article>
+        </div>
+      ) : null}
+    </Fragment>
+  )
 }
 
 const PendingItem = ({ children }: { children: string }) => {
-  return <span className='b db tc mb1' style={{ color: '#494343' }}>{children}</span>
+  return (
+    <span className="b db tc mb1" style={{ color: '#494343' }}>
+      {children}
+    </span>
+  )
 }
 
 const organizationAreaOthersValue = 'others'
@@ -166,18 +180,16 @@ const RequestOrganizationForm: FC = () => {
 
   const countryStateInputInterval: { current: number | null } = useRef(null)
 
-  const [modalSettings, setModalSettings] = useState<ModalMessage>(
-    {
-      title: 'Cadastro enviado!',
-      message: 'Vamos analisar os dados enviados e liberar o seu cadastro. Aguarde nosso e-mail com mais informações e liberar seu cadastro em até 24 horas. Por enquanto, você já pode comprar itens de USO LIVRE.',
-      buttonText: 'Voltar para a loja',
-      buttonLink: '/',
-      active: false
-    }
-  )
+  const [modalSettings, setModalSettings] = useState<ModalMessage>({
+    title: 'Cadastro enviado!',
+    message:
+      'Vamos analisar os dados enviados e liberar o seu cadastro. Aguarde nosso e-mail com mais informações e liberar seu cadastro em até 24 horas. Por enquanto, você já pode comprar itens de USO LIVRE.',
+    buttonText: 'Voltar para a loja',
+    buttonLink: '/',
+    active: false,
+  })
 
   const [permission, setPermission] = useState<boolean>(false)
-
 
   const { showToast } = useContext(ToastContext)
   const sessionResponse: any = useSessionResponse()
@@ -192,7 +204,6 @@ const RequestOrganizationForm: FC = () => {
   )
 
   const [pendings, setPendings] = useState<string[]>([])
-
 
   const [createOrganizationRequest] = useMutation(CREATE_ORGANIZATION_REQUEST)
 
@@ -220,12 +231,23 @@ const RequestOrganizationForm: FC = () => {
     businessDocument: '',
     isSubmitting: false,
     submitted: true,
-    file: null
+    file: null,
   }
 
   const [formState, setFormState] = useState<any>(formStateModel)
 
   const [hasProfile, setHasProfile] = useState(false)
+
+  const translateMessage = (message: MessageDescriptor) => {
+    return formatMessage(message)
+  }
+
+  const toastMessage = (message: MessageDescriptor) => {
+    const translatedMessage = translateMessage(message)
+    const action = undefined
+
+    showToast({ message: translatedMessage, action })
+  }
 
   useEffect(() => {
     if (!sessionResponse || hasProfile) return
@@ -242,22 +264,30 @@ const RequestOrganizationForm: FC = () => {
   }, [sessionResponse])
 
   const clearCountryStateInterval = () => {
-    if (countryStateInputInterval.current) clearInterval(countryStateInputInterval.current)
+    if (countryStateInputInterval.current)
+      clearInterval(countryStateInputInterval.current)
   }
 
   const countryStateInputScript = () => {
     countryStateInputInterval.current = setInterval(() => {
-      const countryState = document.querySelector('.vtex-address-form__state') as HTMLDivElement
+      const countryState = document.querySelector(
+        '.vtex-address-form__state'
+      ) as HTMLDivElement
+
       if (!countryState) return
       countryState.style.display = 'none'
-      const newGridTemplateAreas = '"endereco endereco" "numero complemento" "bairro cidade" "destinatario destinatario"'
-      if (countryState.parentElement) countryState.parentElement.style.gridTemplateAreas = newGridTemplateAreas
+      const newGridTemplateAreas =
+        '"endereco endereco" "numero complemento" "bairro cidade" "destinatario destinatario"'
+
+      if (countryState.parentElement)
+        countryState.parentElement.style.gridTemplateAreas = newGridTemplateAreas
       clearCountryStateInterval()
     }, 1000)
   }
 
   useEffect(() => {
     countryStateInputScript()
+
     return function cleanUp() {
       clearCountryStateInterval()
     }
@@ -265,76 +295,89 @@ const RequestOrganizationForm: FC = () => {
 
   useEffect(() => {
     type ValidationType = {
-      isValid: boolean,
+      isValid: boolean
       stringIfInvalid: string
     }
 
     const validations: ValidationType[] = [
       {
         isValid: formState.firstName?.trim() !== '',
-        stringIfInvalid: `${translateMessage(messages.userData)} > ${translateMessage(messages.firstName)}`
+        stringIfInvalid: `${translateMessage(
+          messages.userData
+        )} > ${translateMessage(messages.firstName)}`,
       },
       {
         isValid: formState.lastName?.trim() !== '',
-        stringIfInvalid: `${translateMessage(messages.userData)} > ${translateMessage(messages.lastName)}`
+        stringIfInvalid: `${translateMessage(
+          messages.userData
+        )} > ${translateMessage(messages.lastName)}`,
       },
       {
         isValid: formState.email?.trim() !== '',
-        stringIfInvalid: `${translateMessage(messages.userData)} > ${translateMessage(messages.email)}`
+        stringIfInvalid: `${translateMessage(
+          messages.userData
+        )} > ${translateMessage(messages.email)}`,
       },
       {
         isValid: formState.cpf !== '',
-        stringIfInvalid: `${translateMessage(messages.userData)} > ${translateMessage(messages.cpf)}`
+        stringIfInvalid: `${translateMessage(
+          messages.userData
+        )} > ${translateMessage(messages.cpf)}`,
       },
       {
         isValid: formState.telephone !== '',
-        stringIfInvalid: `${translateMessage(messages.userData)} > ${translateMessage(messages.telephone)}`
+        stringIfInvalid: `${translateMessage(
+          messages.userData
+        )} > ${translateMessage(messages.telephone)}`,
       },
       {
         isValid: formState.businessDocument !== '',
-        stringIfInvalid: `${translateMessage(messages.organizationData)} > ${translateMessage(messages.cnpjLabel)}`
+        stringIfInvalid: `${translateMessage(
+          messages.organizationData
+        )} > ${translateMessage(messages.cnpjLabel)}`,
       },
       {
         isValid: formState.organizationName !== '',
-        stringIfInvalid: `${translateMessage(messages.organizationData)} > ${translateMessage(messages.organizationName)}`
+        stringIfInvalid: `${translateMessage(
+          messages.organizationData
+        )} > ${translateMessage(messages.organizationName)}`,
       },
       {
         isValid: formState.organizationIE !== '',
-        stringIfInvalid: `${translateMessage(messages.organizationData)} > ${translateMessage(messages.stateRegistrationInitials)}`
+        stringIfInvalid: `${translateMessage(
+          messages.organizationData
+        )} > ${translateMessage(messages.stateRegistrationInitials)}`,
       },
       {
-        isValid: formState.organizationArea !== '' && (formState.organizationArea !== organizationAreaOthersValue || (formState.organizationArea == organizationAreaOthersValue && formState.organizationAreaOthers !== '')),
-        stringIfInvalid: `${translateMessage(messages.organizationData)} > ${translateMessage(messages.occupationArea)}`
+        isValid:
+          formState.organizationArea !== '' &&
+          (formState.organizationArea !== organizationAreaOthersValue ||
+            (formState.organizationArea === organizationAreaOthersValue &&
+              formState.organizationAreaOthers !== '')),
+        stringIfInvalid: `${translateMessage(
+          messages.organizationData
+        )} > ${translateMessage(messages.occupationArea)}`,
       },
       {
         isValid: formState.organizationPhone !== '',
-        stringIfInvalid: `${translateMessage(messages.organizationData)} > ${translateMessage(messages.telephone
-        )}`
+        stringIfInvalid: `${translateMessage(
+          messages.organizationData
+        )} > ${translateMessage(messages.telephone)}`,
       },
       {
         isValid: permission,
-        stringIfInvalid: translateMessage(messages.acceptTermsAndConditions)
+        stringIfInvalid: translateMessage(messages.acceptTermsAndConditions),
       },
     ]
 
-    setPendings(() => validations.reduce((previous: string[], current: ValidationType) => {
-      if (current.isValid) return previous
-      return [...previous, current.stringIfInvalid]
-    }, []))
+    setPendings(() =>
+      validations.reduce((previous: string[], current: ValidationType) => {
+        if (current.isValid) return previous
 
+        return [...previous, current.stringIfInvalid]
+      }, [])
+    )
   }, [formState, permission])
-
-  const translateMessage = (message: MessageDescriptor) => {
-    return formatMessage(message)
-  }
-
-
-  const toastMessage = (message: MessageDescriptor) => {
-    const translatedMessage = translateMessage(message)
-    const action = undefined
-
-    showToast({ message: translatedMessage, action })
-  }
 
   const translateCountries = () => {
     const { shipsTo = [] } = data?.logistics
@@ -344,6 +387,7 @@ const RequestOrganizationForm: FC = () => {
       value: code,
     }))
   }
+
   const handleAddressChange = (changedAddress: AddressFormFields) => {
     const curAddress = addressState
 
@@ -360,6 +404,7 @@ const RequestOrganizationForm: FC = () => {
     })
     setAddressState(() => addValidation(getEmptyAddress(country)))
   }
+
   const handleSubmit = async () => {
     setFormState({
       ...formState,
@@ -367,21 +412,25 @@ const RequestOrganizationForm: FC = () => {
       submitted: true,
     })
 
-    const data = {
+    const dataOrganization = {
       name: formState.organizationName,
       cnpj: formState.businessDocument,
       phone: formState.organizationPhone,
       ie: formState.organizationIE,
       icms: formState.organizationICMS,
       area: formState.organizationArea,
-      areaOthers: formState.organizationAreaOthers
+      areaOthers: formState.organizationAreaOthers,
     }
 
-    createOrganization(data)
-      .then(data => {
-        const file = (document.querySelector('.file-button > input[type="file"]') as HTMLInputElement).files?.[0]
-        if (file) attachFileToEntity(acronym, data.DocumentId, image, file)
-      })
+    createOrganization(dataOrganization).then(data => {
+      const file = (document.querySelector(
+        '.file-button > input[type="file"]'
+      ) as HTMLInputElement).files?.[0]
+
+      const AcronymId = { acronym, id: data.DocumentId }
+
+      if (file) attachFileToEntity(AcronymId, image, file)
+    })
 
     const organizationRequest = {
       name: formState.organizationName,
@@ -391,7 +440,7 @@ const RequestOrganizationForm: FC = () => {
         lastName: formState.lastName,
         email: formState.email,
         cpf: formState.cpf,
-        telephone: formState.telephone
+        telephone: formState.telephone,
       },
       defaultCostCenter: {
         name: formState.organizationName,
@@ -420,7 +469,6 @@ const RequestOrganizationForm: FC = () => {
         businessDocument: formState.businessDocument,
       },
     }
-
 
     createOrganizationRequest({
       variables: {
@@ -455,12 +503,12 @@ const RequestOrganizationForm: FC = () => {
           })
           setModalSettings({
             title: 'Cadastro enviado!',
-            message: 'Vamos analisar os dados enviados e liberar o seu cadastro. Aguarde nosso e-mail com mais informações e liberar seu cadastro em até 24 horas. Por enquanto, você já pode comprar itens de USO LIVRE.',
+            message:
+              'Vamos analisar os dados enviados e liberar o seu cadastro. Aguarde nosso e-mail com mais informações e liberar seu cadastro em até 24 horas. Por enquanto, você já pode comprar itens de USO LIVRE.',
             buttonText: 'Voltar para a loja',
             buttonLink: '/',
-            active: true
+            active: true,
           })
-
         }
       })
       .catch(error => {
@@ -476,83 +524,81 @@ const RequestOrganizationForm: FC = () => {
   if (!data) return null
   const renderIfSubmitted =
     formState.submitted &&
-      existingRequestData?.getOrganizationRequestById?.status ? (
+    existingRequestData?.getOrganizationRequestById?.status ? (
       <PageBlock>
         {existingRequestData.getOrganizationRequestById.status ===
           'pending' && (
-            <Fragment>
-              <div className="mb5">
-                <Alert type="warning">
-                  <FormattedMessage
-                    id="store/b2b-organizations.request-new-organization.pending-request"
-                    values={{
-                      created: formatDate(
-                        existingRequestData.getOrganizationRequestById.created,
-                        {
-                          day: 'numeric',
-                          month: 'numeric',
-                          year: 'numeric',
-                        }
-                      ),
-                    }}
-                  />
-                </Alert>
-              </div>
-              <CreateNewOrganizationRequest
-                onClick={handleNewOrganizationRequest}
-              />
-            </Fragment>
-          )}
+          <Fragment>
+            <div className="mb5">
+              <Alert type="warning">
+                <FormattedMessage
+                  id="store/b2b-organizations.request-new-organization.pending-request"
+                  values={{
+                    created: formatDate(
+                      existingRequestData.getOrganizationRequestById.created,
+                      {
+                        day: 'numeric',
+                        month: 'numeric',
+                        year: 'numeric',
+                      }
+                    ),
+                  }}
+                />
+              </Alert>
+            </div>
+            <CreateNewOrganizationRequest
+              onClick={handleNewOrganizationRequest}
+            />
+          </Fragment>
+        )}
         {existingRequestData.getOrganizationRequestById.status ===
           'approved' && (
-            <Fragment>
-              <div className="mb5">
-                <Alert type="success">
-                  <FormattedMessage id="store/b2b-organizations.request-new-organization.approved-request" />
-                </Alert>
-              </div>
-              <CreateNewOrganizationRequest
-                onClick={handleNewOrganizationRequest}
-              />
-            </Fragment>
-          )}
+          <Fragment>
+            <div className="mb5">
+              <Alert type="success">
+                <FormattedMessage id="store/b2b-organizations.request-new-organization.approved-request" />
+              </Alert>
+            </div>
+            <CreateNewOrganizationRequest
+              onClick={handleNewOrganizationRequest}
+            />
+          </Fragment>
+        )}
         {existingRequestData.getOrganizationRequestById.status ===
           'declined' && (
-            <Fragment>
-              <div className="mb5">
-                <Alert type="error">
-                  <FormattedMessage
-                    id="store/b2b-organizations.request-new-organization.declined-request"
-                    values={{
-                      created: formatDate(
-                        existingRequestData.getOrganizationRequestById.created,
-                        {
-                          day: 'numeric',
-                          month: 'numeric',
-                          year: 'numeric',
-                        }
-                      ),
-                    }}
-                  />
-                </Alert>
-              </div>
-              <CreateNewOrganizationRequest
-                onClick={handleNewOrganizationRequest}
-              />
-            </Fragment>
-          )}
+          <Fragment>
+            <div className="mb5">
+              <Alert type="error">
+                <FormattedMessage
+                  id="store/b2b-organizations.request-new-organization.declined-request"
+                  values={{
+                    created: formatDate(
+                      existingRequestData.getOrganizationRequestById.created,
+                      {
+                        day: 'numeric',
+                        month: 'numeric',
+                        year: 'numeric',
+                      }
+                    ),
+                  }}
+                />
+              </Alert>
+            </div>
+            <CreateNewOrganizationRequest
+              onClick={handleNewOrganizationRequest}
+            />
+          </Fragment>
+        )}
       </PageBlock>
     ) : (
       <Fragment>
-        <div className='customb2b-pageBody'>
-
+        <div className="customb2b-pageBody">
           <PageBlock
             variation="full"
             title={formatMessage(messages.userData)}
             subtitle={formatMessage(messages.formContainerSubTitle)}
           >
-            <div className='form-group-flex'>
-
+            <div className="form-group-flex">
               <div
                 className={`${handles.newOrganizationInput} mb5 flex flex-column`}
               >
@@ -560,8 +606,7 @@ const RequestOrganizationForm: FC = () => {
                   size="large"
                   label={translateMessage(messages.firstName)}
                   value={formState.firstName}
-                  placeholder={"Nome"}
-
+                  placeholder={'Nome'}
                   onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                     setFormState({
                       ...formState,
@@ -578,7 +623,6 @@ const RequestOrganizationForm: FC = () => {
                   label={translateMessage(messages.lastName)}
                   value={formState.lastName}
                   placeholder={translateMessage(messages.lastName)}
-
                   onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                     setFormState({
                       ...formState,
@@ -603,8 +647,7 @@ const RequestOrganizationForm: FC = () => {
                 }}
               />
             </div>
-            <div className='form-group-flex'>
-
+            <div className="form-group-flex">
               <div
                 className={`${handles.newOrganizationInput} mb5 flex flex-column`}
               >
@@ -613,10 +656,8 @@ const RequestOrganizationForm: FC = () => {
                   label={translateMessage(messages.cpf)}
                   value={formState.cpf}
                   maxLength={'14'}
-                  placeholder={"000.000.000-00"}
-
+                  placeholder={'000.000.000-00'}
                   onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-
                     setFormState({
                       ...formState,
                       cpf: formataCPF(e.target.value),
@@ -632,9 +673,7 @@ const RequestOrganizationForm: FC = () => {
                   label={translateMessage(messages.telephone)}
                   value={formState.telephone}
                   maxLength={'15'}
-
-                  placeholder={"(00) 00000-000"}
-
+                  placeholder={'(00) 00000-000'}
                   onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                     setFormState({
                       ...formState,
@@ -650,8 +689,7 @@ const RequestOrganizationForm: FC = () => {
             title={translateMessage(messages.organizationData)}
             subtitle={translateMessage(messages.organizationDataDescription)}
           >
-
-            <div className='form-group-flex'>
+            <div className="form-group-flex">
               <div
                 className={`${handles.newOrganizationInput} mb5 flex flex-column`}
               >
@@ -660,10 +698,9 @@ const RequestOrganizationForm: FC = () => {
                   size="large"
                   label={translateMessage(messages.cnpjLabel)}
                   value={formState.businessDocument}
-                  placeholder={"00.000.000/0000-00"}
+                  placeholder={'00.000.000/0000-00'}
                   maxLength={'18'}
                   onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-
                     setFormState({
                       ...formState,
                       businessDocument: formataCNPJ(e.target.value),
@@ -673,8 +710,7 @@ const RequestOrganizationForm: FC = () => {
               </div>
               <div
                 className={`${handles.newOrganizationInput} mb5 flex flex-column`}
-              >
-              </div>
+              ></div>
             </div>
             <>
               <div
@@ -712,14 +748,12 @@ const RequestOrganizationForm: FC = () => {
                   }}
                 />
               </div>
-              <div
-                className={`${handles.newOrganizationInput} ie-flex`}
-              >
+              <div className={`${handles.newOrganizationInput} ie-flex`}>
                 <Input
                   autocomplete="off"
                   size="large"
-                  label={"IE"}
-                  readOnly={formState.organizationIE == "Isento"}
+                  label={'IE'}
+                  readOnly={formState.organizationIE === 'Isento'}
                   value={formState.organizationIE}
                   onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                     setFormState({
@@ -730,27 +764,25 @@ const RequestOrganizationForm: FC = () => {
                   required
                 />
                 <Checkbox
-                  checked={formState.organizationIE == "Isento"}
+                  checked={formState.organizationIE === 'Isento'}
                   id="Isento"
                   label={`${translateMessage(messages.free)}?`}
                   name="Isento"
                   onChange={() => {
-                    formState.organizationIE == "Isento" ?
-                      setFormState({
-                        ...formState,
-                        organizationIE: "",
-                      })
+                    formState.organizationIE === 'Isento'
+                      ? setFormState({
+                          ...formState,
+                          organizationIE: '',
+                        })
                       : setFormState({
-                        ...formState,
-                        organizationIE: "Isento",
-                      })
+                          ...formState,
+                          organizationIE: 'Isento',
+                        })
                   }}
                 />
               </div>
 
-              <div
-                className={`${handles.newOrganizationInput} icms-flex`}
-              >
+              <div className={`${handles.newOrganizationInput} icms-flex`}>
                 <label>Contribuinte ICMS</label>
                 <div>
                   <Checkbox
@@ -790,14 +822,23 @@ const RequestOrganizationForm: FC = () => {
                   label={translateMessage(messages.occupationArea)}
                   options={[
                     { value: 'Clínica Médica', label: 'Clínica Médica' },
-                    { value: 'Clínica Odontológica', label: 'Clínica Odontológica' },
+                    {
+                      value: 'Clínica Odontológica',
+                      label: 'Clínica Odontológica',
+                    },
                     { value: 'Estética', label: 'Estética' },
                     { value: 'Farmácia', label: 'Farmácia' },
                     { value: 'Hospital', label: 'Hospital' },
-                    { value: 'Laboratório de Análises', label: 'Laboratório de Análises' },
-                    { value: 'Instituição de Ensino', label: 'Instituição de Ensino' },
+                    {
+                      value: 'Laboratório de Análises',
+                      label: 'Laboratório de Análises',
+                    },
+                    {
+                      value: 'Instituição de Ensino',
+                      label: 'Instituição de Ensino',
+                    },
                     { value: 'Veterinária & Pet', label: 'Veterinária & Pet' },
-                    { value: organizationAreaOthersValue, label: 'Outros' }
+                    { value: organizationAreaOthersValue, label: 'Outros' },
                   ]}
                   value={formState.organizationArea}
                   onChange={(__: any, value: string) => {
@@ -810,8 +851,7 @@ const RequestOrganizationForm: FC = () => {
                 />
               </div>
 
-              {
-                formState.organizationArea === organizationAreaOthersValue &&
+              {formState.organizationArea === organizationAreaOthersValue && (
                 <div
                   className={`${handles.newOrganizationInput} mb5 flex flex-column`}
                 >
@@ -830,11 +870,9 @@ const RequestOrganizationForm: FC = () => {
                     required
                   />
                 </div>
-              }
+              )}
 
-
-              <div className='form-group-flex'>
-
+              <div className="form-group-flex">
                 <div
                   className={`${handles.newOrganizationInput} mb5 flex flex-column`}
                 >
@@ -842,7 +880,7 @@ const RequestOrganizationForm: FC = () => {
                     autocomplete="off"
                     size="large"
                     label={translateMessage(messages.landline)}
-                    placeholder={"+55 (11) 12345-1234"}
+                    placeholder={'+55 (11) 12345-1234'}
                     maxLength={'18'}
                     value={formState.organizationPhone}
                     onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
@@ -862,7 +900,9 @@ const RequestOrganizationForm: FC = () => {
             <PageBlock
               variation="full"
               title={translateMessage(messages.registerBillingAddress)}
-              subtitle={translateMessage(messages.registerBillingAddressDescription)}
+              subtitle={translateMessage(
+                messages.registerBillingAddressDescription
+              )}
             >
               <div
                 className={`${handles.newOrganizationAddressForm} mb5 flex flex-column`}
@@ -890,39 +930,38 @@ const RequestOrganizationForm: FC = () => {
                   </AddressContainer>
                 </AddressRules>
               </div>
-
-
             </PageBlock>
             <PageBlock
               variation="full"
               title={translateMessage(messages.proofAttachment)}
               subtitle={translateMessage(messages.proofAttachmentDescription)}
             >
-              <div className='file'>
-
-                <div className='file-button'>
-                  <label htmlFor={"documents"}>
+              <div className="file">
+                <div className="file-button">
+                  <label htmlFor={'documents'}>
                     <FormattedMessage id="store/b2b-organizations.request-new-organization.attach-file.label" />
                   </label>
-                  <input type={"file"} accept={'image/*, .pdf'} id={"documents"} name={"documents"}
-                    onChange={(ev) => {
+                  <input
+                    type={'file'}
+                    accept={'image/*, .pdf'}
+                    id={'documents'}
+                    name={'documents'}
+                    onChange={ev => {
                       setFormState({
                         ...formState,
                         file: ev.target?.files?.[0],
                       })
-
                     }}
-                    multiple />
+                    multiple
+                  />
                 </div>
 
-                <span className='file-warning'>
+                <span className="file-warning">
                   <FormattedMessage id="store/b2b-organizations.request-new-organization.attach-file.acceptedFormats" />
                 </span>
               </div>
 
-              <div
-                className={`${handles.newOrganizationInput}`}
-              >
+              <div className={`${handles.newOrganizationInput}`}>
                 <Checkbox
                   checked={formState.newsletter}
                   id="newsletter"
@@ -933,14 +972,11 @@ const RequestOrganizationForm: FC = () => {
                       ...formState,
                       newsletter: !formState.newsletter,
                     })
-
                   }}
                   value="newsletter"
                 />
               </div>
-              <div
-                className={`${handles.newOrganizationInput}`}
-              >
+              <div className={`${handles.newOrganizationInput}`}>
                 <Checkbox
                   checked={permission}
                   id="permission"
@@ -962,19 +998,22 @@ const RequestOrganizationForm: FC = () => {
             <div
               className={`no-wrap w-100 flex flex-column items-center justify-center ${handles.newOrganizationButtonSubmit}`}
             >
-              {
-                pendings.length
-                  ? <div className='ba bw1 b--dark-red w-100 pv4 ph6 mb6' style={{ borderColor: '#d89d9d', maxWidth: '550px' }}>
-                    <span className='db tc b mb4' style={{ color: '#b30000' }}>
-                      <FormattedMessage id="store/b2b-organizations.request-new-organization.required-fields-panel.title" />
-                    </span>
+              {pendings.length ? (
+                <div
+                  className="ba bw1 b--dark-red w-100 pv4 ph6 mb6"
+                  style={{ borderColor: '#d89d9d', maxWidth: '550px' }}
+                >
+                  <span className="db tc b mb4" style={{ color: '#b30000' }}>
+                    <FormattedMessage id="store/b2b-organizations.request-new-organization.required-fields-panel.title" />
+                  </span>
 
-                    {
-                      pendings.map((pending: string) => <PendingItem key={pending}>{pending}</PendingItem>)
-                    }
-                  </div>
-                  : false
-              }
+                  {pendings.map((pending: string) => (
+                    <PendingItem key={pending}>{pending}</PendingItem>
+                  ))}
+                </div>
+              ) : (
+                false
+              )}
               <Button
                 variation="primary"
                 isLoading={formState.isSubmitting}
@@ -985,7 +1024,6 @@ const RequestOrganizationForm: FC = () => {
               >
                 Enviar Cadastro
               </Button>
-
             </div>
           </div>
         </div>
@@ -1007,7 +1045,7 @@ const RequestOrganizationForm: FC = () => {
       <Layout
         fullWidth
         pageHeader={
-          <div className='customb2b-pageHeader'>
+          <div className="customb2b-pageHeader">
             <h1>
               <FormattedMessage id="store/b2b-organizations.request-new-organization.form-title" />
             </h1>
@@ -1017,7 +1055,6 @@ const RequestOrganizationForm: FC = () => {
             <h4>
               <FormattedMessage id="store/b2b-organizations.request-new-organization.form-title-description" />
             </h4>
-
           </div>
         }
       >
@@ -1029,15 +1066,18 @@ const RequestOrganizationForm: FC = () => {
           <Fragment>{renderIfAuthenticated}</Fragment>
         )}
       </Layout>
-      <ModalOrganizationMessage settings={modalSettings} toggleActiveModal={() => {
-        setModalSettings({
-          title: '',
-          message: '',
-          buttonLink: '',
-          buttonText: '',
-          active: false
-        })
-      }} />
+      <ModalOrganizationMessage
+        settings={modalSettings}
+        toggleActiveModal={() => {
+          setModalSettings({
+            title: '',
+            message: '',
+            buttonLink: '',
+            buttonText: '',
+            active: false,
+          })
+        }}
+      />
     </div>
   )
 }

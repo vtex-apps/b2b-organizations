@@ -105,8 +105,6 @@ const OrganizationUsersTable: FunctionComponent<Props> = ({
     }
   }
 
-  console.log(permissions)
-
   const canEdit = isAdmin || permissions.includes('add-users-organization')
   const canEditSales =
     isAdmin ||
