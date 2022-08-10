@@ -1,12 +1,10 @@
-query GetB2BSettings{
+query GetB2BSettings {
   getB2BSettings {
-    data {
-      defaultPriceTables
-      autoApprove
-      defaultPaymentTerms {
-        id
-        name
-      }
+    defaultPriceTables
+    autoApprove
+    defaultPaymentTerms {
+      id
+      name
     }
   }
 }
