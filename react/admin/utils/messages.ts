@@ -366,67 +366,31 @@ export const organizationRequestMessages = defineMessages({
 })
 
 export const organizationSettingsMessages = defineMessages({
-  toastCreatedSuccess: {
-    id: `${adminPrefix}organization-request-details.toast.created-success`,
-  },
   toastUpdateSuccess: {
     id: `${adminPrefix}organization-settings-admin.toast.update-success`,
   },
   toastUpdateFailure: {
     id: `${adminPrefix}organization-settings-admin.toast.update-failure`,
   },
-  detailsPageTitle: {
-    id: `${adminPrefix}organization-request-details.title`,
-  },
-  back: {
-    id: `${adminPrefix}back`,
-  },
-  addNote: {
-    id: `${adminPrefix}organization-request-details.add-note.label`,
-  },
-  columnName: {
-    id: `${adminPrefix}organization-requests-admin.table.column-name.title`,
-  },
-  columnAdmin: {
-    id: `${adminPrefix}organization-requests-admin.table.column-admin.title`,
-  },
-  columnStatus: {
-    id: `${adminPrefix}organization-requests-admin.table.column-status.title`,
-  },
-  columnCreated: {
-    id: `${adminPrefix}organization-requests-admin.table.column-created.title`,
-  },
-  view: {
-    id: `${adminPrefix}organization-requests-admin.table.view.label`,
-  },
   tablePageTitle: {
     id: `${adminPrefix}organization-settings-admin.title`,
   },
-  emptyState: {
-    id: `${adminPrefix}organization-requests-admin.table.empty-state`,
+  autoApprove: {
+    id: `${adminPrefix}organization-settings-admin.autoApprove`,
   },
-  showRows: {
-    id: `${adminPrefix}showRows`,
+  saveSettings: {
+    id: `${adminPrefix}organization-settings-admin.saveSettings`,
   },
-  of: {
-    id: `${adminPrefix}of`,
+  selectedPaymentsTableTitle: {
+    id: `${adminPrefix}organization-settings-admin.selectedPaymentsTableTitle`,
   },
-  searchPlaceholder: {
-    id: `${adminPrefix}organization-requests-admin.table.search.placeholder`,
+  availablePaymentsTableTitle: {
+    id: `${adminPrefix}organization-settings-admin.availablePaymentsTableTitle`,
   },
-  clearFilters: {
-    id: `${adminPrefix}organization-requests-admin.table.clearFilters.label`,
+  selectedPriceTablesTitle: {
+    id: `${adminPrefix}organization-settings-admin.selectedPriceTablesTitle`,
   },
-  statusFilter: {
-    id: `${adminPrefix}organization-requests-admin.table.statusFilter.label`,
-  },
-  filtersAll: {
-    id: `${adminPrefix}organization-requests-admin.table.filters.all`,
-  },
-  filtersNone: {
-    id: `${adminPrefix}organization-requests-admin.table.filters.none`,
-  },
-  filtersIncludes: {
-    id: `${adminPrefix}organization-requests-admin.table.filters.includes`,
+  availablePriceTablesTitle: {
+    id: `${adminPrefix}organization-settings-admin.availablePriceTablesTitle`,
   },
 })

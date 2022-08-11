@@ -292,7 +292,7 @@ export default function AutoApproveSettings() {
         <Checkbox
           checked={autoApproveState}
           id="option-1"
-          label="Auto approve new organizations"
+          label={formatMessage(settingMessage.autoApprove)}
           name="default-checkbox-group"
           onChange={() => setAutoApproveState(!autoApproveState)}
           value="option-1"
@@ -303,12 +303,14 @@ export default function AutoApproveSettings() {
             saveB2BSettings()
           }}
         >
-          Save Settings
+          {formatMessage(settingMessage.saveSettings)}
         </Button>
       </div>
       <div className="flex w-100">
         <div style={{ marginRight: '4rem' }}>
-          <h4 className="mt6">Selected Price Terms</h4>
+          <h4 className="mt6">
+            {formatMessage(settingMessage.selectedPaymentsTableTitle)}
+          </h4>
           <Table
             fullWidth
             schema={getSchema()}
@@ -317,7 +319,9 @@ export default function AutoApproveSettings() {
           />
         </div>
         <div>
-          <h4 className="mt6">Available Payment terms</h4>
+          <h4 className="mt6">
+            {formatMessage(settingMessage.availablePaymentsTableTitle)}
+          </h4>
           <Table
             fullWidth
             schema={getSchema('availablePayments')}
@@ -328,7 +332,9 @@ export default function AutoApproveSettings() {
       </div>
       <div className="flex w-100">
         <div style={{ marginRight: '4rem' }}>
-          <h4 className="mt6">Selected Price tables</h4>
+          <h4 className="mt6">
+            {formatMessage(settingMessage.selectedPriceTablesTitle)}
+          </h4>
           <Table
             fullWidth
             schema={getSchema()}
@@ -345,7 +351,9 @@ export default function AutoApproveSettings() {
           />
         </div>
         <div>
-          <h4 className="mt6">Available Price tables</h4>
+          <h4 className="mt6">
+            {formatMessage(settingMessage.availablePriceTablesTitle)}
+          </h4>
           <Table
             fullWidth
             schema={getSchema('availablePriceTables')}
@@ -361,7 +369,7 @@ export default function AutoApproveSettings() {
             onClose={() => setAlertState(false)}
             autoClose={5000}
           >
-            Settings were updated successfully.
+            {formatMessage(settingMessage.toastUpdateSuccess)}
           </Alert>
         ) : null}
       </div>
