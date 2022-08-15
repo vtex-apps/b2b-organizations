@@ -6,10 +6,12 @@ import { HashRouter, Switch, Route } from 'react-router-dom'
 import {
   organizationMessages as messages,
   organizationRequestMessages as requestMessages,
+  organizationSettingsMessages as settingMessages,
 } from './utils/messages'
 import OrganizationsList from './OrganizationsList'
 import OrganizationRequestsTable from './OrganizationRequestsTable'
 import useHashRouter from './OrganizationDetails/useHashRouter'
+import AutoApproveSettings from './AutoApproveSettings'
 import CheckCustomerSchema from '../components/CheckCustomerSchema'
 
 const SESSION_STORAGE_KEY = 'organization-tab'
@@ -45,6 +47,11 @@ const OrganizationsTable = () => {
             active={tab === 'requests'}
             onClick={() => handleTabChange('requests')}
           />
+          <Tab
+            label={formatMessage(settingMessages.tablePageTitle)}
+            active={tab === 'settings'}
+            onClick={() => handleTabChange('settings')}
+          />
         </Tabs>
         <Container>
           <div className="mb5">
@@ -57,6 +64,7 @@ const OrganizationsTable = () => {
               exact
               component={OrganizationRequestsTable}
             />
+            <Route path="/settings" exact component={AutoApproveSettings} />
           </Switch>
         </Container>
       </HashRouter>

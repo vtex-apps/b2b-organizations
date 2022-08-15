@@ -364,3 +364,33 @@ export const organizationRequestMessages = defineMessages({
     id: `${adminPrefix}organization-requests-admin.table.filters.includes`,
   },
 })
+
+export const organizationSettingsMessages = defineMessages({
+  toastUpdateSuccess: {
+    id: `${adminPrefix}organization-settings-admin.toast.update-success`,
+  },
+  toastUpdateFailure: {
+    id: `${adminPrefix}organization-settings-admin.toast.update-failure`,
+  },
+  tablePageTitle: {
+    id: `${adminPrefix}organization-settings-admin.title`,
+  },
+  autoApprove: {
+    id: `${adminPrefix}organization-settings-admin.autoApprove`,
+  },
+  saveSettings: {
+    id: `${adminPrefix}organization-settings-admin.saveSettings`,
+  },
+  selectedPaymentsTableTitle: {
+    id: `${adminPrefix}organization-settings-admin.selectedPaymentsTableTitle`,
+  },
+  availablePaymentsTableTitle: {
+    id: `${adminPrefix}organization-settings-admin.availablePaymentsTableTitle`,
+  },
+  selectedPriceTablesTitle: {
+    id: `${adminPrefix}organization-settings-admin.selectedPriceTablesTitle`,
+  },
+  availablePriceTablesTitle: {
+    id: `${adminPrefix}organization-settings-admin.availablePriceTablesTitle`,
+  },
+})

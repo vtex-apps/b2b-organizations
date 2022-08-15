@@ -1,0 +1,10 @@
+query GetB2BSettings {
+  getB2BSettings {
+    defaultPriceTables
+    autoApprove
+    defaultPaymentTerms {
+      id
+      name
+    }
+  }
+}
