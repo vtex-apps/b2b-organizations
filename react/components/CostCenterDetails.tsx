@@ -508,37 +508,21 @@ const CostCenterDetails: FunctionComponent<RouterProps> = ({
           }
           required
         />
-        <div className="mt6">
-          <Input
-            autocomplete="off"
-            size="large"
-            label={formatMessage(messages.phoneNumber)}
-            value={phoneNumber}
-            helpText={formatMessage(messages.phoneNumberHelp)}
-            error={phoneNumber && !validatePhoneNumber(phoneNumber)}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-              setPhoneNumber(e.target.value)
-            }}
-            readOnly={
-              !permissionsState.includes('create-cost-center-organization')
-            }
-          />
-        </div>
-        <div className="mt6">
-          <Input
-            autocomplete="off"
-            size="large"
-            label={formatMessage(messages.businessDocument)}
-            value={businessDocument}
-            helpText={formatMessage(messages.businessDocumentHelp)}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-              setBusinessDocument(e.target.value)
-            }}
-            readOnly={
-              !permissionsState.includes('create-cost-center-organization')
-            }
-          />
-        </div>
+      </PageBlock>
+      <PageBlock>
+        <Input
+          autocomplete="off"
+          size="large"
+          label={formatMessage(messages.businessDocument)}
+          value={businessDocument}
+          helpText={formatMessage(messages.businessDocumentHelp)}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+            setBusinessDocument(e.target.value)
+          }}
+          readOnly={
+            !permissionsState.includes('create-cost-center-organization')
+          }
+        />
       </PageBlock>
       {paymentTermOptions.length > 0 && (
         <PageBlock

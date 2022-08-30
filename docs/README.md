@@ -1,4 +1,4 @@
-=â Use this project, [contribute](https://github.com/vtex-apps/b2b-organizations) to it or open issues to help evolve it using [Store Discussion](https://github.com/vtex-apps/store-discussion).
+=ï¿½ Use this project, [contribute](https://github.com/vtex-apps/b2b-organizations) to it or open issues to help evolve it using [Store Discussion](https://github.com/vtex-apps/store-discussion).
 
 # B2B Organizations
 
@@ -307,7 +307,7 @@ This will lead you to the **Cost Center Details** page, where you can:
 
 The optional **Business Document** field may be used to store a Tax ID, VAT ID, CNPJ, or similar business identifier. If a Business Document is present in a user's cost center, it will be applied as the `corporateDocument` in the user's profile and therefore attached to any orders placed by the user.
 
->   The shipping addresses assigned to a cost center will be available to that cost center's users at checkout if you install [B2B Checkout Settings](https://developers.vtex.com/vtex-developer-docs/docs/vtex-b2b-checkout-settings). No other addresses will be available. Therefore, each cost center must have at least one shipping address.
+> ï¿½ The shipping addresses assigned to a cost center will be available to that cost center's users at checkout if you install [B2B Checkout Settings](https://developers.vtex.com/vtex-developer-docs/docs/vtex-b2b-checkout-settings). No other addresses will be available. Therefore, each cost center must have at least one shipping address.
 
 To edit or delete an existing address, click <img src="https://user-images.githubusercontent.com/77292838/159766633-dfcb818f-6bd7-4cd0-92dc-9c682fb50d04.png" width="10" alt-text="00-ellipsis"/> next to it and select **Edit** or **Delete**.
 
@@ -454,9 +454,14 @@ A B2B user who is not already part of an organization can request the creation o
      - **First Name:** first name of the Organization Admin user.
      - **Last Name:** last name of the Organization Admin user.
      - **Email Address:** email address of the Organization Admin user.
+     - **CPF:** CPF of the Organization Admin user.
+     - **Phone:** Phone of the Organization Admin user.
    - **Default Cost Center:** section where you must provide information about the first cost center associated with the organization.
      - **Cost Center Name:** name of the cost center.
-     - **Business Document:** optional field for a business document such as a Tax ID, CNPJ, etc.
+     - **Business Document:** field for a business document such as a Tax ID, CNPJ, etc.
+     - **Occupation Area:** field for a occupation area.
+     - **ICMS:** field for a ICMS.
+     - **IE:** field for a IE.
      - **Country:** country where the cost center is located.
      - **ZIP:** postal code of the cost center address.
      - **Address Line 1:** primary address information, including street number and street name where the cost center is located.
@@ -502,7 +507,7 @@ To add a new cost center, they should go to **My Account > My Organization**, wh
 
 In addition, **Organization Admins** can enable specific payment terms for a cost center, by using the toggle button to activate or deactivate the payment terms assigned to the organization, as shown below.
 
->   This section will only be available on the **My Organization** page if [payment terms](#payment-terms) have previously been assigned to the organization by the VTEX Admin users.
+> ï¿½ This section will only be available on the **My Organization** page if [payment terms](#payment-terms) have previously been assigned to the organization by the VTEX Admin users.
 
 ![19-payment-terms-cost-center](https://user-images.githubusercontent.com/77292838/159766775-dd0a17bd-8418-401b-a377-7d4c9ed0cf11.png)
 

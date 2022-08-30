@@ -128,7 +128,7 @@ const OrganizationDetails: FunctionComponent<RouterProps> = ({
   useEffect(() => {
     if (!permissionsData) return
 
-    const { permissions = [], role } = permissionsData.checkUserPermission ?? {}
+    const { permissions = [] } = permissionsData.checkUserPermission ?? {}
 
     if (permissions.length) {
       setPermissionsState(permissions)
