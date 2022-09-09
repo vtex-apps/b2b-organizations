@@ -12,6 +12,10 @@
     {
       "labelId": "admin/b2b-organizations.organization-requests.navigation.label",
       "path": "/admin/b2b-organizations/organizations#/requests"
+    },
+    {
+      "labelId": "admin/b2b-organizations.organization-settings.navigation.label",
+      "path": "/admin/b2b-organizations/organizations#/settings"
     }
   ]
 }
