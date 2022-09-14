@@ -15,7 +15,7 @@ query GetUsers(
     search: $search
     sortOrder: $sortOrder
     sortedBy: $sortedBy
-  ) @context(provider: "vtex.b2b-organizations-graphql") {
+  ) @context(provider: "syatt.b2b-organizations-graphql") {
     data {
       id
       roleId

@@ -1,7 +1,6 @@
 query GetPaymentTerms {
-  getPaymentTerms
-    @context(provider: "vtex.b2b-organizations-graphql") {
-      id
-      name
+  getPaymentTerms @context(provider: "syatt.b2b-organizations-graphql") {
+    id
+    name
   }
 }
