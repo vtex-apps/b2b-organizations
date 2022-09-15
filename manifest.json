@@ -1,7 +1,7 @@
 {
   "name": "b2b-organizations",
   "vendor": "syatt",
-  "version": "2.0.2",
+  "version": "2.0.3",
   "title": "B2B Organizations",
   "description": "App to create and manage B2B Organizations and Cost Centers",
   "mustUpdateAt": "2022-08-28",
