@@ -1,4 +1,3 @@
 query GetBinding($email: String!) {
-  getBinding(email: $email)
-    @context(provider: "vtex.b2b-organizations-graphql")
+  getBinding(email: $email) @context(provider: "vtex.b2b-organizations-graphql")
 }

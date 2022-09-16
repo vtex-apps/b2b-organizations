@@ -1,6 +1,13 @@
 import type { ChangeEvent } from 'react'
-import React, { Fragment, useState } from 'react'
-import { Button, Input, Modal, PageBlock, Table } from 'vtex.styleguide'
+import React, { Fragment, useState, useEffect } from 'react'
+import {
+  Button,
+  Input,
+  Modal,
+  PageBlock,
+  Table,
+  Spinner,
+} from 'vtex.styleguide'
 import { FormattedMessage, useIntl } from 'react-intl'
 import { useMutation, useQuery } from 'react-apollo'
 import { useRuntime } from 'vtex.render-runtime'
@@ -22,6 +29,8 @@ import { getEmptyAddress, isValidAddress } from '../../utils/addresses'
 import CREATE_COST_CENTER from '../../graphql/createCostCenter.graphql'
 import GET_LOGISTICS from '../../graphql/getLogistics.graphql'
 import { validatePhoneNumber } from '../../modules/formValidators'
+import GET_B2B_CUSTOM_FIELDS from '../../graphql/getB2BCustomFields.graphql'
+import CustomFieldInput from '../OrganizationDetailsCustomField'
 
 interface CostCenterSimple {
   id: string
@@ -88,6 +97,40 @@ const OrganizationDetailsCostCenters = ({
     }
   )
 
+  //! CUSTOM FIELDS
+  const {
+    data: defaultCustomFieldsData,
+    loading: defaultCustomFieldsDataLoading,
+  } = useQuery(GET_B2B_CUSTOM_FIELDS, {
+    ssr: false,
+  })
+
+  const [
+    costCenterCustomFieldsState,
+    setCostCenterCustomFieldsState,
+  ] = useState<CustomField[]>([])
+
+  useEffect(() => {
+    if (defaultCustomFieldsDataLoading) return
+
+    const costCenterFieldsToDisplay = defaultCustomFieldsData?.getB2BSettings.costCenterCustomFields.filter(
+      (item: CustomField) => item.useOnRegistration
+    )
+
+    setCostCenterCustomFieldsState(costCenterFieldsToDisplay)
+  }, [defaultCustomFieldsData])
+
+  const handleCostCenterCustomFieldsUpdate = (
+    index: number,
+    customField: CustomField
+  ) => {
+    const newCustomFields = [...costCenterCustomFieldsState]
+
+    newCustomFields[index] = customField
+    setCostCenterCustomFieldsState(newCustomFields)
+  }
+  //! CUSTOM FIELDS
+
   /**
    * Functions
    */
@@ -133,6 +176,7 @@ const OrganizationDetailsCostCenters = ({
         name: newCostCenterName,
         addresses: [newAddress],
         businessDocument: newCostCenterBusinessDocument,
+        customFields: costCenterCustomFieldsState,
         stateRegistration: newCostCenterStateRegistration,
       },
     }
@@ -142,7 +186,7 @@ const OrganizationDetailsCostCenters = ({
         setNewCostCenterModalState(false)
         setLoadingState(false)
         showToast({
-          type: 'success',
+          variant: 'positive',
           message: formatMessage(messages.toastAddCostCenterSuccess),
         })
         refetchCostCenters({ ...costCenterPaginationState, id: params?.id })
@@ -152,7 +196,7 @@ const OrganizationDetailsCostCenters = ({
         setLoadingState(false)
         console.error(error)
         showToast({
-          type: 'error',
+          variant: 'critical',
           message: formatMessage(messages.toastAddCostCenterFailure),
         })
       })
@@ -362,6 +406,28 @@ const OrganizationDetailsCostCenters = ({
             }}
           />
         </div>
+        {/* //! Custom fields */}
+        {defaultCustomFieldsDataLoading ? (
+          <div className="mb5 flex flex-column">
+            <Spinner />
+          </div>
+        ) : (
+          <>
+            {costCenterCustomFieldsState?.map(
+              (customField: CustomField, index: number) => {
+                return (
+                  <CustomFieldInput
+                    key={`${customField.name} ${index}`}
+                    index={index}
+                    handleUpdate={handleCostCenterCustomFieldsUpdate}
+                    customField={customField}
+                  />
+                )
+              }
+            )}
+          </>
+        )}
+        {/* //! Custom fields */}
         <div className="w-100 mv6">
           <Input
             autocomplete="off"

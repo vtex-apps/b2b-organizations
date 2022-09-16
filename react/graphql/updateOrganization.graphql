@@ -8,6 +8,7 @@ mutation UpdateOrganization(
   $priceTables: [String]
   $salesChannel: String
   $sellers: [SellerInput]
+  $customFields: [CustomFieldInput]
 ) {
   updateOrganization(
     id: $id
@@ -19,6 +20,7 @@ mutation UpdateOrganization(
     priceTables: $priceTables
     salesChannel: $salesChannel
     sellers: $sellers
+    customFields: $customFields
   ) @context(provider: "vtex.b2b-organizations-graphql") {
     id
     status

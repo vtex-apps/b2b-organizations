@@ -324,7 +324,7 @@ const CostCenterDetails: FunctionComponent<RouterProps> = ({
       handleCloseModals()
     } else {
       showToast({
-        type: 'error',
+        variant: 'critical',
         message: formatMessage(messages.duplicateAddress),
       })
     }

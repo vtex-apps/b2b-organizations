@@ -1,7 +1,15 @@
 import type { ChangeEvent, FunctionComponent } from 'react'
-import React, { Fragment, useState } from 'react'
+import React, { Fragment, useState, useEffect } from 'react'
 import { useMutation, useQuery } from 'react-apollo'
-import { Button, Checkbox, Input, Modal, Table, Tag } from 'vtex.styleguide'
+import {
+  Button,
+  Checkbox,
+  Input,
+  Modal,
+  Table,
+  Tag,
+  Spinner,
+} from 'vtex.styleguide'
 import { FormattedMessage, useIntl } from 'react-intl'
 import { useRuntime } from 'vtex.render-runtime'
 import { useToast } from '@vtex/admin-ui'
@@ -21,6 +29,8 @@ import GET_ORGANIZATIONS from '../graphql/getOrganizations.graphql'
 import GET_LOGISTICS from '../graphql/getLogistics.graphql'
 import CREATE_ORGANIZATION from '../graphql/createOrganization.graphql'
 import { validatePhoneNumber } from '../modules/formValidators'
+import GET_B2B_CUSTOM_FIELDS from '../graphql/getB2BCustomFields.graphql'
+import CustomFieldInput from './OrganizationDetailsCustomField'
 
 interface CellRendererProps {
   cellData: unknown
@@ -102,6 +112,59 @@ const OrganizationsList: FunctionComponent = () => {
     }))
   }
 
+  //! CUSTOM FIELDS
+  const {
+    data: defaultCustomFieldsData,
+    loading: defaultCustomFieldsDataLoading,
+  } = useQuery(GET_B2B_CUSTOM_FIELDS, {
+    ssr: false,
+  })
+
+  const [orgCustomFieldsState, setOrgCustomFieldsState] = useState<
+    CustomField[]
+  >([])
+
+  const [
+    costCenterCustomFieldsState,
+    setCostCenterCustomFieldsState,
+  ] = useState<CustomField[]>([])
+
+  useEffect(() => {
+    if (defaultCustomFieldsDataLoading) return
+
+    const organizationFieldsToDisplay = defaultCustomFieldsData?.getB2BSettings.organizationCustomFields.filter(
+      (item: CustomField) => item.useOnRegistration
+    )
+
+    const costCenterFieldsToDisplay = defaultCustomFieldsData?.getB2BSettings.costCenterCustomFields.filter(
+      (item: CustomField) => item.useOnRegistration
+    )
+
+    setOrgCustomFieldsState(organizationFieldsToDisplay)
+    setCostCenterCustomFieldsState(costCenterFieldsToDisplay)
+  }, [defaultCustomFieldsData])
+
+  const handleOrgCustomFieldsUpdate = (
+    index: number,
+    customField: CustomField
+  ) => {
+    const newCustomFields = [...orgCustomFieldsState]
+
+    newCustomFields[index] = customField
+    setOrgCustomFieldsState(newCustomFields)
+  }
+
+  const handleCostCenterCustomFieldsUpdate = (
+    index: number,
+    customField: CustomField
+  ) => {
+    const newCustomFields = [...costCenterCustomFieldsState]
+
+    newCustomFields[index] = customField
+    setCostCenterCustomFieldsState(newCustomFields)
+  }
+  //! CUSTOM FIELDS
+
   const resetNewOrganizationForm = () => {
     setNewOrganizationName('')
     setNewCostCenterName('')
@@ -132,11 +195,13 @@ const OrganizationsList: FunctionComponent = () => {
     const variables = {
       input: {
         name: newOrganizationName,
+        customFields: orgCustomFieldsState,
         defaultCostCenter: {
           name: newCostCenterName,
           address: newAddress,
           phoneNumber: newCostCenterPhoneNumber,
           businessDocument: newCostCenterBusinessDocument,
+          customFields: costCenterCustomFieldsState,
           stateRegistration: newCostCenterStateRegistration,
         },
       },
@@ -148,7 +213,7 @@ const OrganizationsList: FunctionComponent = () => {
         setLoadingState(false)
         resetNewOrganizationForm()
         showToast({
-          type: 'success',
+          variant: 'positive',
           message: formatMessage(messages.toastAddOrgSuccess),
         })
         refetch(initialState)
@@ -158,7 +223,7 @@ const OrganizationsList: FunctionComponent = () => {
         setLoadingState(false)
         console.error(error)
         showToast({
-          type: 'error',
+          variant: 'critical',
           message: formatMessage(messages.toastAddOrgFailure),
         })
       })
@@ -531,6 +596,27 @@ const OrganizationsList: FunctionComponent = () => {
             required
           />
         </div>
+        {/* //! Custom fields */}
+        {defaultCustomFieldsDataLoading ? (
+          <div className="mb5">
+            <Spinner />
+          </div>
+        ) : (
+          orgCustomFieldsState?.map(
+            (customField: CustomField, index: number) => {
+              return (
+                <CustomFieldInput
+                  key={`${customField.name} ${index}`}
+                  index={index}
+                  handleUpdate={handleOrgCustomFieldsUpdate}
+                  customField={customField}
+                />
+              )
+            }
+          )
+        )}
+
+        {/* //! Custom fields */}
         <div className="w-100 mv6">
           <FormattedMessage id="admin/b2b-organizations.organizations-admin.add-organization.default-costCenter.helpText" />
         </div>
@@ -571,6 +657,28 @@ const OrganizationsList: FunctionComponent = () => {
             }}
           />
         </div>
+        {/* //! Custom fields */}
+        {defaultCustomFieldsDataLoading ? (
+          <div className="mb5 flex flex-column">
+            <Spinner />
+          </div>
+        ) : (
+          <>
+            {costCenterCustomFieldsState?.map(
+              (customField: CustomField, index: number) => {
+                return (
+                  <CustomFieldInput
+                    key={`${customField.name} ${index}`}
+                    index={index}
+                    handleUpdate={handleCostCenterCustomFieldsUpdate}
+                    customField={customField}
+                  />
+                )
+              }
+            )}
+          </>
+        )}
+        {/* //! Custom fields */}
         <div className="w-100 mv6">
           <Input
             size="large"
