@@ -284,5 +284,12 @@
   "store/b2b-organizations.user-widget.impersonating": "Імітація:",
   "store/b2b-organizations.request-new-organization.submit-button.create-new-request": "Створити новий запит",
   "store/b2b-organizations.stop-impersonation": "Зупинити імітацію",
-  "store/b2b-organizations.stop-impersonation-error": "Помилка при зупинці імітації. Докладніша інформація доступна на консолі."
+  "store/b2b-organizations.stop-impersonation-error": "Помилка при зупинці імітації. Докладніша інформація доступна на консолі.",
+
+  "admin/b2b-organizations.organization-settings-admin.customFieldsTitle": "Спеціальні поля",
+  "admin/b2b-organizations.custom-fields.title": "Спеціальні поля",
+  "admin/b2b-organizations.custom-fields.titleSingular": "Спеціальне поле",
+  "admin/b2b-organizations.custom-fields.explanation": "Спеціальні поля використовуються для додавання додаткової інформації до організацій.Тільки внутрішнє використання, не буде показано замовнику.",
+  "admin/b2b-organizations.custom-fields.addField": "Додати поле",
+  "admin/b2b-organizations.custom-fields.removeField": "Видаліть поле"
 }

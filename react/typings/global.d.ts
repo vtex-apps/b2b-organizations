@@ -57,3 +57,14 @@ interface UserDetails {
   email: string
   canImpersonate: boolean
 }
+
+interface CustomField {
+  name: string
+  type: 'text'
+  value?: string
+}
+
+interface CustomFieldSetting {
+  name: string
+  type: 'text'
+}

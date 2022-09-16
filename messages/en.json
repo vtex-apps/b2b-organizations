@@ -284,5 +284,12 @@
   "store/b2b-organizations.user-widget.impersonating": "Impersonating:",
   "store/b2b-organizations.request-new-organization.submit-button.create-new-request": "Create New Request",
   "store/b2b-organizations.stop-impersonation": "Stop Impersonation",
-  "store/b2b-organizations.stop-impersonation-error": "Error stopping impersonation. See console for details."
+  "store/b2b-organizations.stop-impersonation-error": "Error stopping impersonation. See console for details.",
+
+  "admin/b2b-organizations.organization-settings-admin.customFieldsTitle": "Custom Fields",
+  "admin/b2b-organizations.custom-fields.title": "Custom Fields",
+  "admin/b2b-organizations.custom-fields.titleSingular": "Custom Field",
+  "admin/b2b-organizations.custom-fields.explanation": "Custom fields are used to add additional information to organizations. Internal use only, will not be shown to the customer.",
+  "admin/b2b-organizations.custom-fields.addField": "Add Field",
+  "admin/b2b-organizations.custom-fields.removeField": "Remove Field"
 }

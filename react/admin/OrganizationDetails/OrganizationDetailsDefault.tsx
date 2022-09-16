@@ -4,6 +4,7 @@ import React, { Fragment } from 'react'
 import type { FunctionComponent } from 'react'
 
 import { organizationMessages as messages } from '../utils/messages'
+import CustomFieldInput from '../CustomField'
 
 interface Props {
   organizationNameState: string
@@ -13,6 +14,8 @@ interface Props {
   statusState: string
   setStatusState: (value: string) => void
   data: any
+  customFieldsState: CustomField[]
+  setCustomFieldsState: (value: CustomField[]) => void
 }
 
 const OrganizationDetailsDefault: FunctionComponent<Props> = ({
@@ -23,6 +26,8 @@ const OrganizationDetailsDefault: FunctionComponent<Props> = ({
   statusState,
   setStatusState,
   data,
+  customFieldsState,
+  setCustomFieldsState,
 }) => {
   /**
    * Hooks
@@ -46,6 +51,16 @@ const OrganizationDetailsDefault: FunctionComponent<Props> = ({
       label: formatMessage(messages.statusInactive),
     },
   ]
+
+  const handleCustomFieldsUpdate = (
+    index: number,
+    customField: CustomField
+  ) => {
+    const newCustomFields = [...customFieldsState]
+
+    newCustomFields[index] = customField
+    setCustomFieldsState(newCustomFields)
+  }
 
   return (
     <Fragment>
@@ -105,6 +120,21 @@ const OrganizationDetailsDefault: FunctionComponent<Props> = ({
             year: 'numeric',
           })}
         </div>
+      </PageBlock>
+      <PageBlock>
+        <h4 className="t-heading-5 mb0 pt3">
+          <FormattedMessage id="admin/b2b-organizations.custom-fields.title" />
+        </h4>
+        {customFieldsState?.map((customField: CustomField, index: number) => (
+          <CustomFieldInput
+            key={`${customField.name} ${index}`}
+            name={customField.name}
+            value={customField.value ?? ''}
+            type={customField.type}
+            index={index}
+            handleUpdate={handleCustomFieldsUpdate}
+          />
+        ))}
       </PageBlock>
     </Fragment>
   )

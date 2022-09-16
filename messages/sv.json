@@ -284,5 +284,12 @@
   "store/b2b-organizations.user-widget.impersonating": "Uppträder som:",
   "store/b2b-organizations.request-new-organization.submit-button.create-new-request": "Skapa ny förfrågan",
   "store/b2b-organizations.stop-impersonation": "Sluta uppträdandet",
-  "store/b2b-organizations.stop-impersonation-error": "Det inge inte att stoppa uppträdandet. Se konsolen för detaljer."
+  "store/b2b-organizations.stop-impersonation-error": "Det inge inte att stoppa uppträdandet. Se konsolen för detaljer.",
+
+  "admin/b2b-organizations.organization-settings-admin.customFieldsTitle": "Anpassade fält",
+  "admin/b2b-organizations.custom-fields.title": "Anpassade fält",
+  "admin/b2b-organizations.custom-fields.titleSingular": "Anpassat fält",
+  "admin/b2b-organizations.custom-fields.explanation": "Anpassade fält används för att lägga till ytterligare information till organisationer.Endast internt bruk visas inte kunden.",
+  "admin/b2b-organizations.custom-fields.addField": "Lägg till fält",
+  "admin/b2b-organizations.custom-fields.removeField": "Ta bort fältet"
 }

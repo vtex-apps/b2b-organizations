@@ -284,5 +284,12 @@
   "store/b2b-organizations.user-widget.impersonating": "가장:",
   "store/b2b-organizations.request-new-organization.submit-button.create-new-request": "새 요청 만들기",
   "store/b2b-organizations.stop-impersonation": "가장 중지",
-  "store/b2b-organizations.stop-impersonation-error": "가장을 중지하는 동안 오류가 발생했습니다. 자세한 내용은 콘솔을 참조하세요."
+  "store/b2b-organizations.stop-impersonation-error": "가장을 중지하는 동안 오류가 발생했습니다. 자세한 내용은 콘솔을 참조하세요.",
+
+  "admin/b2b-organizations.organization-settings-admin.customFieldsTitle": "맞춤형 필드",
+  "admin/b2b-organizations.custom-fields.title": "맞춤형 필드",
+  "admin/b2b-organizations.custom-fields.titleSingular": "사용자 정의 필드",
+  "admin/b2b-organizations.custom-fields.explanation": "사용자 정의 필드는 조직에 추가 정보를 추가하는 데 사용됩니다.내부 사용 만 고객에게 표시되지 않습니다..",
+  "admin/b2b-organizations.custom-fields.addField": "필드를 추가하십시오",
+  "admin/b2b-organizations.custom-fields.removeField": "필드를 제거하십시오"
 }

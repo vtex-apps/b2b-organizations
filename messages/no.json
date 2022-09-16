@@ -284,5 +284,12 @@
   "store/b2b-organizations.user-widget.impersonating": "Etterligner:",
   "store/b2b-organizations.request-new-organization.submit-button.create-new-request": "Opprett ny forespørsel",
   "store/b2b-organizations.stop-impersonation": "Stopp etterligning",
-  "store/b2b-organizations.stop-impersonation-error": "Feil ved stopp av etterligning. Se konsoll for mer informasjon."
+  "store/b2b-organizations.stop-impersonation-error": "Feil ved stopp av etterligning. Se konsoll for mer informasjon.",
+
+  "admin/b2b-organizations.organization-settings-admin.customFieldsTitle": "Tilpassede felt",
+  "admin/b2b-organizations.custom-fields.title": "Tilpassede felt",
+  "admin/b2b-organizations.custom-fields.titleSingular": "Tilpasset felt",
+  "admin/b2b-organizations.custom-fields.explanation": "Tilpassede felt brukes til å legge til tilleggsinformasjon til organisasjoner.Bare intern bruk, vil ikke bli vist for kunden.",
+  "admin/b2b-organizations.custom-fields.addField": "Legg til felt",
+  "admin/b2b-organizations.custom-fields.removeField": "Fjern feltet"
 }

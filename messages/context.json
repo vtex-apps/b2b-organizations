@@ -284,5 +284,12 @@
   "store/b2b-organizations.user-widget.impersonating": "store/b2b-organizations.user-widget.impersonating",
   "store/b2b-organizations.request-new-organization.submit-button.create-new-request": "store/b2b-organizations.request-new-organization.submit-button.create-new-request",
   "store/b2b-organizations.stop-impersonation": "store/b2b-organizations.stop-impersonation",
-  "store/b2b-organizations.stop-impersonation-error": "store/b2b-organizations.stop-impersonation-error"
+  "store/b2b-organizations.stop-impersonation-error": "store/b2b-organizations.stop-impersonation-error",
+
+  "admin/b2b-organizations.organization-settings-admin.customFieldsTitle": "  admin/b2b-organizations.organization-settings-admin.customFieldsTitle",
+  "admin/b2b-organizations.custom-fields.title": "admin/b2b-organizations.custom-fields.title",
+  "admin/b2b-organizations.custom-fields.titleSingular": "admin/b2b-organizations.custom-fields.titleSingular",
+  "admin/b2b-organizations.custom-fields.explanation": "admin/b2b-organizations.custom-fields.explanation",
+  "admin/b2b-organizations.custom-fields.addField": "admin/b2b-organizations.custom-fields.addField",
+  "admin/b2b-organizations.custom-fields.removeField": "admin/b2b-organizations.custom-fields.removeField"
 }

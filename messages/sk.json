@@ -284,5 +284,12 @@
   "store/b2b-organizations.user-widget.impersonating": "Vydávanie sa za používateľa:",
   "store/b2b-organizations.request-new-organization.submit-button.create-new-request": "Vytvoriť novú požiadavku",
   "store/b2b-organizations.stop-impersonation": "Zastaviť vydávanie sa za používateľa",
-  "store/b2b-organizations.stop-impersonation-error": "Vyskytla sa chyba pri zastavení vydávanie sa za používateľa. Podrobnosti nájdete v konzole."
+  "store/b2b-organizations.stop-impersonation-error": "Vyskytla sa chyba pri zastavení vydávanie sa za používateľa. Podrobnosti nájdete v konzole.",
+
+  "admin/b2b-organizations.organization-settings-admin.customFieldsTitle": "Vlastné polia",
+  "admin/b2b-organizations.custom-fields.title": "Vlastné polia",
+  "admin/b2b-organizations.custom-fields.titleSingular": "Vlastné pole",
+  "admin/b2b-organizations.custom-fields.explanation": "Vlastné polia sa používajú na pridanie ďalších informácií do organizácií.Iba interné použitie sa nezobrazí zákazníkovi.",
+  "admin/b2b-organizations.custom-fields.addField": "Pole pridať",
+  "admin/b2b-organizations.custom-fields.removeField": "Odstrániť pole"
 }

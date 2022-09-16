@@ -284,5 +284,12 @@
   "store/b2b-organizations.user-widget.impersonating": "Oponašanje:",
   "store/b2b-organizations.request-new-organization.submit-button.create-new-request": "Ustvari novo zahtevo",
   "store/b2b-organizations.stop-impersonation": "Nehaj oponašati",
-  "store/b2b-organizations.stop-impersonation-error": "Napaka pri zaustavitvi oponašanja. Za podrobnosti glejte konzolo."
+  "store/b2b-organizations.stop-impersonation-error": "Napaka pri zaustavitvi oponašanja. Za podrobnosti glejte konzolo.",
+
+  "admin/b2b-organizations.organization-settings-admin.customFieldsTitle": "Polja po meri",
+  "admin/b2b-organizations.custom-fields.title": "Polja po meri",
+  "admin/b2b-organizations.custom-fields.titleSingular": "Polje po meri",
+  "admin/b2b-organizations.custom-fields.explanation": "Polja po meri se uporabljajo za dodajanje dodatnih informacij organizacijam.Samo notranja uporaba, kupcu ne bo prikazana.",
+  "admin/b2b-organizations.custom-fields.addField": "Dodaj polje",
+  "admin/b2b-organizations.custom-fields.removeField": "Odstranite polje"
 }

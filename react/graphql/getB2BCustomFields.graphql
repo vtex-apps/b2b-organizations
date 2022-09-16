@@ -1,11 +1,5 @@
-query GetB2BSettings {
+query GetB2BCustomFields {
   getB2BSettings @context(provider: "syatt.b2b-organizations-graphql") {
-    defaultPriceTables
-    autoApprove
-    defaultPaymentTerms {
-      id
-      name
-    }
     organizationCustomFields {
       name
       type

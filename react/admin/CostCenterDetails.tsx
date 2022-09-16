@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import type { FunctionComponent } from 'react'
 import React, { useEffect, useState } from 'react'
 import { useQuery, useMutation, useLazyQuery } from 'react-apollo'
@@ -30,7 +29,10 @@ import {
 import { StyleguideInput } from 'vtex.address-form/inputs'
 import { addValidation } from 'vtex.address-form/helpers'
 
-import { costCenterMessages as messages } from './utils/messages'
+import {
+  costCenterMessages as messages,
+  organizationCustomFieldsMessages as orgaizationMessages,
+} from './utils/messages'
 import { setGUID, getEmptyAddress, isValidAddress } from '../utils/addresses'
 import { validatePhoneNumber } from '../modules/formValidators'
 import GET_COST_CENTER from '../graphql/getCostCenter.graphql'
@@ -38,6 +40,10 @@ import GET_ORGANIZATION from '../graphql/getOrganization.graphql'
 import UPDATE_COST_CENTER from '../graphql/updateCostCenter.graphql'
 import DELETE_COST_CENTER from '../graphql/deleteCostCenter.graphql'
 import GET_LOGISTICS from '../graphql/getLogistics.graphql'
+import GET_B2B_CUSTOM_FIELDS from '../graphql/getB2BCustomFields.graphql'
+import { joinById } from './OrganizationDetails'
+import type { CustomField } from './CustomFields'
+import CustomFieldInput from './CustomField'
 
 const CostCenterDetails: FunctionComponent = () => {
   const { formatMessage } = useIntl()
@@ -81,11 +87,19 @@ const CostCenterDetails: FunctionComponent = () => {
     addValidation(getEmptyAddress(country))
   )
 
+  const [customFieldsState, setCustomFieldsState] = useState<CustomField[]>([])
+
   const { data, loading, refetch } = useQuery(GET_COST_CENTER, {
     variables: { id: params?.id },
     skip: !params?.id,
     ssr: false,
     fetchPolicy: 'network-only',
+  })
+
+  const { data: defaultCustomFieldsData } = useQuery(GET_B2B_CUSTOM_FIELDS, {
+    variables: { id: params?.id },
+    skip: !params?.id,
+    ssr: false,
   })
 
   const [getOrganization, { data: organizationData }] = useLazyQuery(
@@ -168,6 +182,7 @@ const CostCenterDetails: FunctionComponent = () => {
         }),
         phoneNumber,
         businessDocument,
+        customFields: customFieldsState,
       },
     }
 
@@ -364,6 +379,30 @@ const CostCenterDetails: FunctionComponent = () => {
     },
   ]
 
+  // CostCenter custom fields
+
+  useEffect(() => {
+    const customFieldsToShow = joinById(
+      defaultCustomFieldsData?.getB2BSettings.costCenterCustomFields || [],
+      data?.getCostCenterById?.customFields || []
+    ) as CustomField[]
+
+    setCustomFieldsState(customFieldsToShow)
+  }, [
+    data?.getCostCenterById?.customFields &&
+      defaultCustomFieldsData?.getB2BSettings.costCenterCustomFields,
+  ])
+
+  const handleCustomFieldsUpdate = (
+    index: number,
+    customField: CustomField
+  ) => {
+    const newCustomFields = [...customFieldsState]
+
+    newCustomFields[index] = customField
+    setCustomFieldsState(newCustomFields)
+  }
+
   if (!data) {
     return (
       <Layout
@@ -518,6 +557,19 @@ const CostCenterDetails: FunctionComponent = () => {
             </Card>
           </div>
         </div>
+      </PageBlock>
+
+      <PageBlock title={formatMessage(orgaizationMessages.customFieldsTitle)}>
+        {customFieldsState?.map((customField: CustomField, index: number) => (
+          <CustomFieldInput
+            key={`${customField.name} ${index}`}
+            fieldLabel={customField.name}
+            fieldValue={customField.value ?? ''}
+            fieldType={customField.type}
+            index={index}
+            handleUpdate={handleCustomFieldsUpdate}
+          />
+        ))}
       </PageBlock>
 
       {/* New Address Modal */}

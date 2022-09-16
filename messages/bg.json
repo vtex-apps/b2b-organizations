@@ -284,5 +284,12 @@
   "store/b2b-organizations.user-widget.impersonating": "Въплъщаване:",
   "store/b2b-organizations.request-new-organization.submit-button.create-new-request": "Създаване на нова заявка",
   "store/b2b-organizations.stop-impersonation": "Спиране на въплъщаването",
-  "store/b2b-organizations.stop-impersonation-error": "Грешка при спиране на въплъщаването. Вижте конзолата за подробности."
+  "store/b2b-organizations.stop-impersonation-error": "Грешка при спиране на въплъщаването. Вижте конзолата за подробности.",
+
+  "admin/b2b-organizations.organization-settings-admin.customFieldsTitle": "  Персонализирани полета",
+  "admin/b2b-organizations.custom-fields.title": "Персонализирани полета",
+  "admin/b2b-organizations.custom-fields.titleSingular": "Персонализирано поле",
+  "admin/b2b-organizations.custom-fields.explanation": "Персонализираните полета се използват за добавяне на допълнителна информация към организациите.Само вътрешна употреба, няма да бъде показана на клиента.",
+  "admin/b2b-organizations.custom-fields.addField": "Добавете поле",
+  "admin/b2b-organizations.custom-fields.removeField": "Извадете полето"
 }

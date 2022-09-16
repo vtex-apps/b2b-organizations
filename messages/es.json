@@ -284,5 +284,12 @@
   "store/b2b-organizations.user-widget.impersonating": "Suplantando a:",
   "store/b2b-organizations.request-new-organization.submit-button.create-new-request": "Crear nueva solicitud",
   "store/b2b-organizations.stop-impersonation": "Detener suplantación",
-  "store/b2b-organizations.stop-impersonation-error": "Error al detener la suplantación. Consulta la consola para ver los detalles."
+  "store/b2b-organizations.stop-impersonation-error": "Error al detener la suplantación. Consulta la consola para ver los detalles.",
+
+  "admin/b2b-organizations.organization-settings-admin.customFieldsTitle": "Campos Personalizados",
+  "admin/b2b-organizations.custom-fields.title": "Campos Personalizados",
+  "admin/b2b-organizations.custom-fields.titleSingular": "Campo personalizado",
+  "admin/b2b-organizations.custom-fields.explanation": "Los campos personalizados se utilizan para agregar información adicional a las organizaciones.Solo uso interno, no se mostrará al cliente.",
+  "admin/b2b-organizations.custom-fields.addField": "Agregue campo",
+  "admin/b2b-organizations.custom-fields.removeField": "Eliminar el campo"
 }

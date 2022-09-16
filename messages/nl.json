@@ -284,5 +284,12 @@
   "store/b2b-organizations.user-widget.impersonating": "Impersoneer:",
   "store/b2b-organizations.request-new-organization.submit-button.create-new-request": "Nieuwe aanvraag aanmaken",
   "store/b2b-organizations.stop-impersonation": "Stop impersonatie",
-  "store/b2b-organizations.stop-impersonation-error": "Fout bij stoppen impersonatie. Zie console voor details."
+  "store/b2b-organizations.stop-impersonation-error": "Fout bij stoppen impersonatie. Zie console voor details.",
+
+  "admin/b2b-organizations.organization-settings-admin.customFieldsTitle": "Aangepaste velden",
+  "admin/b2b-organizations.custom-fields.title": "Aangepaste velden",
+  "admin/b2b-organizations.custom-fields.titleSingular": "Aangepast veld",
+  "admin/b2b-organizations.custom-fields.explanation": "Aangepaste velden worden gebruikt om aanvullende informatie aan organisaties toe te voegen.Alleen intern gebruik wordt niet aan de klant getoond.",
+  "admin/b2b-organizations.custom-fields.addField": "Voeg veld toe",
+  "admin/b2b-organizations.custom-fields.removeField": "Verwijder het veld"
 }

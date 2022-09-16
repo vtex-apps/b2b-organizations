@@ -284,5 +284,12 @@
   "store/b2b-organizations.user-widget.impersonating": "Esiinny käyttäjänä:",
   "store/b2b-organizations.request-new-organization.submit-button.create-new-request": "Luo uusi pyyntö",
   "store/b2b-organizations.stop-impersonation": "Lopeta tekeytyminen toiseksi käyttäjäksi",
-  "store/b2b-organizations.stop-impersonation-error": "Virhe toiseksi käyttäjäksi tekeytymisen lopettamisessa. Katso lisätietoja konsolista."
+  "store/b2b-organizations.stop-impersonation-error": "Virhe toiseksi käyttäjäksi tekeytymisen lopettamisessa. Katso lisätietoja konsolista.",
+
+  "admin/b2b-organizations.organization-settings-admin.customFieldsTitle": "Mukautetut kentät",
+  "admin/b2b-organizations.custom-fields.title": "Mukautetut kentät",
+  "admin/b2b-organizations.custom-fields.titleSingular": "Räätälöity kenttä",
+  "admin/b2b-organizations.custom-fields.explanation": "Mukautettuja kenttiä käytetään lisätietoja organisaatioihin.Vain sisäinen käyttö ei näy asiakkaalle.",
+  "admin/b2b-organizations.custom-fields.addField": "Lisätä",
+  "admin/b2b-organizations.custom-fields.removeField": "Poista kenttä"
 }

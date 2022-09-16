@@ -284,5 +284,12 @@
   "store/b2b-organizations.user-widget.impersonating": "Odgrywanie roli:",
   "store/b2b-organizations.request-new-organization.submit-button.create-new-request": "Utwórz nowe żądanie",
   "store/b2b-organizations.stop-impersonation": "Zatrzymaj odgrywanie roli",
-  "store/b2b-organizations.stop-impersonation-error": "Wystąpił błąd podczas zatrzymywania odgrywania roli. Zobacz konsolę, aby poznać szczegóły."
+  "store/b2b-organizations.stop-impersonation-error": "Wystąpił błąd podczas zatrzymywania odgrywania roli. Zobacz konsolę, aby poznać szczegóły.",
+
+  "admin/b2b-organizations.organization-settings-admin.customFieldsTitle": "Pola niestandardowe",
+  "admin/b2b-organizations.custom-fields.title": "Pola niestandardowe",
+  "admin/b2b-organizations.custom-fields.titleSingular": "Pole niestandardowe",
+  "admin/b2b-organizations.custom-fields.explanation": "Pola niestandardowe służą do dodawania dodatkowych informacji do organizacji.Tylko użycie wewnętrzne, nie zostanie pokazane klientowi.",
+  "admin/b2b-organizations.custom-fields.addField": "Dodaj pole",
+  "admin/b2b-organizations.custom-fields.removeField": "Usuń pole"
 }

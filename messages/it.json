@@ -284,5 +284,12 @@
   "store/b2b-organizations.user-widget.impersonating": "Impersonando:",
   "store/b2b-organizations.request-new-organization.submit-button.create-new-request": "Crea nuova richiesta",
   "store/b2b-organizations.stop-impersonation": "Interrompi personificazione",
-  "store/b2b-organizations.stop-impersonation-error": "Errore durante il tentativo di interrompere la personificazione. Visualizza la console per i dettagli."
+  "store/b2b-organizations.stop-impersonation-error": "Errore durante il tentativo di interrompere la personificazione. Visualizza la console per i dettagli.",
+
+  "admin/b2b-organizations.organization-settings-admin.customFieldsTitle": "Campi personalizzati",
+  "admin/b2b-organizations.custom-fields.title": "Campi personalizzati",
+  "admin/b2b-organizations.custom-fields.titleSingular": "Campo personalizzato",
+  "admin/b2b-organizations.custom-fields.explanation": "I campi personalizzati vengono utilizzati per aggiungere ulteriori informazioni alle organizzazioni.Solo uso interno, non verrà mostrato al cliente.",
+  "admin/b2b-organizations.custom-fields.addField": "Aggiungi campo",
+  "admin/b2b-organizations.custom-fields.removeField": "Rimuovere il campo"
 }

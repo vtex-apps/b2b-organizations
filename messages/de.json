@@ -284,5 +284,12 @@
   "store/b2b-organizations.user-widget.impersonating": "Identitätswechsel:",
   "store/b2b-organizations.request-new-organization.submit-button.create-new-request": "Neue Anfrage erstellen",
   "store/b2b-organizations.stop-impersonation": "Identitätswechsel abbrechen",
-  "store/b2b-organizations.stop-impersonation-error": "Fehler beim Abbruch des Identitätswechsels. Siehe Konsole für Details."
+  "store/b2b-organizations.stop-impersonation-error": "Fehler beim Abbruch des Identitätswechsels. Siehe Konsole für Details.",
+
+  "admin/b2b-organizations.organization-settings-admin.customFieldsTitle": "  Benutzerdefinierte Felder",
+  "admin/b2b-organizations.custom-fields.title": "Benutzerdefinierte Felder",
+  "admin/b2b-organizations.custom-fields.titleSingular": "Benutzerdefinierte Feld",
+  "admin/b2b-organizations.custom-fields.explanation": "Benutzerdefinierte Felder werden verwendet, um Organisationen zusätzliche Informationen hinzuzufügen.Nur der interne Gebrauch wird dem Kunden nicht angezeigt.",
+  "admin/b2b-organizations.custom-fields.addField": "Feld hinzufügen",
+  "admin/b2b-organizations.custom-fields.removeField": "Feld entfernen"
 }

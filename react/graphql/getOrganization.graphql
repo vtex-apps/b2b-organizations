@@ -16,5 +16,10 @@ query GetOrganization($id: ID) {
     }
     priceTables
     costCenters
+    customFields {
+      name
+      value
+      type
+    }
   }
 }

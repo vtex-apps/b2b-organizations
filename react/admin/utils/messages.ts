@@ -237,6 +237,9 @@ export const organizationMessages = defineMessages({
   defaultCostCenterName: {
     id: `${adminPrefix}organizations-admin.add-organization.default-costCenter-name`,
   },
+  organizationsTitle: {
+    id: `${adminPrefix}organizations.navigation.label`,
+  },
 })
 
 export const costCenterMessages = defineMessages({
@@ -375,6 +378,12 @@ export const organizationSettingsMessages = defineMessages({
   tablePageTitle: {
     id: `${adminPrefix}organization-settings-admin.title`,
   },
+  customFieldsTitle: {
+    id: `${adminPrefix}organization-settings-admin.customFieldsTitle`,
+  },
+  emptyState: {
+    id: `${adminPrefix}organization-requests-admin.table.empty-state`,
+  },
   autoApprove: {
     id: `${adminPrefix}organization-settings-admin.autoApprove`,
   },
@@ -392,5 +401,17 @@ export const organizationSettingsMessages = defineMessages({
   },
   availablePriceTablesTitle: {
     id: `${adminPrefix}organization-settings-admin.availablePriceTablesTitle`,
+  },
+})
+
+export const organizationCustomFieldsMessages = defineMessages({
+  customFieldsTitle: {
+    id: `${adminPrefix}custom-fields.title`,
+  },
+  customFieldsTitleSingular: {
+    id: `${adminPrefix}custom-fields.titleSingular`,
+  },
+  customFieldsExplanation: {
+    id: `${adminPrefix}custom-fields.explanation`,
   },
 })

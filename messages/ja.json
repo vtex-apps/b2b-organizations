@@ -284,5 +284,12 @@
   "store/b2b-organizations.user-widget.impersonating": "偽装中:",
   "store/b2b-organizations.request-new-organization.submit-button.create-new-request": "新規リクエストを作成します",
   "store/b2b-organizations.stop-impersonation": "偽装を停止する",
-  "store/b2b-organizations.stop-impersonation-error": "偽装の停止中にエラーが発生しました。詳細はコンソールを確認してください。"
+  "store/b2b-organizations.stop-impersonation-error": "偽装の停止中にエラーが発生しました。詳細はコンソールを確認してください。",
+
+  "admin/b2b-organizations.organization-settings-admin.customFieldsTitle": "カスタムフィールド",
+  "admin/b2b-organizations.custom-fields.title": "カスタムフィールド",
+  "admin/b2b-organizations.custom-fields.titleSingular": "カスタムフィールド",
+  "admin/b2b-organizations.custom-fields.explanation": "カスタムフィールドは、組織に追加情報を追加するために使用されます。内部使用のみが顧客に表示されません.",
+  "admin/b2b-organizations.custom-fields.addField": "フィールドを追加します",
+  "admin/b2b-organizations.custom-fields.removeField": "フィールドを削除します"
 }

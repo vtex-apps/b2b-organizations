@@ -284,5 +284,12 @@
   "store/b2b-organizations.user-widget.impersonating": "Emprunt d’identité :",
   "store/b2b-organizations.request-new-organization.submit-button.create-new-request": "Créer une nouvelle demande",
   "store/b2b-organizations.stop-impersonation": "Arrêter l’emprunt d’identité",
-  "store/b2b-organizations.stop-impersonation-error": "Erreur lors de l’arrêt de l’emprunt d’identité. Voir la console pour plus de détails."
+  "store/b2b-organizations.stop-impersonation-error": "Erreur lors de l’arrêt de l’emprunt d’identité. Voir la console pour plus de détails.",
+
+  "admin/b2b-organizations.organization-settings-admin.customFieldsTitle": "Les champs personnalisés",
+  "admin/b2b-organizations.custom-fields.title": "Les champs personnalisés",
+  "admin/b2b-organizations.custom-fields.titleSingular": "Champ personnalisé",
+  "admin/b2b-organizations.custom-fields.explanation": "Les champs personnalisés sont utilisés pour ajouter des informations supplémentaires aux organisations.Utilisation interne uniquement, ne sera pas montrée au client.",
+  "admin/b2b-organizations.custom-fields.addField": "Ajouter le champ",
+  "admin/b2b-organizations.custom-fields.removeField": "Supprimer le champ"
 }

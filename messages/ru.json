@@ -284,5 +284,12 @@
   "store/b2b-organizations.user-widget.impersonating": "Работа от имени другого лица:",
   "store/b2b-organizations.request-new-organization.submit-button.create-new-request": "Создать новый запрос",
   "store/b2b-organizations.stop-impersonation": "Остановить работу от имени другого лица",
-  "store/b2b-organizations.stop-impersonation-error": "Сбой остановки работы от имени другого лица. Подробная информация доступна на консоли."
+  "store/b2b-organizations.stop-impersonation-error": "Сбой остановки работы от имени другого лица. Подробная информация доступна на консоли.",
+
+  "admin/b2b-organizations.organization-settings-admin.customFieldsTitle": "Настраиваемые поля",
+  "admin/b2b-organizations.custom-fields.title": "Настраиваемые поля",
+  "admin/b2b-organizations.custom-fields.titleSingular": "Пользовательское поле",
+  "admin/b2b-organizations.custom-fields.explanation": "Пользовательские поля используются для добавления дополнительной информации в организации.Только внутреннее использование, не будет показано клиенту.",
+  "admin/b2b-organizations.custom-fields.addField": "Добавить поле",
+  "admin/b2b-organizations.custom-fields.removeField": "Удалить поле"
 }

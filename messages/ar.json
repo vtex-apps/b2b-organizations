@@ -284,5 +284,12 @@
   "store/b2b-organizations.user-widget.impersonating": "تعيين مستخدم:",
   "store/b2b-organizations.request-new-organization.submit-button.create-new-request": "إنشاء طلب جديد",
   "store/b2b-organizations.stop-impersonation": "إيقاف تعيين المستخدم",
-  "store/b2b-organizations.stop-impersonation-error": "خطأ في إيقاف تعيين المستخدم. راجع وحدة التحكم للحصول على التفاصيل."
+  "store/b2b-organizations.stop-impersonation-error": "خطأ في إيقاف تعيين المستخدم. راجع وحدة التحكم للحصول على التفاصيل.",
+
+  "admin/b2b-organizations.organization-settings-admin.customFieldsTitle": "الحقول المخصصة",
+  "admin/b2b-organizations.custom-fields.title": "الحقول المخصصة",
+  "admin/b2b-organizations.custom-fields.titleSingular": "حقل مخصص",
+  "admin/b2b-organizations.custom-fields.explanation": "يتم استخدام الحقول المخصصة لإضافة معلومات إضافية إلى المنظمات.الاستخدام الداخلي فقط ، لن يتم عرضه على العميل.",
+  "admin/b2b-organizations.custom-fields.addField": "إضافة حقل",
+  "admin/b2b-organizations.custom-fields.removeField": "إزالة الحقل"
 }

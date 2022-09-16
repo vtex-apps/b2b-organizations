@@ -284,5 +284,12 @@
   "store/b2b-organizations.user-widget.impersonating": "Γίνεται προσωποποίηση:",
   "store/b2b-organizations.request-new-organization.submit-button.create-new-request": "Δημιουργία νέου αιτήματος",
   "store/b2b-organizations.stop-impersonation": "Διακοπή προσωποποίησης",
-  "store/b2b-organizations.stop-impersonation-error": "Σφάλμα κατά τη διακοπή της προσωποποίησης. Δείτε την κονσόλα για λεπτομέρειες."
+  "store/b2b-organizations.stop-impersonation-error": "Σφάλμα κατά τη διακοπή της προσωποποίησης. Δείτε την κονσόλα για λεπτομέρειες.",
+
+  "admin/b2b-organizations.organization-settings-admin.customFieldsTitle": "  Προσαρμοσμένα πεδία",
+  "admin/b2b-organizations.custom-fields.title": "Προσαρμοσμένα πεδία",
+  "admin/b2b-organizations.custom-fields.titleSingular": "Προσαρμοσμένο πεδίο",
+  "admin/b2b-organizations.custom-fields.explanation": "Τα προσαρμοσμένα πεδία χρησιμοποιούνται για την προσθήκη πρόσθετων πληροφοριών σε οργανισμούς.Μόνο εσωτερική χρήση, δεν θα εμφανιστεί στον πελάτη.",
+  "admin/b2b-organizations.custom-fields.addField": "Προσθήκη πεδίου",
+  "admin/b2b-organizations.custom-fields.removeField": "Αφαιρέστε το πεδίο"
 }

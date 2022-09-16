@@ -12,6 +12,7 @@ import OrganizationsList from './OrganizationsList'
 import OrganizationRequestsTable from './OrganizationRequestsTable'
 import useHashRouter from './OrganizationDetails/useHashRouter'
 import AutoApproveSettings from './AutoApproveSettings'
+import OrganizationCustomFields from './CustomFields'
 import CheckCustomerSchema from '../components/CheckCustomerSchema'
 
 const SESSION_STORAGE_KEY = 'organization-tab'
@@ -27,7 +28,7 @@ const OrganizationsTable = () => {
   const { tab, handleTabChange, routerRef } = useHashRouter({
     sessionKey: SESSION_STORAGE_KEY,
     defaultPath: 'organizations',
-    routes: ['organizations', 'requests'],
+    routes: ['organizations', 'requests', 'settings', 'custom-fields'],
   })
 
   return (
@@ -52,6 +53,11 @@ const OrganizationsTable = () => {
             active={tab === 'settings'}
             onClick={() => handleTabChange('settings')}
           />
+          <Tab
+            label={formatMessage(settingMessages.customFieldsTitle)}
+            active={tab === 'custom-fields'}
+            onClick={() => handleTabChange('custom-fields')}
+          />
         </Tabs>
         <Container>
           <div className="mb5">
@@ -65,6 +71,11 @@ const OrganizationsTable = () => {
               component={OrganizationRequestsTable}
             />
             <Route path="/settings" exact component={AutoApproveSettings} />
+            <Route
+              path="/custom-fields"
+              exact
+              component={OrganizationCustomFields}
+            />
           </Switch>
         </Container>
       </HashRouter>
