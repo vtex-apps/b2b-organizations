@@ -42,7 +42,6 @@ import DELETE_COST_CENTER from '../graphql/deleteCostCenter.graphql'
 import GET_LOGISTICS from '../graphql/getLogistics.graphql'
 import GET_B2B_CUSTOM_FIELDS from '../graphql/getB2BCustomFields.graphql'
 import { joinById } from './OrganizationDetails'
-import type { CustomField } from './CustomFields'
 import CustomFieldInput from './CustomField'
 
 const CostCenterDetails: FunctionComponent = () => {
@@ -383,8 +382,8 @@ const CostCenterDetails: FunctionComponent = () => {
 
   useEffect(() => {
     const customFieldsToShow = joinById(
-      defaultCustomFieldsData?.getB2BSettings.costCenterCustomFields || [],
-      data?.getCostCenterById?.customFields || []
+      data?.getCostCenterById?.customFields || [],
+      defaultCustomFieldsData?.getB2BSettings.costCenterCustomFields || []
     ) as CustomField[]
 
     setCustomFieldsState(customFieldsToShow)
@@ -563,9 +562,9 @@ const CostCenterDetails: FunctionComponent = () => {
         {customFieldsState?.map((customField: CustomField, index: number) => (
           <CustomFieldInput
             key={`${customField.name} ${index}`}
-            fieldLabel={customField.name}
-            fieldValue={customField.value ?? ''}
-            fieldType={customField.type}
+            name={customField.name}
+            value={customField.value ?? ''}
+            type={customField.type}
             index={index}
             handleUpdate={handleCustomFieldsUpdate}
           />

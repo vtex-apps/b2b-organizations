@@ -42,8 +42,11 @@ export interface CellRendererProps<RowType> {
 const SESSION_STORAGE_KEY = 'organization-details-tab'
 
 // combines defaultCustomFields and customFields input from the organization data to fill input fields
-export const joinById = (...lists: CustomField[] | CustomFieldSetting[]) => {
-  return unionBy(lists, 'name')
+export const joinById = (
+  fields: CustomField[],
+  defaultFields: CustomFieldSetting[]
+): CustomField[] => {
+  return unionBy(fields, defaultFields, 'name')
 }
 
 const OrganizationDetails: FunctionComponent = () => {
@@ -255,14 +258,14 @@ const OrganizationDetails: FunctionComponent = () => {
 
   useEffect(() => {
     const customFieldsToShow = joinById(
-      defaultCustomFieldsData?.getB2BSettings.organizationCustomFields || [],
-      data?.getOrganizationById?.customFields || []
-    ) as CustomField[]
+      data?.getOrganizationById?.customFields || [],
+      defaultCustomFieldsData?.getB2BSettings.organizationCustomFields || []
+    )
 
     setCustomFieldsState(customFieldsToShow)
   }, [
     data?.getOrganizationById?.customFields &&
-      defaultCustomFieldsData?.getB2BSettings.customFields,
+      defaultCustomFieldsData?.getB2BSettings.organizationCustomFields,
   ])
 
   /**
@@ -383,7 +386,6 @@ const OrganizationDetails: FunctionComponent = () => {
                   label={item.label}
                   active={tab === item.tab}
                   onClick={() => handleTabChange(item.tab)}
-                  key={item.label}
                 />
               ))}
             </Tabs>
