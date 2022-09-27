@@ -33,6 +33,57 @@ let isAuthenticated =
   JSON.parse(String(localStore.getItem('b2b-organizations_isAuthenticated'))) ??
   false
 
+const CustomOrganizationOption = (props: any) => {
+  const { roundedBottom, searchTerm, value, selected, onClick } = props
+  const [highlightOption, setHighlightOption] = useState(false)
+
+  const renderOptionHighlightedText = () => {
+    const highlightableText = typeof value === 'string' ? value : value.label
+    const index = highlightableText
+      .toLowerCase()
+      .indexOf(searchTerm.toLowerCase())
+
+    if (index === -1) {
+      return highlightableText
+    }
+
+    const prefix = highlightableText.substring(0, index)
+    const match = highlightableText.substr(index, searchTerm.length)
+    const suffix = highlightableText.substring(`${index}${match.length}`)
+
+    return (
+      <span className="truncate">
+        <span className="fw7">{prefix}</span>
+        {match}
+        <span className="fw7">{suffix}</span>
+      </span>
+    )
+  }
+
+  const buttonClasses = `bn w-100 tl pointer pa4 f6 ${
+    roundedBottom ? 'br2 br--bottom' : ''
+  } ${highlightOption || selected ? 'bg-muted-5' : 'bg-base'}`
+
+  // --- This is a good practice. Use <button />.
+  return (
+    <button
+      className={buttonClasses}
+      onFocus={() => setHighlightOption(true)}
+      onMouseEnter={() => setHighlightOption(true)}
+      onMouseLeave={() => setHighlightOption(false)}
+      onClick={onClick}
+      disabled={value.status !== 'active'}
+    >
+      <div className="flex items-center">
+        <span className="pr2">{renderOptionHighlightedText()}</span>
+        {typeof value !== 'string' && (
+          <div className="t-mini c-muted-1">{value.caption}</div>
+        )}
+      </div>
+    </button>
+  )
+}
+
 const UserWidget: FunctionComponent = () => {
   const { navigate, rootPath } = useRuntime()
   const { formatMessage } = useIntl()
@@ -48,6 +99,7 @@ const UserWidget: FunctionComponent = () => {
     costCenterInput: '',
     currentOrganization: '',
     currentCostCenter: '',
+    currentOrganizationStatus: '',
   })
 
   const sessionResponse: any = useSessionResponse()
@@ -144,9 +196,14 @@ const UserWidget: FunctionComponent = () => {
       costCenterInput: userWidgetData?.getCostCenterByIdStorefront?.name,
       organizationInput: userWidgetData?.getOrganizationByIdStorefront?.name,
       organizationOptions: userWidgetData?.getOrganizationsByEmail.map(
-        (organization: { orgId: string; organizationName: string }) => ({
+        (organization: {
+          orgId: string
+          organizationName: string
+          organizationStatus: string
+        }) => ({
           value: organization.orgId,
           label: organization.organizationName,
+          status: organization.organizationStatus,
         })
       ),
       costCenterOptions: userWidgetData?.getOrganizationsByEmail
@@ -160,11 +217,14 @@ const UserWidget: FunctionComponent = () => {
         })),
       currentOrganization,
       currentCostCenter,
+      currentOrganizationStatus:
+        userWidgetData?.getOrganizationByIdStorefront?.status,
     })
   }, [userWidgetData])
 
   const autoCompleteOrganizationOptions = {
     value: organizationsState.organizationOptions,
+    renderOption: (props: any) => <CustomOrganizationOption {...props} />,
     onSelect: (itemSelected: { value: string }) => {
       setOrganizationsState({
         ...organizationsState,
