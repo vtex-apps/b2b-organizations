@@ -1,0 +1,66 @@
+query userWidgetQuery($orgId: ID) {
+  getOrganizationsByEmail @context(provider: "vtex.b2b-organizations-graphql") {
+    id
+    costCenterName
+    costId
+    organizationName
+    orgId
+    role {
+      id
+      name
+    }
+  }
+
+  checkUserPermission @context(provider: "vtex.storefront-permissions") {
+    role {
+      id
+      name
+      slug
+    }
+    permissions
+  }
+
+  getOrganizationByIdStorefront(id: $orgId)
+    @context(provider: "vtex.b2b-organizations-graphql") {
+    id
+    name
+    status
+    paymentTerms {
+      id
+      name
+    }
+  }
+
+  getCostCenterByIdStorefront(id: $orgId)
+    @context(provider: "vtex.b2b-organizations-graphql") {
+    id
+    name
+    organization
+    paymentTerms {
+      id
+      name
+    }
+    addresses {
+      addressId
+      addressType
+      addressQuery
+      postalCode
+      country
+      receiverName
+      city
+      state
+      street
+      number
+      complement
+      neighborhood
+      geoCoordinates
+      reference
+    }
+    phoneNumber
+    businessDocument
+  }
+
+  checkImpersonation @context(provider: "vtex.storefront-permissions") {
+    email
+  }
+}

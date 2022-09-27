@@ -286,5 +286,7 @@
   "store/b2b-organizations.user-widget.impersonating": "Înlocuiește:",
   "store/b2b-organizations.request-new-organization.submit-button.create-new-request": "Creare solicitare nouă",
   "store/b2b-organizations.stop-impersonation": "Oprește înlocuirea",
-  "store/b2b-organizations.stop-impersonation-error": "Eroare la oprirea înlocuirii. Vezi consola pentru detalii."
+  "store/b2b-organizations.stop-impersonation-error": "Eroare la oprirea înlocuirii. Vezi consola pentru detalii.",
+  "store/b2b-organizations.set-current-organization": "Set current organization",
+  "store/b2b-organizations.set-organization-error": "Error setting current organization. See console for details."
 }
