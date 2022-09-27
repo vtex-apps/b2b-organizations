@@ -282,5 +282,7 @@
   "store/b2b-organizations.user-widget.impersonating": "تعيين مستخدم:",
   "store/b2b-organizations.request-new-organization.submit-button.create-new-request": "إنشاء طلب جديد",
   "store/b2b-organizations.stop-impersonation": "إيقاف تعيين المستخدم",
-  "store/b2b-organizations.stop-impersonation-error": "خطأ في إيقاف تعيين المستخدم. راجع وحدة التحكم للحصول على التفاصيل."
+  "store/b2b-organizations.stop-impersonation-error": "خطأ في إيقاف تعيين المستخدم. راجع وحدة التحكم للحصول على التفاصيل.",
+  "store/b2b-organizations.set-current-organization": "Set current organization",
+  "store/b2b-organizations.set-organization-error": "Error setting current organization. See console for details."
 }
