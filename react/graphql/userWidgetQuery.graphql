@@ -4,6 +4,7 @@ query userWidgetQuery($orgId: ID) {
     costCenterName
     costId
     organizationName
+    organizationStatus
     orgId
     role {
       id
