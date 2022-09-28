@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [1.13.0] - 2022-09-27
+
+### Added
+
+- Added sales channels binding selection setting
+
 ## [1.12.1] - 2022-07-22
 
 ### Added

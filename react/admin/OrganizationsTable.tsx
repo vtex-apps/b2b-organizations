@@ -6,9 +6,11 @@ import { HashRouter, Switch, Route } from 'react-router-dom'
 import {
   organizationMessages as messages,
   organizationRequestMessages as requestMessages,
+  organizationSettingsMessages as settingsMessages,
 } from './utils/messages'
 import OrganizationsList from './OrganizationsList'
 import OrganizationRequestsTable from './OrganizationRequestsTable'
+import OrganizationSettings from './OrganizationSettings'
 import useHashRouter from './OrganizationDetails/useHashRouter'
 import CheckCustomerSchema from '../components/CheckCustomerSchema'
 
@@ -25,7 +27,7 @@ const OrganizationsTable = () => {
   const { tab, handleTabChange, routerRef } = useHashRouter({
     sessionKey: SESSION_STORAGE_KEY,
     defaultPath: 'organizations',
-    routes: ['organizations', 'requests'],
+    routes: ['organizations', 'requests', 'settings'],
   })
 
   return (
@@ -45,6 +47,11 @@ const OrganizationsTable = () => {
             active={tab === 'requests'}
             onClick={() => handleTabChange('requests')}
           />
+          <Tab
+            label={formatMessage(settingsMessages.tablePageTitle)}
+            active={tab === 'settings'}
+            onClick={() => handleTabChange('settings')}
+          />
         </Tabs>
         <Container>
           <div className="mb5">
@@ -57,6 +64,7 @@ const OrganizationsTable = () => {
               exact
               component={OrganizationRequestsTable}
             />
+            <Route path="/settings" exact component={OrganizationSettings} />
           </Switch>
         </Container>
       </HashRouter>

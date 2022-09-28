@@ -1,0 +1,7 @@
+mutation UpdateSalesChannels($channels: [SalesChannelsInput]!) {
+  saveSalesChannels(channels: $channels)
+    @context(provider: "vtex.b2b-organizations-graphql") {
+    status
+    message
+  }
+}
