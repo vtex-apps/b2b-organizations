@@ -121,21 +121,23 @@ const OrganizationDetailsDefault: FunctionComponent<Props> = ({
           })}
         </div>
       </PageBlock>
-      <PageBlock>
-        <h4 className="t-heading-5 mb0 pt3">
-          <FormattedMessage id="admin/b2b-organizations.custom-fields.title" />
-        </h4>
-        {customFieldsState?.map((customField: CustomField, index: number) => (
-          <CustomFieldInput
-            key={`${customField.name} ${index}`}
-            name={customField.name}
-            value={customField.value ?? ''}
-            type={customField.type}
-            index={index}
-            handleUpdate={handleCustomFieldsUpdate}
-          />
-        ))}
-      </PageBlock>
+      {customFieldsState?.length ? (
+        <PageBlock>
+          <h4 className="t-heading-5 mb0 pt3">
+            <FormattedMessage id="admin/b2b-organizations.custom-fields.title" />
+          </h4>
+          {customFieldsState?.map((customField: CustomField, index: number) => (
+            <CustomFieldInput
+              key={`${customField.name} ${index}`}
+              name={customField.name}
+              value={customField.value ?? ''}
+              type={customField.type}
+              index={index}
+              handleUpdate={handleCustomFieldsUpdate}
+            />
+          ))}
+        </PageBlock>
+      ) : null}
     </Fragment>
   )
 }

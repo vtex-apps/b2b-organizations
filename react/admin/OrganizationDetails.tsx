@@ -259,12 +259,14 @@ const OrganizationDetails: FunctionComponent = () => {
   useEffect(() => {
     const customFieldsToShow = joinById(
       data?.getOrganizationById?.customFields || [],
-      defaultCustomFieldsData?.getB2BSettings.organizationCustomFields || []
+      defaultCustomFieldsData?.getB2BSettings?.organizationCustomFields || []
     )
 
     setCustomFieldsState(customFieldsToShow)
   }, [
-    data?.getOrganizationById?.customFields &&
+    data &&
+      defaultCustomFieldsData &&
+      data?.getOrganizationById?.customFields &&
       defaultCustomFieldsData?.getB2BSettings.organizationCustomFields,
   ])
 
