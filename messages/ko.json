@@ -129,6 +129,7 @@
   "admin/b2b-organizations.costCenter-details.delete-address-confirmation": "이 주소를 삭제하시겠습니까?",
   "admin/b2b-organizations.costCenter-details.default-address": "기본 주소",
   "admin/b2b-organizations.costCenter-details.duplicate-address": "중복된 주소",
+  "admin/b2b-organizations.costCenter-details.marketing-tags": "Marketing Tags",
   "admin/b2b-organizations.costCenter-details.phoneNumber": "전화번호",
   "admin/b2b-organizations.costCenter-details.phoneNumber.helpText": "이 비용 센터의 전화번호를 제공하세요. 이 비용 센터에 속한 모든 사용자의 결제에 표시됩니다. (선택 항목)",
   "admin/b2b-organizations.costCenter-details.businessDocument": "비즈니스 문서",

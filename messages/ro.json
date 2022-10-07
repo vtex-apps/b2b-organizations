@@ -129,6 +129,7 @@
   "admin/b2b-organizations.costCenter-details.delete-address-confirmation": "Sigur vrei să ștergi această adresă?",
   "admin/b2b-organizations.costCenter-details.default-address": "Adresă implicită",
   "admin/b2b-organizations.costCenter-details.duplicate-address": "Duplicare adresă",
+  "admin/b2b-organizations.costCenter-details.marketing-tags": "Marketing Tags",
   "admin/b2b-organizations.costCenter-details.phoneNumber": "Număr de telefon",
   "admin/b2b-organizations.costCenter-details.phoneNumber.helpText": "Furnizează un număr de telefon pentru acest centru de cost. Acesta va fi afișat la finalizarea comenzii pentru orice utilizatori care aparțin acestuia. (Opțional)",
   "admin/b2b-organizations.costCenter-details.businessDocument": "Document comercial",

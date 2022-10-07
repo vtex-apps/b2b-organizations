@@ -129,6 +129,7 @@
   "admin/b2b-organizations.costCenter-details.delete-address-confirmation": "هل أنت متأكد من أنك تريد حذف هذا العنوان؟",
   "admin/b2b-organizations.costCenter-details.default-address": "العنوان الافتراضي",
   "admin/b2b-organizations.costCenter-details.duplicate-address": "تكرار العنوان",
+  "admin/b2b-organizations.costCenter-details.marketing-tags": "Marketing Tags",
   "admin/b2b-organizations.costCenter-details.phoneNumber": "رقم الهاتف",
   "admin/b2b-organizations.costCenter-details.phoneNumber.helpText": "قم بتوفير رقم هاتف لمركز التكلفة هذا. سيتم عرضه في الدفع لأي مستخدم ينتمي إلى مركز التكلفة هذا. (اختياري)",
   "admin/b2b-organizations.costCenter-details.businessDocument": "وثيقة عمل",

@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Added
+
+- Added the marketing tags handling on the cost center details
+
 ## [1.13.1] - 2022-09-28
 
 ### Changed

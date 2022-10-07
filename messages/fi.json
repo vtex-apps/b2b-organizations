@@ -129,6 +129,7 @@
   "admin/b2b-organizations.costCenter-details.delete-address-confirmation": "Oletko varma, että haluat poistaa tämän osoitteen?",
   "admin/b2b-organizations.costCenter-details.default-address": "Oletusosoite",
   "admin/b2b-organizations.costCenter-details.duplicate-address": "Sähköpostiosoitteen kaksoiskappale",
+  "admin/b2b-organizations.costCenter-details.marketing-tags": "Marketing Tags",
   "admin/b2b-organizations.costCenter-details.phoneNumber": "Puhelinnumero",
   "admin/b2b-organizations.costCenter-details.phoneNumber.helpText": "Anna puhelinnumero tälle kustannuspaikalle. Tämä näytetään kassalla käyttäjille, jotka kuuluvat tähän kustannuspaikkaan. (Valinnainen)",
   "admin/b2b-organizations.costCenter-details.businessDocument": "Yritysasiakirja",

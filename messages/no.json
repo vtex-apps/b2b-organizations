@@ -129,6 +129,7 @@
   "admin/b2b-organizations.costCenter-details.delete-address-confirmation": "Er du sikker på at du vil slette denne adressen?",
   "admin/b2b-organizations.costCenter-details.default-address": "Standardadresse",
   "admin/b2b-organizations.costCenter-details.duplicate-address": "Duplikatadresse",
+  "admin/b2b-organizations.costCenter-details.marketing-tags": "Marketing Tags",
   "admin/b2b-organizations.costCenter-details.phoneNumber": "Telefonnummer",
   "admin/b2b-organizations.costCenter-details.phoneNumber.helpText": "Oppgi et telefonnummer for dette kostnadssenteret. Dette vil vises i kassen for alle brukere som tilhører dette kostnadssenteret. (Valgfritt)",
   "admin/b2b-organizations.costCenter-details.businessDocument": "Forretningsdokument",
