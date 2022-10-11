@@ -129,6 +129,7 @@
   "admin/b2b-organizations.costCenter-details.delete-address-confirmation": "Segur que voleu suprimir aquesta adreça?",
   "admin/b2b-organizations.costCenter-details.default-address": "Adreça predeterminada",
   "admin/b2b-organizations.costCenter-details.duplicate-address": "Adreça duplicada",
+  "admin/b2b-organizations.costCenter-details.marketing-tags": "Marketing Tags",
   "admin/b2b-organizations.costCenter-details.phoneNumber": "Número de telèfon",
   "admin/b2b-organizations.costCenter-details.phoneNumber.helpText": "Proporcioneu un número de telèfon per a aquest centre de costs. Aquest número es mostrarà en el procés de pagament per a qualsevol usuari que pertanyi a aquest centre de costs. (Opcional)",
   "admin/b2b-organizations.costCenter-details.businessDocument": "Document empresarial",

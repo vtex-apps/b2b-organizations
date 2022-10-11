@@ -129,6 +129,7 @@
   "admin/b2b-organizations.costCenter-details.delete-address-confirmation": "Jste si jisti, že chcete smazat tuto adresu?",
   "admin/b2b-organizations.costCenter-details.default-address": "Výchozí adresa",
   "admin/b2b-organizations.costCenter-details.duplicate-address": "Duplicitní adresa",
+  "admin/b2b-organizations.costCenter-details.marketing-tags": "Marketing Tags",
   "admin/b2b-organizations.costCenter-details.phoneNumber": "Telefonní číslo",
   "admin/b2b-organizations.costCenter-details.phoneNumber.helpText": "Uveďte telefonní číslo tohoto nákladového střediska. Pro všechny uživatele patřící k tomuto nákladovému středisku bude zobrazeno u pokladny. (Nepovinné)",
   "admin/b2b-organizations.costCenter-details.businessDocument": "Obchodní dokument",

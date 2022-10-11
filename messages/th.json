@@ -129,6 +129,7 @@
   "admin/b2b-organizations.costCenter-details.delete-address-confirmation": "คุณยืนยันหรือไม่ว่าต้องการลบที่อยู่นี้",
   "admin/b2b-organizations.costCenter-details.default-address": "ค่าเริ่มต้นที่อยู่",
   "admin/b2b-organizations.costCenter-details.duplicate-address": "ที่อยู่ซ้ำ",
+  "admin/b2b-organizations.costCenter-details.marketing-tags": "Marketing Tags",
   "admin/b2b-organizations.costCenter-details.phoneNumber": "เบอร์โทร",
   "admin/b2b-organizations.costCenter-details.phoneNumber.helpText": "เลือกให้เบอร์โทรสำหรับศูนย์ต้นทุน ซึ่งจะแสดงเป็นเบอร์โทรในการเช็คเอาต์สำหรับผู้ใช้ทุกรายของศูนย์ต้นทุนนี้ (ไม่บังคับ)",
   "admin/b2b-organizations.costCenter-details.businessDocument": "เอกสารธุรกิจ",

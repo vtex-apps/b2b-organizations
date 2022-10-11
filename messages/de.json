@@ -129,6 +129,7 @@
   "admin/b2b-organizations.costCenter-details.delete-address-confirmation": "Wollen Sie diese Adresse wirklich löschen?",
   "admin/b2b-organizations.costCenter-details.default-address": "Standardadresse",
   "admin/b2b-organizations.costCenter-details.duplicate-address": "Doppelte Adresse",
+  "admin/b2b-organizations.costCenter-details.marketing-tags": "Marketing Tags",
   "admin/b2b-organizations.costCenter-details.phoneNumber": "Rufnummer",
   "admin/b2b-organizations.costCenter-details.phoneNumber.helpText": "Geben Sie eine Telefonnummer für diese Kostenstelle an. Optional wird diese als Telefonnummer in der Kasse für alle Benutzer dieser Kostenstelle festgelegt",
   "admin/b2b-organizations.costCenter-details.businessDocument": "Geschäftsdokument",

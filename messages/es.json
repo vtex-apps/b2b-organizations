@@ -129,6 +129,7 @@
   "admin/b2b-organizations.costCenter-details.delete-address-confirmation": "¿Estás seguro de que deseas eliminar esta dirección?",
   "admin/b2b-organizations.costCenter-details.default-address": "Dirección estándar",
   "admin/b2b-organizations.costCenter-details.duplicate-address": "Dirección duplicada",
+  "admin/b2b-organizations.costCenter-details.marketing-tags": "Marketing Tags",
   "admin/b2b-organizations.costCenter-details.phoneNumber": "Número de teléfono",
   "admin/b2b-organizations.costCenter-details.phoneNumber.helpText": "Proporciona un número de teléfono para este centro de costos. Se mostrará en el checkout para cualquier usuario que pertenezca a este centro de costos. (Opcional)",
   "admin/b2b-organizations.costCenter-details.businessDocument": "Documento empresarial",
