@@ -26,7 +26,9 @@ const OrganizationDetailsSalesChannel = ({
   /**
    * States
    */
-  const [salesChannelOptions, setSalesChannelOptions] = useState([] as SalesChannel[])
+  const [salesChannelOptions, setSalesChannelOptions] = useState(
+    [] as SalesChannel[]
+  )
 
   /**
    * Queries
