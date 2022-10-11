@@ -1,0 +1,7 @@
+mutation SetMarketingTags($costId: ID!, $tags: [String]!) {
+  setMarketingTags(costId: $costId, tags: $tags)
+    @context(provider: "vtex.b2b-organizations-graphql") {
+    message
+    status
+  }
+}

@@ -130,6 +130,7 @@
   "admin/b2b-organizations.costCenter-details.delete-address-confirmation": "この所在地を削除してもよろしいですか？",
   "admin/b2b-organizations.costCenter-details.default-address": "デフォルトの所在地",
   "admin/b2b-organizations.costCenter-details.duplicate-address": "所在地をコピーする",
+  "admin/b2b-organizations.costCenter-details.marketing-tags": "Marketing Tags",
   "admin/b2b-organizations.costCenter-details.phoneNumber": "電話番号",
   "admin/b2b-organizations.costCenter-details.phoneNumber.helpText": "このコストセンターの電話番号を入力してください。これは、このコストセンターに所属するユーザー全員に対し、チェックアウトで表示されます。 (任意)",
   "admin/b2b-organizations.costCenter-details.businessDocument": "ビジネスドキュメント",

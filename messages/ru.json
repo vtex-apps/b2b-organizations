@@ -130,6 +130,7 @@
   "admin/b2b-organizations.costCenter-details.delete-address-confirmation": "Вы действительно хотите удалить этот адрес?",
   "admin/b2b-organizations.costCenter-details.default-address": "Стандартный адрес",
   "admin/b2b-organizations.costCenter-details.duplicate-address": "Дублировать адрес",
+  "admin/b2b-organizations.costCenter-details.marketing-tags": "Marketing Tags",
   "admin/b2b-organizations.costCenter-details.phoneNumber": "Номер телефона",
   "admin/b2b-organizations.costCenter-details.phoneNumber.helpText": "Укажите номер телефона этого финансового центра. Он будет отображаться при оформлении заказа тем пользователям, которые относятся к этому финансовому центру. (Необязательно)",
   "admin/b2b-organizations.costCenter-details.businessDocument": "Деловая документация",

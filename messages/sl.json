@@ -130,6 +130,7 @@
   "admin/b2b-organizations.costCenter-details.delete-address-confirmation": "Ali ste prepričani, da želite izbrisati ta naslov?",
   "admin/b2b-organizations.costCenter-details.default-address": "Privzeti naslov",
   "admin/b2b-organizations.costCenter-details.duplicate-address": "Podvoji naslov",
+  "admin/b2b-organizations.costCenter-details.marketing-tags": "Marketing Tags",
   "admin/b2b-organizations.costCenter-details.phoneNumber": "Telefonska številka",
   "admin/b2b-organizations.costCenter-details.phoneNumber.helpText": "Navedite telefonsko številko tega stroškovnega mesta. To bo prikazano na blagajni za vse uporabnike, ki pripadajo temu stroškovnemu mestu. (Neobvezno)",
   "admin/b2b-organizations.costCenter-details.businessDocument": "Poslovni dokument",

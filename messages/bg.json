@@ -130,6 +130,7 @@
   "admin/b2b-organizations.costCenter-details.delete-address-confirmation": "Наистина ли искате да изтриете този адрес?",
   "admin/b2b-organizations.costCenter-details.default-address": "Адрес по подразбиране",
   "admin/b2b-organizations.costCenter-details.duplicate-address": "Дублиране на адреса",
+  "admin/b2b-organizations.costCenter-details.marketing-tags": "Marketing Tags",
   "admin/b2b-organizations.costCenter-details.phoneNumber": "Телефонен номер",
   "admin/b2b-organizations.costCenter-details.phoneNumber.helpText": "Предоставете телефонен номер за този разходен център. Той ще се показва при финализирането за всички потребители, които попадат в този разходен център. (По желание)",
   "admin/b2b-organizations.costCenter-details.businessDocument": "Бизнес документ",
