@@ -83,6 +83,7 @@
   "admin/b2b-organizations.organization-details.collections": "Kollektioner",
   "admin/b2b-organizations.organization-details.paymentTerms": "Betalingsbetingelser",
   "admin/b2b-organizations.organization-details.price-tables": "Pristabeller",
+  "admin/b2b-organizations.organization-details.sales-channel": "Sales Channel",
   "admin/b2b-organizations.organization-details.assigned-to-org": "Tildelt organisation",
   "admin/b2b-organizations.organization-details.available": "Tilgængelig",
   "admin/b2b-organizations.organization-details.remove-from-org": "Fjern fra org.",

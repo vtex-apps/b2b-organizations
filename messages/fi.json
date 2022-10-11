@@ -83,6 +83,7 @@
   "admin/b2b-organizations.organization-details.collections": "Kokoelmat",
   "admin/b2b-organizations.organization-details.paymentTerms": "Maksuehdot",
   "admin/b2b-organizations.organization-details.price-tables": "Hinnastot",
+  "admin/b2b-organizations.organization-details.sales-channel": "Sales Channel",
   "admin/b2b-organizations.organization-details.assigned-to-org": "Määrätty organisaatiolle",
   "admin/b2b-organizations.organization-details.available": "Saatavilla",
   "admin/b2b-organizations.organization-details.remove-from-org": "Poista organisaatiosta",

@@ -83,6 +83,7 @@
   "admin/b2b-organizations.organization-details.collections": "コレクション",
   "admin/b2b-organizations.organization-details.paymentTerms": "支払い条件",
   "admin/b2b-organizations.organization-details.price-tables": "価格表",
+  "admin/b2b-organizations.organization-details.sales-channel": "Sales Channel",
   "admin/b2b-organizations.organization-details.assigned-to-org": "組織に割り当てられています",
   "admin/b2b-organizations.organization-details.available": "利用可能",
   "admin/b2b-organizations.organization-details.remove-from-org": "組織から削除する",

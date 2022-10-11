@@ -83,6 +83,7 @@
   "admin/b2b-organizations.organization-details.collections": "คอลเล็กชัน",
   "admin/b2b-organizations.organization-details.paymentTerms": "ข้อกำหนดการชำระเงิน",
   "admin/b2b-organizations.organization-details.price-tables": "ตารางราคา",
+  "admin/b2b-organizations.organization-details.sales-channel": "Sales Channel",
   "admin/b2b-organizations.organization-details.assigned-to-org": "กำหนดให้องค์กรแล้ว",
   "admin/b2b-organizations.organization-details.available": "พร้อมใช้",
   "admin/b2b-organizations.organization-details.remove-from-org": "ลบออกจากองค์กร",

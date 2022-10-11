@@ -83,6 +83,7 @@
   "admin/b2b-organizations.organization-details.collections": "Collecties",
   "admin/b2b-organizations.organization-details.paymentTerms": "Betalingsvoorwaarden",
   "admin/b2b-organizations.organization-details.price-tables": "Prijstabellen",
+  "admin/b2b-organizations.organization-details.sales-channel": "Sales Channel",
   "admin/b2b-organizations.organization-details.assigned-to-org": "Toegewezen aan organisatie",
   "admin/b2b-organizations.organization-details.available": "Beschikbaar",
   "admin/b2b-organizations.organization-details.remove-from-org": "Verwijder uit org",

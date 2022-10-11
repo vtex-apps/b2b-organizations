@@ -69,6 +69,9 @@ export const organizationMessages = defineMessages({
   priceTables: {
     id: `${adminPrefix}organization-details.price-tables`,
   },
+  salesChannel: {
+    id: `${adminPrefix}organization-details.sales-channel`,
+  },
   users: {
     id: `${adminPrefix}organization-details.users`,
   },

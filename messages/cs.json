@@ -83,6 +83,7 @@
   "admin/b2b-organizations.organization-details.collections": "Sbírky",
   "admin/b2b-organizations.organization-details.paymentTerms": "Platební podmínky",
   "admin/b2b-organizations.organization-details.price-tables": "Cenové tabulky",
+  "admin/b2b-organizations.organization-details.sales-channel": "Sales Channel",
   "admin/b2b-organizations.organization-details.assigned-to-org": "Přiřazeno organizaci",
   "admin/b2b-organizations.organization-details.available": "Dostupné",
   "admin/b2b-organizations.organization-details.remove-from-org": "Odebrat z organizace",
