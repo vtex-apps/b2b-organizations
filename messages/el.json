@@ -129,6 +129,7 @@
   "admin/b2b-organizations.costCenter-details.delete-address-confirmation": "Είστε βέβαιοι ότι θέλετε να διαγράψετε αυτή τη διεύθυνση;",
   "admin/b2b-organizations.costCenter-details.default-address": "Προεπιλεγμένη διεύθυνση",
   "admin/b2b-organizations.costCenter-details.duplicate-address": "Διπλότυπη διεύθυνση",
+  "admin/b2b-organizations.costCenter-details.marketing-tags": "Marketing Tags",
   "admin/b2b-organizations.costCenter-details.phoneNumber": "Αριθμός τηλεφώνου",
   "admin/b2b-organizations.costCenter-details.phoneNumber.helpText": "Παρέχετε αριθμό τηλεφώνου για αυτό το κέντρο κόστους. Αυτό θα εμφανιστεί στην ολοκλήρωση της αγοράς για όλους τους χρήστες που ανήκουν σε αυτό το κέντρο κόστους. (Προαιρετικό)",
   "admin/b2b-organizations.costCenter-details.businessDocument": "Επιχειρηματικό έγγραφο",

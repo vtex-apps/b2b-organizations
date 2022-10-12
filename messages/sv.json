@@ -129,6 +129,7 @@
   "admin/b2b-organizations.costCenter-details.delete-address-confirmation": "Är du säker du vill ta bort denna adress?",
   "admin/b2b-organizations.costCenter-details.default-address": "Standardadress",
   "admin/b2b-organizations.costCenter-details.duplicate-address": "Dubbel adress",
+  "admin/b2b-organizations.costCenter-details.marketing-tags": "Marketing Tags",
   "admin/b2b-organizations.costCenter-details.phoneNumber": "Telefonnummer",
   "admin/b2b-organizations.costCenter-details.phoneNumber.helpText": "Ange ett telefonnummer för detta kostnadsställe. Detta kommer att visas i kassan för alla användare som tillhör detta kostnadsställe. (Valfritt)",
   "admin/b2b-organizations.costCenter-details.businessDocument": "Affärsdokument",

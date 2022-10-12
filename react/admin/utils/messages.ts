@@ -297,6 +297,9 @@ export const costCenterMessages = defineMessages({
   duplicateAddress: {
     id: `${adminPrefix}costCenter-details.duplicate-address`,
   },
+  marketingTags: {
+    id: `${adminPrefix}costCenter-details.marketing-tags`,
+  },
 })
 
 export const organizationRequestMessages = defineMessages({

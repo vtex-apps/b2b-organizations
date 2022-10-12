@@ -1,0 +1,6 @@
+query GetMarketingTags($costId: ID!) {
+  getMarketingTags(costId: $costId)
+    @context(provider: "vtex.b2b-organizations-graphql") {
+    tags
+  }
+}

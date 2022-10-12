@@ -129,6 +129,7 @@
   "admin/b2b-organizations.costCenter-details.delete-address-confirmation": "Weet u zeker dat u dit adres wilt verwijderen?",
   "admin/b2b-organizations.costCenter-details.default-address": "Standaard adres",
   "admin/b2b-organizations.costCenter-details.duplicate-address": "Dupliceer adres",
+  "admin/b2b-organizations.costCenter-details.marketing-tags": "Marketing Tags",
   "admin/b2b-organizations.costCenter-details.phoneNumber": "Telefoonnummer",
   "admin/b2b-organizations.costCenter-details.phoneNumber.helpText": "Geef een telefoonnummer op voor dit kostencentrum. Dit wordt bij het afrekenen weergegeven voor gebruikers die behoren tot dit kostencentrum. (Optioneel)",
   "admin/b2b-organizations.costCenter-details.businessDocument": "Zakelijk document",

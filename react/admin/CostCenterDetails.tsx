@@ -15,6 +15,7 @@ import {
   Modal,
   ModalDialog,
   Toggle,
+  Tag,
 } from 'vtex.styleguide'
 import { useToast } from '@vtex/admin-ui'
 import { useIntl, FormattedMessage } from 'react-intl'
@@ -36,8 +37,10 @@ import { validatePhoneNumber } from '../modules/formValidators'
 import GET_COST_CENTER from '../graphql/getCostCenter.graphql'
 import GET_ORGANIZATION from '../graphql/getOrganization.graphql'
 import UPDATE_COST_CENTER from '../graphql/updateCostCenter.graphql'
+import SET_MARKETING_TAGS from '../graphql/setMarketingTags.graphql'
 import DELETE_COST_CENTER from '../graphql/deleteCostCenter.graphql'
 import GET_LOGISTICS from '../graphql/getLogistics.graphql'
+import GET_MARKETING_TAGS from '../graphql/getMarketingTags.graphql'
 
 const CostCenterDetails: FunctionComponent = () => {
   const { formatMessage } = useIntl()
@@ -81,6 +84,9 @@ const CostCenterDetails: FunctionComponent = () => {
     addValidation(getEmptyAddress(country))
   )
 
+  const [tags, setTags] = useState([] as string[])
+  const [tagName, setTagName] = useState('')
+
   const { data, loading, refetch } = useQuery(GET_COST_CENTER, {
     variables: { id: params?.id },
     skip: !params?.id,
@@ -94,8 +100,21 @@ const CostCenterDetails: FunctionComponent = () => {
 
   const { data: logisticsData } = useQuery(GET_LOGISTICS, { ssr: false })
 
+  useQuery(GET_MARKETING_TAGS, {
+    variables: {
+      costId: params?.id,
+      fetchPolicy: 'network-only',
+      skip: !params?.id,
+      ssr: false,
+    },
+    onCompleted: _tags => {
+      setTags(_tags?.getMarketingTags?.tags)
+    },
+  })
+
   const [updateCostCenter] = useMutation(UPDATE_COST_CENTER)
   const [deleteCostCenter] = useMutation(DELETE_COST_CENTER)
+  const [setMarktingTags] = useMutation(SET_MARKETING_TAGS)
 
   const translateCountries = () => {
     const { shipsTo = [] } = logisticsData?.logistics ?? {}
@@ -170,6 +189,10 @@ const CostCenterDetails: FunctionComponent = () => {
         businessDocument,
       },
     }
+
+    setMarktingTags({
+      variables: { tags, costId: params?.id },
+    }).catch(error => console.error(error))
 
     updateCostCenter({ variables })
       .then(() => {
@@ -353,6 +376,15 @@ const CostCenterDetails: FunctionComponent = () => {
     handleCloseModals()
   }
 
+  const handleMarketingTags = (tagValue: string) => {
+    setTags([...tags, tagValue])
+    setTagName('')
+  }
+
+  const removeMarketingTag = (tagValue: string) => {
+    setTags(tags.filter(_tag => _tag !== tagValue))
+  }
+
   const options = (addressId: string) => [
     {
       label: formatMessage(messages.addressEdit),
@@ -464,6 +496,37 @@ const CostCenterDetails: FunctionComponent = () => {
               setBusinessDocument(e.target.value)
             }}
           />
+        </div>
+        <div className="w-100 mv6">
+          <div className="flex items-end">
+            <div className="col4">
+              <Input
+                autocomplete="off"
+                size="large"
+                label={formatMessage(messages.marketingTags)}
+                value={tagName}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                  setTagName(e.target.value)
+                }}
+              />
+            </div>
+            <span className="ml5">
+              <Button
+                variation="primary"
+                onClick={() => handleMarketingTags(tagName)}
+                disabled={!tagName || tagName.length === 0}
+              >
+                {formatMessage(messages.add)}
+              </Button>
+            </span>
+          </div>
+          <div className="flex mt5">
+            {tags?.map((tag: string) => (
+              <div className="ma3">
+                <Tag onClick={() => removeMarketingTag(tag)}>{tag}</Tag>
+              </div>
+            ))}
+          </div>
         </div>
       </PageBlock>
       <PageBlock title={formatMessage(messages.addresses)}>

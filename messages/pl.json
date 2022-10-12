@@ -129,6 +129,7 @@
   "admin/b2b-organizations.costCenter-details.delete-address-confirmation": "Czy na pewno chcesz usunąć ten adres?",
   "admin/b2b-organizations.costCenter-details.default-address": "Domyślny adres",
   "admin/b2b-organizations.costCenter-details.duplicate-address": "Duplikuj adres",
+  "admin/b2b-organizations.costCenter-details.marketing-tags": "Marketing Tags",
   "admin/b2b-organizations.costCenter-details.phoneNumber": "Numer telefonu",
   "admin/b2b-organizations.costCenter-details.phoneNumber.helpText": "Podaj numer telefonu dla tego centrum kosztów. Zostanie on ustawiony jako numer telefonu w kasie dla wszystkich użytkowników należących do tego centrum kosztów. (Opcjonalnie)",
   "admin/b2b-organizations.costCenter-details.businessDocument": "Dokument biznesowy",
