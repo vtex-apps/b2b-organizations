@@ -83,6 +83,7 @@
   "admin/b2b-organizations.organization-details.collections": "Συλλογές",
   "admin/b2b-organizations.organization-details.paymentTerms": "Όροι πληρωμής",
   "admin/b2b-organizations.organization-details.price-tables": "Πίνακες τιμών",
+  "admin/b2b-organizations.organization-details.sales-channel": "Sales Channel",
   "admin/b2b-organizations.organization-details.assigned-to-org": "Ανατέθηκε σε οργανισμό",
   "admin/b2b-organizations.organization-details.available": "Διαθέσιμο",
   "admin/b2b-organizations.organization-details.remove-from-org": "Αφαίρεση από οργανισμό",

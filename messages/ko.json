@@ -83,6 +83,7 @@
   "admin/b2b-organizations.organization-details.collections": "컬렉션",
   "admin/b2b-organizations.organization-details.paymentTerms": "지불 조건",
   "admin/b2b-organizations.organization-details.price-tables": "가격표",
+  "admin/b2b-organizations.organization-details.sales-channel": "Sales Channel",
   "admin/b2b-organizations.organization-details.assigned-to-org": "조직에 할당됨",
   "admin/b2b-organizations.organization-details.available": "사용 가능",
   "admin/b2b-organizations.organization-details.remove-from-org": "조직에서 삭제",

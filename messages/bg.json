@@ -83,6 +83,7 @@
   "admin/b2b-organizations.organization-details.collections": "Колекции",
   "admin/b2b-organizations.organization-details.paymentTerms": "Условия на плащане",
   "admin/b2b-organizations.organization-details.price-tables": "Ценови таблици",
+  "admin/b2b-organizations.organization-details.sales-channel": "Sales Channel",
   "admin/b2b-organizations.organization-details.assigned-to-org": "Зададено на организация",
   "admin/b2b-organizations.organization-details.available": "Налично",
   "admin/b2b-organizations.organization-details.remove-from-org": "Премахване от организацията",

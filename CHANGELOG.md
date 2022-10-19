@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Changed
+
+- Move the sales channel to a separate tab and made it radio type field
+
 ## [1.14.0] - 2022-10-11
 
 ### Added
