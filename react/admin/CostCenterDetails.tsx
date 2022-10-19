@@ -108,7 +108,7 @@ const CostCenterDetails: FunctionComponent = () => {
       ssr: false,
     },
     onCompleted: _tags => {
-      setTags(_tags?.getMarketingTags?.tags)
+      setTags(_tags?.getMarketingTags?.tags || [])
     },
   })
 
