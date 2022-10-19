@@ -2,7 +2,7 @@ import React, { Fragment, useEffect, useState } from 'react'
 import type { FunctionComponent } from 'react'
 import { useQuery, useMutation } from 'react-apollo'
 import { useIntl, FormattedMessage } from 'react-intl'
-import { AutocompleteInput, Button } from 'vtex.styleguide'
+import { AutocompleteInput, Button, Tag } from 'vtex.styleguide'
 import { useCssHandles } from 'vtex.css-handles'
 import { useRuntime } from 'vtex.render-runtime'
 
@@ -222,6 +222,34 @@ const UserWidget: FunctionComponent = () => {
     })
   }, [userWidgetData])
 
+  const handleStatusMessage = (status: string) => {
+    switch (status) {
+      case 'active':
+        return (
+          <Tag type="success" size="small">
+            {formatMessage(messages.active)}
+          </Tag>
+        )
+
+      case 'on-hold':
+        return (
+          <Tag type="warning" size="small">
+            {formatMessage(messages.onHold)}
+          </Tag>
+        )
+
+      case 'inactive':
+        return (
+          <Tag type="error" size="small">
+            {formatMessage(messages.inactive)}
+          </Tag>
+        )
+
+      default:
+        return ''
+    }
+  }
+
   const autoCompleteOrganizationOptions = {
     value: organizationsState.organizationOptions,
     renderOption: (props: any) => <CustomOrganizationOption {...props} />,
@@ -282,6 +310,9 @@ const UserWidget: FunctionComponent = () => {
               {`${formatMessage(messages.organization)} ${
                 userWidgetData?.getOrganizationByIdStorefront?.name
               }`}
+              {handleStatusMessage(
+                userWidgetData?.getOrganizationByIdStorefront?.status ?? ''
+              )}
             </Fragment>
           )}
         </div>
