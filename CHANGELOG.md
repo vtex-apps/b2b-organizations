@@ -7,9 +7,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
-## [2.1.1] - 2022-09-30
+## [1.13.0] - 2022-09-22
 
-## [2.1.0] - 2022-09-22
+### Added
+
+- Added custom fields for Organizations and Cost Centers
 
 ## [1.12.1] - 2022-07-22
 
@@ -46,8 +48,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Initial Crowdin integration
 
 ## [1.11.0] - 2022-06-23
-- 
+
+-
+
 ### Added
+
 - UI support for organization `tradeName` and cost center `phoneNumber` fields
 
 ## [1.10.3] - 2022-06-22

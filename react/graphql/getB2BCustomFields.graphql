@@ -1,5 +1,5 @@
 query GetB2BCustomFields {
-  getB2BSettings @context(provider: "syatt.b2b-organizations-graphql") {
+  getB2BSettings @context(provider: "vtex.b2b-organizations-graphql") {
     organizationCustomFields {
       name
       type
