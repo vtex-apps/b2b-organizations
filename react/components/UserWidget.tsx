@@ -299,7 +299,7 @@ const UserWidget: FunctionComponent = () => {
         <div
           className={`${handles.userWidgetItem} pa3 br2 bg-base--inverted hover-bg-base--inverted active-bg-base--inverted c-on-base--inverted hover-c-on-base--inverted active-c-on-base--inverted dib mr3`}
         >
-          {(!userWidgetData?.impersonation?.email &&
+          {(!userWidgetData?.checkImpersonation?.email &&
             organizationsState.organizationOptions.length > 1 && (
               <AutocompleteInput
                 input={organizationAutoCompleteInput}
@@ -319,7 +319,7 @@ const UserWidget: FunctionComponent = () => {
         <div
           className={`${handles.userWidgetItem} pa3 br2 bg-base--inverted hover-bg-base--inverted active-bg-base--inverted c-on-base--inverted hover-c-on-base--inverted active-c-on-base--inverted dib mr3`}
         >
-          {(!userWidgetData?.impersonation?.email &&
+          {(!userWidgetData?.checkImpersonation?.email &&
             organizationsState.organizationOptions.length > 1 && (
               <AutocompleteInput
                 input={costCenterAutoCompleteInput}
@@ -333,7 +333,7 @@ const UserWidget: FunctionComponent = () => {
             </Fragment>
           )}
         </div>
-        {!userWidgetData?.impersonation?.email &&
+        {!userWidgetData?.checkImpersonation?.email &&
           organizationsState.organizationOptions.length > 1 && (
             <div
               className={`${handles.userWidgetItem} pa3 br2 bg-base--inverted hover-bg-base--inverted active-bg-base--inverted c-on-base--inverted hover-c-on-base--inverted active-c-on-base--inverted dib mr3`}
@@ -378,15 +378,15 @@ const UserWidget: FunctionComponent = () => {
           </Button>
         </div>
       </div>
-      {userWidgetData?.impersonation?.email && (
+      {userWidgetData?.checkImpersonation?.email && (
         <div
-          className={`${handles.userWidgetRow} flex justify-end items-center`}
+          className={`${handles.userWidgetRow} flex justify-center items-center`}
         >
           <div
             className={`${handles.userWidgetImpersonationItem} pa3 br2 bg-base--inverted hover-bg-base--inverted active-bg-base--inverted c-on-base--inverted hover-c-on-base--inverted active-c-on-base--inverted dib mr3`}
           >
             {`${formatMessage(messages.impersonating)} ${
-              userWidgetData?.impersonation.email
+              userWidgetData?.checkImpersonation.email
             }`}
           </div>
           <div className={`${handles.userWidgetImpersonationButton} pa3`}>
