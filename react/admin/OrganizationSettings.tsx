@@ -49,6 +49,7 @@ const OrganizationSettings: FunctionComponent = () => {
   useEffect(() => {
     if (data) {
       const options: any[] = []
+
       data.salesChannels.forEach((item: { id: string; name: string }) => {
         options.push({
           channelId: item.id,
@@ -63,6 +64,7 @@ const OrganizationSettings: FunctionComponent = () => {
   useEffect(() => {
     if (selectedData) {
       const selectedOptions: any[] = []
+
       selectedData.getSalesChannels.forEach(
         (item: { id: string; name: string }) => {
           selectedOptions.push({
@@ -77,14 +79,12 @@ const OrganizationSettings: FunctionComponent = () => {
   }, [selectedData])
 
   const getSchema = () => {
-    let cellRenderer
-
-    cellRenderer = ({
+    const cellRenderer = ({
       rowData: { channelId, name, tableName },
     }: CellRendererProps<SalesChannel>) => {
       const assigned = selectedChannels.some(
-            channel => channel.channelId === channelId
-          )
+        channel => channel.channelId === channelId
+      )
 
       return (
         <span className={assigned ? 'c-disabled' : ''}>
@@ -98,7 +98,7 @@ const OrganizationSettings: FunctionComponent = () => {
       properties: {
         name: {
           title: 'Sales Channels',
-          ...({ cellRenderer }),
+          ...{ cellRenderer },
         },
       },
     }
@@ -139,11 +139,13 @@ const OrganizationSettings: FunctionComponent = () => {
 
     selectedRows.forEach((row: any) => {
       if (
-        !selectedChannels.some(
-          channel => channel.channelId === row.channelId
-        )
+        !selectedChannels.some(channel => channel.channelId === row.channelId)
       ) {
-        newBindings.push({ channelId: row.channelId, name: row.name, tableName: `${row.name} (${row.channelId})`})
+        newBindings.push({
+          channelId: row.channelId,
+          name: row.name,
+          tableName: `${row.name} (${row.channelId})`,
+        })
       }
     })
 
@@ -190,40 +192,37 @@ const OrganizationSettings: FunctionComponent = () => {
       title={formatMessage(messages.bindingTitle)}
       titleAside={
         <span className="mt4 flex justify-end">
-          <Button
-            variation="primary"
-            onClick={() => handleUpdateRequest()}
-          >
+          <Button variation="primary" onClick={() => handleUpdateRequest()}>
             <FormattedMessage id="admin/b2b-organizations.costCenter-details.button.save" />
           </Button>
         </span>
       }
     >
-        <div>
-          <h4 className="t-heading-4 mt0 mb0">
-            <FormattedMessage id="admin/b2b-organizations.organization-settings-select.binding.selected" />
-          </h4>
-          {selectedChannels ? (
-            <Table
-              fullWidth
-              schema={defaultSchema}
-              items={selectedChannels}
-              bulkActions={bulkActions(handleRemoveBinding)}
-            />
-          ) : null}
-        </div>
-        <div>
-          <h4 className="t-heading-4 mt0 mb0">
-            <FormattedMessage id="admin/b2b-organizations.organization-settings-select.binding.available" />
-          </h4>
+      <div>
+        <h4 className="t-heading-4 mt0 mb0">
+          <FormattedMessage id="admin/b2b-organizations.organization-settings-select.binding.selected" />
+        </h4>
+        {selectedChannels ? (
           <Table
             fullWidth
-            schema={getSchema()}
-            items={salesChannels}
-            bulkActions={bulkActions(handleAddBinding)}
+            schema={defaultSchema}
+            items={selectedChannels}
+            bulkActions={bulkActions(handleRemoveBinding)}
           />
-        </div>
-      </PageBlock>
+        ) : null}
+      </div>
+      <div>
+        <h4 className="t-heading-4 mt0 mb0">
+          <FormattedMessage id="admin/b2b-organizations.organization-settings-select.binding.available" />
+        </h4>
+        <Table
+          fullWidth
+          schema={getSchema()}
+          items={salesChannels}
+          bulkActions={bulkActions(handleAddBinding)}
+        />
+      </div>
+    </PageBlock>
   )
 }
 
