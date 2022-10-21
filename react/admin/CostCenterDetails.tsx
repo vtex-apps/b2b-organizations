@@ -101,6 +101,9 @@ const CostCenterDetails: FunctionComponent = () => {
   const { data: logisticsData } = useQuery(GET_LOGISTICS, { ssr: false })
 
   useQuery(GET_MARKETING_TAGS, {
+    skip: !params?.id,
+    ssr: false,
+    fetchPolicy: 'network-only',
     variables: {
       costId: params?.id,
       fetchPolicy: 'network-only',
@@ -108,7 +111,7 @@ const CostCenterDetails: FunctionComponent = () => {
       ssr: false,
     },
     onCompleted: _tags => {
-      setTags(_tags?.getMarketingTags?.tags)
+      setTags(_tags?.getMarketingTags?.tags || [])
     },
   })
 
