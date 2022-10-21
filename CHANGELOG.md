@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Changed
+
+- Improve the organization binding setting UI
+
 ## [1.14.1] - 2022-10-19
 
 ### Changed
