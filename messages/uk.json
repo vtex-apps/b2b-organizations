@@ -83,6 +83,7 @@
   "admin/b2b-organizations.organization-details.collections": "Колекції",
   "admin/b2b-organizations.organization-details.paymentTerms": "Умови оплати",
   "admin/b2b-organizations.organization-details.price-tables": "Прейскуранти",
+  "admin/b2b-organizations.organization-details.sales-channel": "Sales Channel",
   "admin/b2b-organizations.organization-details.assigned-to-org": "Призначено організації",
   "admin/b2b-organizations.organization-details.available": "Доступно",
   "admin/b2b-organizations.organization-details.remove-from-org": "Вилучити з організації",

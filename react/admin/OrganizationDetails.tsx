@@ -27,6 +27,7 @@ import type { PaymentTerm } from './OrganizationDetails/OrganizationDetailsPayTe
 import OrganizationDetailsPayTerms from './OrganizationDetails/OrganizationDetailsPayTerms'
 import type { PriceTable } from './OrganizationDetails/OrganizationDetailsPriceTables'
 import OrganizationDetailsPriceTables from './OrganizationDetails/OrganizationDetailsPriceTables'
+import OrganizationDetailsSalesChannel from './OrganizationDetails/OrganizationDetailsSalesChannel'
 import OrganizationDetailsUsers from './OrganizationDetails/OrganizationDetailsUsers'
 import OrganizationDetailsDefault from './OrganizationDetails/OrganizationDetailsDefault'
 import useHashRouter from './OrganizationDetails/useHashRouter'
@@ -62,6 +63,7 @@ const OrganizationDetails: FunctionComponent = () => {
   const [statusState, setStatusState] = useState('')
   const [collectionsState, setCollectionsState] = useState([] as Collection[])
   const [priceTablesState, setPriceTablesState] = useState([] as string[])
+  const [salesChannelState, setSalesChannelState] = useState('')
   const [errorState, setErrorState] = useState('')
   const [paymentTermsState, setPaymentTermsState] = useState(
     [] as PaymentTerm[]
@@ -115,6 +117,7 @@ const OrganizationDetails: FunctionComponent = () => {
       collections,
       paymentTerms,
       priceTables: priceTablesState,
+      salesChannel: salesChannelState,
     }
 
     updateOrganization({ variables })
@@ -234,6 +237,7 @@ const OrganizationDetails: FunctionComponent = () => {
     setCollectionsState(collections)
     setPaymentTermsState(paymentTerms)
     setPriceTablesState(data.getOrganizationById.priceTables ?? [])
+    setSalesChannelState(data.getOrganizationById.salesChannel ?? '')
   }, [data])
 
   /**
@@ -298,6 +302,16 @@ const OrganizationDetails: FunctionComponent = () => {
           getSchema={getSchema}
           priceTablesState={priceTablesState}
           setPriceTablesState={setPriceTablesState}
+        />
+      ),
+    },
+    {
+      label: formatMessage(messages.salesChannel),
+      tab: 'sales-channel',
+      component: (
+        <OrganizationDetailsSalesChannel
+          salesChannelState={salesChannelState}
+          setSalesChannelState={setSalesChannelState}
         />
       ),
     },

@@ -5,7 +5,6 @@ import { useQuery } from 'react-apollo'
 
 import { organizationMessages as messages } from '../utils/messages'
 import GET_PRICE_TABLES from '../../graphql/getPriceTables.graphql'
-import GET_SALES_CHANNELS from '../../graphql/getSalesChannels.graphql'
 
 export interface PriceTable {
   tableId: string
@@ -35,31 +34,16 @@ const OrganizationDetailsPriceTables = ({
    * Queries
    */
   const { data: priceTablesData } = useQuery(GET_PRICE_TABLES, { ssr: false })
-  const { data: salesChannelsData } = useQuery(GET_SALES_CHANNELS, {
-    ssr: false,
-  })
 
   /**
    * Effects
    */
   useEffect(() => {
-    if (
-      !priceTablesData?.priceTables?.length ||
-      !salesChannelsData?.salesChannels?.length
-    ) {
+    if (!priceTablesData?.priceTables?.length) {
       return
     }
 
     const options = [] as PriceTable[]
-
-    salesChannelsData.salesChannels.forEach(
-      (channel: { id: string; name: string }) => {
-        options.push({
-          tableId: channel.id,
-          name: `${channel.name} (${channel.id})`,
-        })
-      }
-    )
 
     priceTablesData.priceTables.forEach((priceTable: string) => {
       if (!options.find(option => option.tableId === priceTable)) {
@@ -68,7 +52,7 @@ const OrganizationDetailsPriceTables = ({
     })
 
     setPriceTableOptions(options)
-  }, [priceTablesData, salesChannelsData])
+  }, [priceTablesData])
 
   /**
    * Functions

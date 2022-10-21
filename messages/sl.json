@@ -83,6 +83,7 @@
   "admin/b2b-organizations.organization-details.collections": "Zbirke",
   "admin/b2b-organizations.organization-details.paymentTerms": "Pogoji plačila",
   "admin/b2b-organizations.organization-details.price-tables": "Tabela cen",
+  "admin/b2b-organizations.organization-details.sales-channel": "Sales Channel",
   "admin/b2b-organizations.organization-details.assigned-to-org": "Dodano organizacijam",
   "admin/b2b-organizations.organization-details.available": "Na voljo",
   "admin/b2b-organizations.organization-details.remove-from-org": "Odstrani iz org",

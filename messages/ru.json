@@ -83,6 +83,7 @@
   "admin/b2b-organizations.organization-details.collections": "Коллекции",
   "admin/b2b-organizations.organization-details.paymentTerms": "Условия оплаты",
   "admin/b2b-organizations.organization-details.price-tables": "Прейскуранты",
+  "admin/b2b-organizations.organization-details.sales-channel": "Sales Channel",
   "admin/b2b-organizations.organization-details.assigned-to-org": "Назначено огранизации",
   "admin/b2b-organizations.organization-details.available": "Доступно",
   "admin/b2b-organizations.organization-details.remove-from-org": "Удалить из организации",

@@ -83,6 +83,7 @@
   "admin/b2b-organizations.organization-details.collections": "Collezioni",
   "admin/b2b-organizations.organization-details.paymentTerms": "Condizioni di pagamento",
   "admin/b2b-organizations.organization-details.price-tables": "Tabelle prezzi",
+  "admin/b2b-organizations.organization-details.sales-channel": "Sales Channel",
   "admin/b2b-organizations.organization-details.assigned-to-org": "Assegnato all'organizzazione",
   "admin/b2b-organizations.organization-details.available": "Disponibile",
   "admin/b2b-organizations.organization-details.remove-from-org": "Rimuovi dall'org",

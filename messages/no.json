@@ -83,6 +83,7 @@
   "admin/b2b-organizations.organization-details.collections": "Samlinger",
   "admin/b2b-organizations.organization-details.paymentTerms": "Betalingsbetingelser",
   "admin/b2b-organizations.organization-details.price-tables": "Pristabeller",
+  "admin/b2b-organizations.organization-details.sales-channel": "Sales Channel",
   "admin/b2b-organizations.organization-details.assigned-to-org": "Tilordnet organisasjon",
   "admin/b2b-organizations.organization-details.available": "Tilgjengelig",
   "admin/b2b-organizations.organization-details.remove-from-org": "Fjern fra organisasjon",
