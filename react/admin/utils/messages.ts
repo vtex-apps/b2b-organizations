@@ -378,67 +378,25 @@ export const organizationSettingsMessages = defineMessages({
   bindingTitle: {
     id: `${adminPrefix}organization-settings-select.binding.title`,
   },
-  bindingAccessible: {
-    id: `${adminPrefix}organization-settings-select.binding.accessible`,
+  bindingAvailable: {
+    id: `${adminPrefix}organization-settings-select.binding.available`,
   },
   bindingSelected: {
     id: `${adminPrefix}organization-settings-select.binding.selected`,
   },
   toastUpdateSuccess: {
-    id: `${adminPrefix}organization-request-details.toast.update-success`,
+    id: `${adminPrefix}organization-settings-select.toast.update-success`,
   },
   toastUpdateFailure: {
-    id: `${adminPrefix}organization-request-details.toast.update-failure`,
+    id: `${adminPrefix}organization-settings-select.toast.update-failure`,
   },
-  detailsPageTitle: {
-    id: `${adminPrefix}organization-request-details.title`,
+  selectedRows: {
+    id: `${adminPrefix}selected-rows`,
   },
-  back: {
-    id: `${adminPrefix}back`,
+  removeFromBinding: {
+    id: `${adminPrefix}organization-settings-select.remove-from-binding`,
   },
-  addNote: {
-    id: `${adminPrefix}organization-request-details.add-note.label`,
-  },
-  columnName: {
-    id: `${adminPrefix}organization-requests-admin.table.column-name.title`,
-  },
-  columnAdmin: {
-    id: `${adminPrefix}organization-requests-admin.table.column-admin.title`,
-  },
-  columnStatus: {
-    id: `${adminPrefix}organization-requests-admin.table.column-status.title`,
-  },
-  columnCreated: {
-    id: `${adminPrefix}organization-requests-admin.table.column-created.title`,
-  },
-  view: {
-    id: `${adminPrefix}organization-requests-admin.table.view.label`,
-  },
-  emptyState: {
-    id: `${adminPrefix}organization-requests-admin.table.empty-state`,
-  },
-  showRows: {
-    id: `${adminPrefix}showRows`,
-  },
-  of: {
-    id: `${adminPrefix}of`,
-  },
-  searchPlaceholder: {
-    id: `${adminPrefix}organization-requests-admin.table.search.placeholder`,
-  },
-  clearFilters: {
-    id: `${adminPrefix}organization-requests-admin.table.clearFilters.label`,
-  },
-  statusFilter: {
-    id: `${adminPrefix}organization-requests-admin.table.statusFilter.label`,
-  },
-  filtersAll: {
-    id: `${adminPrefix}organization-requests-admin.table.filters.all`,
-  },
-  filtersNone: {
-    id: `${adminPrefix}organization-requests-admin.table.filters.none`,
-  },
-  filtersIncludes: {
-    id: `${adminPrefix}organization-requests-admin.table.filters.includes`,
+  addToBinding: {
+    id: `${adminPrefix}organization-settings-select.add-to-binding`,
   },
 })
