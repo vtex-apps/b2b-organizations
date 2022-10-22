@@ -336,4 +336,7 @@ export const userWidgetMessages = defineMessages({
   stopImpersonation: {
     id: `${storePrefix}stop-impersonation`,
   },
+  setCurrentOrganization: {
+    id: `${storePrefix}set-current-organization`,
+  },
 })

@@ -29,8 +29,12 @@
   "admin/b2b-organizations.organization-requests-admin.table.view.label": "admin/b2b-organizations.organization-requests-admin.table.view.label",
   "admin/b2b-organizations.organization-settings-admin.title": "admin/b2b-organizations.organization-settings-admin.title",
   "admin/b2b-organizations.organization-settings-select.binding.title": "admin/b2b-organizations.organization-settings-select.binding.title",
-  "admin/b2b-organizations.organization-settings-select.binding.accessible": "admin/b2b-organizations.organization-settings-select.binding.accessible",
+  "admin/b2b-organizations.organization-settings-select.binding.available": "admin/b2b-organizations.organization-settings-select.binding.available",
   "admin/b2b-organizations.organization-settings-select.binding.selected": "admin/b2b-organizations.organization-settings-select.binding.selected",
+  "admin/b2b-organizations.organization-settings-select.toast.update-success": "admin/b2b-organizations.organization-settings-select.toast.update-success",
+  "admin/b2b-organizations.organization-settings-select.toast.update-failure": "admin/b2b-organizations.organization-settings-select.toast.update-failure",
+  "admin/b2b-organizations.organization-settings-select.remove-from-binding": "admin/b2b-organizations.organization-settings-select.remove-from-binding",
+  "admin/b2b-organizations.organization-settings-select.add-to-binding": "admin/b2b-organizations.organization-settings-select.add-to-binding",
   "admin/b2b-organizations.organizations-admin.table.column-name.title": "admin/b2b-organizations.organizations-admin.table.column-name.title",
   "admin/b2b-organizations.organizations-admin.table.column-status.title": "admin/b2b-organizations.organizations-admin.table.column-status.title",
   "admin/b2b-organizations.organizations-admin.table.view.label": "admin/b2b-organizations.organizations-admin.table.view.label",
@@ -282,5 +286,7 @@
   "store/b2b-organizations.user-widget.impersonating": "store/b2b-organizations.user-widget.impersonating",
   "store/b2b-organizations.request-new-organization.submit-button.create-new-request": "store/b2b-organizations.request-new-organization.submit-button.create-new-request",
   "store/b2b-organizations.stop-impersonation": "store/b2b-organizations.stop-impersonation",
-  "store/b2b-organizations.stop-impersonation-error": "store/b2b-organizations.stop-impersonation-error"
+  "store/b2b-organizations.stop-impersonation-error": "store/b2b-organizations.stop-impersonation-error",
+  "store/b2b-organizations.set-current-organization": "store/b2b-organizations.set-current-organization",
+  "store/b2b-organizations.set-organization-error": "store/b2b-organizations.set-organization-error"
 }

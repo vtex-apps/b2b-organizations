@@ -29,8 +29,12 @@
   "admin/b2b-organizations.organization-requests-admin.table.view.label": "Visualizar",
   "admin/b2b-organizations.organization-settings-admin.title": "Settings",
   "admin/b2b-organizations.organization-settings-select.binding.title": "Bindings",
-  "admin/b2b-organizations.organization-settings-select.binding.accessible": "Select accessible bindings",
+  "admin/b2b-organizations.organization-settings-select.binding.available": "Available bindings",
   "admin/b2b-organizations.organization-settings-select.binding.selected": "Selected bindings",
+  "admin/b2b-organizations.organization-settings-select.toast.update-success": "Bindings updated successfully",
+  "admin/b2b-organizations.organization-settings-select.toast.update-failure": "Bindings update failed. See console for details.",
+  "admin/b2b-organizations.organization-settings-select.remove-from-binding": "Remove from binding",
+  "admin/b2b-organizations.organization-settings-select.add-to-binding": "Add to binding",
   "admin/b2b-organizations.organizations-admin.table.column-name.title": "Nome",
   "admin/b2b-organizations.organizations-admin.table.column-status.title": "Status",
   "admin/b2b-organizations.organizations-admin.table.view.label": "Visualizar",
@@ -282,5 +286,7 @@
   "store/b2b-organizations.user-widget.impersonating": "Personificando:",
   "store/b2b-organizations.request-new-organization.submit-button.create-new-request": "Criar nova solicitação",
   "store/b2b-organizations.stop-impersonation": "Interromper personificação",
-  "store/b2b-organizations.stop-impersonation-error": "Erro ao interromper a personificação. Consulte o console para mais detalhes."
+  "store/b2b-organizations.stop-impersonation-error": "Erro ao interromper a personificação. Consulte o console para mais detalhes.",
+  "store/b2b-organizations.set-current-organization": "Set current organization",
+  "store/b2b-organizations.set-organization-error": "Error setting current organization. See console for details."
 }

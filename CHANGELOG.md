@@ -7,6 +7,22 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [1.15.0] - 2022-10-21
+
+### Added 
+
+- Feature related to one to many feature, it's possible to change the current organization by using the user widget on the top of storefront
+
+### Changed
+
+- it was grouped the graphql Queries in order to improve the performance on the storefront user widget
+
+## [1.14.3] - 2022-10-21
+
+### Changed
+
+- Improve the organization binding setting UI
+
 ## [1.14.2] - 2022-10-20
 
 ### Fixed

@@ -1,0 +1,7 @@
+mutation CurrentOrganization($orgId: ID!, $costId: ID!) {
+  setCurrentOrganization(orgId: $orgId, costId: $costId)
+    @context(provider: "vtex.storefront-permissions") {
+    status
+    message
+  }
+}

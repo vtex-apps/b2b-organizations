@@ -29,8 +29,12 @@
   "admin/b2b-organizations.organization-requests-admin.table.view.label": "Zobrazit",
   "admin/b2b-organizations.organization-settings-admin.title": "Settings",
   "admin/b2b-organizations.organization-settings-select.binding.title": "Bindings",
-  "admin/b2b-organizations.organization-settings-select.binding.accessible": "Select accessible bindings",
+  "admin/b2b-organizations.organization-settings-select.binding.available": "Available bindings",
   "admin/b2b-organizations.organization-settings-select.binding.selected": "Selected bindings",
+  "admin/b2b-organizations.organization-settings-select.toast.update-success": "Bindings updated successfully",
+  "admin/b2b-organizations.organization-settings-select.toast.update-failure": "Bindings update failed. See console for details.",
+  "admin/b2b-organizations.organization-settings-select.remove-from-binding": "Remove from binding",
+  "admin/b2b-organizations.organization-settings-select.add-to-binding": "Add to binding",
   "admin/b2b-organizations.organizations-admin.table.column-name.title": "Název",
   "admin/b2b-organizations.organizations-admin.table.column-status.title": "Stav",
   "admin/b2b-organizations.organizations-admin.table.view.label": "Zobrazit",
@@ -282,5 +286,7 @@
   "store/b2b-organizations.user-widget.impersonating": "Vydává se za:",
   "store/b2b-organizations.request-new-organization.submit-button.create-new-request": "Vytvořit novou žádost",
   "store/b2b-organizations.stop-impersonation": "Přestat se vydávat za jiného uživatele",
-  "store/b2b-organizations.stop-impersonation-error": "Zastavení vydávání se za jiného uživatele selhalo. Podrobnosti naleznete v konzoli."
+  "store/b2b-organizations.stop-impersonation-error": "Zastavení vydávání se za jiného uživatele selhalo. Podrobnosti naleznete v konzoli.",
+  "store/b2b-organizations.set-current-organization": "Set current organization",
+  "store/b2b-organizations.set-organization-error": "Error setting current organization. See console for details."
 }
