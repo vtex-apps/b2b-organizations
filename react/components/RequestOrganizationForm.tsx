@@ -111,6 +111,7 @@ const RequestOrganizationForm: FC = () => {
     defaultCostCenterName: '',
     phoneNumber: '',
     businessDocument: '',
+    stateRegistration: '',
     isSubmitting: false,
     submitted: true,
   }
@@ -205,6 +206,7 @@ const RequestOrganizationForm: FC = () => {
         },
         phoneNumber: formState.phoneNumber,
         businessDocument: formState.businessDocument,
+        stateRegistration: formState.stateRegistration,
       },
     }
 
@@ -465,6 +467,23 @@ const RequestOrganizationForm: FC = () => {
                 setFormState({
                   ...formState,
                   businessDocument: e.target.value,
+                })
+              }}
+            />
+          </div>
+          <div
+            className={`${handles.newOrganizationInput} mb5 flex flex-column`}
+          >
+            <Input
+              autocomplete="off"
+              size="large"
+              label={translateMessage(messages.stateRegistration)}
+              helpText={translateMessage(messages.stateRegistrationHelp)}
+              value={formState.stateRegistration}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                setFormState({
+                  ...formState,
+                  stateRegistration: e.target.value,
                 })
               }}
             />

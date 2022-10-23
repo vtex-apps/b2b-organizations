@@ -28,6 +28,7 @@ query GetOrganizationRequest($id: ID!) {
       }
       phoneNumber
       businessDocument
+      stateRegistration
     }
   }
 }

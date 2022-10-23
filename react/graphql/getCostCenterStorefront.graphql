@@ -26,5 +26,6 @@ query GetCostCenterStorefront($id: ID) {
     }
     phoneNumber
     businessDocument
+    stateRegistration
   }
 }

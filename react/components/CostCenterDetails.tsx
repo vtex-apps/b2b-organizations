@@ -87,6 +87,7 @@ const CostCenterDetails: FunctionComponent<RouterProps> = ({
   const [costCenterName, setCostCenterName] = useState('')
   const [phoneNumber, setPhoneNumber] = useState('')
   const [businessDocument, setBusinessDocument] = useState('')
+  const [stateRegistration, setStateRegistration] = useState('')
   const [addresses, setAddresses] = useState([] as Address[])
   const [paymentTerms, setPaymentTerms] = useState([] as PaymentTerm[])
   const [paymentTermOptions, setPaymentTermOptions] = useState(
@@ -146,6 +147,7 @@ const CostCenterDetails: FunctionComponent<RouterProps> = ({
       paymentTerms: fetchedPaymentTerms,
       phoneNumber: fetchedPhoneNumber = '',
       businessDocument: fetchedBusinessDocument = '',
+      stateRegistration: fetchedStateRegistration = '',
     } = data.getCostCenterByIdStorefront
 
     setCostCenterName(fetchedName)
@@ -158,6 +160,10 @@ const CostCenterDetails: FunctionComponent<RouterProps> = ({
 
     if (fetchedBusinessDocument) {
       setBusinessDocument(fetchedBusinessDocument)
+    }
+
+    if (fetchedStateRegistration) {
+      setStateRegistration(fetchedStateRegistration)
     }
 
     getOrganization({
@@ -207,6 +213,7 @@ const CostCenterDetails: FunctionComponent<RouterProps> = ({
         paymentTerms,
         phoneNumber,
         businessDocument,
+        stateRegistration,
       },
     }
 
@@ -533,6 +540,21 @@ const CostCenterDetails: FunctionComponent<RouterProps> = ({
             helpText={formatMessage(messages.businessDocumentHelp)}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
               setBusinessDocument(e.target.value)
+            }}
+            readOnly={
+              !permissionsState.includes('create-cost-center-organization')
+            }
+          />
+        </div>
+        <div className="mt6">
+          <Input
+            autocomplete="off"
+            size="large"
+            label={formatMessage(messages.stateRegistration)}
+            value={stateRegistration}
+            helpText={formatMessage(messages.stateRegistrationHelp)}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+              setStateRegistration(e.target.value)
             }}
             readOnly={
               !permissionsState.includes('create-cost-center-organization')
