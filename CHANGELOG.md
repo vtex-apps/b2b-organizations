@@ -9,6 +9,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [1.15.0] - 2022-10-21
 
+### Changed
+
+- Split bindings testcase into two files
+
 ### Added 
 
 - Feature related to one to many feature, it's possible to change the current organization by using the user widget on the top of storefront
