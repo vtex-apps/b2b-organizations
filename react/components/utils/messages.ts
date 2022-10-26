@@ -51,6 +51,12 @@ export const costCenterMessages = defineMessages({
   phoneNumberHelp: {
     id: `${storePrefix}costCenter-details.phoneNumber.helpText`,
   },
+  stateRegistration: {
+    id: `${storePrefix}costCenter-details.stateRegistration`,
+  },
+  stateRegistrationHelp: {
+    id: `${storePrefix}costCenter-details.stateRegistration.helpText`,
+  },
   businessDocument: {
     id: `${storePrefix}costCenter-details.businessDocument`,
   },
@@ -302,6 +308,12 @@ export const organizationRequestMessages = defineMessages({
   },
   businessDocumentHelp: {
     id: `${storePrefix}request-new-organization.businessDocument.helpText`,
+  },
+  stateRegistration: {
+    id: `${storePrefix}request-new-organization.stateRegistration`,
+  },
+  stateRegistrationHelp: {
+    id: `${storePrefix}request-new-organization.stateRegistration.helpText`,
   },
 })
 

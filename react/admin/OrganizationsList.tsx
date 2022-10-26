@@ -76,6 +76,11 @@ const OrganizationsList: FunctionComponent = () => {
     setNewCostCenterBusinessDocument,
   ] = useState('')
 
+  const [
+    newCostCenterStateRegistration,
+    setNewCostCenterStateRegistration,
+  ] = useState('')
+
   const [newCostCenterAddressState, setNewCostCenterAddressState] = useState(
     addValidation(getEmptyAddress(country))
   )
@@ -132,6 +137,7 @@ const OrganizationsList: FunctionComponent = () => {
           address: newAddress,
           phoneNumber: newCostCenterPhoneNumber,
           businessDocument: newCostCenterBusinessDocument,
+          stateRegistration: newCostCenterStateRegistration,
         },
       },
     }
@@ -562,6 +568,17 @@ const OrganizationsList: FunctionComponent = () => {
             helpText={formatMessage(messages.businessDocumentHelp)}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
               setNewCostCenterBusinessDocument(e.target.value)
+            }}
+          />
+        </div>
+        <div className="w-100 mv6">
+          <Input
+            size="large"
+            label={formatMessage(messages.stateRegistration)}
+            value={newCostCenterStateRegistration}
+            helpText={formatMessage(messages.stateRegistrationHelp)}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+              setNewCostCenterStateRegistration(e.target.value)
             }}
           />
         </div>

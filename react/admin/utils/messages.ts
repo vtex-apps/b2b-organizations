@@ -93,6 +93,12 @@ export const organizationMessages = defineMessages({
   costCenterName: {
     id: `${adminPrefix}costCenter-details.costCenter-name`,
   },
+  stateRegistration: {
+    id: `${adminPrefix}costCenter-details.stateRegistration`,
+  },
+  stateRegistrationHelp: {
+    id: `${adminPrefix}costCenter-details.stateRegistration.helpText`,
+  },
   businessDocument: {
     id: `${adminPrefix}costCenter-details.businessDocument`,
   },
@@ -272,6 +278,12 @@ export const costCenterMessages = defineMessages({
   },
   phoneNumberHelp: {
     id: `${adminPrefix}costCenter-details.phoneNumber.helpText`,
+  },
+  stateRegistration: {
+    id: `${adminPrefix}costCenter-details.stateRegistration`,
+  },
+  stateRegistrationHelp: {
+    id: `${adminPrefix}costCenter-details.stateRegistration.helpText`,
   },
   businessDocument: {
     id: `${adminPrefix}costCenter-details.businessDocument`,
