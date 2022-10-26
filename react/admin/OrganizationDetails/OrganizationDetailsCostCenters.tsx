@@ -65,6 +65,11 @@ const OrganizationDetailsCostCenters = ({
     setNewCostCenterBusinessDocument,
   ] = useState('')
 
+  const [
+    newCostCenterStateRegistration,
+    setNewCostCenterStateRegistration,
+  ] = useState('')
+
   const [newCostCenterAddressState, setNewCostCenterAddressState] = useState(
     addValidation(getEmptyAddress(country))
   )
@@ -128,6 +133,7 @@ const OrganizationDetailsCostCenters = ({
         name: newCostCenterName,
         addresses: [newAddress],
         businessDocument: newCostCenterBusinessDocument,
+        stateRegistration: newCostCenterStateRegistration,
       },
     }
 
@@ -353,6 +359,18 @@ const OrganizationDetailsCostCenters = ({
             value={newCostCenterBusinessDocument}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
               setNewCostCenterBusinessDocument(e.target.value)
+            }}
+          />
+        </div>
+        <div className="w-100 mv6">
+          <Input
+            autocomplete="off"
+            size="large"
+            label={formatMessage(messages.stateRegistration)}
+            helpText={formatMessage(messages.stateRegistrationHelp)}
+            value={newCostCenterStateRegistration}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+              setNewCostCenterStateRegistration(e.target.value)
             }}
           />
         </div>
