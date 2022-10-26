@@ -84,7 +84,11 @@ const CustomOrganizationOption = (props: any) => {
   )
 }
 
-const UserWidget: FunctionComponent = () => {
+type UserWidgetProps = {
+  showDropdown?: boolean
+}
+
+const UserWidget: FunctionComponent<UserWidgetProps> = ({ showDropdown = true }) => {
   const { navigate, rootPath } = useRuntime()
   const { formatMessage } = useIntl()
   const handles = useCssHandles(CSS_HANDLES)
@@ -118,6 +122,8 @@ const UserWidget: FunctionComponent = () => {
     ssr: false,
     skip: !isAuthenticated,
   }) as any
+
+  console.log({ userWidgetData })
 
   const [stopImpersonation] = useMutation(STOP_IMPERSONATION)
   const [setCurrentOrganization] = useMutation(SET_CURRENT_ORGANIZATION)
@@ -300,7 +306,8 @@ const UserWidget: FunctionComponent = () => {
           className={`${handles.userWidgetItem} pa3 br2 bg-base--inverted hover-bg-base--inverted active-bg-base--inverted c-on-base--inverted hover-c-on-base--inverted active-c-on-base--inverted dib mr3`}
         >
           {(!userWidgetData?.checkImpersonation?.email &&
-            organizationsState.organizationOptions.length > 1 && (
+            organizationsState.organizationOptions.length > 1 &&
+            showDropdown && (
               <AutocompleteInput
                 input={organizationAutoCompleteInput}
                 options={autoCompleteOrganizationOptions}
@@ -320,7 +327,8 @@ const UserWidget: FunctionComponent = () => {
           className={`${handles.userWidgetItem} pa3 br2 bg-base--inverted hover-bg-base--inverted active-bg-base--inverted c-on-base--inverted hover-c-on-base--inverted active-c-on-base--inverted dib mr3`}
         >
           {(!userWidgetData?.checkImpersonation?.email &&
-            organizationsState.organizationOptions.length > 1 && (
+            organizationsState.organizationOptions.length > 1 &&
+            showDropdown &&(
               <AutocompleteInput
                 input={costCenterAutoCompleteInput}
                 options={autoCompleteCostCentersOptions}
@@ -334,7 +342,8 @@ const UserWidget: FunctionComponent = () => {
           )}
         </div>
         {!userWidgetData?.checkImpersonation?.email &&
-          organizationsState.organizationOptions.length > 1 && (
+          organizationsState.organizationOptions.length > 1 &&
+          showDropdown && (
             <div
               className={`${handles.userWidgetItem} pa3 br2 bg-base--inverted hover-bg-base--inverted active-bg-base--inverted c-on-base--inverted hover-c-on-base--inverted active-c-on-base--inverted dib mr3`}
             >
@@ -408,6 +417,18 @@ const UserWidget: FunctionComponent = () => {
       )}
     </div>
   )
+}
+
+// @ts-ignore
+UserWidget.schema = {
+  title: 'userWidget',
+  "properties": {
+    "showDropdown": {
+      "title": "showDropdown",
+      "type": "boolean",
+      "default": true
+    }
+  }
 }
 
 export default UserWidget

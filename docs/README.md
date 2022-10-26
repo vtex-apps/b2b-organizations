@@ -1,4 +1,4 @@
-=â Use this project, [contribute](https://github.com/vtex-apps/b2b-organizations) to it or open issues to help evolve it using [Store Discussion](https://github.com/vtex-apps/store-discussion).
+=ï¿½ Use this project, [contribute](https://github.com/vtex-apps/b2b-organizations) to it or open issues to help evolve it using [Store Discussion](https://github.com/vtex-apps/store-discussion).
 
 # B2B Organizations
 
@@ -72,6 +72,18 @@ Follow the instructions below to display the user widget.
 
 4. Publish and install the modified store theme. You can follow our documentation on [Making your theme content public](https://developers.vtex.com/vtex-developer-docs/docs/vtex-io-documentation-making-your-theme-content-public) to do so.
 
+## Configuration
+
+if we have only one associated organization:
+![](https://i.imgur.com/5yXFU6y.png)
+
+if we have more than one associated organization:
+![](https://i.imgur.com/ScQtfIz.png)
+
+### `b2b-user-widget`
+| Prop name                  | Type                              | Description                                                                                                             | Default value |
+| -------------------------- | --------------------------------- | ----------------------------------------------------------------------------------------------------------------------- | ------------- |
+| `showDropdown`               | `Boolean`                          | controls whether we are viewing the dropdown if we have more than one organization associated with the same email.                  | `true`          |
 ## Customization
 
 In order to apply CSS customizations in this and other apps, follow the instructions on [Using CSS Handles for store customization](https://developers.vtex.com/vtex-developer-docs/docs/vtex-io-documentation-using-css-handles-for-store-customization).
@@ -307,7 +319,7 @@ This will lead you to the **Cost Center Details** page, where you can:
 
 The optional **Business Document** field may be used to store a Tax ID, VAT ID, CNPJ, or similar business identifier. If a Business Document is present in a user's cost center, it will be applied as the `corporateDocument` in the user's profile and therefore attached to any orders placed by the user.
 
->   The shipping addresses assigned to a cost center will be available to that cost center's users at checkout if you install [B2B Checkout Settings](https://developers.vtex.com/vtex-developer-docs/docs/vtex-b2b-checkout-settings). No other addresses will be available. Therefore, each cost center must have at least one shipping address.
+> ï¿½ The shipping addresses assigned to a cost center will be available to that cost center's users at checkout if you install [B2B Checkout Settings](https://developers.vtex.com/vtex-developer-docs/docs/vtex-b2b-checkout-settings). No other addresses will be available. Therefore, each cost center must have at least one shipping address.
 
 To edit or delete an existing address, click <img src="https://user-images.githubusercontent.com/77292838/159766633-dfcb818f-6bd7-4cd0-92dc-9c682fb50d04.png" width="10" alt-text="00-ellipsis"/> next to it and select **Edit** or **Delete**.
 
@@ -502,7 +514,7 @@ To add a new cost center, they should go to **My Account > My Organization**, wh
 
 In addition, **Organization Admins** can enable specific payment terms for a cost center, by using the toggle button to activate or deactivate the payment terms assigned to the organization, as shown below.
 
->   This section will only be available on the **My Organization** page if [payment terms](#payment-terms) have previously been assigned to the organization by the VTEX Admin users.
+> ï¿½ This section will only be available on the **My Organization** page if [payment terms](#payment-terms) have previously been assigned to the organization by the VTEX Admin users.
 
 ![19-payment-terms-cost-center](https://user-images.githubusercontent.com/77292838/159766775-dd0a17bd-8418-401b-a377-7d4c9ed0cf11.png)
 
