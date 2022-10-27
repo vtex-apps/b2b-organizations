@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Fixed
+
+- Fixed on user widget label (cost center) and limit the number of organizations by 15
+
 ## [1.16.0] - 2022-10-26
 
 ### Added
