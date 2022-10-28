@@ -177,7 +177,9 @@ const UserWidget: FunctionComponent = () => {
         costCenterInput: text,
       })
     },
-    placeholder: `${formatMessage(storeMessages.autocompleteSearching)}...`,
+    placeholder: `${formatMessage(
+      storeMessages.autocompleteSearchingCostCenter
+    )}...`,
     value: organizationsState.costCenterInput,
   }
 
@@ -195,17 +197,19 @@ const UserWidget: FunctionComponent = () => {
       ...organizationsState,
       costCenterInput: userWidgetData?.getCostCenterByIdStorefront?.name,
       organizationInput: userWidgetData?.getOrganizationByIdStorefront?.name,
-      organizationOptions: userWidgetData?.getOrganizationsByEmail.map(
-        (organization: {
-          orgId: string
-          organizationName: string
-          organizationStatus: string
-        }) => ({
-          value: organization.orgId,
-          label: organization.organizationName,
-          status: organization.organizationStatus,
-        })
-      ),
+      organizationOptions: userWidgetData?.getOrganizationsByEmail
+        .slice(0, 15)
+        .map(
+          (organization: {
+            orgId: string
+            organizationName: string
+            organizationStatus: string
+          }) => ({
+            value: organization.orgId,
+            label: organization.organizationName,
+            status: organization.organizationStatus,
+          })
+        ),
       costCenterOptions: userWidgetData?.getOrganizationsByEmail
         .filter(
           (organization: { orgId: string }) =>
@@ -291,7 +295,7 @@ const UserWidget: FunctionComponent = () => {
 
   return (
     <div
-      className={`${handles.userWidgetContainer} w-100 flex flex-column mv3`}
+      className={`${handles.userWidgetContainer} w-100 flex flex-column mv3 bg-base--inverted`}
     >
       <div
         className={`${handles.userWidgetRow} flex justify-center items-center`}
