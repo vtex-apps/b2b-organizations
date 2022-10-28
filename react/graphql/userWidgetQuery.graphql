@@ -59,6 +59,7 @@ query userWidgetQuery($orgId: ID) {
     }
     phoneNumber
     businessDocument
+    stateRegistration
   }
 
   checkImpersonation @context(provider: "vtex.storefront-permissions") {

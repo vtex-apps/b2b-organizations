@@ -183,6 +183,19 @@ const OrganizationRequestDetails: FunctionComponent = () => {
               />
             </div>
           )}
+          {data.getOrganizationRequestById.defaultCostCenter
+            .stateRegistration && (
+            <div>
+              <FormattedMessage
+                id="admin/b2b-organizations.organization-request-details.default-cost-center.stateRegistration"
+                values={{
+                  stateRegistration:
+                    data.getOrganizationRequestById.defaultCostCenter
+                      .stateRegistration,
+                }}
+              />
+            </div>
+          )}
           <br />
 
           <AddressRules

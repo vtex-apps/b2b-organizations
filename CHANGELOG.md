@@ -7,7 +7,17 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [1.16.0] - 2022-10-26
+
+### Added
+
+- Added the state registration field to the cost center UI
+
 ## [1.15.0] - 2022-10-21
+
+### Changed
+
+- Split bindings testcase into two files
 
 ### Added 
 

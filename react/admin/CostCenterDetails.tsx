@@ -57,6 +57,7 @@ const CostCenterDetails: FunctionComponent = () => {
   const [costCenterName, setCostCenterName] = useState('')
   const [phoneNumber, setPhoneNumber] = useState('')
   const [businessDocument, setBusinessDocument] = useState('')
+  const [stateRegistration, setStateRegistration] = useState('')
   const [addresses, setAddresses] = useState([] as Address[])
   const [newAddressModalState, setNewAddressModalState] = useState({
     isOpen: false,
@@ -158,6 +159,10 @@ const CostCenterDetails: FunctionComponent = () => {
       setBusinessDocument(data.getCostCenterById.businessDocument)
     }
 
+    if (data.getCostCenterById.stateRegistration) {
+      setStateRegistration(data.getCostCenterById.stateRegistration)
+    }
+
     if (data.getCostCenterById.phoneNumber) {
       setPhoneNumber(data.getCostCenterById.phoneNumber)
     }
@@ -190,6 +195,7 @@ const CostCenterDetails: FunctionComponent = () => {
         }),
         phoneNumber,
         businessDocument,
+        stateRegistration,
       },
     }
 
@@ -497,6 +503,18 @@ const CostCenterDetails: FunctionComponent = () => {
             value={businessDocument}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
               setBusinessDocument(e.target.value)
+            }}
+          />
+        </div>
+        <div className="mt6">
+          <Input
+            autocomplete="off"
+            size="large"
+            label={formatMessage(messages.stateRegistration)}
+            helpText={formatMessage(messages.stateRegistrationHelp)}
+            value={stateRegistration}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+              setStateRegistration(e.target.value)
             }}
           />
         </div>
