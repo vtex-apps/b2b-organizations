@@ -169,6 +169,7 @@
   "store/b2b-organizations.check-it-out": "Check it out",
   "store/b2b-organizations.invalid-schema": "B2B user creation is currently disabled because the MasterData CL (user profile) schema is invalid on this account. Please see the B2B Suite documentation (Frequently Asked Questions) for more information.",
   "store/b2b-organizations.autocomplete-searching": "조직 검색",
+  "store/b2b-organizations.autocomplete-searching.cost-center": "Search cost center",
   "store/b2b-organizations.not-authenticated": "이 콘텐츠에 액세스하려면 로그인해야 합니다.",
   "store/b2b-organizations.request-new-organization.title": "새 조직 요청",
   "store/b2b-organizations.request-new-organization.organization-name.label": "조직 이름",
