@@ -169,6 +169,7 @@
   "store/b2b-organizations.check-it-out": "store/b2b-organizations.check-it-out",
   "store/b2b-organizations.invalid-schema": "store/b2b-organizations.invalid-schema",
   "store/b2b-organizations.autocomplete-searching": "store/b2b-organizations.autocomplete-searching",
+  "store/b2b-organizations.autocomplete-searching.cost-center": "store/b2b-organizations.autocomplete-searching.cost-center",
   "store/b2b-organizations.not-authenticated": "store/b2b-organizations.not-authenticated",
   "store/b2b-organizations.request-new-organization.title": "store/b2b-organizations.request-new-organization.title",
   "store/b2b-organizations.request-new-organization.organization-name.label": "store/b2b-organizations.request-new-organization.organization-name.label",

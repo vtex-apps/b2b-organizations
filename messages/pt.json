@@ -169,6 +169,7 @@
   "store/b2b-organizations.check-it-out": "Conferir",
   "store/b2b-organizations.invalid-schema": "B2B criação de usuários está atualmente desabilitada porque o schema do MasterData está inválido nessa conta. Por favor veja como corrigir na documentação do B2B Suite (Perguntas Frequentes).",
   "store/b2b-organizations.autocomplete-searching": "Buscar organização",
+  "store/b2b-organizations.autocomplete-searching.cost-center": "Search cost center",
   "store/b2b-organizations.not-authenticated": "Você precisa estar conectado para acessar este conteúdo.",
   "store/b2b-organizations.request-new-organization.title": "Solicitar nova organização",
   "store/b2b-organizations.request-new-organization.organization-name.label": "Nome da organização",
