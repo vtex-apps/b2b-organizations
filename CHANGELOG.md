@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Fixed
+- Some yarn package vulnerabilities reported by Dependabot
+
+
 ## [1.16.1] - 2022-10-28
 
 ### Fixed
