@@ -50,7 +50,7 @@ const OrganizationDetailsSalesChannel = ({
     salesChannelsData.salesChannels.forEach(
       (channel: { id: string; name: string }) => {
         options.push({
-          value: channel.name,
+          value: channel.id,
           label: `${channel.name} (${channel.id})`,
         })
       }
