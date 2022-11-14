@@ -6,6 +6,7 @@ import { AutocompleteInput, Button, Tag } from 'vtex.styleguide'
 import { useCssHandles } from 'vtex.css-handles'
 import { useRuntime } from 'vtex.render-runtime'
 
+import userWidgetCss from './userWidget.css'
 import {
   organizationMessages as storeMessages,
   userWidgetMessages as messages,
@@ -74,7 +75,7 @@ const CustomOrganizationOption = (props: any) => {
       onClick={onClick}
       disabled={value.status !== 'active'}
     >
-      <div className="flex items-center">
+      <div className="flex items-center truncate">
         <span className="pr2">{renderOptionHighlightedText()}</span>
         {typeof value !== 'string' && (
           <div className="t-mini c-muted-1">{value.caption}</div>
@@ -295,7 +296,7 @@ const UserWidget: FunctionComponent = () => {
 
   return (
     <div
-      className={`${handles.userWidgetContainer} w-100 flex flex-column mv3 bg-base--inverted`}
+      className={`${handles.userWidgetContainer} w-100 flex flex-column mv3 bg-base--inverted ${userWidgetCss.userWidget__zIndex}`}
     >
       <div
         className={`${handles.userWidgetRow} flex justify-center items-center`}
@@ -305,10 +306,12 @@ const UserWidget: FunctionComponent = () => {
         >
           {(!userWidgetData?.checkImpersonation?.email &&
             organizationsState.organizationOptions.length > 1 && (
-              <AutocompleteInput
-                input={organizationAutoCompleteInput}
-                options={autoCompleteOrganizationOptions}
-              />
+              <Fragment>
+                <AutocompleteInput
+                  input={organizationAutoCompleteInput}
+                  options={autoCompleteOrganizationOptions}
+                />
+              </Fragment>
             )) || (
             <Fragment>
               {`${formatMessage(messages.organization)} ${
