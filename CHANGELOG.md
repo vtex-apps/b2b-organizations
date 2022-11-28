@@ -7,7 +7,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
-## [1.16.4] - 2022-11-26
 ### Added
 - Added the possibility to control whether to show the dropdowns in the UserWidget component when we have more than one organization associated with the email
 
