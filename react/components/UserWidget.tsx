@@ -123,8 +123,6 @@ const UserWidget: FunctionComponent<UserWidgetProps> = ({ showDropdown = true })
     skip: !isAuthenticated,
   }) as any
 
-  console.log({ userWidgetData })
-
   const [stopImpersonation] = useMutation(STOP_IMPERSONATION)
   const [setCurrentOrganization] = useMutation(SET_CURRENT_ORGANIZATION)
 
