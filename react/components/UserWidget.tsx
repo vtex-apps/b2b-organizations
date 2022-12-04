@@ -88,7 +88,9 @@ type UserWidgetProps = {
   showDropdown?: boolean
 }
 
-const UserWidget: FunctionComponent<UserWidgetProps> = ({ showDropdown = true }) => {
+const UserWidget: FunctionComponent<UserWidgetProps> = ({
+  showDropdown = true,
+}) => {
   const { navigate, rootPath } = useRuntime()
   const { formatMessage } = useIntl()
   const handles = useCssHandles(CSS_HANDLES)
@@ -330,7 +332,7 @@ const UserWidget: FunctionComponent<UserWidgetProps> = ({ showDropdown = true })
         >
           {(!userWidgetData?.checkImpersonation?.email &&
             organizationsState.organizationOptions.length > 1 &&
-            showDropdown &&(
+            showDropdown && (
               <AutocompleteInput
                 input={costCenterAutoCompleteInput}
                 options={autoCompleteCostCentersOptions}
@@ -421,16 +423,15 @@ const UserWidget: FunctionComponent<UserWidgetProps> = ({ showDropdown = true })
   )
 }
 
-// @ts-ignore
 UserWidget.schema = {
   title: 'userWidget',
-  "properties": {
-    "showDropdown": {
-      "title": "showDropdown",
-      "type": "boolean",
-      "default": true
-    }
-  }
+  properties: {
+    showDropdown: {
+      title: 'showDropdown',
+      type: 'boolean',
+      default: true,
+    },
+  },
 }
 
 export default UserWidget
