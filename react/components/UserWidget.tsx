@@ -84,11 +84,19 @@ const CustomOrganizationOption = (props: any) => {
   )
 }
 
-type UserWidgetProps = {
+interface VtexFunctionComponent<T = Record<string, unknown>>
+  extends FunctionComponent<T> {
+  schema?: {
+    title?: string
+    properties?: Record<string, unknown>
+  }
+}
+
+interface UserWidgetProps {
   showDropdown?: boolean
 }
 
-const UserWidget: FunctionComponent<UserWidgetProps> = ({
+const UserWidget: VtexFunctionComponent<UserWidgetProps> = ({
   showDropdown = true,
 }) => {
   const { navigate, rootPath } = useRuntime()
