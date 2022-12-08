@@ -1,0 +1,14 @@
+{
+  "definitions": {
+    "StorefrontUserWidgetProps": {
+      "title": "userWidget",
+      "properties": {
+        "showDropdown": {
+          "title": "showDropdown",
+          "type": "boolean",
+          "default": true
+        }
+      }
+    }
+  }
+}

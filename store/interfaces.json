@@ -24,6 +24,9 @@
     "component": "StorefrontCostCenterDetails"
   },
   "b2b-user-widget": {
-    "component": "StorefrontUserWidget"
+    "component": "StorefrontUserWidget",
+    "content": {
+      "$ref": "app:vtex.b2b-organizations#/definitions/StorefrontUserWidgetProps"
+    }
   }
 }
