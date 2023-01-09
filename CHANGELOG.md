@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [1.18.0] - 2023-01-09
+
 ### Added
 
 - it was removed the duplicated validation due to the one to many feature
