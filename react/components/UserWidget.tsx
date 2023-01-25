@@ -84,7 +84,21 @@ const CustomOrganizationOption = (props: any) => {
   )
 }
 
-const UserWidget: FunctionComponent = () => {
+interface VtexFunctionComponent<T = Record<string, unknown>>
+  extends FunctionComponent<T> {
+  schema?: {
+    title?: string
+    properties?: Record<string, unknown>
+  }
+}
+
+interface UserWidgetProps {
+  showDropdown?: boolean
+}
+
+const UserWidget: VtexFunctionComponent<UserWidgetProps> = ({
+  showDropdown = true,
+}) => {
   const { navigate, rootPath } = useRuntime()
   const { formatMessage } = useIntl()
   const handles = useCssHandles(CSS_HANDLES)
@@ -304,7 +318,8 @@ const UserWidget: FunctionComponent = () => {
           className={`${handles.userWidgetItem} pa3 br2 bg-base--inverted hover-bg-base--inverted active-bg-base--inverted c-on-base--inverted hover-c-on-base--inverted active-c-on-base--inverted dib mr3`}
         >
           {(!userWidgetData?.checkImpersonation?.email &&
-            organizationsState.organizationOptions.length > 1 && (
+            organizationsState.organizationOptions.length > 1 &&
+            showDropdown && (
               <AutocompleteInput
                 input={organizationAutoCompleteInput}
                 options={autoCompleteOrganizationOptions}
@@ -324,7 +339,8 @@ const UserWidget: FunctionComponent = () => {
           className={`${handles.userWidgetItem} pa3 br2 bg-base--inverted hover-bg-base--inverted active-bg-base--inverted c-on-base--inverted hover-c-on-base--inverted active-c-on-base--inverted dib mr3`}
         >
           {(!userWidgetData?.checkImpersonation?.email &&
-            organizationsState.organizationOptions.length > 1 && (
+            organizationsState.organizationOptions.length > 1 &&
+            showDropdown && (
               <AutocompleteInput
                 input={costCenterAutoCompleteInput}
                 options={autoCompleteCostCentersOptions}
@@ -338,7 +354,8 @@ const UserWidget: FunctionComponent = () => {
           )}
         </div>
         {!userWidgetData?.checkImpersonation?.email &&
-          organizationsState.organizationOptions.length > 1 && (
+          organizationsState.organizationOptions.length > 1 &&
+          showDropdown && (
             <div
               className={`${handles.userWidgetItem} pa3 br2 bg-base--inverted hover-bg-base--inverted active-bg-base--inverted c-on-base--inverted hover-c-on-base--inverted active-c-on-base--inverted dib mr3`}
             >
@@ -412,6 +429,17 @@ const UserWidget: FunctionComponent = () => {
       )}
     </div>
   )
+}
+
+UserWidget.schema = {
+  title: 'userWidget',
+  properties: {
+    showDropdown: {
+      title: 'showDropdown',
+      type: 'boolean',
+      default: true,
+    },
+  },
 }
 
 export default UserWidget

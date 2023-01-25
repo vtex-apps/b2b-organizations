@@ -7,6 +7,28 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [1.18.0] - 2023-01-09
+
+### Added
+
+- it was removed the duplicated validation due to the one to many feature
+
+
+## [1.17.1] - 2022-12-20
+
+### Changed
+
+- Cypress improvements
+
+### Fixed
+
+- Bug fixed on interfaces reference
+
+## [1.17.0] - 2022-12-08
+
+### Added
+- Added the possibility to control whether to show the dropdowns in the UserWidget component when we have more than one organization associated with the email
+
 ## [1.16.3] - 2022-11-09
 
 ### Fixed
