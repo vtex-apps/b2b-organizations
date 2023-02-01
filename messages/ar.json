@@ -11,7 +11,7 @@
   "admin/b2b-organizations.check-it-out": "اطلع عليها",
   "admin/b2b-organizations.invalid-schema": "إنشاء مستخدم B2B معطل حاليًا لأن مخطط البيانات الرئيسية (ملف تعريف المستخدم) غير صالح على هذا الحساب. يُرجى الاطلاع على وثائق مجموعة B2B (الأسئلة الشائعة) للحصول على مزيد من المعلومات.",
   "admin/b2b-organizations.autocomplete-searching": "البحث عن منظمة",
-  "admin/b2b-organizations.organization-settings-admin.title": "Settings",
+  "admin/b2b-organizations.auto-approve-organization-settings-admin.title": "Auto Approve",
   "admin/b2b-organizations.organization-settings-admin.saveSettings": "Save Settings",
   "admin/b2b-organizations.organization-settings-admin.autoApprove": "Auto approve new organizations",
   "admin/b2b-organizations.organization-settings-admin.selectedPaymentsTableTitle": "Selected Payment Terms",

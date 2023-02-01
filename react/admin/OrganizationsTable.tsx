@@ -13,6 +13,7 @@ import OrganizationRequestsTable from './OrganizationRequestsTable'
 import OrganizationSettings from './OrganizationSettings'
 import useHashRouter from './OrganizationDetails/useHashRouter'
 import CheckCustomerSchema from '../components/CheckCustomerSchema'
+import AutoApproveSettings from './AutoApproveSettings'
 
 const SESSION_STORAGE_KEY = 'organization-tab'
 
@@ -27,7 +28,7 @@ const OrganizationsTable = () => {
   const { tab, handleTabChange, routerRef } = useHashRouter({
     sessionKey: SESSION_STORAGE_KEY,
     defaultPath: 'organizations',
-    routes: ['organizations', 'requests', 'settings'],
+    routes: ['organizations', 'requests', 'settings', 'auto-approve'],
   })
 
   return (
@@ -52,6 +53,11 @@ const OrganizationsTable = () => {
             active={tab === 'settings'}
             onClick={() => handleTabChange('settings')}
           />
+          <Tab
+            label={formatMessage(settingsMessages.tableAutoApprovePageTitle)}
+            active={tab === 'auto-approve'}
+            onClick={() => handleTabChange('auto-approve')}
+          />
         </Tabs>
         <Container>
           <div className="mb5">
@@ -65,6 +71,7 @@ const OrganizationsTable = () => {
               component={OrganizationRequestsTable}
             />
             <Route path="/settings" exact component={OrganizationSettings} />
+            <Route path="/auto-approve" exact component={AutoApproveSettings} />
           </Switch>
         </Container>
       </HashRouter>

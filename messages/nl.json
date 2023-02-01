@@ -11,7 +11,7 @@
   "admin/b2b-organizations.check-it-out": "Bekijken",
   "admin/b2b-organizations.invalid-schema": "B2B aanmaken is momenteel uitgeschakeld omdat het MasterData CL (gebruikersprofiel) schema ongeldig is voor dit account. Bekijk de B2B Suite-documentatie (Frequently Asked Vragens) voor meer informatie.",
   "admin/b2b-organizations.autocomplete-searching": "Organisatie zoeken",
-  "admin/b2b-organizations.organization-settings-admin.title": "Settings",
+  "admin/b2b-organizations.auto-approve-organization-settings-admin.title": "Auto Approve",
   "admin/b2b-organizations.organization-settings-admin.saveSettings": "Save Settings",
   "admin/b2b-organizations.organization-settings-admin.autoApprove": "Auto approve new organizations",
   "admin/b2b-organizations.organization-settings-admin.selectedPaymentsTableTitle": "Selected Payment Terms",

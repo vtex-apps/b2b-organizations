@@ -11,7 +11,7 @@
   "admin/b2b-organizations.check-it-out": "Compruébalo",
   "admin/b2b-organizations.invalid-schema": "La creación de usuarios B2B está actualmente desactivada porque el esquema MasterData CL (perfil de usuario) no es válido en esta cuenta. Consulta la documentación de B2B Suite (Preguntas frecuentes) para obtener más información.",
   "admin/b2b-organizations.autocomplete-searching": "Buscar organización",
-  "admin/b2b-organizations.organization-settings-admin.title": "Settings",
+  "admin/b2b-organizations.auto-approve-organization-settings-admin.title": "Auto Approve",
   "admin/b2b-organizations.organization-settings-admin.saveSettings": "Save Settings",
   "admin/b2b-organizations.organization-settings-admin.autoApprove": "Auto approve new organizations",
   "admin/b2b-organizations.organization-settings-admin.selectedPaymentsTableTitle": "Selected Payment Terms",

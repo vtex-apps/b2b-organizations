@@ -11,7 +11,7 @@
   "admin/b2b-organizations.check-it-out": "Pozrieť sa na to",
   "admin/b2b-organizations.invalid-schema": "Vytváranie používateľov B2B je momentálne zakázané, pretože schéma MasterData CL (profil používateľa) je na tomto účte neplatná. Viac informácií nájdete v dokumentácii k balíku B2B Suite (Často kladené otázky).",
   "admin/b2b-organizations.autocomplete-searching": "Vyhľadať organizáciu",
-  "admin/b2b-organizations.organization-settings-admin.title": "Settings",
+  "admin/b2b-organizations.auto-approve-organization-settings-admin.title": "Auto Approve",
   "admin/b2b-organizations.organization-settings-admin.saveSettings": "Save Settings",
   "admin/b2b-organizations.organization-settings-admin.autoApprove": "Auto approve new organizations",
   "admin/b2b-organizations.organization-settings-admin.selectedPaymentsTableTitle": "Selected Payment Terms",

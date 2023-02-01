@@ -11,7 +11,7 @@
   "admin/b2b-organizations.check-it-out": "Check it out",
   "admin/b2b-organizations.invalid-schema": "admin/b2b-organizations.invalid-schema",
   "admin/b2b-organizations.autocomplete-searching": "admin/b2b-organizations.autocomplete-searching",
-  "admin/b2b-organizations.organization-settings-admin.title": "admin/b2b-organizations.organization-settings-admin.title",
+  "admin/b2b-organizations.auto-approve-organization-settings-admin.title": "admin/b2b-organizations.auto-approve-organization-settings-admin.title",
   "admin/b2b-organizations.organization-settings-admin.saveSettings": "admin/b2b-organizations.organization-settings-admin.saveSettings",
   "admin/b2b-organizations.organization-settings-admin.autoApprove": "admin/b2b-organizations.organization-settings-admin.autoApprove",
   "admin/b2b-organizations.organization-settings-admin.selectedPaymentsTableTitle": "admin/b2b-organizations.organization-settings-admin.selectedPaymentsTableTitle",

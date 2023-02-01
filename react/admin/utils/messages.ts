@@ -387,6 +387,9 @@ export const organizationSettingsMessages = defineMessages({
   tablePageTitle: {
     id: `${adminPrefix}organization-settings-admin.title`,
   },
+  tableAutoApprovePageTitle: {
+    id: `${adminPrefix}auto-approve-organization-settings-admin.title`,
+  },
   autoApprove: {
     id: `${adminPrefix}organization-settings-admin.autoApprove`,
   },

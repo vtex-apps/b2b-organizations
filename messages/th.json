@@ -11,7 +11,7 @@
   "admin/b2b-organizations.check-it-out": "ตรวจสอบดู",
   "admin/b2b-organizations.invalid-schema": "ขณะนี้ ฟังก์ชันการสร้างผู้ใช้ B2B กำลังปิดใช้งานเนื่องจากสคีมา MasterData CL (โปรไฟล์ผู้ใช้) ของบัญชีนี้ไม่ถูกต้อง โปรดดูเอกสาร B2B Suite (Frequently Asked Questions) สำหรับข้อมูลเพิ่มเติม",
   "admin/b2b-organizations.autocomplete-searching": "ค้นหาองค์กร",
-  "admin/b2b-organizations.organization-settings-admin.title": "Settings",
+  "admin/b2b-organizations.auto-approve-organization-settings-admin.title": "Auto Approve",
   "admin/b2b-organizations.organization-settings-admin.saveSettings": "Save Settings",
   "admin/b2b-organizations.organization-settings-admin.autoApprove": "Auto approve new organizations",
   "admin/b2b-organizations.organization-settings-admin.selectedPaymentsTableTitle": "Selected Payment Terms",

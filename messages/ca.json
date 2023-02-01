@@ -11,7 +11,7 @@
   "admin/b2b-organizations.check-it-out": "Feu-hi un cop d'ull",
   "admin/b2b-organizations.invalid-schema": "En aquest moment, l'opció de crear usuaris B2B està desactivada perquè l'esquema de MasterData CL (perfil de l'usuari) no és vàlid en aquest compte. Per obtenir més informació, consulteu la documentació sobre B2B Suite (preguntes freqüents).",
   "admin/b2b-organizations.autocomplete-searching": "Cerca una organització",
-  "admin/b2b-organizations.organization-settings-admin.title": "Settings",
+  "admin/b2b-organizations.auto-approve-organization-settings-admin.title": "Auto Approve",
   "admin/b2b-organizations.organization-settings-admin.saveSettings": "Save Settings",
   "admin/b2b-organizations.organization-settings-admin.autoApprove": "Auto approve new organizations",
   "admin/b2b-organizations.organization-settings-admin.selectedPaymentsTableTitle": "Selected Payment Terms",

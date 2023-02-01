@@ -11,7 +11,7 @@
   "admin/b2b-organizations.check-it-out": "Що нового",
   "admin/b2b-organizations.invalid-schema": "Наразі створення корпоративних користувачів не працює, оскільки схема MasterData CL (профіль користувача) для цього облікового запису недійсна. Ознайомтеся з документацією в розділі частих питань для корпоративного пакета (B2B Suite), щоби отримати докладнішу інформацію.",
   "admin/b2b-organizations.autocomplete-searching": "Пошук організацій",
-  "admin/b2b-organizations.organization-settings-admin.title": "Settings",
+  "admin/b2b-organizations.auto-approve-organization-settings-admin.title": "Auto Approve",
   "admin/b2b-organizations.organization-settings-admin.saveSettings": "Save Settings",
   "admin/b2b-organizations.organization-settings-admin.autoApprove": "Auto approve new organizations",
   "admin/b2b-organizations.organization-settings-admin.selectedPaymentsTableTitle": "Selected Payment Terms",

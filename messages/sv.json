@@ -11,7 +11,7 @@
   "admin/b2b-organizations.check-it-out": "Prova det",
   "admin/b2b-organizations.invalid-schema": "B2B användarskapande är för närvarande inaktiverat eftersom MasterData CL (användarprofil) schemat är ogiltigt på detta konto. Se dokumentationen för B2B Suite (Frequently Asked Questions) för mer information.",
   "admin/b2b-organizations.autocomplete-searching": "Sök i organisation",
-  "admin/b2b-organizations.organization-settings-admin.title": "Settings",
+  "admin/b2b-organizations.auto-approve-organization-settings-admin.title": "Auto Approve",
   "admin/b2b-organizations.organization-settings-admin.saveSettings": "Save Settings",
   "admin/b2b-organizations.organization-settings-admin.autoApprove": "Auto approve new organizations",
   "admin/b2b-organizations.organization-settings-admin.selectedPaymentsTableTitle": "Selected Payment Terms",

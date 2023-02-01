@@ -11,7 +11,7 @@
   "admin/b2b-organizations.check-it-out": "확인하기",
   "admin/b2b-organizations.invalid-schema": "MasterData CL(사용자 프로필) 스키마가 이 계정에서 유효하지 않아 현재 B2B 사용자 생성이 비활성화되어 있습니다. 자세한 내용은 B2B Suite 설명서(자주 묻는 질문)를 참조하세요.",
   "admin/b2b-organizations.autocomplete-searching": "조직 검색",
-  "admin/b2b-organizations.organization-settings-admin.title": "Settings",
+  "admin/b2b-organizations.auto-approve-organization-settings-admin.title": "Auto Approve",
   "admin/b2b-organizations.organization-settings-admin.saveSettings": "Save Settings",
   "admin/b2b-organizations.organization-settings-admin.autoApprove": "Auto approve new organizations",
   "admin/b2b-organizations.organization-settings-admin.selectedPaymentsTableTitle": "Selected Payment Terms",

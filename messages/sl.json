@@ -11,7 +11,7 @@
   "admin/b2b-organizations.check-it-out": "Preverite",
   "admin/b2b-organizations.invalid-schema": "Ustvarjanje uporabnikov B2B je trenutno onemogočeno, ker je shema MasterData CL (profil uporabnika) v tem računu neveljavna. Za več informacij glejte dokumentacijo paketa B2B Suite (Pogosta vprašanja).",
   "admin/b2b-organizations.autocomplete-searching": "Išči organizacije",
-  "admin/b2b-organizations.organization-settings-admin.title": "Settings",
+  "admin/b2b-organizations.auto-approve-organization-settings-admin.title": "Auto Approve",
   "admin/b2b-organizations.organization-settings-admin.saveSettings": "Save Settings",
   "admin/b2b-organizations.organization-settings-admin.autoApprove": "Auto approve new organizations",
   "admin/b2b-organizations.organization-settings-admin.selectedPaymentsTableTitle": "Selected Payment Terms",
