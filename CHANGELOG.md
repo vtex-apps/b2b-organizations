@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Added 
+
+- Modal to switch the company rather than AutoComplete component
+- Handle the sellers on the Organization Details
+- Handle the UI settings (modal, clear cart and auto approve)
+
+
 ## [1.19.0] - 2023-01-27
 
 ### Added
