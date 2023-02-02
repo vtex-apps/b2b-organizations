@@ -354,4 +354,22 @@ export const userWidgetMessages = defineMessages({
   setCurrentOrganization: {
     id: `${storePrefix}set-current-organization`,
   },
+  selectCompany: {
+    id: `${storePrefix}modal.select-company`,
+  },
+  search: {
+    id: `${storePrefix}modal.search`,
+  },
+  join: {
+    id: `${storePrefix}modal.join`,
+  },
+  changeOrganization: {
+    id: `${storePrefix}change-organization`,
+  },
+  currentOrganization: {
+    id: `${storePrefix}current-organization`,
+  },
+  organizationsFound: {
+    id: `${storePrefix}organizations-found`,
+  },
 })

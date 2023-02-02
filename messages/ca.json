@@ -35,6 +35,9 @@
   "admin/b2b-organizations.organization-settings-select.toast.update-failure": "Bindings update failed. See console for details.",
   "admin/b2b-organizations.organization-settings-select.remove-from-binding": "Remove from binding",
   "admin/b2b-organizations.organization-settings-select.add-to-binding": "Add to binding",
+  "admin/b2b-organizations.organization-settings-autoApprove": "Approve new Organizations automatically",
+  "admin/b2b-organizations.organization-settings-showModal": "Use modal to switch company",
+  "admin/b2b-organizations.organization-settings-clearCart": "Clear cart when switching company or logging in",
   "admin/b2b-organizations.organizations-admin.table.column-name.title": "Nom",
   "admin/b2b-organizations.organizations-admin.table.column-status.title": "Estat",
   "admin/b2b-organizations.organizations-admin.table.view.label": "Mostra-ho",
@@ -114,6 +117,7 @@
   "admin/b2b-organizations.organization-details.sales-admin-title": "Gestiona els usuaris de vendes",
   "admin/b2b-organizations.organization-details.default": "General",
   "admin/b2b-organizations.organization-details.organization-name-required": "El nom de l'organització és obligatori.",
+  "admin/b2b-organizations.organization-details.sellers": "Sellers",
   "admin/b2b-organizations.costCenter-details.toast.update-success": "S'ha actualitzat correctament el centre de costs",
   "admin/b2b-organizations.costCenter-details.toast.update-failure": "S'ha produït un error en fer l'actualització. Per obtenir-ne més informació, consulteu la consola.",
   "admin/b2b-organizations.costCenter-details.toast.delete-failure": "S'ha produït un error en fer la supressió. Per obtenir-ne més informació, consulteu la consola.",
@@ -296,5 +300,11 @@
   "store/b2b-organizations.stop-impersonation": "Atura la suplantació",
   "store/b2b-organizations.stop-impersonation-error": "S'ha produït un error en aturar la suplantació. Per obtenir-ne més informació, consulteu la consola.",
   "store/b2b-organizations.set-current-organization": "Set current organization",
-  "store/b2b-organizations.set-organization-error": "Error setting current organization. See console for details."
+  "store/b2b-organizations.set-organization-error": "Error setting current organization. See console for details.",
+  "store/b2b-organizations.modal.select-company": "Select the company",
+  "store/b2b-organizations.modal.search": "Search",
+  "store/b2b-organizations.modal.join": "Join",
+  "store/b2b-organizations.change-organization": "Change Organization",
+  "store/b2b-organizations.current-organization": "Current Organization",
+  "store/b2b-organizations.organizations-found": "Organizations Found"
 }

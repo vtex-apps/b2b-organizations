@@ -69,6 +69,9 @@ export const organizationMessages = defineMessages({
   priceTables: {
     id: `${adminPrefix}organization-details.price-tables`,
   },
+  sellers: {
+    id: `${adminPrefix}organization-details.sellers`,
+  },
   salesChannel: {
     id: `${adminPrefix}organization-details.sales-channel`,
   },
@@ -410,5 +413,14 @@ export const organizationSettingsMessages = defineMessages({
   },
   addToBinding: {
     id: `${adminPrefix}organization-settings-select.add-to-binding`,
+  },
+  autoApprove: {
+    id: `${adminPrefix}organization-settings-autoApprove`,
+  },
+  showModal: {
+    id: `${adminPrefix}organization-settings-showModal`,
+  },
+  clearCart: {
+    id: `${adminPrefix}organization-settings-clearCart`,
   },
 })

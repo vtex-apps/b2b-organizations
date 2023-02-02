@@ -35,6 +35,9 @@
   "admin/b2b-organizations.organization-settings-select.toast.update-failure": "Bindings update failed. See console for details.",
   "admin/b2b-organizations.organization-settings-select.remove-from-binding": "Remove from binding",
   "admin/b2b-organizations.organization-settings-select.add-to-binding": "Add to binding",
+  "admin/b2b-organizations.organization-settings-autoApprove": "Approve new Organizations automatically",
+  "admin/b2b-organizations.organization-settings-showModal": "Use modal to switch company",
+  "admin/b2b-organizations.organization-settings-clearCart": "Clear cart when switching company or logging in",
   "admin/b2b-organizations.organizations-admin.table.column-name.title": "이름",
   "admin/b2b-organizations.organizations-admin.table.column-status.title": "상태",
   "admin/b2b-organizations.organizations-admin.table.view.label": "보기",
@@ -114,6 +117,7 @@
   "admin/b2b-organizations.organization-details.sales-admin-title": "영업 담당자 관리",
   "admin/b2b-organizations.organization-details.default": "일반",
   "admin/b2b-organizations.organization-details.organization-name-required": "조직 이름은 필수 항목입니다.",
+  "admin/b2b-organizations.organization-details.sellers": "Sellers",
   "admin/b2b-organizations.costCenter-details.toast.update-success": "비용 센터가 성공적으로 업데이트되었습니다.",
   "admin/b2b-organizations.costCenter-details.toast.update-failure": "업데이트 실패. 자세한 내용은 콘솔을 참조하세요.",
   "admin/b2b-organizations.costCenter-details.toast.delete-failure": "삭제하지 못했습니다. 자세한 내용은 콘솔을 참조하세요.",
@@ -296,5 +300,11 @@
   "store/b2b-organizations.stop-impersonation": "가장 중지",
   "store/b2b-organizations.stop-impersonation-error": "가장을 중지하는 동안 오류가 발생했습니다. 자세한 내용은 콘솔을 참조하세요.",
   "store/b2b-organizations.set-current-organization": "Set current organization",
-  "store/b2b-organizations.set-organization-error": "Error setting current organization. See console for details."
+  "store/b2b-organizations.set-organization-error": "Error setting current organization. See console for details.",
+  "store/b2b-organizations.modal.select-company": "Select the company",
+  "store/b2b-organizations.modal.search": "Search",
+  "store/b2b-organizations.modal.join": "Join",
+  "store/b2b-organizations.change-organization": "Change Organization",
+  "store/b2b-organizations.current-organization": "Current Organization",
+  "store/b2b-organizations.organizations-found": "Organizations Found"
 }

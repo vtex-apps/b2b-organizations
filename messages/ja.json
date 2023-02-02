@@ -35,6 +35,9 @@
   "admin/b2b-organizations.organization-settings-select.toast.update-failure": "Bindings update failed. See console for details.",
   "admin/b2b-organizations.organization-settings-select.remove-from-binding": "Remove from binding",
   "admin/b2b-organizations.organization-settings-select.add-to-binding": "Add to binding",
+  "admin/b2b-organizations.organization-settings-autoApprove": "Approve new Organizations automatically",
+  "admin/b2b-organizations.organization-settings-showModal": "Use modal to switch company",
+  "admin/b2b-organizations.organization-settings-clearCart": "Clear cart when switching company or logging in",
   "admin/b2b-organizations.organizations-admin.table.column-name.title": "名前",
   "admin/b2b-organizations.organizations-admin.table.column-status.title": "ステータス",
   "admin/b2b-organizations.organizations-admin.table.view.label": "閲覧する",
@@ -114,6 +117,7 @@
   "admin/b2b-organizations.organization-details.sales-admin-title": "販売ユーザーを管理する",
   "admin/b2b-organizations.organization-details.default": "全般",
   "admin/b2b-organizations.organization-details.organization-name-required": "組織名が必要です。",
+  "admin/b2b-organizations.organization-details.sellers": "Sellers",
   "admin/b2b-organizations.costCenter-details.toast.update-success": "コストセンターの更新が完了しました",
   "admin/b2b-organizations.costCenter-details.toast.update-failure": "更新できませんでした。詳細はコンソールを確認してください。",
   "admin/b2b-organizations.costCenter-details.toast.delete-failure": "削除できませんでした。詳細はコンソールを確認してください。",
@@ -296,5 +300,11 @@
   "store/b2b-organizations.stop-impersonation": "偽装を停止する",
   "store/b2b-organizations.stop-impersonation-error": "偽装の停止中にエラーが発生しました。詳細はコンソールを確認してください。",
   "store/b2b-organizations.set-current-organization": "Set current organization",
-  "store/b2b-organizations.set-organization-error": "Error setting current organization. See console for details."
+  "store/b2b-organizations.set-organization-error": "Error setting current organization. See console for details.",
+  "store/b2b-organizations.modal.select-company": "Select the company",
+  "store/b2b-organizations.modal.search": "Search",
+  "store/b2b-organizations.modal.join": "Join",
+  "store/b2b-organizations.change-organization": "Change Organization",
+  "store/b2b-organizations.current-organization": "Current Organization",
+  "store/b2b-organizations.organizations-found": "Organizations Found"
 }
