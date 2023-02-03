@@ -104,10 +104,10 @@ const OrganizationSettings: FunctionComponent = () => {
     const { getB2BSettings } = dataSettings
 
     setSettings({
-      autoApprove: getB2BSettings.autoApprove,
+      autoApprove: getB2BSettings?.autoApprove,
       uiSettings: {
-        clearCart: getB2BSettings.uiSettings?.clearCart,
-        showModal: getB2BSettings.uiSettings?.showModal,
+        clearCart: getB2BSettings?.uiSettings?.clearCart,
+        showModal: getB2BSettings?.uiSettings?.showModal,
       },
     })
   }, [dataSettings])
