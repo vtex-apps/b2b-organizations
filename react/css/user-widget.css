@@ -1,6 +1,7 @@
 .userWidgetModalRow .col:last-child {
   padding: 1rem;
   background: #F5F4F4;
+  display: none;
 }
 .userWidgetModalRow .col:first-child {
   width: 100%;
