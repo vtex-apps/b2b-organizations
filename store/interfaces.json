@@ -26,7 +26,7 @@
   "b2b-user-widget": {
     "component": "StorefrontUserWidget",
     "content": {
-      "$ref": "#/definitions/StorefrontUserWidgetProps"
+      "$ref": "app:vtex.b2b-organizations#/definitions/StorefrontUserWidgetProps"
     }
   }
 }
