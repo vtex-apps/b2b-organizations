@@ -16,7 +16,6 @@ mutation UpdateOrganization(
     collections: $collections
     paymentTerms: $paymentTerms
     priceTables: $priceTables
-    salesChannel: $salesChannel
   ) @context(provider: "vtex.b2b-organizations-graphql") {
     id
     status

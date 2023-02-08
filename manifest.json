@@ -8,6 +8,12 @@
   "scripts": {
     "postreleasy": "vtex publish"
   },
+  "billingOptions": {
+    "type": "free",
+    "availableCountries": [
+      "*"
+    ]
+  },
   "dependencies": {
     "vtex.b2b-organizations-graphql": "0.x",
     "vtex.catalog-graphql": "1.x",

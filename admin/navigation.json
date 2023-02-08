@@ -16,6 +16,10 @@
     {
       "labelId": "admin/b2b-organizations.organization-settings.navigation.label",
       "path": "/admin/b2b-organizations/organizations#/settings"
+    },
+    {
+      "labelId": "admin/b2b-organizations.organization-settings.navigation.label",
+      "path": "/admin/b2b-organizations/organizations#/auto-approve"
     }
   ]
 }

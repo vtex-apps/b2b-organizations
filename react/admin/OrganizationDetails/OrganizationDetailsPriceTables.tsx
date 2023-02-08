@@ -81,7 +81,6 @@ const OrganizationDetailsPriceTables = ({
         newPriceTables.push(row.tableId)
       }
     })
-
     setPriceTablesState((prevState: any) => [...prevState, ...newPriceTables])
   }
 
