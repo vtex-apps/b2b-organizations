@@ -35,6 +35,9 @@
   "admin/b2b-organizations.organization-settings-select.toast.update-failure": "L'aggiornamento delle associazioni non è riuscito. Visualizza la console per i dettagli.",
   "admin/b2b-organizations.organization-settings-select.remove-from-binding": "Rimuovi dall'associazione",
   "admin/b2b-organizations.organization-settings-select.add-to-binding": "Aggiungi all'associazione",
+  "admin/b2b-organizations.organization-settings-autoApprove": "Approve new Organizations automatically",
+  "admin/b2b-organizations.organization-settings-showModal": "Use modal to switch company",
+  "admin/b2b-organizations.organization-settings-clearCart": "Clear cart when switching company or logging in",
   "admin/b2b-organizations.organizations-admin.table.column-name.title": "Nome",
   "admin/b2b-organizations.organizations-admin.table.column-status.title": "Stato",
   "admin/b2b-organizations.organizations-admin.table.view.label": "Visualizza",
@@ -114,6 +117,7 @@
   "admin/b2b-organizations.organization-details.sales-admin-title": "Gestisci utenti di vendita",
   "admin/b2b-organizations.organization-details.default": "Generali",
   "admin/b2b-organizations.organization-details.organization-name-required": "Il nome dell'organizzazione è obbligatorio.",
+  "admin/b2b-organizations.organization-details.sellers": "Sellers",
   "admin/b2b-organizations.costCenter-details.toast.update-success": "Centro di costo aggiornato correttamente",
   "admin/b2b-organizations.costCenter-details.toast.update-failure": "Aggiornamento non riuscito. Visualizza la console per i dettagli.",
   "admin/b2b-organizations.costCenter-details.toast.delete-failure": "Eliminazione non riuscita. Visualizza la console per i dettagli.",
@@ -296,5 +300,11 @@
   "store/b2b-organizations.stop-impersonation": "Interrompi personificazione",
   "store/b2b-organizations.stop-impersonation-error": "Errore durante il tentativo di interrompere la personificazione. Visualizza la console per i dettagli.",
   "store/b2b-organizations.set-current-organization": "Imposta l'organizzazione attuale",
-  "store/b2b-organizations.set-organization-error": "Si è verificato un errore nell'impostazione dell'organizzazione attuale. Visualizza la console per i dettagli."
+  "store/b2b-organizations.set-organization-error": "Si è verificato un errore nell'impostazione dell'organizzazione attuale. Visualizza la console per i dettagli.",
+  "store/b2b-organizations.modal.select-company": "Select the company",
+  "store/b2b-organizations.modal.search": "Search",
+  "store/b2b-organizations.modal.join": "Join",
+  "store/b2b-organizations.change-organization": "Change Organization",
+  "store/b2b-organizations.current-organization": "Current Organization",
+  "store/b2b-organizations.organizations-found": "Organizations Found"
 }

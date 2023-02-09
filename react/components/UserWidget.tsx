@@ -2,7 +2,7 @@ import React, { Fragment, useEffect, useState } from 'react'
 import type { FunctionComponent } from 'react'
 import { useQuery, useMutation } from 'react-apollo'
 import { useIntl, FormattedMessage } from 'react-intl'
-import { AutocompleteInput, Button, Tag } from 'vtex.styleguide'
+import { AutocompleteInput, Button, Input, Modal, Tag } from 'vtex.styleguide'
 import { useCssHandles } from 'vtex.css-handles'
 import { useRuntime } from 'vtex.render-runtime'
 
@@ -16,6 +16,7 @@ import USER_WIDGET_QUERY from '../graphql/userWidgetQuery.graphql'
 import SET_CURRENT_ORGANIZATION from '../graphql/setCurrentOrganization.graphql'
 import STOP_IMPERSONATION from '../graphql/impersonateUser.graphql'
 import { B2B_CHECKOUT_SESSION_KEY } from '../utils/constants'
+import '../css/user-widget.css'
 
 const CSS_HANDLES = [
   'userWidgetContainer',
@@ -26,7 +27,28 @@ const CSS_HANDLES = [
   'userWidgetImpersonationButton',
   'userWidgetImpersonationError',
   'userWidgetOrganizationError',
+  'userWidgetModal',
+  'userWidgetCompanyName',
+  'userWidgetCostCenterName',
+  'userWidgetRole',
+  'col',
+  'userWidgetModalRow',
+  'userWidgetModalH1',
+  'userWidgetModalH2',
+  'userWidgetModalH3',
+  'userWidgetModalH4',
+  'userWidgetModalInput',
+  'userWidgetModalJoinButton',
+  'userWidgetModalTotal',
+  'userWidgetModalTable',
+  'userWidgetModalTableRow',
+  'userWidgetModalTableRowChecked',
+  'userWidgetModalTableCell',
+  'userWidgetModalTableRadio',
 ] as const
+
+const MAX_ORGANIZATIONS = 10
+const SESSION_STORAGE_SHOW_MODAL = 'b2b-organizations-showModal'
 
 const localStore = storageFactory(() => localStorage)
 let isAuthenticated =
@@ -105,6 +127,9 @@ const UserWidget: VtexFunctionComponent<UserWidgetProps> = ({
   const [loadingState, setLoadingState] = useState(false)
   const [errorState, setErrorState] = useState(false)
   const [errorOrganization, setErrorOrganization] = useState(false)
+  const [showModal, setShowModal] = useState(false)
+  const [searchTerm, setSearchTerm] = useState('')
+  const [radioValue, setRadioValue] = useState('')
 
   const [organizationsState, setOrganizationsState] = useState({
     organizationOptions: [],
@@ -114,6 +139,7 @@ const UserWidget: VtexFunctionComponent<UserWidgetProps> = ({
     currentOrganization: '',
     currentCostCenter: '',
     currentOrganizationStatus: '',
+    dataList: [],
   })
 
   const sessionResponse: any = useSessionResponse()
@@ -153,6 +179,26 @@ const UserWidget: VtexFunctionComponent<UserWidgetProps> = ({
         setErrorState(true)
         setLoadingState(false)
       })
+  }
+
+  const joinOrganization = async () => {
+    const [orgId, costId] = radioValue.split(',')
+
+    setLoadingState(true)
+    try {
+      await setCurrentOrganization({
+        variables: {
+          orgId,
+          costId,
+        },
+      })
+    } catch (error) {
+      setErrorOrganization(true)
+    } finally {
+      setLoadingState(false)
+    }
+
+    window.location.reload()
   }
 
   const handleSetCurrentOrganization = async () => {
@@ -198,8 +244,39 @@ const UserWidget: VtexFunctionComponent<UserWidgetProps> = ({
   }
 
   useEffect(() => {
+    setOrganizationsState({
+      ...organizationsState,
+      dataList: userWidgetData?.getOrganizationsByEmail
+        ?.filter((organization: any) => {
+          return (
+            organization.organizationName
+              .toLowerCase()
+              .includes(searchTerm.toLowerCase()) ||
+            organization.costCenterName
+              .toLowerCase()
+              .includes(searchTerm.toLowerCase())
+          )
+        })
+        .slice(0, MAX_ORGANIZATIONS),
+    })
+  }, [searchTerm])
+
+  useEffect(() => {
     if (!userWidgetData?.getOrganizationsByEmail) {
       return
+    }
+
+    const uiSettings = userWidgetData?.getB2BSettings?.uiSettings
+
+    if (uiSettings?.showModal) {
+      const totalCompanies = userWidgetData?.getOrganizationsByEmail?.length
+      const storageShowModal = sessionStorage.getItem(
+        SESSION_STORAGE_SHOW_MODAL
+      )
+
+      setShowModal(totalCompanies > 1 && !storageShowModal)
+
+      sessionStorage.setItem(SESSION_STORAGE_SHOW_MODAL, 'true')
     }
 
     const currentOrganization =
@@ -235,6 +312,10 @@ const UserWidget: VtexFunctionComponent<UserWidgetProps> = ({
         })),
       currentOrganization,
       currentCostCenter,
+      dataList: userWidgetData?.getOrganizationsByEmail.slice(
+        0,
+        MAX_ORGANIZATIONS
+      ),
       currentOrganizationStatus:
         userWidgetData?.getOrganizationByIdStorefront?.status,
     })
@@ -311,121 +392,254 @@ const UserWidget: VtexFunctionComponent<UserWidgetProps> = ({
     <div
       className={`${handles.userWidgetContainer} w-100 flex flex-column mv3 bg-base--inverted`}
     >
-      <div
-        className={`${handles.userWidgetRow} flex justify-center items-center`}
+      <Modal
+        responsiveFullScreen={true}
+        centered
+        isOpen={showModal}
+        onClose={() => setShowModal(false)}
       >
-        <div
-          className={`${handles.userWidgetItem} pa3 br2 bg-base--inverted hover-bg-base--inverted active-bg-base--inverted c-on-base--inverted hover-c-on-base--inverted active-c-on-base--inverted dib mr3`}
-        >
-          {(!userWidgetData?.checkImpersonation?.email &&
-            organizationsState.organizationOptions.length > 1 &&
-            showDropdown && (
-              <AutocompleteInput
-                input={organizationAutoCompleteInput}
-                options={autoCompleteOrganizationOptions}
-              />
-            )) || (
-            <Fragment>
-              {`${formatMessage(messages.organization)} ${
-                userWidgetData?.getOrganizationByIdStorefront?.name
-              }`}
-              {handleStatusMessage(
-                userWidgetData?.getOrganizationByIdStorefront?.status ?? ''
-              )}
-            </Fragment>
-          )}
+        <div className={`${handles.userWidgetModalRow} flex`}>
+          <div className={`${handles.col}`}>
+            <div>
+              <h1 className={`${handles.userWidgetModalH1} flex`}>
+                {formatMessage(messages.selectCompany)}
+              </h1>
+              <div className={`${handles.userWidgetModalInput} flex`}>
+                <Input
+                  onChange={(e: any) => setSearchTerm(e.target.value)}
+                  value={searchTerm}
+                  placeholder={`${formatMessage(messages.search)}...`}
+                />
+                <Button variation="primary">
+                  {formatMessage(messages.search)}
+                </Button>
+              </div>
+              <div className={`${handles.userWidgetModalTotal} pt4 mb4`}>
+                {organizationsState?.dataList?.length}{' '}
+                {formatMessage(messages.organizationsFound)}
+              </div>
+              <table className={handles.userWidgetModalTable}>
+                <tbody>
+                  {organizationsState?.dataList?.map((organization: any) => {
+                    const id = [organization.orgId, organization.costId].join(
+                      ','
+                    )
+
+                    return (
+                      <tr
+                        key={id}
+                        className={`${handles.userWidgetModalTableRow} ${
+                          id === radioValue
+                            ? handles.userWidgetModalTableRowChecked
+                            : ''
+                        }`}
+                        onClick={() => setRadioValue(id)}
+                      >
+                        <td className={handles.userWidgetModalTableCell}>
+                          <input
+                            id={id}
+                            value={id}
+                            checked={id === radioValue}
+                            onChange={(e: any) => setRadioValue(e.target.value)}
+                            type="radio"
+                            className={handles.userWidgetModalTableRadio}
+                          />
+                        </td>
+                        <td className={handles.userWidgetModalTableCell}>
+                          <label htmlFor={id}>
+                            {organization.organizationName}
+                          </label>
+                        </td>
+                        <td className={handles.userWidgetModalTableCell}>
+                          <label htmlFor={id}>
+                            {organization.costCenterName}
+                          </label>
+                        </td>
+                      </tr>
+                    )
+                  })}
+                </tbody>
+              </table>
+            </div>
+            <div className={handles.userWidgetModalJoinButton}>
+              <Button
+                variation="primary"
+                disabled={!radioValue || !radioValue.trim().length}
+                onClick={() => joinOrganization()}
+                isLoading={loadingState}
+              >
+                {formatMessage(messages.join)}
+              </Button>
+            </div>
+          </div>
+          <div className={`${handles.col}`}>
+            <h2 className={`${handles.userWidgetModalH2} flex`}>
+              {formatMessage(messages.currentOrganization)}
+            </h2>
+            <h3
+              className={`${handles.userWidgetModalH3} flex`}
+            >{`${userWidgetData?.getOrganizationByIdStorefront?.name}`}</h3>
+            <h4
+              className={`${handles.userWidgetModalH4} flex`}
+            >{`${userWidgetData?.getCostCenterByIdStorefront?.name}`}</h4>
+          </div>
         </div>
-        <div
-          className={`${handles.userWidgetItem} pa3 br2 bg-base--inverted hover-bg-base--inverted active-bg-base--inverted c-on-base--inverted hover-c-on-base--inverted active-c-on-base--inverted dib mr3`}
-        >
-          {(!userWidgetData?.checkImpersonation?.email &&
-            organizationsState.organizationOptions.length > 1 &&
-            showDropdown && (
-              <AutocompleteInput
-                input={costCenterAutoCompleteInput}
-                options={autoCompleteCostCentersOptions}
-              />
-            )) || (
-            <Fragment>
-              {`${formatMessage(messages.costCenter)} ${
-                userWidgetData?.getCostCenterByIdStorefront?.name
-              }`}
-            </Fragment>
-          )}
-        </div>
-        {!userWidgetData?.checkImpersonation?.email &&
-          organizationsState.organizationOptions.length > 1 &&
-          showDropdown && (
+      </Modal>
+      {userWidgetData?.getB2BSettings?.uiSettings?.showModal && (
+        <Fragment>
+          <div className={`${handles.userWidgetRow} flex pr4 pl4 items-center`}>
+            <div
+              className={`${handles.userWidgetItem} pa3 br2 bg-base--inverted hover-bg-base--inverted active-bg-base--inverted c-on-base--inverted hover-c-on-base--inverted active-c-on-base--inverted dib mr3 flex items-center w-100`}
+            >
+              <div className={`${handles.userWidgetCompanyName} mr4`}>
+                {`${formatMessage(messages.organization)} ${
+                  userWidgetData?.getOrganizationByIdStorefront?.name
+                }`}
+              </div>
+              <div className={`${handles.userWidgetCostCenterName} mr4`}>
+                {`${formatMessage(messages.costCenter)} ${
+                  userWidgetData?.getCostCenterByIdStorefront?.name
+                }`}
+              </div>
+              <div className={`${handles.userWidgetRole}`}>
+                {`${formatMessage(messages.role)} ${
+                  userWidgetData?.checkUserPermission?.role?.name
+                }`}
+              </div>
+              <div className="ml-auto">
+                {userWidgetData?.getOrganizationsByEmail?.length > 1 && (
+                  <Button variant="primary" onClick={() => setShowModal(true)}>
+                    {formatMessage(messages.changeOrganization)}
+                  </Button>
+                )}
+              </div>
+            </div>
+          </div>
+        </Fragment>
+      )}
+      {!userWidgetData?.getB2BSettings?.uiSettings?.showModal && (
+        <Fragment>
+          <div
+            className={`${handles.userWidgetRow} flex justify-center items-center`}
+          >
             <div
               className={`${handles.userWidgetItem} pa3 br2 bg-base--inverted hover-bg-base--inverted active-bg-base--inverted c-on-base--inverted hover-c-on-base--inverted active-c-on-base--inverted dib mr3`}
             >
-              <Button
-                variation="primary"
-                size="small"
-                disabled={
-                  organizationsState.currentCostCenter ===
-                  userWidgetData?.getCostCenterByIdStorefront?.id
-                }
-                isLoading={loadingState}
-                onClick={() => handleSetCurrentOrganization()}
-              >
-                {formatMessage(messages.setCurrentOrganization)}
-              </Button>
-              {errorOrganization && (
-                <div className={`${handles.userWidgetOrganizationError} error`}>
-                  <FormattedMessage id="store/b2b-organizations.set-organization-error" />
-                </div>
+              {(!userWidgetData?.checkImpersonation?.email &&
+                organizationsState.organizationOptions.length > 1 &&
+                showDropdown && (
+                  <AutocompleteInput
+                    input={organizationAutoCompleteInput}
+                    options={autoCompleteOrganizationOptions}
+                  />
+                )) || (
+                <Fragment>
+                  {`${formatMessage(messages.organization)} ${
+                    userWidgetData?.getOrganizationByIdStorefront?.name
+                  }`}
+                  {handleStatusMessage(
+                    userWidgetData?.getOrganizationByIdStorefront?.status ?? ''
+                  )}
+                </Fragment>
               )}
             </div>
-          )}
-        <div
-          className={`${handles.userWidgetItem} pa3 br2 bg-base--inverted hover-bg-base--inverted active-bg-base--inverted c-on-base--inverted hover-c-on-base--inverted active-c-on-base--inverted dib mr3`}
-        >
-          {`${formatMessage(messages.role)} ${
-            userWidgetData?.checkUserPermission?.role?.name
-          }`}
-        </div>
-        <div className={`${handles.userWidgetButton} pa3`}>
-          <Button
-            variation="secondary"
-            size="small"
-            onClick={() =>
-              navigate({
-                to: `${rootPath ?? ''}/account#/organization`,
-              })
-            }
-          >
-            {formatMessage(messages.manageOrganization)}
-          </Button>
-        </div>
-      </div>
-      {userWidgetData?.checkImpersonation?.email && (
-        <div
-          className={`${handles.userWidgetRow} flex justify-center items-center`}
-        >
-          <div
-            className={`${handles.userWidgetImpersonationItem} pa3 br2 bg-base--inverted hover-bg-base--inverted active-bg-base--inverted c-on-base--inverted hover-c-on-base--inverted active-c-on-base--inverted dib mr3`}
-          >
-            {`${formatMessage(messages.impersonating)} ${
-              userWidgetData?.checkImpersonation.email
-            }`}
-          </div>
-          <div className={`${handles.userWidgetImpersonationButton} pa3`}>
-            <Button
-              variation="danger"
-              size="small"
-              onClick={() => handleStopImpersonation()}
-              isLoading={loadingState}
+            <div
+              className={`${handles.userWidgetItem} pa3 br2 bg-base--inverted hover-bg-base--inverted active-bg-base--inverted c-on-base--inverted hover-c-on-base--inverted active-c-on-base--inverted dib mr3`}
             >
-              {formatMessage(messages.stopImpersonation)}
-            </Button>
-            {errorState && (
-              <div className={`${handles.userWidgetImpersonationError} error`}>
-                <FormattedMessage id="store/b2b-organizations.stop-impersonation-error" />
-              </div>
-            )}
+              {(!userWidgetData?.checkImpersonation?.email &&
+                organizationsState.organizationOptions.length > 1 &&
+                showDropdown && (
+                  <AutocompleteInput
+                    input={costCenterAutoCompleteInput}
+                    options={autoCompleteCostCentersOptions}
+                  />
+                )) || (
+                <Fragment>
+                  {`${formatMessage(messages.costCenter)} ${
+                    userWidgetData?.getCostCenterByIdStorefront?.name
+                  }`}
+                </Fragment>
+              )}
+            </div>
+            {!userWidgetData?.checkImpersonation?.email &&
+              organizationsState.organizationOptions.length > 1 &&
+              showDropdown && (
+                <div
+                  className={`${handles.userWidgetItem} pa3 br2 bg-base--inverted hover-bg-base--inverted active-bg-base--inverted c-on-base--inverted hover-c-on-base--inverted active-c-on-base--inverted dib mr3`}
+                >
+                  <Button
+                    variation="primary"
+                    size="small"
+                    disabled={
+                      organizationsState.currentCostCenter ===
+                      userWidgetData?.getCostCenterByIdStorefront?.id
+                    }
+                    isLoading={loadingState}
+                    onClick={() => handleSetCurrentOrganization()}
+                  >
+                    {formatMessage(messages.setCurrentOrganization)}
+                  </Button>
+                  {errorOrganization && (
+                    <div
+                      className={`${handles.userWidgetOrganizationError} error`}
+                    >
+                      <FormattedMessage id="store/b2b-organizations.set-organization-error" />
+                    </div>
+                  )}
+                </div>
+              )}
+            <div
+              className={`${handles.userWidgetItem} pa3 br2 bg-base--inverted hover-bg-base--inverted active-bg-base--inverted c-on-base--inverted hover-c-on-base--inverted active-c-on-base--inverted dib mr3`}
+            >
+              {`${formatMessage(messages.role)} ${
+                userWidgetData?.checkUserPermission?.role?.name
+              }`}
+            </div>
+            <div className={`${handles.userWidgetButton} pa3`}>
+              <Button
+                variation="secondary"
+                size="small"
+                onClick={() =>
+                  navigate({
+                    to: `${rootPath ?? ''}/account#/organization`,
+                  })
+                }
+              >
+                {formatMessage(messages.manageOrganization)}
+              </Button>
+            </div>
           </div>
-        </div>
+          {userWidgetData?.checkImpersonation?.email && (
+            <div
+              className={`${handles.userWidgetRow} flex justify-center items-center`}
+            >
+              <div
+                className={`${handles.userWidgetImpersonationItem} pa3 br2 bg-base--inverted hover-bg-base--inverted active-bg-base--inverted c-on-base--inverted hover-c-on-base--inverted active-c-on-base--inverted dib mr3`}
+              >
+                {`${formatMessage(messages.impersonating)} ${
+                  userWidgetData?.checkImpersonation.email
+                }`}
+              </div>
+              <div className={`${handles.userWidgetImpersonationButton} pa3`}>
+                <Button
+                  variation="danger"
+                  size="small"
+                  onClick={() => handleStopImpersonation()}
+                  isLoading={loadingState}
+                >
+                  {formatMessage(messages.stopImpersonation)}
+                </Button>
+                {errorState && (
+                  <div
+                    className={`${handles.userWidgetImpersonationError} error`}
+                  >
+                    <FormattedMessage id="store/b2b-organizations.stop-impersonation-error" />
+                  </div>
+                )}
+              </div>
+            </div>
+          )}
+        </Fragment>
       )}
     </div>
   )

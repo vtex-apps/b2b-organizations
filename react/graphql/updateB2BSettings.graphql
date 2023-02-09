@@ -1,0 +1,6 @@
+mutation saveB2BSettings($input: B2BSettingsInput) {
+  saveB2BSettings(input: $input)
+    @context(provider: "vtex.b2b-organizations-graphql") {
+    status
+  }
+}

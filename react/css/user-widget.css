@@ -1,0 +1,52 @@
+.userWidgetModalRow .col:last-child {
+  padding: 1rem;
+  background: #F5F4F4;
+  display: none;
+}
+.userWidgetModalRow .col:first-child {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.userWidgetModalRow {
+  max-width: 980px;
+  min-height: 800px;
+  padding: 0;
+  flex-direction: column-reverse;
+  justify-content: start;
+}
+.userWidgetModalTable {
+  width: 100%;
+  border-spacing: 0;
+}
+.userWidgetModalTableRow:hover {
+  background: #bcbcbc !important;
+}
+.userWidgetModalTableRowChecked {
+  background: #0f3e99!important;
+  color: white!important;
+  pointer-events: none;
+}
+.userWidgetModalTableRow {
+  margin: 0.75rem 0;
+  display: flex;
+  justify-content: space-between;
+  cursor: pointer;
+}
+.userWidgetModalTableRow:nth-child(even) {
+  background: #F5F4F4;
+}
+.userWidgetModalTableRow:nth-child(odd) {
+  background: #DFDCDC;
+}
+.userWidgetModalTableCell:first-child {
+  display: none;
+}
+.userWidgetModalTableCell {
+  padding: 1rem;
+}
+
+.userWidgetModalTableRadio {
+  display: none;
+}

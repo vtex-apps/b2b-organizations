@@ -24,9 +24,6 @@
     "component": "StorefrontCostCenterDetails"
   },
   "b2b-user-widget": {
-    "component": "StorefrontUserWidget",
-    "content": {
-      "$ref": "#/definitions/StorefrontUserWidgetProps"
-    }
+    "component": "StorefrontUserWidget"
   }
 }

@@ -35,6 +35,9 @@
   "admin/b2b-organizations.organization-settings-select.toast.update-failure": "No se pudo actualizar los vínculos. Consulta la consola para ver más detalles.",
   "admin/b2b-organizations.organization-settings-select.remove-from-binding": "Remover del vínculo",
   "admin/b2b-organizations.organization-settings-select.add-to-binding": "Agregar al vínculo",
+  "admin/b2b-organizations.organization-settings-autoApprove": "Approve new Organizations automatically",
+  "admin/b2b-organizations.organization-settings-showModal": "Use modal to switch company",
+  "admin/b2b-organizations.organization-settings-clearCart": "Clear cart when switching company or logging in",
   "admin/b2b-organizations.organizations-admin.table.column-name.title": "Nombre",
   "admin/b2b-organizations.organizations-admin.table.column-status.title": "Status",
   "admin/b2b-organizations.organizations-admin.table.view.label": "Ver",
@@ -114,6 +117,7 @@
   "admin/b2b-organizations.organization-details.sales-admin-title": "Gestionar usuarios de ventas",
   "admin/b2b-organizations.organization-details.default": "General",
   "admin/b2b-organizations.organization-details.organization-name-required": "El nombre de la organización es obligatorio.",
+  "admin/b2b-organizations.organization-details.sellers": "Sellers",
   "admin/b2b-organizations.costCenter-details.toast.update-success": "Centro de costos actualizado con éxito",
   "admin/b2b-organizations.costCenter-details.toast.update-failure": "La actualización falló. Consulta la consola para ver los detalles.",
   "admin/b2b-organizations.costCenter-details.toast.delete-failure": "La eliminación falló. Consulta la consola para ver los detalles.",
@@ -296,5 +300,11 @@
   "store/b2b-organizations.stop-impersonation": "Detener suplantación",
   "store/b2b-organizations.stop-impersonation-error": "Error al detener la suplantación. Consulta la consola para ver los detalles.",
   "store/b2b-organizations.set-current-organization": "Configurar organización actual",
-  "store/b2b-organizations.set-organization-error": "Error al configurar la organización actual. Consulta la consola para ver más detalles."
+  "store/b2b-organizations.set-organization-error": "Error al configurar la organización actual. Consulta la consola para ver más detalles.",
+  "store/b2b-organizations.modal.select-company": "Select the company",
+  "store/b2b-organizations.modal.search": "Search",
+  "store/b2b-organizations.modal.join": "Join",
+  "store/b2b-organizations.change-organization": "Change Organization",
+  "store/b2b-organizations.current-organization": "Current Organization",
+  "store/b2b-organizations.organizations-found": "Organizations Found"
 }
