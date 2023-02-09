@@ -31,6 +31,8 @@ import OrganizationDetailsSalesChannel from './OrganizationDetails/OrganizationD
 import OrganizationDetailsUsers from './OrganizationDetails/OrganizationDetailsUsers'
 import OrganizationDetailsDefault from './OrganizationDetails/OrganizationDetailsDefault'
 import useHashRouter from './OrganizationDetails/useHashRouter'
+import type { Seller } from './OrganizationDetails/OrganizationDetailsSellers'
+import OrganizationDetailsSellers from './OrganizationDetails/OrganizationDetailsSellers'
 
 export interface CellRendererProps<RowType> {
   cellData: unknown
@@ -64,6 +66,7 @@ const OrganizationDetails: FunctionComponent = () => {
   const [collectionsState, setCollectionsState] = useState([] as Collection[])
   const [priceTablesState, setPriceTablesState] = useState([] as string[])
   const [salesChannelState, setSalesChannelState] = useState('')
+  const [sellersState, setSellersState] = useState([] as Seller[])
   const [errorState, setErrorState] = useState('')
   const [paymentTermsState, setPaymentTermsState] = useState(
     [] as PaymentTerm[]
@@ -118,6 +121,10 @@ const OrganizationDetails: FunctionComponent = () => {
       paymentTerms,
       priceTables: priceTablesState,
       salesChannel: salesChannelState,
+      sellers: sellersState?.map(seller => ({
+        id: seller.sellerId,
+        name: seller.name,
+      })),
     }
 
     updateOrganization({ variables })
@@ -140,7 +147,11 @@ const OrganizationDetails: FunctionComponent = () => {
   }
 
   const getSchema = (
-    type?: 'availablePriceTables' | 'availableCollections' | 'availablePayments'
+    type?:
+      | 'availablePriceTables'
+      | 'availableCollections'
+      | 'availablePayments'
+      | 'availableSellers'
   ) => {
     let cellRenderer
 
@@ -197,6 +208,24 @@ const OrganizationDetails: FunctionComponent = () => {
 
         break
 
+      case 'availableSellers':
+        cellRenderer = ({
+          rowData: { sellerId, name },
+        }: CellRendererProps<Seller>) => {
+          const isDisabled = sellersState.some(
+            seller => seller.sellerId === sellerId
+          )
+
+          return (
+            <span className={isDisabled ? 'c-disabled' : ''}>
+              {name ?? sellerId}
+              {isDisabled && <IconCheck />}
+            </span>
+          )
+        }
+
+        break
+
       default:
         break
     }
@@ -238,6 +267,14 @@ const OrganizationDetails: FunctionComponent = () => {
     setPaymentTermsState(paymentTerms)
     setPriceTablesState(data.getOrganizationById.priceTables ?? [])
     setSalesChannelState(data.getOrganizationById.salesChannel ?? '')
+    setSellersState(
+      data.getOrganizationById.sellers?.map(
+        (seller: { id: string; name: string }) => ({
+          sellerId: seller.id,
+          name: seller.name,
+        })
+      ) ?? []
+    )
   }, [data])
 
   /**
@@ -312,6 +349,17 @@ const OrganizationDetails: FunctionComponent = () => {
         <OrganizationDetailsSalesChannel
           salesChannelState={salesChannelState}
           setSalesChannelState={setSalesChannelState}
+        />
+      ),
+    },
+    {
+      label: formatMessage(messages.sellers),
+      tab: 'sellers',
+      component: (
+        <OrganizationDetailsSellers
+          getSchema={getSchema}
+          sellersState={sellersState}
+          setSellersState={setSellersState}
         />
       ),
     },

@@ -35,6 +35,9 @@
   "admin/b2b-organizations.organization-settings-select.toast.update-failure": "Binding gagal diperbarui. Lihat konsol untuk detailnya.",
   "admin/b2b-organizations.organization-settings-select.remove-from-binding": "Hapus dari binding",
   "admin/b2b-organizations.organization-settings-select.add-to-binding": "Tambah ke binding",
+  "admin/b2b-organizations.organization-settings-autoApprove": "Approve new Organizations automatically",
+  "admin/b2b-organizations.organization-settings-showModal": "Use modal to switch company",
+  "admin/b2b-organizations.organization-settings-clearCart": "Clear cart when switching company or logging in",
   "admin/b2b-organizations.organizations-admin.table.column-name.title": "Nama",
   "admin/b2b-organizations.organizations-admin.table.column-status.title": "Status",
   "admin/b2b-organizations.organizations-admin.table.view.label": "Tampilan",
@@ -114,6 +117,7 @@
   "admin/b2b-organizations.organization-details.sales-admin-title": "Kelola Pengguna Penjualan",
   "admin/b2b-organizations.organization-details.default": "Umum",
   "admin/b2b-organizations.organization-details.organization-name-required": "Nama organisasi wajib diisi.",
+  "admin/b2b-organizations.organization-details.sellers": "Sellers",
   "admin/b2b-organizations.costCenter-details.toast.update-success": "Pusat biaya berhasil diperbarui",
   "admin/b2b-organizations.costCenter-details.toast.update-failure": "Pembaruan gagal. Lihat konsol untuk mengetahui detailnya.",
   "admin/b2b-organizations.costCenter-details.toast.delete-failure": "Penghapusan gagal. Lihat konsol untuk mengetahui detailnya.",
@@ -296,5 +300,11 @@
   "store/b2b-organizations.stop-impersonation": "Hentikan Peniruan",
   "store/b2b-organizations.stop-impersonation-error": "Kesalahan saat menghentikan peniruan. Lihat konsol untuk detailnya.",
   "store/b2b-organizations.set-current-organization": "Atur organisasi saat ini",
-  "store/b2b-organizations.set-organization-error": "Kesalahan terjadi saat mengatur organisasi saat ini. Lihat konsol untuk detailnya."
+  "store/b2b-organizations.set-organization-error": "Kesalahan terjadi saat mengatur organisasi saat ini. Lihat konsol untuk detailnya.",
+  "store/b2b-organizations.modal.select-company": "Select the company",
+  "store/b2b-organizations.modal.search": "Search",
+  "store/b2b-organizations.modal.join": "Join",
+  "store/b2b-organizations.change-organization": "Change Organization",
+  "store/b2b-organizations.current-organization": "Current Organization",
+  "store/b2b-organizations.organizations-found": "Organizations Found"
 }

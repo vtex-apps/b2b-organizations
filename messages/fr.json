@@ -35,6 +35,9 @@
   "admin/b2b-organizations.organization-settings-select.toast.update-failure": "La mise à jour des liaisons a échoué. Voir la console pour plus de détails.",
   "admin/b2b-organizations.organization-settings-select.remove-from-binding": "Retirer de la liaison",
   "admin/b2b-organizations.organization-settings-select.add-to-binding": "Ajouter à la liaison",
+  "admin/b2b-organizations.organization-settings-autoApprove": "Approve new Organizations automatically",
+  "admin/b2b-organizations.organization-settings-showModal": "Use modal to switch company",
+  "admin/b2b-organizations.organization-settings-clearCart": "Clear cart when switching company or logging in",
   "admin/b2b-organizations.organizations-admin.table.column-name.title": "Nom",
   "admin/b2b-organizations.organizations-admin.table.column-status.title": "Statut",
   "admin/b2b-organizations.organizations-admin.table.view.label": "Afficher",
@@ -114,6 +117,7 @@
   "admin/b2b-organizations.organization-details.sales-admin-title": "Gérer les commerciaux",
   "admin/b2b-organizations.organization-details.default": "Général",
   "admin/b2b-organizations.organization-details.organization-name-required": "Le nom de l’organisation est requis.",
+  "admin/b2b-organizations.organization-details.sellers": "Sellers",
   "admin/b2b-organizations.costCenter-details.toast.update-success": "Le centre de coûts a bien été modifié",
   "admin/b2b-organizations.costCenter-details.toast.update-failure": "La mise à jour a échoué. Consultez la console pour plus de détails.",
   "admin/b2b-organizations.costCenter-details.toast.delete-failure": "La suppression a échoué. Voir la console pour plus de détails.",
@@ -296,5 +300,11 @@
   "store/b2b-organizations.stop-impersonation": "Arrêter l’emprunt d’identité",
   "store/b2b-organizations.stop-impersonation-error": "Erreur lors de l’arrêt de l’emprunt d’identité. Voir la console pour plus de détails.",
   "store/b2b-organizations.set-current-organization": "Définir l'organisation actuelle",
-  "store/b2b-organizations.set-organization-error": "Erreur lors du paramétrage de l'organisation actuelle. Consultez la console pour plus de détails."
+  "store/b2b-organizations.set-organization-error": "Erreur lors du paramétrage de l'organisation actuelle. Consultez la console pour plus de détails.",
+  "store/b2b-organizations.modal.select-company": "Select the company",
+  "store/b2b-organizations.modal.search": "Search",
+  "store/b2b-organizations.modal.join": "Join",
+  "store/b2b-organizations.change-organization": "Change Organization",
+  "store/b2b-organizations.current-organization": "Current Organization",
+  "store/b2b-organizations.organizations-found": "Organizations Found"
 }

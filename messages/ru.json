@@ -35,6 +35,9 @@
   "admin/b2b-organizations.organization-settings-select.toast.update-failure": "Не удалось обновить привязки. Просмотрите консоль для получения дополнительной информации.",
   "admin/b2b-organizations.organization-settings-select.remove-from-binding": "Удалить из привязок",
   "admin/b2b-organizations.organization-settings-select.add-to-binding": "Добавить к привязкам",
+  "admin/b2b-organizations.organization-settings-autoApprove": "Approve new Organizations automatically",
+  "admin/b2b-organizations.organization-settings-showModal": "Use modal to switch company",
+  "admin/b2b-organizations.organization-settings-clearCart": "Clear cart when switching company or logging in",
   "admin/b2b-organizations.organizations-admin.table.column-name.title": "Имя",
   "admin/b2b-organizations.organizations-admin.table.column-status.title": "Статус",
   "admin/b2b-organizations.organizations-admin.table.view.label": "Просмотр",
@@ -114,6 +117,7 @@
   "admin/b2b-organizations.organization-details.sales-admin-title": "Управление пользователями, связанными с продажами",
   "admin/b2b-organizations.organization-details.default": "Общее",
   "admin/b2b-organizations.organization-details.organization-name-required": "Требуется название организации.",
+  "admin/b2b-organizations.organization-details.sellers": "Sellers",
   "admin/b2b-organizations.costCenter-details.toast.update-success": "Финансовый центр обновлён",
   "admin/b2b-organizations.costCenter-details.toast.update-failure": "Не удалось обновить. Подробная информация доступна на консоли.",
   "admin/b2b-organizations.costCenter-details.toast.delete-failure": "Не удалось удалить. Подробная информация доступна на консоли.",
@@ -296,5 +300,11 @@
   "store/b2b-organizations.stop-impersonation": "Остановить работу от имени другого лица",
   "store/b2b-organizations.stop-impersonation-error": "Сбой остановки работы от имени другого лица. Подробная информация доступна на консоли.",
   "store/b2b-organizations.set-current-organization": "Установить текущую организацию",
-  "store/b2b-organizations.set-organization-error": "Не удалось установить текущую организацию. Просмотрите консоль для получения дополнительной информации."
+  "store/b2b-organizations.set-organization-error": "Не удалось установить текущую организацию. Просмотрите консоль для получения дополнительной информации.",
+  "store/b2b-organizations.modal.select-company": "Select the company",
+  "store/b2b-organizations.modal.search": "Search",
+  "store/b2b-organizations.modal.join": "Join",
+  "store/b2b-organizations.change-organization": "Change Organization",
+  "store/b2b-organizations.current-organization": "Current Organization",
+  "store/b2b-organizations.organizations-found": "Organizations Found"
 }

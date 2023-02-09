@@ -65,4 +65,10 @@ query userWidgetQuery($orgId: ID) {
   checkImpersonation @context(provider: "vtex.storefront-permissions") {
     email
   }
+
+  getB2BSettings @context(provider: "vtex.b2b-organizations-graphql") {
+    uiSettings {
+      showModal
+    }
+  }
 }

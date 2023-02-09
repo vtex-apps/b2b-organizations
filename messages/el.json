@@ -35,6 +35,9 @@
   "admin/b2b-organizations.organization-settings-select.toast.update-failure": "Η ενημέρωση των δεσμεύσεων απέτυχε. Βλέπε την κονσόλα για λεπτομέρειες.",
   "admin/b2b-organizations.organization-settings-select.remove-from-binding": "Αφαίρεση από τις δεσμεύσεις",
   "admin/b2b-organizations.organization-settings-select.add-to-binding": "Προσθήκη στις δεσμεύσεις",
+  "admin/b2b-organizations.organization-settings-autoApprove": "Approve new Organizations automatically",
+  "admin/b2b-organizations.organization-settings-showModal": "Use modal to switch company",
+  "admin/b2b-organizations.organization-settings-clearCart": "Clear cart when switching company or logging in",
   "admin/b2b-organizations.organizations-admin.table.column-name.title": "Όνομα",
   "admin/b2b-organizations.organizations-admin.table.column-status.title": "Κατάσταση",
   "admin/b2b-organizations.organizations-admin.table.view.label": "Προβολή",
@@ -114,6 +117,7 @@
   "admin/b2b-organizations.organization-details.sales-admin-title": "Διαχείριση χρηστών πωλήσεων",
   "admin/b2b-organizations.organization-details.default": "Γενικά",
   "admin/b2b-organizations.organization-details.organization-name-required": "Απαιτείται το όνομα του οργανισμού.",
+  "admin/b2b-organizations.organization-details.sellers": "Sellers",
   "admin/b2b-organizations.costCenter-details.toast.update-success": "Το κέντρο κόστους ενημερώθηκε με επιτυχία",
   "admin/b2b-organizations.costCenter-details.toast.update-failure": "Η ενημέρωση απέτυχε. Βλέπε κονσόλα για λεπτομέρειες.",
   "admin/b2b-organizations.costCenter-details.toast.delete-failure": "Η διαγραφή απέτυχε. Βλέπε κονσόλα για λεπτομέρειες.",
@@ -296,5 +300,11 @@
   "store/b2b-organizations.stop-impersonation": "Διακοπή προσωποποίησης",
   "store/b2b-organizations.stop-impersonation-error": "Σφάλμα κατά τη διακοπή της προσωποποίησης. Δείτε την κονσόλα για λεπτομέρειες.",
   "store/b2b-organizations.set-current-organization": "Ορισμός τρέχοντος οργανισμού",
-  "store/b2b-organizations.set-organization-error": "Σφάλμα κατά τον ορισμό του τρέχοντος οργανισμού. Βλέπε την κονσόλα για λεπτομέρειες."
+  "store/b2b-organizations.set-organization-error": "Σφάλμα κατά τον ορισμό του τρέχοντος οργανισμού. Βλέπε την κονσόλα για λεπτομέρειες.",
+  "store/b2b-organizations.modal.select-company": "Select the company",
+  "store/b2b-organizations.modal.search": "Search",
+  "store/b2b-organizations.modal.join": "Join",
+  "store/b2b-organizations.change-organization": "Change Organization",
+  "store/b2b-organizations.current-organization": "Current Organization",
+  "store/b2b-organizations.organizations-found": "Organizations Found"
 }

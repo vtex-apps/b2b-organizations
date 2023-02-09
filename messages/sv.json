@@ -35,6 +35,9 @@
   "admin/b2b-organizations.organization-settings-select.toast.update-failure": "Uppdateringen av bindningarna misslyckades. Se konsolen för detaljer.",
   "admin/b2b-organizations.organization-settings-select.remove-from-binding": "Ta bort från bindning",
   "admin/b2b-organizations.organization-settings-select.add-to-binding": "Lägg till i bindning",
+  "admin/b2b-organizations.organization-settings-autoApprove": "Approve new Organizations automatically",
+  "admin/b2b-organizations.organization-settings-showModal": "Use modal to switch company",
+  "admin/b2b-organizations.organization-settings-clearCart": "Clear cart when switching company or logging in",
   "admin/b2b-organizations.organizations-admin.table.column-name.title": "Namn",
   "admin/b2b-organizations.organizations-admin.table.column-status.title": "Status",
   "admin/b2b-organizations.organizations-admin.table.view.label": "Visa",
@@ -114,6 +117,7 @@
   "admin/b2b-organizations.organization-details.sales-admin-title": "Hantera säljanvändare",
   "admin/b2b-organizations.organization-details.default": "Allmänt",
   "admin/b2b-organizations.organization-details.organization-name-required": "Organisationsnamnet krävs.",
+  "admin/b2b-organizations.organization-details.sellers": "Sellers",
   "admin/b2b-organizations.costCenter-details.toast.update-success": "Kostnadsstället har uppdaterats",
   "admin/b2b-organizations.costCenter-details.toast.update-failure": "Uppdateringen misslyckades. Se konsolen för detaljer.",
   "admin/b2b-organizations.costCenter-details.toast.delete-failure": "Radering misslyckades. Se konsolen för detaljer.",
@@ -296,5 +300,11 @@
   "store/b2b-organizations.stop-impersonation": "Sluta uppträdandet",
   "store/b2b-organizations.stop-impersonation-error": "Det inge inte att stoppa uppträdandet. Se konsolen för detaljer.",
   "store/b2b-organizations.set-current-organization": "Ange nuvarande organisation",
-  "store/b2b-organizations.set-organization-error": "Fel vid inställning av nuvarande organisation. Se konsolen för detaljer."
+  "store/b2b-organizations.set-organization-error": "Fel vid inställning av nuvarande organisation. Se konsolen för detaljer.",
+  "store/b2b-organizations.modal.select-company": "Select the company",
+  "store/b2b-organizations.modal.search": "Search",
+  "store/b2b-organizations.modal.join": "Join",
+  "store/b2b-organizations.change-organization": "Change Organization",
+  "store/b2b-organizations.current-organization": "Current Organization",
+  "store/b2b-organizations.organizations-found": "Organizations Found"
 }

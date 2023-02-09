@@ -17,5 +17,9 @@ query GetOrganization($id: ID) {
     priceTables
     salesChannel
     costCenters
+    sellers {
+      id
+      name
+    }
   }
 }

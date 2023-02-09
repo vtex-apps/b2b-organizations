@@ -35,6 +35,9 @@
   "admin/b2b-organizations.organization-settings-select.toast.update-failure": "Oppdateringen av bindinger mislyktes. Se konsoll for mer informasjon.",
   "admin/b2b-organizations.organization-settings-select.remove-from-binding": "Fjern fra binding",
   "admin/b2b-organizations.organization-settings-select.add-to-binding": "Legg til i binding",
+  "admin/b2b-organizations.organization-settings-autoApprove": "Approve new Organizations automatically",
+  "admin/b2b-organizations.organization-settings-showModal": "Use modal to switch company",
+  "admin/b2b-organizations.organization-settings-clearCart": "Clear cart when switching company or logging in",
   "admin/b2b-organizations.organizations-admin.table.column-name.title": "Navn",
   "admin/b2b-organizations.organizations-admin.table.column-status.title": "Status",
   "admin/b2b-organizations.organizations-admin.table.view.label": "Vis",
@@ -114,6 +117,7 @@
   "admin/b2b-organizations.organization-details.sales-admin-title": "Administrer salgsbrukere",
   "admin/b2b-organizations.organization-details.default": "Generell",
   "admin/b2b-organizations.organization-details.organization-name-required": "Navn på organisasjonen er obligatorisk.",
+  "admin/b2b-organizations.organization-details.sellers": "Sellers",
   "admin/b2b-organizations.costCenter-details.toast.update-success": "Kostnadssenteret ble oppdatert",
   "admin/b2b-organizations.costCenter-details.toast.update-failure": "Oppdateringen mislyktes. Se konsoll for mer informasjon.",
   "admin/b2b-organizations.costCenter-details.toast.delete-failure": "Slettingen mislyktes. Se konsoll for mer informasjon.",
@@ -296,5 +300,11 @@
   "store/b2b-organizations.stop-impersonation": "Stopp etterligning",
   "store/b2b-organizations.stop-impersonation-error": "Feil ved stopp av etterligning. Se konsoll for mer informasjon.",
   "store/b2b-organizations.set-current-organization": "Angi gjeldende organisasjon",
-  "store/b2b-organizations.set-organization-error": "Feil ved angivelse av gjeldende organisasjon. Se konsoll for mer informasjon."
+  "store/b2b-organizations.set-organization-error": "Feil ved angivelse av gjeldende organisasjon. Se konsoll for mer informasjon.",
+  "store/b2b-organizations.modal.select-company": "Select the company",
+  "store/b2b-organizations.modal.search": "Search",
+  "store/b2b-organizations.modal.join": "Join",
+  "store/b2b-organizations.change-organization": "Change Organization",
+  "store/b2b-organizations.current-organization": "Current Organization",
+  "store/b2b-organizations.organizations-found": "Organizations Found"
 }
