@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Added 
+
+- Added the UI to handle the Payment terms and Price tables
+
 ## [1.20.0] - 2023-02-09
 
 ### Added 

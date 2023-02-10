@@ -5,12 +5,18 @@ import { useQuery, useMutation } from 'react-apollo'
 import { PageBlock, Table, IconCheck, Button, Checkbox } from 'vtex.styleguide'
 import { useToast } from '@vtex/admin-ui'
 
-import { organizationSettingsMessages as messages } from './utils/messages'
+import {
+  organizationSettingsMessages as messages,
+  organizationMessages,
+} from './utils/messages'
 import GET_SALES_CHANNELS from '../graphql/getSalesChannels.graphql'
 import SELECTED_SALES_CHANNELS from '../graphql/getSelectedChannels.graphql'
 import UPDATE_SALES_CHANNELS from '../graphql/updateSalesChannels.graphql'
 import UPDATE_B2B_SETTINGS from '../graphql/updateB2BSettings.graphql'
 import GET_B2B_SETTINGS from '../graphql/getB2BSettings.graphql'
+import GET_PAYMENT_TERMS from '../graphql/getPaymentTerms.graphql'
+import type { PaymentTerm } from './OrganizationDetails/OrganizationDetailsPayTerms'
+import GET_PRICE_TABLES from '../graphql/getPriceTables.graphql'
 
 interface SalesChannel {
   channelId: string
@@ -40,6 +46,8 @@ const OrganizationSettings: FunctionComponent = () => {
   const [loading, setLoading] = useState(false)
   const [settings, setSettings] = useState({
     autoApprove: false,
+    defaultPaymentTerms: [] as any,
+    defaultPriceTables: [] as any,
     uiSettings: {
       clearCart: false,
       showModal: false,
@@ -53,6 +61,12 @@ const OrganizationSettings: FunctionComponent = () => {
   const { data: selectedData, refetch } = useQuery(SELECTED_SALES_CHANNELS, {
     ssr: false,
   })
+
+  const { data: paymentTermsData } = useQuery<{
+    getPaymentTerms: PaymentTerm[]
+  }>(GET_PAYMENT_TERMS, { ssr: false })
+
+  const { data: priceTablesData } = useQuery(GET_PRICE_TABLES, { ssr: false })
 
   const { data: dataSettings, refetch: refetchSettings } = useQuery(
     GET_B2B_SETTINGS,
@@ -105,6 +119,8 @@ const OrganizationSettings: FunctionComponent = () => {
 
     setSettings({
       autoApprove: getB2BSettings?.autoApprove,
+      defaultPaymentTerms: getB2BSettings?.defaultPaymentTerms ?? [],
+      defaultPriceTables: getB2BSettings?.defaultPriceTables ?? [],
       uiSettings: {
         clearCart: getB2BSettings?.uiSettings?.clearCart,
         showModal: getB2BSettings?.uiSettings?.showModal,
@@ -285,7 +301,7 @@ const OrganizationSettings: FunctionComponent = () => {
               label={formatMessage(messages.showModal)}
             />
           </div>
-          <div className="mb4">
+          <div className="mb6">
             <Checkbox
               checked={settings.uiSettings.clearCart}
               id="clearCart"
@@ -301,6 +317,74 @@ const OrganizationSettings: FunctionComponent = () => {
               }}
               label={formatMessage(messages.clearCart)}
             />
+          </div>
+          <div className="flex br3 pa6 b--muted-4 ba">
+            <div className="mb4 w-50">
+              <h2 className="mb4">
+                {formatMessage(organizationMessages.paymentTerms)}
+              </h2>
+              {paymentTermsData?.getPaymentTerms
+                .sort((a: PaymentTerm, b: PaymentTerm) => {
+                  return a.name > b.name ? 1 : -1
+                })
+                .map((payment: PaymentTerm) => (
+                  <div className="mb4">
+                    <Checkbox
+                      name={payment.name}
+                      id={payment.name}
+                      label={payment.name}
+                      checked={settings?.defaultPaymentTerms?.some(
+                        (item: PaymentTerm) => item.id === payment.id
+                      )}
+                      onChange={() => {
+                        const defaultPaymentTerms = settings.defaultPaymentTerms?.some(
+                          (item: PaymentTerm) => item.id === payment.id
+                        )
+                          ? settings.defaultPaymentTerms?.filter(
+                              (item: PaymentTerm) => item.id !== payment.id
+                            )
+                          : [...settings.defaultPaymentTerms, payment]
+
+                        setSettings({
+                          ...settings,
+                          defaultPaymentTerms,
+                        })
+                      }}
+                    />
+                  </div>
+                ))}
+            </div>
+            <div className="mb4 w-50">
+              <h2 className="mb4">
+                {formatMessage(organizationMessages.priceTables)}
+              </h2>
+              {priceTablesData?.priceTables.map((priceTable: string) => (
+                <div className="mb4">
+                  <Checkbox
+                    name={priceTable}
+                    id={priceTable}
+                    label={priceTable}
+                    checked={settings?.defaultPriceTables?.some(
+                      (item: string) => item === priceTable
+                    )}
+                    onChange={() => {
+                      const defaultPriceTables = settings.defaultPriceTables?.some(
+                        (item: string) => item === priceTable
+                      )
+                        ? settings.defaultPriceTables?.filter(
+                            (item: string) => item !== priceTable
+                          )
+                        : [...settings.defaultPriceTables, priceTable]
+
+                      setSettings({
+                        ...settings,
+                        defaultPriceTables,
+                      })
+                    }}
+                  />
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </div>

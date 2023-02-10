@@ -1,6 +1,11 @@
 query GetB2BSettings {
   getB2BSettings @context(provider: "vtex.b2b-organizations-graphql") {
     autoApprove
+    defaultPaymentTerms {
+      id
+      name
+    }
+    defaultPriceTables
     uiSettings {
       showModal
       clearCart
