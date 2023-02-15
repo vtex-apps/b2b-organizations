@@ -57,3 +57,7 @@ interface UserDetails {
   email: string
   canImpersonate: boolean
 }
+
+interface Window {
+  __RUNTIME__: any
+}
