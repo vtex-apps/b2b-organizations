@@ -130,6 +130,7 @@ const UserWidget: VtexFunctionComponent<UserWidgetProps> = ({
   const [showModal, setShowModal] = useState(false)
   const [searchTerm, setSearchTerm] = useState('')
   const [radioValue, setRadioValue] = useState('')
+  const [checkSession, setCheckSession] = useState(false)
 
   const [organizationsState, setOrganizationsState] = useState({
     organizationOptions: [],
@@ -152,6 +153,31 @@ const UserWidget: VtexFunctionComponent<UserWidgetProps> = ({
       'b2b-organizations_isAuthenticated',
       JSON.stringify(isAuthenticated)
     )
+
+    if (!checkSession) {
+      fetch('/api/sessions?items=public.facets,public.sc').then(response => {
+        if (response.status === 200) {
+          response.json().then(data => {
+            if (window.__RUNTIME__) {
+              const segmentToken = {
+                ...JSON.parse(atob(window.__RUNTIME__.segmentToken)),
+                ...(data?.namespaces?.public?.facets?.value
+                  ? { facets: data?.namespaces?.public?.facets?.value }
+                  : {}),
+                ...(data?.namespaces?.public?.sc?.value
+                  ? { sc: data?.namespaces?.public?.sc?.value }
+                  : {}),
+              }
+
+              window.__RUNTIME__.segmentToken = btoa(
+                JSON.stringify(segmentToken)
+              )
+              setCheckSession(true)
+            }
+          })
+        }
+      })
+    }
   }
 
   const { data: userWidgetData } = useQuery(USER_WIDGET_QUERY, {

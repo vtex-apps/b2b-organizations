@@ -58,6 +58,7 @@ interface UserDetails {
   canImpersonate: boolean
 }
 
+
 interface CustomField {
   name: string
   type: 'text' | 'dropdown'
@@ -69,4 +70,8 @@ interface CustomField {
 interface CustomFieldSetting {
   name: string
   type: 'text' | 'dropdown'
+}
+
+interface Window {
+  __RUNTIME__: any
 }

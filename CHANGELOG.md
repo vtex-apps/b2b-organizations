@@ -17,6 +17,12 @@ Custom Fields:
 - Fixed breaking changes with Toast component
 - Updated some of the wording in multiple languages
 
+## [1.21.1] - 2023-02-17
+
+### Fixed
+
+- When the user logs in or switches the organization, the data into `__RUNTIME__` is updated
+
 ## [1.21.0] - 2023-02-13
 
 ### Added
