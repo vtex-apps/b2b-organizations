@@ -58,7 +58,6 @@ interface UserDetails {
   canImpersonate: boolean
 }
 
-
 interface CustomField {
   name: string
   type: 'text' | 'dropdown'
