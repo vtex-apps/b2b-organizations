@@ -203,7 +203,6 @@ const CustomFieldsTable: React.FC<CustomFieldsTableProps> = ({
           <DefaultCustomField
             customField={localCustomField}
             name={formatMessage(customFieldsMessages.customFieldsTitleSingular)}
-            index={selectedCustomFieldIndex}
             handleUpdate={handleUpdateLocal}
           />
         </Modal>

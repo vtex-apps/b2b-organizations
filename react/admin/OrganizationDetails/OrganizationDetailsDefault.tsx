@@ -128,7 +128,7 @@ const OrganizationDetailsDefault: FunctionComponent<Props> = ({
           </h4>
           {customFieldsState?.map((customField: CustomField, index: number) => (
             <CustomFieldInput
-              key={`${customField.name} ${index}`}
+              key={`${customField.name}`}
               index={index}
               handleUpdate={handleCustomFieldsUpdate}
               customField={customField}

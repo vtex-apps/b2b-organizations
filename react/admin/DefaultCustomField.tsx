@@ -6,7 +6,6 @@ import { useIntl } from 'react-intl'
 import { organizationCustomFieldsMessages as customFieldsMessages } from './utils/messages'
 
 interface CustomFieldProps {
-  index: number
   customField: CustomField
   name: string
   handleUpdate: (customField: CustomField) => void
@@ -18,7 +17,6 @@ interface DropdownValue {
 }
 
 const DefaultCustomField: React.FC<CustomFieldProps> = ({
-  index,
   name,
   handleUpdate,
   customField,
@@ -173,7 +171,7 @@ const DefaultCustomField: React.FC<CustomFieldProps> = ({
                   direction="row"
                   align="end"
                   className="w-100"
-                  key={`dropdown${index}${i}`}
+                  key={`dropdown${dropdownValue.label}`}
                 >
                   <Flex className="w-50 mr6">
                     <Input

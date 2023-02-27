@@ -425,7 +425,7 @@ const CostCenterDetails: FunctionComponent = () => {
     const customFieldsToShow = joinById(
       data?.getCostCenterById?.customFields || [],
       defaultCustomFieldsData?.getB2BSettings.costCenterCustomFields || []
-    ) as CustomField[]
+    )
 
     setCustomFieldsState(customFieldsToShow)
   }, [
@@ -645,7 +645,7 @@ const CostCenterDetails: FunctionComponent = () => {
       <PageBlock title={formatMessage(orgaizationMessages.customFieldsTitle)}>
         {customFieldsState?.map((customField: CustomField, index: number) => (
           <CustomFieldInput
-            key={`${customField.name} ${index}`}
+            key={`${customField.name}`}
             customField={customField}
             index={index}
             handleUpdate={handleCustomFieldsUpdate}

@@ -421,7 +421,7 @@ const RequestOrganizationForm: FC = () => {
               (customField: CustomField, index: number) => {
                 return (
                   <CustomFieldInput
-                    key={`${customField.name} ${index}`}
+                    key={`${customField.name}`}
                     index={index}
                     handleUpdate={handleOrgCustomFieldsUpdate}
                     customField={customField}
@@ -554,7 +554,7 @@ const RequestOrganizationForm: FC = () => {
                 (customField: CustomField, index: number) => {
                   return (
                     <CustomFieldInput
-                      key={`${customField.name} ${index}`}
+                      key={`${customField.name}`}
                       index={index}
                       handleUpdate={handleCostCenterCustomFieldsUpdate}
                       customField={customField}
