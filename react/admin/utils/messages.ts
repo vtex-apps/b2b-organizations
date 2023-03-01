@@ -249,6 +249,9 @@ export const organizationMessages = defineMessages({
   defaultCostCenterName: {
     id: `${adminPrefix}organizations-admin.add-organization.default-costCenter-name`,
   },
+  organizationsTitle: {
+    id: `${adminPrefix}organizations.navigation.label`,
+  },
 })
 
 export const costCenterMessages = defineMessages({
@@ -387,8 +390,38 @@ export const organizationRequestMessages = defineMessages({
 })
 
 export const organizationSettingsMessages = defineMessages({
+  toastUpdateSuccess: {
+    id: `${adminPrefix}organization-settings-admin.toast.update-success`,
+  },
+  toastUpdateFailure: {
+    id: `${adminPrefix}organization-settings-admin.toast.update-failure`,
+  },
   tablePageTitle: {
     id: `${adminPrefix}organization-settings-admin.title`,
+  },
+  customFieldsTitle: {
+    id: `${adminPrefix}organization-settings-admin.customFieldsTitle`,
+  },
+  emptyState: {
+    id: `${adminPrefix}organization-requests-admin.table.empty-state`,
+  },
+  autoApprove: {
+    id: `${adminPrefix}organization-settings-admin.autoApprove`,
+  },
+  saveSettings: {
+    id: `${adminPrefix}organization-settings-admin.saveSettings`,
+  },
+  selectedPaymentsTableTitle: {
+    id: `${adminPrefix}organization-settings-admin.selectedPaymentsTableTitle`,
+  },
+  availablePaymentsTableTitle: {
+    id: `${adminPrefix}organization-settings-admin.availablePaymentsTableTitle`,
+  },
+  selectedPriceTablesTitle: {
+    id: `${adminPrefix}organization-settings-admin.selectedPriceTablesTitle`,
+  },
+  availablePriceTablesTitle: {
+    id: `${adminPrefix}organization-settings-admin.availablePriceTablesTitle`,
   },
   bindingTitle: {
     id: `${adminPrefix}organization-settings-select.binding.title`,
@@ -399,12 +432,6 @@ export const organizationSettingsMessages = defineMessages({
   bindingSelected: {
     id: `${adminPrefix}organization-settings-select.binding.selected`,
   },
-  toastUpdateSuccess: {
-    id: `${adminPrefix}organization-settings-select.toast.update-success`,
-  },
-  toastUpdateFailure: {
-    id: `${adminPrefix}organization-settings-select.toast.update-failure`,
-  },
   selectedRows: {
     id: `${adminPrefix}selected-rows`,
   },
@@ -414,13 +441,58 @@ export const organizationSettingsMessages = defineMessages({
   addToBinding: {
     id: `${adminPrefix}organization-settings-select.add-to-binding`,
   },
-  autoApprove: {
-    id: `${adminPrefix}organization-settings-autoApprove`,
-  },
   showModal: {
     id: `${adminPrefix}organization-settings-showModal`,
   },
   clearCart: {
     id: `${adminPrefix}organization-settings-clearCart`,
+  },
+})
+
+export const organizationCustomFieldsMessages = defineMessages({
+  customFieldsTitle: {
+    id: `${adminPrefix}custom-fields.title`,
+  },
+  customFieldsTitleSingular: {
+    id: `${adminPrefix}custom-fields.name-singular`,
+  },
+  customFieldsExplanation: {
+    id: `${adminPrefix}custom-fields.explanation`,
+  },
+  customFieldsTableFieldName: {
+    id: `${adminPrefix}custom-fields.table.field-name`,
+  },
+  customFieldsTableFieldType: {
+    id: `${adminPrefix}custom-fields.table.field-type`,
+  },
+  customFieldsTableDropdownPreview: {
+    id: `${adminPrefix}custom-fields.table.dropdown-preview`,
+  },
+  customFieldsTableUseOnRegistration: {
+    id: `${adminPrefix}custom-fields.table.use-on-registration`,
+  },
+  customFieldsAddField: {
+    id: `${adminPrefix}custom-fields.add-field`,
+  },
+  customFieldsRemoveField: {
+    id: `${adminPrefix}custom-fields.remove-field`,
+  },
+  customFieldsAddDropdownLine: {
+    id: `${adminPrefix}custom-fields.table.add-dropdown-line`,
+  },
+  customFieldsRemoveDropdownLine: {
+    id: `${adminPrefix}custom-fields.table.remove-dropdown-line`,
+  },
+  customFieldsDropdownLineValue: {
+    id: `${adminPrefix}custom-fields.table.dropdown-line-value`,
+  },
+  customFieldsDropdownLineLabel: {
+    id: `${adminPrefix}custom-fields.table.dropdown-line-label`,
+  },
+  customFieldsTextLabel: {
+    id: `${adminPrefix}custom-fields.table.text-label`,
+  },
+  customFieldsDropdownLabel: {
+    id: `${adminPrefix}custom-fields.table.dropdown-label`,
   },
 })

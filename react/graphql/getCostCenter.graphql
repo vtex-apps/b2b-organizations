@@ -25,6 +25,16 @@ query GetCostCenter($id: ID!) {
     }
     phoneNumber
     businessDocument
+    customFields {
+      name
+      type
+      value
+      dropdownValues {
+        value
+        label
+      }
+      useOnRegistration
+    }
     stateRegistration
   }
 }

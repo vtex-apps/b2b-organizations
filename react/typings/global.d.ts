@@ -58,6 +58,19 @@ interface UserDetails {
   canImpersonate: boolean
 }
 
+interface CustomField {
+  name: string
+  type: 'text' | 'dropdown'
+  value?: string
+  dropdownValues?: Array<{ label: string; value: string }>
+  useOnRegistration?: boolean
+}
+
+interface CustomFieldSetting {
+  name: string
+  type: 'text' | 'dropdown'
+}
+
 interface Window {
   __RUNTIME__: any
 }
