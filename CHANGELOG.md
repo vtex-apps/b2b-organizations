@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Fixed
+
+- Bug fixed on search users by organization
+
+
 ## [1.22.0] - 2023-03-01
 
 ### Added

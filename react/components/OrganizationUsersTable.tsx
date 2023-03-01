@@ -525,6 +525,7 @@ const OrganizationUsersTable: FunctionComponent<Props> = ({
   const handleInputSearchSubmit = () => {
     refetch({
       ...variableState,
+      organizationId: isSalesAdmin ? null : organizationId,
       page: 1,
     })
   }
