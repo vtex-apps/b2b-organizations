@@ -1,6 +1,5 @@
 query GetSelectedChannels {
-  getSalesChannels
-    @context(provider: "vtex.b2b-organizations-graphql") {
+  getSalesChannels @context(provider: "vtex.b2b-organizations-graphql") {
     id
     name
   }

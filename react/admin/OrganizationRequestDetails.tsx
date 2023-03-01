@@ -52,7 +52,7 @@ const OrganizationRequestDetails: FunctionComponent = () => {
       .then(() => {
         setLoadingState(false)
         showToast({
-          type: 'success',
+          variant: 'positive',
           message:
             status === 'approved'
               ? formatMessage(messages.toastCreatedSuccess)
@@ -64,7 +64,7 @@ const OrganizationRequestDetails: FunctionComponent = () => {
         setLoadingState(false)
         console.error(error)
         showToast({
-          type: 'success',
+          variant: 'critical',
           message: formatMessage(messages.toastUpdateFailure),
         })
       })

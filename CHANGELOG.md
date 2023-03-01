@@ -12,6 +12,18 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Bug fixed on search users by organization
 
 
+## [1.22.0] - 2023-03-01
+
+### Added
+
+Custom Fields:
+
+- Added custom fields to save more information when creating a new cost center or organization
+- Custom fields not required fields on registration and could be show/hidden for the customer
+- Updated admin-ui package to the latest version, which is required to make the table work
+- Fixed breaking changes with Toast component
+- Updated some of the wording in multiple languages
+
 ## [1.21.1] - 2023-02-17
 
 ### Fixed
@@ -20,18 +32,17 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [1.21.0] - 2023-02-13
 
-### Added 
+### Added
 
 - Added the UI to handle the Payment terms and Price tables
 
 ## [1.20.0] - 2023-02-09
 
-### Added 
+### Added
 
 - Modal to switch the company rather than AutoComplete component
 - Handle the sellers on the Organization Details
 - Handle the UI settings (modal, clear cart and auto approve)
-
 
 ## [1.19.2] - 2023-02-07
 
@@ -61,7 +72,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 - it was removed the duplicated validation due to the one to many feature
 
-
 ## [1.17.1] - 2022-12-20
 
 ### Changed
@@ -75,14 +85,17 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [1.17.0] - 2022-12-08
 
 ### Added
+
 - Added the possibility to control whether to show the dropdowns in the UserWidget component when we have more than one organization associated with the email
 
 ## [1.16.3] - 2022-11-09
 
 ### Fixed
+
 - Some yarn package vulnerabilities reported by Dependabot
 
 =======
+
 ## [1.16.2] - 2022-11-07
 
 ### Fixed
@@ -107,7 +120,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 - Split bindings testcase into two files
 
-### Added 
+### Added
 
 - Feature related to one to many feature, it's possible to change the current organization by using the user widget on the top of storefront
 
@@ -125,7 +138,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Fixed
 
--  bugfix on mkt tags UI
+- bugfix on mkt tags UI
 
 ## [1.14.1] - 2022-10-19
 
@@ -186,8 +199,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Initial Crowdin integration
 
 ## [1.11.0] - 2022-06-23
-- 
+
+-
+
 ### Added
+
 - UI support for organization `tradeName` and cost center `phoneNumber` fields
 
 ## [1.10.3] - 2022-06-22

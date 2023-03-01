@@ -33,6 +33,8 @@ import { getEmptyAddress, isValidAddress } from '../utils/addresses'
 import CREATE_ORGANIZATION_REQUEST from '../graphql/createOrganizationRequest.graphql'
 import GET_ORGANIZATION_REQUEST from '../graphql/getOrganizationRequest.graphql'
 import GET_LOGISTICS from '../graphql/getLogistics.graphql'
+import GET_B2B_CUSTOM_FIELDS from '../graphql/getB2BCustomFields.graphql'
+import CustomFieldInput from '../admin/OrganizationDetailsCustomField'
 
 const localStore = storageFactory(() => localStorage)
 let requestId = localStore.getItem('b2b-organizations_orgRequestId') ?? ''
@@ -171,6 +173,59 @@ const RequestOrganizationForm: FC = () => {
     setAddressState(() => addValidation(getEmptyAddress(country)))
   }
 
+  //! CUSTOM FIELDS
+  const {
+    data: defaultCustomFieldsData,
+    loading: defaultCustomFieldsDataLoading,
+  } = useQuery(GET_B2B_CUSTOM_FIELDS, {
+    ssr: false,
+  })
+
+  const [orgCustomFieldsState, setOrgCustomFieldsState] = useState<
+    CustomField[]
+  >([])
+
+  const [
+    costCenterCustomFieldsState,
+    setCostCenterCustomFieldsState,
+  ] = useState<CustomField[]>([])
+
+  useEffect(() => {
+    if (defaultCustomFieldsDataLoading) return
+
+    const organizationFieldsToDisplay = defaultCustomFieldsData?.getB2BSettings.organizationCustomFields.filter(
+      (item: CustomField) => item.useOnRegistration
+    )
+
+    const costCenterFieldsToDisplay = defaultCustomFieldsData?.getB2BSettings.costCenterCustomFields.filter(
+      (item: CustomField) => item.useOnRegistration
+    )
+
+    setOrgCustomFieldsState(organizationFieldsToDisplay)
+    setCostCenterCustomFieldsState(costCenterFieldsToDisplay)
+  }, [defaultCustomFieldsData])
+
+  const handleOrgCustomFieldsUpdate = (
+    index: number,
+    customField: CustomField
+  ) => {
+    const newCustomFields = [...orgCustomFieldsState]
+
+    newCustomFields[index] = customField
+    setOrgCustomFieldsState(newCustomFields)
+  }
+
+  const handleCostCenterCustomFieldsUpdate = (
+    index: number,
+    customField: CustomField
+  ) => {
+    const newCustomFields = [...costCenterCustomFieldsState]
+
+    newCustomFields[index] = customField
+    setCostCenterCustomFieldsState(newCustomFields)
+  }
+  //! CUSTOM FIELDS
+
   const handleSubmit = () => {
     setFormState({
       ...formState,
@@ -206,8 +261,10 @@ const RequestOrganizationForm: FC = () => {
         },
         phoneNumber: formState.phoneNumber,
         businessDocument: formState.businessDocument,
+        customFields: costCenterCustomFieldsState,
         stateRegistration: formState.stateRegistration,
       },
+      customFields: orgCustomFieldsState,
     }
 
     createOrganizationRequest({
@@ -354,6 +411,27 @@ const RequestOrganizationForm: FC = () => {
               }}
             />
           </div>
+          {/* //! Custom fields */}
+          {defaultCustomFieldsDataLoading ? (
+            <div className="mb5">
+              <Spinner />
+            </div>
+          ) : (
+            orgCustomFieldsState?.map(
+              (customField: CustomField, index: number) => {
+                return (
+                  <CustomFieldInput
+                    key={`${customField.name}`}
+                    index={index}
+                    handleUpdate={handleOrgCustomFieldsUpdate}
+                    customField={customField}
+                  />
+                )
+              }
+            )
+          )}
+
+          {/* //! Custom fields */}
         </PageBlock>
         <PageBlock
           variation="full"
@@ -465,6 +543,28 @@ const RequestOrganizationForm: FC = () => {
               }}
             />
           </div>
+          {/* //! Custom fields */}
+          {defaultCustomFieldsDataLoading ? (
+            <div className="mb5 flex flex-column">
+              <Spinner />
+            </div>
+          ) : (
+            <>
+              {costCenterCustomFieldsState?.map(
+                (customField: CustomField, index: number) => {
+                  return (
+                    <CustomFieldInput
+                      key={`${customField.name}`}
+                      index={index}
+                      handleUpdate={handleCostCenterCustomFieldsUpdate}
+                      customField={customField}
+                    />
+                  )
+                }
+              )}
+            </>
+          )}
+          {/* //! Custom fields */}
           <div
             className={`${handles.newOrganizationInput} mb5 flex flex-column`}
           >
