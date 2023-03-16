@@ -285,7 +285,15 @@ const RequestOrganizationForm: FC = () => {
           requestId = response.data.createOrganizationRequest.id
           localStore.setItem('b2b-organizations_orgRequestId', requestId)
           toastMessage(messages.toastSuccess)
-          refetch({ id: requestId })
+          refetch({ id: requestId }).then(res => {
+            if (
+              res.data?.getOrganizationRequestById.status !== 'pending' &&
+              sessionResponse.namespaces?.profile?.isAuthenticated?.value ===
+                'true'
+            ) {
+              window.location.pathname = '/'
+            }
+          })
           window.scrollTo({ top: 0, behavior: 'smooth' })
           setFormState({
             ...formState,
