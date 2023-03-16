@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Added
+- Added Auto Refresh when the user is authenticated and `Auto Approve` is enabled
+
 ## [1.22.1] - 2023-03-01
 
 ### Fixed
