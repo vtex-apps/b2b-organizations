@@ -7,9 +7,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Fixed
+
+- Bug fixed on the user widget when the user role was shown wrongly
+
 ## [1.22.2] - 2023-03-17
 
 ### Added
+
 - Added Auto Refresh when the user is authenticated and `Auto Approve` is enabled
 
 ## [1.22.1] - 2023-03-01

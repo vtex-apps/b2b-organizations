@@ -138,6 +138,7 @@ const UserWidget: VtexFunctionComponent<UserWidgetProps> = ({
     organizationInput: '',
     costCenterInput: '',
     currentOrganization: '',
+    currentRoleName: '',
     currentCostCenter: '',
     currentOrganizationStatus: '',
     dataList: [],
@@ -327,6 +328,9 @@ const UserWidget: VtexFunctionComponent<UserWidgetProps> = ({
             status: organization.organizationStatus,
           })
         ),
+      currentRoleName: userWidgetData?.getOrganizationsByEmail?.find(
+        (organizations: any) => organizations.costId === currentCostCenter
+      )?.role?.name,
       costCenterOptions: userWidgetData?.getOrganizationsByEmail
         .filter(
           (organization: { orgId: string }) =>
@@ -529,7 +533,7 @@ const UserWidget: VtexFunctionComponent<UserWidgetProps> = ({
               </div>
               <div className={`${handles.userWidgetRole}`}>
                 {`${formatMessage(messages.role)} ${
-                  userWidgetData?.checkUserPermission?.role?.name
+                  organizationsState.currentRoleName
                 }`}
               </div>
               <div className="ml-auto">
@@ -618,7 +622,7 @@ const UserWidget: VtexFunctionComponent<UserWidgetProps> = ({
               className={`${handles.userWidgetItem} pa3 br2 bg-base--inverted hover-bg-base--inverted active-bg-base--inverted c-on-base--inverted hover-c-on-base--inverted active-c-on-base--inverted dib mr3`}
             >
               {`${formatMessage(messages.role)} ${
-                userWidgetData?.checkUserPermission?.role?.name
+                organizationsState.currentRoleName
               }`}
             </div>
             <div className={`${handles.userWidgetButton} pa3`}>
