@@ -34,6 +34,7 @@ import CREATE_ORGANIZATION_REQUEST from '../graphql/createOrganizationRequest.gr
 import GET_ORGANIZATION_REQUEST from '../graphql/getOrganizationRequest.graphql'
 import GET_LOGISTICS from '../graphql/getLogistics.graphql'
 import GET_B2B_CUSTOM_FIELDS from '../graphql/getB2BCustomFields.graphql'
+import IMPERSONATE_USER from '../graphql/impersonateUser.graphql'
 import CustomFieldInput from '../admin/OrganizationDetailsCustomField'
 
 const localStore = storageFactory(() => localStorage)
@@ -121,6 +122,8 @@ const RequestOrganizationForm: FC = () => {
   const [formState, setFormState] = useState(formStateModel)
 
   const [hasProfile, setHasProfile] = useState(false)
+
+  const [impersonateUser] = useMutation(IMPERSONATE_USER)
 
   useEffect(() => {
     if (!sessionResponse || hasProfile) return
@@ -226,6 +229,26 @@ const RequestOrganizationForm: FC = () => {
   }
   //! CUSTOM FIELDS
 
+  const handleImpersonation = () => {
+    impersonateUser({
+      variables: { userId: '' },
+    })
+      .then(result => {
+        if (result?.data?.impersonateUser?.status === 'error') {
+          console.error(
+            'Impersonation error:',
+            result.data.impersonateUser.message
+          )
+          toastMessage(messages.toastFailure)
+        } else {
+          window.location.reload()
+        }
+      })
+      .catch(error => {
+        console.error(error)
+      })
+  }
+
   const handleSubmit = () => {
     setFormState({
       ...formState,
@@ -291,7 +314,7 @@ const RequestOrganizationForm: FC = () => {
               sessionResponse.namespaces?.profile?.isAuthenticated?.value ===
                 'true'
             ) {
-              window.location.pathname = '/'
+              handleImpersonation()
             }
           })
           window.scrollTo({ top: 0, behavior: 'smooth' })
