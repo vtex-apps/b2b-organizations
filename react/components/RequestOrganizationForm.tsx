@@ -239,13 +239,7 @@ const RequestOrganizationForm: FC = () => {
             'Impersonation error:',
             result.data.impersonateUser.message
           )
-          if (
-            result.data.impersonateUser.message === 'userId not found in CL'
-          ) {
-            toastMessage(messages.toastFailure)
-          } else {
-            toastMessage(messages.toastFailure)
-          }
+          toastMessage(messages.toastFailure)
         } else {
           window.location.reload()
         }
