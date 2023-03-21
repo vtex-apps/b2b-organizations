@@ -10,8 +10,8 @@ import {
   ToastContext,
 } from 'vtex.styleguide'
 import { useQuery, useMutation } from 'react-apollo'
-
 import { useCssHandles } from 'vtex.css-handles'
+
 import { organizationMessages as messages } from './utils/messages'
 import storageFactory from '../utils/storage'
 import { useSessionResponse } from '../modules/session'
