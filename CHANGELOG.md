@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [1.22.4] - 2023-03-21
+
 ### Added
 
 - Added impersonation in order to add storefront permissions
