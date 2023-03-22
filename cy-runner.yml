@@ -24,7 +24,7 @@ base:
     devMode: false
     runHeaded: false
     getCookies: true
-    maxJobs: 3
+    maxJobs: 2
     quiet: true
     projectId: 65uaim
     video: false
