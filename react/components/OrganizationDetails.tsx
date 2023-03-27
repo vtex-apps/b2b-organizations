@@ -10,6 +10,7 @@ import {
   ToastContext,
 } from 'vtex.styleguide'
 import { useQuery, useMutation } from 'react-apollo'
+import { useCssHandles } from 'vtex.css-handles'
 
 import { organizationMessages as messages } from './utils/messages'
 import storageFactory from '../utils/storage'
@@ -52,6 +53,8 @@ interface Role {
   slug: string
 }
 
+const CSS_HANDLES = ['createCostCenter'] as const
+
 const localStore = storageFactory(() => localStorage)
 let isAuthenticated =
   JSON.parse(String(localStore.getItem('b2b-organizations_isAuthenticated'))) ??
@@ -62,6 +65,7 @@ const OrganizationDetails: FunctionComponent<RouterProps> = ({
   history,
 }) => {
   const sessionResponse: any = useSessionResponse()
+  const handles = useCssHandles(CSS_HANDLES)
 
   if (sessionResponse) {
     isAuthenticated =
@@ -303,54 +307,56 @@ const OrganizationDetails: FunctionComponent<RouterProps> = ({
       }
     >
       {roleState && !isSales() && (
-        <PageBlock title={formatMessage(messages.costCenters)}>
-          <Table
-            fullWidth
-            schema={getCostCenterSchema()}
-            items={
-              costCentersData?.getCostCentersByOrganizationIdStorefront?.data
-            }
-            loading={costCentersLoading}
-            onRowClick={({ rowData: { id } }: CellRendererProps) => {
-              if (!id) return
+        <div className={`${handles.createCostCenter}`}>
+          <PageBlock title={formatMessage(messages.costCenters)}>
+            <Table
+              fullWidth
+              schema={getCostCenterSchema()}
+              items={
+                costCentersData?.getCostCentersByOrganizationIdStorefront?.data
+              }
+              loading={costCentersLoading}
+              onRowClick={({ rowData: { id } }: CellRendererProps) => {
+                if (!id) return
 
-              history.push(`/cost-center/${id}`)
-            }}
-            pagination={{
-              onNextClick: handleCostCentersNextClick,
-              onPrevClick: handleCostCentersPrevClick,
-              onRowsChange: handleCostCentersRowsChange,
-              currentItemFrom:
-                (costCenterPaginationState.page - 1) *
-                  costCenterPaginationState.pageSize +
-                1,
-              currentItemTo:
-                costCentersData?.getCostCentersByOrganizationIdStorefront
-                  ?.pagination?.total <
-                costCenterPaginationState.page *
-                  costCenterPaginationState.pageSize
-                  ? costCentersData?.getCostCentersByOrganizationIdStorefront
-                      ?.pagination?.total
-                  : costCenterPaginationState.page *
-                    costCenterPaginationState.pageSize,
-              textShowRows: formatMessage(messages.showRows),
-              textOf: formatMessage(messages.of),
-              totalItems:
-                costCentersData?.getCostCentersByOrganizationIdStorefront
-                  ?.pagination?.total ?? 0,
-              rowsOptions: [25, 50, 100],
-            }}
-            toolbar={{
-              newLine: {
-                label: formatMessage(messages.new),
-                handleCallback: () => setNewCostCenterModalState(true),
-                disabled: !permissionsState.includes(
-                  'create-cost-center-organization'
-                ),
-              },
-            }}
-          />
-        </PageBlock>
+                history.push(`/cost-center/${id}`)
+              }}
+              pagination={{
+                onNextClick: handleCostCentersNextClick,
+                onPrevClick: handleCostCentersPrevClick,
+                onRowsChange: handleCostCentersRowsChange,
+                currentItemFrom:
+                  (costCenterPaginationState.page - 1) *
+                    costCenterPaginationState.pageSize +
+                  1,
+                currentItemTo:
+                  costCentersData?.getCostCentersByOrganizationIdStorefront
+                    ?.pagination?.total <
+                  costCenterPaginationState.page *
+                    costCenterPaginationState.pageSize
+                    ? costCentersData?.getCostCentersByOrganizationIdStorefront
+                        ?.pagination?.total
+                    : costCenterPaginationState.page *
+                      costCenterPaginationState.pageSize,
+                textShowRows: formatMessage(messages.showRows),
+                textOf: formatMessage(messages.of),
+                totalItems:
+                  costCentersData?.getCostCentersByOrganizationIdStorefront
+                    ?.pagination?.total ?? 0,
+                rowsOptions: [25, 50, 100],
+              }}
+              toolbar={{
+                newLine: {
+                  label: formatMessage(messages.new),
+                  handleCallback: () => setNewCostCenterModalState(true),
+                  disabled: !permissionsState.includes(
+                    'create-cost-center-organization'
+                  ),
+                },
+              }}
+            />
+          </PageBlock>
+        </div>
       )}
 
       {roleState && isSalesAdmin() && <OrganizationsWithoutSalesManager />}

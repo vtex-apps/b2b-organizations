@@ -11,6 +11,20 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 - German translation.
 
+## [1.22.5] - 2023-03-27
+### Added
+- Added CssHandle class to parent container of my account cost center creation
+
+### Changed
+
+- Run schedule job only on saturday
+
+## [1.22.4] - 2023-03-21
+
+### Added
+
+- Added impersonation in order to add storefront permissions
+
 ## [1.22.3] - 2023-03-20
 
 ### Fixed

@@ -14,6 +14,7 @@ import {
 import { StyleguideInput } from 'vtex.address-form/inputs'
 import { addValidation } from 'vtex.address-form/helpers'
 import 'vtex.country-codes/locales'
+import { useCssHandles } from 'vtex.css-handles'
 
 import { costCenterMessages as messages } from './utils/messages'
 import { getEmptyAddress, isValidAddress } from '../utils/addresses'
@@ -41,6 +42,8 @@ interface Props {
   handleCloseModal: () => void
 }
 
+const CSS_HANDLES = ['businessDocument'] as const
+
 const NewCostCenterModal: FunctionComponent<Props> = ({
   loading,
   isOpen,
@@ -58,6 +61,8 @@ const NewCostCenterModal: FunctionComponent<Props> = ({
     newCostCenterBusinessDocument,
     setNewCostCenterBusinessDocument,
   ] = useState('')
+
+  const handles = useCssHandles(CSS_HANDLES)
 
   const [newCostCenterAddressState, setNewCostCenterAddressState] = useState(
     addValidation(getEmptyAddress(country))
@@ -192,7 +197,7 @@ const NewCostCenterModal: FunctionComponent<Props> = ({
           }}
         />
       </div>
-      <div className="w-100 mv6">
+      <div className={`${handles.businessDocument} w-100 mv6`}>
         <Input
           autocomplete="off"
           size="large"
