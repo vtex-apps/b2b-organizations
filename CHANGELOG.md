@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Added
+- Added CssHandle class to cost center details
+
 ## [1.22.6] - 2023-03-28
 
 ### Fixed
