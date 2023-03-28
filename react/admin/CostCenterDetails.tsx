@@ -19,6 +19,7 @@ import {
 import { useToast } from '@vtex/admin-ui'
 import { useIntl, FormattedMessage } from 'react-intl'
 import { useRuntime } from 'vtex.render-runtime'
+import { useCssHandles } from 'vtex.css-handles'
 import {
   AddressRules,
   AddressSummary,
@@ -47,6 +48,8 @@ import GET_B2B_CUSTOM_FIELDS from '../graphql/getB2BCustomFields.graphql'
 import { joinById } from './OrganizationDetails'
 import CustomFieldInput from './OrganizationDetailsCustomField'
 
+const CSS_HANDLES = ['businessDocument', 'stateRegistration'] as const
+
 const CostCenterDetails: FunctionComponent = () => {
   const { formatMessage } = useIntl()
 
@@ -56,6 +59,7 @@ const CostCenterDetails: FunctionComponent = () => {
     navigate,
   } = useRuntime()
 
+  const handles = useCssHandles(CSS_HANDLES)
   const showToast = useToast()
 
   const [loadingState, setLoadingState] = useState(false)
@@ -532,7 +536,7 @@ const CostCenterDetails: FunctionComponent = () => {
             }}
           />
         </div>
-        <div className="mt6">
+        <div className={`${handles.businessDocument} mt6`}>
           <Input
             autocomplete="off"
             size="large"
@@ -544,7 +548,7 @@ const CostCenterDetails: FunctionComponent = () => {
             }}
           />
         </div>
-        <div className="mt6">
+        <div className={`${handles.stateRegistration} mt6`}>
           <Input
             autocomplete="off"
             size="large"

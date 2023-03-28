@@ -16,6 +16,7 @@ import {
 } from 'vtex.styleguide'
 import { useIntl, FormattedMessage } from 'react-intl'
 import { AddressRules, AddressSummary } from 'vtex.address-form'
+import { useCssHandles } from 'vtex.css-handles'
 
 import { costCenterMessages as messages } from './utils/messages'
 import storageFactory from '../utils/storage'
@@ -49,6 +50,8 @@ interface PaymentTerm {
   name: string
 }
 
+const CSS_HANDLES = ['businessDocument', 'stateRegistration'] as const
+
 const localStore = storageFactory(() => localStorage)
 let isAuthenticated =
   JSON.parse(String(localStore.getItem('b2b-organizations_isAuthenticated'))) ??
@@ -72,6 +75,7 @@ const CostCenterDetails: FunctionComponent<RouterProps> = ({
     )
   }
 
+  const handles = useCssHandles(CSS_HANDLES)
   const { showToast } = useContext(ToastContext)
 
   const toastMessage = (message: MessageDescriptor) => {
@@ -531,7 +535,7 @@ const CostCenterDetails: FunctionComponent<RouterProps> = ({
             }
           />
         </div>
-        <div className="mt6">
+        <div className={`${handles.businessDocument} mt6`}>
           <Input
             autocomplete="off"
             size="large"
@@ -546,7 +550,7 @@ const CostCenterDetails: FunctionComponent<RouterProps> = ({
             }
           />
         </div>
-        <div className="mt6">
+        <div className={`${handles.stateRegistration} mt6`}>
           <Input
             autocomplete="off"
             size="large"
