@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Fixed
+
+- German translation.
+
 ## [1.22.5] - 2023-03-27
 ### Added
 - Added CssHandle class to parent container of my account cost center creation

@@ -88,7 +88,7 @@
   "admin/b2b-organizations.organization-details.organization-name": "Name der Organisation",
   "admin/b2b-organizations.organization-details.tradeName": "Trade name",
   "admin/b2b-organizations.organization-details.tradeName.helpText": "Optional geben Sie den Handelsnamen der Organisation an, der in der Kasse angewendet wird, falls vorhanden",
-  "admin/b2b-organizations.organization-details.collections": "Sammlungen",
+  "admin/b2b-organizations.organization-details.collections": "Kollektionen",
   "admin/b2b-organizations.organization-details.paymentTerms": "Zahlungsbedingungen",
   "admin/b2b-organizations.organization-details.price-tables": "Preistabellen",
   "admin/b2b-organizations.organization-details.sales-channel": "Handelspolitik",
