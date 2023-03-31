@@ -46,6 +46,7 @@ const OrganizationSettings: FunctionComponent = () => {
   const [loading, setLoading] = useState(false)
   const [settings, setSettings] = useState({
     autoApprove: false,
+    companyReadOnly: false,
     defaultPaymentTerms: [] as any,
     defaultPriceTables: [] as any,
     uiSettings: {
@@ -119,6 +120,7 @@ const OrganizationSettings: FunctionComponent = () => {
 
     setSettings({
       autoApprove: getB2BSettings?.autoApprove,
+      companyReadOnly: getB2BSettings?.companyReadOnly,
       defaultPaymentTerms: getB2BSettings?.defaultPaymentTerms ?? [],
       defaultPriceTables: getB2BSettings?.defaultPriceTables ?? [],
       uiSettings: {
@@ -291,6 +293,23 @@ const OrganizationSettings: FunctionComponent = () => {
           <div className="mb4">
             <Checkbox
               checked={settings.uiSettings.showModal}
+              id="showModal"
+              name="showModal"
+              onChange={() => {
+                setSettings({
+                  ...settings,
+                  uiSettings: {
+                    ...settings.uiSettings,
+                    showModal: !settings.uiSettings.showModal,
+                  },
+                })
+              }}
+              label={formatMessage(messages.showModal)}
+            />
+          </div>
+          <div className="mb4">
+            <Checkbox
+              checked={settings.companyReadOnly}
               id="showModal"
               name="showModal"
               onChange={() => {

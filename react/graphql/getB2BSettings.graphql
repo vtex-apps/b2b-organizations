@@ -1,6 +1,7 @@
 query GetB2BSettings {
   getB2BSettings @context(provider: "vtex.b2b-organizations-graphql") {
     autoApprove
+    companyReadOny
     defaultPaymentTerms {
       id
       name
