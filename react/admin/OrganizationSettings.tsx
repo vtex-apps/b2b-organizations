@@ -46,7 +46,8 @@ const OrganizationSettings: FunctionComponent = () => {
   const [loading, setLoading] = useState(false)
   const [settings, setSettings] = useState({
     autoApprove: false,
-    companyReadOnly: false,
+    businessReadOnly: false,
+    stateReadOnly: false,
     defaultPaymentTerms: [] as any,
     defaultPriceTables: [] as any,
     uiSettings: {
@@ -120,7 +121,8 @@ const OrganizationSettings: FunctionComponent = () => {
 
     setSettings({
       autoApprove: getB2BSettings?.autoApprove,
-      companyReadOnly: getB2BSettings?.companyReadOnly,
+      businessReadOnly: getB2BSettings?.businessReadOnly,
+      stateReadOnly: getB2BSettings?.stateReadOnly,
       defaultPaymentTerms: getB2BSettings?.defaultPaymentTerms ?? [],
       defaultPriceTables: getB2BSettings?.defaultPriceTables ?? [],
       uiSettings: {
@@ -292,24 +294,35 @@ const OrganizationSettings: FunctionComponent = () => {
           </div>
           <div className="mb4">
             <Checkbox
-              checked={settings.uiSettings.showModal}
-              id="showModal"
-              name="showModal"
+              checked={settings.businessReadOnly}
+              id="businessReadOnly"
+              name="businessReadOnly"
               onChange={() => {
                 setSettings({
                   ...settings,
-                  uiSettings: {
-                    ...settings.uiSettings,
-                    showModal: !settings.uiSettings.showModal,
-                  },
+                  businessReadOnly: !settings.businessReadOnly,
                 })
               }}
-              label={formatMessage(messages.showModal)}
+              label={formatMessage(messages.businessReadOnly)}
             />
           </div>
           <div className="mb4">
             <Checkbox
-              checked={settings.companyReadOnly}
+              checked={settings.stateReadOnly}
+              id="stateReadOnly"
+              name="stateReadOnly"
+              onChange={() => {
+                setSettings({
+                  ...settings,
+                  stateReadOnly: !settings.stateReadOnly,
+                })
+              }}
+              label={formatMessage(messages.stateReadOnly)}
+            />
+          </div>
+          <div className="mb4">
+            <Checkbox
+              checked={settings.uiSettings.showModal}
               id="showModal"
               name="showModal"
               onChange={() => {

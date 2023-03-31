@@ -328,6 +328,8 @@
   "admin/b2b-organizations.organization-settings-admin.toast.update-failure": "Update failed, see console for details",
   "admin/b2b-organizations.organization-settings-admin.saveSettings": "Save Settings",
   "admin/b2b-organizations.organization-settings-admin.autoApprove": "Auto approve new organizations",
+  "admin/b2b-organizations.organization-settings-admin.businessReadOnly": "Make business document ready only",
+  "admin/b2b-organizations.organization-settings-admin.stateReadOnly": "Make state registration ready only",
   "admin/b2b-organizations.organization-settings-admin.selectedPaymentsTableTitle": "Selected Payment Terms",
   "admin/b2b-organizations.organization-settings-admin.availablePaymentsTableTitle": "Available Payment Terms",
   "admin/b2b-organizations.organization-settings-admin.selectedPriceTablesTitle": "Selected Price tables",

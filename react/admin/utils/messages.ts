@@ -408,6 +408,12 @@ export const organizationSettingsMessages = defineMessages({
   autoApprove: {
     id: `${adminPrefix}organization-settings-admin.autoApprove`,
   },
+  businessReadOnly: {
+    id: `${adminPrefix}organization-settings-admin.businessReadOnly`,
+  },
+  stateReadOnly: {
+    id: `${adminPrefix}organization-settings-admin.stateReadOnly`,
+  },
   saveSettings: {
     id: `${adminPrefix}organization-settings-admin.saveSettings`,
   },
