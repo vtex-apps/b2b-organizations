@@ -327,6 +327,8 @@
   "admin/b2b-organizations.organization-settings-admin.toast.update-failure": "admin/b2b-organizations.organization-settings-admin.toast.update-failure",
   "admin/b2b-organizations.organization-settings-admin.saveSettings": "admin/b2b-organizations.organization-settings-admin.saveSettings",
   "admin/b2b-organizations.organization-settings-admin.autoApprove": "admin/b2b-organizations.organization-settings-admin.autoApprove",
+  "admin/b2b-organizations.organization-settings-admin.businessReadOnly": "admin/b2b-organizations.organization-settings-admin.businessReadOnly",
+  "admin/b2b-organizations.organization-settings-admin.stateReadOnly": "admin/b2b-organizations.organization-settings-admin.stateReadOnly",
   "admin/b2b-organizations.organization-settings-admin.selectedPaymentsTableTitle": "admin/b2b-organizations.organization-settings-admin.selectedPaymentsTableTitle",
   "admin/b2b-organizations.organization-settings-admin.availablePaymentsTableTitle": "admin/b2b-organizations.organization-settings-admin.availablePaymentsTableTitle",
   "admin/b2b-organizations.organization-settings-admin.selectedPriceTablesTitle": "admin/b2b-organizations.organization-settings-admin.selectedPriceTablesTitle",

@@ -46,6 +46,8 @@ const OrganizationSettings: FunctionComponent = () => {
   const [loading, setLoading] = useState(false)
   const [settings, setSettings] = useState({
     autoApprove: false,
+    businessReadOnly: false,
+    stateReadOnly: false,
     defaultPaymentTerms: [] as any,
     defaultPriceTables: [] as any,
     uiSettings: {
@@ -119,6 +121,8 @@ const OrganizationSettings: FunctionComponent = () => {
 
     setSettings({
       autoApprove: getB2BSettings?.autoApprove,
+      businessReadOnly: getB2BSettings?.businessReadOnly,
+      stateReadOnly: getB2BSettings?.stateReadOnly,
       defaultPaymentTerms: getB2BSettings?.defaultPaymentTerms ?? [],
       defaultPriceTables: getB2BSettings?.defaultPriceTables ?? [],
       uiSettings: {
@@ -286,6 +290,34 @@ const OrganizationSettings: FunctionComponent = () => {
                 setSettings({ ...settings, autoApprove: !settings.autoApprove })
               }}
               label={formatMessage(messages.autoApprove)}
+            />
+          </div>
+          <div className="mb4">
+            <Checkbox
+              checked={settings.businessReadOnly}
+              id="businessReadOnly"
+              name="businessReadOnly"
+              onChange={() => {
+                setSettings({
+                  ...settings,
+                  businessReadOnly: !settings.businessReadOnly,
+                })
+              }}
+              label={formatMessage(messages.businessReadOnly)}
+            />
+          </div>
+          <div className="mb4">
+            <Checkbox
+              checked={settings.stateReadOnly}
+              id="stateReadOnly"
+              name="stateReadOnly"
+              onChange={() => {
+                setSettings({
+                  ...settings,
+                  stateReadOnly: !settings.stateReadOnly,
+                })
+              }}
+              label={formatMessage(messages.stateReadOnly)}
             />
           </div>
           <div className="mb4">

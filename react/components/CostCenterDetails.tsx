@@ -32,6 +32,7 @@ import GET_ORGANIZATION from '../graphql/getOrganizationStorefront.graphql'
 import UPDATE_COST_CENTER from '../graphql/updateCostCenter.graphql'
 import DELETE_COST_CENTER from '../graphql/deleteCostCenter.graphql'
 import GET_PERMISSIONS from '../graphql/getPermissions.graphql'
+import GET_B2B_SETTINGS from '../graphql/getB2BSettings.graphql'
 
 interface RouterProps {
   match: Match
@@ -98,6 +99,11 @@ const CostCenterDetails: FunctionComponent<RouterProps> = ({
     [] as PaymentTerm[]
   )
 
+  const [settings, setSettings] = useState({
+    businessReadOnly: false,
+    stateReadOnly: false,
+  })
+
   const [newAddressModalState, setNewAddressModalState] = useState({
     isOpen: false,
   })
@@ -126,6 +132,8 @@ const CostCenterDetails: FunctionComponent<RouterProps> = ({
   const [getOrganization, { data: organizationData }] = useLazyQuery(
     GET_ORGANIZATION
   )
+
+  const { data: dataSettings } = useQuery(GET_B2B_SETTINGS, { ssr: false })
 
   const { data: permissionsData } = useQuery(GET_PERMISSIONS, { ssr: false })
 
@@ -199,6 +207,19 @@ const CostCenterDetails: FunctionComponent<RouterProps> = ({
       setPermissionsState(permissions)
     }
   }, [permissionsData])
+
+  useEffect(() => {
+    if (!dataSettings) {
+      return
+    }
+
+    const { getB2BSettings } = dataSettings
+
+    setSettings({
+      businessReadOnly: getB2BSettings?.businessReadOnly,
+      stateReadOnly: getB2BSettings?.stateReadOnly,
+    })
+  }, [dataSettings])
 
   const handleUpdateCostCenter = () => {
     setLoadingState(true)
@@ -546,7 +567,8 @@ const CostCenterDetails: FunctionComponent<RouterProps> = ({
               setBusinessDocument(e.target.value)
             }}
             readOnly={
-              !permissionsState.includes('create-cost-center-organization')
+              !permissionsState.includes('create-cost-center-organization') ||
+              settings.businessReadOnly
             }
           />
         </div>
@@ -561,7 +583,8 @@ const CostCenterDetails: FunctionComponent<RouterProps> = ({
               setStateRegistration(e.target.value)
             }}
             readOnly={
-              !permissionsState.includes('create-cost-center-organization')
+              !permissionsState.includes('create-cost-center-organization') ||
+              settings.stateReadOnly
             }
           />
         </div>
