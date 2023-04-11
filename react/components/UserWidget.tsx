@@ -118,17 +118,8 @@ interface UserWidgetProps {
   showDropdown?: boolean
 }
 
-const sortOrganizations = (a: any, b: any) => {
-  if (a.organizationName < b.organizationName) {
-    return -1
-  }
-
-  if (a.organizationName > b.label) {
-    return 1
-  }
-
-  return 0
-}
+const sortOrganizations = (a: any, b: any) =>
+  a.organizationName < b.organizationName ? -1 : 1
 
 const UserWidget: VtexFunctionComponent<UserWidgetProps> = ({
   showDropdown = true,
