@@ -461,6 +461,7 @@ const OrganizationUsersTable: FunctionComponent<Props> = ({
     refetch({
       ...variableState,
       page: newPage,
+      organizationId: isSalesAdmin ? null : organizationId,
     })
   }
 
@@ -477,6 +478,7 @@ const OrganizationUsersTable: FunctionComponent<Props> = ({
     refetch({
       ...variableState,
       page: newPage,
+      organizationId: isSalesAdmin ? null : organizationId,
     })
   }
 
@@ -495,6 +497,7 @@ const OrganizationUsersTable: FunctionComponent<Props> = ({
       ...variableState,
       page: 1,
       pageSize: +value,
+      organizationId: isSalesAdmin ? null : organizationId,
     })
   }
 
@@ -519,6 +522,7 @@ const OrganizationUsersTable: FunctionComponent<Props> = ({
       ...variableState,
       search: '',
       page: 1,
+      organizationId: isSalesAdmin ? null : organizationId,
     })
   }
 
@@ -572,6 +576,7 @@ const OrganizationUsersTable: FunctionComponent<Props> = ({
     refetch({
       ...variableState,
       page: 1,
+      organizationId: isSalesAdmin ? null : organizationId,
       sortOrder: _sortOrder,
       sortedBy: _sortedBy,
     })

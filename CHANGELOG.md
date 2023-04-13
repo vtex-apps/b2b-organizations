@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Fixed
+
+- Fixed pagination with organization ID
+
 ## [1.24.0] - 2023-04-11
 
 ### Fixed
