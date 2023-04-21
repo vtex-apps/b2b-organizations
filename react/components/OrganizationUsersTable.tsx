@@ -364,13 +364,13 @@ const OrganizationUsersTable: FunctionComponent<Props> = ({
       variables: { id: rowData.id },
     })
       .then(result => {
-        if (result?.data?.impersonateUser?.status === 'error') {
+        if (result?.data?.impersonateB2BUser?.status === 'error') {
           console.error(
             'Impersonation error:',
-            result.data.impersonateUser.message
+            result.data.impersonateB2BUser.message
           )
           if (
-            result.data.impersonateUser.message === 'userId not found in CL'
+            result.data.impersonateB2BUser.message === 'userId not found in CL'
           ) {
             showToast(formatMessage(storeMessages.toastImpersonateIdMissing))
           } else {
