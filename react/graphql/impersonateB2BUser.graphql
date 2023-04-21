@@ -1,0 +1,8 @@
+mutation ImpersonateB2BUser($id: ID!) {
+  impersonateB2BUser(id: $id)
+    @context(provider: "vtex.b2b-organizations-graphql") {
+    id
+    status
+    message
+  }
+}

@@ -15,7 +15,7 @@ import ADD_USER from '../graphql/addUser.graphql'
 import UPDATE_USER from '../graphql/updateUser.graphql'
 import REMOVE_USER from '../graphql/removeUser.graphql'
 import GET_COST_CENTER from '../graphql/getCostCenterStorefront.graphql'
-import IMPERSONATE_USER from '../graphql/impersonateUser.graphql'
+import IMPERSONATE_USER from '../graphql/impersonateB2BUser.graphql'
 import { B2B_CHECKOUT_SESSION_KEY } from '../utils/constants'
 
 interface Props {
@@ -361,7 +361,7 @@ const OrganizationUsersTable: FunctionComponent<Props> = ({
     }
 
     impersonateUser({
-      variables: { clId: rowData.clId, userId: rowData.userId },
+      variables: { id: rowData.id },
     })
       .then(result => {
         if (result?.data?.impersonateUser?.status === 'error') {
