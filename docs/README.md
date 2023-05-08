@@ -84,6 +84,7 @@ if we have more than one associated organization:
 | Prop name                  | Type                              | Description                                                                                                             | Default value |
 | -------------------------- | --------------------------------- | ----------------------------------------------------------------------------------------------------------------------- | ------------- |
 | `showDropdown`               | `Boolean`                          | controls whether we are viewing the dropdown if we have more than one organization associated with the same email.                  | `true`          |
+| `showLoadingIndicator`       | `Boolean`                          | controls whether a loading indicator will be displayed while widget data is loading.                                                | `false`          |
 ## Customization
 
 In order to apply CSS customizations in this and other apps, follow the instructions on [Using CSS Handles for store customization](https://developers.vtex.com/vtex-developer-docs/docs/vtex-io-documentation-using-css-handles-for-store-customization).
