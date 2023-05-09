@@ -2,7 +2,14 @@ import React, { Fragment, useEffect, useState } from 'react'
 import type { FunctionComponent } from 'react'
 import { useQuery, useMutation } from 'react-apollo'
 import { useIntl, FormattedMessage } from 'react-intl'
-import { AutocompleteInput, Button, Input, Modal, Spinner, Tag } from 'vtex.styleguide'
+import {
+  AutocompleteInput,
+  Button,
+  Input,
+  Modal,
+  Spinner,
+  Tag,
+} from 'vtex.styleguide'
 import { useCssHandles } from 'vtex.css-handles'
 import { useRuntime } from 'vtex.render-runtime'
 
@@ -188,10 +195,13 @@ const UserWidget: VtexFunctionComponent<UserWidgetProps> = ({
     }
   }
 
-  const { data: userWidgetData, loading: userWidgetLoading } = useQuery(USER_WIDGET_QUERY, {
-    ssr: false,
-    skip: !isAuthenticated,
-  }) as any
+  const { data: userWidgetData, loading: userWidgetLoading } = useQuery(
+    USER_WIDGET_QUERY,
+    {
+      ssr: false,
+      skip: !isAuthenticated,
+    }
+  ) as any
 
   const [stopImpersonation] = useMutation(STOP_IMPERSONATION)
   const [setCurrentOrganization] = useMutation(SET_CURRENT_ORGANIZATION)
