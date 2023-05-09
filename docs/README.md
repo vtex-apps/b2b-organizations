@@ -99,6 +99,7 @@ CSS handles are available for the **Organization Request Form** component and th
 | `newOrganizationButtonsContainer` |
 | `newOrganizationButtonSubmit`     |
 | `userWidgetContainer`             |
+| `userWidgetLoading`             |
 | `userWidgetRow`                   |
 | `userWidgetItem`                  |
 | `userWidgetButton`                |
