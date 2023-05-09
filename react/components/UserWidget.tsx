@@ -20,6 +20,7 @@ import '../css/user-widget.css'
 
 const CSS_HANDLES = [
   'userWidgetContainer',
+  'userWidgetLoading',
   'userWidgetRow',
   'userWidgetItem',
   'userWidgetButton',
@@ -421,10 +422,8 @@ const UserWidget: VtexFunctionComponent<UserWidgetProps> = ({
 
   if (showLoadingIndicator && userWidgetLoading) {
     return (
-      <div
-        className={`${handles.userWidgetRow} flex justify-center items-center pv8`}
-      >
-        <Spinner />
+      <div className={`${handles.userWidgetLoading}`}>
+        <Spinner color="currentColor" />
       </div>
     )
   }
