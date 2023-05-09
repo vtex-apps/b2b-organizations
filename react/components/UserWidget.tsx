@@ -422,7 +422,7 @@ const UserWidget: VtexFunctionComponent<UserWidgetProps> = ({
 
   if (showLoadingIndicator && userWidgetLoading) {
     return (
-      <div className={`${handles.userWidgetLoading}`}>
+      <div className={handles.userWidgetLoading}>
         <Spinner color="currentColor" />
       </div>
     )
