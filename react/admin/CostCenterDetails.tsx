@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import type { FunctionComponent } from 'react'
 import React, { useEffect, useState } from 'react'
 import { useQuery, useMutation, useLazyQuery } from 'react-apollo'
@@ -20,6 +19,7 @@ import {
 import { useToast } from '@vtex/admin-ui'
 import { useIntl, FormattedMessage } from 'react-intl'
 import { useRuntime } from 'vtex.render-runtime'
+import { useCssHandles } from 'vtex.css-handles'
 import {
   AddressRules,
   AddressSummary,
@@ -31,16 +31,24 @@ import {
 import { StyleguideInput } from 'vtex.address-form/inputs'
 import { addValidation } from 'vtex.address-form/helpers'
 
-import { costCenterMessages as messages } from './utils/messages'
+import {
+  costCenterMessages as messages,
+  organizationCustomFieldsMessages as orgaizationMessages,
+} from './utils/messages'
 import { setGUID, getEmptyAddress, isValidAddress } from '../utils/addresses'
 import { validatePhoneNumber } from '../modules/formValidators'
 import GET_COST_CENTER from '../graphql/getCostCenter.graphql'
 import GET_ORGANIZATION from '../graphql/getOrganization.graphql'
 import UPDATE_COST_CENTER from '../graphql/updateCostCenter.graphql'
 import SET_MARKETING_TAGS from '../graphql/setMarketingTags.graphql'
+import GET_MARKETING_TAGS from '../graphql/getMarketingTags.graphql'
 import DELETE_COST_CENTER from '../graphql/deleteCostCenter.graphql'
 import GET_LOGISTICS from '../graphql/getLogistics.graphql'
-import GET_MARKETING_TAGS from '../graphql/getMarketingTags.graphql'
+import GET_B2B_CUSTOM_FIELDS from '../graphql/getB2BCustomFields.graphql'
+import { joinById } from './OrganizationDetails'
+import CustomFieldInput from './OrganizationDetailsCustomField'
+
+const CSS_HANDLES = ['businessDocument', 'stateRegistration'] as const
 
 const CostCenterDetails: FunctionComponent = () => {
   const { formatMessage } = useIntl()
@@ -51,6 +59,7 @@ const CostCenterDetails: FunctionComponent = () => {
     navigate,
   } = useRuntime()
 
+  const handles = useCssHandles(CSS_HANDLES)
   const showToast = useToast()
 
   const [loadingState, setLoadingState] = useState(false)
@@ -85,6 +94,8 @@ const CostCenterDetails: FunctionComponent = () => {
     addValidation(getEmptyAddress(country))
   )
 
+  const [customFieldsState, setCustomFieldsState] = useState<CustomField[]>([])
+
   const [tags, setTags] = useState([] as string[])
   const [tagName, setTagName] = useState('')
 
@@ -93,6 +104,12 @@ const CostCenterDetails: FunctionComponent = () => {
     skip: !params?.id,
     ssr: false,
     fetchPolicy: 'network-only',
+  })
+
+  const { data: defaultCustomFieldsData } = useQuery(GET_B2B_CUSTOM_FIELDS, {
+    variables: { id: params?.id },
+    skip: !params?.id,
+    ssr: false,
   })
 
   const [getOrganization, { data: organizationData }] = useLazyQuery(
@@ -195,6 +212,7 @@ const CostCenterDetails: FunctionComponent = () => {
         }),
         phoneNumber,
         businessDocument,
+        customFields: customFieldsState,
         stateRegistration,
       },
     }
@@ -206,7 +224,7 @@ const CostCenterDetails: FunctionComponent = () => {
     updateCostCenter({ variables })
       .then(() => {
         showToast({
-          type: 'success',
+          variant: 'positive',
           message: formatMessage(messages.toastUpdateSuccess),
         })
         refetch()
@@ -216,7 +234,7 @@ const CostCenterDetails: FunctionComponent = () => {
       .catch(error => {
         console.error(error)
         showToast({
-          type: 'error',
+          variant: 'critical',
           message: formatMessage(messages.toastUpdateFailure),
         })
         setLoadingState(false)
@@ -233,7 +251,7 @@ const CostCenterDetails: FunctionComponent = () => {
       .catch(error => {
         console.error(error)
         showToast({
-          type: 'error',
+          variant: 'critical',
           message: formatMessage(messages.toastDeleteFailure),
         })
         setLoadingState(false)
@@ -329,7 +347,7 @@ const CostCenterDetails: FunctionComponent = () => {
       handleCloseModals()
     } else {
       showToast({
-        type: 'error',
+        variant: 'critical',
         message: formatMessage(messages.duplicateAddress),
       })
     }
@@ -404,6 +422,30 @@ const CostCenterDetails: FunctionComponent = () => {
       onClick: () => handleDeleteAddressModal(addressId),
     },
   ]
+
+  // CostCenter custom fields
+
+  useEffect(() => {
+    const customFieldsToShow = joinById(
+      data?.getCostCenterById?.customFields || [],
+      defaultCustomFieldsData?.getB2BSettings.costCenterCustomFields || []
+    )
+
+    setCustomFieldsState(customFieldsToShow)
+  }, [
+    data?.getCostCenterById?.customFields &&
+      defaultCustomFieldsData?.getB2BSettings.costCenterCustomFields,
+  ])
+
+  const handleCustomFieldsUpdate = (
+    index: number,
+    customField: CustomField
+  ) => {
+    const newCustomFields = [...customFieldsState]
+
+    newCustomFields[index] = customField
+    setCustomFieldsState(newCustomFields)
+  }
 
   if (!data) {
     return (
@@ -494,7 +536,7 @@ const CostCenterDetails: FunctionComponent = () => {
             }}
           />
         </div>
-        <div className="mt6">
+        <div className={`${handles.businessDocument} mt6`}>
           <Input
             autocomplete="off"
             size="large"
@@ -506,7 +548,7 @@ const CostCenterDetails: FunctionComponent = () => {
             }}
           />
         </div>
-        <div className="mt6">
+        <div className={`${handles.stateRegistration} mt6`}>
           <Input
             autocomplete="off"
             size="large"
@@ -602,6 +644,17 @@ const CostCenterDetails: FunctionComponent = () => {
             </Card>
           </div>
         </div>
+      </PageBlock>
+
+      <PageBlock title={formatMessage(orgaizationMessages.customFieldsTitle)}>
+        {customFieldsState?.map((customField: CustomField, index: number) => (
+          <CustomFieldInput
+            key={`${customField.name}`}
+            customField={customField}
+            index={index}
+            handleUpdate={handleCustomFieldsUpdate}
+          />
+        ))}
       </PageBlock>
 
       {/* New Address Modal */}

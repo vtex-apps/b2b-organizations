@@ -21,5 +21,15 @@ query GetOrganization($id: ID) {
       id
       name
     }
+    customFields {
+      name
+      value
+      type
+      dropdownValues {
+        value
+        label
+      }
+      useOnRegistration
+    }
   }
 }

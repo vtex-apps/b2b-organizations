@@ -41,13 +41,13 @@ const CSS_HANDLES = [
   'userWidgetModalJoinButton',
   'userWidgetModalTotal',
   'userWidgetModalTable',
+  'userWidgetModalTableContainer',
   'userWidgetModalTableRow',
   'userWidgetModalTableRowChecked',
   'userWidgetModalTableCell',
   'userWidgetModalTableRadio',
 ] as const
 
-const MAX_ORGANIZATIONS = 10
 const SESSION_STORAGE_SHOW_MODAL = 'b2b-organizations-showModal'
 
 const localStore = storageFactory(() => localStorage)
@@ -118,6 +118,9 @@ interface UserWidgetProps {
   showDropdown?: boolean
 }
 
+const sortOrganizations = (a: any, b: any) =>
+  a.organizationName < b.organizationName ? -1 : 1
+
 const UserWidget: VtexFunctionComponent<UserWidgetProps> = ({
   showDropdown = true,
 }) => {
@@ -130,6 +133,7 @@ const UserWidget: VtexFunctionComponent<UserWidgetProps> = ({
   const [showModal, setShowModal] = useState(false)
   const [searchTerm, setSearchTerm] = useState('')
   const [radioValue, setRadioValue] = useState('')
+  const [checkSession, setCheckSession] = useState(false)
 
   const [organizationsState, setOrganizationsState] = useState({
     organizationOptions: [],
@@ -137,9 +141,11 @@ const UserWidget: VtexFunctionComponent<UserWidgetProps> = ({
     organizationInput: '',
     costCenterInput: '',
     currentOrganization: '',
+    currentRoleName: '',
     currentCostCenter: '',
     currentOrganizationStatus: '',
     dataList: [],
+    totalDataList: 0,
   })
 
   const sessionResponse: any = useSessionResponse()
@@ -152,6 +158,31 @@ const UserWidget: VtexFunctionComponent<UserWidgetProps> = ({
       'b2b-organizations_isAuthenticated',
       JSON.stringify(isAuthenticated)
     )
+
+    if (!checkSession) {
+      fetch('/api/sessions?items=public.facets,public.sc').then(response => {
+        if (response.status === 200) {
+          response.json().then(data => {
+            if (window.__RUNTIME__) {
+              const segmentToken = {
+                ...JSON.parse(atob(window.__RUNTIME__.segmentToken)),
+                ...(data?.namespaces?.public?.facets?.value
+                  ? { facets: data?.namespaces?.public?.facets?.value }
+                  : {}),
+                ...(data?.namespaces?.public?.sc?.value
+                  ? { sc: data?.namespaces?.public?.sc?.value }
+                  : {}),
+              }
+
+              window.__RUNTIME__.segmentToken = btoa(
+                JSON.stringify(segmentToken)
+              )
+              setCheckSession(true)
+            }
+          })
+        }
+      })
+    }
   }
 
   const { data: userWidgetData } = useQuery(USER_WIDGET_QUERY, {
@@ -244,20 +275,23 @@ const UserWidget: VtexFunctionComponent<UserWidgetProps> = ({
   }
 
   useEffect(() => {
+    const dataList = userWidgetData?.getOrganizationsByEmail
+      ?.filter((organization: any) => {
+        return (
+          organization.organizationName
+            .toLowerCase()
+            .includes(searchTerm.toLowerCase()) ||
+          organization.costCenterName
+            .toLowerCase()
+            .includes(searchTerm.toLowerCase())
+        )
+      })
+      .sort(sortOrganizations)
+
     setOrganizationsState({
       ...organizationsState,
-      dataList: userWidgetData?.getOrganizationsByEmail
-        ?.filter((organization: any) => {
-          return (
-            organization.organizationName
-              .toLowerCase()
-              .includes(searchTerm.toLowerCase()) ||
-            organization.costCenterName
-              .toLowerCase()
-              .includes(searchTerm.toLowerCase())
-          )
-        })
-        .slice(0, MAX_ORGANIZATIONS),
+      dataList,
+      totalDataList: dataList?.length,
     })
   }, [searchTerm])
 
@@ -301,6 +335,9 @@ const UserWidget: VtexFunctionComponent<UserWidgetProps> = ({
             status: organization.organizationStatus,
           })
         ),
+      currentRoleName: userWidgetData?.getOrganizationsByEmail?.find(
+        (organizations: any) => organizations.costId === currentCostCenter
+      )?.role?.name,
       costCenterOptions: userWidgetData?.getOrganizationsByEmail
         .filter(
           (organization: { orgId: string }) =>
@@ -312,10 +349,10 @@ const UserWidget: VtexFunctionComponent<UserWidgetProps> = ({
         })),
       currentOrganization,
       currentCostCenter,
-      dataList: userWidgetData?.getOrganizationsByEmail.slice(
-        0,
-        MAX_ORGANIZATIONS
+      dataList: userWidgetData?.getOrganizationsByEmail?.sort(
+        sortOrganizations
       ),
+      totalDataList: userWidgetData?.getOrganizationsByEmail?.length,
       currentOrganizationStatus:
         userWidgetData?.getOrganizationByIdStorefront?.status,
     })
@@ -415,51 +452,55 @@ const UserWidget: VtexFunctionComponent<UserWidgetProps> = ({
                 </Button>
               </div>
               <div className={`${handles.userWidgetModalTotal} pt4 mb4`}>
-                {organizationsState?.dataList?.length}{' '}
+                {organizationsState?.totalDataList}{' '}
                 {formatMessage(messages.organizationsFound)}
               </div>
-              <table className={handles.userWidgetModalTable}>
-                <tbody>
-                  {organizationsState?.dataList?.map((organization: any) => {
-                    const id = [organization.orgId, organization.costId].join(
-                      ','
-                    )
+              <div className={handles.userWidgetModalTableContainer}>
+                <table className={handles.userWidgetModalTable}>
+                  <tbody>
+                    {organizationsState?.dataList?.map((organization: any) => {
+                      const id = [organization.orgId, organization.costId].join(
+                        ','
+                      )
 
-                    return (
-                      <tr
-                        key={id}
-                        className={`${handles.userWidgetModalTableRow} ${
-                          id === radioValue
-                            ? handles.userWidgetModalTableRowChecked
-                            : ''
-                        }`}
-                        onClick={() => setRadioValue(id)}
-                      >
-                        <td className={handles.userWidgetModalTableCell}>
-                          <input
-                            id={id}
-                            value={id}
-                            checked={id === radioValue}
-                            onChange={(e: any) => setRadioValue(e.target.value)}
-                            type="radio"
-                            className={handles.userWidgetModalTableRadio}
-                          />
-                        </td>
-                        <td className={handles.userWidgetModalTableCell}>
-                          <label htmlFor={id}>
-                            {organization.organizationName}
-                          </label>
-                        </td>
-                        <td className={handles.userWidgetModalTableCell}>
-                          <label htmlFor={id}>
-                            {organization.costCenterName}
-                          </label>
-                        </td>
-                      </tr>
-                    )
-                  })}
-                </tbody>
-              </table>
+                      return (
+                        <tr
+                          key={id}
+                          className={`${handles.userWidgetModalTableRow} ${
+                            id === radioValue
+                              ? handles.userWidgetModalTableRowChecked
+                              : ''
+                          }`}
+                          onClick={() => setRadioValue(id)}
+                        >
+                          <td className={handles.userWidgetModalTableCell}>
+                            <input
+                              id={id}
+                              value={id}
+                              checked={id === radioValue}
+                              onChange={(e: any) =>
+                                setRadioValue(e.target.value)
+                              }
+                              type="radio"
+                              className={handles.userWidgetModalTableRadio}
+                            />
+                          </td>
+                          <td className={handles.userWidgetModalTableCell}>
+                            <label htmlFor={id}>
+                              {organization.organizationName}
+                            </label>
+                          </td>
+                          <td className={handles.userWidgetModalTableCell}>
+                            <label htmlFor={id}>
+                              {organization.costCenterName}
+                            </label>
+                          </td>
+                        </tr>
+                      )
+                    })}
+                  </tbody>
+                </table>
+              </div>
             </div>
             <div className={handles.userWidgetModalJoinButton}>
               <Button
@@ -503,7 +544,7 @@ const UserWidget: VtexFunctionComponent<UserWidgetProps> = ({
               </div>
               <div className={`${handles.userWidgetRole}`}>
                 {`${formatMessage(messages.role)} ${
-                  userWidgetData?.checkUserPermission?.role?.name
+                  organizationsState.currentRoleName
                 }`}
               </div>
               <div className="ml-auto">
@@ -592,7 +633,7 @@ const UserWidget: VtexFunctionComponent<UserWidgetProps> = ({
               className={`${handles.userWidgetItem} pa3 br2 bg-base--inverted hover-bg-base--inverted active-bg-base--inverted c-on-base--inverted hover-c-on-base--inverted active-c-on-base--inverted dib mr3`}
             >
               {`${formatMessage(messages.role)} ${
-                userWidgetData?.checkUserPermission?.role?.name
+                organizationsState.currentRoleName
               }`}
             </div>
             <div className={`${handles.userWidgetButton} pa3`}>

@@ -1,6 +1,6 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import type { FunctionComponent } from 'react'
-import { Modal, Input, Button } from 'vtex.styleguide'
+import { Modal, Input, Button, Spinner } from 'vtex.styleguide'
 import { useIntl, FormattedMessage } from 'react-intl'
 import { useQuery } from 'react-apollo'
 import { useRuntime } from 'vtex.render-runtime'
@@ -14,11 +14,14 @@ import {
 import { StyleguideInput } from 'vtex.address-form/inputs'
 import { addValidation } from 'vtex.address-form/helpers'
 import 'vtex.country-codes/locales'
+import { useCssHandles } from 'vtex.css-handles'
 
 import { costCenterMessages as messages } from './utils/messages'
 import { getEmptyAddress, isValidAddress } from '../utils/addresses'
 import GET_LOGISTICS from '../graphql/getLogistics.graphql'
 import { validatePhoneNumber } from '../modules/formValidators'
+import GET_B2B_CUSTOM_FIELDS from '../graphql/getB2BCustomFields.graphql'
+import CustomFieldInput from '../admin/OrganizationDetailsCustomField'
 
 interface Props {
   loading: boolean
@@ -28,14 +31,18 @@ interface Props {
     address,
     phoneNumber,
     businessDocument,
+    customFields,
   }: {
     name: string
     address: AddressFormFields
     phoneNumber: string
     businessDocument: string
+    customFields: CustomField[]
   }) => void
   handleCloseModal: () => void
 }
+
+const CSS_HANDLES = ['businessDocument'] as const
 
 const NewCostCenterModal: FunctionComponent<Props> = ({
   loading,
@@ -54,6 +61,8 @@ const NewCostCenterModal: FunctionComponent<Props> = ({
     newCostCenterBusinessDocument,
     setNewCostCenterBusinessDocument,
   ] = useState('')
+
+  const handles = useCssHandles(CSS_HANDLES)
 
   const [newCostCenterAddressState, setNewCostCenterAddressState] = useState(
     addValidation(getEmptyAddress(country))
@@ -80,6 +89,40 @@ const NewCostCenterModal: FunctionComponent<Props> = ({
     setNewCostCenterAddressState(newAddress)
   }
 
+  //! CUSTOM FIELDS
+  const {
+    data: defaultCustomFieldsData,
+    loading: defaultCustomFieldsDataLoading,
+  } = useQuery(GET_B2B_CUSTOM_FIELDS, {
+    ssr: false,
+  })
+
+  const [
+    costCenterCustomFieldsState,
+    setCostCenterCustomFieldsState,
+  ] = useState<CustomField[]>([])
+
+  useEffect(() => {
+    if (defaultCustomFieldsDataLoading) return
+
+    const costCenterFieldsToDisplay = defaultCustomFieldsData?.getB2BSettings.costCenterCustomFields.filter(
+      (item: CustomField) => item.useOnRegistration
+    )
+
+    setCostCenterCustomFieldsState(costCenterFieldsToDisplay)
+  }, [defaultCustomFieldsData])
+
+  const handleCostCenterCustomFieldsUpdate = (
+    index: number,
+    customField: CustomField
+  ) => {
+    const newCustomFields = [...costCenterCustomFieldsState]
+
+    newCustomFields[index] = customField
+    setCostCenterCustomFieldsState(newCustomFields)
+  }
+  //! CUSTOM FIELDS
+
   return (
     <Modal
       centered
@@ -103,6 +146,7 @@ const NewCostCenterModal: FunctionComponent<Props> = ({
                   address: newCostCenterAddressState,
                   phoneNumber: newCostCenterPhoneNumber,
                   businessDocument: newCostCenterBusinessDocument,
+                  customFields: costCenterCustomFieldsState,
                 })
               }
               isLoading={loading}
@@ -153,7 +197,7 @@ const NewCostCenterModal: FunctionComponent<Props> = ({
           }}
         />
       </div>
-      <div className="w-100 mv6">
+      <div className={`${handles.businessDocument} w-100 mv6`}>
         <Input
           autocomplete="off"
           size="large"
@@ -165,9 +209,32 @@ const NewCostCenterModal: FunctionComponent<Props> = ({
           }}
         />
       </div>
+
       <div className="w-100 mv6">
         <FormattedMessage id="store/b2b-organizations.organization-details.add-costCenter.helpText" />
       </div>
+      {/* //! Custom fields */}
+      {defaultCustomFieldsDataLoading ? (
+        <div className="mb5 flex flex-column">
+          <Spinner />
+        </div>
+      ) : (
+        <>
+          {costCenterCustomFieldsState?.map(
+            (customField: CustomField, index: number) => {
+              return (
+                <CustomFieldInput
+                  key={`${customField.name}`}
+                  index={index}
+                  handleUpdate={handleCostCenterCustomFieldsUpdate}
+                  customField={customField}
+                />
+              )
+            }
+          )}
+        </>
+      )}
+      {/* //! Custom fields */}
       <AddressRules
         country={newCostCenterAddressState?.country?.value}
         shouldUseIOFetching

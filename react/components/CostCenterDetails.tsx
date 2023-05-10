@@ -16,6 +16,7 @@ import {
 } from 'vtex.styleguide'
 import { useIntl, FormattedMessage } from 'react-intl'
 import { AddressRules, AddressSummary } from 'vtex.address-form'
+import { useCssHandles } from 'vtex.css-handles'
 
 import { costCenterMessages as messages } from './utils/messages'
 import storageFactory from '../utils/storage'
@@ -31,6 +32,7 @@ import GET_ORGANIZATION from '../graphql/getOrganizationStorefront.graphql'
 import UPDATE_COST_CENTER from '../graphql/updateCostCenter.graphql'
 import DELETE_COST_CENTER from '../graphql/deleteCostCenter.graphql'
 import GET_PERMISSIONS from '../graphql/getPermissions.graphql'
+import GET_B2B_SETTINGS from '../graphql/getB2BSettings.graphql'
 
 interface RouterProps {
   match: Match
@@ -48,6 +50,8 @@ interface PaymentTerm {
   id: string
   name: string
 }
+
+const CSS_HANDLES = ['businessDocument', 'stateRegistration'] as const
 
 const localStore = storageFactory(() => localStorage)
 let isAuthenticated =
@@ -72,6 +76,7 @@ const CostCenterDetails: FunctionComponent<RouterProps> = ({
     )
   }
 
+  const handles = useCssHandles(CSS_HANDLES)
   const { showToast } = useContext(ToastContext)
 
   const toastMessage = (message: MessageDescriptor) => {
@@ -93,6 +98,11 @@ const CostCenterDetails: FunctionComponent<RouterProps> = ({
   const [paymentTermOptions, setPaymentTermOptions] = useState(
     [] as PaymentTerm[]
   )
+
+  const [settings, setSettings] = useState({
+    businessReadOnly: false,
+    stateReadOnly: false,
+  })
 
   const [newAddressModalState, setNewAddressModalState] = useState({
     isOpen: false,
@@ -122,6 +132,8 @@ const CostCenterDetails: FunctionComponent<RouterProps> = ({
   const [getOrganization, { data: organizationData }] = useLazyQuery(
     GET_ORGANIZATION
   )
+
+  const { data: dataSettings } = useQuery(GET_B2B_SETTINGS, { ssr: false })
 
   const { data: permissionsData } = useQuery(GET_PERMISSIONS, { ssr: false })
 
@@ -195,6 +207,19 @@ const CostCenterDetails: FunctionComponent<RouterProps> = ({
       setPermissionsState(permissions)
     }
   }, [permissionsData])
+
+  useEffect(() => {
+    if (!dataSettings) {
+      return
+    }
+
+    const { getB2BSettings } = dataSettings
+
+    setSettings({
+      businessReadOnly: getB2BSettings?.businessReadOnly,
+      stateReadOnly: getB2BSettings?.stateReadOnly,
+    })
+  }, [dataSettings])
 
   const handleUpdateCostCenter = () => {
     setLoadingState(true)
@@ -324,7 +349,7 @@ const CostCenterDetails: FunctionComponent<RouterProps> = ({
       handleCloseModals()
     } else {
       showToast({
-        type: 'error',
+        variant: 'critical',
         message: formatMessage(messages.duplicateAddress),
       })
     }
@@ -531,7 +556,7 @@ const CostCenterDetails: FunctionComponent<RouterProps> = ({
             }
           />
         </div>
-        <div className="mt6">
+        <div className={`${handles.businessDocument} mt6`}>
           <Input
             autocomplete="off"
             size="large"
@@ -542,11 +567,12 @@ const CostCenterDetails: FunctionComponent<RouterProps> = ({
               setBusinessDocument(e.target.value)
             }}
             readOnly={
-              !permissionsState.includes('create-cost-center-organization')
+              !permissionsState.includes('create-cost-center-organization') ||
+              settings.businessReadOnly
             }
           />
         </div>
-        <div className="mt6">
+        <div className={`${handles.stateRegistration} mt6`}>
           <Input
             autocomplete="off"
             size="large"
@@ -557,7 +583,8 @@ const CostCenterDetails: FunctionComponent<RouterProps> = ({
               setStateRegistration(e.target.value)
             }}
             readOnly={
-              !permissionsState.includes('create-cost-center-organization')
+              !permissionsState.includes('create-cost-center-organization') ||
+              settings.stateReadOnly
             }
           />
         </div>

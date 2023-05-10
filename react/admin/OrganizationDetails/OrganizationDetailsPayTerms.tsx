@@ -9,6 +9,7 @@ import GET_PAYMENT_TERMS from '../../graphql/getPaymentTerms.graphql'
 export interface PaymentTerm {
   paymentTermId: number
   name: string
+  id?: number
 }
 
 const OrganizationDetailsPayTerms = ({

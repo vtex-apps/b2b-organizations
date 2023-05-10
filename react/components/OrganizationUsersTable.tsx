@@ -15,7 +15,7 @@ import ADD_USER from '../graphql/addUser.graphql'
 import UPDATE_USER from '../graphql/updateUser.graphql'
 import REMOVE_USER from '../graphql/removeUser.graphql'
 import GET_COST_CENTER from '../graphql/getCostCenterStorefront.graphql'
-import IMPERSONATE_USER from '../graphql/impersonateUser.graphql'
+import IMPERSONATE_USER from '../graphql/impersonateB2BUser.graphql'
 import { B2B_CHECKOUT_SESSION_KEY } from '../utils/constants'
 
 interface Props {
@@ -97,9 +97,12 @@ const OrganizationUsersTable: FunctionComponent<Props> = ({
   const [removeUserModalOpen, setRemoveUserModalOpen] = useState(false)
   const [usersState, setUsersState] = useState([])
 
-  const contextualToast = (message: string, type: 'success' | 'error') => {
+  const contextualToast = (
+    message: string,
+    type: 'critical' | 'positive' | 'info' | 'warning' | undefined
+  ) => {
     if (isAdmin && toast) {
-      toast({ type, message })
+      toast({ variant: type, message })
     } else {
       showToast(message)
     }
@@ -168,7 +171,7 @@ const OrganizationUsersTable: FunctionComponent<Props> = ({
                   ? adminMessages.toastAddUserFailure
                   : storeMessages.toastAddUserFailure
               ),
-              'error'
+              'critical'
             )
           } else if (status === 'duplicated-organization') {
             contextualToast(
@@ -177,7 +180,7 @@ const OrganizationUsersTable: FunctionComponent<Props> = ({
                   ? adminMessages.toastUserDuplicatedOrganization
                   : storeMessages.toastUserDuplicatedOrganization
               ),
-              'error'
+              'critical'
             )
           } else if (status === 'duplicated') {
             contextualToast(
@@ -186,7 +189,7 @@ const OrganizationUsersTable: FunctionComponent<Props> = ({
                   ? adminMessages.toastUserDuplicated
                   : storeMessages.toastUserDuplicated
               ),
-              'error'
+              'critical'
             )
           } else {
             contextualToast(
@@ -195,7 +198,7 @@ const OrganizationUsersTable: FunctionComponent<Props> = ({
                   ? adminMessages.toastAddUserSuccess
                   : storeMessages.toastAddUserSuccess
               ),
-              'success'
+              'positive'
             )
           }
 
@@ -213,7 +216,7 @@ const OrganizationUsersTable: FunctionComponent<Props> = ({
               ? adminMessages.toastAddUserFailure
               : storeMessages.toastAddUserFailure
           ),
-          'error'
+          'critical'
         )
         setAddUserLoading(false)
       })
@@ -241,7 +244,7 @@ const OrganizationUsersTable: FunctionComponent<Props> = ({
                   ? adminMessages.toastUpdateUserFailure
                   : storeMessages.toastUpdateUserFailure
               ),
-              'error'
+              'critical'
             )
           } else {
             contextualToast(
@@ -250,7 +253,7 @@ const OrganizationUsersTable: FunctionComponent<Props> = ({
                   ? adminMessages.toastUpdateUserSuccess
                   : storeMessages.toastUpdateUserSuccess
               ),
-              'success'
+              'positive'
             )
           }
 
@@ -268,7 +271,7 @@ const OrganizationUsersTable: FunctionComponent<Props> = ({
               ? adminMessages.toastUpdateUserFailure
               : storeMessages.toastUpdateUserFailure
           ),
-          'error'
+          'critical'
         )
         setUpdateUserLoading(false)
       })
@@ -301,7 +304,7 @@ const OrganizationUsersTable: FunctionComponent<Props> = ({
               ? adminMessages.toastRemoveUserSuccess
               : storeMessages.toastRemoveUserSuccess
           ),
-          'success'
+          'positive'
         )
         setRemoveUserLoading(false)
         refetch()
@@ -314,7 +317,7 @@ const OrganizationUsersTable: FunctionComponent<Props> = ({
               ? adminMessages.toastRemoveUserFailure
               : storeMessages.toastRemoveUserFailure
           ),
-          'error'
+          'critical'
         )
         setRemoveUserLoading(false)
       })
@@ -358,16 +361,16 @@ const OrganizationUsersTable: FunctionComponent<Props> = ({
     }
 
     impersonateUser({
-      variables: { clId: rowData.clId, userId: rowData.userId },
+      variables: { id: rowData.id },
     })
       .then(result => {
-        if (result?.data?.impersonateUser?.status === 'error') {
+        if (result?.data?.impersonateB2BUser?.status === 'error') {
           console.error(
             'Impersonation error:',
-            result.data.impersonateUser.message
+            result.data.impersonateB2BUser.message
           )
           if (
-            result.data.impersonateUser.message === 'userId not found in CL'
+            result.data.impersonateB2BUser.message === 'userId not found in CL'
           ) {
             showToast(formatMessage(storeMessages.toastImpersonateIdMissing))
           } else {
@@ -458,6 +461,7 @@ const OrganizationUsersTable: FunctionComponent<Props> = ({
     refetch({
       ...variableState,
       page: newPage,
+      organizationId: isSalesAdmin ? null : organizationId,
     })
   }
 
@@ -474,6 +478,7 @@ const OrganizationUsersTable: FunctionComponent<Props> = ({
     refetch({
       ...variableState,
       page: newPage,
+      organizationId: isSalesAdmin ? null : organizationId,
     })
   }
 
@@ -492,6 +497,7 @@ const OrganizationUsersTable: FunctionComponent<Props> = ({
       ...variableState,
       page: 1,
       pageSize: +value,
+      organizationId: isSalesAdmin ? null : organizationId,
     })
   }
 
@@ -516,12 +522,14 @@ const OrganizationUsersTable: FunctionComponent<Props> = ({
       ...variableState,
       search: '',
       page: 1,
+      organizationId: isSalesAdmin ? null : organizationId,
     })
   }
 
   const handleInputSearchSubmit = () => {
     refetch({
       ...variableState,
+      organizationId: isSalesAdmin ? null : organizationId,
       page: 1,
     })
   }
@@ -568,6 +576,7 @@ const OrganizationUsersTable: FunctionComponent<Props> = ({
     refetch({
       ...variableState,
       page: 1,
+      organizationId: isSalesAdmin ? null : organizationId,
       sortOrder: _sortOrder,
       sortedBy: _sortedBy,
     })
