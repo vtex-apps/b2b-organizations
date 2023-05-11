@@ -2,7 +2,14 @@ import React, { Fragment, useEffect, useState } from 'react'
 import type { FunctionComponent } from 'react'
 import { useQuery, useMutation } from 'react-apollo'
 import { useIntl, FormattedMessage } from 'react-intl'
-import { AutocompleteInput, Button, Input, Modal, Tag } from 'vtex.styleguide'
+import {
+  AutocompleteInput,
+  Button,
+  Input,
+  Modal,
+  Spinner,
+  Tag,
+} from 'vtex.styleguide'
 import { useCssHandles } from 'vtex.css-handles'
 import { useRuntime } from 'vtex.render-runtime'
 
@@ -20,6 +27,7 @@ import '../css/user-widget.css'
 
 const CSS_HANDLES = [
   'userWidgetContainer',
+  'userWidgetLoading',
   'userWidgetRow',
   'userWidgetItem',
   'userWidgetButton',
@@ -116,6 +124,7 @@ interface VtexFunctionComponent<T = Record<string, unknown>>
 
 interface UserWidgetProps {
   showDropdown?: boolean
+  showLoadingIndicator?: boolean
 }
 
 const sortOrganizations = (a: any, b: any) =>
@@ -123,6 +132,7 @@ const sortOrganizations = (a: any, b: any) =>
 
 const UserWidget: VtexFunctionComponent<UserWidgetProps> = ({
   showDropdown = true,
+  showLoadingIndicator = false,
 }) => {
   const { navigate, rootPath } = useRuntime()
   const { formatMessage } = useIntl()
@@ -185,10 +195,13 @@ const UserWidget: VtexFunctionComponent<UserWidgetProps> = ({
     }
   }
 
-  const { data: userWidgetData } = useQuery(USER_WIDGET_QUERY, {
-    ssr: false,
-    skip: !isAuthenticated,
-  }) as any
+  const { data: userWidgetData, loading: userWidgetLoading } = useQuery(
+    USER_WIDGET_QUERY,
+    {
+      ssr: false,
+      skip: !isAuthenticated,
+    }
+  ) as any
 
   const [stopImpersonation] = useMutation(STOP_IMPERSONATION)
   const [setCurrentOrganization] = useMutation(SET_CURRENT_ORGANIZATION)
@@ -415,6 +428,14 @@ const UserWidget: VtexFunctionComponent<UserWidgetProps> = ({
         currentCostCenter: itemSelected.value,
       })
     },
+  }
+
+  if (showLoadingIndicator && userWidgetLoading) {
+    return (
+      <div className={handles.userWidgetLoading}>
+        <Spinner color="currentColor" />
+      </div>
+    )
   }
 
   if (
@@ -693,6 +714,11 @@ UserWidget.schema = {
       title: 'showDropdown',
       type: 'boolean',
       default: true,
+    },
+    showLoadingIndicator: {
+      title: 'showLoadingIndicator',
+      type: 'boolean',
+      default: false,
     },
   },
 }
