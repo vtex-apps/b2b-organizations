@@ -299,11 +299,17 @@ const OrganizationDetails: FunctionComponent<RouterProps> = ({
     <Layout
       fullWidth
       pageHeader={
-        roleState && !isSalesAdmin() ? (
-          <PageHeader title={data.getOrganizationByIdStorefront?.name} />
-        ) : (
-          <PageHeader title={formatMessage(messages.salesAdminTitle)} />
-        )
+        <PageHeader
+          title={
+            roleState && !isSalesAdmin()
+              ? data.getOrganizationByIdStorefront?.name
+              : formatMessage(messages.salesAdminTitle)
+          }
+          linkLabel={formatMessage(messages.back)}
+          onLinkClick={() => {
+            history.push(`/`)
+          }}
+        />
       }
     >
       {roleState && !isSales() && (
