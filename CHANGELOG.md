@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [1.24.3] - 2023-05-11
+
 ### Added
 
 - `showLoadingIndicator` prop on user widget which controls whether a loading indicator will be displayed while widget data is loading
