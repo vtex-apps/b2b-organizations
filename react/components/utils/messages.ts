@@ -135,6 +135,9 @@ export const organizationMessages = defineMessages({
   pageTitle: {
     id: `${storePrefix}organization-details.title`,
   },
+  back: {
+    id: `${storePrefix}back`,
+  },
   costCenters: {
     id: `${storePrefix}organization-details.costCenters`,
   },
