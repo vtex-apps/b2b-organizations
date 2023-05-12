@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [1.24.4] - 2023-05-12
+
 ### Fixed
 - Fixed missing back button in shopper my organizations page
 
