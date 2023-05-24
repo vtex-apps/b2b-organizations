@@ -4,6 +4,7 @@ import { PageBlock, Table } from 'vtex.styleguide'
 import { useQuery } from 'react-apollo'
 
 import { organizationMessages as messages } from '../utils/messages'
+import { organizationBulkAction } from '../utils/organizationBulkAction'
 import GET_SELLERS from '../../graphql/getSellers.graphql'
 
 export interface Seller {
@@ -95,25 +96,6 @@ const OrganizationDetailsSellers = ({
     setSellersState((prevState: any) => [...prevState, ...newSellers])
   }
 
-  const bulkActions = (handleCallback: (params: any) => void) => {
-    return {
-      texts: {
-        rowsSelected: (qty: number) =>
-          formatMessage(messages.selectedRows, {
-            qty,
-          }),
-      },
-      main: {
-        label: formatMessage(
-          handleCallback.name === 'handleRemoveSellers'
-            ? messages.removeFromOrg
-            : messages.addToOrg
-        ),
-        handleCallback,
-      },
-    }
-  }
-
   return (
     <Fragment>
       <PageBlock variation="half" title={formatMessage(messages.sellers)}>
@@ -125,7 +107,11 @@ const OrganizationDetailsSellers = ({
             fullWidth
             schema={getSchema()}
             items={sellersState}
-            bulkActions={bulkActions(handleRemoveSellers)}
+            bulkActions={organizationBulkAction(
+              handleRemoveSellers,
+              messages.removeFromOrg,
+              formatMessage
+            )}
           />
         </div>
         <div>
@@ -135,7 +121,11 @@ const OrganizationDetailsSellers = ({
           <Table
             fullWidth
             schema={getSchema('availableSellers')}
-            bulkActions={bulkActions(handleAddSellers)}
+            bulkActions={organizationBulkAction(
+              handleAddSellers,
+              messages.addToOrg,
+              formatMessage
+            )}
             items={sellerOptions}
           />
         </div>

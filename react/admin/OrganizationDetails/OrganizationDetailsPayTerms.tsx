@@ -4,6 +4,7 @@ import React, { Fragment, useEffect, useState } from 'react'
 import { useQuery } from 'react-apollo'
 
 import { organizationMessages as messages } from '../utils/messages'
+import { organizationBulkAction } from '../utils/organizationBulkAction'
 import GET_PAYMENT_TERMS from '../../graphql/getPaymentTerms.graphql'
 
 export interface PaymentTerm {
@@ -104,25 +105,6 @@ const OrganizationDetailsPayTerms = ({
     setPaymentTermsState([...paymentTermsState, ...newPaymentTerms])
   }
 
-  const bulkActions = (handleCallback: (params: any) => void) => {
-    return {
-      texts: {
-        rowsSelected: (qty: number) =>
-          formatMessage(messages.selectedRows, {
-            qty,
-          }),
-      },
-      main: {
-        label: formatMessage(
-          handleCallback.name === 'handleRemovePaymentTerms'
-            ? messages.removeFromOrg
-            : messages.addToOrg
-        ),
-        handleCallback,
-      },
-    }
-  }
-
   return (
     <Fragment>
       <PageBlock variation="half" title={formatMessage(messages.paymentTerms)}>
@@ -134,7 +116,11 @@ const OrganizationDetailsPayTerms = ({
             fullWidth
             schema={getSchema()}
             items={paymentTermsState}
-            bulkActions={bulkActions(handleRemovePaymentTerms)}
+            bulkActions={organizationBulkAction(
+              handleRemovePaymentTerms,
+              messages.removeFromOrg,
+              formatMessage
+            )}
           />
         </div>
         <div>
@@ -145,7 +131,11 @@ const OrganizationDetailsPayTerms = ({
             fullWidth
             schema={getSchema('availablePayments')}
             items={paymentTermsOptions}
-            bulkActions={bulkActions(handleAddPaymentTerms)}
+            bulkActions={organizationBulkAction(
+              handleAddPaymentTerms,
+              messages.addToOrg,
+              formatMessage
+            )}
           />
         </div>
       </PageBlock>

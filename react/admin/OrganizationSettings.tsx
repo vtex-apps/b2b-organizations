@@ -9,6 +9,7 @@ import {
   organizationSettingsMessages as messages,
   organizationMessages,
 } from './utils/messages'
+import { organizationBulkAction } from './utils/organizationBulkAction'
 import GET_SALES_CHANNELS from '../graphql/getSalesChannels.graphql'
 import SELECTED_SALES_CHANNELS from '../graphql/getSelectedChannels.graphql'
 import UPDATE_SALES_CHANNELS from '../graphql/updateSalesChannels.graphql'
@@ -244,25 +245,6 @@ const OrganizationSettings: FunctionComponent = () => {
     setSelectedChannel(newBindingList)
   }
 
-  const bulkActions = (handleCallback: (params: any) => void) => {
-    return {
-      texts: {
-        rowsSelected: (qty: number) =>
-          formatMessage(messages.selectedRows, {
-            qty,
-          }),
-      },
-      main: {
-        label: formatMessage(
-          handleCallback.name === 'handleRemoveBinding'
-            ? messages.removeFromBinding
-            : messages.addToBinding
-        ),
-        handleCallback,
-      },
-    }
-  }
-
   return (
     <PageBlock
       title={formatMessage(messages.tablePageTitle)}
@@ -437,7 +419,11 @@ const OrganizationSettings: FunctionComponent = () => {
               fullWidth
               schema={defaultSchema}
               items={selectedChannels}
-              bulkActions={bulkActions(handleRemoveBinding)}
+              bulkActions={organizationBulkAction(
+                handleRemoveBinding,
+                messages.removeFromBinding,
+                formatMessage
+              )}
             />
           ) : null}
         </div>
@@ -449,7 +435,11 @@ const OrganizationSettings: FunctionComponent = () => {
             fullWidth
             schema={getSchema()}
             items={salesChannels}
-            bulkActions={bulkActions(handleAddBinding)}
+            bulkActions={organizationBulkAction(
+              handleAddBinding,
+              messages.addToBinding,
+              formatMessage
+            )}
           />
         </div>
       </div>
