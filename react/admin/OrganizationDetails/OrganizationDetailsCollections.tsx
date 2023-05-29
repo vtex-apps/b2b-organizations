@@ -5,6 +5,7 @@ import { PageBlock, Table } from 'vtex.styleguide'
 import { useQuery } from 'react-apollo'
 
 import { organizationMessages as messages } from '../utils/messages'
+import { organizationBulkAction } from '../utils/organizationBulkAction'
 import GET_COLLECTIONS from '../../graphql/getCollections.graphql'
 
 export interface Collection {
@@ -144,25 +145,6 @@ const OrganizationDetailsCollections = ({
     setCollectionsState([...collectionsState, ...newCollections])
   }
 
-  const bulkActions = (handleCallback: (params: any) => void) => {
-    return {
-      texts: {
-        rowsSelected: (qty: number) =>
-          formatMessage(messages.selectedRows, {
-            qty,
-          }),
-      },
-      main: {
-        label: formatMessage(
-          handleCallback.name === 'handleRemoveCollections'
-            ? messages.removeFromOrg
-            : messages.addToOrg
-        ),
-        handleCallback,
-      },
-    }
-  }
-
   return (
     <Fragment>
       <PageBlock variation="half" title={formatMessage(messages.collections)}>
@@ -174,7 +156,11 @@ const OrganizationDetailsCollections = ({
             fullWidth
             schema={getSchema()}
             items={collectionsState}
-            bulkActions={bulkActions(handleRemoveCollections)}
+            bulkActions={organizationBulkAction(
+              handleRemoveCollections,
+              messages.removeFromOrg,
+              formatMessage
+            )}
           />
         </div>
         <div>
@@ -205,7 +191,11 @@ const OrganizationDetailsCollections = ({
               totalItems: collectionsData?.collections?.paging?.total ?? 0,
               rowsOptions: [25, 50, 100],
             }}
-            bulkActions={bulkActions(handleAddCollections)}
+            bulkActions={organizationBulkAction(
+              handleAddCollections,
+              messages.addToOrg,
+              formatMessage
+            )}
           />
         </div>
       </PageBlock>

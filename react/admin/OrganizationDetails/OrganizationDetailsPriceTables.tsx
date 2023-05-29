@@ -4,6 +4,7 @@ import { PageBlock, Table } from 'vtex.styleguide'
 import { useQuery } from 'react-apollo'
 
 import { organizationMessages as messages } from '../utils/messages'
+import { organizationBulkAction } from '../utils/organizationBulkAction'
 import GET_PRICE_TABLES from '../../graphql/getPriceTables.graphql'
 
 export interface PriceTable {
@@ -85,25 +86,6 @@ const OrganizationDetailsPriceTables = ({
     setPriceTablesState((prevState: any) => [...prevState, ...newPriceTables])
   }
 
-  const bulkActions = (handleCallback: (params: any) => void) => {
-    return {
-      texts: {
-        rowsSelected: (qty: number) =>
-          formatMessage(messages.selectedRows, {
-            qty,
-          }),
-      },
-      main: {
-        label: formatMessage(
-          handleCallback.name === 'handleRemovePriceTables'
-            ? messages.removeFromOrg
-            : messages.addToOrg
-        ),
-        handleCallback,
-      },
-    }
-  }
-
   return (
     <Fragment>
       <PageBlock variation="half" title={formatMessage(messages.priceTables)}>
@@ -123,7 +105,11 @@ const OrganizationDetailsPriceTables = ({
                   )?.name ?? priceTable,
               }
             })}
-            bulkActions={bulkActions(handleRemovePriceTables)}
+            bulkActions={organizationBulkAction(
+              handleRemovePriceTables,
+              messages.removeFromOrg,
+              formatMessage
+            )}
           />
         </div>
         <div>
@@ -134,7 +120,11 @@ const OrganizationDetailsPriceTables = ({
             fullWidth
             schema={getSchema('availablePriceTables')}
             items={priceTableOptions}
-            bulkActions={bulkActions(handleAddPriceTables)}
+            bulkActions={organizationBulkAction(
+              handleAddPriceTables,
+              messages.addToOrg,
+              formatMessage
+            )}
           />
         </div>
       </PageBlock>
