@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [1.24.5] - 2023-05-29
+
 ### Fixed
 - Fixed button label when adding/removing collections/sellers/etc to/from org
 
