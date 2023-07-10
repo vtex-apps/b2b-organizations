@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Input, IconDelete, IconPlus, Toggle, Dropdown } from 'vtex.styleguide'
-import { Button, Flex } from '@vtex/admin-ui'
+import { Button, Flex, csx } from '@vtex/admin-ui'
 import { useIntl } from 'react-intl'
 
 import { organizationCustomFieldsMessages as customFieldsMessages } from './utils/messages'
@@ -216,9 +216,9 @@ const DefaultCustomField: React.FC<CustomFieldProps> = ({
                     )}
                     variant="secondary"
                     onClick={() => handleDeleteDropdownItem(i)}
-                    csx={{
+                    className={csx({
                       marginLeft: '10px',
-                    }}
+                    })}
                   />
                 </Flex>
               )
@@ -239,10 +239,10 @@ const DefaultCustomField: React.FC<CustomFieldProps> = ({
             customFieldsMessages.customFieldsAddDropdownLine
           )}
           onClick={handleAddDropdownItem}
-          csx={{
+          className={csx({
             marginTop: '35px',
             marginLeft: '10px',
-          }}
+          })}
         />
       ) : null}
     </div>
