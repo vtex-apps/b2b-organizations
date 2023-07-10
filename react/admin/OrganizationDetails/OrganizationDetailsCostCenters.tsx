@@ -20,7 +20,7 @@ import {
   PostalCodeGetter,
 } from 'vtex.address-form'
 import { StyleguideInput } from 'vtex.address-form/inputs'
-import type { Toast } from '@vtex/admin-ui/dist/components/Toast/types'
+import type { ToastProps } from '@vtex/admin-ui'
 
 import GET_COST_CENTERS from '../../graphql/getCostCentersByOrganizationId.graphql'
 import type { CellRendererProps } from '../OrganizationDetails'
@@ -44,7 +44,7 @@ const OrganizationDetailsCostCenters = ({
   loadingState,
 }: {
   setLoadingState: (state: boolean) => void
-  showToast: (toast: Toast) => void
+  showToast: (toast: ToastProps) => void
   loadingState: boolean
 }) => {
   /**
