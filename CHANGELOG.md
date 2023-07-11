@@ -7,14 +7,20 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Changed
+
+- Bump @vtex/admin-ui to v0.136.1
+
 ## [1.24.5] - 2023-05-29
 
 ### Fixed
+
 - Fixed button label when adding/removing collections/sellers/etc to/from org
 
 ## [1.24.4] - 2023-05-12
 
 ### Fixed
+
 - Fixed missing back button in shopper my organizations page
 
 ## [1.24.3] - 2023-05-11
@@ -46,16 +52,19 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - UX improvements
 
 ### Removed
+
 - [ENGINEERS-1247] - Disable cypress tests in PR level
 
 ## [1.23.0] - 2023-04-05
 
 ### Added
+
 - Added added condition in order to show business and state field disabled
 
 ## [1.22.7] - 2023-03-28
 
 ### Added
+
 - Added CssHandle class to cost center details
 
 ## [1.22.6] - 2023-03-28
@@ -65,7 +74,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - German translation.
 
 ## [1.22.5] - 2023-03-27
+
 ### Added
+
 - Added CssHandle class to parent container of my account cost center creation
 
 ### Changed
@@ -95,7 +106,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Fixed
 
 - Bug fixed on search users by organization
-
 
 ## [1.22.0] - 2023-03-01
 
