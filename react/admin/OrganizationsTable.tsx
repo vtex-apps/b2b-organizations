@@ -1,5 +1,15 @@
 import React from 'react'
-import { PageHeader, PageBlock, Layout, Tabs, Tab } from 'vtex.styleguide'
+import {
+  Page,
+  PageHeader,
+  PageHeaderTop,
+  PageHeaderTitle,
+  PageHeaderBottom,
+  TabList,
+  Tab,
+  PageContent,
+  useTabState,
+} from '@vtex/admin-ui'
 import { useIntl } from 'react-intl'
 import { HashRouter, Switch, Route } from 'react-router-dom'
 
@@ -17,12 +27,6 @@ import CheckCustomerSchema from '../components/CheckCustomerSchema'
 
 const SESSION_STORAGE_KEY = 'organization-tab'
 
-const Container = ({ children }: any) => (
-  <div className="mt6">
-    <PageBlock>{children}</PageBlock>
-  </div>
-)
-
 const OrganizationsTable = () => {
   const { formatMessage } = useIntl()
   const { tab, handleTabChange, routerRef } = useHashRouter({
@@ -31,35 +35,44 @@ const OrganizationsTable = () => {
     routes: ['organizations', 'requests', 'settings', 'custom-fields'],
   })
 
+  const tabsState = useTabState({ selectedId: tab })
+
   return (
-    <Layout
-      fullWidth
-      pageHeader={<PageHeader title={formatMessage(messages.tablePageTitle)} />}
-    >
-      <HashRouter ref={routerRef}>
-        <Tabs>
-          <Tab
-            label={formatMessage(messages.tablePageTitle)}
-            active={tab === 'organizations'}
-            onClick={() => handleTabChange('organizations')}
-          />
-          <Tab
-            label={formatMessage(requestMessages.tablePageTitle)}
-            active={tab === 'requests'}
-            onClick={() => handleTabChange('requests')}
-          />
-          <Tab
-            label={formatMessage(settingsMessages.tablePageTitle)}
-            active={tab === 'settings'}
-            onClick={() => handleTabChange('settings')}
-          />
-          <Tab
-            label={formatMessage(settingsMessages.customFieldsTitle)}
-            active={tab === 'custom-fields'}
-            onClick={() => handleTabChange('custom-fields')}
-          />
-        </Tabs>
-        <Container>
+    <HashRouter ref={routerRef}>
+      <Page>
+        <PageHeader>
+          <PageHeaderTop>
+            <PageHeaderTitle>
+              {formatMessage(messages.tablePageTitle)}
+            </PageHeaderTitle>
+          </PageHeaderTop>
+          <PageHeaderBottom>
+            <TabList state={tabsState}>
+              <Tab
+                id="organizations"
+                onClick={() => handleTabChange('organizations')}
+              >
+                {formatMessage(messages.tablePageTitle)}
+              </Tab>
+
+              <Tab id="requests" onClick={() => handleTabChange('requests')}>
+                {formatMessage(requestMessages.tablePageTitle)}
+              </Tab>
+
+              <Tab id="settings" onClick={() => handleTabChange('settings')}>
+                {formatMessage(settingsMessages.tablePageTitle)}
+              </Tab>
+
+              <Tab
+                id="custom-fields"
+                onClick={() => handleTabChange('custom-fields')}
+              >
+                {formatMessage(settingsMessages.customFieldsTitle)}
+              </Tab>
+            </TabList>
+          </PageHeaderBottom>
+        </PageHeader>
+        <PageContent layout="wide">
           <div className="mb5">
             <CheckCustomerSchema isAdmin={true} />
           </div>
@@ -77,9 +90,9 @@ const OrganizationsTable = () => {
               component={OrganizationCustomFields}
             />
           </Switch>
-        </Container>
-      </HashRouter>
-    </Layout>
+        </PageContent>
+      </Page>
+    </HashRouter>
   )
 }
 
