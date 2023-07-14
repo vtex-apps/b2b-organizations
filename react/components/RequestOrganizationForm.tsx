@@ -35,7 +35,7 @@ import GET_ORGANIZATION_REQUEST from '../graphql/getOrganizationRequest.graphql'
 import GET_LOGISTICS from '../graphql/getLogistics.graphql'
 import GET_B2B_CUSTOM_FIELDS from '../graphql/getB2BCustomFields.graphql'
 import IMPERSONATE_USER from '../graphql/impersonateUser.graphql'
-import CustomFieldInput from '../admin/OrganizationDetailsCustomField'
+import CustomFieldInputList from './CustomFieldInputList/CustomFieldInputList'
 
 const localStore = storageFactory(() => localStorage)
 let requestId = localStore.getItem('b2b-organizations_orgRequestId') ?? ''
@@ -208,25 +208,6 @@ const RequestOrganizationForm: FC = () => {
     setCostCenterCustomFieldsState(costCenterFieldsToDisplay)
   }, [defaultCustomFieldsData])
 
-  const handleOrgCustomFieldsUpdate = (
-    index: number,
-    customField: CustomField
-  ) => {
-    const newCustomFields = [...orgCustomFieldsState]
-
-    newCustomFields[index] = customField
-    setOrgCustomFieldsState(newCustomFields)
-  }
-
-  const handleCostCenterCustomFieldsUpdate = (
-    index: number,
-    customField: CustomField
-  ) => {
-    const newCustomFields = [...costCenterCustomFieldsState]
-
-    newCustomFields[index] = customField
-    setCostCenterCustomFieldsState(newCustomFields)
-  }
   //! CUSTOM FIELDS
 
   const handleImpersonation = () => {
@@ -442,27 +423,12 @@ const RequestOrganizationForm: FC = () => {
               }}
             />
           </div>
-          {/* //! Custom fields */}
-          {defaultCustomFieldsDataLoading ? (
-            <div className="mb5">
-              <Spinner />
-            </div>
-          ) : (
-            orgCustomFieldsState?.map(
-              (customField: CustomField, index: number) => {
-                return (
-                  <CustomFieldInput
-                    key={`${customField.name}`}
-                    index={index}
-                    handleUpdate={handleOrgCustomFieldsUpdate}
-                    customField={customField}
-                  />
-                )
-              }
-            )
-          )}
-
-          {/* //! Custom fields */}
+          <CustomFieldInputList
+            customFields={
+              defaultCustomFieldsDataLoading ? null : orgCustomFieldsState
+            }
+            onChange={setOrgCustomFieldsState}
+          />
         </PageBlock>
         <PageBlock
           variation="full"
@@ -574,28 +540,14 @@ const RequestOrganizationForm: FC = () => {
               }}
             />
           </div>
-          {/* //! Custom fields */}
-          {defaultCustomFieldsDataLoading ? (
-            <div className="mb5 flex flex-column">
-              <Spinner />
-            </div>
-          ) : (
-            <>
-              {costCenterCustomFieldsState?.map(
-                (customField: CustomField, index: number) => {
-                  return (
-                    <CustomFieldInput
-                      key={`${customField.name}`}
-                      index={index}
-                      handleUpdate={handleCostCenterCustomFieldsUpdate}
-                      customField={customField}
-                    />
-                  )
-                }
-              )}
-            </>
-          )}
-          {/* //! Custom fields */}
+          <CustomFieldInputList
+            customFields={
+              defaultCustomFieldsDataLoading
+                ? null
+                : costCenterCustomFieldsState
+            }
+            onChange={setCostCenterCustomFieldsState}
+          />
           <div
             className={`${handles.newOrganizationInput} mb5 flex flex-column`}
           >

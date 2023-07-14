@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useMutation, useQuery } from 'react-apollo'
 import { FormattedMessage, useIntl } from 'react-intl'
 import { useToast } from '@vtex/admin-ui'
-import { Button, Input, Modal, Spinner } from 'vtex.styleguide'
+import { Button, Input, Modal } from 'vtex.styleguide'
 import {
   AddressContainer,
   AddressForm,
@@ -16,7 +16,6 @@ import { useRuntime } from 'vtex.render-runtime'
 
 import { getEmptyAddress, isValidAddress } from '../../utils/addresses'
 import { validatePhoneNumber } from '../../modules/formValidators'
-import CustomFieldInput from '../../admin/OrganizationDetailsCustomField'
 import { organizationMessages as messages } from '../../admin/utils/messages'
 import GET_LOGISTICS from '../../graphql/getLogistics.graphql'
 import CREATE_ORGANIZATION from '../../graphql/createOrganization.graphql'
@@ -25,6 +24,7 @@ import {
   INITIAL_FETCH_LIST_OPTIONS,
   useOrganizationsList,
 } from '../../organizations/hooks'
+import CustomFieldInputList from '../CustomFieldInputList/CustomFieldInputList'
 
 interface Props {
   open: boolean
@@ -102,26 +102,6 @@ const CreateOrganizationModal: React.FC<Props> = ({ open, onOpenChange }) => {
     setOrgCustomFieldsState(organizationFieldsToDisplay)
     setCostCenterCustomFieldsState(costCenterFieldsToDisplay)
   }, [defaultCustomFieldsData])
-
-  const handleOrgCustomFieldsUpdate = (
-    index: number,
-    customField: CustomField
-  ) => {
-    const newCustomFields = [...orgCustomFieldsState]
-
-    newCustomFields[index] = customField
-    setOrgCustomFieldsState(newCustomFields)
-  }
-
-  const handleCostCenterCustomFieldsUpdate = (
-    index: number,
-    customField: CustomField
-  ) => {
-    const newCustomFields = [...costCenterCustomFieldsState]
-
-    newCustomFields[index] = customField
-    setCostCenterCustomFieldsState(newCustomFields)
-  }
   //! CUSTOM FIELDS
 
   const resetNewOrganizationForm = () => {
@@ -254,27 +234,12 @@ const CreateOrganizationModal: React.FC<Props> = ({ open, onOpenChange }) => {
             required
           />
         </div>
-        {/* //! Custom fields */}
-        {defaultCustomFieldsDataLoading ? (
-          <div className="mb5">
-            <Spinner />
-          </div>
-        ) : (
-          orgCustomFieldsState?.map(
-            (customField: CustomField, index: number) => {
-              return (
-                <CustomFieldInput
-                  key={`${customField.name}`}
-                  index={index}
-                  handleUpdate={handleOrgCustomFieldsUpdate}
-                  customField={customField}
-                />
-              )
-            }
-          )
-        )}
-
-        {/* //! Custom fields */}
+        <CustomFieldInputList
+          customFields={
+            defaultCustomFieldsDataLoading ? null : orgCustomFieldsState
+          }
+          onChange={setOrgCustomFieldsState}
+        />
         <div className="w-100 mv6">
           <FormattedMessage id="admin/b2b-organizations.organizations-admin.add-organization.default-costCenter.helpText" />
         </div>
@@ -315,28 +280,12 @@ const CreateOrganizationModal: React.FC<Props> = ({ open, onOpenChange }) => {
             }}
           />
         </div>
-        {/* //! Custom fields */}
-        {defaultCustomFieldsDataLoading ? (
-          <div className="mb5 flex flex-column">
-            <Spinner />
-          </div>
-        ) : (
-          <>
-            {costCenterCustomFieldsState?.map(
-              (customField: CustomField, index: number) => {
-                return (
-                  <CustomFieldInput
-                    key={`${customField.name}`}
-                    index={index}
-                    handleUpdate={handleCostCenterCustomFieldsUpdate}
-                    customField={customField}
-                  />
-                )
-              }
-            )}
-          </>
-        )}
-        {/* //! Custom fields */}
+        <CustomFieldInputList
+          customFields={
+            defaultCustomFieldsDataLoading ? null : costCenterCustomFieldsState
+          }
+          onChange={setCostCenterCustomFieldsState}
+        />
         <div className="w-100 mv6">
           <Input
             size="large"
