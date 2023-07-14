@@ -60,7 +60,7 @@ const CreateOrganizationModal: React.FC<Props> = ({ open, onOpenChange }) => {
 
   const { data: logisticsData } = useQuery(GET_LOGISTICS, { ssr: false })
   const [createOrganization] = useMutation(CREATE_ORGANIZATION)
-  const { refetch, loading } = useOrganizationsList()
+  const { refetch } = useOrganizationsList()
 
   const translateCountries = () => {
     const { shipsTo = [] } = logisticsData?.logistics ?? {}

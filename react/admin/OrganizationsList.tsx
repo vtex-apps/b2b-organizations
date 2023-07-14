@@ -9,7 +9,6 @@ import {
   INITIAL_FETCH_LIST_OPTIONS,
   useOrganizationsList,
 } from '../organizations/hooks'
-import CreateOrganizationModal from '../components/CreateOrganizationModal/CreateOrganizationModal'
 
 interface CellRendererProps {
   cellData: unknown
@@ -40,10 +39,6 @@ const OrganizationsList: FunctionComponent = () => {
   const [variableState, setVariables] = useState(INITIAL_FETCH_LIST_OPTIONS)
 
   const { data, loading, refetch } = useOrganizationsList()
-
-  const [newOrganizationModalState, setNewOrganizationModalState] = useState(
-    false
-  )
 
   const getSchema = () => ({
     properties: {
@@ -294,10 +289,6 @@ const OrganizationsList: FunctionComponent = () => {
             onClear: handleInputSearchClear,
             onSubmit: handleInputSearchSubmit,
           },
-          newLine: {
-            label: formatMessage(messages.new),
-            handleCallback: () => setNewOrganizationModalState(true),
-          },
         }}
         sort={{
           sortedBy,
@@ -346,10 +337,6 @@ const OrganizationsList: FunctionComponent = () => {
             },
           },
         }}
-      />
-      <CreateOrganizationModal
-        open={newOrganizationModalState}
-        onOpenChange={open => setNewOrganizationModalState(open)}
       />
     </Fragment>
   )

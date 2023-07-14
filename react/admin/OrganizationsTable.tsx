@@ -9,6 +9,7 @@ import {
   Tab,
   PageContent,
   useTabState,
+  PageHeaderActions,
 } from '@vtex/admin-ui'
 import { useIntl } from 'react-intl'
 import { HashRouter, Switch, Route } from 'react-router-dom'
@@ -24,6 +25,7 @@ import OrganizationSettings from './OrganizationSettings'
 import useHashRouter from './OrganizationDetails/useHashRouter'
 import OrganizationCustomFields from './CustomFields'
 import CheckCustomerSchema from '../components/CheckCustomerSchema'
+import CreateOrganizationButton from '../components/CreateOrganizationButton/CreateOrganizationButton'
 
 const SESSION_STORAGE_KEY = 'organization-tab'
 
@@ -45,6 +47,14 @@ const OrganizationsTable = () => {
             <PageHeaderTitle>
               {formatMessage(messages.tablePageTitle)}
             </PageHeaderTitle>
+
+            <PageHeaderActions>
+              <Route
+                path="/organizations"
+                exact
+                component={CreateOrganizationButton}
+              />
+            </PageHeaderActions>
           </PageHeaderTop>
           <PageHeaderBottom>
             <TabList state={tabsState}>

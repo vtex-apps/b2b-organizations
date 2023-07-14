@@ -1,1 +1,1 @@
-export { default } from './CreateOrganization'
+export { default } from './CreateOrganizationModal'
