@@ -1,36 +1,14 @@
 import type { ChangeEvent, FunctionComponent } from 'react'
-import React, { Fragment, useState, useEffect } from 'react'
-import { useMutation, useQuery } from 'react-apollo'
-import {
-  Button,
-  Checkbox,
-  Input,
-  Modal,
-  Table,
-  Tag,
-  Spinner,
-} from 'vtex.styleguide'
-import { FormattedMessage, useIntl } from 'react-intl'
+import React, { Fragment, useState } from 'react'
+import { Checkbox, Table, Tag } from 'vtex.styleguide'
+import { useIntl } from 'react-intl'
 import { useRuntime } from 'vtex.render-runtime'
-import { useToast } from '@vtex/admin-ui'
-import {
-  AddressContainer,
-  AddressForm,
-  AddressRules,
-  CountrySelector,
-  PostalCodeGetter,
-} from 'vtex.address-form'
-import { StyleguideInput } from 'vtex.address-form/inputs'
-import { addValidation } from 'vtex.address-form/helpers'
 
 import { organizationMessages as messages } from './utils/messages'
-import { getEmptyAddress, isValidAddress } from '../utils/addresses'
-import GET_ORGANIZATIONS from '../graphql/getOrganizations.graphql'
-import GET_LOGISTICS from '../graphql/getLogistics.graphql'
-import CREATE_ORGANIZATION from '../graphql/createOrganization.graphql'
-import { validatePhoneNumber } from '../modules/formValidators'
-import GET_B2B_CUSTOM_FIELDS from '../graphql/getB2BCustomFields.graphql'
-import CustomFieldInput from './OrganizationDetailsCustomField'
+import {
+  INITIAL_FETCH_LIST_OPTIONS,
+  useOrganizationsList,
+} from '../organizations/hooks'
 
 interface CellRendererProps {
   cellData: unknown
@@ -50,199 +28,17 @@ export const labelTypeByStatusMap: Record<string, string> = {
   'on-hold': 'warning',
 }
 
-const initialState = {
-  status: ['active', 'on-hold', 'inactive'],
-  search: '',
-  page: 1,
-  pageSize: 25,
-  sortOrder: 'ASC',
-  sortedBy: 'name',
-}
-
 const OrganizationsList: FunctionComponent = () => {
   const { formatMessage } = useIntl()
-  const {
-    navigate,
-    culture: { country },
-  } = useRuntime()
-
-  const showToast = useToast()
+  const { navigate } = useRuntime()
 
   const [filterState, setFilterState] = useState({
     filterStatements: [] as FilterStatement[],
   })
 
-  const [loadingState, setLoadingState] = useState(false)
-  const [variableState, setVariables] = useState(initialState)
-  const [newOrganizationModalState, setNewOrganizationModalState] = useState(
-    false
-  )
+  const [variableState, setVariables] = useState(INITIAL_FETCH_LIST_OPTIONS)
 
-  const [newOrganizationName, setNewOrganizationName] = useState('')
-  const [newCostCenterName, setNewCostCenterName] = useState('')
-  const [newCostCenterPhoneNumber, setNewCostCenterPhoneNumber] = useState('')
-  const [
-    newCostCenterBusinessDocument,
-    setNewCostCenterBusinessDocument,
-  ] = useState('')
-
-  const [
-    newCostCenterStateRegistration,
-    setNewCostCenterStateRegistration,
-  ] = useState('')
-
-  const [newCostCenterAddressState, setNewCostCenterAddressState] = useState(
-    addValidation(getEmptyAddress(country))
-  )
-
-  const { data, loading, refetch } = useQuery(GET_ORGANIZATIONS, {
-    variables: initialState,
-    ssr: false,
-  })
-
-  const { data: logisticsData } = useQuery(GET_LOGISTICS, { ssr: false })
-  const [createOrganization] = useMutation(CREATE_ORGANIZATION)
-
-  const translateCountries = () => {
-    const { shipsTo = [] } = logisticsData?.logistics ?? {}
-
-    return shipsTo.map((code: string) => ({
-      label: formatMessage({ id: `country.${code}` }),
-      value: code,
-    }))
-  }
-
-  //! CUSTOM FIELDS
-  const {
-    data: defaultCustomFieldsData,
-    loading: defaultCustomFieldsDataLoading,
-  } = useQuery(GET_B2B_CUSTOM_FIELDS, {
-    ssr: false,
-  })
-
-  const [orgCustomFieldsState, setOrgCustomFieldsState] = useState<
-    CustomField[]
-  >([])
-
-  const [
-    costCenterCustomFieldsState,
-    setCostCenterCustomFieldsState,
-  ] = useState<CustomField[]>([])
-
-  useEffect(() => {
-    if (defaultCustomFieldsDataLoading) return
-
-    const organizationFieldsToDisplay = defaultCustomFieldsData?.getB2BSettings.organizationCustomFields.filter(
-      (item: CustomField) => item.useOnRegistration
-    )
-
-    const costCenterFieldsToDisplay = defaultCustomFieldsData?.getB2BSettings.costCenterCustomFields.filter(
-      (item: CustomField) => item.useOnRegistration
-    )
-
-    setOrgCustomFieldsState(organizationFieldsToDisplay)
-    setCostCenterCustomFieldsState(costCenterFieldsToDisplay)
-  }, [defaultCustomFieldsData])
-
-  const handleOrgCustomFieldsUpdate = (
-    index: number,
-    customField: CustomField
-  ) => {
-    const newCustomFields = [...orgCustomFieldsState]
-
-    newCustomFields[index] = customField
-    setOrgCustomFieldsState(newCustomFields)
-  }
-
-  const handleCostCenterCustomFieldsUpdate = (
-    index: number,
-    customField: CustomField
-  ) => {
-    const newCustomFields = [...costCenterCustomFieldsState]
-
-    newCustomFields[index] = customField
-    setCostCenterCustomFieldsState(newCustomFields)
-  }
-  //! CUSTOM FIELDS
-
-  const resetNewOrganizationForm = () => {
-    setNewOrganizationName('')
-    setNewCostCenterName('')
-    setNewCostCenterPhoneNumber('')
-    setNewCostCenterBusinessDocument('')
-    setNewCostCenterAddressState(addValidation(getEmptyAddress(country)))
-  }
-
-  const handleAddNewOrganization = () => {
-    setLoadingState(true)
-    const newAddress = {
-      addressId: newCostCenterAddressState.addressId.value,
-      addressType: newCostCenterAddressState.addressType.value,
-      city: newCostCenterAddressState.city.value,
-      complement: newCostCenterAddressState.complement.value,
-      country: newCostCenterAddressState.country.value,
-      receiverName: newCostCenterAddressState.receiverName.value,
-      geoCoordinates: newCostCenterAddressState.geoCoordinates.value,
-      neighborhood: newCostCenterAddressState.neighborhood.value,
-      number: newCostCenterAddressState.number.value,
-      postalCode: newCostCenterAddressState.postalCode.value,
-      reference: newCostCenterAddressState.reference.value,
-      state: newCostCenterAddressState.state.value,
-      street: newCostCenterAddressState.street.value,
-      addressQuery: newCostCenterAddressState.addressQuery.value,
-    }
-
-    const variables = {
-      input: {
-        name: newOrganizationName,
-        customFields: orgCustomFieldsState,
-        defaultCostCenter: {
-          name: newCostCenterName,
-          address: newAddress,
-          phoneNumber: newCostCenterPhoneNumber,
-          businessDocument: newCostCenterBusinessDocument,
-          customFields: costCenterCustomFieldsState,
-          stateRegistration: newCostCenterStateRegistration,
-        },
-      },
-    }
-
-    createOrganization({ variables })
-      .then(() => {
-        setNewOrganizationModalState(false)
-        setLoadingState(false)
-        resetNewOrganizationForm()
-        showToast({
-          variant: 'positive',
-          message: formatMessage(messages.toastAddOrgSuccess),
-        })
-        refetch(initialState)
-      })
-      .catch(error => {
-        setNewOrganizationModalState(false)
-        setLoadingState(false)
-        console.error(error)
-        showToast({
-          variant: 'critical',
-          message: formatMessage(messages.toastAddOrgFailure),
-        })
-      })
-  }
-
-  const handleNewCostCenterAddressChange = (
-    changedAddress: AddressFormFields
-  ) => {
-    const curAddress = newCostCenterAddressState
-
-    const newAddress = { ...curAddress, ...changedAddress }
-
-    setNewCostCenterAddressState(newAddress)
-  }
-
-  const handleCloseModal = () => {
-    setNewOrganizationModalState(false)
-    resetNewOrganizationForm()
-  }
+  const { data, loading, refetch } = useOrganizationsList()
 
   const getSchema = () => ({
     properties: {
@@ -493,10 +289,6 @@ const OrganizationsList: FunctionComponent = () => {
             onClear: handleInputSearchClear,
             onSubmit: handleInputSearchSubmit,
           },
-          newLine: {
-            label: formatMessage(messages.new),
-            handleCallback: () => setNewOrganizationModalState(true),
-          },
         }}
         sort={{
           sortedBy,
@@ -546,173 +338,6 @@ const OrganizationsList: FunctionComponent = () => {
           },
         }}
       />
-
-      <Modal
-        centered
-        bottomBar={
-          <div className="nowrap">
-            <span className="mr4">
-              <Button
-                variation="tertiary"
-                onClick={() => handleCloseModal()}
-                disabled={loadingState}
-              >
-                {formatMessage(messages.cancel)}
-              </Button>
-            </span>
-            <span>
-              <Button
-                variation="primary"
-                onClick={() => handleAddNewOrganization()}
-                isLoading={loadingState}
-                disabled={
-                  !newOrganizationName ||
-                  !newCostCenterName ||
-                  !isValidAddress(newCostCenterAddressState) ||
-                  (newCostCenterPhoneNumber &&
-                    !validatePhoneNumber(newCostCenterPhoneNumber))
-                }
-              >
-                {formatMessage(messages.add)}
-              </Button>
-            </span>
-          </div>
-        }
-        isOpen={newOrganizationModalState}
-        onClose={() => handleCloseModal()}
-        closeOnOverlayClick={false}
-      >
-        <p className="f3 f1-ns fw3 gray">
-          <FormattedMessage id="admin/b2b-organizations.organizations-admin.add-organization" />
-        </p>
-        <div className="w-100 mv6">
-          <Input
-            size="large"
-            label={formatMessage(messages.organizationName)}
-            value={newOrganizationName}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-              setNewOrganizationName(e.target.value)
-            }}
-            required
-          />
-        </div>
-        {/* //! Custom fields */}
-        {defaultCustomFieldsDataLoading ? (
-          <div className="mb5">
-            <Spinner />
-          </div>
-        ) : (
-          orgCustomFieldsState?.map(
-            (customField: CustomField, index: number) => {
-              return (
-                <CustomFieldInput
-                  key={`${customField.name}`}
-                  index={index}
-                  handleUpdate={handleOrgCustomFieldsUpdate}
-                  customField={customField}
-                />
-              )
-            }
-          )
-        )}
-
-        {/* //! Custom fields */}
-        <div className="w-100 mv6">
-          <FormattedMessage id="admin/b2b-organizations.organizations-admin.add-organization.default-costCenter.helpText" />
-        </div>
-        <div className="w-100 mv6">
-          <Input
-            size="large"
-            label={formatMessage(messages.defaultCostCenterName)}
-            value={newCostCenterName}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-              setNewCostCenterName(e.target.value)
-            }}
-            required
-          />
-        </div>
-        <div className="w-100 mv6">
-          <Input
-            size="large"
-            label={formatMessage(messages.phoneNumber)}
-            value={newCostCenterPhoneNumber}
-            error={
-              newCostCenterPhoneNumber &&
-              !validatePhoneNumber(newCostCenterPhoneNumber)
-            }
-            helpText={formatMessage(messages.phoneNumberHelp)}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-              setNewCostCenterPhoneNumber(e.target.value)
-            }}
-          />
-        </div>
-        <div className="w-100 mv6">
-          <Input
-            size="large"
-            label={formatMessage(messages.businessDocument)}
-            value={newCostCenterBusinessDocument}
-            helpText={formatMessage(messages.businessDocumentHelp)}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-              setNewCostCenterBusinessDocument(e.target.value)
-            }}
-          />
-        </div>
-        {/* //! Custom fields */}
-        {defaultCustomFieldsDataLoading ? (
-          <div className="mb5 flex flex-column">
-            <Spinner />
-          </div>
-        ) : (
-          <>
-            {costCenterCustomFieldsState?.map(
-              (customField: CustomField, index: number) => {
-                return (
-                  <CustomFieldInput
-                    key={`${customField.name}`}
-                    index={index}
-                    handleUpdate={handleCostCenterCustomFieldsUpdate}
-                    customField={customField}
-                  />
-                )
-              }
-            )}
-          </>
-        )}
-        {/* //! Custom fields */}
-        <div className="w-100 mv6">
-          <Input
-            size="large"
-            label={formatMessage(messages.stateRegistration)}
-            value={newCostCenterStateRegistration}
-            helpText={formatMessage(messages.stateRegistrationHelp)}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-              setNewCostCenterStateRegistration(e.target.value)
-            }}
-          />
-        </div>
-        <AddressRules
-          country={newCostCenterAddressState?.country?.value}
-          shouldUseIOFetching
-          useGeolocation={false}
-        >
-          <AddressContainer
-            address={newCostCenterAddressState}
-            Input={StyleguideInput}
-            onChangeAddress={handleNewCostCenterAddressChange}
-            autoCompletePostalCode
-          >
-            <CountrySelector shipsTo={translateCountries()} />
-
-            <PostalCodeGetter />
-
-            <AddressForm
-              Input={StyleguideInput}
-              omitAutoCompletedFields={false}
-              omitPostalCodeFields
-            />
-          </AddressContainer>
-        </AddressRules>
-      </Modal>
     </Fragment>
   )
 }
