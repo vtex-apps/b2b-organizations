@@ -23,6 +23,7 @@ import type { FetchListOptions } from '../organizations/hooks'
 import { useNavigateToDetailsPage } from '../organizations/navigate'
 import { useOrgsTableColumns } from '../organizations/table'
 import OrganizationsListSearch from './OrganizationsList/OrganizationsListSearch'
+import OrganizationsListStatusFilter from './OrganizationsList/OrganizationsListStatusFilter'
 
 export const TagVariantByStatus: Record<string, TagProps['variant']> = {
   active: 'green',
@@ -64,10 +65,22 @@ const OrganizationsList: FunctionComponent = () => {
     refetch(newRefetchOptions)
   }
 
+  const handleStatusFilterChange = (value: string[]) => {
+    const newRefetchOptions = {
+      ...refetchOptions,
+      status: value,
+      page: 1,
+    }
+
+    setRefetchOptions(newRefetchOptions)
+    refetch(newRefetchOptions)
+  }
+
   return (
     <DataView state={view} className={csx({ paddingX: '$space-3' })}>
       <DataViewHeader>
         <OrganizationsListSearch onSearch={handleSearch} />
+        <OrganizationsListStatusFilter onChange={handleStatusFilterChange} />
       </DataViewHeader>
       <Table width="100%" {...getTable()}>
         <THead>
