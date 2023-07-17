@@ -1,11 +1,13 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import type { FunctionComponent } from 'react'
 import { useIntl } from 'react-intl'
 import {
   createColumns,
   csx,
   DataView,
+  DataViewHeader,
   IconEye,
+  Search,
   Table,
   Tag,
   THead,
@@ -14,6 +16,7 @@ import {
   TBodyRow,
   TBodyCell,
   useDataViewState,
+  useSearchState,
   useTableState,
   Skeleton,
 } from '@vtex/admin-ui'
@@ -21,7 +24,10 @@ import type { TagProps } from '@vtex/admin-ui'
 import { useRuntime } from 'vtex.render-runtime'
 
 import { organizationMessages as messages } from './utils/messages'
-import { useOrganizationsList } from '../organizations/hooks'
+import {
+  INITIAL_FETCH_LIST_OPTIONS,
+  useOrganizationsList,
+} from '../organizations/hooks'
 
 export const TagVariantByStatus: Record<string, TagProps['variant']> = {
   active: 'green',
@@ -93,9 +99,14 @@ const OrganizationsList: FunctionComponent = () => {
     },
   ])
 
-  const { data: fetchedOrgs, loading } = useOrganizationsList()
+  const [refetchOptions, setRefetchOptions] = useState(
+    INITIAL_FETCH_LIST_OPTIONS
+  )
+
+  const { data: fetchedOrgs, loading, refetch } = useOrganizationsList()
 
   const view = useDataViewState()
+  const search = useSearchState()
   const { data, getBodyCell, getHeadCell, getTable } = useTableState({
     status: view.status,
     columns,
@@ -109,8 +120,44 @@ const OrganizationsList: FunctionComponent = () => {
     })
   }, [loading])
 
+  const handleSearchKeyDown: React.KeyboardEventHandler<HTMLFormElement> = event => {
+    if (event.key !== 'Enter') return
+
+    const newRefetchOptions = {
+      ...refetchOptions,
+      search: search.value,
+      page: 1,
+    }
+
+    setRefetchOptions(newRefetchOptions)
+    refetch(newRefetchOptions)
+  }
+
+  const { onClear, ...inputProps } = search.getInputProps()
+
+  const handleSearchClear = () => {
+    onClear()
+
+    const newRefetchOptions = {
+      ...refetchOptions,
+      search: '',
+      page: 1,
+    }
+
+    setRefetchOptions(newRefetchOptions)
+    refetch(newRefetchOptions)
+  }
+
   return (
     <DataView state={view} className={csx({ paddingX: '$space-3' })}>
+      <DataViewHeader>
+        <Search
+          rel=""
+          {...inputProps}
+          onClear={handleSearchClear}
+          onKeyDown={handleSearchKeyDown}
+        />
+      </DataViewHeader>
       <Table width="100%" {...getTable()}>
         <THead>
           {columns.map(column => (
