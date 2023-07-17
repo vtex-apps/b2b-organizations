@@ -44,6 +44,13 @@ const OrganizationsList: FunctionComponent = () => {
   const { formatMessage } = useIntl()
   const { navigate } = useRuntime()
 
+  const navigateToDetailsPage = (item: OrganizationSimple) => {
+    navigate({
+      page: 'admin.app.b2b-organizations.organization-details',
+      params: { id: item.id },
+    })
+  }
+
   const columns = createColumns<OrganizationSimple>([
     {
       id: 'name',
@@ -86,13 +93,7 @@ const OrganizationsList: FunctionComponent = () => {
           {
             label: formatMessage(messages.view),
             icon: <IconEye />,
-
-            onClick: ({ id }) => {
-              navigate({
-                page: 'admin.app.b2b-organizations.organization-details',
-                params: { id },
-              })
-            },
+            onClick: navigateToDetailsPage,
           },
         ],
       },
@@ -167,7 +168,10 @@ const OrganizationsList: FunctionComponent = () => {
         <TBody>
           {data?.map(item => {
             return (
-              <TBodyRow key={item.id}>
+              <TBodyRow
+                key={item.id}
+                onClick={() => navigateToDetailsPage(item)}
+              >
                 {columns.map(column => {
                   return <TBodyCell {...getBodyCell(column, item)} />
                 })}
