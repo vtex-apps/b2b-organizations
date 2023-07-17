@@ -1,104 +1,38 @@
 import React, { useEffect, useState } from 'react'
 import type { FunctionComponent } from 'react'
-import { useIntl } from 'react-intl'
 import {
-  createColumns,
   csx,
   DataView,
   DataViewHeader,
-  IconEye,
-  Search,
   Table,
-  Tag,
   THead,
   THeadCell,
   TBody,
   TBodyRow,
   TBodyCell,
   useDataViewState,
-  useSearchState,
   useTableState,
-  Skeleton,
 } from '@vtex/admin-ui'
 import type { TagProps } from '@vtex/admin-ui'
-import { useRuntime } from 'vtex.render-runtime'
 
-import { organizationMessages as messages } from './utils/messages'
 import {
   INITIAL_FETCH_LIST_OPTIONS,
   useOrganizationsList,
 } from '../organizations/hooks'
+import type { FetchListOptions } from '../organizations/hooks'
+import { useNavigateToDetailsPage } from '../organizations/navigate'
+import { useOrgsTableColumns } from '../organizations/table'
+import OrganizationsListSearch from './OrganizationsList/OrganizationsListSearch'
 
 export const TagVariantByStatus: Record<string, TagProps['variant']> = {
   active: 'green',
   inactive: 'red',
   'on-hold': 'orange',
 }
-interface OrganizationSimple {
-  id: string
-  name: string
-  status: string
-}
 
 const OrganizationsList: FunctionComponent = () => {
-  const { formatMessage } = useIntl()
-  const { navigate } = useRuntime()
-
-  const navigateToDetailsPage = (item: OrganizationSimple) => {
-    navigate({
-      page: 'admin.app.b2b-organizations.organization-details',
-      params: { id: item.id },
-    })
-  }
-
-  const columns = createColumns<OrganizationSimple>([
-    {
-      id: 'name',
-      header: formatMessage(messages.tableColumnName),
-      width: '3fr',
-      resolver: {
-        type: 'text',
-        columnType: 'name',
-        mapText: ({ name }) => name,
-        render: ({ data }) => (
-          <div className={csx({ minWidth: '10rem' })}>{data}</div>
-        ),
-      },
-    },
-    {
-      id: 'status',
-      header: formatMessage(messages.columnStatus),
-      resolver: {
-        type: 'root',
-        render: ({ item, context }) => {
-          if (context === 'loading') {
-            return <Skeleton className={csx({ height: '1.5rem' })} />
-          }
-
-          return (
-            <Tag
-              label={item.status}
-              size="normal"
-              variant={TagVariantByStatus[item.status]}
-            />
-          )
-        },
-      },
-    },
-    {
-      id: 'menu',
-      resolver: {
-        type: 'menu',
-        actions: [
-          {
-            label: formatMessage(messages.view),
-            icon: <IconEye />,
-            onClick: navigateToDetailsPage,
-          },
-        ],
-      },
-    },
-  ])
+  const navigateToDetailsPage = useNavigateToDetailsPage()
+  const columns = useOrgsTableColumns()
 
   const [refetchOptions, setRefetchOptions] = useState(
     INITIAL_FETCH_LIST_OPTIONS
@@ -107,7 +41,6 @@ const OrganizationsList: FunctionComponent = () => {
   const { data: fetchedOrgs, loading, refetch } = useOrganizationsList()
 
   const view = useDataViewState()
-  const search = useSearchState()
   const { data, getBodyCell, getHeadCell, getTable } = useTableState({
     status: view.status,
     columns,
@@ -121,28 +54,10 @@ const OrganizationsList: FunctionComponent = () => {
     })
   }, [loading])
 
-  const handleSearchKeyDown: React.KeyboardEventHandler<HTMLFormElement> = event => {
-    if (event.key !== 'Enter') return
-
+  const handleSearch = (options: Partial<FetchListOptions>) => {
     const newRefetchOptions = {
       ...refetchOptions,
-      search: search.value,
-      page: 1,
-    }
-
-    setRefetchOptions(newRefetchOptions)
-    refetch(newRefetchOptions)
-  }
-
-  const { onClear, ...inputProps } = search.getInputProps()
-
-  const handleSearchClear = () => {
-    onClear()
-
-    const newRefetchOptions = {
-      ...refetchOptions,
-      search: '',
-      page: 1,
+      ...options,
     }
 
     setRefetchOptions(newRefetchOptions)
@@ -152,12 +67,7 @@ const OrganizationsList: FunctionComponent = () => {
   return (
     <DataView state={view} className={csx({ paddingX: '$space-3' })}>
       <DataViewHeader>
-        <Search
-          rel=""
-          {...inputProps}
-          onClear={handleSearchClear}
-          onKeyDown={handleSearchKeyDown}
-        />
+        <OrganizationsListSearch onSearch={handleSearch} />
       </DataViewHeader>
       <Table width="100%" {...getTable()}>
         <THead>
@@ -170,7 +80,7 @@ const OrganizationsList: FunctionComponent = () => {
             return (
               <TBodyRow
                 key={item.id}
-                onClick={() => navigateToDetailsPage(item)}
+                onClick={() => navigateToDetailsPage(item.id)}
               >
                 {columns.map(column => {
                   return <TBodyCell {...getBodyCell(column, item)} />
