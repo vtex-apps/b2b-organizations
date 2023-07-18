@@ -75,11 +75,29 @@ const OrganizationsList: FunctionComponent = () => {
     },
   })
 
+  const totalItems = fetchedOrgs?.getOrganizations?.pagination?.total
+
   useEffect(() => {
+    if (loading) {
+      view.setStatus({
+        type: 'loading',
+      })
+
+      return
+    }
+
+    if (totalItems === 0 && !refetchOptions.search && !refetchOptions.status) {
+      view.setStatus({
+        type: 'empty',
+      })
+
+      return
+    }
+
     view.setStatus({
-      type: loading ? 'loading' : 'ready',
+      type: 'ready',
     })
-  }, [loading])
+  }, [loading, totalItems, refetchOptions.search, refetchOptions.status])
 
   function updateTableItems(options: Partial<FetchListOptions>) {
     const newRefetchOptions = {
@@ -94,8 +112,6 @@ const OrganizationsList: FunctionComponent = () => {
       paginationState.paginate({ type: 'reset' })
     }
   }
-
-  const totalItems = fetchedOrgs?.getOrganizations?.pagination?.total
 
   useEffect(() => {
     if (!loading && totalItems) {
