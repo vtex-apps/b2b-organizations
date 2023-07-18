@@ -23,23 +23,27 @@ const CheckCustomerSchema = ({ isAdmin }: { isAdmin: boolean }) => {
   return (
     <Fragment>
       {isInvalidSchema && (
-        <Alert
-          type="error"
-          action={{
-            label: formatMessage(
-              isAdmin ? adminMessages.checkItOut : storeMessages.checkItOut
-            ),
-            onClick: () =>
-              window.open(
-                'https://developers.vtex.com/vtex-developer-docs/docs/vtex-b2b-suite',
-                '_blank'
+        <div className="mb5">
+          <Alert
+            type="error"
+            action={{
+              label: formatMessage(
+                isAdmin ? adminMessages.checkItOut : storeMessages.checkItOut
               ),
-          }}
-        >
-          {formatMessage(
-            isAdmin ? adminMessages.invalidSchema : storeMessages.invalidSchema
-          )}
-        </Alert>
+              onClick: () =>
+                window.open(
+                  'https://developers.vtex.com/vtex-developer-docs/docs/vtex-b2b-suite',
+                  '_blank'
+                ),
+            }}
+          >
+            {formatMessage(
+              isAdmin
+                ? adminMessages.invalidSchema
+                : storeMessages.invalidSchema
+            )}
+          </Alert>
+        </div>
       )}
     </Fragment>
   )

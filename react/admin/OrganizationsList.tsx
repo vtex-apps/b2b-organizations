@@ -4,6 +4,9 @@ import {
   csx,
   DataView,
   DataViewHeader,
+  Flex,
+  FlexSpacer,
+  Pagination,
   Table,
   THead,
   THeadCell,
@@ -11,6 +14,7 @@ import {
   TBodyRow,
   TBodyCell,
   useDataViewState,
+  usePaginationState,
   useTableState,
 } from '@vtex/admin-ui'
 import type { TagProps } from '@vtex/admin-ui'
@@ -49,13 +53,27 @@ const OrganizationsList: FunctionComponent = () => {
     length: 10,
   })
 
+  const paginationState = usePaginationState({
+    pageSize: INITIAL_FETCH_LIST_OPTIONS.pageSize,
+    onNextPage: () => {
+      updateTableItems({
+        page: refetchOptions.page + 1,
+      })
+    },
+    onPrevPage: () => {
+      updateTableItems({
+        page: refetchOptions.page - 1,
+      })
+    },
+  })
+
   useEffect(() => {
     view.setStatus({
       type: loading ? 'loading' : 'ready',
     })
   }, [loading])
 
-  const handleSearch = (options: Partial<FetchListOptions>) => {
+  function updateTableItems(options: Partial<FetchListOptions>) {
     const newRefetchOptions = {
       ...refetchOptions,
       ...options,
@@ -63,24 +81,39 @@ const OrganizationsList: FunctionComponent = () => {
 
     setRefetchOptions(newRefetchOptions)
     refetch(newRefetchOptions)
-  }
 
-  const handleStatusFilterChange = (value: string[]) => {
-    const newRefetchOptions = {
-      ...refetchOptions,
-      status: value,
-      page: 1,
+    if (options.page !== refetchOptions.page && options.page === 1) {
+      paginationState.paginate({ type: 'reset' })
     }
-
-    setRefetchOptions(newRefetchOptions)
-    refetch(newRefetchOptions)
   }
+
+  const totalItems = fetchedOrgs?.getOrganizations?.pagination?.total
+
+  useEffect(() => {
+    if (!loading && totalItems) {
+      paginationState.paginate({
+        type: 'setTotal',
+        total: totalItems,
+      })
+    }
+  }, [loading, totalItems])
 
   return (
-    <DataView state={view} className={csx({ paddingX: '$space-3' })}>
+    <DataView state={view}>
       <DataViewHeader>
-        <OrganizationsListSearch onSearch={handleSearch} />
-        <OrganizationsListStatusFilter onChange={handleStatusFilterChange} />
+        <Flex className={csx({ width: '100%' })}>
+          <OrganizationsListSearch onSearch={updateTableItems} />
+          <FlexSpacer />
+          <Pagination state={paginationState} loading={loading} />
+        </Flex>
+        <OrganizationsListStatusFilter
+          onChange={value => {
+            updateTableItems({
+              status: value,
+              page: 1,
+            })
+          }}
+        />
       </DataViewHeader>
       <Table width="100%" {...getTable()}>
         <THead>
