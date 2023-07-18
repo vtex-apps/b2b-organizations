@@ -1,5 +1,5 @@
 import React from 'react'
-import { Search, useSearchState } from '@vtex/admin-ui'
+import { Search, csx, useSearchState } from '@vtex/admin-ui'
 import type { TagProps } from '@vtex/admin-ui'
 
 import type { FetchListOptions } from '../../../organizations/hooks'
@@ -43,6 +43,7 @@ const OrganizationsListSearch: React.FC<Props> = ({ onSearch }) => {
       {...inputProps}
       onClear={handleSearchClear}
       onKeyDown={handleSearchKeyDown}
+      className={csx({ marginRight: '$space-5' })}
     />
   )
 }

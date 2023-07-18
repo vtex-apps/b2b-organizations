@@ -135,17 +135,17 @@ const OrganizationsList: FunctionComponent = () => {
       <DataViewHeader>
         <Flex className={csx({ width: '100%' })}>
           <OrganizationsListSearch onSearch={updateTableItems} />
+          <OrganizationsListStatusFilter
+            onChange={value => {
+              updateTableItems({
+                status: value,
+                page: 1,
+              })
+            }}
+          />
           <FlexSpacer />
           <Pagination state={paginationState} loading={loading} />
         </Flex>
-        <OrganizationsListStatusFilter
-          onChange={value => {
-            updateTableItems({
-              status: value,
-              page: 1,
-            })
-          }}
-        />
       </DataViewHeader>
       <Table width="100%" {...getTable()}>
         <THead>
