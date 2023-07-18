@@ -46,12 +46,20 @@ const OrganizationsList: FunctionComponent = () => {
   const { data: fetchedOrgs, loading, refetch } = useOrganizationsList()
 
   const view = useDataViewState()
-  const { data, getBodyCell, getHeadCell, getTable } = useTableState({
-    status: view.status,
-    columns,
-    items: fetchedOrgs?.getOrganizations?.data,
-    length: 10,
-  })
+  const { data, getBodyCell, getHeadCell, getTable, sortState } = useTableState(
+    {
+      status: view.status,
+      columns,
+      items: fetchedOrgs?.getOrganizations?.data,
+      length: 10,
+      sort: {
+        initialValue: {
+          by: INITIAL_FETCH_LIST_OPTIONS.sortedBy,
+          order: INITIAL_FETCH_LIST_OPTIONS.sortOrder,
+        },
+      },
+    }
+  )
 
   const paginationState = usePaginationState({
     pageSize: INITIAL_FETCH_LIST_OPTIONS.pageSize,
@@ -97,6 +105,14 @@ const OrganizationsList: FunctionComponent = () => {
       })
     }
   }, [loading, totalItems])
+
+  useEffect(() => {
+    updateTableItems({
+      sortedBy: sortState.by as string,
+      sortOrder: sortState.order,
+      page: 1,
+    })
+  }, [sortState.by, sortState.order])
 
   return (
     <DataView state={view}>

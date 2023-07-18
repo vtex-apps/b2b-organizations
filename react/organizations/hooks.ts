@@ -7,7 +7,7 @@ export interface FetchListOptions {
   search: string
   page: number
   pageSize: number
-  sortOrder: string
+  sortOrder: 'ASC' | 'DESC'
   sortedBy: string
 }
 

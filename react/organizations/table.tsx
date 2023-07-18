@@ -35,6 +35,7 @@ export const useOrgsTableColumns = () => {
           <div className={csx({ minWidth: '10rem' })}>{data}</div>
         ),
       },
+      sortable: true,
     },
     {
       id: 'status',
@@ -55,6 +56,7 @@ export const useOrgsTableColumns = () => {
           )
         },
       },
+      sortable: true,
     },
     {
       id: 'menu',
