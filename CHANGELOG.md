@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [1.25.0] - 2023-07-24
+
 ### Added
 
 - Added the custom fields to the organization request admin page view
