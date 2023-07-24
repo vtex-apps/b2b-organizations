@@ -197,7 +197,6 @@ const OrganizationRequestDetails: FunctionComponent = () => {
             </div>
           )}
           <br />
-
           <AddressRules
             country={
               data.getOrganizationRequestById.defaultCostCenter.address.country
@@ -212,6 +211,50 @@ const OrganizationRequestDetails: FunctionComponent = () => {
               }
             />
           </AddressRules>
+          <br />
+          {data.getOrganizationRequestById.customFields && (
+            <>
+              <h5>
+                <FormattedMessage id="admin/b2b-organizations.organization-request-admin.customFields" />
+              </h5>
+              {data.getOrganizationRequestById.customFields.map(
+                (item: CustomField) => (
+                  <div className="pt2 pb2">
+                    <div>
+                      <FormattedMessage id="admin/b2b-organizations.organization-request-admin.customFields.name" />
+                      : {item.name}
+                    </div>
+                    <div>
+                      <FormattedMessage id="admin/b2b-organizations.organization-request-admin.customFields.type" />
+                      : {item.type}
+                    </div>
+                    <div>
+                      <FormattedMessage id="admin/b2b-organizations.organization-request-admin.customFields.value" />
+                      : {item.value}
+                    </div>
+                    {item.dropdownValues && (
+                      <div>
+                        <FormattedMessage id="admin/b2b-organizations.organization-request-admin.customFields.dropdownValues" />
+                        :{' '}
+                        {item.dropdownValues.map(dropdown => (
+                          <div className="pl2 mt2">
+                            <div>
+                              <FormattedMessage id="admin/b2b-organizations.organization-request-admin.customFields.label" />
+                              : {dropdown.label}
+                            </div>
+                            <div>
+                              <FormattedMessage id="admin/b2b-organizations.organization-request-admin.customFields.value" />
+                              : {dropdown.value}
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                )
+              )}
+            </>
+          )}
         </div>
         <div className="mt3">
           <Textarea
