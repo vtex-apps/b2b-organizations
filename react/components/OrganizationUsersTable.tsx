@@ -16,7 +16,12 @@ import UPDATE_USER from '../graphql/updateUser.graphql'
 import REMOVE_USER from '../graphql/removeUser.graphql'
 import GET_COST_CENTER from '../graphql/getCostCenterStorefront.graphql'
 import IMPERSONATE_USER from '../graphql/impersonateB2BUser.graphql'
-import { B2B_CHECKOUT_SESSION_KEY } from '../utils/constants'
+import {
+  B2B_CHECKOUT_SESSION_KEY,
+  B2B_IMPERSONATE_USER,
+} from '../utils/constants'
+import { useSessionResponse } from '../modules/session'
+import { sendImpersonateMetric } from '../utils/metrics/impersonate'
 
 interface Props {
   organizationId: string
@@ -32,7 +37,7 @@ interface CellRendererProps {
   updateCellMeasurements: () => void
 }
 
-interface B2BUserSimple extends UserDetails {
+export interface B2BUserSimple extends UserDetails {
   costCenterName: string
   role: RoleSimple
   organizationName: string
@@ -85,6 +90,7 @@ const OrganizationUsersTable: FunctionComponent<Props> = ({
   isAdmin = false,
   isSalesAdmin = false,
 }) => {
+  const sessionResponse: any = useSessionResponse()
   const { formatMessage } = useIntl()
   const { showToast } = useContext(ToastContext)
   const toast = isAdmin ? useToast() : null
@@ -377,6 +383,34 @@ const OrganizationUsersTable: FunctionComponent<Props> = ({
             showToast(formatMessage(storeMessages.toastImpersonateFailure))
           }
         } else {
+          const {
+            id: costCenterId,
+            name: costCenterName,
+            organization,
+          } = costCenterData?.getCostCenterByIdStorefront
+
+          const user = {
+            costCenterId,
+            costCenterName,
+            organizationId: organization,
+            email: sessionResponse?.namespaces.profile?.email?.value,
+          }
+
+          const metricParams = {
+            account: sessionResponse?.namespaces?.account?.accountName?.value,
+            target: {
+              costCenterId: rowData.costId,
+              costCenterName: rowData.costCenterName,
+              organizationId: rowData.orgId,
+              organizationName: rowData.organizationName,
+              email: rowData.email,
+            },
+            user,
+          }
+
+          sessionStorage.setItem(B2B_IMPERSONATE_USER, JSON.stringify(user))
+
+          sendImpersonateMetric(metricParams)
           window.location.reload()
         }
       })
@@ -451,7 +485,7 @@ const OrganizationUsersTable: FunctionComponent<Props> = ({
   }
 
   const handleNextClick = () => {
-    const newPage = variableState.page + 1
+    const newPage = 0 // variableState.page + 1
 
     setVariables({
       ...variableState,

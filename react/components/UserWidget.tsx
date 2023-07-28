@@ -22,8 +22,12 @@ import { useSessionResponse } from '../modules/session'
 import USER_WIDGET_QUERY from '../graphql/userWidgetQuery.graphql'
 import SET_CURRENT_ORGANIZATION from '../graphql/setCurrentOrganization.graphql'
 import STOP_IMPERSONATION from '../graphql/impersonateUser.graphql'
-import { B2B_CHECKOUT_SESSION_KEY } from '../utils/constants'
+import {
+  B2B_CHECKOUT_SESSION_KEY,
+  B2B_IMPERSONATE_USER,
+} from '../utils/constants'
 import '../css/user-widget.css'
+import { sendStopImpersonateMetric } from '../utils/metrics/impersonate'
 
 const CSS_HANDLES = [
   'userWidgetContainer',
@@ -215,6 +219,33 @@ const UserWidget: VtexFunctionComponent<UserWidgetProps> = ({
         if (sessionStorage.getItem(B2B_CHECKOUT_SESSION_KEY)) {
           sessionStorage.removeItem(B2B_CHECKOUT_SESSION_KEY)
         }
+
+        const {
+          currentCostCenter: costCenterId,
+          costCenterInput: costCenterName,
+          currentOrganization: organizationId,
+          organizationInput: organizationName,
+        } = organizationsState
+
+        const target = {
+          costCenterId,
+          costCenterName,
+          organizationId,
+          organizationName,
+          email: userWidgetData?.checkImpersonation?.email as string,
+        }
+
+        const userStorage = sessionStorage.getItem(B2B_IMPERSONATE_USER)
+        const user = userStorage ? JSON.parse(userStorage) : undefined
+
+        const metricParams = {
+          account: sessionResponse?.namespaces?.account?.accountName?.value,
+          target,
+          user,
+        }
+
+        sendStopImpersonateMetric(metricParams)
+        sessionStorage.removeItem(B2B_IMPERSONATE_USER)
 
         window.location.reload()
       })
