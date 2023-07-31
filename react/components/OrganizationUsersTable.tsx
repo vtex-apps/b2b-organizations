@@ -383,16 +383,11 @@ const OrganizationUsersTable: FunctionComponent<Props> = ({
             showToast(formatMessage(storeMessages.toastImpersonateFailure))
           }
         } else {
-          const {
-            id: costCenterId,
-            name: costCenterName,
-            organization,
-          } = costCenterData?.getCostCenterByIdStorefront
-
           const user = {
-            costCenterId,
-            costCenterName,
-            organizationId: organization,
+            costCenterId: costCenterData?.getCostCenterByIdStorefront.id,
+            costCenterName: costCenterData?.getCostCenterByIdStorefront.name,
+            organizationId:
+              costCenterData?.getCostCenterByIdStorefront.organization,
             email: sessionResponse?.namespaces.profile?.email?.value,
           }
 
@@ -485,7 +480,7 @@ const OrganizationUsersTable: FunctionComponent<Props> = ({
   }
 
   const handleNextClick = () => {
-    const newPage = variableState.page + 1
+    const newPage = 1 // variableState.page + 1
 
     setVariables({
       ...variableState,
