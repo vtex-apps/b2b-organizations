@@ -28,6 +28,8 @@ import {
 } from '../utils/constants'
 import '../css/user-widget.css'
 import { sendStopImpersonateMetric } from '../utils/metrics/impersonate'
+import type { ChangeTeamParams } from '../utils/metrics/changeTeam'
+import { sendChangeTeamMetric } from '../utils/metrics/changeTeam'
 
 const CSS_HANDLES = [
   'userWidgetContainer',
@@ -291,6 +293,24 @@ const UserWidget: VtexFunctionComponent<UserWidgetProps> = ({
       setLoadingState(false)
     }
 
+    const {
+      currentCostCenter: costCenterId,
+      currentOrganization: orgId,
+      currentRoleName: userRole,
+    } = organizationsState
+
+    const profile = sessionResponse?.namespaces?.profile
+
+    const metricParams: ChangeTeamParams = {
+      account: sessionResponse?.namespaces?.account?.accountName?.value,
+      userId: profile?.id.value,
+      userRole,
+      userEmail: profile?.email.value,
+      orgId,
+      costCenterId,
+    }
+
+    sendChangeTeamMetric(metricParams)
     window.location.reload()
   }
 

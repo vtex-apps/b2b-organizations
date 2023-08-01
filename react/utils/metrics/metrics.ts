@@ -12,10 +12,15 @@ type StopImpersonateMetric = {
   description: 'Stop Impersonate User Action - UI'
 }
 
+export type ChangeTeamMetric = {
+  kind: 'change-team-ui-event'
+  description: 'User change team/organization - UI'
+}
+
 export type Metric = {
   name: 'b2b-suite-buyerorg-data'
   account: string
-} & (ImpersonateMetric | StopImpersonateMetric)
+} & (ImpersonateMetric | StopImpersonateMetric | ChangeTeamMetric)
 
 export const sendMetric = async (metric: Metric) => {
   try {
