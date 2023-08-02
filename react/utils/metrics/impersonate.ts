@@ -1,15 +1,17 @@
+import type { B2BUserSimple } from '../../components/OrganizationUsersTable'
+import { getSession } from '../../modules/session'
 import type { Metric } from './metrics'
 import { sendMetric } from './metrics'
 
 type ImpersonatePerson = {
   email: string
-  buy_org_id: string
+  buyer_org_id: string
   cost_center_id: string
   cost_center_name: string
 }
 
 type ImpersonateUser = ImpersonatePerson
-type ImpersonateTarget = ImpersonatePerson & { buy_org_name: string }
+type ImpersonateTarget = ImpersonatePerson & { buyer_org_name: string }
 
 type ImpersonateFieldsMetric = {
   user: ImpersonateUser
@@ -19,80 +21,110 @@ type ImpersonateFieldsMetric = {
 
 type ImpersonateMetric = Metric & { fields: ImpersonateFieldsMetric }
 
-type ImpersonatePersonParams = {
-  costCenterId: string
-  costCenterName: string
-  organizationId: string
+export type ImpersonateMetricParams = {
+  costCenterData: {
+    getCostCenterByIdStorefront: {
+      id: string
+      name: string
+      organization: string
+    }
+  }
+  target: B2BUserSimple
+}
+
+export type StopImpersonateMetricParams = {
+  sessionResponse: SessionResponseParam
+  currentCostCenter: string
+  costCenterInput: string
+  currentOrganization: string
+  organizationInput: string
   email: string
 }
 
-type ImpersonateUserParams = ImpersonatePersonParams
-type ImpersonateTargetParams = ImpersonatePersonParams & {
-  organizationName: string
+type SessionResponseParam = {
+  namespaces: {
+    account: {
+      accountName: {
+        value: string
+      }
+    }
+    profile: {
+      email: {
+        value: string
+      }
+    }
+    authentication: {
+      storeUserEmail: {
+        value: string
+      }
+    }
+  }
 }
 
-export type ImpersonateMetricParams = {
-  account: string
-  target: ImpersonateTargetParams
-  user: ImpersonateUserParams
-}
+const buildImpersonateMetric = async (
+  metricParams: ImpersonateMetricParams
+) => {
+  const { target, costCenterData } = metricParams
 
-const buildMetric = (metricParams: ImpersonateMetricParams) => {
-  const { account, user, target } = metricParams
+  const session = await getSession()
+  const sessionResponse = (session?.response as unknown) as SessionResponseParam
 
-  const metric = {
+  return {
     name: 'b2b-suite-buyerorg-data' as const,
-    account,
+    kind: 'impersonate-ui-event',
+    description: 'Impersonate User Action - UI',
+    account: sessionResponse?.namespaces?.account?.accountName?.value,
     fields: {
       user: {
-        email: user.email,
-        buy_org_id: user.organizationId,
-        cost_center_id: user.costCenterId,
-        cost_center_name: user.costCenterName,
+        email: sessionResponse?.namespaces?.profile?.email?.value,
+        buyer_org_id: costCenterData?.getCostCenterByIdStorefront.organization,
+        cost_center_id: costCenterData?.getCostCenterByIdStorefront.id,
+        cost_center_name: costCenterData?.getCostCenterByIdStorefront.name,
       },
       target: {
         email: target.email,
-        buy_org_id: target.organizationId,
-        buy_org_name: target.organizationName,
-        cost_center_id: target.costCenterId,
+        buyer_org_id: target.orgId,
+        buyer_org_name: target.organizationName,
+        cost_center_id: target.costId,
         cost_center_name: target.costCenterName,
       },
       date: new Date().toISOString(),
     },
-  }
-
-  return metric
-}
-
-const buildImpersonateMetric = (
-  metricParams: ImpersonateMetricParams
-): ImpersonateMetric => {
-  const metric: ImpersonateMetric = {
-    kind: 'impersonate-ui-event',
-    description: 'Impersonate User Action - UI',
-    ...buildMetric(metricParams),
-  }
-
-  return metric
+  } as ImpersonateMetric
 }
 
 const buildStopImpersonateMetric = (
-  metricParams: ImpersonateMetricParams
-): ImpersonateMetric => {
-  const metric: ImpersonateMetric = {
+  metricParams: StopImpersonateMetricParams
+) => {
+  return {
+    name: 'b2b-suite-buyerorg-data' as const,
     kind: 'stop-impersonate-ui-event',
     description: 'Stop Impersonate User Action - UI',
-    ...buildMetric(metricParams),
-  }
-
-  return metric
+    account:
+      metricParams.sessionResponse?.namespaces?.account?.accountName?.value,
+    fields: {
+      user: {
+        email:
+          metricParams.sessionResponse?.namespaces?.authentication
+            ?.storeUserEmail?.value,
+      },
+      target: {
+        email: metricParams.email,
+        buyer_org_id: metricParams.currentOrganization,
+        buyer_org_name: metricParams.organizationInput,
+        cost_center_id: metricParams.currentCostCenter,
+        cost_center_name: metricParams.costCenterInput,
+      },
+      date: new Date().toISOString(),
+    },
+  } as ImpersonateMetric
 }
 
 export const sendImpersonateMetric = async (
   metricParams: ImpersonateMetricParams
 ) => {
   try {
-    const metric = buildImpersonateMetric(metricParams)
+    const metric = await buildImpersonateMetric(metricParams)
 
     await sendMetric(metric)
   } catch (error) {
@@ -101,7 +133,7 @@ export const sendImpersonateMetric = async (
 }
 
 export const sendStopImpersonateMetric = async (
-  metricParams: ImpersonateMetricParams
+  metricParams: StopImpersonateMetricParams
 ) => {
   try {
     const metric = buildStopImpersonateMetric(metricParams)
