@@ -458,7 +458,7 @@ const OrganizationUsersTable: FunctionComponent<Props> = ({
   }
 
   const handleNextClick = () => {
-    const newPage = 1 // variableState.page + 1
+    const newPage = variableState.page + 1
 
     setVariables({
       ...variableState,
