@@ -1,6 +1,7 @@
 import type { B2BUserSimple } from '../../components/OrganizationUsersTable'
+import type { Session } from '../../modules/session'
 import { getSession } from '../../modules/session'
-import type { Metric, SessionResponseParam } from './metrics'
+import type { Metric } from './metrics'
 import { sendMetric } from './metrics'
 
 type ImpersonatePerson = {
@@ -33,7 +34,7 @@ export type ImpersonateMetricParams = {
 }
 
 export type StopImpersonateMetricParams = {
-  sessionResponse: SessionResponseParam
+  sessionResponse: Session
   currentCostCenter: string
   costCenterInput: string
   currentOrganization: string
@@ -47,16 +48,22 @@ const buildImpersonateMetric = async (
   const { target, costCenterData } = metricParams
 
   const session = await getSession()
-  const sessionResponse = (session?.response as unknown) as SessionResponseParam
+  const sessionResponse = session?.response
+  const isSession =
+    !sessionResponse?.type || sessionResponse?.type === 'Session'
 
   return {
     name: 'b2b-suite-buyerorg-data' as const,
     kind: 'impersonate-ui-event',
     description: 'Impersonate User Action - UI',
-    account: sessionResponse?.namespaces?.account?.accountName?.value,
+    account: isSession
+      ? sessionResponse?.namespaces?.account?.accountName?.value
+      : undefined,
     fields: {
       user: {
-        email: sessionResponse?.namespaces?.profile?.email?.value,
+        email: isSession
+          ? sessionResponse?.namespaces?.profile?.email?.value
+          : undefined,
         buyer_org_id: costCenterData?.getCostCenterByIdStorefront.organization,
         cost_center_id: costCenterData?.getCostCenterByIdStorefront.id,
         cost_center_name: costCenterData?.getCostCenterByIdStorefront.name,

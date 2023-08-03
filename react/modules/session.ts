@@ -1,10 +1,11 @@
 import { useState, useEffect } from 'react'
 
-export interface KeyValue {
+interface KeyValue {
   value: string
 }
 
 export interface Session {
+  type?: 'Session'
   id: string
   namespaces: {
     store: {
@@ -13,6 +14,12 @@ export interface Session {
     profile: {
       isAuthenticated: KeyValue
       email?: KeyValue
+    }
+    account: {
+      accountName: KeyValue
+    }
+    authentication: {
+      storeUserEmail: KeyValue
     }
   }
 }

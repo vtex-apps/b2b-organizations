@@ -1,4 +1,5 @@
-import type { Metric, SessionResponseParam } from './metrics'
+import type { Session } from '../../modules/session'
+import type { Metric } from './metrics'
 import { sendMetric } from './metrics'
 
 type ChangeTeamFieldsMetric = {
@@ -12,7 +13,7 @@ type ChangeTeamFieldsMetric = {
 type ChangeTeamMetric = Metric & { fields: ChangeTeamFieldsMetric }
 
 export type StopImpersonateMetricParams = {
-  sessionResponse: SessionResponseParam
+  sessionResponse: Session
   currentCostCenter: string
   costCenterInput: string
   currentOrganization: string
@@ -21,7 +22,7 @@ export type StopImpersonateMetricParams = {
 }
 
 export type ChangeTeamParams = {
-  sessionResponse: SessionResponseParam
+  sessionResponse: Session
   currentRoleName: string
   currentOrganization: string
   currentCostCenter: string

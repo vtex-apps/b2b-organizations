@@ -1,7 +1,5 @@
 import axios from 'axios'
 
-import type { KeyValue, Session } from '../../modules/session'
-
 const ANALYTICS_URL = 'https://rc.vtex.com/api/analytics/schemaless-events'
 
 type ImpersonateMetric = {
@@ -29,16 +27,5 @@ export const sendMetric = async (metric: Metric) => {
     await axios.post(ANALYTICS_URL, metric)
   } catch (error) {
     console.warn('Unable to log metrics', error)
-  }
-}
-
-export type SessionResponseParam = Session & {
-  namespaces: {
-    account: {
-      accountName: KeyValue
-    }
-    authentication: {
-      storeUserEmail: KeyValue
-    }
   }
 }
