@@ -25,6 +25,8 @@ import STOP_IMPERSONATION from '../graphql/impersonateUser.graphql'
 import { B2B_CHECKOUT_SESSION_KEY } from '../utils/constants'
 import '../css/user-widget.css'
 import { sendStopImpersonateMetric } from '../utils/metrics/impersonate'
+import type { ChangeTeamParams } from '../utils/metrics/changeTeam'
+import { sendChangeTeamMetric } from '../utils/metrics/changeTeam'
 
 const CSS_HANDLES = [
   'userWidgetContainer',
@@ -262,6 +264,13 @@ const UserWidget: VtexFunctionComponent<UserWidgetProps> = ({
           costId: organizationsState.currentCostCenter,
         },
       })
+
+      const metricParams: ChangeTeamParams = {
+        sessionResponse,
+        ...organizationsState,
+      }
+
+      sendChangeTeamMetric(metricParams)
     } catch (error) {
       setErrorOrganization(true)
     } finally {
