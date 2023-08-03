@@ -7,8 +7,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
-## [1.26.0] - 2023-08-03
-
 ### Added
 
 - Added metrics to Impersonate events
