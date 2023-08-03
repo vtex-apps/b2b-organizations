@@ -1,7 +1,6 @@
 {
   "extends": "@vtex/tsconfig",
   "compilerOptions": {
-    "jsx": "react",
     "noEmitOnError": false,
     "lib": ["dom"],
     "module": "esnext",
