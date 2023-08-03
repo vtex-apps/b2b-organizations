@@ -108,7 +108,10 @@ const OrganizationUsersTable: FunctionComponent<Props> = ({
     }
   }
 
+  const canManageOrganization = permissions.includes('manage-organization')
+
   const canEdit = isAdmin || permissions.includes('add-users-organization')
+
   const canEditSales =
     isAdmin ||
     permissions.includes('add-sales-users-all') ||
@@ -387,14 +390,19 @@ const OrganizationUsersTable: FunctionComponent<Props> = ({
   }
 
   const getSchema = () => {
-    const isEnabled = ({ role: { slug } }: { role: { slug: string } }) =>
-      ruleClickEnabled({
-        isAdmin,
-        canEditSales,
-        slug,
-        canEdit,
-        isSalesAdmin,
-      })
+    const isEnabled = ({ role: { slug } }: { role: { slug: string } }) => {
+      if (!canManageOrganization) {
+        return ruleClickEnabled({
+          isAdmin,
+          canEditSales,
+          slug,
+          canEdit,
+          isSalesAdmin,
+        })
+      }
+
+      return canManageOrganization
+    }
 
     const properties = {
       email: {
@@ -535,7 +543,20 @@ const OrganizationUsersTable: FunctionComponent<Props> = ({
   }
 
   const handleRowClick = ({ rowData }: CellRendererProps) => {
-    if (
+    if (canManageOrganization) {
+      setEditUserDetails({
+        id: rowData.id,
+        roleId: rowData.roleId,
+        userId: rowData.userId,
+        clId: rowData.clId,
+        orgId: rowData.orgId,
+        costId: rowData.costId,
+        name: rowData.name,
+        email: rowData.email,
+        canImpersonate: rowData.canImpersonate,
+      })
+      setEditUserModalOpen(true)
+    } else if (
       !ruleClickEnabled({
         isAdmin,
         canEditSales,
@@ -544,21 +565,9 @@ const OrganizationUsersTable: FunctionComponent<Props> = ({
         isSalesAdmin,
       })
     ) {
+      // eslint-disable-next-line no-useless-return
       return
     }
-
-    setEditUserDetails({
-      id: rowData.id,
-      roleId: rowData.roleId,
-      userId: rowData.userId,
-      clId: rowData.clId,
-      orgId: rowData.orgId,
-      costId: rowData.costId,
-      name: rowData.name,
-      email: rowData.email,
-      canImpersonate: rowData.canImpersonate,
-    })
-    setEditUserModalOpen(true)
   }
 
   const handleSort = ({
