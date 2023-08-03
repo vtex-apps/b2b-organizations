@@ -5,7 +5,7 @@ import { sendMetric } from './metrics'
 type ChangeTeamFieldsMetric = {
   date: string
   user_role: string
-  user_email: string
+  user_email?: string
   org_id: string
   cost_center_id: string
 }
