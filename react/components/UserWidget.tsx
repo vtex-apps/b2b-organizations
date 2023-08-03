@@ -264,30 +264,19 @@ const UserWidget: VtexFunctionComponent<UserWidgetProps> = ({
           costId: organizationsState.currentCostCenter,
         },
       })
+
+      const metricParams: ChangeTeamParams = {
+        sessionResponse,
+        ...organizationsState,
+      }
+
+      sendChangeTeamMetric(metricParams)
     } catch (error) {
       setErrorOrganization(true)
     } finally {
       setLoadingState(false)
     }
 
-    const {
-      currentCostCenter: costCenterId,
-      currentOrganization: orgId,
-      currentRoleName: userRole,
-    } = organizationsState
-
-    const profile = sessionResponse?.namespaces?.profile
-
-    const metricParams: ChangeTeamParams = {
-      account: sessionResponse?.namespaces?.account?.accountName?.value,
-      userId: profile?.id.value,
-      userRole,
-      userEmail: profile?.email.value,
-      orgId,
-      costCenterId,
-    }
-
-    sendChangeTeamMetric(metricParams)
     window.location.reload()
   }
 

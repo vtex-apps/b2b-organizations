@@ -29,3 +29,23 @@ export const sendMetric = async (metric: Metric) => {
     console.warn('Unable to log metrics', error)
   }
 }
+
+export type SessionResponseParam = {
+  namespaces: {
+    account: {
+      accountName: {
+        value: string
+      }
+    }
+    profile: {
+      email: {
+        value: string
+      }
+    }
+    authentication: {
+      storeUserEmail: {
+        value: string
+      }
+    }
+  }
+}

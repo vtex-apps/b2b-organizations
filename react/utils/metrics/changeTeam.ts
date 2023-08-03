@@ -1,9 +1,8 @@
-import type { Metric } from './metrics'
+import type { Metric, SessionResponseParam } from './metrics'
 import { sendMetric } from './metrics'
 
 type ChangeTeamFieldsMetric = {
   date: string
-  user_id: string
   user_role: string
   user_email: string
   org_id: string
@@ -12,28 +11,36 @@ type ChangeTeamFieldsMetric = {
 
 type ChangeTeamMetric = Metric & { fields: ChangeTeamFieldsMetric }
 
+export type StopImpersonateMetricParams = {
+  sessionResponse: SessionResponseParam
+  currentCostCenter: string
+  costCenterInput: string
+  currentOrganization: string
+  organizationInput: string
+  email: string
+}
+
 export type ChangeTeamParams = {
-  account: string
-  userId: string
-  userRole: string
-  userEmail: string
-  orgId: string
-  costCenterId: string
+  sessionResponse: SessionResponseParam
+  currentRoleName: string
+  currentOrganization: string
+  currentCostCenter: string
 }
 
 const buildMetric = (metricParams: ChangeTeamParams): ChangeTeamMetric => {
   return {
     name: 'b2b-suite-buyerorg-data' as const,
-    account: metricParams.account,
+    account:
+      metricParams.sessionResponse?.namespaces?.account?.accountName?.value,
     kind: 'change-team-ui-event',
     description: 'User change team/organization - UI',
     fields: {
       date: new Date().toISOString(),
-      user_id: metricParams.userId,
-      user_role: metricParams.userRole,
-      user_email: metricParams.userEmail,
-      org_id: metricParams.orgId,
-      cost_center_id: metricParams.costCenterId,
+      user_role: metricParams.currentRoleName,
+      user_email:
+        metricParams.sessionResponse?.namespaces?.profile?.email?.value,
+      org_id: metricParams.currentOrganization,
+      cost_center_id: metricParams.currentCostCenter,
     },
   }
 }

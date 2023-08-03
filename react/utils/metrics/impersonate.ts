@@ -1,6 +1,6 @@
 import type { B2BUserSimple } from '../../components/OrganizationUsersTable'
 import { getSession } from '../../modules/session'
-import type { Metric } from './metrics'
+import type { Metric, SessionResponseParam } from './metrics'
 import { sendMetric } from './metrics'
 
 type ImpersonatePerson = {
@@ -39,26 +39,6 @@ export type StopImpersonateMetricParams = {
   currentOrganization: string
   organizationInput: string
   email: string
-}
-
-type SessionResponseParam = {
-  namespaces: {
-    account: {
-      accountName: {
-        value: string
-      }
-    }
-    profile: {
-      email: {
-        value: string
-      }
-    }
-    authentication: {
-      storeUserEmail: {
-        value: string
-      }
-    }
-  }
 }
 
 const buildImpersonateMetric = async (
