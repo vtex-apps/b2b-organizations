@@ -50,19 +50,20 @@ const buildImpersonateMetric = async (
   const session = await getSession()
   const sessionResponse = session?.response
   const isSession =
-    !sessionResponse?.type || sessionResponse?.type === 'Session'
+    sessionResponse &&
+    (!sessionResponse.type || sessionResponse.type === 'Session')
 
   return {
     name: 'b2b-suite-buyerorg-data' as const,
     kind: 'impersonate-ui-event',
     description: 'Impersonate User Action - UI',
     account: isSession
-      ? sessionResponse?.namespaces?.account?.accountName?.value
+      ? (sessionResponse as Session).namespaces?.account?.accountName?.value
       : undefined,
     fields: {
       user: {
         email: isSession
-          ? sessionResponse?.namespaces?.profile?.email?.value
+          ? (sessionResponse as Session).namespaces?.profile?.email?.value
           : undefined,
         buyer_org_id: costCenterData?.getCostCenterByIdStorefront.organization,
         cost_center_id: costCenterData?.getCostCenterByIdStorefront.id,
