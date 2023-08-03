@@ -1,5 +1,7 @@
 import axios from 'axios'
 
+import type { KeyValue, Session } from '../../modules/session'
+
 const ANALYTICS_URL = 'https://rc.vtex.com/api/analytics/schemaless-events'
 
 type ImpersonateMetric = {
@@ -30,22 +32,13 @@ export const sendMetric = async (metric: Metric) => {
   }
 }
 
-export type SessionResponseParam = {
+export type SessionResponseParam = Session & {
   namespaces: {
     account: {
-      accountName: {
-        value: string
-      }
-    }
-    profile: {
-      email: {
-        value: string
-      }
+      accountName: KeyValue
     }
     authentication: {
-      storeUserEmail: {
-        value: string
-      }
+      storeUserEmail: KeyValue
     }
   }
 }

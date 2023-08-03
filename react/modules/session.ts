@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react'
 
-interface KeyValue {
+export interface KeyValue {
   value: string
 }
 
-interface Session {
+export interface Session {
   id: string
   namespaces: {
     store: {

@@ -221,7 +221,7 @@ const UserWidget: VtexFunctionComponent<UserWidgetProps> = ({
 
         const metricParams = {
           sessionResponse,
-          email: userWidgetData?.checkImpersonation?.email as string,
+          email: userWidgetData?.checkImpersonation?.email,
           ...organizationsState,
         }
 
