@@ -23,6 +23,7 @@ interface Props {
   canEdit?: boolean
   canEditSales?: boolean
   isSalesAdmin: boolean
+  canManageOrg?: boolean
 }
 
 interface DropdownOption {
@@ -42,6 +43,7 @@ const EditUserModal: FunctionComponent<Props> = ({
   canEdit,
   canEditSales,
   isSalesAdmin,
+  canManageOrg
 }) => {
   const { formatMessage } = useIntl()
   const [userState, setUserState] = useState({} as UserDetails)
@@ -113,6 +115,10 @@ const EditUserModal: FunctionComponent<Props> = ({
 
     const filteredArray = rolesData.listRoles.filter((role: any) => {
       if (isAdmin) return true
+
+      if(canManageOrg) {
+        return true
+      }
 
       if (role.slug.includes('customer') && canEdit) {
         return true

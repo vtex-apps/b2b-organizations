@@ -667,6 +667,7 @@ const OrganizationUsersTable: FunctionComponent<Props> = ({
           canEdit={canEdit}
           canEditSales={canEditSales}
           isSalesAdmin={isSalesAdmin}
+          canManageOrg={canManageOrganization}
         />
       )}
       {editUserModalOpen && (
@@ -682,6 +683,7 @@ const OrganizationUsersTable: FunctionComponent<Props> = ({
           canEdit={canEdit}
           canEditSales={canEditSales}
           isSalesAdmin={isSalesAdmin}
+          canManageOrg={canManageOrganization}
         />
       )}
       <RemoveUserModal
