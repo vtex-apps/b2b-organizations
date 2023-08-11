@@ -30,5 +30,15 @@ query GetOrganizationRequest($id: ID!) {
       businessDocument
       stateRegistration
     }
+    customFields {
+      name
+      type
+      value
+      dropdownValues {
+        value
+        label
+      }
+      useOnRegistration
+    }
   }
 }

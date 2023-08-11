@@ -11,6 +11,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 - Update styles of the organizations list table
 
+## [1.25.0] - 2023-07-24
+
+### Added
+
+- Added the custom fields to the organization request admin page view
+
 ## [1.24.8] - 2023-07-17
 
 ### Changed
