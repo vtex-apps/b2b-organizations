@@ -83,9 +83,7 @@ const OrganizationsTable = () => {
           </PageHeaderBottom>
         </PageHeader>
         <PageContent layout="wide">
-          <div className="mb5">
-            <CheckCustomerSchema isAdmin={true} />
-          </div>
+          <CheckCustomerSchema isAdmin={true} />
           <Switch>
             <Route path="/organizations" exact component={OrganizationsList} />
             <Route

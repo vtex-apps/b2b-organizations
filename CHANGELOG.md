@@ -8,10 +8,15 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
-
 ### Added
 
 - Add condition to use the `manage-organization` permission
+
+## [1.26.1] - 2023-08-11
+
+### Changed
+
+- Update styles of the organizations list table
 
 ## [1.25.0] - 2023-07-24
 
