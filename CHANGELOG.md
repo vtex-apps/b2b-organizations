@@ -5,6 +5,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+
 ## [Unreleased]
 
 ### Added
@@ -12,6 +13,17 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Added metrics to Impersonate events
 - Added metrics to Stop Impersonating events
 - Added metrics to change team events
+## [1.26.2] - 2023-08-11
+
+### Added
+
+- Add condition to use the `manage-organization` permission
+
+## [1.26.1] - 2023-08-11
+
+### Changed
+
+- Update styles of the organizations list table
 
 ## [1.25.0] - 2023-07-24
 
