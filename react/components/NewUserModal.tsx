@@ -40,7 +40,7 @@ const NewUserModal: FunctionComponent<Props> = ({
   canEdit,
   canEditSales,
   isSalesAdmin,
-  canManageOrg
+  canManageOrg,
 }) => {
   const { formatMessage } = useIntl()
   const [userState, setUserState] = useState({
@@ -119,7 +119,7 @@ const NewUserModal: FunctionComponent<Props> = ({
     const filteredArray = rolesData.listRoles.filter((role: any) => {
       if (isAdmin) return true
 
-      if(canManageOrg) return true
+      if (canManageOrg) return true
 
       if (role.slug.includes('customer') && canEdit) {
         return true
