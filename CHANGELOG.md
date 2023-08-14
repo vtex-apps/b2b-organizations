@@ -8,6 +8,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Added
+
+- Added metrics to Impersonate events
+- Added metrics to Stop Impersonating events
+- Added metrics to change team events
 ## [1.26.2] - 2023-08-11
 
 ### Added

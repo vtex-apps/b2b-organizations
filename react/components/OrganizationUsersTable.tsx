@@ -17,6 +17,7 @@ import REMOVE_USER from '../graphql/removeUser.graphql'
 import GET_COST_CENTER from '../graphql/getCostCenterStorefront.graphql'
 import IMPERSONATE_USER from '../graphql/impersonateB2BUser.graphql'
 import { B2B_CHECKOUT_SESSION_KEY } from '../utils/constants'
+import { sendImpersonateMetric } from '../utils/metrics/impersonate'
 
 interface Props {
   organizationId: string
@@ -32,7 +33,7 @@ interface CellRendererProps {
   updateCellMeasurements: () => void
 }
 
-interface B2BUserSimple extends UserDetails {
+export interface B2BUserSimple extends UserDetails {
   costCenterName: string
   role: RoleSimple
   organizationName: string
@@ -380,6 +381,12 @@ const OrganizationUsersTable: FunctionComponent<Props> = ({
             showToast(formatMessage(storeMessages.toastImpersonateFailure))
           }
         } else {
+          const metricParams = {
+            costCenterData,
+            target: rowData,
+          }
+
+          sendImpersonateMetric(metricParams)
           window.location.reload()
         }
       })

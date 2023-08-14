@@ -43,7 +43,7 @@ const EditUserModal: FunctionComponent<Props> = ({
   canEdit,
   canEditSales,
   isSalesAdmin,
-  canManageOrg
+  canManageOrg,
 }) => {
   const { formatMessage } = useIntl()
   const [userState, setUserState] = useState({} as UserDetails)
@@ -116,7 +116,7 @@ const EditUserModal: FunctionComponent<Props> = ({
     const filteredArray = rolesData.listRoles.filter((role: any) => {
       if (isAdmin) return true
 
-      if(canManageOrg) {
+      if (canManageOrg) {
         return true
       }
 
