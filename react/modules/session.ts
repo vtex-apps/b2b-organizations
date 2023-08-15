@@ -4,7 +4,8 @@ interface KeyValue {
   value: string
 }
 
-interface Session {
+export interface Session {
+  type?: 'Session'
   id: string
   namespaces: {
     store: {
@@ -13,6 +14,12 @@ interface Session {
     profile: {
       isAuthenticated: KeyValue
       email?: KeyValue
+    }
+    account: {
+      accountName: KeyValue
+    }
+    authentication: {
+      storeUserEmail: KeyValue
     }
   }
 }

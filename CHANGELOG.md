@@ -12,6 +12,16 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 - `EditUserModal` was not opening in the admin  
 
+## [1.27.0] - 2023-08-14
+
+### Added
+
+- Added metrics to Impersonate events
+- Added metrics to Stop Impersonating events
+- Added metrics to change team events
+
+## [1.26.2] - 2023-08-11
+
 ### Added
 
 - Add condition to use the `manage-organization` permission
