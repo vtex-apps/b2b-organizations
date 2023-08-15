@@ -8,6 +8,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Fix 
+
+- `EditUserModal` was not opening in the admin  
+
 ### Added
 
 - Add condition to use the `manage-organization` permission
