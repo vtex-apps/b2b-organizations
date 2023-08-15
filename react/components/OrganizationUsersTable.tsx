@@ -550,32 +550,16 @@ const OrganizationUsersTable: FunctionComponent<Props> = ({
   }
 
   const handleRowClick = ({ rowData }: CellRendererProps) => {
-    if (canManageOrganization) {
-      setEditUserDetails({
-        id: rowData.id,
-        roleId: rowData.roleId,
-        userId: rowData.userId,
-        clId: rowData.clId,
-        orgId: rowData.orgId,
-        costId: rowData.costId,
-        name: rowData.name,
-        email: rowData.email,
-        canImpersonate: rowData.canImpersonate,
-      })
-      setEditUserModalOpen(true)
-    } else if (
-      !ruleClickEnabled({
-        isAdmin,
-        canEditSales,
-        slug: rowData.role?.slug ?? '',
-        canEdit,
-        isSalesAdmin,
-      })
-    ) {
-      // eslint-disable-next-line no-useless-return
-      return
-    } else {
-      setEditUserDetails({
+    const canClick = canManageOrganization || ruleClickEnabled({
+      isAdmin,
+      canEditSales,
+      slug: rowData.role?.slug ?? '',
+      canEdit,
+      isSalesAdmin,
+    })
+    if (!canClick) return
+
+    setEditUserDetails({
       id: rowData.id,
       roleId: rowData.roleId,
       userId: rowData.userId,
@@ -587,7 +571,6 @@ const OrganizationUsersTable: FunctionComponent<Props> = ({
       canImpersonate: rowData.canImpersonate,
     })
     setEditUserModalOpen(true)
-  }
   }
 
   const handleSort = ({
