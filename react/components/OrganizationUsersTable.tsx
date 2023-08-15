@@ -567,7 +567,20 @@ const OrganizationUsersTable: FunctionComponent<Props> = ({
     ) {
       // eslint-disable-next-line no-useless-return
       return
-    }
+    } else {
+      setEditUserDetails({
+      id: rowData.id,
+      roleId: rowData.roleId,
+      userId: rowData.userId,
+      clId: rowData.clId,
+      orgId: rowData.orgId,
+      costId: rowData.costId,
+      name: rowData.name,
+      email: rowData.email,
+      canImpersonate: rowData.canImpersonate,
+    })
+    setEditUserModalOpen(true)
+  }
   }
 
   const handleSort = ({
