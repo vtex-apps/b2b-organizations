@@ -212,7 +212,7 @@ const OrganizationUsersTable: FunctionComponent<Props> = ({
           }, 2000)
         }
       )
-      .catch((error) => {
+      .catch(error => {
         console.error(error)
         contextualToast(
           formatMessage(
@@ -267,7 +267,7 @@ const OrganizationUsersTable: FunctionComponent<Props> = ({
           }, 2000)
         }
       )
-      .catch((error) => {
+      .catch(error => {
         console.error(error)
         contextualToast(
           formatMessage(
@@ -313,7 +313,7 @@ const OrganizationUsersTable: FunctionComponent<Props> = ({
         setRemoveUserLoading(false)
         refetch()
       })
-      .catch((error) => {
+      .catch(error => {
         console.error(error)
         contextualToast(
           formatMessage(
@@ -367,7 +367,7 @@ const OrganizationUsersTable: FunctionComponent<Props> = ({
     impersonateUser({
       variables: { id: rowData.id },
     })
-      .then((result) => {
+      .then(result => {
         if (result?.data?.impersonateB2BUser?.status === 'error') {
           console.error(
             'Impersonation error:',
@@ -390,7 +390,7 @@ const OrganizationUsersTable: FunctionComponent<Props> = ({
           window.location.reload()
         }
       })
-      .catch((error) => {
+      .catch(error => {
         console.error(error)
         showToast(formatMessage(storeMessages.toastImpersonateFailure))
       })
