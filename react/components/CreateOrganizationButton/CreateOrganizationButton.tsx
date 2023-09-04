@@ -22,6 +22,8 @@ const CreateOrganizationButton = () => {
       <PageHeaderMenuButton
         state={menuState}
         label={formatMessage(messages.new)}
+        labelHidden={false}
+        variant="primary"
       />
       <Menu state={menuState} aria-label="actions">
         <MenuItem
