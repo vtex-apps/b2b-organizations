@@ -47,6 +47,8 @@
   "admin/b2b-organizations.organizations-admin.table.column-name.title": "Nimi",
   "admin/b2b-organizations.organizations-admin.table.column-status.title": "Tila",
   "admin/b2b-organizations.organizations-admin.table.view.label": "Näytä",
+  "admin/b2b-organizations.organizations-admin.add-single": "Register Individually",
+  "admin/b2b-organizations.organizations-admin.add-bulk": "Import in Bulk",
   "admin/b2b-organizations.organizations-admin.title": "Organisaatiot",
   "admin/b2b-organizations.organizations-admin.button.refetch": "Nouda uudelleen",
   "admin/b2b-organizations.organizations-admin.table.empty-state": "Yhtään organisaatiota ei löytynyt.",

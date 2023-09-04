@@ -47,6 +47,8 @@
   "admin/b2b-organizations.organizations-admin.table.column-name.title": "Naam",
   "admin/b2b-organizations.organizations-admin.table.column-status.title": "Status",
   "admin/b2b-organizations.organizations-admin.table.view.label": "Toon",
+  "admin/b2b-organizations.organizations-admin.add-single": "Register Individually",
+  "admin/b2b-organizations.organizations-admin.add-bulk": "Import in Bulk",
   "admin/b2b-organizations.organizations-admin.title": "Organisaties",
   "admin/b2b-organizations.organizations-admin.button.refetch": "Opnieuw ophalen",
   "admin/b2b-organizations.organizations-admin.table.empty-state": "Geen organisaties gevonden.",

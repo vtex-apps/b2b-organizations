@@ -47,6 +47,8 @@
   "admin/b2b-organizations.organizations-admin.table.column-name.title": "이름",
   "admin/b2b-organizations.organizations-admin.table.column-status.title": "상태",
   "admin/b2b-organizations.organizations-admin.table.view.label": "보기",
+  "admin/b2b-organizations.organizations-admin.add-single": "Register Individually",
+  "admin/b2b-organizations.organizations-admin.add-bulk": "Import in Bulk",
   "admin/b2b-organizations.organizations-admin.title": "조직",
   "admin/b2b-organizations.organizations-admin.button.refetch": "리페치",
   "admin/b2b-organizations.organizations-admin.table.empty-state": "조직을 찾을 수 없습니다.",

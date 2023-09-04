@@ -47,6 +47,8 @@
   "admin/b2b-organizations.organizations-admin.table.column-name.title": "Nom",
   "admin/b2b-organizations.organizations-admin.table.column-status.title": "Estat",
   "admin/b2b-organizations.organizations-admin.table.view.label": "Mostra-ho",
+  "admin/b2b-organizations.organizations-admin.add-single": "Register Individually",
+  "admin/b2b-organizations.organizations-admin.add-bulk": "Import in Bulk",
   "admin/b2b-organizations.organizations-admin.title": "Organitzacions",
   "admin/b2b-organizations.organizations-admin.button.refetch": "Tornar a recuperar dades",
   "admin/b2b-organizations.organizations-admin.table.empty-state": "No s'ha trobat cap organització.",

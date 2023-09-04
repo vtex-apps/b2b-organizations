@@ -47,6 +47,8 @@
   "admin/b2b-organizations.organizations-admin.table.column-name.title": "Ім’я",
   "admin/b2b-organizations.organizations-admin.table.column-status.title": "Статус",
   "admin/b2b-organizations.organizations-admin.table.view.label": "Перегляд",
+  "admin/b2b-organizations.organizations-admin.add-single": "Register Individually",
+  "admin/b2b-organizations.organizations-admin.add-bulk": "Import in Bulk",
   "admin/b2b-organizations.organizations-admin.title": "Організації",
   "admin/b2b-organizations.organizations-admin.button.refetch": "Повторна вибірка",
   "admin/b2b-organizations.organizations-admin.table.empty-state": "Організацій не знайдено.",

@@ -47,6 +47,8 @@
   "admin/b2b-organizations.organizations-admin.table.column-name.title": "Ime",
   "admin/b2b-organizations.organizations-admin.table.column-status.title": "Stanje",
   "admin/b2b-organizations.organizations-admin.table.view.label": "Pogled",
+  "admin/b2b-organizations.organizations-admin.add-single": "Register Individually",
+  "admin/b2b-organizations.organizations-admin.add-bulk": "Import in Bulk",
   "admin/b2b-organizations.organizations-admin.title": "Organizacije",
   "admin/b2b-organizations.organizations-admin.button.refetch": "Ponovno pridobi",
   "admin/b2b-organizations.organizations-admin.table.empty-state": "Ni organizacij.",

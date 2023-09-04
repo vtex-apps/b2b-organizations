@@ -47,6 +47,8 @@
   "admin/b2b-organizations.organizations-admin.table.column-name.title": "ชื่อ",
   "admin/b2b-organizations.organizations-admin.table.column-status.title": "สถานะ",
   "admin/b2b-organizations.organizations-admin.table.view.label": "ดู",
+  "admin/b2b-organizations.organizations-admin.add-single": "Register Individually",
+  "admin/b2b-organizations.organizations-admin.add-bulk": "Import in Bulk",
   "admin/b2b-organizations.organizations-admin.title": "องค์กร",
   "admin/b2b-organizations.organizations-admin.button.refetch": "ดึงข้อมูลใหม่",
   "admin/b2b-organizations.organizations-admin.table.empty-state": "ไม่พบองค์กร",

@@ -47,6 +47,8 @@
   "admin/b2b-organizations.organizations-admin.table.column-name.title": "admin/b2b-organizations.organizations-admin.table.column-name.title",
   "admin/b2b-organizations.organizations-admin.table.column-status.title": "admin/b2b-organizations.organizations-admin.table.column-status.title",
   "admin/b2b-organizations.organizations-admin.table.view.label": "admin/b2b-organizations.organizations-admin.table.view.label",
+  "admin/b2b-organizations.organizations-admin.add-single": "A menu item for creating a single organization",
+  "admin/b2b-organizations.organizations-admin.add-bulk": "A menu item for uploading several organizations to be created",
   "admin/b2b-organizations.organizations-admin.title": "admin/b2b-organizations.organizations-admin.title",
   "admin/b2b-organizations.organizations-admin.button.refetch": "admin/b2b-organizations.organizations-admin.button.refetch",
   "admin/b2b-organizations.organizations-admin.table.empty-state": "admin/b2b-organizations.organizations-admin.table.empty-state",

@@ -47,6 +47,8 @@
   "admin/b2b-organizations.organizations-admin.table.column-name.title": "الإسم",
   "admin/b2b-organizations.organizations-admin.table.column-status.title": "الحالة",
   "admin/b2b-organizations.organizations-admin.table.view.label": "عرض",
+  "admin/b2b-organizations.organizations-admin.add-single": "Register Individually",
+  "admin/b2b-organizations.organizations-admin.add-bulk": "Import in Bulk",
   "admin/b2b-organizations.organizations-admin.title": "المنظمات",
   "admin/b2b-organizations.organizations-admin.button.refetch": "إعادة التحميل",
   "admin/b2b-organizations.organizations-admin.table.empty-state": "لم يتم العثور على منظمة.",

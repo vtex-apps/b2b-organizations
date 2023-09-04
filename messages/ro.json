@@ -47,6 +47,8 @@
   "admin/b2b-organizations.organizations-admin.table.column-name.title": "Nume",
   "admin/b2b-organizations.organizations-admin.table.column-status.title": "Status",
   "admin/b2b-organizations.organizations-admin.table.view.label": "Vizualizare",
+  "admin/b2b-organizations.organizations-admin.add-single": "Register Individually",
+  "admin/b2b-organizations.organizations-admin.add-bulk": "Import in Bulk",
   "admin/b2b-organizations.organizations-admin.title": "Organizații",
   "admin/b2b-organizations.organizations-admin.button.refetch": "Recuperează",
   "admin/b2b-organizations.organizations-admin.table.empty-state": "Nu au fost găsite organizații.",

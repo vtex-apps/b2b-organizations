@@ -47,6 +47,8 @@
   "admin/b2b-organizations.organizations-admin.table.column-name.title": "Meno",
   "admin/b2b-organizations.organizations-admin.table.column-status.title": "Stav",
   "admin/b2b-organizations.organizations-admin.table.view.label": "Zobrazenie",
+  "admin/b2b-organizations.organizations-admin.add-single": "Register Individually",
+  "admin/b2b-organizations.organizations-admin.add-bulk": "Import in Bulk",
   "admin/b2b-organizations.organizations-admin.title": "Organizácie",
   "admin/b2b-organizations.organizations-admin.button.refetch": "Znovu načítať",
   "admin/b2b-organizations.organizations-admin.table.empty-state": "Nenašli sa žiadne organizácie.",

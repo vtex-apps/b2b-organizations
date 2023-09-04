@@ -47,6 +47,8 @@
   "admin/b2b-organizations.organizations-admin.table.column-name.title": "Име",
   "admin/b2b-organizations.organizations-admin.table.column-status.title": "Статус",
   "admin/b2b-organizations.organizations-admin.table.view.label": "Изглед",
+  "admin/b2b-organizations.organizations-admin.add-single": "Register Individually",
+  "admin/b2b-organizations.organizations-admin.add-bulk": "Import in Bulk",
   "admin/b2b-organizations.organizations-admin.title": "Организации",
   "admin/b2b-organizations.organizations-admin.button.refetch": "Повторно зареждане",
   "admin/b2b-organizations.organizations-admin.table.empty-state": "Не са открити организации.",

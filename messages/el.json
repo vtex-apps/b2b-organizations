@@ -47,6 +47,8 @@
   "admin/b2b-organizations.organizations-admin.table.column-name.title": "Όνομα",
   "admin/b2b-organizations.organizations-admin.table.column-status.title": "Κατάσταση",
   "admin/b2b-organizations.organizations-admin.table.view.label": "Προβολή",
+  "admin/b2b-organizations.organizations-admin.add-single": "Register Individually",
+  "admin/b2b-organizations.organizations-admin.add-bulk": "Import in Bulk",
   "admin/b2b-organizations.organizations-admin.title": "Οργανισμοί",
   "admin/b2b-organizations.organizations-admin.button.refetch": "Ανάκτηση",
   "admin/b2b-organizations.organizations-admin.table.empty-state": "Δεν βρέθηκε κανένας οργανισμός.",

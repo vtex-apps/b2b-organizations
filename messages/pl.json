@@ -47,6 +47,8 @@
   "admin/b2b-organizations.organizations-admin.table.column-name.title": "Nazwa",
   "admin/b2b-organizations.organizations-admin.table.column-status.title": "Status",
   "admin/b2b-organizations.organizations-admin.table.view.label": "Widok",
+  "admin/b2b-organizations.organizations-admin.add-single": "Register Individually",
+  "admin/b2b-organizations.organizations-admin.add-bulk": "Import in Bulk",
   "admin/b2b-organizations.organizations-admin.title": "Organizacje",
   "admin/b2b-organizations.organizations-admin.button.refetch": "Pobierz ponownie",
   "admin/b2b-organizations.organizations-admin.table.empty-state": "Nie znaleziono żadnych organizacji.",

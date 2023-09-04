@@ -47,6 +47,8 @@
   "admin/b2b-organizations.organizations-admin.table.column-name.title": "名前",
   "admin/b2b-organizations.organizations-admin.table.column-status.title": "ステータス",
   "admin/b2b-organizations.organizations-admin.table.view.label": "閲覧する",
+  "admin/b2b-organizations.organizations-admin.add-single": "Register Individually",
+  "admin/b2b-organizations.organizations-admin.add-bulk": "Import in Bulk",
   "admin/b2b-organizations.organizations-admin.title": "組織",
   "admin/b2b-organizations.organizations-admin.button.refetch": "再び取り出す",
   "admin/b2b-organizations.organizations-admin.table.empty-state": "組織が見つかりませんでした。",

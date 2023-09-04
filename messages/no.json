@@ -47,6 +47,8 @@
   "admin/b2b-organizations.organizations-admin.table.column-name.title": "Navn",
   "admin/b2b-organizations.organizations-admin.table.column-status.title": "Status",
   "admin/b2b-organizations.organizations-admin.table.view.label": "Vis",
+  "admin/b2b-organizations.organizations-admin.add-single": "Register Individually",
+  "admin/b2b-organizations.organizations-admin.add-bulk": "Import in Bulk",
   "admin/b2b-organizations.organizations-admin.title": "Organisasjoner",
   "admin/b2b-organizations.organizations-admin.button.refetch": "Hent på nytt",
   "admin/b2b-organizations.organizations-admin.table.empty-state": "Fant ingen organisasjoner.",
