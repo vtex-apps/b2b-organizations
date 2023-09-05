@@ -44,8 +44,5 @@
   "intl-equalizer": {
     "referenceLocale": "en",
     "localeDirectory": "messages"
-  },
-  "dependencies": {
-    "@vtex/bulk-import-ui": "^1.0.0"
   }
 }

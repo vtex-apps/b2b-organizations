@@ -8,6 +8,7 @@ import {
   PageHeaderMenuButton,
   useMenuState,
 } from '@vtex/admin-ui'
+// import * as BulkImportUI from '@vtex/bulk-import-ui'
 
 import CreateOrganizationModal from '../CreateOrganizationModal'
 import { organizationMessages as messages } from '../../admin/utils/messages'
