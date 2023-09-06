@@ -2192,10 +2192,10 @@
     tiny-warning "^1.0.3"
     use-debounce "^7.0.0"
 
-"@vtex/bulk-import-ui@^1.0.1":
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/@vtex/bulk-import-ui/-/bulk-import-ui-1.0.1.tgz#8209ca60d155eee618497a33489af4f980827ac3"
-  integrity sha512-xm/ZrFdJlmuMDGdFjH6yhPEJu1TReRq/tjgqVYm+tYfbJJ76JbmjkTwuHCawJFtjsZgmsOOfz6eiPUFXNJeB9w==
+"@vtex/bulk-import-ui@1.0.2":
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/@vtex/bulk-import-ui/-/bulk-import-ui-1.0.2.tgz#b34434a7a3a5ff3e7a9058d4fc1c9a153c5e60dc"
+  integrity sha512-sSPvgUOLEYUtetv0RcJbjyeOM3yY8wL8X3DiHqnnKn71VYj7+ucddlIuyP6gr4738o+gm39t7yG7Mel3LMeVZg==
   dependencies:
     "@vtex/admin-ui" "^0.136.1"
 

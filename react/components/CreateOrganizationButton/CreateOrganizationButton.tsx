@@ -8,15 +8,28 @@ import {
   PageHeaderMenuButton,
   useMenuState,
 } from '@vtex/admin-ui'
-// import * as BulkImportUI from '@vtex/bulk-import-ui'
+import { UploadModal } from '@vtex/bulk-import-ui'
+import type { TranslateFunction } from '@vtex/bulk-import-ui/dist/context/context'
 
 import CreateOrganizationModal from '../CreateOrganizationModal'
 import { organizationMessages as messages } from '../../admin/utils/messages'
+import { hasTranslation, bulkUploadMessages } from '../../bulkImport/messages'
+import { uploadBulkImportFile } from '../../bulkImport/upload'
 
 const CreateOrganizationButton = () => {
   const { formatMessage } = useIntl()
   const menuState = useMenuState()
   const [open, setOpen] = useState(false)
+  const [uploadModalOpen, setUploadModalOpen] = useState(false)
+
+  const translate: TranslateFunction = (key, data) => {
+    return hasTranslation(key)
+      ? formatMessage(
+          bulkUploadMessages[key],
+          data as Record<string, string | number>
+        )
+      : null
+  }
 
   return (
     <>
@@ -35,9 +48,17 @@ const CreateOrganizationButton = () => {
         <MenuItem
           label={formatMessage(messages.addBulk)}
           icon={<IconCloudArrowUp />}
+          onClick={() => setUploadModalOpen(true)}
         />
       </Menu>
       <CreateOrganizationModal open={open} onOpenChange={setOpen} />
+      <UploadModal
+        open={uploadModalOpen}
+        onOpenChange={setUploadModalOpen}
+        translate={translate}
+        uploadFile={uploadBulkImportFile}
+        onUploadFinish={() => {}}
+      />
     </>
   )
 }
