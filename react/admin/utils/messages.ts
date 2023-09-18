@@ -204,6 +204,12 @@ export const organizationMessages = defineMessages({
   removeUserHelp: {
     id: `${adminPrefix}organization-details.remove-user.helpText`,
   },
+  addSingle: {
+    id: `${adminPrefix}organizations-admin.add-single`,
+  },
+  addBulk: {
+    id: `${adminPrefix}organizations-admin.add-bulk`,
+  },
   toastAddOrgSuccess: {
     id: `${adminPrefix}organizations-admin.toast.add-organization-success`,
   },
