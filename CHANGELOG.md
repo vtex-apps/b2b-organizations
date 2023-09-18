@@ -5,14 +5,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-
 ## [Unreleased]
+
+### Added
+
+- Show the upload modal when the user selects bulk import
 
 ## [1.27.1] - 2023-08-17
 
-### Fix 
+### Fix
 
-- `EditUserModal` was not opening in the admin  
+- `EditUserModal` was not opening in the admin
 
 ## [1.27.0] - 2023-08-14
 
