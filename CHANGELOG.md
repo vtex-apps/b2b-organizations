@@ -8,6 +8,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Added
+
+- Show the upload modal when the user selects bulk import
+
 ## [1.28.2] - 2023-12-19
 
 ### Fixed
@@ -39,9 +43,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [1.27.1] - 2023-08-17
 
-### Fix 
+### Fix
 
-- `EditUserModal` was not opening in the admin  
+- `EditUserModal` was not opening in the admin
 
 ## [1.27.0] - 2023-08-14
 
