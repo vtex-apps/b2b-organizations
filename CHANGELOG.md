@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Added
+
+- Show the upload modal when the user selects bulk import
+
 ## [1.28.2] - 2023-12-19
 
 ### Fixed

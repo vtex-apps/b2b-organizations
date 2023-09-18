@@ -29,7 +29,7 @@ export type BulkImportMessageKey =
   | 'downloadReviewedLink'
 
 export const bulkUploadMessages: Record<
-  BulkImportMessageKey,
+  UploadMessageKey,
   { id: string }
 > = defineMessages({
   back: {
