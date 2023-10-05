@@ -123,9 +123,10 @@ const OrganizationUsersTable: FunctionComponent<Props> = ({
     'impersonate-users-organization'
   )
 
-  const canImpersonateCost = permissions.includes(
+  const canImpersonateCost = (rowData: B2BUserSimple) => permissions.includes(
     'impersonate-users-costcenter'
-  )
+  ) &&
+    rowData.costId === costCenterData?.getCostCenterByIdStorefront?.id
 
   const { data, loading, refetch } = useQuery(GET_USERS, {
     variables: {
@@ -329,32 +330,9 @@ const OrganizationUsersTable: FunctionComponent<Props> = ({
 
   const handleImpersonation = (rowData: B2BUserSimple) => {
     if (
-      (!canImpersonateAll && !canImpersonateOrg && !canImpersonateCost) ||
-      rowData.role.slug.includes('sales')
+      !canImpersonateAll && !canImpersonateOrg && !canImpersonateCost(rowData)
     ) {
       showToast(formatMessage(storeMessages.toastImpersonateForbidden))
-
-      return
-    }
-
-    if (
-      !canImpersonateAll &&
-      canImpersonateOrg &&
-      !rowData.role.slug.includes('customer')
-    ) {
-      showToast(formatMessage(storeMessages.toastImpersonateForbidden))
-
-      return
-    }
-
-    if (
-      !canImpersonateAll &&
-      !canImpersonateOrg &&
-      canImpersonateCost &&
-      rowData.costId !== costCenterData?.getCostCenterByIdStorefront?.id
-    ) {
-      showToast(formatMessage(storeMessages.toastImpersonateForbidden))
-
       return
     }
 
