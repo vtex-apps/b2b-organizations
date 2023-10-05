@@ -123,11 +123,6 @@ const OrganizationUsersTable: FunctionComponent<Props> = ({
     'impersonate-users-organization'
   )
 
-  const canImpersonateCost = (rowData: B2BUserSimple) => permissions.includes(
-    'impersonate-users-costcenter'
-  ) &&
-    rowData.costId === costCenterData?.getCostCenterByIdStorefront?.id
-
   const { data, loading, refetch } = useQuery(GET_USERS, {
     variables: {
       ...initialState,
@@ -145,6 +140,10 @@ const OrganizationUsersTable: FunctionComponent<Props> = ({
     ssr: false,
     skip: isAdmin,
   })
+
+  const canImpersonateCost = (rowData: B2BUserSimple) =>
+    permissions.includes('impersonate-users-costcenter') &&
+    rowData.costId === costCenterData?.getCostCenterByIdStorefront?.id
 
   const [addUser] = useMutation(ADD_USER)
   const [updateUser] = useMutation(UPDATE_USER)
@@ -330,9 +329,12 @@ const OrganizationUsersTable: FunctionComponent<Props> = ({
 
   const handleImpersonation = (rowData: B2BUserSimple) => {
     if (
-      !canImpersonateAll && !canImpersonateOrg && !canImpersonateCost(rowData)
+      !canImpersonateAll &&
+      !canImpersonateOrg &&
+      !canImpersonateCost(rowData)
     ) {
       showToast(formatMessage(storeMessages.toastImpersonateForbidden))
+
       return
     }
 
