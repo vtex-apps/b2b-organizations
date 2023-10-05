@@ -59,6 +59,42 @@ export const bulkUploadMessages: Record<
   uploadViewReport: {
     id: 'admin/b2b-organizations.bulk-import.upload.uploadViewReport',
   },
+  done: {
+    id: 'admin/b2b-organizations.bulk-import.import.done',
+  },
+  importing: {
+    id: 'admin/b2b-organizations.bulk-import.import.importing',
+  },
+  importError: {
+    id: 'admin/b2b-organizations.bulk-import.import.importError',
+  },
+  importErrorReportTitle: {
+    id: 'admin/b2b-organizations.bulk-import.import.importErrorReportTitle',
+  },
+  importProgress: {
+    id: 'admin/b2b-organizations.bulk-import.import.importProgress',
+  },
+  importReportErrorTab: {
+    id: 'admin/b2b-organizations.bulk-import.import.importReportErrorTab',
+  },
+  importReportGenericError: {
+    id: 'admin/b2b-organizations.bulk-import.import.importReportGenericError',
+  },
+  importReportSuccessTab: {
+    id: 'admin/b2b-organizations.bulk-import.import.importReportSuccessTab',
+  },
+  importReportTitle: {
+    id: 'admin/b2b-organizations.bulk-import.import.importReportTitle',
+  },
+  importSuccess: {
+    id: 'admin/b2b-organizations.bulk-import.import.importSuccess',
+  },
+  importSuccessReportTitle: {
+    id: 'admin/b2b-organizations.bulk-import.import.importSuccessReportTitle',
+  },
+  importDetails: {
+    id: 'admin/b2b-organizations.bulk-import.import.importDetails',
+  },
 })
 
 export const hasTranslation = (key: string): key is UploadMessageKey => {
