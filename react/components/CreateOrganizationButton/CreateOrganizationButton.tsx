@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import { useIntl } from 'react-intl'
 import {
   IconPencil,
   IconCloudArrowUp,
@@ -9,27 +8,17 @@ import {
   useMenuState,
 } from '@vtex/admin-ui'
 import { UploadModal } from '@vtex/bulk-import-ui'
-import type { TranslateFunction } from '@vtex/bulk-import-ui/dist/context/context'
 
 import CreateOrganizationModal from '../CreateOrganizationModal'
 import { organizationMessages as messages } from '../../admin/utils/messages'
-import { hasTranslation, bulkUploadMessages } from '../../bulkImport/messages'
 import { uploadBulkImportFile } from '../../bulkImport/upload'
+import { useTranslate } from '../../hooks'
 
 const CreateOrganizationButton = () => {
-  const { formatMessage } = useIntl()
+  const { translate, formatMessage } = useTranslate()
   const menuState = useMenuState()
   const [open, setOpen] = useState(false)
   const [uploadModalOpen, setUploadModalOpen] = useState(false)
-
-  const translate: TranslateFunction = (key, data) => {
-    return hasTranslation(key)
-      ? formatMessage(
-          bulkUploadMessages[key],
-          data as Record<string, string | number>
-        )
-      : null
-  }
 
   return (
     <>
