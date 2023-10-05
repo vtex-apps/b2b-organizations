@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Fixed
+
+- Fix to impersonate user with the role `sales`
+
 ## [1.27.2] - 2023-10-06
 
 ### Added
