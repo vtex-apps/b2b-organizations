@@ -26,6 +26,7 @@ import useHashRouter from './OrganizationDetails/useHashRouter'
 import OrganizationCustomFields from './CustomFields'
 import CheckCustomerSchema from '../components/CheckCustomerSchema'
 import CreateOrganizationButton from '../components/CreateOrganizationButton/CreateOrganizationButton'
+import BulkImportList from '../components/BulkImportList'
 
 const SESSION_STORAGE_KEY = 'organization-tab'
 
@@ -83,6 +84,7 @@ const OrganizationsTable = () => {
           </PageHeaderBottom>
         </PageHeader>
         <PageContent layout="wide">
+          <BulkImportList />
           <CheckCustomerSchema isAdmin={true} />
           <Switch>
             <Route path="/organizations" exact component={OrganizationsList} />
