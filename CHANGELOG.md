@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Fixed
+
+- Improve quality gate on Sonar
+
 ## [1.27.2] - 2023-10-06
 
 ### Fixed
