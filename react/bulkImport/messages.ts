@@ -95,6 +95,12 @@ export const bulkUploadMessages: Record<
   importDetails: {
     id: 'admin/b2b-organizations.bulk-import.import.importDetails',
   },
+  fileExtensionError: {
+    id: 'admin/b2b-organizations.bulk-import.import.fileExtensionError',
+  },
+  fileSizeError: {
+    id: 'admin/b2b-organizations.bulk-import.import.fileSizeError',
+  },
 })
 
 export const hasTranslation = (key: string): key is UploadMessageKey => {
