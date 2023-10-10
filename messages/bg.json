@@ -56,6 +56,8 @@
   "admin/b2b-organizations.bulk-import.import.importSuccess": "{fileName} import completed successfully.",
   "admin/b2b-organizations.bulk-import.import.importSuccessReportTitle": "{count} Buyer Organizations successfully imported.",
   "admin/b2b-organizations.bulk-import.import.importDetails": "View Import Details",
+  "admin/b2b-organizations.bulk-import.import.fileExtensionError": "Sorry, the selected file format is not supported.",
+  "admin/b2b-organizations.bulk-import.import.fileSizeError": "Sorry, the file size is too big.",
   "admin/b2b-organizations.organization-requests-admin.table.column-name.title": "Име на организацията",
   "admin/b2b-organizations.organization-requests-admin.table.column-admin.title": "Админ потребител",
   "admin/b2b-organizations.organization-requests-admin.table.column-status.title": "Статус",
