@@ -151,7 +151,7 @@ const RequestOrganizationForm: FC = () => {
   }
 
   const translateCountries = () => {
-    const { shipsTo = [] } = data?.logistics
+    const { shipsTo = [] } = data?.logistics ?? []
 
     return shipsTo.map((code: string) => ({
       label: formatMessage({ id: `country.${code}` }),
