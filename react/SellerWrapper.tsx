@@ -50,7 +50,7 @@ const SellerWrapper = ({ children }: SellerWrapperProps) => {
         },
       },
     })
-  }, [seller, newCurrentSelectedItem, selectedItem, dispatch])
+  }, [seller])
 
   useEffect(() => {
     if (!seller || !selectedItem) return
@@ -75,9 +75,7 @@ const SellerWrapper = ({ children }: SellerWrapperProps) => {
       },
     })
     latestItem.current = newItem
-  }, [seller, selectedItem, dispatch])
-
-  if (!seller || !selectedItem) return <div></div>
+  }, [selectedItem])
 
   return <div className={`${handles.sellerWrapper}`}>{children}</div>
 }

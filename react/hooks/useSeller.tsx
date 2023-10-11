@@ -19,7 +19,11 @@ export default function useSeller() {
           facet.includes('private-seller')
         )
 
-        sellerFacet && setSeller(sellerFacet?.split('=')[1])
+        const [, sessionSeller] = sellerFacet?.split('=')
+
+        if (sessionSeller) {
+          setSeller(sessionSeller)
+        }
       }
     } catch (e) {
       console.error(e)
