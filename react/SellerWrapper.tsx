@@ -1,45 +1,56 @@
 // Dependencies
-import React, { useEffect, useRef } from 'react'
+import React, { useCallback, useEffect, useRef } from 'react'
 import { useProduct, useProductDispatch } from 'vtex.product-context'
 import { useCssHandles } from 'vtex.css-handles'
+import type { Item } from 'vtex.product-context/react/ProductTypes'
 
 import useSeller from './hooks/useSeller'
 
 const CSS_HANDLES = ['sellerWrapper']
+const SELECT_ITEM_EVENT = 'SET_SELECTED_ITEM'
 
-const SellerWrapper = ({ children }: any) => {
+type SellerWrapperProps = {
+  children: React.ReactNode
+}
+
+const SellerWrapper = ({ children }: SellerWrapperProps) => {
   const { seller } = useSeller()
   const dispatch = useProductDispatch()
   const { selectedItem, product } = useProduct() ?? {}
-  const latestItem = useRef(null as any)
+  const latestItem = useRef((null as unknown) as Item)
   const handles = useCssHandles(CSS_HANDLES)
 
-  const newCurrentSelectedItem = product?.items?.find((item: any) =>
+  const memoizedCallback = useCallback(
+    itemSeller => ({
+      ...itemSeller,
+      sellerDefault: itemSeller.sellerId === seller,
+    }),
+    [seller]
+  )
+
+  const newCurrentSelectedItem = product?.items?.find(item =>
     item.sellers?.find(
-      (itemSeller: any) =>
+      itemSeller =>
         itemSeller.sellerId === seller &&
         itemSeller.commertialOffer.AvailableQuantity > 0
     )
   )
 
   useEffect(() => {
-    if (!seller || !newCurrentSelectedItem || !selectedItem) return
+    if (!seller || !newCurrentSelectedItem || !selectedItem || !dispatch) return
 
     const { sellers } = newCurrentSelectedItem
 
     dispatch?.({
-      type: 'SET_SELECTED_ITEM',
+      type: SELECT_ITEM_EVENT,
       args: {
         item: {
           ...newCurrentSelectedItem,
-          sellers: sellers.map((itemSeller: any) => ({
-            ...itemSeller,
-            sellerDefault: itemSeller.sellerId === seller,
-          })),
+          sellers: sellers.map(memoizedCallback),
         },
       },
     })
-  }, [seller])
+  }, [seller, newCurrentSelectedItem, selectedItem, dispatch])
 
   useEffect(() => {
     if (!seller || !selectedItem) return
@@ -54,22 +65,19 @@ const SellerWrapper = ({ children }: any) => {
 
     const newItem = {
       ...selectedItem,
-      sellers: sellers.map(itemSeller => ({
-        ...itemSeller,
-        sellerDefault: itemSeller.sellerId === seller,
-      })),
+      sellers: sellers.map(memoizedCallback),
     }
 
     dispatch?.({
-      type: 'SET_SELECTED_ITEM',
+      type: SELECT_ITEM_EVENT,
       args: {
         item: newItem,
       },
     })
     latestItem.current = newItem
-  }, [selectedItem])
+  }, [seller, selectedItem, dispatch])
 
-  if (!seller || !selectedItem) return null
+  if (!seller || !selectedItem) return <div></div>
 
   return <div className={`${handles.sellerWrapper}`}>{children}</div>
 }
