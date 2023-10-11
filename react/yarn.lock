@@ -6041,25 +6041,25 @@ verror@1.10.0:
     core-util-is "1.0.2"
     extsprintf "^1.2.0"
 
-"vtex.address-form@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.address-form@4.13.0/public/@types/vtex.address-form":
-  version "4.13.0"
-  resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.address-form@4.13.0/public/@types/vtex.address-form#e515b414e9b9acabc9121d6b5e5009c9874338c7"
+"vtex.address-form@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.address-form@4.22.4/public/@types/vtex.address-form":
+  version "4.22.4"
+  resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.address-form@4.22.4/public/@types/vtex.address-form#aa2423ec31d295c1861a6f08b7216f995f747a98"
 
-"vtex.admin-graphql@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.admin-graphql@2.36.4/public/@types/vtex.admin-graphql":
-  version "2.36.4"
-  resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.admin-graphql@2.36.4/public/@types/vtex.admin-graphql#69a4ec822fd7d593f11181d8db796203b0538f91"
+"vtex.admin-graphql@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.admin-graphql@2.40.0/public/@types/vtex.admin-graphql":
+  version "2.40.0"
+  resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.admin-graphql@2.40.0/public/@types/vtex.admin-graphql#6abd9321f95ac522b200112ee8c556eb3c6936d5"
 
-"vtex.b2b-organizations-graphql@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.b2b-organizations-graphql@0.9.0/public/@types/vtex.b2b-organizations-graphql":
-  version "0.9.0"
-  resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.b2b-organizations-graphql@0.9.0/public/@types/vtex.b2b-organizations-graphql#fbc442585514eac64c348e04bf339a637409aacb"
+"vtex.b2b-organizations-graphql@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.b2b-organizations-graphql@0.40.0/public/@types/vtex.b2b-organizations-graphql":
+  version "0.40.0"
+  resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.b2b-organizations-graphql@0.40.0/public/@types/vtex.b2b-organizations-graphql#47c5f08d7f450c56ea5c8dffaa02f2bb26cc46ae"
 
-"vtex.b2b-organizations@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.b2b-organizations@0.3.0/public/@types/vtex.b2b-organizations":
-  version "0.3.0"
-  resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.b2b-organizations@0.3.0/public/@types/vtex.b2b-organizations#0d1d673352911b82783dd38ba996f775ed43e361"
+"vtex.b2b-organizations@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.b2b-organizations@1.27.1/public/@types/vtex.b2b-organizations":
+  version "1.27.1"
+  resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.b2b-organizations@1.27.1/public/@types/vtex.b2b-organizations#78712bd97d56aa998e232f04674faa0b34517865"
 
-"vtex.catalog-graphql@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.catalog-graphql@1.97.0/public/@types/vtex.catalog-graphql":
-  version "1.97.0"
-  resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.catalog-graphql@1.97.0/public/@types/vtex.catalog-graphql#1f4543b1ba437a5eeb3f20a9f6a19ca82a38b815"
+"vtex.catalog-graphql@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.catalog-graphql@1.102.3/public/@types/vtex.catalog-graphql":
+  version "1.102.3"
+  resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.catalog-graphql@1.102.3/public/@types/vtex.catalog-graphql#ce99343170d314d3231612357ef62e3356b50d81"
 
 "vtex.country-codes@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.country-codes@2.0.1/public/_types/react":
   version "0.0.0"
@@ -6069,25 +6069,37 @@ verror@1.10.0:
   version "0.4.4"
   resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.css-handles@0.4.4/public/@types/vtex.css-handles#8c45c6decf9acd2b944e07261686decff93d6422"
 
-"vtex.render-runtime@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.render-runtime@8.132.3/public/@types/vtex.render-runtime":
-  version "8.132.3"
-  resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.render-runtime@8.132.3/public/@types/vtex.render-runtime#c7dd142e384f38bd7a7c841543b73e9349fadc93"
+"vtex.my-account-commons@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.my-account-commons@1.7.1/public/@types/vtex.my-account-commons":
+  version "1.7.1"
+  resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.my-account-commons@1.7.1/public/@types/vtex.my-account-commons#2ef5346cfcb342a528ac03b7e583d87d1f6b4745"
 
-"vtex.store-graphql@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.store-graphql@2.149.1/public/@types/vtex.store-graphql":
-  version "2.149.1"
-  resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.store-graphql@2.149.1/public/@types/vtex.store-graphql#b310fe9a1202828fd7421f56d2a2b4aa4b0590bb"
+"vtex.my-account@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.my-account@1.27.0/public/@types/vtex.my-account":
+  version "1.27.0"
+  resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.my-account@1.27.0/public/@types/vtex.my-account#a0d6dc12364422b9e649aa1e4da4b2756453fdfe"
 
-"vtex.store@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.store@2.120.3/public/@types/vtex.store":
-  version "2.120.3"
-  resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.store@2.120.3/public/@types/vtex.store#e583717ceb42993f68f153780f209321a898aa4f"
+"vtex.product-context@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.product-context@0.10.0/public/@types/vtex.product-context":
+  version "0.10.0"
+  resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.product-context@0.10.0/public/@types/vtex.product-context#c5e2a97b404004681ee12f4fff7e6b62157786cc"
 
-"vtex.storefront-permissions@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.storefront-permissions@1.9.1/public/@types/vtex.storefront-permissions":
-  version "1.9.1"
-  resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.storefront-permissions@1.9.1/public/@types/vtex.storefront-permissions#877fb031a2a0f4b5299ebb0e8eb17e14efa57f6b"
+"vtex.render-runtime@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.render-runtime@8.134.2/public/@types/vtex.render-runtime":
+  version "8.134.2"
+  resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.render-runtime@8.134.2/public/@types/vtex.render-runtime#ae69e2b2a471291c6c6b155e17510150fbfc2d0e"
 
-"vtex.styleguide@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.styleguide@9.145.2/public/@types/vtex.styleguide":
-  version "9.145.2"
-  resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.styleguide@9.145.2/public/@types/vtex.styleguide#ca64bf8408ad3eb487b0822dd68f77565c986a56"
+"vtex.store-graphql@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.store-graphql@2.170.0/public/@types/vtex.store-graphql":
+  version "2.170.0"
+  resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.store-graphql@2.170.0/public/@types/vtex.store-graphql#9827a5a84fc90c238e16a1feab451caaf6ba59b2"
+
+"vtex.store@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.store@2.132.0/public/@types/vtex.store":
+  version "2.132.0"
+  resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.store@2.132.0/public/@types/vtex.store#f230c2340528267fbbed36c365f898184d05c872"
+
+"vtex.storefront-permissions@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.storefront-permissions@1.36.0/public/@types/vtex.storefront-permissions":
+  version "1.36.0"
+  resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.storefront-permissions@1.36.0/public/@types/vtex.storefront-permissions#9b6eca8b176bd2b4a349932a598b6b8691bd6fe9"
+
+"vtex.styleguide@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.styleguide@9.146.9/public/@types/vtex.styleguide":
+  version "9.146.9"
+  resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.styleguide@9.146.9/public/@types/vtex.styleguide#d1601fedfb665c6173334753171717da64e670bc"
 
 w3c-hr-time@^1.0.1:
   version "1.0.2"

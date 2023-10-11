@@ -25,5 +25,10 @@
   },
   "b2b-user-widget": {
     "component": "StorefrontUserWidget"
+  },
+  "b2b-seller-wrapper": {
+    "component": "SellerWrapper",
+    "allowed": "*",
+    "composition": "children"
   }
 }
