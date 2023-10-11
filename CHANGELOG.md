@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Added
+
+- Finished the sellers implementation by adding the SellerWrapper block into interfaces in order to complete the sellers' experience
+
 ## [1.27.3] - 2023-10-10
 
 ### Fixed

@@ -6074,13 +6074,13 @@ verror@1.10.0:
   version "2.40.0"
   resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.admin-graphql@2.40.0/public/@types/vtex.admin-graphql#6abd9321f95ac522b200112ee8c556eb3c6936d5"
 
-"vtex.b2b-organizations-graphql@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.b2b-organizations-graphql@0.40.0/public/@types/vtex.b2b-organizations-graphql":
-  version "0.40.0"
-  resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.b2b-organizations-graphql@0.40.0/public/@types/vtex.b2b-organizations-graphql#47c5f08d7f450c56ea5c8dffaa02f2bb26cc46ae"
+"vtex.b2b-organizations-graphql@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.b2b-organizations-graphql@0.41.0/public/@types/vtex.b2b-organizations-graphql":
+  version "0.41.0"
+  resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.b2b-organizations-graphql@0.41.0/public/@types/vtex.b2b-organizations-graphql#dbc4b19d561230f991eea3d2502f95fbdcedf6ee"
 
-"vtex.b2b-organizations@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.b2b-organizations@1.27.1/public/@types/vtex.b2b-organizations":
-  version "1.27.1"
-  resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.b2b-organizations@1.27.1/public/@types/vtex.b2b-organizations#78712bd97d56aa998e232f04674faa0b34517865"
+"vtex.b2b-organizations@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.b2b-organizations@1.27.3/public/@types/vtex.b2b-organizations":
+  version "1.27.3"
+  resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.b2b-organizations@1.27.3/public/@types/vtex.b2b-organizations#db21fa79490615bc5428c60037e71db22e19edf1"
 
 "vtex.catalog-graphql@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.catalog-graphql@1.102.3/public/@types/vtex.catalog-graphql":
   version "1.102.3"
