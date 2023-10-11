@@ -11,11 +11,10 @@ type ImpersonatePerson = {
   cost_center_name: string
 }
 
-type ImpersonateUser = ImpersonatePerson
 type ImpersonateTarget = ImpersonatePerson & { buyer_org_name: string }
 
 type ImpersonateFieldsMetric = {
-  user: ImpersonateUser
+  user: ImpersonatePerson
   target: ImpersonateTarget
   date: string
 }
@@ -49,22 +48,20 @@ const buildImpersonateMetric = async (
 
   const session = await getSession()
   const sessionResponse = session?.response
-  const isSession =
-    sessionResponse &&
-    (!sessionResponse.type || sessionResponse.type === 'Session')
+  let namespace
+
+  if (sessionResponse && 'namespaces' in sessionResponse) {
+    namespace = sessionResponse?.namespaces
+  }
 
   return {
     name: 'b2b-suite-buyerorg-data' as const,
     kind: 'impersonate-ui-event',
     description: 'Impersonate User Action - UI',
-    account: isSession
-      ? (sessionResponse as Session).namespaces?.account?.accountName?.value
-      : undefined,
+    account: namespace?.account?.accountName?.value,
     fields: {
       user: {
-        email: isSession
-          ? (sessionResponse as Session).namespaces?.profile?.email?.value
-          : undefined,
+        email: namespace?.profile?.email?.value,
         buyer_org_id: costCenterData?.getCostCenterByIdStorefront.organization,
         cost_center_id: costCenterData?.getCostCenterByIdStorefront.id,
         cost_center_name: costCenterData?.getCostCenterByIdStorefront.name,
