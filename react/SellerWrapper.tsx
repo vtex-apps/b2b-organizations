@@ -1,4 +1,3 @@
-// Dependencies
 import React, { useCallback, useEffect, useRef } from 'react'
 import { useProduct, useProductDispatch } from 'vtex.product-context'
 import { useCssHandles } from 'vtex.css-handles'

@@ -1,4 +1,3 @@
-// Dependencies
 import { useState, useEffect } from 'react'
 import { useProduct } from 'vtex.product-context'
 
