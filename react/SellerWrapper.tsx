@@ -1,11 +1,11 @@
-import React, { useCallback, useEffect, useRef } from 'react'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { useProduct, useProductDispatch } from 'vtex.product-context'
 import { useCssHandles } from 'vtex.css-handles'
 import type { Item } from 'vtex.product-context/react/ProductTypes'
 
 import useSeller from './hooks/useSeller'
 
-const CSS_HANDLES = ['sellerWrapper']
+const CSS_HANDLES = ['sellerWrapper', 'loadingSeller']
 const SELECT_ITEM_EVENT = 'SET_SELECTED_ITEM'
 
 type SellerWrapperProps = {
@@ -18,65 +18,68 @@ const SellerWrapper = ({ children }: SellerWrapperProps) => {
   const { selectedItem, product } = useProduct() ?? {}
   const latestItem = useRef((null as unknown) as Item)
   const handles = useCssHandles(CSS_HANDLES)
+  const [loadingSeller, setLoadingSeller] = useState(true)
 
-  const memoizedCallback = useCallback(
+  const addSellerDefaultToItem = useCallback(
     itemSeller => ({
       ...itemSeller,
-      sellerDefault: itemSeller.sellerId === seller,
+      sellerDefault: seller?.includes(itemSeller.sellerId),
     }),
     [seller]
   )
 
-  const newCurrentSelectedItem = product?.items?.find(item =>
-    item.sellers?.find(
-      itemSeller =>
-        itemSeller.sellerId === seller &&
-        itemSeller.commertialOffer.AvailableQuantity > 0
-    )
-  )
-
   useEffect(() => {
-    if (!seller || !newCurrentSelectedItem || !selectedItem || !dispatch) return
+    const shouldDispatchSelectItem =
+      !!seller && !!product && !!selectedItem && !!dispatch
+
+    if (!shouldDispatchSelectItem) return
+    const newCurrentSelectedItem =
+      product?.items?.find(item =>
+        item.sellers?.find(
+          itemSeller =>
+            seller?.includes(itemSeller.sellerId) &&
+            itemSeller.commertialOffer.AvailableQuantity > 0
+        )
+      ) || ({} as Item)
+
+    if (!newCurrentSelectedItem) {
+      return
+    }
 
     const { sellers } = newCurrentSelectedItem
-
-    dispatch?.({
-      type: SELECT_ITEM_EVENT,
-      args: {
-        item: {
-          ...newCurrentSelectedItem,
-          sellers: sellers.map(memoizedCallback),
-        },
-      },
-    })
-  }, [seller])
-
-  useEffect(() => {
-    if (!seller || !selectedItem) return
-
-    const { sellers } = selectedItem
-
-    if (latestItem.current) {
-      const { sellers: latestSellers } = latestItem.current
-
-      if (JSON.stringify(sellers) === JSON.stringify(latestSellers)) return
+    const selectedItemWithSeller = {
+      ...newCurrentSelectedItem,
+      sellers: sellers.map(addSellerDefaultToItem),
     }
 
-    const newItem = {
-      ...selectedItem,
-      sellers: sellers.map(memoizedCallback),
+    if (
+      JSON.stringify(latestItem.current) ===
+      JSON.stringify(selectedItemWithSeller)
+    ) {
+      return
     }
 
     dispatch?.({
       type: SELECT_ITEM_EVENT,
       args: {
-        item: newItem,
+        item: selectedItemWithSeller,
       },
     })
-    latestItem.current = newItem
-  }, [selectedItem])
 
-  return <div className={`${handles.sellerWrapper}`}>{children}</div>
+    setLoadingSeller(false)
+
+    latestItem.current = selectedItemWithSeller
+  }, [seller, product, selectedItem, dispatch, addSellerDefaultToItem])
+
+  return (
+    <div
+      className={`${handles.sellerWrapper} ${
+        loadingSeller ? handles.loadingSeller : ''
+      }`}
+    >
+      {children}
+    </div>
+  )
 }
 
 export default SellerWrapper
