@@ -40,7 +40,7 @@ const SellerWrapper = ({ children }: SellerWrapperProps) => {
             seller?.includes(itemSeller.sellerId) &&
             itemSeller.commertialOffer.AvailableQuantity > 0
         )
-      ) || ({} as Item)
+      ) ?? ({} as Item)
 
     if (!newCurrentSelectedItem) {
       return
@@ -69,7 +69,14 @@ const SellerWrapper = ({ children }: SellerWrapperProps) => {
     setLoadingSeller(false)
 
     latestItem.current = selectedItemWithSeller
-  }, [seller, product, selectedItem, dispatch, addSellerDefaultToItem])
+  }, [
+    seller,
+    product,
+    selectedItem,
+    dispatch,
+    addSellerDefaultToItem,
+    latestItem,
+  ])
 
   return (
     <div
