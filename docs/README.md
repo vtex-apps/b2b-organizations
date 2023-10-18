@@ -72,6 +72,38 @@ Follow the instructions below to display the user widget.
 
 4. Publish and install the modified store theme. You can follow our documentation on [Making your theme content public](https://developers.vtex.com/vtex-developer-docs/docs/vtex-io-documentation-making-your-theme-content-public) to do so.
 
+## Seller Wrapper configuration
+
+To complete the Seller experience, follow the instructions:
+
+1. Check if the `"vtex.b2b-organizations": "1.x"` is a dependency on `manifest.json` file
+2. Within your store theme's `store` > `blocks` > `product` > `box.jsonc` and  `store` > `blocks` > `product.jsonc` you must wrap the target content to the block `b2b-seller-wrapper`.
+
+***box.jsonc***
+```json
+  "flex-layout.row#box": {
+    "children": ["flex-layout.col#box"],
+    "props": {
+      "blockClass": ["b2b-seller-wrapper#product"],
+    }
+  },
+  "b2b-seller-wrapper#product": {
+    "children": ["flex-layout.col#box"]
+  },
+```
+
+***product.jsonc***
+```json
+  "flex-layout.row#product": {
+      "children": ["b2b-seller-wrapper#pdp"]
+  },
+  "b2b-seller-wrapper#pdp": {
+    "children": ["flex-layout.col#product"]
+  },
+```
+
+3. Publish and install the modified store theme. You can follow our documentation on [Making your theme content public](https://developers.vtex.com/vtex-developer-docs/docs/vtex-io-documentation-making-your-theme-content-public) to do so.
+
 ## Configuration
 
 if we have only one associated organization:
@@ -560,6 +592,17 @@ If users click `Manage organization`, they can access the **My Organization** pa
 In case impersonation is currently active, this block will also show the email of the user being impersonated, as well as a `Stop impersonation` button:
 
 ![22-user-widget-impersonation](https://user-images.githubusercontent.com/77292838/159766784-6bce63af-9cc6-4ac4-bc59-460b74722dbe.png)
+
+
+#### Seller Wrapper Block
+
+> 10 This topic is related to the Seller functionality.
+
+To persist the Organization seller throughout the PDP and shelves, it must have the "seller-wrapper" block in the store theme configuration. 
+
+Please check [Seller wrapper configuration](#seller-wrapper)
+
+
 
 <!-- DOCS-IGNORE:start -->
 
