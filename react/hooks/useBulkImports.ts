@@ -73,8 +73,8 @@ const useBulkImports = () => {
     const interval = setInterval(() => {
       setBulkImportData(oldBulkImportData => {
         return oldBulkImportData.data
-          ? { data: importStatusList, loading: false }
-          : { error: 'Something went wrong with the import', loading: false }
+          ? { error: 'Something went wrong with the import', loading: false }
+          : { data: importStatusList, loading: false }
       })
     }, 1000 * 5)
 

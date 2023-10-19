@@ -1,5 +1,9 @@
 import React from 'react'
-import { ImportAlertError, ImportAlertList } from '@vtex/bulk-import-ui'
+import {
+  BulkImportProvider,
+  ImportAlertError,
+  ImportAlertList,
+} from '@vtex/bulk-import-ui'
 
 import { useBulkImports, useTranslate } from '../../hooks'
 import { getImportReportData } from '../../bulkImport/getImportReportData'
@@ -11,7 +15,11 @@ const BulkImportList = () => {
 
   return (
     <>
-      {error && <ImportAlertError>{error}</ImportAlertError>}
+      {error && (
+        <BulkImportProvider value={{ translate }}>
+          <ImportAlertError>{error}</ImportAlertError>
+        </BulkImportProvider>
+      )}
       {data && (
         <ImportAlertList
           data={data}
