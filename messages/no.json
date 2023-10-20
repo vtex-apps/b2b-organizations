@@ -18,7 +18,7 @@
   "admin/b2b-organizations.bulk-import.upload.maxSize": "Max size",
   "admin/b2b-organizations.bulk-import.upload.unknownRowName": "Unknown",
   "admin/b2b-organizations.bulk-import.upload.upload": "Upload",
-  "admin/b2b-organizations.bulk-import.upload.uploading": "Uploading your file...",
+  "admin/b2b-organizations.bulk-import.upload.uploading": "Uploading and validating file...",
   "admin/b2b-organizations.bulk-import.upload.uploadErrorCount": "{count} errors found",
   "admin/b2b-organizations.bulk-import.upload.uploadErrorReport": "File Error Report",
   "admin/b2b-organizations.bulk-import.upload.uploadErrorReportMessage": "We found {count} errors in this file. Please correct them and upload again.",
