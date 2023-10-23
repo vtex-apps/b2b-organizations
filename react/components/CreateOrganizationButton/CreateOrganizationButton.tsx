@@ -15,7 +15,7 @@ import { uploadBulkImportFile } from '../../bulkImport/upload'
 import { useTranslate } from '../../hooks'
 
 const CreateOrganizationButton = () => {
-  const { translate, formatMessage } = useTranslate()
+  const { formatMessage } = useTranslate()
   const menuState = useMenuState()
   const [open, setOpen] = useState(false)
   const [uploadModalOpen, setUploadModalOpen] = useState(false)
@@ -44,7 +44,6 @@ const CreateOrganizationButton = () => {
       <UploadModal
         open={uploadModalOpen}
         onOpenChange={setUploadModalOpen}
-        translate={translate}
         uploadFile={uploadBulkImportFile}
         onUploadFinish={() => {}}
       />
