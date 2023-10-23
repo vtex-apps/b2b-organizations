@@ -1,5 +1,5 @@
 import type { ImportStatus } from '@vtex/bulk-import-ui'
-import { useMemo } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 
 import type { ImportDetails } from '../types/BulkImport'
 
@@ -9,11 +9,32 @@ const statusMap = {
   CompletedWithError: 'error',
 } as const
 
+type UseBulkImports =
+  | {
+      loading: true
+      data?: null
+      error?: null
+    }
+  | {
+      loading: false
+      data: ImportStatus[]
+      error?: null
+    }
+  | {
+      loading: false
+      data?: null
+      error: string
+    }
+
 /**
  * Return initial bulk imports.
  * THIS IS CURRENTLY JUST A MOCK OF BULK IMPORT HOOK.
  */
 const useBulkImports = () => {
+  const [bulkImportData, setBulkImportData] = useState<UseBulkImports>({
+    loading: true,
+  })
+
   const bulkImports: { items: ImportDetails[] } = {
     items: [
       {
@@ -35,7 +56,7 @@ const useBulkImports = () => {
     ],
   }
 
-  const data: ImportStatus[] = useMemo(() => {
+  const importStatusList: ImportStatus[] = useMemo(() => {
     return bulkImports.items
       .filter(item => item.status !== 'ReadyToImport')
       .map(item => ({
@@ -48,7 +69,19 @@ const useBulkImports = () => {
       }))
   }, [bulkImports.items])
 
-  return { data, bulkImports }
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setBulkImportData(oldBulkImportData => {
+        return oldBulkImportData.data
+          ? { error: 'Something went wrong with the import', loading: false }
+          : { data: importStatusList, loading: false }
+      })
+    }, 1000 * 5)
+
+    return () => clearInterval(interval)
+  }, [])
+
+  return bulkImportData
 }
 
 export default useBulkImports
