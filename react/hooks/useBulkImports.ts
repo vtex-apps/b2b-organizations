@@ -2,6 +2,7 @@ import type { ImportStatus } from '@vtex/bulk-import-ui'
 import { useEffect, useMemo, useState } from 'react'
 
 import type { ImportDetails } from '../types/BulkImport'
+import { bulkImports as bulkImportsMock } from './bulkImportsMockData'
 
 const statusMap = {
   InProgress: 'pending',
@@ -35,26 +36,7 @@ const useBulkImports = () => {
     loading: true,
   })
 
-  const bulkImports: { items: ImportDetails[] } = {
-    items: [
-      {
-        id: '1',
-        filename: 'customers-buyer-orgs-pending.csv',
-        progressPercentage: 40,
-        status: 'InProgress',
-      },
-      {
-        id: '2',
-        filename: 'customers-buyer-orgs-success.csv',
-        status: 'Completed',
-      },
-      {
-        id: 'id',
-        filename: 'customers-buyer-orgs-error.csv',
-        status: 'CompletedWithError',
-      },
-    ],
-  }
+  const bulkImports: { items: ImportDetails[] } = { items: bulkImportsMock }
 
   const importStatusList: ImportStatus[] = useMemo(() => {
     return bulkImports.items
@@ -70,15 +52,11 @@ const useBulkImports = () => {
   }, [bulkImports.items])
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setBulkImportData(oldBulkImportData => {
-        return oldBulkImportData.data
-          ? { error: 'Something went wrong with the import', loading: false }
-          : { data: importStatusList, loading: false }
-      })
+    const interval = setTimeout(() => {
+      setBulkImportData({ data: importStatusList, loading: false })
     }, 1000 * 5)
 
-    return () => clearInterval(interval)
+    return () => clearTimeout(interval)
   }, [])
 
   return bulkImportData
