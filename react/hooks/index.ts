@@ -1,2 +1,2 @@
 export { default as useTranslate } from './useTranslate'
-export { default as useBulkImports } from './useBulkImports'
+export { default as useBulkImportsQuery } from './useBulkImportsQuery'

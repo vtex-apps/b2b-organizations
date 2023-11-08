@@ -6,9 +6,13 @@ import { ImportAlert } from '@vtex/bulk-import-ui'
 import ImportReportModal from '../ImportReportModal/ImportReportModal'
 import { getImportReportData } from '../../hooks/bulkImportsMockData'
 
+type ImportAlertData = ImportStatus & {
+  importId: string
+}
+
 interface Props {
   /** A list of object with data about the status of this import. */
-  data: ImportStatus[]
+  data: ImportAlertData[]
   onDismiss?: (importStatus: ImportStatus) => void
 }
 
@@ -17,7 +21,7 @@ const ImportAlertList: React.FC<Props> = ({ data, onDismiss }) => {
     <Stack>
       {data.map(itemData => (
         <ImportAlert
-          key={itemData.file.name}
+          key={itemData.importId}
           data={itemData}
           onDismiss={onDismiss ? () => onDismiss?.(itemData) : undefined}
           detailsModal={(open, setOpen) => (
