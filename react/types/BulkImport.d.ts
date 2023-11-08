@@ -1,5 +1,5 @@
 export type ImportDetails = {
-  id: string
+  importId: string
   status: 'ReadyToImport' | 'InProgress' | 'Completed' | 'CompletedWithError'
   filename: string
   lastUpdate?: string
