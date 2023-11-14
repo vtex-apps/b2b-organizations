@@ -13,7 +13,12 @@ const getBulkImportList = (account: string) =>
     .then(v => (v.data as unknown) as ImportDetails[])
     .then(bulkImports =>
       bulkImports
-        .filter(item => item.importState !== 'ReadyToImport')
+        .filter(
+          item =>
+            !['ReadyToImport', 'Failed'].some(
+              status => status === item.importState
+            )
+        )
         .map(item => ({
           importId: item.importId,
           progress: Number(item.percentage),

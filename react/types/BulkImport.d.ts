@@ -10,6 +10,7 @@ export type ImportDetails = {
     | 'InProgress'
     | 'Completed'
     | 'CompletedWithError'
+    | 'Failed'
 }
 
 export type ImportResult = {
