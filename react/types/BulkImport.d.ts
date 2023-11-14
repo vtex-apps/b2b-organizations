@@ -1,12 +1,15 @@
 export type ImportDetails = {
   importId: string
-  status: 'ReadyToImport' | 'InProgress' | 'Completed' | 'CompletedWithError'
-  filename: string
-  lastUpdate?: string
-  startDate?: string
-  importUser?: string
-  progressPercentage?: number
-  result?: ImportResult
+  accountName: string
+  fileName: string
+  importResult: ImportResult
+  percentage: string
+  lastUpdateDate: string
+  importState:
+    | 'ReadyToImport'
+    | 'InProgress'
+    | 'Completed'
+    | 'CompletedWithError'
 }
 
 export type ImportResult = {

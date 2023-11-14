@@ -33,21 +33,21 @@ export const getImportReportData = (name: string) => ({
       : undefined,
 })
 
-export const bulkImports: ImportDetails[] = [
+export const bulkImports: Array<Partial<ImportDetails>> = [
   {
     importId: '1',
-    filename: 'customers-buyer-orgs-pending.csv',
-    progressPercentage: 40,
-    status: 'InProgress',
+    fileName: 'customers-buyer-orgs-pending.csv',
+    percentage: '40',
+    importState: 'InProgress',
   },
   {
     importId: '2',
-    filename: 'customers-buyer-orgs-success.csv',
-    status: 'Completed',
+    fileName: 'customers-buyer-orgs-success.csv',
+    importState: 'Completed',
   },
   {
     importId: 'id',
-    filename: 'customers-buyer-orgs-error.csv',
-    status: 'CompletedWithError',
+    fileName: 'customers-buyer-orgs-error.csv',
+    importState: 'CompletedWithError',
   },
 ]

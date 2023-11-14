@@ -13,13 +13,14 @@ const getBulkImportList = (account: string) =>
     .then(v => (v.data as unknown) as ImportDetails[])
     .then(bulkImports =>
       bulkImports
-        .filter(item => item.status !== 'ReadyToImport')
+        .filter(item => item.importState !== 'ReadyToImport')
         .map(item => ({
-          ...item,
-          progress: item.progressPercentage,
-          status: statusMap[item.status as keyof typeof statusMap],
+          importId: item.importId,
+          progress: Number(item.percentage),
+          status: statusMap[item.importState as keyof typeof statusMap],
+          lastUpdateDate: new Date(item.lastUpdateDate),
           file: {
-            name: item.filename,
+            name: item.fileName,
           },
         }))
     )
