@@ -1,5 +1,3 @@
-import type { ImportDetails } from '../types/BulkImport'
-
 const FILE_WITH_ERROR = 'customers-buyer-orgs-error.csv'
 
 /**
@@ -32,22 +30,3 @@ export const getImportReportData = (name: string) => ({
         ]
       : undefined,
 })
-
-export const bulkImports: ImportDetails[] = [
-  {
-    importId: '1',
-    filename: 'customers-buyer-orgs-pending.csv',
-    progressPercentage: 40,
-    status: 'InProgress',
-  },
-  {
-    importId: '2',
-    filename: 'customers-buyer-orgs-success.csv',
-    status: 'Completed',
-  },
-  {
-    importId: 'id',
-    filename: 'customers-buyer-orgs-error.csv',
-    status: 'CompletedWithError',
-  },
-]

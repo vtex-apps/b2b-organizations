@@ -10,7 +10,7 @@ const useBulkImportQuery = () => {
   const account = session?.namespaces?.account?.accountName?.value
 
   return useSWR(
-    account ? 'bulk-import-list' : null,
+    account ? '/buyer-orgs' : null,
     () => getBulkImportList(account),
     {
       refreshInterval: 30 * 1000, // 30 seconds

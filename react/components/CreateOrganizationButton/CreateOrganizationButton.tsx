@@ -8,6 +8,7 @@ import {
   useMenuState,
 } from '@vtex/admin-ui'
 import { UploadModal } from '@vtex/bulk-import-ui'
+import { useSWRConfig } from 'swr'
 
 import CreateOrganizationModal from '../CreateOrganizationModal'
 import { organizationMessages as messages } from '../../admin/utils/messages'
@@ -19,6 +20,7 @@ const CreateOrganizationButton = () => {
   const menuState = useMenuState()
   const [open, setOpen] = useState(false)
   const [uploadModalOpen, setUploadModalOpen] = useState(false)
+  const { mutate } = useSWRConfig()
 
   return (
     <>
@@ -45,7 +47,9 @@ const CreateOrganizationButton = () => {
         open={uploadModalOpen}
         onOpenChange={setUploadModalOpen}
         uploadFile={uploadBulkImportFile}
-        onUploadFinish={() => {}}
+        onUploadFinish={() => {
+          mutate('/buyer-orgs')
+        }}
       />
     </>
   )
