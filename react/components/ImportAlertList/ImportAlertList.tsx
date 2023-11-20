@@ -10,13 +10,13 @@ type ImportAlertData = ImportStatus & {
   importId: string
 }
 
-interface Props {
+interface ImportAlertListProps {
   /** A list of object with data about the status of this import. */
   data: ImportAlertData[]
   onDismiss?: (importStatus: ImportStatus) => void
 }
 
-const ImportAlertList: React.FC<Props> = ({ data, onDismiss }) => {
+const ImportAlertList = ({ data, onDismiss }: ImportAlertListProps) => {
   return (
     <Stack>
       {data.map(itemData => (
