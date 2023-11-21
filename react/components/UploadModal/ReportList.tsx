@@ -2,12 +2,15 @@ import React, { Fragment } from 'react'
 import { ReportListHeader, ReportListItem } from '@vtex/bulk-import-ui'
 
 import type { ImportReportData } from '../../types/BulkImport'
+import { useTranslate } from '../../hooks'
 
 export type ReportListProps = {
   data: ImportReportData[]
 }
 
 const ReportList = ({ data }: ReportListProps) => {
+  const { translate: t } = useTranslate()
+
   return (
     <>
       {data.map(report => {
@@ -22,12 +25,12 @@ const ReportList = ({ data }: ReportListProps) => {
             <ReportListItem
               tone="secondary"
               showBullet={false}
-              label="Total"
+              label={t('reportInformationListTotal')}
               locators={[totalImports]}
             />
             <ReportListItem
               type="success"
-              label="Imported Successfully"
+              label={t('reportInformationImportSuccessFully')}
               locators={[
                 `${report.success.percentage}%`,
                 report.success.imports,
@@ -35,7 +38,7 @@ const ReportList = ({ data }: ReportListProps) => {
             />
             <ReportListItem
               type="error"
-              label="Failed to Import"
+              label={t('reportInformationImportFailed')}
               locators={[`${report.error.percentage}%`, report.error.imports]}
             />
           </Fragment>

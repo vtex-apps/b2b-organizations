@@ -5,6 +5,7 @@ import { ReportInformation, ReportModal } from '@vtex/bulk-import-ui'
 import ReportList from '../UploadModal/ReportList'
 import ReportInformationDetails from '../UploadModal/ReportInformationDetails'
 import type { ImportReportData } from '../../types/BulkImport'
+import { useTranslate } from '../../hooks'
 
 export type ImportReportModalProps = {
   /** The report data, with information about successful and failed imports. */
@@ -16,6 +17,8 @@ export type ImportReportModalProps = {
 }
 
 const ImportReportModal = ({ data, ...otherProps }: ImportReportModalProps) => {
+  const { translate: t } = useTranslate()
+
   const fullPercentage = useMemo(() => {
     const [totalSuccess, totalError] = data.reduce(
       ([successAcc, errorAcc], { success, error }) => {
@@ -37,8 +40,12 @@ const ImportReportModal = ({ data, ...otherProps }: ImportReportModalProps) => {
       <ReportModal.Content>
         <ReportModal.TabPanel title="Report" id="success">
           <ReportInformation
-            title={`${fullPercentage}% Import Success`}
-            description="File customers_buyer-orgs.xlsx uploaded by Mary Brown on 10/27/2023"
+            title={t('reportInformationTitle', { fullPercentage })}
+            description={t('reportInformationDescription', {
+              fileName: 'customers_buyer-orgs.xlsx',
+              userName: 'Mary Brown',
+              uploadDate: '10/27/2023',
+            })}
             status={fullPercentage >= 100 ? 'success' : 'warning'}
             className={csx({ marginY: '$space-4' })}
           />
@@ -49,7 +56,7 @@ const ImportReportModal = ({ data, ...otherProps }: ImportReportModalProps) => {
           <ReportList data={data} />
         </ReportModal.TabPanel>
       </ReportModal.Content>
-      <ReportModal.Footer closeLabel="Done" />
+      <ReportModal.Footer closeLabel={t('done')} />
     </ReportModal>
   )
 }

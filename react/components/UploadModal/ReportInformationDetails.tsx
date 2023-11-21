@@ -1,6 +1,8 @@
 import { Text, csx } from '@vtex/admin-ui'
 import React from 'react'
 
+import { useTranslate } from '../../hooks'
+
 export type ReportInformationDetailsProps = {
   variant: 'Import' | 'Upload'
 }
@@ -8,6 +10,8 @@ export type ReportInformationDetailsProps = {
 const ReportInformationDetails = ({
   variant,
 }: ReportInformationDetailsProps) => {
+  const { translate: t } = useTranslate()
+
   return (
     <>
       <Text
@@ -18,31 +22,21 @@ const ReportInformationDetails = ({
           marginBottom: '$space-2',
         })}
       >
-        {`${
-          variant === 'Upload'
-            ? 'To address the errors'
-            : 'For a complete breakdown'
-        }`}
-        , download the
-        <a href=""> Reviewed.XLSX</a>. It shows the status of each row — green
-        for success and red for failure. Errors and their details are provided,
-        where applicable, in the last errors column of each tab.
+        {t(`reportInformationInitial${variant}`, {
+          a: (content: string) => <a href="/">{content}</a>,
+        })}
       </Text>
       <Text variant="body">
-        Next Steps to address errors:
+        {t('reportInformationNextSteps')}
         <ul className={csx({ marginLeft: '$space-1' })}>
-          <ol>1. Refer to the rows marked red in the report.</ol>
-          <ol>2. Correct the issues.</ol>
-          {variant === 'Upload' ? (
-            <ol>
-              3. Re-upload only the corrected rows using the Bulk Import tool
-            </ol>
-          ) : (
-            <ol>3. Re-upload your file using the Bulk Import tool</ol>
-          )}
+          <ol>{t('reportInformationStep1')}</ol>
+          <ol>{t('reportInformationStep2')}</ol>
+          <ol>{t(`reportInformationStep3${variant}`)}</ol>
           <ol>
-            4. Ensure you format as per the <a href="">VTEX File Template</a>.
-            Need guidance? <a href="">Check our Best Practices Import Guide</a>.
+            {t('reportInformationStep4', {
+              a: (content: string) => <a href="/">{content}</a>,
+              ab: (content: string) => <a href="/">{content}</a>,
+            })}
           </ol>
         </ul>
       </Text>

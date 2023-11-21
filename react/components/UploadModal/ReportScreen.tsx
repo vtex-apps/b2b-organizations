@@ -9,9 +9,12 @@ import type {
 } from '../../types/BulkImport'
 import ReportInformationDetails from './ReportInformationDetails'
 import useErrorCount from '../../hooks/useErrorCount'
+import { useTranslate } from '../../hooks'
 
 const ReportScreen = ({ data }: UploadFinishedData<UploadFileResult>) => {
   const getErrorCount = useErrorCount()
+
+  const { translate: t } = useTranslate()
 
   const { uploadedDate, userName, fileName } = data.fileData
 
@@ -21,17 +24,21 @@ const ReportScreen = ({ data }: UploadFinishedData<UploadFileResult>) => {
     <>
       <ReportInformation
         status="error"
-        title={`We found ${getErrorCount(
-          error as ErrorRowReportData[]
-        )} errors in this file.`}
-        description={`File ${fileName} uploaded by ${userName} on ${uploadedDate}`}
+        title={t('reportScreenTitle', {
+          errorCount: getErrorCount(error as ErrorRowReportData[]),
+        })}
+        description={t('reportScreenDescription', {
+          fileName,
+          userName,
+          uploadedDate,
+        })}
         className={csx({ marginBottom: '$space-4' })}
       />
       <ReportInformationDetails variant="Upload" />
       <ReportListItem
         tone="secondary"
         showBullet={false}
-        label="Total errors"
+        label={t('reportScreenLabel')}
         locators={[getErrorCount(error as ErrorRowReportData[])]}
         className={csx({ marginTop: '$space-4' })}
       />

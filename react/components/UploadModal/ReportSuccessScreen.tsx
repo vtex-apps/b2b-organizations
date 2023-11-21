@@ -3,20 +3,20 @@ import type { UploadFinishedData } from '@vtex/bulk-import-ui'
 import { SuccessScreen } from '@vtex/bulk-import-ui'
 
 import type { UploadFileResult } from '../../types/BulkImport'
+import { useTranslate } from '../../hooks'
 
 const ReportSuccessScreen = ({
-  data,
+  data: { successCount, fileData },
 }: UploadFinishedData<UploadFileResult>) => {
+  const { translate: t } = useTranslate()
+
   const successCountMessage =
-    typeof data.successCount === 'number'
-      ? `${data.successCount} Buyer Organizations`
+    typeof successCount === 'number'
+      ? t('reportScreenSuccessCount', { successCount })
       : undefined
 
   return (
-    <SuccessScreen
-      fileName={data.fileData?.fileName}
-      extra={successCountMessage}
-    />
+    <SuccessScreen fileName={fileData?.fileName} extra={successCountMessage} />
   )
 }
 
