@@ -16,7 +16,7 @@ const BulkImportList = () => {
 
   if (data) return <ImportAlertList data={data} onDismiss={() => {}} />
 
-  return null
+  return <></>
 }
 
 export default BulkImportList

@@ -7,10 +7,10 @@ import type { UploadFileResult } from '../types/BulkImport'
  * THIS IS CURRENTLY JUST A MOCK THAT ALWAYS RETURNS
  * THE SAME FIXED RESPONSE AFTER 2s.
  */
-export const uploadBulkImportFile = () => {
-  const promiseData: Promise<UploadFinishedData<
-    UploadFileResult
-  >> = new Promise(resolve => {
+export const uploadBulkImportFile = (): Promise<
+  UploadFinishedData<UploadFileResult>
+> => {
+  return new Promise(resolve => {
     setTimeout(
       () =>
         resolve({
@@ -41,6 +41,4 @@ export const uploadBulkImportFile = () => {
       2000
     )
   })
-
-  return promiseData
 }

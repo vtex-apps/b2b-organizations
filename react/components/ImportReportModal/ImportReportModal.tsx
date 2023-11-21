@@ -35,7 +35,7 @@ const ImportReportModal = ({ data, ...otherProps }: ImportReportModalProps) => {
   return (
     <ReportModal showTabs={false} {...otherProps}>
       <ReportModal.Header showDismiss>
-        Buyer Organizations Import Report
+        {t('importReportTitle')}
       </ReportModal.Header>
       <ReportModal.Content>
         <ReportModal.TabPanel title="Report" id="success">
