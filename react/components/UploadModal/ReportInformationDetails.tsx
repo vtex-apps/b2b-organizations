@@ -23,7 +23,7 @@ const ReportInformationDetails = ({
         })}
       >
         {t(`reportInformationInitial${variant}`, {
-          a: (content: string) => <a href="/">{content}</a>,
+          'file-name-link': (content: string) => <a href="/">{content}</a>,
         })}
       </Text>
       <Text variant="body">
@@ -34,8 +34,12 @@ const ReportInformationDetails = ({
           <ol>{t(`reportInformationStep3${variant}`)}</ol>
           <ol>
             {t('reportInformationStep4', {
-              a: (content: string) => <a href="/">{content}</a>,
-              ab: (content: string) => <a href="/">{content}</a>,
+              'template-link': (content: string) => (
+                <a href="/template-link">{content}</a>
+              ),
+              'best-practices-link': (content: string) => (
+                <a href="/best-practices">{content}</a>
+              ),
             })}
           </ol>
         </ul>
