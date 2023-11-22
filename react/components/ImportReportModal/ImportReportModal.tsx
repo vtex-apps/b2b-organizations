@@ -1,67 +1,59 @@
-import React from 'react'
-import type { ImportReportData } from '@vtex/bulk-import-ui'
-import {
-  ErrorReport,
-  SuccessReport,
-  ReportModal,
-  useTranslate,
-} from '@vtex/bulk-import-ui'
+import React, { useMemo } from 'react'
+import { Divider, csx } from '@vtex/admin-ui'
+import { ReportInformation, ReportModal } from '@vtex/bulk-import-ui'
 
-interface Props {
+import ReportList from '../UploadModal/ReportList'
+import ReportInformationDetails from '../UploadModal/ReportInformationDetails'
+import type { ImportReportData } from '../../types/BulkImport'
+import { useTranslate } from '../../hooks'
+
+export type ImportReportModalProps = {
   /** The report data, with information about successful and failed imports. */
-  data: ImportReportData
+  data: ImportReportData[]
   /** Flag indicating if the modal is open or not. * */
   open?: boolean
   /** Function called when the modal's open state changes. * */
   onOpenChange?: (open: boolean) => void
-  /** The number of rows to render on each page (default = 25). * */
-  pageSize?: number
 }
 
-const ImportReportModal: React.FC<Props> = ({
-  data,
-  pageSize = 25,
-  ...otherProps
-}) => {
-  const { t } = useTranslate()
+const ImportReportModal = ({ data, ...otherProps }: ImportReportModalProps) => {
+  const { translate: t } = useTranslate()
+
+  const fullPercentage = useMemo(() => {
+    const [totalSuccess, totalError] = data.reduce(
+      ([successAcc, errorAcc], { success, error }) => {
+        return [successAcc + success.imports, errorAcc + error.imports]
+      },
+      [0, 0] as [number, number]
+    )
+
+    const percentage = (totalSuccess * 100) / (totalSuccess + totalError)
+
+    return Math.round((percentage + Number.EPSILON) * 100) / 100
+  }, [data])
 
   return (
-    <ReportModal showTabs {...otherProps}>
+    <ReportModal showTabs={false} {...otherProps}>
       <ReportModal.Header showDismiss>
         {t('importReportTitle')}
       </ReportModal.Header>
       <ReportModal.Content>
-        <ReportModal.TabPanel title="Organizations" id="organizations">
-          Organizations Mock Tab Panel
-        </ReportModal.TabPanel>
-        <ReportModal.TabPanel
-          title={
-            t('importReportSuccessTab', { count: data.success?.length }) ??
-            'Success'
-          }
-          id="success"
-        >
-          <SuccessReport
-            data={data.success ?? []}
-            pageSize={pageSize}
-            title={t('importSuccessReportTitle', {
-              count: data.success?.length ?? 0,
+        <ReportModal.TabPanel title="Report" id="success">
+          <ReportInformation
+            title={t('reportInformationTitle', { fullPercentage })}
+            description={t('reportInformationDescription', {
+              fileName: 'customers_buyer-orgs.xlsx',
+              userName: 'Mary Brown',
+              uploadDate: '10/27/2023',
             })}
+            status={fullPercentage >= 100 ? 'success' : 'warning'}
+            className={csx({ marginY: '$space-4' })}
           />
-        </ReportModal.TabPanel>
-        <ReportModal.TabPanel
-          title={t('importReportErrorTab', {
-            count: Array.isArray(data.error) ? data.error.length : 0,
-          })}
-          id="error"
-        >
-          <ErrorReport
-            data={Array.isArray(data.error) ? data.error : []}
-            pageSize={pageSize}
-            title={t('importErrorReportTitle', {
-              count: Array.isArray(data.error) ? data.error.length : 0,
-            })}
-          />
+          {fullPercentage < 100 && (
+            <ReportInformationDetails variant="Import" />
+          )}
+          <Divider className={csx({ marginY: '$space-4' })} />
+          <ReportList data={data} />
         </ReportModal.TabPanel>
       </ReportModal.Content>
       <ReportModal.Footer closeLabel={t('done')} />

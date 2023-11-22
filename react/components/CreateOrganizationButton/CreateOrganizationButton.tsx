@@ -14,6 +14,9 @@ import CreateOrganizationModal from '../CreateOrganizationModal'
 import { organizationMessages as messages } from '../../admin/utils/messages'
 import { uploadBulkImportFile } from '../../bulkImport/upload'
 import { useTranslate } from '../../hooks'
+import ReportErrorScreen from '../UploadModal/ReportErrorScreen'
+import ReportScreen from '../UploadModal/ReportScreen'
+import ReportSuccessScreen from '../UploadModal/ReportSuccessScreen'
 
 const CreateOrganizationButton = () => {
   const { formatMessage } = useTranslate()
@@ -50,6 +53,9 @@ const CreateOrganizationButton = () => {
         onUploadFinish={() => {
           mutate('/buyer-orgs')
         }}
+        errorScreen={props => <ReportErrorScreen {...props} />}
+        reportScreen={props => <ReportScreen {...props} />}
+        successScreen={props => <ReportSuccessScreen {...props} />}
       />
     </>
   )
