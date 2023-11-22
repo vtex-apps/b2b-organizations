@@ -16,7 +16,6 @@ export type ImportDetails = {
 export type ImportResult = {
   importedRows: number
   rowsWithError: number
-  errors: LineError[]
 }
 
 export type ImportError = {
@@ -51,7 +50,7 @@ export type UploadFileResult = {
   error?: ErrorRowReportData[] | Error
 }
 
-export interface ImportReportData {
+export type ImportReportData = {
   title: string
   success: {
     percentage: number

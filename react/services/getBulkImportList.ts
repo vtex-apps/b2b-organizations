@@ -28,6 +28,8 @@ const getBulkImportList = async (account: string) => {
         name: item.fileName,
       },
     }))
+    .reverse()
+    .slice(0, 5)
 }
 
 export default getBulkImportList
