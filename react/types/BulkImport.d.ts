@@ -35,3 +35,30 @@ export type FieldError = {
   description: string
   column: string
 }
+
+export type ErrorRowReportData = {
+  title: string
+  errorCount: number
+}
+
+export type UploadFileResult = {
+  successCount?: number
+  fileData: {
+    uploadedDate: string
+    userName: string
+    fileName: string
+  }
+  error?: ErrorRowReportData[] | Error
+}
+
+export interface ImportReportData {
+  title: string
+  success: {
+    percentage: number
+    imports: number
+  }
+  error: {
+    percentage: number
+    imports: number
+  }
+}
