@@ -25,8 +25,8 @@ import OrganizationSettings from './OrganizationSettings'
 import useHashRouter from './OrganizationDetails/useHashRouter'
 import OrganizationCustomFields from './CustomFields'
 import CheckCustomerSchema from '../components/CheckCustomerSchema'
-import CreateOrganizationButton from '../components/CreateOrganizationButton/CreateOrganizationButton'
 import BulkImportList from '../components/BulkImportList'
+import CreateOrganizationButton from '../components/CreateOrganizationButton'
 
 const SESSION_STORAGE_KEY = 'organization-tab'
 

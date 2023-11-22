@@ -1,32 +1,21 @@
-const FILE_WITH_ERROR = 'customers-buyer-orgs-error.csv'
+import type { ImportReportData } from '../types/BulkImport'
 
 /**
  * Return import report data.
  * THIS IS CURRENTLY JUST A MOCK.
  */
-export const getImportReportData = (name: string) => ({
-  success: [
-    {
-      rowNumber: 32,
-      rowDisplayTitle: 'Buyer Organization 1',
+export const getImportReportData = (name: string) => {
+  const data: ImportReportData = {
+    title: name,
+    success: {
+      percentage: 90,
+      imports: 900,
     },
-    {
-      rowNumber: 84,
-      rowDisplayTitle: 'Buyer Organization 2',
+    error: {
+      percentage: 10,
+      imports: 100,
     },
-  ],
-  totalRows: 2,
-  error:
-    name === FILE_WITH_ERROR
-      ? [
-          {
-            rowNumber: 2,
-            rowDisplayTitle: `Buyer Organization 2`,
-            errors: [
-              { column: 'A', errorCode: 'invalid-name' },
-              { column: 'D', errorCode: 'missing-email' },
-            ],
-          },
-        ]
-      : undefined,
-})
+  }
+
+  return new Array(10).fill(data)
+}

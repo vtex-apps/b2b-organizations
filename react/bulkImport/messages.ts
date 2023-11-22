@@ -104,6 +104,76 @@ export const bulkUploadMessages: Record<
   importErrorTryAgain: {
     id: 'admin/b2b-organizations.bulk-import.import.importErrorTryAgain',
   },
+  reportInformationTitle: {
+    id: 'admin/b2b-organizations.bulk-import.import.reportInformationTitle',
+  },
+  reportInformationDescription: {
+    id:
+      'admin/b2b-organizations.bulk-import.import.reportInformationDescription',
+  },
+  reportInformationListTotal: {
+    id: 'admin/b2b-organizations.bulk-import.import.reportInformationListTotal',
+  },
+  reportInformationImportSuccessFully: {
+    id:
+      'admin/b2b-organizations.bulk-import.import.reportInformationImportSuccessFully',
+  },
+  reportInformationImportFailed: {
+    id:
+      'admin/b2b-organizations.bulk-import.import.reportInformationImportFailed',
+  },
+  reportScreenTitle: {
+    id: 'admin/b2b-organizations.bulk-import.import.reportScreenTitle',
+  },
+  reportScreenDescription: {
+    id: 'admin/b2b-organizations.bulk-import.import.reportScreenDescription',
+  },
+  reportScreenLabel: {
+    id: 'admin/b2b-organizations.bulk-import.import.reportScreenLabel',
+  },
+  reportScreenSuccessCount: {
+    id: 'admin/b2b-organizations.bulk-import.import.reportScreenSuccessCount',
+  },
+  reportInformationInitialUpload: {
+    id:
+      'admin/b2b-organizations.bulk-import.import.reportInformationInitialUpload',
+  },
+  reportInformationInitialImport: {
+    id:
+      'admin/b2b-organizations.bulk-import.import.reportInformationInitialImport',
+  },
+  reportInformationNextSteps: {
+    id: 'admin/b2b-organizations.bulk-import.import.reportInformationNextSteps',
+  },
+  reportInformationStep1: {
+    id: 'admin/b2b-organizations.bulk-import.import.reportInformationStep1',
+  },
+  reportInformationStep2: {
+    id: 'admin/b2b-organizations.bulk-import.import.reportInformationStep2',
+  },
+  reportInformationStep3Upload: {
+    id:
+      'admin/b2b-organizations.bulk-import.import.reportInformationStep3Upload',
+  },
+  reportInformationStep3Import: {
+    id:
+      'admin/b2b-organizations.bulk-import.import.reportInformationStep3Import',
+  },
+  reportInformationStep4: {
+    id: 'admin/b2b-organizations.bulk-import.import.reportInformationStep4',
+  },
+  reportInformationStep4Filename: {
+    id:
+      'admin/b2b-organizations.bulk-import.import.reportInformationStep4Filename',
+  },
+  reportInformationStep4NeedGuidance: {
+    id:
+      'admin/b2b-organizations.bulk-import.import.reportInformationStep4NeedGuidance',
+  },
+  reportInformationStep4ImportGuide: {
+    id:
+      'admin/b2b-organizations.bulk-import.import.reportInformationStep4ImportGuide',
+  },
 })
 
 export const hasTranslation = (key: string): key is UploadMessageKey => {

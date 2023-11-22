@@ -4,18 +4,18 @@ import type { TranslateFunction } from '@vtex/bulk-import-ui'
 import { bulkUploadMessages, hasTranslation } from '../bulkImport/messages'
 
 const useTranslate = () => {
-  const { formatMessage } = useIntl()
+  const { formatMessage, ...intl } = useIntl()
 
-  const translate: TranslateFunction = (key, data) => {
-    return hasTranslation(key)
+  const translate: TranslateFunction = (descriptor, values) => {
+    return hasTranslation(descriptor)
       ? formatMessage(
-          bulkUploadMessages[key],
-          data as Record<string, string | number>
+          bulkUploadMessages[descriptor],
+          values as Record<string, string | number>
         )
       : null
   }
 
-  return { translate, formatMessage }
+  return { translate, formatMessage, ...intl }
 }
 
 export default useTranslate
