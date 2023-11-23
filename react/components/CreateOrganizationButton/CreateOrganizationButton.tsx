@@ -7,16 +7,18 @@ import {
   PageHeaderMenuButton,
   useMenuState,
 } from '@vtex/admin-ui'
+import type { UploadFinishedData } from '@vtex/bulk-import-ui'
 import { UploadModal } from '@vtex/bulk-import-ui'
 import { useSWRConfig } from 'swr'
 
 import CreateOrganizationModal from '../CreateOrganizationModal'
 import { organizationMessages as messages } from '../../admin/utils/messages'
-import { uploadBulkImportFile } from '../../bulkImport/upload'
 import { useTranslate } from '../../hooks'
 import ReportErrorScreen from '../UploadModal/ReportErrorScreen'
 import ReportScreen from '../UploadModal/ReportScreen'
 import ReportSuccessScreen from '../UploadModal/ReportSuccessScreen'
+import { uploadBulkImportFile } from '../../services'
+import type { UploadFileResult } from '../../types/BulkImport'
 
 const CreateOrganizationButton = () => {
   const { formatMessage } = useTranslate()
@@ -53,9 +55,19 @@ const CreateOrganizationButton = () => {
         onUploadFinish={() => {
           mutate('/buyer-orgs')
         }}
-        errorScreen={props => <ReportErrorScreen {...props} />}
-        reportScreen={props => <ReportScreen {...props} />}
-        successScreen={props => <ReportSuccessScreen {...props} />}
+        errorScreen={props => (
+          <ReportErrorScreen
+            {...(props as UploadFinishedData<UploadFileResult>)}
+          />
+        )}
+        reportScreen={props => (
+          <ReportScreen {...(props as UploadFinishedData<UploadFileResult>)} />
+        )}
+        successScreen={props => (
+          <ReportSuccessScreen
+            {...(props as UploadFinishedData<UploadFileResult>)}
+          />
+        )}
       />
     </>
   )

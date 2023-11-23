@@ -8,12 +8,12 @@ import useErrorCount from '../../hooks/useErrorCount'
 const ReportErrorScreen = ({ data }: UploadFinishedData<UploadFileResult>) => {
   const getErrorCount = useErrorCount()
 
-  const errorCount = Array.isArray(data.error)
+  const errorCount = Array.isArray(data?.error)
     ? getErrorCount(data.error)
     : undefined
 
   return (
-    <ErrorScreen fileName={data.fileData?.fileName} errorCount={errorCount} />
+    <ErrorScreen fileName={data?.fileData?.fileName} errorCount={errorCount} />
   )
 }
 
