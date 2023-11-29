@@ -28,7 +28,11 @@ const getBulkImportList = async (account: string) => {
         name: item.fileName,
       },
     }))
-    .reverse()
+    .sort(
+      (currentImport, nextImport) =>
+        nextImport.lastUpdateDate.getTime() -
+        currentImport.lastUpdateDate.getTime()
+    )
     .slice(0, 5)
 }
 

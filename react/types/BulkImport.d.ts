@@ -2,7 +2,7 @@ export type ImportDetails = {
   importId: string
   accountName: string
   fileName: string
-  importResult: ImportResult
+  importResult: { imports: ImportResult[] }
   percentage: string
   lastUpdateDate: string
   importState:
@@ -14,6 +14,7 @@ export type ImportDetails = {
 }
 
 export type ImportResult = {
+  name: string
   importedRows: number
   rowsWithError: number
 }

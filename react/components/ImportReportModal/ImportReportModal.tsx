@@ -41,7 +41,7 @@ const ImportReportModal = ({
           className={csx({ height: '100%' })}
         >
           {error && <ErrorScreen />}
-          {data && (
+          {!error && data && (
             <>
               <ReportInformation
                 title={t('reportInformationTitle', {

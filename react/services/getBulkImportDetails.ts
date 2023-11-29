@@ -13,32 +13,39 @@ const getBulkImportList = async (importId: string): Promise<BulkImportList> => {
 
   const { data } = importListResponse
 
-  if (!data?.importResult) throw Error('Import result not provided')
-
   const { importResult } = data
 
-  const totalImports = importResult.importedRows + importResult.rowsWithError
+  if (!importResult?.imports) throw Error('Import result not provided')
 
-  const errorPercentage = (importResult.rowsWithError * 100) / totalImports || 0
-  const successPercentage =
-    (importResult.importedRows * 100) / totalImports || 0
+  const importList = importResult?.imports ?? []
+
+  const [totalSuccess, totalError] = importList.reduce(
+    ([successAcc, errorAcc], { importedRows, rowsWithError }) => {
+      return [successAcc + importedRows, errorAcc + rowsWithError]
+    },
+    [0, 0] as [number, number]
+  )
+
+  const percentage = (totalSuccess * 100) / (totalSuccess + totalError)
+
+  const fullPercentage = Math.round((percentage + Number.EPSILON) * 100) / 100
 
   return {
     ...data,
-    importReportList: [
-      {
-        title: 'Report',
+    importReportList: importList.map(
+      ({ importedRows, rowsWithError, name }) => ({
+        title: name,
         success: {
-          percentage: successPercentage,
-          imports: importResult.importedRows,
+          percentage: fullPercentage,
+          imports: importedRows,
         },
         error: {
-          percentage: errorPercentage,
-          imports: importResult.rowsWithError,
+          percentage: 100 - fullPercentage,
+          imports: rowsWithError,
         },
-      },
-    ],
-    percentage: successPercentage,
+      })
+    ),
+    percentage: fullPercentage,
   }
 }
 
