@@ -5,7 +5,7 @@ import type { AxiosRequestConfig } from 'axios'
 import bulkImportClient from '.'
 import type { ImportDetails, UploadFileResult } from '../types/BulkImport'
 
-const getBulkImportList = async (
+const uploadBulkImportFile = async (
   file: File
 ): Promise<UploadFinishedData<UploadFileResult | null>> => {
   const formData = new FormData()
@@ -42,6 +42,9 @@ const getBulkImportList = async (
       },
     }
   } catch (error) {
+    console.log(error.response.status)
+    console.log(error.response.data)
+
     return {
       status: 'error',
       showReport: false,
@@ -50,4 +53,4 @@ const getBulkImportList = async (
   }
 }
 
-export default getBulkImportList
+export default uploadBulkImportFile
