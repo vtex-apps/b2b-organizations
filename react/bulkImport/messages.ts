@@ -10,6 +10,10 @@ export type BulkImportMessageKey =
   | 'reportInformationListTotal'
   | 'reportInformationImportSuccessFully'
   | 'reportInformationImportFailed'
+  | 'importReportTabTitle'
+  | 'importReportTitle'
+  | 'reportInformationTitle'
+  | 'reportInformationDescription'
 
 export const bulkUploadMessages: Record<
   BulkImportMessageKey,
@@ -92,6 +96,9 @@ export const bulkUploadMessages: Record<
   },
   importReportSuccessTab: {
     id: 'admin/b2b-organizations.bulk-import.import.importReportSuccessTab',
+  },
+  importReportTabTitle: {
+    id: 'admin/b2b-organizations.bulk-import.import.importReportTabTitle',
   },
   importReportTitle: {
     id: 'admin/b2b-organizations.bulk-import.import.importReportTitle',

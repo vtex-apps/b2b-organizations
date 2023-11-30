@@ -36,7 +36,7 @@ const ImportReportModal = ({
       </ReportModal.Header>
       <ReportModal.Content>
         <ReportModal.TabPanel
-          title="Report"
+          title={t('importReportTabTitle')}
           id="success"
           className={csx({ height: '100%' })}
         >
