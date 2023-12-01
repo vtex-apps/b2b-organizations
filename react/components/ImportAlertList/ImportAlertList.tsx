@@ -4,7 +4,6 @@ import type { ImportStatus } from '@vtex/bulk-import-ui'
 import { ImportAlert } from '@vtex/bulk-import-ui'
 
 import ImportReportModal from '../ImportReportModal/ImportReportModal'
-import { getImportReportData } from '../../hooks/bulkImportsMockData'
 
 type ImportAlertData = ImportStatus & {
   importId: string
@@ -28,7 +27,7 @@ const ImportAlertList = ({ data, onDismiss }: ImportAlertListProps) => {
             <ImportReportModal
               onOpenChange={setOpen}
               open={open}
-              data={getImportReportData(itemData.file.name)}
+              importId={itemData.importId}
             />
           )}
         />

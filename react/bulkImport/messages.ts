@@ -1,8 +1,22 @@
 import { defineMessages } from 'react-intl'
-import type { UploadMessageKey } from '@vtex/bulk-import-ui/dist/i18n/keys'
+import type {
+  ImportMessageKey,
+  UploadMessageKey,
+} from '@vtex/bulk-import-ui/dist/i18n/keys'
+
+export type BulkImportMessageKey =
+  | UploadMessageKey
+  | ImportMessageKey
+  | 'reportInformationListTotal'
+  | 'reportInformationImportSuccessFully'
+  | 'reportInformationImportFailed'
+  | 'importReportTabTitle'
+  | 'importReportTitle'
+  | 'reportInformationTitle'
+  | 'reportInformationDescription'
 
 export const bulkUploadMessages: Record<
-  UploadMessageKey,
+  BulkImportMessageKey,
   { id: string }
 > = defineMessages({
   back: {
@@ -82,6 +96,9 @@ export const bulkUploadMessages: Record<
   },
   importReportSuccessTab: {
     id: 'admin/b2b-organizations.bulk-import.import.importReportSuccessTab',
+  },
+  importReportTabTitle: {
+    id: 'admin/b2b-organizations.bulk-import.import.importReportTabTitle',
   },
   importReportTitle: {
     id: 'admin/b2b-organizations.bulk-import.import.importReportTitle',
@@ -176,6 +193,6 @@ export const bulkUploadMessages: Record<
   },
 })
 
-export const hasTranslation = (key: string): key is UploadMessageKey => {
+export const hasTranslation = (key: string): key is BulkImportMessageKey => {
   return key in bulkUploadMessages
 }
