@@ -1,7 +1,13 @@
 import { useIntl } from 'react-intl'
-import type { TranslateFunction } from '@vtex/bulk-import-ui'
+import type { ReactNode } from 'react'
 
+import type { BulkImportMessageKey } from '../bulkImport/messages'
 import { bulkUploadMessages, hasTranslation } from '../bulkImport/messages'
+
+export type TranslateFunction = (
+  key: BulkImportMessageKey,
+  data?: Record<string, unknown>
+) => ReactNode
 
 const useTranslate = () => {
   const { formatMessage, ...intl } = useIntl()

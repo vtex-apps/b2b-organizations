@@ -28,6 +28,12 @@ const getBulkImportList = async (account: string) => {
         name: item.fileName,
       },
     }))
+    .sort(
+      (currentImport, nextImport) =>
+        nextImport.lastUpdateDate.getTime() -
+        currentImport.lastUpdateDate.getTime()
+    )
+    .slice(0, 5)
 }
 
 export default getBulkImportList
