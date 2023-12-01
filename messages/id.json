@@ -53,6 +53,7 @@
   "admin/b2b-organizations.bulk-import.import.importReportGenericError": "The import was interrupted due to errors. {count} Buyer Organizations were not imported. Please review your file and upload again. Need help? View our best practices guide.",
   "admin/b2b-organizations.bulk-import.import.importReportSuccessTab": "Successfully imported ({count})",
   "admin/b2b-organizations.bulk-import.import.importReportTitle": "Buyer Organizations Import Report",
+  "admin/b2b-organizations.bulk-import.import.importReportTabTitle": "Report",
   "admin/b2b-organizations.bulk-import.import.importSuccess": "{fileName} import completed successfully.",
   "admin/b2b-organizations.bulk-import.import.importSuccessReportTitle": "{count} Buyer Organizations successfully imported.",
   "admin/b2b-organizations.bulk-import.import.importDetails": "View Import Details",
