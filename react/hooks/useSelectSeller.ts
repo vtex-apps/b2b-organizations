@@ -34,11 +34,16 @@ export const useSelectSeller = () => {
     [seller, product]
   )
 
-  const selectSeller = () => {
-    if (!currentSelectedItem) {
+  const selectSeller = ({
+    selectedItem,
+  }: {
+    selectedItem: Item | null | undefined
+  }) => {
+    if (!currentSelectedItem || !selectedItem) {
       return
     }
 
+    // just to keep the dependency
     setLoading(true)
     const { sellers } = (currentSelectedItem as unknown) as Item
     const selectedItemWithSeller = {

@@ -17,7 +17,7 @@ const SellerWrapper = ({ children }: SellerWrapperProps) => {
   const { selectedItem } = useProduct() ?? {}
 
   useEffect(() => {
-    selectSeller()
+    selectSeller({ selectedItem })
   }, [selectedItem, selectSeller])
 
   const className = currentSelectedItem
