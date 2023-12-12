@@ -33,16 +33,6 @@ export type ErrorRowReportData = {
   errorCount: number
 }
 
-export type UploadFileResult = {
-  successCount?: number
-  fileData: {
-    uploadedDate: string
-    userName: string
-    fileName: string
-  }
-  error?: ErrorRowReportData[] | Error
-}
-
 export type ImportReportData = {
   title: string
   success: {

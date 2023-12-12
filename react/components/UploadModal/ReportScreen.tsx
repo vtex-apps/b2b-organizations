@@ -16,7 +16,7 @@ const ReportScreen = ({ data }: UploadFinishedData<UploadFileResult>) => {
 
   const { translate: t } = useTranslate()
 
-  const { importedAt, accountName, fileName } = data.fileData
+  const { importedAt, accountName, fileName, importResult } = data.fileData
 
   const error = data.error as ErrorRowReportData[]
 
@@ -34,7 +34,10 @@ const ReportScreen = ({ data }: UploadFinishedData<UploadFileResult>) => {
         })}
         className={csx({ marginBottom: '$space-4' })}
       />
-      <ReportInformationDetails variant="Upload" />
+      <ReportInformationDetails
+        variant="Upload"
+        reportDownloadLink={importResult?.reportDownloadLink}
+      />
       <ReportListItem
         tone="secondary"
         showBullet={false}
