@@ -19,6 +19,7 @@ import ReportScreen from '../UploadModal/ReportScreen'
 import ReportSuccessScreen from '../UploadModal/ReportSuccessScreen'
 import { uploadBulkImportFile } from '../../services'
 import type { UploadFileResult } from '../../types/BulkImport'
+import useStartBulkImport from '../../hooks/useStartBulkImport'
 
 const CreateOrganizationButton = () => {
   const { formatMessage } = useTranslate()
@@ -26,6 +27,7 @@ const CreateOrganizationButton = () => {
   const [open, setOpen] = useState(false)
   const [uploadModalOpen, setUploadModalOpen] = useState(false)
   const { mutate } = useSWRConfig()
+  const { startBulkImport } = useStartBulkImport()
 
   return (
     <>
@@ -52,8 +54,11 @@ const CreateOrganizationButton = () => {
         open={uploadModalOpen}
         onOpenChange={setUploadModalOpen}
         uploadFile={uploadBulkImportFile}
-        onUploadFinish={() => {
-          mutate('/buyer-orgs')
+        onUploadFinish={result => {
+          if (result.data?.fileData.importId) {
+            startBulkImport(result.data?.fileData.importId)
+            mutate('/buyer-orgs')
+          }
         }}
         errorScreen={props => (
           <ReportErrorScreen
