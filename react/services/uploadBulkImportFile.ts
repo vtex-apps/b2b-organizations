@@ -32,6 +32,7 @@ const uploadBulkImportFile = async (
           uploadedDate: '11/20/2023',
           userName: 'Mayan Brown',
           fileName: 'file.xlxs',
+          importId: '',
         },
         error: [
           {
