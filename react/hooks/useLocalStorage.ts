@@ -12,11 +12,7 @@ const useLocalStorage = <T>(key: string, initialValue: T) => {
     localStorage.setItem(key, JSON.stringify(newValue))
   }
 
-  const getStoreValue = () => {
-    return (storedValue ? JSON.parse(storedValue) : initialValue) as T
-  }
-
-  return [getStoreValue, setStoredValue] as const
+  return [value, setStoredValue] as const
 }
 
 export default useLocalStorage

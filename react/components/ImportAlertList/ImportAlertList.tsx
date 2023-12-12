@@ -16,11 +16,10 @@ interface ImportAlertListProps {
 }
 
 const ImportAlertList = ({ data }: ImportAlertListProps) => {
-  const { getClosedAlerts, addClosedAlert } = useClosedAlerts()
+  const { closedAlerts, addClosedAlert } = useClosedAlerts()
 
   const filteredAlert = data.filter(
-    itemData =>
-      !getClosedAlerts().find(alertId => alertId === itemData.importId)
+    itemData => !closedAlerts.find(alertId => alertId === itemData.importId)
   )
 
   return (
