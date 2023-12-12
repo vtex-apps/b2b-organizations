@@ -5,16 +5,6 @@ type ImportState =
   | 'CompletedWithError'
   | 'Failed'
 
-export type ImportDetails = {
-  importId: string
-  accountName: string
-  fileName: string
-  importResult: { imports: ImportResult[] }
-  percentage: string
-  lastUpdateDate: string
-  importState: ImportState
-}
-
 export type ImportResult = {
   name: string
   importedRows: number
@@ -43,17 +33,6 @@ export type ErrorRowReportData = {
   errorCount: number
 }
 
-export type UploadFileResult = {
-  successCount?: number
-  fileData: {
-    uploadedDate: string
-    userName: string
-    fileName: string
-    importId: string
-  }
-  error?: ErrorRowReportData[] | Error
-}
-
 export type ImportReportData = {
   title: string
   success: {
@@ -66,11 +45,18 @@ export type ImportReportData = {
   }
 }
 
-export type StartImport = {
-  accountName: string
+export type ImportDetails = {
   importId: string
-  importState: ImportState
-  percentage: number
-  lastUpdateDate: string
+  accountName: string
   fileName: string
+  importResult?: { imports: ImportResult[] }
+  percentage: string
+  lastUpdateDate: string
+  importState: ImportState
+}
+
+export type UploadFileResult = {
+  successCount?: number
+  fileData: ImportDetails
+  error?: ErrorRowReportData[] | Error
 }

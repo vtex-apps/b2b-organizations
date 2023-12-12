@@ -23,33 +23,17 @@ const uploadBulkImportFile = async (
       } as AxiosRequestConfig<FormData>
     )
 
-    console.log(importListResponse.data)
-
     return {
       status: 'success',
       data: {
-        fileData: {
-          uploadedDate: '11/20/2023',
-          userName: 'Mayan Brown',
-          fileName: 'file.xlxs',
-          importId: '',
-        },
-        error: [
-          {
-            title: 'Organizations',
-            errorCount: 20,
-          },
-        ],
+        fileData: importListResponse.data,
       },
     }
   } catch (error) {
-    console.log(error.response.status)
-    console.log(error.response.data)
-
     return {
       status: 'error',
       showReport: false,
-      data: null,
+      data: error.response.data,
     }
   }
 }
