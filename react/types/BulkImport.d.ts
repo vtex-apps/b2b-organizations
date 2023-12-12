@@ -1,17 +1,9 @@
-export type ImportDetails = {
-  importId: string
-  accountName: string
-  fileName: string
-  importResult: { imports: ImportResult[] }
-  percentage: string
-  lastUpdateDate: string
-  importState:
-    | 'ReadyToImport'
-    | 'InProgress'
-    | 'Completed'
-    | 'CompletedWithError'
-    | 'Failed'
-}
+export type ImportState =
+  | 'ReadyToImport'
+  | 'InProgress'
+  | 'Completed'
+  | 'CompletedWithError'
+  | 'Failed'
 
 export type ImportResult = {
   name: string
@@ -61,4 +53,26 @@ export type ImportReportData = {
     percentage: number
     imports: number
   }
+}
+
+export type ImportDetails = {
+  importId: string
+  accountName: string
+  fileName: string
+  importResult?: {
+    imports: ImportResult[]
+    reportDownloadLink: string
+  }
+  percentage: string
+  lastUpdateDate: string
+  importState: ImportState
+  importedAt: string
+  importedUserEmail: string
+  importedUserName: string
+}
+
+export type UploadFileResult = {
+  successCount?: number
+  fileData: ImportDetails
+  error?: ErrorRowReportData[] | Error
 }

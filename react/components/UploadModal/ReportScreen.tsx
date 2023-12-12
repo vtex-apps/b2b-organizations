@@ -16,7 +16,7 @@ const ReportScreen = ({ data }: UploadFinishedData<UploadFileResult>) => {
 
   const { translate: t } = useTranslate()
 
-  const { uploadedDate, userName, fileName } = data.fileData
+  const { importedAt, accountName, fileName } = data.fileData
 
   const error = data.error as ErrorRowReportData[]
 
@@ -29,8 +29,8 @@ const ReportScreen = ({ data }: UploadFinishedData<UploadFileResult>) => {
         })}
         description={t('reportScreenDescription', {
           fileName,
-          userName,
-          uploadedDate,
+          userName: accountName,
+          uploadedDate: importedAt,
         })}
         className={csx({ marginBottom: '$space-4' })}
       />
