@@ -4,6 +4,7 @@ import type { ImportStatus } from '@vtex/bulk-import-ui'
 import { ImportAlert } from '@vtex/bulk-import-ui'
 
 import ImportReportModal from '../ImportReportModal/ImportReportModal'
+import useClosedAlerts from '../../hooks/useClosedAlerts'
 
 type ImportAlertData = ImportStatus & {
   importId: string
@@ -12,17 +13,23 @@ type ImportAlertData = ImportStatus & {
 interface ImportAlertListProps {
   /** A list of object with data about the status of this import. */
   data: ImportAlertData[]
-  onDismiss?: (importStatus: ImportStatus) => void
 }
 
-const ImportAlertList = ({ data, onDismiss }: ImportAlertListProps) => {
+const ImportAlertList = ({ data }: ImportAlertListProps) => {
+  const { getClosedAlerts, addClosedAlert } = useClosedAlerts()
+
+  const filteredAlert = data.filter(
+    itemData =>
+      !getClosedAlerts().find(alertId => alertId === itemData.importId)
+  )
+
   return (
     <Stack>
-      {data.map(itemData => (
+      {filteredAlert.map(itemData => (
         <ImportAlert
           key={itemData.importId}
           data={itemData}
-          onDismiss={onDismiss ? () => onDismiss?.(itemData) : undefined}
+          onDismiss={() => addClosedAlert(itemData.importId)}
           detailsModal={(open, setOpen) => (
             <ImportReportModal
               onOpenChange={setOpen}
