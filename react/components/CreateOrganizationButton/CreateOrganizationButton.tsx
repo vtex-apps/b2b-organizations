@@ -29,6 +29,15 @@ const CreateOrganizationButton = () => {
   const { mutate } = useSWRConfig()
   const { startBulkImport } = useStartBulkImport()
 
+  const handleUploadFinish = async (
+    result: UploadFinishedData<UploadFileResult | null>
+  ) => {
+    if (result.data?.fileData.importId) {
+      await startBulkImport(result.data?.fileData.importId)
+      mutate('/buyer-orgs')
+    }
+  }
+
   return (
     <>
       <PageHeaderMenuButton
@@ -54,12 +63,7 @@ const CreateOrganizationButton = () => {
         open={uploadModalOpen}
         onOpenChange={setUploadModalOpen}
         uploadFile={uploadBulkImportFile}
-        onUploadFinish={result => {
-          if (result.data?.fileData.importId) {
-            startBulkImport(result.data?.fileData.importId)
-            mutate('/buyer-orgs')
-          }
-        }}
+        onUploadFinish={handleUploadFinish}
         errorScreen={props => (
           <ReportErrorScreen
             {...(props as UploadFinishedData<UploadFileResult>)}

@@ -1,12 +1,12 @@
-import type { StartImport } from '../types/BulkImport'
+import type { ImportDetails } from '../types/BulkImport'
 import bulkImportClient from '.'
 
 const startBulkImport = async (importId: string) => {
   const startImportResponse = await bulkImportClient.post(
-    `/buyer-orgs?/${importId}`
+    `/buyer-orgs/${importId}`
   )
 
-  return startImportResponse.data as StartImport
+  return startImportResponse.data as ImportDetails
 }
 
 export default startBulkImport

@@ -33,7 +33,7 @@ const getBulkImportList = async (account: string) => {
         nextImport.lastUpdateDate.getTime() -
         currentImport.lastUpdateDate.getTime()
     )
-    .slice(0, 5)
+    .slice(0, 1)
 }
 
 export default getBulkImportList
