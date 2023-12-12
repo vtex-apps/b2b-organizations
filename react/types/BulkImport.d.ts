@@ -49,10 +49,16 @@ export type ImportDetails = {
   importId: string
   accountName: string
   fileName: string
-  importResult?: { imports: ImportResult[] }
+  importResult?: {
+    imports: ImportResult[]
+    reportDownloadLink: string
+  }
   percentage: string
   lastUpdateDate: string
   importState: ImportState
+  importedAt: string
+  importedUserEmail: string
+  importedUserName: string
 }
 
 export type UploadFileResult = {

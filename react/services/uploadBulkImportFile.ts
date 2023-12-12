@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import type { UploadFinishedData } from '@vtex/bulk-import-ui'
 import type { AxiosRequestConfig } from 'axios'
 
