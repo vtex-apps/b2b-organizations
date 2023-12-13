@@ -1,3 +1,5 @@
+import type { UploadFinishedData } from '@vtex/bulk-import-ui'
+
 type ImportState =
   | 'ReadyToImport'
   | 'InProgress'
@@ -28,11 +30,6 @@ export type FieldError = {
   column: string
 }
 
-export type ErrorRowReportData = {
-  title: string
-  errorCount: number
-}
-
 export type ImportReportData = {
   title: string
   success: {
@@ -49,14 +46,48 @@ export type ImportDetails = {
   importId: string
   accountName: string
   fileName: string
-  importResult?: { imports: ImportResult[] }
+  importResult?: {
+    imports: ImportResult[]
+    reportDownloadLink: string
+  }
   percentage: string
   lastUpdateDate: string
   importState: ImportState
+  importedAt: string
+  importedUserEmail: string
+  importedUserName: string
 }
 
 export type UploadFileResult = {
   successCount?: number
   fileData: ImportDetails
-  error?: ErrorRowReportData[] | Error
 }
+
+export type ValidationResult = {
+  name: string
+  validRows: number
+  invalidRows: number
+}
+
+export type FieldValidationError = {
+  description: string
+  error: 'FieldValidationError'
+  validationReportDownloadLink: string
+  validationResult: ValidationResult[]
+  fileName?: string
+}
+
+export type AnotherImportInProgress = {
+  description: string
+  error: 'AnotherImportInProgress'
+  fileName?: string
+}
+
+export type BulkImportUploadError =
+  | FieldValidationError
+  | AnotherImportInProgress
+
+export type UploadFileData = UploadFinishedData<
+  UploadFileResult,
+  BulkImportUploadError
+>

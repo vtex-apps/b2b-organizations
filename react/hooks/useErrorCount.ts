@@ -1,11 +1,11 @@
 import { useCallback } from 'react'
 
-import type { ErrorRowReportData } from '../types/BulkImport'
+import type { ValidationResult } from '../types/BulkImport'
 
 const useErrorCount = () => {
-  return useCallback((errorRowReportDataList: ErrorRowReportData[]) => {
+  return useCallback((errorRowReportDataList: ValidationResult[]) => {
     return errorRowReportDataList.reduce(
-      (acc, error) => acc + error.errorCount,
+      (acc, error) => acc + error.invalidRows,
       0
     )
   }, [])

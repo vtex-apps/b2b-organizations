@@ -23,15 +23,14 @@ const getBulkImportList = async (account: string) => {
       importId: item.importId,
       progress: Number(item.percentage),
       status: statusMap[item.importState as keyof typeof statusMap],
-      lastUpdateDate: new Date(item.lastUpdateDate),
+      importedAt: new Date(item.importedAt),
       file: {
         name: item.fileName,
       },
     }))
     .sort(
       (currentImport, nextImport) =>
-        nextImport.lastUpdateDate.getTime() -
-        currentImport.lastUpdateDate.getTime()
+        nextImport.importedAt.getTime() - currentImport.importedAt.getTime()
     )
     .slice(0, 1)
 }

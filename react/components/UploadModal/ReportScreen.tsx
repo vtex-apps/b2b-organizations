@@ -1,53 +1,51 @@
-import type { UploadFinishedData } from '@vtex/bulk-import-ui'
 import { ReportInformation, ReportListItem } from '@vtex/bulk-import-ui'
 import React from 'react'
 import { csx } from '@vtex/admin-ui'
 
 import type {
-  ErrorRowReportData,
-  UploadFileResult,
+  FieldValidationError,
+  ValidationResult,
 } from '../../types/BulkImport'
 import ReportInformationDetails from './ReportInformationDetails'
 import useErrorCount from '../../hooks/useErrorCount'
 import { useTranslate } from '../../hooks'
 
-const ReportScreen = ({ data }: UploadFinishedData<UploadFileResult>) => {
+const ReportScreen = (data: FieldValidationError) => {
   const getErrorCount = useErrorCount()
 
   const { translate: t } = useTranslate()
 
-  const { lastUpdateDate, accountName, fileName } = data.fileData
-
-  const error = data.error as ErrorRowReportData[]
+  const { fileName, validationResult, validationReportDownloadLink } = data
 
   return (
     <>
       <ReportInformation
         status="error"
         title={t('reportScreenTitle', {
-          errorCount: getErrorCount(error as ErrorRowReportData[]),
+          errorCount: getErrorCount(validationResult as ValidationResult[]),
         })}
         description={t('reportScreenDescription', {
           fileName,
-          userName: accountName,
-          uploadedDate: lastUpdateDate,
         })}
         className={csx({ marginBottom: '$space-4' })}
       />
-      <ReportInformationDetails variant="Upload" />
+      <ReportInformationDetails
+        variant="Upload"
+        validationReportDownloadLink={validationReportDownloadLink}
+      />
       <ReportListItem
         tone="secondary"
         showBullet={false}
         label={t('reportScreenLabel')}
-        locators={[getErrorCount(error as ErrorRowReportData[])]}
+        locators={[getErrorCount(validationResult as ValidationResult[])]}
         className={csx({ marginTop: '$space-4' })}
       />
-      {error.map(({ title, errorCount }, index) => (
+      {validationResult.map(({ name, invalidRows }, index) => (
         <ReportListItem
           key={index}
-          type={errorCount > 0 ? 'error' : 'success'}
-          label={title}
-          locators={[errorCount]}
+          type={invalidRows > 0 ? 'error' : 'success'}
+          label={name}
+          locators={[invalidRows]}
         />
       ))}
     </>

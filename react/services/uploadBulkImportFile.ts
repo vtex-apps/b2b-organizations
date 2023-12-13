@@ -1,13 +1,13 @@
-/* eslint-disable no-console */
-import type { UploadFinishedData } from '@vtex/bulk-import-ui'
 import type { AxiosRequestConfig } from 'axios'
 
 import bulkImportClient from '.'
-import type { ImportDetails, UploadFileResult } from '../types/BulkImport'
+import type {
+  BulkImportUploadError,
+  ImportDetails,
+  UploadFileData,
+} from '../types/BulkImport'
 
-const uploadBulkImportFile = async (
-  file: File
-): Promise<UploadFinishedData<UploadFileResult | null>> => {
+const uploadBulkImportFile = async (file: File): Promise<UploadFileData> => {
   const formData = new FormData()
 
   formData.append('file', file)
@@ -30,10 +30,12 @@ const uploadBulkImportFile = async (
       },
     }
   } catch (error) {
+    const errorData = error?.response?.data as BulkImportUploadError
+
     return {
       status: 'error',
-      showReport: false,
-      data: error.response.data,
+      showReport: errorData?.error === 'FieldValidationError',
+      data: { ...errorData, fileName: file.name },
     }
   }
 }

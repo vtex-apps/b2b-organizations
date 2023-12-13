@@ -49,14 +49,19 @@ const ImportReportModal = ({
                 })}
                 description={t('reportInformationDescription', {
                   fileName: data?.fileName,
-                  userName: data?.accountName,
-                  uploadDate: formatDate(data?.lastUpdateDate),
+                  userName: data?.importedUserName,
+                  uploadDate: formatDate(data?.importedAt),
                 })}
                 status={data?.percentage >= 100 ? 'success' : 'warning'}
                 className={csx({ marginY: '$space-4' })}
               />
               {data?.percentage < 100 && (
-                <ReportInformationDetails variant="Import" />
+                <ReportInformationDetails
+                  variant="Import"
+                  validationReportDownloadLink={
+                    data?.importResult?.reportDownloadLink
+                  }
+                />
               )}
               <Divider className={csx({ marginY: '$space-4' })} />
               <ReportList data={data.importReportList} />
