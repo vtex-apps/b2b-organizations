@@ -14,6 +14,18 @@ export type BulkImportMessageKey =
   | 'importReportTitle'
   | 'reportInformationTitle'
   | 'reportInformationDescription'
+  | 'reportScreenSuccessCount'
+  | 'reportScreenTitle'
+  | 'reportScreenDescription'
+  | 'reportScreenLabel'
+  | 'reportInformationInitialImport'
+  | 'reportInformationInitialUpload'
+  | 'reportInformationNextSteps'
+  | 'reportInformationStep1'
+  | 'reportInformationStep2'
+  | `reportInformationStep3Upload`
+  | 'reportInformationStep3Import'
+  | 'reportInformationStep4'
 
 export const bulkUploadMessages: Record<
   BulkImportMessageKey,
