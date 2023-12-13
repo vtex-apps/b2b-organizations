@@ -14,7 +14,7 @@ const BulkImportList = () => {
       </ImportAlertError>
     )
 
-  if (data) return <ImportAlertList data={data} onDismiss={() => {}} />
+  if (data) return <ImportAlertList data={data} />
 
   return <></>
 }
