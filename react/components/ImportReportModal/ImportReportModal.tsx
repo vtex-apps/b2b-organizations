@@ -1,5 +1,5 @@
 import React from 'react'
-import { Divider, csx } from '@vtex/admin-ui'
+import { Button, Divider, IconArrowLineDown, csx } from '@vtex/admin-ui'
 import {
   ErrorScreen,
   ReportInformation,
@@ -28,6 +28,8 @@ const ImportReportModal = ({
   const { translate: t, formatDate } = useTranslate()
 
   const { data, error } = useBulkImportDetailsQuery(importId)
+
+  const reportDownloadLink = data?.importResult?.reportDownloadLink
 
   return (
     <ReportModal showTabs={false} open={open} {...otherProps}>
@@ -69,7 +71,22 @@ const ImportReportModal = ({
           )}
         </ReportModal.TabPanel>
       </ReportModal.Content>
-      <ReportModal.Footer closeLabel={t('done')} />
+      <ReportModal.Footer
+        closeLabel={t('done')}
+        actionButton={
+          reportDownloadLink ? (
+            <Button
+              variant="tertiary"
+              iconPosition="end"
+              icon={<IconArrowLineDown />}
+              onClick={() => window.location.assign(reportDownloadLink)}
+            >
+              {t('downloadReviewedLink')}
+              Download Reviewed .XLSX
+            </Button>
+          ) : null
+        }
+      />
     </ReportModal>
   )
 }

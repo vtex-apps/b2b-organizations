@@ -65,6 +65,7 @@
   "admin/b2b-organizations.bulk-import.import.reportInformationStep4Filename": "VTEX File Template",
   "admin/b2b-organizations.bulk-import.import.reportInformationStep4NeedGuidance": " Need guidance?",
   "admin/b2b-organizations.bulk-import.import.reportInformationStep4ImportGuide": "Check our Best Practices Import Guide",
+  "admin/b2b-organizations.bulk-import.import.downloadReviewedLink": "Download Reviewed .XLSX",
   "admin/b2b-organizations.organization-requests-admin.table.column-name.title": "Nazwa organizacji",
   "admin/b2b-organizations.organization-requests-admin.table.column-admin.title": "Użytkownik admin",
   "admin/b2b-organizations.organization-requests-admin.table.column-status.title": "Status",
