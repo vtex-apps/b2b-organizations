@@ -8,6 +8,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Fixed
+
+- Fixing on seller wrapper when there is no seller available
+
 ## [1.28.1] - 2023-11-06
 
 ### Fixed
