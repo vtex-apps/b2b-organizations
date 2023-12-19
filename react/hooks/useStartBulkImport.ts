@@ -5,7 +5,7 @@ import { startBulkImport } from '../services'
 const useStartBulkImport = () => {
   const { trigger, ...data } = useSWRMutation(
     '/buyer-orgs',
-    (_, { arg }: { arg: string }) => startBulkImport(arg)
+    (_, { arg }: { arg: { importId: string } }) => startBulkImport(arg.importId)
   )
 
   return { startBulkImport: trigger, ...data }

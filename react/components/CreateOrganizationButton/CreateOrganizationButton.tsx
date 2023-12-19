@@ -36,8 +36,8 @@ const CreateOrganizationButton = () => {
   const { startBulkImport } = useStartBulkImport()
 
   const handleUploadFinish = async (result: UploadFileData) => {
-    if (result.status === 'success' && result.data?.fileData.importId) {
-      await startBulkImport(result.data?.fileData.importId)
+    if (result.status === 'success' && result.data?.fileData?.importId) {
+      await startBulkImport({ importId: result.data.fileData.importId })
       mutate('/buyer-orgs')
     }
   }
