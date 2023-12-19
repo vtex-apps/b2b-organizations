@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, Divider, IconArrowLineDown, csx } from '@vtex/admin-ui'
+import { Divider, csx } from '@vtex/admin-ui'
 import {
   ErrorScreen,
   ReportInformation,
@@ -10,6 +10,7 @@ import ReportList from '../UploadModal/ReportList'
 import ReportInformationDetails from '../UploadModal/ReportInformationDetails'
 import { useTranslate } from '../../hooks'
 import useBulkImportDetailsQuery from '../../hooks/useBulkImportDetailsQuery'
+import ReportDownloadLink from '../ReportDownloadLink/ReportDownloadLink'
 
 export type ImportReportModalProps = {
   /** The report data id */
@@ -74,17 +75,9 @@ const ImportReportModal = ({
       <ReportModal.Footer
         closeLabel={t('done')}
         actionButton={
-          reportDownloadLink ? (
-            <Button
-              variant="tertiary"
-              iconPosition="end"
-              icon={<IconArrowLineDown />}
-              onClick={() => window.location.assign(reportDownloadLink)}
-            >
-              {t('downloadReviewedLink')}
-              Download Reviewed .XLSX
-            </Button>
-          ) : null
+          reportDownloadLink && (
+            <ReportDownloadLink downloadLink={reportDownloadLink} />
+          )
         }
       />
     </ReportModal>

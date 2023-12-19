@@ -72,7 +72,7 @@ export type ValidationResult = {
 export type FieldValidationError = {
   description: string
   error: 'FieldValidationError'
-  validationReportDownloadLink: string
+  errorDownloadLink: string
   validationResult: ValidationResult[]
   fileName?: string
 }

@@ -33,7 +33,7 @@
   },
   "dependencies": {
     "@vtex/admin-ui": "^0.136.1",
-    "@vtex/bulk-import-ui": "1.1.5",
+    "@vtex/bulk-import-ui": "1.1.6",
     "@vtex/css-handles": "^1.0.0",
     "apollo-client": "^2.6.10",
     "axios": "1.4.0",

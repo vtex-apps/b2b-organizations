@@ -15,7 +15,7 @@ const ReportScreen = (data: FieldValidationError) => {
 
   const { translate: t } = useTranslate()
 
-  const { fileName, validationResult, validationReportDownloadLink } = data
+  const { fileName, validationResult, errorDownloadLink } = data
 
   return (
     <>
@@ -26,12 +26,15 @@ const ReportScreen = (data: FieldValidationError) => {
         })}
         description={t('reportScreenDescription', {
           fileName,
+          'filename-link': (content: string) => (
+            <a href={errorDownloadLink}>{content}</a>
+          ),
         })}
         className={csx({ marginBottom: '$space-4' })}
       />
       <ReportInformationDetails
         variant="Upload"
-        validationReportDownloadLink={validationReportDownloadLink}
+        validationReportDownloadLink={errorDownloadLink}
       />
       <ReportListItem
         tone="secondary"
@@ -40,7 +43,7 @@ const ReportScreen = (data: FieldValidationError) => {
         locators={[getErrorCount(validationResult as ValidationResult[])]}
         className={csx({ marginTop: '$space-4' })}
       />
-      {validationResult.map(({ name, invalidRows }, index) => (
+      {(validationResult ?? []).map(({ name, invalidRows }, index) => (
         <ReportListItem
           key={index}
           type={invalidRows > 0 ? 'error' : 'success'}

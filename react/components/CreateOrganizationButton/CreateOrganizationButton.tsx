@@ -7,6 +7,7 @@ import {
   PageHeaderMenuButton,
   useMenuState,
 } from '@vtex/admin-ui'
+import type { UploadFinishedData } from '@vtex/bulk-import-ui'
 import { UploadModal } from '@vtex/bulk-import-ui'
 import { useSWRConfig } from 'swr'
 
@@ -18,12 +19,13 @@ import ReportScreen from '../UploadModal/ReportScreen'
 import ReportSuccessScreen from '../UploadModal/ReportSuccessScreen'
 import { uploadBulkImportFile } from '../../services'
 import type {
-  AnotherImportInProgress,
+  BulkImportUploadError,
   FieldValidationError,
   UploadFileData,
   UploadFileResult,
 } from '../../types/BulkImport'
 import useStartBulkImport from '../../hooks/useStartBulkImport'
+import ReportDownloadLink from '../ReportDownloadLink/ReportDownloadLink'
 
 const CreateOrganizationButton = () => {
   const { formatMessage } = useTranslate()
@@ -38,6 +40,19 @@ const CreateOrganizationButton = () => {
       await startBulkImport(result.data?.fileData.importId)
       mutate('/buyer-orgs')
     }
+  }
+
+  const reportFooterActionButton = (
+    props: UploadFinishedData<BulkImportUploadError>
+  ) => {
+    const reportDownloadLink = (props.data as FieldValidationError)
+      ?.errorDownloadLink
+
+    return (
+      reportDownloadLink && (
+        <ReportDownloadLink downloadLink={reportDownloadLink} />
+      )
+    )
   }
 
   return (
@@ -66,23 +81,16 @@ const CreateOrganizationButton = () => {
         onOpenChange={setUploadModalOpen}
         uploadFile={uploadBulkImportFile}
         onUploadFinish={handleUploadFinish}
-        errorScreen={props =>
-          props.status === 'error' &&
-          props.showReport === false && (
-            <ReportErrorScreen {...(props.data as AnotherImportInProgress)} />
-          )
-        }
-        reportScreen={props =>
-          props.status === 'error' &&
-          props.showReport === true && (
-            <ReportScreen {...(props.data as FieldValidationError)} />
-          )
-        }
-        successScreen={props =>
-          props.status === 'success' && (
-            <ReportSuccessScreen {...(props.data as UploadFileResult)} />
-          )
-        }
+        errorScreen={props => (
+          <ReportErrorScreen {...(props.data as BulkImportUploadError)} />
+        )}
+        reportScreen={props => (
+          <ReportScreen {...(props.data as FieldValidationError)} />
+        )}
+        successScreen={props => (
+          <ReportSuccessScreen {...(props.data as UploadFileResult)} />
+        )}
+        reportFooterActionButton={reportFooterActionButton}
       />
     </>
   )
