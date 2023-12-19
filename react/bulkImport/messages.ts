@@ -23,7 +23,7 @@ export type BulkImportMessageKey =
   | 'reportInformationNextSteps'
   | 'reportInformationStep1'
   | 'reportInformationStep2'
-  | `reportInformationStep3Upload`
+  | 'reportInformationStep3Upload'
   | 'reportInformationStep3Import'
   | 'reportInformationStep4'
   | 'downloadReviewedLink'

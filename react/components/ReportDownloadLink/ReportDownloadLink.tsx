@@ -15,7 +15,7 @@ const ReportDownloadLink = ({ downloadLink }: ReportDownloadLinkProps) => {
       variant="tertiary"
       iconPosition="end"
       icon={<IconArrowLineDown />}
-      onClick={() => window.location.assign(downloadLink)}
+      onClick={() => window?.location.assign?.(downloadLink)}
     >
       {t('downloadReviewedLink')}
     </Button>

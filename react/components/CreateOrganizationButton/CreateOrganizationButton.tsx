@@ -48,11 +48,9 @@ const CreateOrganizationButton = () => {
     const reportDownloadLink = (props.data as FieldValidationError)
       ?.errorDownloadLink
 
-    return (
-      reportDownloadLink && (
-        <ReportDownloadLink downloadLink={reportDownloadLink} />
-      )
-    )
+    return reportDownloadLink ? (
+      <ReportDownloadLink downloadLink={reportDownloadLink} />
+    ) : null
   }
 
   return (

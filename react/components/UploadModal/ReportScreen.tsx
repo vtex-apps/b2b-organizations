@@ -2,10 +2,7 @@ import { ReportInformation, ReportListItem } from '@vtex/bulk-import-ui'
 import React from 'react'
 import { csx } from '@vtex/admin-ui'
 
-import type {
-  FieldValidationError,
-  ValidationResult,
-} from '../../types/BulkImport'
+import type { FieldValidationError } from '../../types/BulkImport'
 import ReportInformationDetails from './ReportInformationDetails'
 import useErrorCount from '../../hooks/useErrorCount'
 import { useTranslate } from '../../hooks'
@@ -15,18 +12,20 @@ const ReportScreen = (data: FieldValidationError) => {
 
   const { translate: t } = useTranslate()
 
-  const { fileName, validationResult, errorDownloadLink } = data
+  const { fileName, validationResult = [], errorDownloadLink } = data
+
+  const errorCount = getErrorCount(validationResult)
 
   return (
     <>
       <ReportInformation
         status="error"
         title={t('reportScreenTitle', {
-          errorCount: getErrorCount(validationResult as ValidationResult[]),
+          errorCount,
         })}
         description={t('reportScreenDescription', {
           fileName,
-          'filename-link': (content: string) => (
+          'file-name-link': (content: string) => (
             <a href={errorDownloadLink}>{content}</a>
           ),
         })}
@@ -40,10 +39,10 @@ const ReportScreen = (data: FieldValidationError) => {
         tone="secondary"
         showBullet={false}
         label={t('reportScreenLabel')}
-        locators={[getErrorCount(validationResult as ValidationResult[])]}
+        locators={[errorCount]}
         className={csx({ marginTop: '$space-4' })}
       />
-      {(validationResult ?? []).map(({ name, invalidRows }, index) => (
+      {validationResult.map(({ name, invalidRows }, index) => (
         <ReportListItem
           key={index}
           type={invalidRows > 0 ? 'error' : 'success'}
