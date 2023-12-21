@@ -12,11 +12,19 @@ import { useSWRConfig } from 'swr'
 
 import CreateOrganizationModal from '../CreateOrganizationModal'
 import { organizationMessages as messages } from '../../admin/utils/messages'
-import { uploadBulkImportFile } from '../../bulkImport/upload'
 import { useTranslate } from '../../hooks'
 import ReportErrorScreen from '../UploadModal/ReportErrorScreen'
 import ReportScreen from '../UploadModal/ReportScreen'
 import ReportSuccessScreen from '../UploadModal/ReportSuccessScreen'
+import { uploadBulkImportFile } from '../../services'
+import type {
+  BulkImportUploadError,
+  FieldValidationError,
+  UploadFileData,
+  UploadFileResult,
+} from '../../types/BulkImport'
+import useStartBulkImport from '../../hooks/useStartBulkImport'
+import ReportDownloadLink from '../ReportDownloadLink/ReportDownloadLink'
 
 const CreateOrganizationButton = () => {
   const { formatMessage } = useTranslate()
@@ -24,6 +32,14 @@ const CreateOrganizationButton = () => {
   const [open, setOpen] = useState(false)
   const [uploadModalOpen, setUploadModalOpen] = useState(false)
   const { mutate } = useSWRConfig()
+  const { startBulkImport } = useStartBulkImport()
+
+  const handleUploadFinish = async (result: UploadFileData) => {
+    if (result.status === 'success' && result.data?.fileData?.importId) {
+      await startBulkImport({ importId: result.data.fileData.importId })
+      mutate('/buyer-orgs')
+    }
+  }
 
   return (
     <>
@@ -50,12 +66,23 @@ const CreateOrganizationButton = () => {
         open={uploadModalOpen}
         onOpenChange={setUploadModalOpen}
         uploadFile={uploadBulkImportFile}
-        onUploadFinish={() => {
-          mutate('/buyer-orgs')
-        }}
-        errorScreen={props => <ReportErrorScreen {...props} />}
-        reportScreen={props => <ReportScreen {...props} />}
-        successScreen={props => <ReportSuccessScreen {...props} />}
+        onUploadFinish={handleUploadFinish}
+        errorScreen={props => (
+          <ReportErrorScreen {...(props.data as BulkImportUploadError)} />
+        )}
+        reportScreen={props => (
+          <ReportScreen {...(props.data as FieldValidationError)} />
+        )}
+        successScreen={props => (
+          <ReportSuccessScreen {...(props.data as UploadFileResult)} />
+        )}
+        reportFooterActionButton={props => (
+          <ReportDownloadLink
+            downloadLink={
+              (props.data as FieldValidationError)?.errorDownloadLink
+            }
+          />
+        )}
       />
     </>
   )

@@ -1,13 +1,10 @@
 import React from 'react'
-import type { UploadFinishedData } from '@vtex/bulk-import-ui'
 import { SuccessScreen } from '@vtex/bulk-import-ui'
 
 import type { UploadFileResult } from '../../types/BulkImport'
 import { useTranslate } from '../../hooks'
 
-const ReportSuccessScreen = ({
-  data: { successCount, fileData },
-}: UploadFinishedData<UploadFileResult>) => {
+const ReportSuccessScreen = ({ successCount, fileData }: UploadFileResult) => {
   const { translate: t } = useTranslate()
 
   const successCountMessage =
