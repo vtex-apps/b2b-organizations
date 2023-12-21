@@ -5,10 +5,12 @@ import { useTranslate } from '../../hooks'
 
 export type ReportInformationDetailsProps = {
   variant: 'Import' | 'Upload'
+  validationReportDownloadLink?: string
 }
 
 const ReportInformationDetails = ({
   variant,
+  validationReportDownloadLink,
 }: ReportInformationDetailsProps) => {
   const { translate: t } = useTranslate()
 
@@ -23,7 +25,9 @@ const ReportInformationDetails = ({
         })}
       >
         {t(`reportInformationInitial${variant}`, {
-          'file-name-link': (content: string) => <a href="/">{content}</a>,
+          'file-name-link': (content: string) => (
+            <a href={validationReportDownloadLink}>{content}</a>
+          ),
         })}
       </Text>
       <Text variant="body">
