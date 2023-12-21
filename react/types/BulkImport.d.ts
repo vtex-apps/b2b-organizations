@@ -1,17 +1,11 @@
-export type ImportDetails = {
-  importId: string
-  accountName: string
-  fileName: string
-  importResult: { imports: ImportResult[] }
-  percentage: string
-  lastUpdateDate: string
-  importState:
-    | 'ReadyToImport'
-    | 'InProgress'
-    | 'Completed'
-    | 'CompletedWithError'
-    | 'Failed'
-}
+import type { UploadFinishedData } from '@vtex/bulk-import-ui'
+
+type ImportState =
+  | 'ReadyToImport'
+  | 'InProgress'
+  | 'Completed'
+  | 'CompletedWithError'
+  | 'Failed'
 
 export type ImportResult = {
   name: string
@@ -36,21 +30,6 @@ export type FieldError = {
   column: string
 }
 
-export type ErrorRowReportData = {
-  title: string
-  errorCount: number
-}
-
-export type UploadFileResult = {
-  successCount?: number
-  fileData: {
-    uploadedDate: string
-    userName: string
-    fileName: string
-  }
-  error?: ErrorRowReportData[] | Error
-}
-
 export type ImportReportData = {
   title: string
   success: {
@@ -62,3 +41,53 @@ export type ImportReportData = {
     imports: number
   }
 }
+
+export type ImportDetails = {
+  importId: string
+  accountName: string
+  fileName: string
+  importResult?: {
+    imports: ImportResult[]
+    reportDownloadLink: string
+  }
+  percentage: string
+  lastUpdateDate: string
+  importState: ImportState
+  importedAt: string
+  importedUserEmail: string
+  importedUserName: string
+}
+
+export type UploadFileResult = {
+  successCount?: number
+  fileData: ImportDetails
+}
+
+export type ValidationResult = {
+  name: string
+  validRows: number
+  invalidRows: number
+}
+
+export type FieldValidationError = {
+  description: string
+  error: 'FieldValidationError'
+  errorDownloadLink: string
+  validationResult: ValidationResult[]
+  fileName?: string
+}
+
+export type AnotherImportInProgress = {
+  description: string
+  error: 'AnotherImportInProgress'
+  fileName?: string
+}
+
+export type BulkImportUploadError =
+  | FieldValidationError
+  | AnotherImportInProgress
+
+export type UploadFileData = UploadFinishedData<
+  UploadFileResult,
+  BulkImportUploadError
+>

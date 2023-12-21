@@ -14,6 +14,19 @@ export type BulkImportMessageKey =
   | 'importReportTitle'
   | 'reportInformationTitle'
   | 'reportInformationDescription'
+  | 'reportScreenSuccessCount'
+  | 'reportScreenTitle'
+  | 'reportScreenDescription'
+  | 'reportScreenLabel'
+  | 'reportInformationInitialImport'
+  | 'reportInformationInitialUpload'
+  | 'reportInformationNextSteps'
+  | 'reportInformationStep1'
+  | 'reportInformationStep2'
+  | 'reportInformationStep3Upload'
+  | 'reportInformationStep3Import'
+  | 'reportInformationStep4'
+  | 'downloadReviewedLink'
 
 export const bulkUploadMessages: Record<
   BulkImportMessageKey,
@@ -190,6 +203,9 @@ export const bulkUploadMessages: Record<
   reportInformationStep4ImportGuide: {
     id:
       'admin/b2b-organizations.bulk-import.import.reportInformationStep4ImportGuide',
+  },
+  downloadReviewedLink: {
+    id: 'admin/b2b-organizations.bulk-import.import.downloadReviewedLink',
   },
 })
 

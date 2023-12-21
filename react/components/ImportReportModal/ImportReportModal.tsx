@@ -10,6 +10,7 @@ import ReportList from '../UploadModal/ReportList'
 import ReportInformationDetails from '../UploadModal/ReportInformationDetails'
 import { useTranslate } from '../../hooks'
 import useBulkImportDetailsQuery from '../../hooks/useBulkImportDetailsQuery'
+import ReportDownloadLink from '../ReportDownloadLink/ReportDownloadLink'
 
 export type ImportReportModalProps = {
   /** The report data id */
@@ -28,6 +29,8 @@ const ImportReportModal = ({
   const { translate: t, formatDate } = useTranslate()
 
   const { data, error } = useBulkImportDetailsQuery(importId)
+
+  const reportDownloadLink = data?.importResult?.reportDownloadLink
 
   return (
     <ReportModal showTabs={false} open={open} {...otherProps}>
@@ -49,14 +52,19 @@ const ImportReportModal = ({
                 })}
                 description={t('reportInformationDescription', {
                   fileName: data?.fileName,
-                  userName: data?.accountName,
-                  uploadDate: formatDate(data?.lastUpdateDate),
+                  userName: data?.importedUserName,
+                  uploadDate: formatDate(data?.importedAt),
                 })}
                 status={data?.percentage >= 100 ? 'success' : 'warning'}
                 className={csx({ marginY: '$space-4' })}
               />
               {data?.percentage < 100 && (
-                <ReportInformationDetails variant="Import" />
+                <ReportInformationDetails
+                  variant="Import"
+                  validationReportDownloadLink={
+                    data?.importResult?.reportDownloadLink
+                  }
+                />
               )}
               <Divider className={csx({ marginY: '$space-4' })} />
               <ReportList data={data.importReportList} />
@@ -64,7 +72,10 @@ const ImportReportModal = ({
           )}
         </ReportModal.TabPanel>
       </ReportModal.Content>
-      <ReportModal.Footer closeLabel={t('done')} />
+      <ReportModal.Footer
+        closeLabel={t('done')}
+        actionButton={<ReportDownloadLink downloadLink={reportDownloadLink} />}
+      />
     </ReportModal>
   )
 }

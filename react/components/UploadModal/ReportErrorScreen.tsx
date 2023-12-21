@@ -1,20 +1,23 @@
 import React from 'react'
-import type { UploadFinishedData } from '@vtex/bulk-import-ui'
 import { ErrorScreen } from '@vtex/bulk-import-ui'
 
-import type { UploadFileResult } from '../../types/BulkImport'
+import type { BulkImportUploadError } from '../../types/BulkImport'
 import useErrorCount from '../../hooks/useErrorCount'
 
-const ReportErrorScreen = ({ data }: UploadFinishedData<UploadFileResult>) => {
+type ReportErrorScreenProps = BulkImportUploadError | null
+
+const ReportErrorScreen = (data: ReportErrorScreenProps) => {
   const getErrorCount = useErrorCount()
 
-  const errorCount = Array.isArray(data.error)
-    ? getErrorCount(data.error)
-    : undefined
+  if (data?.error === 'FieldValidationError') {
+    const errorCount = Array.isArray(data.validationResult)
+      ? getErrorCount(data.validationResult)
+      : undefined
 
-  return (
-    <ErrorScreen fileName={data.fileData?.fileName} errorCount={errorCount} />
-  )
+    return <ErrorScreen fileName={data.fileName} errorCount={errorCount} />
+  }
+
+  return <ErrorScreen fileName={data?.description} />
 }
 
 export default ReportErrorScreen
