@@ -7,7 +7,6 @@ import {
   PageHeaderMenuButton,
   useMenuState,
 } from '@vtex/admin-ui'
-import type { UploadFinishedData } from '@vtex/bulk-import-ui'
 import { UploadModal } from '@vtex/bulk-import-ui'
 import { useSWRConfig } from 'swr'
 
@@ -40,17 +39,6 @@ const CreateOrganizationButton = () => {
       await startBulkImport({ importId: result.data.fileData.importId })
       mutate('/buyer-orgs')
     }
-  }
-
-  const reportFooterActionButton = (
-    props: UploadFinishedData<BulkImportUploadError>
-  ) => {
-    const reportDownloadLink = (props.data as FieldValidationError)
-      ?.errorDownloadLink
-
-    return reportDownloadLink ? (
-      <ReportDownloadLink downloadLink={reportDownloadLink} />
-    ) : null
   }
 
   return (
@@ -88,7 +76,13 @@ const CreateOrganizationButton = () => {
         successScreen={props => (
           <ReportSuccessScreen {...(props.data as UploadFileResult)} />
         )}
-        reportFooterActionButton={reportFooterActionButton}
+        reportFooterActionButton={props => (
+          <ReportDownloadLink
+            downloadLink={
+              (props.data as FieldValidationError)?.errorDownloadLink
+            }
+          />
+        )}
       />
     </>
   )

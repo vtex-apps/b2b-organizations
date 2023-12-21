@@ -74,11 +74,7 @@ const ImportReportModal = ({
       </ReportModal.Content>
       <ReportModal.Footer
         closeLabel={t('done')}
-        actionButton={
-          reportDownloadLink ? (
-            <ReportDownloadLink downloadLink={reportDownloadLink} />
-          ) : null
-        }
+        actionButton={<ReportDownloadLink downloadLink={reportDownloadLink} />}
       />
     </ReportModal>
   )

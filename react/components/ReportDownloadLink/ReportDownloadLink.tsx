@@ -4,11 +4,13 @@ import React from 'react'
 import { useTranslate } from '../../hooks'
 
 type ReportDownloadLinkProps = {
-  downloadLink: string
+  downloadLink?: string
 }
 
 const ReportDownloadLink = ({ downloadLink }: ReportDownloadLinkProps) => {
   const { translate: t } = useTranslate()
+
+  if (!downloadLink) return null
 
   return (
     <Button
