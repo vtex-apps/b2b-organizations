@@ -42,9 +42,9 @@ const ReportScreen = (data: FieldValidationError) => {
         locators={[errorCount]}
         className={csx({ marginTop: '$space-4' })}
       />
-      {validationResult.map(({ name, invalidRows }, index) => (
+      {validationResult.map(({ name, invalidRows }) => (
         <ReportListItem
-          key={index}
+          key={name}
           type={invalidRows > 0 ? 'error' : 'success'}
           label={name}
           locators={[invalidRows]}
