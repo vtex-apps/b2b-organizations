@@ -27,6 +27,7 @@ export type BulkImportMessageKey =
   | 'reportInformationStep3Import'
   | 'reportInformationStep4'
   | 'downloadReviewedLink'
+  | 'errorMessage'
 
 export const bulkUploadMessages: Record<
   BulkImportMessageKey,
@@ -206,6 +207,9 @@ export const bulkUploadMessages: Record<
   },
   downloadReviewedLink: {
     id: 'admin/b2b-organizations.bulk-import.import.downloadReviewedLink',
+  },
+  errorMessage: {
+    id: 'admin/b2b-organizations.bulk-import.import.errorMessage',
   },
 })
 
