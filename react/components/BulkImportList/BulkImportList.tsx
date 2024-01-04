@@ -10,7 +10,7 @@ const BulkImportList = () => {
   const { translate: t } = useTranslate()
 
   if (error?.message) {
-    console.error(error?.message)
+    console.error(error)
 
     return (
       <ImportAlertError onTryAgainClick={mutate}>
