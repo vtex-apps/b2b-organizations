@@ -1,27 +1,22 @@
-import React from 'react'
-import { ImportAlertError } from '@vtex/bulk-import-ui'
+import React, { useState } from 'react'
 
-import { useBulkImportsQuery, useTranslate } from '../../hooks'
+import { useBulkImportsQuery } from '../../hooks'
 import ImportAlertList from '../ImportAlertList/ImportAlertList'
 
 const BulkImportList = () => {
-  const { data, error, mutate } = useBulkImportsQuery()
-
-  const { translate: t } = useTranslate()
+  const [shouldPoll, setShouldPoll] = useState(true)
+  const { data, error } = useBulkImportsQuery({
+    shouldPoll,
+    onError: () => setShouldPoll(false),
+  })
 
   if (error?.message) {
     console.error(error)
-
-    return (
-      <ImportAlertError onTryAgainClick={mutate}>
-        {t('errorMessage')}
-      </ImportAlertError>
-    )
   }
 
   if (data) return <ImportAlertList data={data} />
 
-  return <></>
+  return null
 }
 
 export default BulkImportList

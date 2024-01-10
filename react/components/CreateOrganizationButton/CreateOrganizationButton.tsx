@@ -12,7 +12,7 @@ import { useSWRConfig } from 'swr'
 
 import CreateOrganizationModal from '../CreateOrganizationModal'
 import { organizationMessages as messages } from '../../admin/utils/messages'
-import { useTranslate } from '../../hooks'
+import { useBulkImportsQuery, useTranslate } from '../../hooks'
 import ReportErrorScreen from '../UploadModal/ReportErrorScreen'
 import ReportScreen from '../UploadModal/ReportScreen'
 import ReportSuccessScreen from '../UploadModal/ReportSuccessScreen'
@@ -33,6 +33,7 @@ const CreateOrganizationButton = () => {
   const [uploadModalOpen, setUploadModalOpen] = useState(false)
   const { mutate } = useSWRConfig()
   const { startBulkImport } = useStartBulkImport()
+  const { data } = useBulkImportsQuery()
 
   const handleUploadFinish = async (result: UploadFileData) => {
     if (result.status === 'success' && result.data?.fileData?.importId) {
@@ -55,11 +56,13 @@ const CreateOrganizationButton = () => {
           icon={<IconPencil />}
           onClick={() => setOpen(true)}
         />
-        <MenuItem
-          label={formatMessage(messages.addBulk)}
-          icon={<IconCloudArrowUp />}
-          onClick={() => setUploadModalOpen(true)}
-        />
+        {!!data && (
+          <MenuItem
+            label={formatMessage(messages.addBulk)}
+            icon={<IconCloudArrowUp />}
+            onClick={() => setUploadModalOpen(true)}
+          />
+        )}
       </Menu>
       <CreateOrganizationModal open={open} onOpenChange={setOpen} />
       <UploadModal
