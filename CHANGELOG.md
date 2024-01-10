@@ -8,6 +8,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Fixed
+
+- Fix unauthorized requests breaking on bulk import
+
 ## [1.29.1] - 2024-01-04
 
 ### Fixed
