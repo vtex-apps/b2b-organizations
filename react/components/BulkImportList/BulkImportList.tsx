@@ -1,13 +1,11 @@
-import React, { useState } from 'react'
+import React from 'react'
 
 import { useBulkImportsQuery } from '../../hooks'
 import ImportAlertList from '../ImportAlertList/ImportAlertList'
 
 const BulkImportList = () => {
-  const [shouldPoll, setShouldPoll] = useState(true)
   const { data, error } = useBulkImportsQuery({
-    shouldPoll,
-    onError: () => setShouldPoll(false),
+    shouldPoll: true,
   })
 
   if (error?.message) {
