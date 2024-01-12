@@ -1,11 +1,22 @@
 import useSWR from 'swr'
+import { useState } from 'react'
 
 import type { Session } from '../modules/session'
 import { useSessionResponse } from '../modules/session'
 import { getBulkImportList } from '../services'
 
-const useBulkImportQuery = () => {
+type UseBulkImportQueryProps = {
+  shouldPoll?: boolean
+}
+
+const useBulkImportQuery = (
+  { shouldPoll: initialShouldPoll }: UseBulkImportQueryProps = {
+    shouldPoll: false,
+  }
+) => {
   const session = useSessionResponse() as Session
+
+  const [shouldPoll, setShouldPoll] = useState(initialShouldPoll)
 
   const account = session?.namespaces?.account?.accountName?.value
 
@@ -13,7 +24,14 @@ const useBulkImportQuery = () => {
     account ? '/buyer-orgs' : null,
     () => getBulkImportList(account),
     {
-      refreshInterval: 30 * 1000, // 30 seconds
+      refreshInterval: shouldPoll ? 5 * 1000 : 0, // 30 seconds
+      onError: errorData => {
+        const status = errorData?.response?.status ?? 0
+
+        if (status >= 400 && status < 500) {
+          setShouldPoll(false)
+        }
+      },
     }
   )
 }
