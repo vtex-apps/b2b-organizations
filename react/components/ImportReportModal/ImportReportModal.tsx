@@ -28,7 +28,7 @@ const ImportReportModal = ({
 }: ImportReportModalProps) => {
   const { translate: t, formatDate } = useTranslate()
 
-  const { data, error } = useBulkImportDetailsQuery(importId)
+  const { data, error } = useBulkImportDetailsQuery({ importId })
 
   const reportDownloadLink = data?.importResult?.reportDownloadLink
 
