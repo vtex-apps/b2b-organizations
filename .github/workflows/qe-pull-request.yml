@@ -25,6 +25,7 @@ jobs:
       nodeSonarOrganization: vtex-apps
       cypress: false
       cyRunnerTimeOut: 45
+      java-version: '17'
     secrets:
       githubToken: ${{ secrets.GITHUB_TOKEN }}
       sonarToken: ${{ secrets.SONAR_TOKEN }}
