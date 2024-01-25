@@ -8,9 +8,7 @@ const useValidateBulkImport = ({ onSuccess }: { onSuccess?: () => void }) => {
     (_, { arg }: { arg: { importId: string } }) =>
       validateBulkImport(arg.importId),
     {
-      onSuccess() {
-        onSuccess?.()
-      },
+      onSuccess,
     }
   )
 

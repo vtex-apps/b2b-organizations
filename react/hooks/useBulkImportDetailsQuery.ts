@@ -20,9 +20,7 @@ const useBulkImportDetailsQuery = ({
     {
       refreshInterval,
       revalidateOnFocus: false,
-      onSuccess: data => {
-        onSuccess?.(data)
-      },
+      onSuccess,
     }
   )
 }
