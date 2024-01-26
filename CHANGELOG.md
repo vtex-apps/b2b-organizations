@@ -8,6 +8,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [1.30.0] - 2024-01-26
+
 ### Added
 
 - Refactor Bulk import Uploading Modal to Async Validation
