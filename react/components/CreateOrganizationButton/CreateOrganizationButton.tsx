@@ -25,6 +25,7 @@ import type {
 } from '../../types/BulkImport'
 import useStartBulkImport from '../../hooks/useStartBulkImport'
 import ReportDownloadLink from '../ReportDownloadLink/ReportDownloadLink'
+import { ValidationScreen } from '../UploadingScreen'
 
 const CreateOrganizationButton = () => {
   const { formatMessage } = useTranslate()
@@ -70,6 +71,7 @@ const CreateOrganizationButton = () => {
         onOpenChange={setUploadModalOpen}
         uploadFile={uploadBulkImportFile}
         onUploadFinish={handleUploadFinish}
+        uploadingScreen={props => <ValidationScreen {...props} />}
         errorScreen={props => (
           <ReportErrorScreen {...(props.data as BulkImportUploadError)} />
         )}

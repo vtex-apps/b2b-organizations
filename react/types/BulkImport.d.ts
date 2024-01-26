@@ -4,6 +4,8 @@ type ImportState =
   | 'ReadyToImport'
   | 'InProgress'
   | 'Completed'
+  | 'InValidation'
+  | 'ValidationFailed'
   | 'CompletedWithError'
   | 'Failed'
 
@@ -56,6 +58,10 @@ export type ImportDetails = {
   importedAt: string
   importedUserEmail: string
   importedUserName: string
+  validationResult?: {
+    reportDownloadLink: string
+    validationResult: ValidationResult[]
+  }
 }
 
 export type UploadFileResult = {
@@ -70,7 +76,7 @@ export type ValidationResult = {
 }
 
 export type FieldValidationError = {
-  description: string
+  description?: string
   error: 'FieldValidationError'
   errorDownloadLink: string
   validationResult: ValidationResult[]

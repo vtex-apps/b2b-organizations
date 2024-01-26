@@ -15,9 +15,10 @@ const getBulkImportList = async (account: string) => {
   const importListData = importListResponse.data as ImportDetails[]
 
   return importListData
-    .filter(
-      item =>
-        !['ReadyToImport', 'Failed'].some(status => status === item.importState)
+    .filter(item =>
+      ['InProgress', 'Completed', 'CompletedWithError'].some(
+        status => status === item.importState
+      )
     )
     .map(item => ({
       importId: item.importId,
