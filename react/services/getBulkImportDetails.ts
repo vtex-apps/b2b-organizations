@@ -1,12 +1,14 @@
 import bulkImportClient from '.'
 import type { ImportDetails, ImportReportData } from '../types/BulkImport'
 
-type BulkImportList = Omit<ImportDetails, 'percentage'> & {
+export type BulkImportDetails = Omit<ImportDetails, 'percentage'> & {
   importReportList: ImportReportData[]
   percentage: number
 }
 
-const getBulkImportList = async (importId: string): Promise<BulkImportList> => {
+const getBulkImportDetails = async (
+  importId?: string
+): Promise<BulkImportDetails> => {
   const importListResponse = await bulkImportClient.get<ImportDetails>(
     `/buyer-orgs/${importId}`
   )
@@ -14,8 +16,6 @@ const getBulkImportList = async (importId: string): Promise<BulkImportList> => {
   const { data } = importListResponse
 
   const { importResult } = data
-
-  if (!importResult?.imports) throw Error('Import result not provided')
 
   const importList = importResult?.imports ?? []
 
@@ -49,4 +49,4 @@ const getBulkImportList = async (importId: string): Promise<BulkImportList> => {
   }
 }
 
-export default getBulkImportList
+export default getBulkImportDetails

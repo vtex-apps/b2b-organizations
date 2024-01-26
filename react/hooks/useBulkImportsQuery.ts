@@ -24,7 +24,7 @@ const useBulkImportQuery = (
     account ? '/buyer-orgs' : null,
     () => getBulkImportList(account),
     {
-      refreshInterval: shouldPoll ? 5 * 1000 : 0, // 30 seconds
+      refreshInterval: shouldPoll ? 30 * 1000 : 0, // 30 seconds
       onError: errorData => {
         const status = errorData?.response?.status ?? 0
 

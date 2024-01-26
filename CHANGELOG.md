@@ -12,6 +12,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 Arabic, Bulgarian, Catalan, Czech, Danish, German, Greek, English, Spanish, Finnish, French, Indonesian, Italian, Japanese, Korean, Dutch, Norwegian, Polish, Portuguese, Romanian, Russian, Slovak, Slovenian, Swedish, Thai, and Ukrainian translations.
 
+## [1.30.0] - 2024-01-26
+
+### Added
+
+- Refactor Bulk import Uploading Modal to Async Validation
+
 ## [1.29.2] - 2024-01-12
 
 ### Fixed
