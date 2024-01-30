@@ -152,6 +152,7 @@
   "admin/b2b-organizations.bulk-import.import.reportInformationStep4NeedGuidance": "도움이 필요하신가요?",
   "admin/b2b-organizations.bulk-import.import.reportInformationStep4ImportGuide": "모범 사례 가져오기 가이드 확인",
   "admin/b2b-organizations.bulk-import.import.downloadReviewedLink": "검토된 XLSX 다운로드",
+  "admin/b2b-organizations.bulk-import.import.permissionAlertTooltip": "You don't have permission to access the Bulk Import",
   "admin/b2b-organizations.bulk-import.import.errorMessage": "가져오기에 문제가 발생했습니다. 다시 시도해 주세요.",
   "admin/b2b-organizations.organization-requests-admin.table.column-name.title": "조직명",
   "admin/b2b-organizations.organization-requests-admin.table.column-admin.title": "관리 사용자",

@@ -152,6 +152,7 @@
   "admin/b2b-organizations.bulk-import.import.reportInformationStep4NeedGuidance": "Potrzebujesz pomocy?",
   "admin/b2b-organizations.bulk-import.import.reportInformationStep4ImportGuide": "Sprawdź nasz Przewodnik po najlepszych praktykach dotyczących importu",
   "admin/b2b-organizations.bulk-import.import.downloadReviewedLink": "Pobierz sprawdzony plik XLSX",
+  "admin/b2b-organizations.bulk-import.import.permissionAlertTooltip": "You don't have permission to access the Bulk Import",
   "admin/b2b-organizations.bulk-import.import.errorMessage": "Coś poszło nie tak z importem. Spróbuj ponownie.",
   "admin/b2b-organizations.organization-requests-admin.table.column-name.title": "Nazwa organizacji",
   "admin/b2b-organizations.organization-requests-admin.table.column-admin.title": "Użytkownik admin",

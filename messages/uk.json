@@ -152,6 +152,7 @@
   "admin/b2b-organizations.bulk-import.import.reportInformationStep4NeedGuidance": "Потрібна допомога?",
   "admin/b2b-organizations.bulk-import.import.reportInformationStep4ImportGuide": "Ознайомтеся з нашим посібником з імпортування",
   "admin/b2b-organizations.bulk-import.import.downloadReviewedLink": "Завантажити перевірений XLSX",
+  "admin/b2b-organizations.bulk-import.import.permissionAlertTooltip": "You don't have permission to access the Bulk Import",
   "admin/b2b-organizations.bulk-import.import.errorMessage": "Збій імпортування. Повторіть спробу.",
   "admin/b2b-organizations.organization-requests-admin.table.column-name.title": "Назва організації",
   "admin/b2b-organizations.organization-requests-admin.table.column-admin.title": "Адміністратор",

@@ -152,6 +152,7 @@
   "admin/b2b-organizations.bulk-import.import.reportInformationStep4NeedGuidance": "Potrebujete pomoc?",
   "admin/b2b-organizations.bulk-import.import.reportInformationStep4ImportGuide": "Pozrite si nášho sprievodcu osvedčenými postupmi importovania",
   "admin/b2b-organizations.bulk-import.import.downloadReviewedLink": "Stiahnuť skontrolovaný súbor XLSX",
+  "admin/b2b-organizations.bulk-import.import.permissionAlertTooltip": "You don't have permission to access the Bulk Import",
   "admin/b2b-organizations.bulk-import.import.errorMessage": "Pri importe sa vyskytla chyba. Skúste to znova.",
   "admin/b2b-organizations.organization-requests-admin.table.column-name.title": "Názov organizácie",
   "admin/b2b-organizations.organization-requests-admin.table.column-admin.title": "Správca používateľa",

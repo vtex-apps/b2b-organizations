@@ -152,6 +152,7 @@
   "admin/b2b-organizations.bulk-import.import.reportInformationStep4NeedGuidance": "Hulp nodig?",
   "admin/b2b-organizations.bulk-import.import.reportInformationStep4ImportGuide": "Bekijk onze importgids voor beste praktijken",
   "admin/b2b-organizations.bulk-import.import.downloadReviewedLink": "Herzien XLSX downloaden",
+  "admin/b2b-organizations.bulk-import.import.permissionAlertTooltip": "You don't have permission to access the Bulk Import",
   "admin/b2b-organizations.bulk-import.import.errorMessage": "Er is iets misgegaan bij het importeren. Probeer het opnieuw.",
   "admin/b2b-organizations.organization-requests-admin.table.column-name.title": "Naam organisatie",
   "admin/b2b-organizations.organization-requests-admin.table.column-admin.title": "Admin gebruiker",
