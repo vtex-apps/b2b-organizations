@@ -59,7 +59,7 @@ const CreateOrganizationButton = () => {
           icon={<IconPencil />}
           onClick={() => setOpen(true)}
         />
-        <ImportInBulkTooltip visible={!!data}>
+        <ImportInBulkTooltip visible={!data}>
           <MenuItem
             label={formatMessage(messages.addBulk)}
             icon={<IconCloudArrowUp />}
