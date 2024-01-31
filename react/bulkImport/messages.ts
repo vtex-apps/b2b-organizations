@@ -28,6 +28,7 @@ export type BulkImportMessageKey =
   | 'reportInformationStep4'
   | 'downloadReviewedLink'
   | 'errorMessage'
+  | 'permissionAlertTooltip'
 
 export const bulkUploadMessages: Record<
   BulkImportMessageKey,
@@ -210,6 +211,9 @@ export const bulkUploadMessages: Record<
   },
   errorMessage: {
     id: 'admin/b2b-organizations.bulk-import.import.errorMessage',
+  },
+  permissionAlertTooltip: {
+    id: 'admin/b2b-organizations.bulk-import.import.permissionAlertTooltip',
   },
 })
 

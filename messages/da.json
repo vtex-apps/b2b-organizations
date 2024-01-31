@@ -152,6 +152,7 @@
   "admin/b2b-organizations.bulk-import.import.reportInformationStep4NeedGuidance": "Brug for hjælp?",
   "admin/b2b-organizations.bulk-import.import.reportInformationStep4ImportGuide": "Se vores importvejledning til bedste praksis",
   "admin/b2b-organizations.bulk-import.import.downloadReviewedLink": "Download gennemgået XLSX",
+  "admin/b2b-organizations.bulk-import.import.permissionAlertTooltip": "You don't have permission to access the Bulk Import",
   "admin/b2b-organizations.bulk-import.import.errorMessage": "Der gik noget galt med importen. Prøv igen.",
   "admin/b2b-organizations.organization-requests-admin.table.column-name.title": "Organisationens navn",
   "admin/b2b-organizations.organization-requests-admin.table.column-admin.title": "Admin-bruger",

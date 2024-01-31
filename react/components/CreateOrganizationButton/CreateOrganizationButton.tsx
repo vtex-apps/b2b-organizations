@@ -26,6 +26,7 @@ import type {
 import useStartBulkImport from '../../hooks/useStartBulkImport'
 import ReportDownloadLink from '../ReportDownloadLink/ReportDownloadLink'
 import { ValidationScreen } from '../UploadingScreen'
+import { ImportInBulkTooltip } from '../ImportInBulkTooltip'
 
 const CreateOrganizationButton = () => {
   const { formatMessage } = useTranslate()
@@ -34,6 +35,7 @@ const CreateOrganizationButton = () => {
   const [uploadModalOpen, setUploadModalOpen] = useState(false)
   const { mutate } = useSWRConfig()
   const { startBulkImport } = useStartBulkImport()
+
   const { data } = useBulkImportsQuery()
 
   const handleUploadFinish = async (result: UploadFileData) => {
@@ -57,13 +59,14 @@ const CreateOrganizationButton = () => {
           icon={<IconPencil />}
           onClick={() => setOpen(true)}
         />
-        {!!data && (
+        <ImportInBulkTooltip visible={!data}>
           <MenuItem
             label={formatMessage(messages.addBulk)}
             icon={<IconCloudArrowUp />}
             onClick={() => setUploadModalOpen(true)}
+            disabled={!data}
           />
-        )}
+        </ImportInBulkTooltip>
       </Menu>
       <CreateOrganizationModal open={open} onOpenChange={setOpen} />
       <UploadModal
