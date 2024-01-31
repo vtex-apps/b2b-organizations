@@ -8,6 +8,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [1.30.2] - 2024-01-31
+
 ### Added
 
 Adds a Tooltip when the user don't have permission to access the bulk import feature.
