@@ -102,6 +102,7 @@
   "admin/b2b-organizations.bulk-import.upload.dragDrop": "ファイルをドラッグ＆ドロップ",
   "admin/b2b-organizations.bulk-import.upload.filesType": "ファイル形式",
   "admin/b2b-organizations.bulk-import.upload.maxSize": "最大サイズ",
+  "admin/b2b-organizations.bulk-import.upload.helpLinks": "Need help? Download the <template-link>VTEX file template</template-link> or view our <best-practices-link>best practices guide</best-practices-link>.",
   "admin/b2b-organizations.bulk-import.upload.unknownRowName": "不明",
   "admin/b2b-organizations.bulk-import.upload.upload": "アップロードする",
   "admin/b2b-organizations.bulk-import.upload.uploading": "ファイルのアップロードと検証中です",

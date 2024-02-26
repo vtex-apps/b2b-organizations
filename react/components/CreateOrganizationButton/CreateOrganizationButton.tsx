@@ -5,6 +5,7 @@ import {
   Menu,
   MenuItem,
   PageHeaderMenuButton,
+  Text,
   useMenuState,
 } from '@vtex/admin-ui'
 import { UploadModal } from '@vtex/bulk-import-ui'
@@ -27,9 +28,13 @@ import useStartBulkImport from '../../hooks/useStartBulkImport'
 import ReportDownloadLink from '../ReportDownloadLink/ReportDownloadLink'
 import { ValidationScreen } from '../UploadingScreen'
 import { ImportInBulkTooltip } from '../ImportInBulkTooltip'
+import {
+  B2B_BULK_IMPORT_TEMPLATE_LINK,
+  B2B_BULK_IMPORT_BEST_PRACTICES_LINK,
+} from '../../utils/constants'
 
 const CreateOrganizationButton = () => {
-  const { formatMessage } = useTranslate()
+  const { formatMessage, translate: t } = useTranslate()
   const menuState = useMenuState()
   const [open, setOpen] = useState(false)
   const [uploadModalOpen, setUploadModalOpen] = useState(false)
@@ -70,6 +75,18 @@ const CreateOrganizationButton = () => {
       </Menu>
       <CreateOrganizationModal open={open} onOpenChange={setOpen} />
       <UploadModal
+        helpContent={
+          <Text variant="body">
+            {t('helpLinks', {
+              'template-link': (content: string) => (
+                <a href={B2B_BULK_IMPORT_TEMPLATE_LINK}>{content}</a>
+              ),
+              'best-practices-link': (content: string) => (
+                <a href={B2B_BULK_IMPORT_BEST_PRACTICES_LINK}>{content}</a>
+              ),
+            })}
+          </Text>
+        }
         open={uploadModalOpen}
         onOpenChange={setUploadModalOpen}
         uploadFile={uploadBulkImportFile}

@@ -102,6 +102,7 @@
   "admin/b2b-organizations.bulk-import.upload.dragDrop": "Arraste e solte o arquivo",
   "admin/b2b-organizations.bulk-import.upload.filesType": "Tipo de arquivo",
   "admin/b2b-organizations.bulk-import.upload.maxSize": "Tamanho máximo",
+  "admin/b2b-organizations.bulk-import.upload.helpLinks": "Need help? Download the <template-link>VTEX file template</template-link> or view our <best-practices-link>best practices guide</best-practices-link>.",
   "admin/b2b-organizations.bulk-import.upload.unknownRowName": "Desconhecido",
   "admin/b2b-organizations.bulk-import.upload.upload": "Enviar",
   "admin/b2b-organizations.bulk-import.upload.uploading": "Enviando e validando o arquivo...",

@@ -26,6 +26,7 @@ export type BulkImportMessageKey =
   | 'reportInformationStep3Upload'
   | 'reportInformationStep3Import'
   | 'reportInformationStep4'
+  | 'helpLinks'
   | 'downloadReviewedLink'
   | 'errorMessage'
   | 'permissionAlertTooltip'
@@ -48,6 +49,9 @@ export const bulkUploadMessages: Record<
   },
   maxSize: {
     id: 'admin/b2b-organizations.bulk-import.upload.maxSize',
+  },
+  helpLinks: {
+    id: 'admin/b2b-organizations.bulk-import.upload.helpLinks',
   },
   unknownRowName: {
     id: 'admin/b2b-organizations.bulk-import.upload.unknownRowName',
