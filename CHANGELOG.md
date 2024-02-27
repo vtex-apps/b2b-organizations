@@ -8,6 +8,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Added
+- Add help footer on bulk import upload modal
+
 ## [1.30.2] - 2024-01-31
 
 ### Added

@@ -102,6 +102,7 @@
   "admin/b2b-organizations.bulk-import.upload.dragDrop": "Arrossega i deixa anar el fitxer",
   "admin/b2b-organizations.bulk-import.upload.filesType": "Tipus de fitxer",
   "admin/b2b-organizations.bulk-import.upload.maxSize": "Mida màxima",
+  "admin/b2b-organizations.bulk-import.upload.helpLinks": "Need help? Download the <template-link>VTEX file template</template-link> or view our <best-practices-link>best practices guide</best-practices-link>.",
   "admin/b2b-organizations.bulk-import.upload.unknownRowName": "Desconegut",
   "admin/b2b-organizations.bulk-import.upload.upload": "Penja",
   "admin/b2b-organizations.bulk-import.upload.uploading": "S'està penjant i validant el fitxer...",
