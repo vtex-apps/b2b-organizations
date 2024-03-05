@@ -153,7 +153,7 @@
   "admin/b2b-organizations.bulk-import.import.reportInformationStep4NeedGuidance": "ヘルプが必要ですか？",
   "admin/b2b-organizations.bulk-import.import.reportInformationStep4ImportGuide": "ベストプラクティスインポートガイドをご覧ください",
   "admin/b2b-organizations.bulk-import.import.downloadReviewedLink": "レビュー済みの XLSX をダウンロードする",
-  "admin/b2b-organizations.bulk-import.import.permissionAlertTooltip": "You don't have permission to access the Bulk Import",
+  "admin/b2b-organizations.bulk-import.import.permissionAlertTooltip": "Permission required",
   "admin/b2b-organizations.bulk-import.import.errorMessage": "インポート時にエラーが発生しました。もう一度やり直してください。",
   "admin/b2b-organizations.organization-requests-admin.table.column-name.title": "組織名",
   "admin/b2b-organizations.organization-requests-admin.table.column-admin.title": "管理者ユーザー",

@@ -153,7 +153,7 @@
   "admin/b2b-organizations.bulk-import.import.reportInformationStep4NeedGuidance": "Necessiteu ajuda?",
   "admin/b2b-organizations.bulk-import.import.reportInformationStep4ImportGuide": "Consulteu la nostra Guia d'importació de pràctiques recomanades",
   "admin/b2b-organizations.bulk-import.import.downloadReviewedLink": "Baixa el fitxer XLSX revisat",
-  "admin/b2b-organizations.bulk-import.import.permissionAlertTooltip": "You don't have permission to access the Bulk Import",
+  "admin/b2b-organizations.bulk-import.import.permissionAlertTooltip": "Permission required",
   "admin/b2b-organizations.bulk-import.import.errorMessage": "Alguna cosa ha anat malament amb la importació. Torneu-ho a provar.",
   "admin/b2b-organizations.organization-requests-admin.table.column-name.title": "Nom de l'organització",
   "admin/b2b-organizations.organization-requests-admin.table.column-admin.title": "Usuari administrador",

@@ -153,7 +153,7 @@
   "admin/b2b-organizations.bulk-import.import.reportInformationStep4NeedGuidance": "ต้องการความช่วยเหลือหรือไม่",
   "admin/b2b-organizations.bulk-import.import.reportInformationStep4ImportGuide": "โปรดดูคู่มือการนำเข้าที่ดีที่สุดของเรา",
   "admin/b2b-organizations.bulk-import.import.downloadReviewedLink": "ดาวน์โหลด XLSX ที่ตรวจสอบแล้ว",
-  "admin/b2b-organizations.bulk-import.import.permissionAlertTooltip": "You don't have permission to access the Bulk Import",
+  "admin/b2b-organizations.bulk-import.import.permissionAlertTooltip": "Permission required",
   "admin/b2b-organizations.bulk-import.import.errorMessage": "มีบางอย่างผิดปกติกับการนำเข้า โปรดลองอีกครั้ง",
   "admin/b2b-organizations.organization-requests-admin.table.column-name.title": "ชื่อองค์กร",
   "admin/b2b-organizations.organization-requests-admin.table.column-admin.title": "ผู้ใช้ Admin",

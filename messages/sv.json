@@ -153,7 +153,7 @@
   "admin/b2b-organizations.bulk-import.import.reportInformationStep4NeedGuidance": "Behöver du hjälp?",
   "admin/b2b-organizations.bulk-import.import.reportInformationStep4ImportGuide": "Kolla in vår Importguide för bästa praxis",
   "admin/b2b-organizations.bulk-import.import.downloadReviewedLink": "Ladda ner granskad XLSX",
-  "admin/b2b-organizations.bulk-import.import.permissionAlertTooltip": "You don't have permission to access the Bulk Import",
+  "admin/b2b-organizations.bulk-import.import.permissionAlertTooltip": "Permission required",
   "admin/b2b-organizations.bulk-import.import.errorMessage": "Något gick fel med importen. Försök igen, tack.",
   "admin/b2b-organizations.organization-requests-admin.table.column-name.title": "Företagsnamn",
   "admin/b2b-organizations.organization-requests-admin.table.column-admin.title": "Administratör",

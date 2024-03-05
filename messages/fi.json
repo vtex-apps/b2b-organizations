@@ -153,7 +153,7 @@
   "admin/b2b-organizations.bulk-import.import.reportInformationStep4NeedGuidance": "Tarvitsetko apua?",
   "admin/b2b-organizations.bulk-import.import.reportInformationStep4ImportGuide": "Tutustu parhaiden käytäntöjen tuontioppaaseen",
   "admin/b2b-organizations.bulk-import.import.downloadReviewedLink": "Lataa tarkistettu XLSX",
-  "admin/b2b-organizations.bulk-import.import.permissionAlertTooltip": "You don't have permission to access the Bulk Import",
+  "admin/b2b-organizations.bulk-import.import.permissionAlertTooltip": "Permission required",
   "admin/b2b-organizations.bulk-import.import.errorMessage": "Jokin meni pieleen tuonnissa. Yritä uudelleen.",
   "admin/b2b-organizations.organization-requests-admin.table.column-name.title": "Organisaation nimi",
   "admin/b2b-organizations.organization-requests-admin.table.column-admin.title": "Järjestelmänvalvojakäyttäjä",

@@ -153,7 +153,7 @@
   "admin/b2b-organizations.bulk-import.import.reportInformationStep4NeedGuidance": "Нуждаете се от помощ?",
   "admin/b2b-organizations.bulk-import.import.reportInformationStep4ImportGuide": "Разгледайте нашето Ръководство за най-добри практики при импортиране",
   "admin/b2b-organizations.bulk-import.import.downloadReviewedLink": "Изтегляне на прегледани XLSX",
-  "admin/b2b-organizations.bulk-import.import.permissionAlertTooltip": "You don't have permission to access the Bulk Import",
+  "admin/b2b-organizations.bulk-import.import.permissionAlertTooltip": "Permission required",
   "admin/b2b-organizations.bulk-import.import.errorMessage": "Нещо се обърка при импортирането. Моля, опитайте отново.",
   "admin/b2b-organizations.organization-requests-admin.table.column-name.title": "Име на организацията",
   "admin/b2b-organizations.organization-requests-admin.table.column-admin.title": "Админ потребител",

@@ -153,7 +153,7 @@
   "admin/b2b-organizations.bulk-import.import.reportInformationStep4NeedGuidance": "Potrebujete pomoč?",
   "admin/b2b-organizations.bulk-import.import.reportInformationStep4ImportGuide": "Oglejte si naš Vodnik po najboljših praksah za uvoz",
   "admin/b2b-organizations.bulk-import.import.downloadReviewedLink": "Prenesite pregledano XLSX",
-  "admin/b2b-organizations.bulk-import.import.permissionAlertTooltip": "You don't have permission to access the Bulk Import",
+  "admin/b2b-organizations.bulk-import.import.permissionAlertTooltip": "Permission required",
   "admin/b2b-organizations.bulk-import.import.errorMessage": "Pri uvozu je šlo nekaj narobe. Poskusite znova.",
   "admin/b2b-organizations.organization-requests-admin.table.column-name.title": "Ime organizacije",
   "admin/b2b-organizations.organization-requests-admin.table.column-admin.title": "Skrbniški uporabnik",

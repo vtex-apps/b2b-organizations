@@ -153,7 +153,7 @@
   "admin/b2b-organizations.bulk-import.import.reportInformationStep4NeedGuidance": "Χρειάζεστε βοήθεια;",
   "admin/b2b-organizations.bulk-import.import.reportInformationStep4ImportGuide": "Ελέγξτε τον Οδηγό εισαγωγής βέλτιστων πρακτικών",
   "admin/b2b-organizations.bulk-import.import.downloadReviewedLink": "Λήψη αναθεωρημένου XLSX",
-  "admin/b2b-organizations.bulk-import.import.permissionAlertTooltip": "You don't have permission to access the Bulk Import",
+  "admin/b2b-organizations.bulk-import.import.permissionAlertTooltip": "Permission required",
   "admin/b2b-organizations.bulk-import.import.errorMessage": "Κάτι πήγε στραβά με την εισαγωγή. Δοκιμάστε ξανά.",
   "admin/b2b-organizations.organization-requests-admin.table.column-name.title": "Όνομα οργανισμού",
   "admin/b2b-organizations.organization-requests-admin.table.column-admin.title": "Χρήστης διαχείρισης",

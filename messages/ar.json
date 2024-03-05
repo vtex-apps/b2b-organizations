@@ -153,7 +153,7 @@
   "admin/b2b-organizations.bulk-import.import.reportInformationStep4NeedGuidance": "هل تحتاج للمساعدة؟",
   "admin/b2b-organizations.bulk-import.import.reportInformationStep4ImportGuide": "تحقق من أفضل ممارسات دليل الاستيراد لدينا",
   "admin/b2b-organizations.bulk-import.import.downloadReviewedLink": "تحميل XLSX المصحَّح",
-  "admin/b2b-organizations.bulk-import.import.permissionAlertTooltip": "You don't have permission to access the Bulk Import",
+  "admin/b2b-organizations.bulk-import.import.permissionAlertTooltip": "Permission required",
   "admin/b2b-organizations.bulk-import.import.errorMessage": "حدث خطأ ما أثناء الاستيراد. الرجاء المحاولة مرة أخرى.",
   "admin/b2b-organizations.organization-requests-admin.table.column-name.title": "اسم المنظمة",
   "admin/b2b-organizations.organization-requests-admin.table.column-admin.title": "المستخدم المُشرف",
