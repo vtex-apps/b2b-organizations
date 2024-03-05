@@ -11,7 +11,7 @@ export type UseBulkImportDetailsQueryProps = {
 
 const useBulkImportDetailsQuery = ({
   importId,
-  onSuccess,
+  onSuccess = () => {},
   refreshInterval = 0,
 }: UseBulkImportDetailsQueryProps) => {
   return useSWR(

@@ -26,7 +26,7 @@ import type {
 } from '../../types/BulkImport'
 import useStartBulkImport from '../../hooks/useStartBulkImport'
 import ReportDownloadLink from '../ReportDownloadLink/ReportDownloadLink'
-import { ValidationScreen } from '../UploadingScreen'
+import { UploadingScreen } from '../UploadingScreen'
 import { ImportInBulkTooltip } from '../ImportInBulkTooltip'
 import {
   B2B_BULK_IMPORT_TEMPLATE_LINK,
@@ -91,7 +91,7 @@ const CreateOrganizationButton = () => {
         onOpenChange={setUploadModalOpen}
         uploadFile={uploadBulkImportFile}
         onUploadFinish={handleUploadFinish}
-        uploadingScreen={props => <ValidationScreen {...props} />}
+        uploadingScreen={props => <UploadingScreen {...props} />}
         errorScreen={props => (
           <ReportErrorScreen {...(props.data as BulkImportUploadError)} />
         )}
