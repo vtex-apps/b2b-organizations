@@ -1,4 +1,4 @@
-import { Text, csx } from '@vtex/admin-ui'
+import { Anchor, Text, csx } from '@vtex/admin-ui'
 import React from 'react'
 
 import { useTranslate } from '../../hooks'
@@ -39,10 +39,10 @@ const ReportInformationDetails = ({
           <ol>
             {t('reportInformationStep4', {
               'template-link': (content: string) => (
-                <a href="/template-link">{content}</a>
+                <Anchor href="/template-link">{content}</Anchor>
               ),
               'best-practices-link': (content: string) => (
-                <a href="/best-practices">{content}</a>
+                <Anchor href="/best-practices">{content}</Anchor>
               ),
             })}
           </ol>
