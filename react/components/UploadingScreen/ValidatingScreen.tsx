@@ -23,9 +23,11 @@ const ValidatingScreen = ({
 
   useBulkImportDetailsQuery({
     importId,
-    refreshInterval: 30 * 1000,
+    refreshInterval: 5 * 1000,
     onSuccess: data => {
-      if (data.importState === 'ReadyToImport') {
+      if (['InValidation', 'InProgress'].includes(data.importState)) return
+
+      if (['ReadyToImport', 'Completed'].includes(data.importState)) {
         onUploadFinished({
           status: 'success',
           data: {
@@ -39,16 +41,22 @@ const ValidatingScreen = ({
         return
       }
 
-      onUploadFinished({
-        status: 'error',
-        showReport: data?.importState === 'ValidationFailed',
-        data: {
-          error: 'FieldValidationError',
-          errorDownloadLink: data?.validationResult?.reportDownloadLink ?? '',
-          validationResult: data?.validationResult?.validationResult ?? [],
-          fileName: data.fileName,
-        },
-      })
+      if (
+        ['ValidationFailed', 'CompletedWithError', 'Failed'].includes(
+          data.importState
+        )
+      ) {
+        onUploadFinished({
+          status: 'error',
+          showReport: data?.importState === 'ValidationFailed',
+          data: {
+            error: 'FieldValidationError',
+            errorDownloadLink: data?.validationResult?.reportDownloadLink ?? '',
+            validationResult: data?.validationResult?.validationResult ?? [],
+            fileName: data.fileName,
+          },
+        })
+      }
     },
   })
 

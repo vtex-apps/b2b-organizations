@@ -153,7 +153,7 @@
   "admin/b2b-organizations.bulk-import.import.reportInformationStep4NeedGuidance": "Butuh bantuan?",
   "admin/b2b-organizations.bulk-import.import.reportInformationStep4ImportGuide": "Lihat Panduan Praktik Impor Terbaik kami",
   "admin/b2b-organizations.bulk-import.import.downloadReviewedLink": "Unduh Ulasan XLSX",
-  "admin/b2b-organizations.bulk-import.import.permissionAlertTooltip": "You don't have permission to access the Bulk Import",
+  "admin/b2b-organizations.bulk-import.import.permissionAlertTooltip": "Permission required",
   "admin/b2b-organizations.bulk-import.import.errorMessage": "Ada yang tidak beres pada impor. Silakan coba lagi.",
   "admin/b2b-organizations.organization-requests-admin.table.column-name.title": "Nama Organisasi",
   "admin/b2b-organizations.organization-requests-admin.table.column-admin.title": "Pengguna Admin",

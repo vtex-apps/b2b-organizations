@@ -153,7 +153,7 @@
   "admin/b2b-organizations.bulk-import.import.reportInformationStep4NeedGuidance": "Benötigen Sie Hilfe?",
   "admin/b2b-organizations.bulk-import.import.reportInformationStep4ImportGuide": "Lesen Sie unseren Best Practices Import Guide",
   "admin/b2b-organizations.bulk-import.import.downloadReviewedLink": "Überprüftes XLSX herunterladen",
-  "admin/b2b-organizations.bulk-import.import.permissionAlertTooltip": "You don't have permission to access the Bulk Import",
+  "admin/b2b-organizations.bulk-import.import.permissionAlertTooltip": "Permission required",
   "admin/b2b-organizations.bulk-import.import.errorMessage": "Beim Import ist ein Fehler aufgetreten. Bitte versuchen Sie es erneut.",
   "admin/b2b-organizations.organization-requests-admin.table.column-name.title": "Name der Organisation",
   "admin/b2b-organizations.organization-requests-admin.table.column-admin.title": "Admin-Benutzer",

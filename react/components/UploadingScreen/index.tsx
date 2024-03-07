@@ -1,2 +1,2 @@
-export { default as ValidationScreen } from './UploadingScreen'
+export { default as UploadingScreen } from './UploadingScreen'
 export type { UploadingScreenProps } from './UploadingScreen'

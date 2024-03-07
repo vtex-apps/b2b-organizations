@@ -153,7 +153,7 @@
   "admin/b2b-organizations.bulk-import.import.reportInformationStep4NeedGuidance": " Need guidance?",
   "admin/b2b-organizations.bulk-import.import.reportInformationStep4ImportGuide": "Check our Best Practices Import Guide",
   "admin/b2b-organizations.bulk-import.import.downloadReviewedLink": "Download Reviewed .XLSX",
-  "admin/b2b-organizations.bulk-import.import.permissionAlertTooltip": "You don't have permission to access the Bulk Import",
+  "admin/b2b-organizations.bulk-import.import.permissionAlertTooltip": "Permission required",
   "admin/b2b-organizations.bulk-import.import.errorMessage": "Something went wrong with the import. Please try again.",
   "admin/b2b-organizations.organization-requests-admin.table.column-name.title": "admin/b2b-organizations.organization-requests-admin.table.column-name.title",
   "admin/b2b-organizations.organization-requests-admin.table.column-admin.title": "admin/b2b-organizations.organization-requests-admin.table.column-admin.title",

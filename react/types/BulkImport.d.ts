@@ -1,10 +1,10 @@
 import type { UploadFinishedData } from '@vtex/bulk-import-ui'
 
 type ImportState =
-  | 'ReadyToImport'
   | 'InProgress'
-  | 'Completed'
   | 'InValidation'
+  | 'ReadyToImport'
+  | 'Completed'
   | 'ValidationFailed'
   | 'CompletedWithError'
   | 'Failed'

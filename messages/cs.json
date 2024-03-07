@@ -153,7 +153,7 @@
   "admin/b2b-organizations.bulk-import.import.reportInformationStep4NeedGuidance": "Potřebujete pomoc?",
   "admin/b2b-organizations.bulk-import.import.reportInformationStep4ImportGuide": "Nahlédněte do našeho průvodce osvědčenými postupy při importu",
   "admin/b2b-organizations.bulk-import.import.downloadReviewedLink": "Stáhnout zkontrolovaný XLSX",
-  "admin/b2b-organizations.bulk-import.import.permissionAlertTooltip": "You don't have permission to access the Bulk Import",
+  "admin/b2b-organizations.bulk-import.import.permissionAlertTooltip": "Permission required",
   "admin/b2b-organizations.bulk-import.import.errorMessage": "Při importu se něco pokazilo. Zkuste to prosím znovu.",
   "admin/b2b-organizations.organization-requests-admin.table.column-name.title": "Název organizace",
   "admin/b2b-organizations.organization-requests-admin.table.column-admin.title": "Uživatel správce",

@@ -153,7 +153,7 @@
   "admin/b2b-organizations.bulk-import.import.reportInformationStep4NeedGuidance": "Ai nevoie de ajutor?",
   "admin/b2b-organizations.bulk-import.import.reportInformationStep4ImportGuide": "Consultă Ghidul nostru de bune practici privind importul",
   "admin/b2b-organizations.bulk-import.import.downloadReviewedLink": "Descarcă fișierul XLSX revizuit",
-  "admin/b2b-organizations.bulk-import.import.permissionAlertTooltip": "You don't have permission to access the Bulk Import",
+  "admin/b2b-organizations.bulk-import.import.permissionAlertTooltip": "Permission required",
   "admin/b2b-organizations.bulk-import.import.errorMessage": "Ceva nu a mers bine la import. Te rugăm să încerci din nou.",
   "admin/b2b-organizations.organization-requests-admin.table.column-name.title": "Numele organizației",
   "admin/b2b-organizations.organization-requests-admin.table.column-admin.title": "Utilizator Administrator",
