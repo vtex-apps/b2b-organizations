@@ -9,6 +9,7 @@ import { useNavigateToDetailsPage } from './navigate'
 interface OrganizationSimple {
   id: string
   name: string
+  tradeName: string
   status: string
 }
 
@@ -31,6 +32,20 @@ export const useOrgsTableColumns = () => {
         type: 'text',
         columnType: 'name',
         mapText: ({ name }) => name,
+        render: ({ data }) => (
+          <div className={csx({ minWidth: '10rem' })}>{data}</div>
+        ),
+      },
+      sortable: true,
+    },
+    {
+      id: 'tradeName',
+      header: formatMessage(messages.tableColumnTradeName),
+      width: '3fr',
+      resolver: {
+        type: 'text',
+        columnType: 'name',
+        mapText: ({ tradeName }) => tradeName,
         render: ({ data }) => (
           <div className={csx({ minWidth: '10rem' })}>{data}</div>
         ),

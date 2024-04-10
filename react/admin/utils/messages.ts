@@ -222,6 +222,9 @@ export const organizationMessages = defineMessages({
   tableColumnName: {
     id: `${adminPrefix}organizations-admin.table.column-name.title`,
   },
+  tableColumnTradeName: {
+    id: `${adminPrefix}organizations-admin.table.column-tradeName.title`,
+  },
   columnStatus: {
     id: `${adminPrefix}organizations-admin.table.column-status.title`,
   },
@@ -353,6 +356,9 @@ export const organizationRequestMessages = defineMessages({
   },
   columnName: {
     id: `${adminPrefix}organization-requests-admin.table.column-name.title`,
+  },
+  columnTradeName: {
+    id: `${adminPrefix}organization-requests-admin.table.column-tradeName.title`,
   },
   columnAdmin: {
     id: `${adminPrefix}organization-requests-admin.table.column-admin.title`,
