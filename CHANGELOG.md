@@ -5,8 +5,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-
 ## [Unreleased]
+
+### Fixed
+
+- Pagination bug on admin organization details collections assignment UI
+
+### Added
+
+- Loading indicators for admin organization details: cost centers, collections, payment terms, price tables, and sellers
 
 ## [1.31.2] - 2024-03-14
 
@@ -23,6 +30,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [1.31.0] - 2024-02-27
 
 ### Added
+
 - Add help footer on bulk import upload modal
 
 ## [1.30.2] - 2024-01-31
@@ -70,7 +78,8 @@ Arabic, Bulgarian, Catalan, Czech, Danish, German, Greek, English, Spanish, Finn
 ## [1.28.1] - 2023-11-06
 
 ### Fixed
-- Arabic, Bulgarian, Catalan, Czech, Danish, German, Greek, English, Spanish, Finnish, French, Indonesian, Italian, Japanese, Korean, Dutch, Norwegian, Polish, Portuguese, Romanian, Russian, Slovakian, Slovenian, Swedish, Thai and Ukrainian translations. 
+
+- Arabic, Bulgarian, Catalan, Czech, Danish, German, Greek, English, Spanish, Finnish, French, Indonesian, Italian, Japanese, Korean, Dutch, Norwegian, Polish, Portuguese, Romanian, Russian, Slovakian, Slovenian, Swedish, Thai and Ukrainian translations.
 
 ## [1.28.0] - 2023-10-18
 

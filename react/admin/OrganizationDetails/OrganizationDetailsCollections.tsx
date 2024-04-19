@@ -42,17 +42,18 @@ const OrganizationDetailsCollections = ({
   const {
     data: collectionsData,
     refetch: refetchCollections,
-  } = useQuery(GET_COLLECTIONS, { ssr: false })
+    loading,
+  } = useQuery(GET_COLLECTIONS, {
+    notifyOnNetworkStatusChange: true,
+    ssr: false,
+  })
 
   /**
    * Effects
    */
 
   useEffect(() => {
-    if (
-      !collectionsData?.collections?.items?.length ||
-      collectionOptions.length
-    ) {
+    if (!collectionsData?.collections?.items?.length) {
       return
     }
 
@@ -171,6 +172,7 @@ const OrganizationDetailsCollections = ({
             fullWidth
             schema={getSchema('availableCollections')}
             items={collectionOptions}
+            loading={loading}
             pagination={{
               onNextClick: handleCollectionsNextClick,
               onPrevClick: handleCollectionsPrevClick,

@@ -87,15 +87,17 @@ const OrganizationDetailsCostCenters = ({
    * Mutations
    */
   const [createCostCenter] = useMutation(CREATE_COST_CENTER)
-  const { data: costCentersData, refetch: refetchCostCenters } = useQuery(
-    GET_COST_CENTERS,
-    {
-      variables: { ...costCenterPaginationState, id: params?.id },
-      fetchPolicy: 'network-only',
-      skip: !params?.id,
-      ssr: false,
-    }
-  )
+  const {
+    data: costCentersData,
+    refetch: refetchCostCenters,
+    loading,
+  } = useQuery(GET_COST_CENTERS, {
+    variables: { ...costCenterPaginationState, id: params?.id },
+    fetchPolicy: 'network-only',
+    notifyOnNetworkStatusChange: true,
+    skip: !params?.id,
+    ssr: false,
+  })
 
   //! CUSTOM FIELDS
   const {
@@ -286,6 +288,7 @@ const OrganizationDetailsCostCenters = ({
         <Table
           fullWidth
           schema={getCostCenterSchema()}
+          loading={loading}
           items={costCentersData?.getCostCentersByOrganizationId?.data}
           onRowClick={({
             rowData: { id },

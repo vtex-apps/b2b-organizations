@@ -39,7 +39,7 @@ const OrganizationDetailsSellers = ({
   /**
    * Queries
    */
-  const { data: sellersData } = useQuery(GET_SELLERS)
+  const { data: sellersData, loading } = useQuery(GET_SELLERS)
 
   /**
    * Effects
@@ -107,6 +107,7 @@ const OrganizationDetailsSellers = ({
             fullWidth
             schema={getSchema()}
             items={sellersState}
+            loading={loading}
             bulkActions={organizationBulkAction(
               handleRemoveSellers,
               messages.removeFromOrg,
