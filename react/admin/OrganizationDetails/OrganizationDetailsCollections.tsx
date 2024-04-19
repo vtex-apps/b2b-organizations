@@ -44,6 +44,7 @@ const OrganizationDetailsCollections = ({
     refetch: refetchCollections,
     loading,
   } = useQuery(GET_COLLECTIONS, {
+    variables: collectionPaginationState,
     notifyOnNetworkStatusChange: true,
     ssr: false,
   })
@@ -191,7 +192,7 @@ const OrganizationDetailsCollections = ({
               textShowRows: formatMessage(messages.showRows),
               textOf: formatMessage(messages.of),
               totalItems: collectionsData?.collections?.paging?.total ?? 0,
-              rowsOptions: [25, 50, 100],
+              rowsOptions: [25, 50],
             }}
             bulkActions={organizationBulkAction(
               handleAddCollections,
