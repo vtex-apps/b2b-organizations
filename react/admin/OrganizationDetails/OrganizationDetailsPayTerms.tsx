@@ -38,7 +38,7 @@ const OrganizationDetailsPayTerms = ({
    * Queries
    */
 
-  const { data: paymentTermsData } = useQuery<{
+  const { data: paymentTermsData, loading } = useQuery<{
     getPaymentTerms: PaymentTerm[]
   }>(GET_PAYMENT_TERMS, { ssr: false })
 
@@ -47,10 +47,7 @@ const OrganizationDetailsPayTerms = ({
    */
 
   useEffect(() => {
-    if (
-      !paymentTermsData?.getPaymentTerms?.length ||
-      paymentTermsOptions.length
-    ) {
+    if (!paymentTermsData?.getPaymentTerms?.length) {
       return
     }
 
@@ -131,6 +128,7 @@ const OrganizationDetailsPayTerms = ({
             fullWidth
             schema={getSchema('availablePayments')}
             items={paymentTermsOptions}
+            loading={loading}
             bulkActions={organizationBulkAction(
               handleAddPaymentTerms,
               messages.addToOrg,

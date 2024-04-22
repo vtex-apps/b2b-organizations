@@ -34,7 +34,9 @@ const OrganizationDetailsPriceTables = ({
   /**
    * Queries
    */
-  const { data: priceTablesData } = useQuery(GET_PRICE_TABLES, { ssr: false })
+  const { data: priceTablesData, loading } = useQuery(GET_PRICE_TABLES, {
+    ssr: false,
+  })
 
   /**
    * Effects
@@ -120,6 +122,7 @@ const OrganizationDetailsPriceTables = ({
             fullWidth
             schema={getSchema('availablePriceTables')}
             items={priceTableOptions}
+            loading={loading}
             bulkActions={organizationBulkAction(
               handleAddPriceTables,
               messages.addToOrg,

@@ -42,17 +42,19 @@ const OrganizationDetailsCollections = ({
   const {
     data: collectionsData,
     refetch: refetchCollections,
-  } = useQuery(GET_COLLECTIONS, { ssr: false })
+    loading,
+  } = useQuery(GET_COLLECTIONS, {
+    variables: collectionPaginationState,
+    notifyOnNetworkStatusChange: true,
+    ssr: false,
+  })
 
   /**
    * Effects
    */
 
   useEffect(() => {
-    if (
-      !collectionsData?.collections?.items?.length ||
-      collectionOptions.length
-    ) {
+    if (!collectionsData?.collections?.items?.length) {
       return
     }
 
@@ -171,6 +173,7 @@ const OrganizationDetailsCollections = ({
             fullWidth
             schema={getSchema('availableCollections')}
             items={collectionOptions}
+            loading={loading}
             pagination={{
               onNextClick: handleCollectionsNextClick,
               onPrevClick: handleCollectionsPrevClick,
@@ -189,7 +192,7 @@ const OrganizationDetailsCollections = ({
               textShowRows: formatMessage(messages.showRows),
               textOf: formatMessage(messages.of),
               totalItems: collectionsData?.collections?.paging?.total ?? 0,
-              rowsOptions: [25, 50, 100],
+              rowsOptions: [25, 50],
             }}
             bulkActions={organizationBulkAction(
               handleAddCollections,
