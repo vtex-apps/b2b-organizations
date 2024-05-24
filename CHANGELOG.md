@@ -11,6 +11,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Fixed
 
+- Save add, edit and delete address within the Cost Center in admin
+
+### Fixed
+
 - Pagination bug on admin organization details collections assignment UI
 
 ### Added
