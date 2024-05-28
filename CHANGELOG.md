@@ -6,14 +6,15 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
-
 ### Fixed
 
 - Save new address within the Cost Center in the store
 
+## [1.31.4] - 2024-05-23
+
 ### Fixed
 
-- Pagination bug on admin organization details collections assignment UI
+Arabic, Bulgarian, Catalan, Czech, Danish, German, Greek, English, Spanish, Finnish, French, Indonesian, Italian, Japanese, Korean, Dutch, Norwegian, Polish, Portuguese, Romanian, Russian, Slovak, Slovenian, Swedish, Thai and Ukrainian translations.
 
 ## [1.31.3] - 2024-04-22
 
