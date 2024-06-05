@@ -26,6 +26,10 @@ Arabic, Bulgarian, Catalan, Czech, Danish, German, Greek, English, Spanish, Finn
 
 ### Fixed
 
+- Save add, edit and delete address within the Cost Center in admin
+
+### Fixed
+
 - Pagination bug on admin organization details collections assignment UI
 
 ### Added
