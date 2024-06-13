@@ -86,9 +86,7 @@ const CustomOrganizationOption = (props: any) => {
 
     return (
       <span className="truncate">
-        <span className="fw7" style={{ color: 'green' }}>
-          {prefix}
-        </span>
+        <span className="fw7">{prefix}</span>
         {match}
         <span className="fw7">{suffix}</span>
       </span>
