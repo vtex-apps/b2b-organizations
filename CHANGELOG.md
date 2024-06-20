@@ -9,6 +9,32 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Fixed
 
 - Adjusts list organization and research screening according to input at autocomplete
+
+## [1.31.8] - 2024-06-05
+
+## [1.31.7] - 2024-05-29
+
+## [1.31.6] - 2024-05-28
+
+## [1.31.5] - 2024-05-28
+### Fixed
+
+- Save new address within the Cost Center in the store
+
+## [1.31.4] - 2024-05-23
+
+### Fixed
+
+Arabic, Bulgarian, Catalan, Czech, Danish, German, Greek, English, Spanish, Finnish, French, Indonesian, Italian, Japanese, Korean, Dutch, Norwegian, Polish, Portuguese, Romanian, Russian, Slovak, Slovenian, Swedish, Thai and Ukrainian translations.
+
+## [1.31.3] - 2024-04-22
+
+### Fixed
+
+- Save add, edit and delete address within the Cost Center in admin
+
+### Fixed
+
 - Pagination bug on admin organization details collections assignment UI
 
 ### Added

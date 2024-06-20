@@ -305,6 +305,8 @@ const CostCenterDetails: FunctionComponent = () => {
       (item: any) => item.addressId === uid
     )
 
+    setLoadingState(true)
+
     let isDuplicatedError = false
 
     if (duplicated !== undefined) {
@@ -333,6 +335,40 @@ const CostCenterDetails: FunctionComponent = () => {
 
       const newAddresses = [...addresses, newAddress]
 
+      const variables = {
+        id: params.id,
+        input: {
+          addresses: newAddresses
+            .sort(item => (item.checked ? -1 : 1))
+            .map(item => {
+              return {
+                ...item,
+                checked: undefined,
+              }
+            }),
+        },
+      }
+
+      updateCostCenter({ variables })
+        .then(() => {
+          showToast({
+            variant: 'positive',
+            message: formatMessage(messages.toastUpdateSuccess),
+          })
+          refetch()
+          handleSetAddresses(newAddresses)
+          setLoadingState(false)
+          handleCloseModals()
+        })
+        .catch(error => {
+          console.error(error)
+          showToast({
+            variant: 'critical',
+            message: formatMessage(messages.toastUpdateFailure),
+          })
+          setLoadingState(false)
+        })
+
       setAddresses(
         newAddresses.map(item => {
           if (newAddressState.checked) {
@@ -342,9 +378,6 @@ const CostCenterDetails: FunctionComponent = () => {
           return item
         })
       )
-
-      setAddresses([...addresses, newAddress])
-      handleCloseModals()
     } else {
       showToast({
         variant: 'critical',
@@ -386,8 +419,41 @@ const CostCenterDetails: FunctionComponent = () => {
       addressQuery: editAddressState.addressQuery.value,
     }
 
-    setAddresses(addressArray)
-    handleCloseModals()
+    setLoadingState(true)
+
+    const variables = {
+      id: params.id,
+      input: {
+        addresses: addressArray
+          .sort(item => (item.checked ? -1 : 1))
+          .map(item => {
+            return {
+              ...item,
+              checked: undefined,
+            }
+          }),
+      },
+    }
+
+    updateCostCenter({ variables })
+      .then(() => {
+        showToast({
+          variant: 'positive',
+          message: formatMessage(messages.toastUpdateSuccess),
+        })
+        refetch()
+        handleSetAddresses(addressArray)
+        setLoadingState(false)
+        handleCloseModals()
+      })
+      .catch(error => {
+        console.error(error)
+        showToast({
+          variant: 'critical',
+          message: formatMessage(messages.toastUpdateFailure),
+        })
+        setLoadingState(false)
+      })
   }
 
   const handleDeleteAddress = () => {
@@ -399,8 +465,40 @@ const CostCenterDetails: FunctionComponent = () => {
     )
 
     addresses.splice(addressIndex, 1)
-    setAddresses(addressArray)
-    handleCloseModals()
+
+    setLoadingState(true)
+
+    const variables = {
+      id: params.id,
+      input: {
+        addresses: addresses.map(item => {
+          return {
+            ...item,
+            checked: undefined,
+          }
+        }),
+      },
+    }
+
+    updateCostCenter({ variables })
+      .then(() => {
+        showToast({
+          variant: 'positive',
+          message: formatMessage(messages.toastUpdateSuccess),
+        })
+        refetch()
+        handleSetAddresses(addressArray)
+        setLoadingState(false)
+        handleCloseModals()
+      })
+      .catch(error => {
+        console.error(error)
+        showToast({
+          variant: 'critical',
+          message: formatMessage(messages.toastUpdateFailure),
+        })
+        setLoadingState(false)
+      })
   }
 
   const handleMarketingTags = (tagValue: string) => {
