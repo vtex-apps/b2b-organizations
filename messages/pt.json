@@ -54,7 +54,7 @@
   "admin/b2b-organizations.organization-details.add-user.helpText": "Se o endereço de email inserido não corresponder a uma conta de usuário existente nesta loja, uma nova conta de usuário será criada.",
   "admin/b2b-organizations.organization-details.add-user": "Adicionar novo usuário",
   "admin/b2b-organizations.organization-details.assigned-to-org": "Atribuído à organização",
-  "admin/b2b-organizations.organization-details.none": "Nenhum",
+  "admin/b2b-organizations.organization-details.none": "Nenhuma",
   "admin/b2b-organizations.organization-details.available": "Disponível",
   "admin/b2b-organizations.organization-details.button.add": "Adicionar",
   "admin/b2b-organizations.organization-details.button.cancel": "Cancelar",
