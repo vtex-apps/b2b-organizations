@@ -1,5 +1,5 @@
 import React, { Fragment, useEffect, useState } from 'react'
-import { FormattedMessage, useIntl } from 'react-intl'
+import { useIntl } from 'react-intl'
 import { PageBlock, RadioGroup } from 'vtex.styleguide'
 import { useQuery } from 'react-apollo'
 
@@ -45,7 +45,12 @@ const OrganizationDetailsSalesChannel = ({
       return
     }
 
-    const options = [] as SalesChannel[]
+    const options = [
+      {
+        value: '',
+        label: 'Nenhum',
+      },
+    ] as SalesChannel[]
 
     salesChannelsData.salesChannels.forEach(
       (channel: { id: string; name: string }) => {
@@ -63,9 +68,6 @@ const OrganizationDetailsSalesChannel = ({
     <Fragment>
       <PageBlock title={formatMessage(messages.salesChannel)}>
         <div>
-          <h4 className="t-heading-4 mt0 mb5">
-            <FormattedMessage id="admin/b2b-organizations.organization-details.available" />
-          </h4>
           <RadioGroup
             name="salesChannels"
             options={salesChannelOptions}

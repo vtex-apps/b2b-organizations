@@ -140,7 +140,7 @@ const OrganizationDetails: FunctionComponent = () => {
       paymentTerms,
       priceTables: priceTablesState,
       customFields: customFieldsState,
-      salesChannel: salesChannelState,
+      salesChannel: salesChannelState === '' || null,
       sellers: sellersState?.map(seller => ({
         id: seller.sellerId,
         name: seller.name,
