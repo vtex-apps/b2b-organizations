@@ -54,6 +54,7 @@
   "admin/b2b-organizations.organization-details.add-user.helpText": "입력한 이메일 주소가 이 스토어의 기존 사용자 계정과 일치하지 않으면 사용자 계정이 생성됩니다.",
   "admin/b2b-organizations.organization-details.add-user": "새 사용자 추가",
   "admin/b2b-organizations.organization-details.assigned-to-org": "조직에 할당됨",
+  "admin/b2b-organizations.organization-details.none": "없음",
   "admin/b2b-organizations.organization-details.available": "사용 가능",
   "admin/b2b-organizations.organization-details.button.add": "추가",
   "admin/b2b-organizations.organization-details.button.cancel": "취소",

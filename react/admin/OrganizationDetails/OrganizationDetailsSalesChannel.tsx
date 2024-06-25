@@ -48,7 +48,7 @@ const OrganizationDetailsSalesChannel = ({
     const options = [
       {
         value: '',
-        label: 'Nenhum',
+        label: formatMessage(messages.salesChannelNone),
       },
     ] as SalesChannel[]
 

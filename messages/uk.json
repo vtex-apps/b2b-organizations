@@ -54,6 +54,7 @@
   "admin/b2b-organizations.organization-details.add-user.helpText": "Якщо введена вами адреса електронної пошти не співпадає з адресою існуючого користувача цього магазину, для такого користувача буде створено новий обліковий запис.",
   "admin/b2b-organizations.organization-details.add-user": "Додати нового користувача",
   "admin/b2b-organizations.organization-details.assigned-to-org": "Призначено організації",
+  "admin/b2b-organizations.organization-details.none": "Жоден",
   "admin/b2b-organizations.organization-details.available": "Доступно",
   "admin/b2b-organizations.organization-details.button.add": "Додати",
   "admin/b2b-organizations.organization-details.button.cancel": "Скасувати",

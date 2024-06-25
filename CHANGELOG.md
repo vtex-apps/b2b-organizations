@@ -9,6 +9,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [1.31.3] - 2024-04-22
 
+### Feat
+
+- Implement 'none' option at trade policy organization
+
 ### Fixed
 
 - Pagination bug on admin organization details collections assignment UI

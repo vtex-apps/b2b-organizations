@@ -54,6 +54,7 @@
   "admin/b2b-organizations.organization-details.add-user.helpText": "Jika alamat email yang Anda masukkan tidak sama dengan akun pengguna yang ada di toko ini, akun pengguna akan dibuat untuk alamat tersebut.",
   "admin/b2b-organizations.organization-details.add-user": "Tambah Pengguna Baru",
   "admin/b2b-organizations.organization-details.assigned-to-org": "Ditetapkan ke organisasi",
+  "admin/b2b-organizations.organization-details.none": "Tidak ada",
   "admin/b2b-organizations.organization-details.available": "Tersedia",
   "admin/b2b-organizations.organization-details.button.add": "Tambah",
   "admin/b2b-organizations.organization-details.button.cancel": "Batalkan",
