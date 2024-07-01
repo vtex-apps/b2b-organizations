@@ -412,7 +412,7 @@ To remove a price table, select the option you want to remove from the **Assigne
 
 ##### Users
 
-This section presents a list of users associated with the organization, showing their **Email**, their **Role** in the organization and the **Cost Center** they are associated with.
+This section presents a list of users associated with the organization, showing their **emails**, their **roles** within the organization, and the **cost center** to which they are associated. It is worth noting that the same email can be associated with up to 949 different organizations or cost centers.
 
 ![13-users-list](https://user-images.githubusercontent.com/77292838/159766707-572dd167-e948-4300-b259-1c9cd0b8a341.png)
 
