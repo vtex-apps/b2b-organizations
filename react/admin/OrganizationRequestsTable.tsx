@@ -61,6 +61,9 @@ const OrganizationRequestsTable: FunctionComponent = () => {
       name: {
         title: formatMessage(messages.columnName),
       },
+      tradeName: {
+        title: formatMessage(messages.columnTradeName),
+      },
       b2bCustomerAdmin: {
         title: formatMessage(messages.columnAdmin),
         cellRenderer: ({
