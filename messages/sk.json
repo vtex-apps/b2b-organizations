@@ -54,6 +54,7 @@
   "admin/b2b-organizations.organization-details.add-user.helpText": "Ak sa zadaná e-mailová adresa nezhoduje s existujúcim používateľským účtom v tomto obchode, vytvorí sa pre ňu používateľský účet.",
   "admin/b2b-organizations.organization-details.add-user": "Pridať nového používateľa",
   "admin/b2b-organizations.organization-details.assigned-to-org": "Pridelené organizácii",
+  "admin/b2b-organizations.organization-details.none": "Žiadny",
   "admin/b2b-organizations.organization-details.available": "Dostupné",
   "admin/b2b-organizations.organization-details.button.add": "Pridať",
   "admin/b2b-organizations.organization-details.button.cancel": "Zrušiť",

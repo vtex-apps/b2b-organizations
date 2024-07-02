@@ -54,6 +54,7 @@
   "admin/b2b-organizations.organization-details.add-user.helpText": "Если введённый вами адрес электронной почты не совпадает с адресом существующего пользователя этого магазина, для такого пользователя будет создана новая учётная запись.",
   "admin/b2b-organizations.organization-details.add-user": "Добавить нового пользователя",
   "admin/b2b-organizations.organization-details.assigned-to-org": "Назначено огранизации",
+  "admin/b2b-organizations.organization-details.none": "Никто",
   "admin/b2b-organizations.organization-details.available": "Доступно",
   "admin/b2b-organizations.organization-details.button.add": "Добавить",
   "admin/b2b-organizations.organization-details.button.cancel": "Отменить",

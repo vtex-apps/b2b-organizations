@@ -112,6 +112,7 @@
   "admin/b2b-organizations.organization-details.add-user.helpText": "ถ้าอีเมลที่คุณกรอกไม่ตรงกับบัญชีผู้ใช้ที่มีอยู่ในร้านค้านี้ จะมีการสร้างบัญชีผู้ใช้ให้",
   "admin/b2b-organizations.organization-details.add-user": "เพิ่มผู้ใช้ใหม่",
   "admin/b2b-organizations.organization-details.assigned-to-org": "กำหนดให้องค์กรแล้ว",
+  "admin/b2b-organizations.organization-details.none": "ไม่มี",
   "admin/b2b-organizations.organization-details.available": "พร้อมใช้",
   "admin/b2b-organizations.organization-details.button.add": "เพิ่ม",
   "admin/b2b-organizations.organization-details.button.cancel": "ยกเลิก",

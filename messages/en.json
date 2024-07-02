@@ -54,6 +54,7 @@
   "admin/b2b-organizations.organization-details.add-user.helpText": "If the email address you entered does not match an existing user account in this store, a user account will be created for them.",
   "admin/b2b-organizations.organization-details.add-user": "Add New User",
   "admin/b2b-organizations.organization-details.assigned-to-org": "Assigned to organization",
+  "admin/b2b-organizations.organization-details.none": "None",
   "admin/b2b-organizations.organization-details.available": "Available",
   "admin/b2b-organizations.organization-details.button.add": "Add",
   "admin/b2b-organizations.organization-details.button.cancel": "Cancel",

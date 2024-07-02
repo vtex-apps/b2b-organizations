@@ -54,6 +54,7 @@
   "admin/b2b-organizations.organization-details.add-user.helpText": "Pokud zadaný e-mail neodpovídá existujícímu uživatelskému účtu v tomto obchodě, bude pro něj uživatelský účet vytvořen.",
   "admin/b2b-organizations.organization-details.add-user": "Přidat nového uživatele",
   "admin/b2b-organizations.organization-details.assigned-to-org": "Přiřazeno organizaci",
+  "admin/b2b-organizations.organization-details.none": "Žádný",
   "admin/b2b-organizations.organization-details.available": "Dostupné",
   "admin/b2b-organizations.organization-details.button.add": "Přidat",
   "admin/b2b-organizations.organization-details.button.cancel": "Zrušit",

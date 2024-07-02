@@ -54,6 +54,7 @@
   "admin/b2b-organizations.organization-details.add-user.helpText": "Εάν η ηλεκτρονική διεύθυνση email που εισαγάγατε δεν ταιριάζει με έναν υπάρχοντα λογαριασμό χρήστη σε αυτό το κατάστημα, θα δημιουργηθεί λογαριασμός χρήστη.",
   "admin/b2b-organizations.organization-details.add-user": "Προσθήκη νέου χρήστη",
   "admin/b2b-organizations.organization-details.assigned-to-org": "Ανατέθηκε σε οργανισμό",
+  "admin/b2b-organizations.organization-details.none": "Κανένας",
   "admin/b2b-organizations.organization-details.available": "Διαθέσιμο",
   "admin/b2b-organizations.organization-details.button.add": "Προσθήκη",
   "admin/b2b-organizations.organization-details.button.cancel": "Ακύρωση",

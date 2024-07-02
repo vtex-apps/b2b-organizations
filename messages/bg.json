@@ -54,6 +54,7 @@
   "admin/b2b-organizations.organization-details.add-user.helpText": "Ако имейл адресът, който сте въвели, не съвпада със съществуващ акаунт на потребител в този магазин, за него ще бъде създаден потребителски акаунт.",
   "admin/b2b-organizations.organization-details.add-user": "Добавяне на нов потребител",
   "admin/b2b-organizations.organization-details.assigned-to-org": "Зададено на организация",
+  "admin/b2b-organizations.organization-details.none": "Никой",
   "admin/b2b-organizations.organization-details.available": "Налично",
   "admin/b2b-organizations.organization-details.button.add": "Добавяне",
   "admin/b2b-organizations.organization-details.button.cancel": "Отмяна",

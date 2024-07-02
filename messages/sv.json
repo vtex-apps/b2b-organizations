@@ -54,6 +54,7 @@
   "admin/b2b-organizations.organization-details.add-user.helpText": "Om e-postadressen du angav inte matchar ett befintligt användarkonto i denna butik, kommer ett användarkonto att skapas för dem.",
   "admin/b2b-organizations.organization-details.add-user": "Lägg till ny användare",
   "admin/b2b-organizations.organization-details.assigned-to-org": "Tilldelad organisationen",
+  "admin/b2b-organizations.organization-details.none": "Ingen",
   "admin/b2b-organizations.organization-details.available": "Tillgängliga",
   "admin/b2b-organizations.organization-details.button.add": "Lägg till",
   "admin/b2b-organizations.organization-details.button.cancel": "Avbryt",

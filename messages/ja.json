@@ -54,6 +54,7 @@
   "admin/b2b-organizations.organization-details.add-user.helpText": "入力したメールアドレスがこのストアの既存ユーザーアカウントと一致しない場合、ユーザーアカウントが作成されます。",
   "admin/b2b-organizations.organization-details.add-user": "新規ユーザーを追加する",
   "admin/b2b-organizations.organization-details.assigned-to-org": "組織に割り当てられています",
+  "admin/b2b-organizations.organization-details.none": "なし",
   "admin/b2b-organizations.organization-details.available": "利用可能",
   "admin/b2b-organizations.organization-details.button.add": "追加する",
   "admin/b2b-organizations.organization-details.button.cancel": "キャンセル",
