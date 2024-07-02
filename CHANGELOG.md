@@ -7,11 +7,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
-## [1.31.3] - 2024-04-22
-
 ### Feat
 
 - Implement 'none' option at trade policy organization
+
+## [1.31.3] - 2024-04-22
 
 ### Fixed
 
