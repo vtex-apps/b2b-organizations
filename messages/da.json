@@ -54,6 +54,7 @@
   "admin/b2b-organizations.organization-details.add-user.helpText": "Hvis den indtastede e-mail-adresse ikke matcher en eksisterende brugerkonto i denne butik, vil der blive oprettet en brugerkonto for dem.",
   "admin/b2b-organizations.organization-details.add-user": "Tilføj ny bruger",
   "admin/b2b-organizations.organization-details.assigned-to-org": "Tildelt organisation",
+  "admin/b2b-organizations.organization-details.none": "Ingen",
   "admin/b2b-organizations.organization-details.available": "Tilgængelig",
   "admin/b2b-organizations.organization-details.button.add": "Tilføj",
   "admin/b2b-organizations.organization-details.button.cancel": "Annuller",

@@ -54,6 +54,7 @@
   "admin/b2b-organizations.organization-details.add-user.helpText": "Si l'adreça electrònica que heu introduït no coincideix amb cap compte d'usuari existent en aquesta botiga, es crearà un compte d'usuari per a l'usuari en qüestió.",
   "admin/b2b-organizations.organization-details.add-user": "Afegeix un usuari nou",
   "admin/b2b-organizations.organization-details.assigned-to-org": "Assignat a l'organització",
+  "admin/b2b-organizations.organization-details.none": "Cap",
   "admin/b2b-organizations.organization-details.available": "Disponible",
   "admin/b2b-organizations.organization-details.button.add": "Afegeix",
   "admin/b2b-organizations.organization-details.button.cancel": "Cancel·la",

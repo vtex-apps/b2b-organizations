@@ -54,6 +54,7 @@
   "admin/b2b-organizations.organization-details.add-user.helpText": "Si le courriel saisi ne correspond pas à un compte utilisateur existant dans cette boutique, un compte utilisateur sera créé pour eux.",
   "admin/b2b-organizations.organization-details.add-user": "Ajouter un nouvel utilisateur",
   "admin/b2b-organizations.organization-details.assigned-to-org": "Assigné à l’organisation",
+  "admin/b2b-organizations.organization-details.none": "Aucun",
   "admin/b2b-organizations.organization-details.available": "Disponible",
   "admin/b2b-organizations.organization-details.button.add": "Ajouter",
   "admin/b2b-organizations.organization-details.button.cancel": "Annuler",

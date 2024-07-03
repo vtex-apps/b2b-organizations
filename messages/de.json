@@ -54,6 +54,7 @@
   "admin/b2b-organizations.organization-details.add-user.helpText": "Wenn die eingegebene E-Mail nicht mit einem existierenden Benutzerkonto in diesem Shop übereinstimmt, wird ein Benutzerkonto für diese erstellt.",
   "admin/b2b-organizations.organization-details.add-user": "Neuen Benutzer hinzufügen",
   "admin/b2b-organizations.organization-details.assigned-to-org": "Der Organisation zugewiesen",
+  "admin/b2b-organizations.organization-details.none": "Keiner",
   "admin/b2b-organizations.organization-details.available": "Verfügbar",
   "admin/b2b-organizations.organization-details.button.add": "Zufügen",
   "admin/b2b-organizations.organization-details.button.cancel": "Abbrechen",

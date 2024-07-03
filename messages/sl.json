@@ -54,6 +54,7 @@
   "admin/b2b-organizations.organization-details.add-user.helpText": "Če se e-poštni naslov, ki ste ga vnesli, ne ujema z obstoječim uporabniškim računom v tej trgovini, bo zanje ustvarjen uporabniški račun.",
   "admin/b2b-organizations.organization-details.add-user": "Dodajte novega uporabnika",
   "admin/b2b-organizations.organization-details.assigned-to-org": "Dodano organizacijam",
+  "admin/b2b-organizations.organization-details.none": "Noben",
   "admin/b2b-organizations.organization-details.available": "Na voljo",
   "admin/b2b-organizations.organization-details.button.add": "Dodaj",
   "admin/b2b-organizations.organization-details.button.cancel": "Prekliči",

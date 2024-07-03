@@ -54,6 +54,7 @@
   "admin/b2b-organizations.organization-details.add-user.helpText": "admin/b2b-organizations.organization-details.add-user.helpText",
   "admin/b2b-organizations.organization-details.add-user": "admin/b2b-organizations.organization-details.add-user",
   "admin/b2b-organizations.organization-details.assigned-to-org": "admin/b2b-organizations.organization-details.assigned-to-org",
+  "admin/b2b-organizations.organization-details.none": "admin/b2b-organizations.organization-details.none",
   "admin/b2b-organizations.organization-details.available": "admin/b2b-organizations.organization-details.available",
   "admin/b2b-organizations.organization-details.button.add": "admin/b2b-organizations.organization-details.button.add",
   "admin/b2b-organizations.organization-details.button.cancel": "admin/b2b-organizations.organization-details.button.cancel",

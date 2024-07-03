@@ -54,6 +54,7 @@
   "admin/b2b-organizations.organization-details.add-user.helpText": "Jos kirjoittamasi sähköpostiosoite ei täsmää tässä kaupassa olemassa olevaan käyttäjätiliin, heille luodaan käyttäjätili.",
   "admin/b2b-organizations.organization-details.add-user": "Lisää uusi käyttäjä",
   "admin/b2b-organizations.organization-details.assigned-to-org": "Määrätty organisaatiolle",
+  "admin/b2b-organizations.organization-details.none": "Ei mitään",
   "admin/b2b-organizations.organization-details.available": "Saatavilla",
   "admin/b2b-organizations.organization-details.button.add": "Lisää",
   "admin/b2b-organizations.organization-details.button.cancel": "Peruuta",

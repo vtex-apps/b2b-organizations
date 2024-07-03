@@ -54,6 +54,7 @@
   "admin/b2b-organizations.organization-details.add-user.helpText": "Als het e-mailadres dat u hebt ingevoerd niet overeenkomt met een bestaand gebruikersaccount in deze winkel, wordt er een gebruikersaccount voor hen aangemaakt.",
   "admin/b2b-organizations.organization-details.add-user": "Nieuwe gebruiker toevoegen",
   "admin/b2b-organizations.organization-details.assigned-to-org": "Toegewezen aan organisatie",
+  "admin/b2b-organizations.organization-details.none": "Geen",
   "admin/b2b-organizations.organization-details.available": "Beschikbaar",
   "admin/b2b-organizations.organization-details.button.add": "Voeg toe",
   "admin/b2b-organizations.organization-details.button.cancel": "Annuleren",

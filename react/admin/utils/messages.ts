@@ -72,6 +72,9 @@ export const organizationMessages = defineMessages({
   sellers: {
     id: `${adminPrefix}organization-details.sellers`,
   },
+  salesChannelNone: {
+    id: `${adminPrefix}organization-details.none`,
+  },
   salesChannel: {
     id: `${adminPrefix}organization-details.sales-channel`,
   },

@@ -54,6 +54,7 @@
   "admin/b2b-organizations.organization-details.add-user.helpText": "Hvis ikke den angitte e-postadressen samsvarer med en eksisterende brukerkonto i denne butikken, opprettes en brukerkonto for dem.",
   "admin/b2b-organizations.organization-details.add-user": "Legg til ny bruker",
   "admin/b2b-organizations.organization-details.assigned-to-org": "Tilordnet organisasjon",
+  "admin/b2b-organizations.organization-details.none": "Ingen",
   "admin/b2b-organizations.organization-details.available": "Tilgjengelig",
   "admin/b2b-organizations.organization-details.button.add": "Legg til",
   "admin/b2b-organizations.organization-details.button.cancel": "Avbryt",

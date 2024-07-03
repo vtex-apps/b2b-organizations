@@ -54,6 +54,7 @@
   "admin/b2b-organizations.organization-details.add-user.helpText": "إذا كان عنوان البريد الإلكتروني الذي أدخلته لا يتطابق مع حساب مستخدم موجود في هذا المتجر، سيتم إنشاء حساب مستخدم لهم.",
   "admin/b2b-organizations.organization-details.add-user": "إضافة مستخدم جديد",
   "admin/b2b-organizations.organization-details.assigned-to-org": "تم تعيينه إلى المنظمة",
+  "admin/b2b-organizations.organization-details.none": "لا أحد",
   "admin/b2b-organizations.organization-details.available": "متاحة",
   "admin/b2b-organizations.organization-details.button.add": "إضافة",
   "admin/b2b-organizations.organization-details.button.cancel": "إلغاء",

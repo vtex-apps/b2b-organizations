@@ -54,6 +54,7 @@
   "admin/b2b-organizations.organization-details.add-user.helpText": "Dacă adresa de e-mail introdusă nu corespunde unui utilizator existent în acest magazin, va fi creat un cont de utilizator.",
   "admin/b2b-organizations.organization-details.add-user": "Adaugă un nou utilizator",
   "admin/b2b-organizations.organization-details.assigned-to-org": "Atribuit organizației",
+  "admin/b2b-organizations.organization-details.none": "Niciunul",
   "admin/b2b-organizations.organization-details.available": "Disponibile",
   "admin/b2b-organizations.organization-details.button.add": "Adaugă",
   "admin/b2b-organizations.organization-details.button.cancel": "Anulează",
