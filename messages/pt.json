@@ -96,7 +96,7 @@
   "admin/b2b-organizations.organization-request-admin.customFields.name": "Nome",
   "admin/b2b-organizations.organization-request-admin.customFields.type": "Tipo",
   "admin/b2b-organizations.organization-request-admin.customFields.value": "Valor",
-  "admin/b2b-organizations.organization-request-admin.customFields": "Campos personalizados",
+  "admin/b2b-organizations.organization-request-admin.customFields": "Campos personalizados de organização",
   "admin/b2b-organizations.bulk-import.upload.back": "Voltar",
   "admin/b2b-organizations.bulk-import.upload.close": "Fechar",
   "admin/b2b-organizations.bulk-import.upload.dragDrop": "Arraste e solte o arquivo",

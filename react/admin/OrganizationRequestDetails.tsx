@@ -19,6 +19,7 @@ import { organizationRequestMessages as messages } from './utils/messages'
 import { labelTypeByStatusMap } from './OrganizationRequestsTable'
 import GET_ORGANIZATION_REQUEST from '../graphql/getOrganizationRequest.graphql'
 import UPDATE_ORGANIZATION_REQUEST from '../graphql/updateOrganizationRequest.graphql'
+import GET_COST_CENTER from '../graphql/getCostCentersByOrganizationId.graphql'
 
 const OrganizationRequestDetails: FunctionComponent = () => {
   const { formatMessage, formatDate } = useIntl()
@@ -34,6 +35,11 @@ const OrganizationRequestDetails: FunctionComponent = () => {
   const [loadingState, setLoadingState] = useState(false)
 
   const { data, loading, refetch } = useQuery(GET_ORGANIZATION_REQUEST, {
+    variables: { id: params?.id },
+    skip: !params?.id,
+  })
+
+  const { data: dataCostCenter } = useQuery(GET_COST_CENTER, {
     variables: { id: params?.id },
     skip: !params?.id,
   })
@@ -212,44 +218,27 @@ const OrganizationRequestDetails: FunctionComponent = () => {
             />
           </AddressRules>
           <br />
-          {data.getOrganizationRequestById.customFields && (
+          {dataCostCenter.getCostCentersByOrganizationId.data[0]
+            .customFields && (
             <>
               <h5>
                 <FormattedMessage id="admin/b2b-organizations.organization-request-admin.customFields" />
               </h5>
-              {data.getOrganizationRequestById.customFields.map(
-                (item: CustomField) => (
+              {dataCostCenter.getCostCentersByOrganizationId.data[0].customFields.map(
+                (customField: CustomField) => (
                   <div className="pt2 pb2">
                     <div>
                       <FormattedMessage id="admin/b2b-organizations.organization-request-admin.customFields.name" />
-                      : {item.name}
+                      : {customField.name}
                     </div>
                     <div>
                       <FormattedMessage id="admin/b2b-organizations.organization-request-admin.customFields.type" />
-                      : {item.type}
+                      : {customField.type}
                     </div>
                     <div>
                       <FormattedMessage id="admin/b2b-organizations.organization-request-admin.customFields.value" />
-                      : {item.value}
+                      : {customField.value}
                     </div>
-                    {item.dropdownValues && (
-                      <div>
-                        <FormattedMessage id="admin/b2b-organizations.organization-request-admin.customFields.dropdownValues" />
-                        :{' '}
-                        {item.dropdownValues.map(dropdown => (
-                          <div className="pl2 mt2">
-                            <div>
-                              <FormattedMessage id="admin/b2b-organizations.organization-request-admin.customFields.label" />
-                              : {dropdown.label}
-                            </div>
-                            <div>
-                              <FormattedMessage id="admin/b2b-organizations.organization-request-admin.customFields.value" />
-                              : {dropdown.value}
-                            </div>
-                          </div>
-                        ))}
-                      </div>
-                    )}
                   </div>
                 )
               )}

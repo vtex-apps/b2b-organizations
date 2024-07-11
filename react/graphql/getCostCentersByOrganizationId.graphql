@@ -23,6 +23,16 @@ query GetCostCentersByOrganizationId(
       addresses {
         country
       }
+      customFields {
+        name
+        type
+        value
+        dropdownValues {
+          value
+          label
+        }
+        useOnRegistration
+      }
     }
   }
 }
