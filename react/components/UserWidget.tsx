@@ -448,14 +448,11 @@ const UserWidget: VtexFunctionComponent<UserWidgetProps> = ({
 
     setSearchTerm(e.target.value)
 
-    if (value.trim() === '') {
-      dataList = userWidgetData?.getOrganizationsByEmail?.sort(
-        sortOrganizations
-      )
-    } else {
+    dataList = userWidgetData?.getOrganizationsByEmail?.sort(sortOrganizations)
+
+    if (value.trim() !== '') {
       dataList =
         userWidgetData?.getOrganizationsByEmail
-          ?.sort(sortOrganizations)
           ?.filter((organization: any) => {
             return (
               organization.organizationName
@@ -466,8 +463,7 @@ const UserWidget: VtexFunctionComponent<UserWidgetProps> = ({
                 .includes(value.toLowerCase())
             )
           })
-          .slice(0, 15)
-          ?.sort(sortOrganizations) ?? []
+          ?.slice(0, 15) ?? []
     }
 
     setOrganizationsState({
