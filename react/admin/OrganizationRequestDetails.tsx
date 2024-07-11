@@ -266,7 +266,7 @@ const OrganizationRequestDetails: FunctionComponent = () => {
             .customFields && (
             <>
               <h5>
-                <FormattedMessage id="admin/b2b-organizations.organization-request-admin.customFields" />
+                <FormattedMessage id="admin/b2b-organizations.organization-request-admin.customFieldsCostCenter" />
               </h5>
               {dataCostCenter.getCostCentersByOrganizationId.data[0].customFields.map(
                 (customField: CustomField) => (

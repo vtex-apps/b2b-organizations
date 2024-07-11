@@ -97,6 +97,7 @@
   "admin/b2b-organizations.organization-request-admin.customFields.type": "admin/b2b-organizations.organization-request-admin.customFields.type",
   "admin/b2b-organizations.organization-request-admin.customFields.value": "admin/b2b-organizations.organization-request-admin.customFields.value",
   "admin/b2b-organizations.organization-request-admin.customFields": "admin/b2b-organizations.organization-request-admin.customFields",
+  "admin/b2b-organizations.organization-request-admin.customFieldsCostCenter": "admin/b2b-organizations.organization-request-admin.customFieldsCostCenter",
   "admin/b2b-organizations.bulk-import.upload.back": "The back button for the bulk import upload modal",
   "admin/b2b-organizations.bulk-import.upload.close": "The close button for the bulk import upload modal",
   "admin/b2b-organizations.bulk-import.upload.dragDrop": "Title of the drag and drop area",
