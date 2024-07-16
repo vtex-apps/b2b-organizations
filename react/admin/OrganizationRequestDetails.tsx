@@ -263,7 +263,7 @@ const OrganizationRequestDetails: FunctionComponent = () => {
           )}
 
           {dataCostCenter.getCostCentersByOrganizationId.data[0]
-            .customFields && (
+            ?.customFields && (
             <>
               <h5>
                 <FormattedMessage id="admin/b2b-organizations.organization-request-admin.customFieldsCostCenter" />
