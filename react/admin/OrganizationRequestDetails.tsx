@@ -19,7 +19,6 @@ import { organizationRequestMessages as messages } from './utils/messages'
 import { labelTypeByStatusMap } from './OrganizationRequestsTable'
 import GET_ORGANIZATION_REQUEST from '../graphql/getOrganizationRequest.graphql'
 import UPDATE_ORGANIZATION_REQUEST from '../graphql/updateOrganizationRequest.graphql'
-import GET_COST_CENTER from '../graphql/getCostCentersByOrganizationId.graphql'
 
 const OrganizationRequestDetails: FunctionComponent = () => {
   const { formatMessage, formatDate } = useIntl()
@@ -35,11 +34,6 @@ const OrganizationRequestDetails: FunctionComponent = () => {
   const [loadingState, setLoadingState] = useState(false)
 
   const { data, loading, refetch } = useQuery(GET_ORGANIZATION_REQUEST, {
-    variables: { id: params?.id },
-    skip: !params?.id,
-  })
-
-  const { data: dataCostCenter } = useQuery(GET_COST_CENTER, {
     variables: { id: params?.id },
     skip: !params?.id,
   })
@@ -261,14 +255,13 @@ const OrganizationRequestDetails: FunctionComponent = () => {
               )}
             </>
           )}
-
-          {dataCostCenter?.getCostCentersByOrganizationId?.data[0]
-            ?.customFields && (
+          {data?.getOrganizationRequestById?.defaultCostCenter?.customFields
+            .length > 0 && (
             <>
               <h5>
                 <FormattedMessage id="admin/b2b-organizations.organization-request-admin.customFieldsCostCenter" />
               </h5>
-              {dataCostCenter.getCostCentersByOrganizationId.data[0].customFields.map(
+              {data?.getOrganizationRequestById?.defaultCostCenter?.customFields.map(
                 (customField: CustomField) => (
                   <div className="pt2 pb2">
                     <div>
