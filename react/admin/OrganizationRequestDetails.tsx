@@ -262,7 +262,7 @@ const OrganizationRequestDetails: FunctionComponent = () => {
             </>
           )}
 
-          {dataCostCenter.getCostCentersByOrganizationId.data[0]
+          {dataCostCenter?.getCostCentersByOrganizationId?.data[0]
             ?.customFields && (
             <>
               <h5>
