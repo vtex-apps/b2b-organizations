@@ -9,8 +9,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Feat
 
-- Changes listing of custom fields from organization to cos
-t center
+- Changes listing of custom fields from organization to cost center
 
 ## [1.31.3] - 2024-04-22
 
