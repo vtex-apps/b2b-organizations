@@ -11,6 +11,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 - Changes listing of custom fields from organization to cost center
 
+## [1.32.0] - 2024-07-17
+
+### Fixed
+
+- Adjust search list many organations at change organization modal
+
 ## [1.31.11] - 2024-07-05
 
 ## [1.31.10] - 2024-07-03
