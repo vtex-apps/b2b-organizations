@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [1.32.0] - 2024-07-17
+
 ### Fixed
 
 - Adjust search list many organations at change organization modal
