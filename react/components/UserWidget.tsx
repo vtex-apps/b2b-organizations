@@ -322,27 +322,6 @@ const UserWidget: VtexFunctionComponent<UserWidgetProps> = ({
   }
 
   useEffect(() => {
-    const dataList = userWidgetData?.getOrganizationsByEmail
-      ?.filter((organization: any) => {
-        return (
-          organization.organizationName
-            .toLowerCase()
-            .includes(searchTerm.toLowerCase()) ||
-          organization.costCenterName
-            .toLowerCase()
-            .includes(searchTerm.toLowerCase())
-        )
-      })
-      .sort(sortOrganizations)
-
-    setOrganizationsState({
-      ...organizationsState,
-      dataList,
-      totalDataList: dataList?.length,
-    })
-  }, [searchTerm])
-
-  useEffect(() => {
     if (!userWidgetData?.getOrganizationsByEmail) {
       return
     }
@@ -480,6 +459,37 @@ const UserWidget: VtexFunctionComponent<UserWidgetProps> = ({
   )
     return null
 
+  const handleSearchOrganizations = (e: any) => {
+    const { value }: { value: string } = e.target
+    let dataList
+
+    setSearchTerm(e.target.value)
+
+    dataList = userWidgetData?.getOrganizationsByEmail?.sort(sortOrganizations)
+
+    if (value.trim() !== '') {
+      dataList =
+        userWidgetData?.getOrganizationsByEmail
+          ?.filter((organization: any) => {
+            return (
+              organization.organizationName
+                .toLowerCase()
+                .includes(value.toLowerCase()) ||
+              organization.costCenterName
+                .toLowerCase()
+                .includes(value.toLowerCase())
+            )
+          })
+          ?.slice(0, 15) ?? []
+    }
+
+    setOrganizationsState({
+      ...organizationsState,
+      dataList,
+      totalDataList: dataList?.length,
+    })
+  }
+
   return (
     <div
       className={`${handles.userWidgetContainer} w-100 flex flex-column mv3 bg-base--inverted`}
@@ -498,13 +508,15 @@ const UserWidget: VtexFunctionComponent<UserWidgetProps> = ({
               </h1>
               <div className={`${handles.userWidgetModalInput} flex`}>
                 <Input
-                  onChange={(e: any) => setSearchTerm(e.target.value)}
+                  onChange={handleSearchOrganizations}
                   value={searchTerm}
                   placeholder={`${formatMessage(messages.search)}...`}
                 />
-                <Button variation="primary">
-                  {formatMessage(messages.search)}
-                </Button>
+                <div className="ml4">
+                  <Button variation="primary">
+                    {formatMessage(messages.search)}
+                  </Button>
+                </div>
               </div>
               <div className={`${handles.userWidgetModalTotal} pt4 mb4`}>
                 {organizationsState?.totalDataList}{' '}
