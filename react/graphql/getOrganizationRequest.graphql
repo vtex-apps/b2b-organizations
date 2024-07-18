@@ -29,6 +29,11 @@ query GetOrganizationRequest($id: ID!) {
       phoneNumber
       businessDocument
       stateRegistration
+      customFields {
+        name
+        type
+        value
+      }
     }
     customFields {
       name
