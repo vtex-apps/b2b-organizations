@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [1.33.0] - 2024-07-18
+
 ### Feat
 
 - Changes listing of custom fields from organization to cost center
