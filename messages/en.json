@@ -70,7 +70,7 @@
   "admin/b2b-organizations.organization-details.empty-state": "No organizations found.",
   "admin/b2b-organizations.organization-details.organization-name-required": "The organization name is required.",
   "admin/b2b-organizations.organization-details.organization-name": "Organization name",
-  "admin/b2b-organizations.organization-details.paymentTerms": "Payment Terms",
+  "admin/b2b-organizations.organization-details.paymentTerms": "Payment Conditions",
   "admin/b2b-organizations.organization-details.price-tables": "Price Tables",
   "admin/b2b-organizations.organization-details.remove-from-org": "Remove from org",
   "admin/b2b-organizations.organization-details.remove-user.helpText": "Are you sure you want to remove the user {email}? Their user account will continue to exist, but they will no longer have access to this organization.",
