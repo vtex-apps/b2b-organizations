@@ -1,11 +1,12 @@
-import React, { Fragment, useEffect, useState } from 'react'
+import React, { Fragment, useState } from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
 import { PageBlock, Table } from 'vtex.styleguide'
 import { useQuery } from 'react-apollo'
+import { useToast } from '@vtex/admin-ui'
 
 import { organizationMessages as messages } from '../utils/messages'
 import { organizationBulkAction } from '../utils/organizationBulkAction'
-import GET_SELLERS from '../../graphql/getSellers.graphql'
+import GET_SELLERS_PAGINATED from '../../graphql/getSellersPaginated.graphql'
 
 export interface Seller {
   sellerId: string
@@ -16,6 +17,8 @@ export interface SellerItem {
   id: string
   name: string
 }
+
+const pageSize = 25
 
 const OrganizationDetailsSellers = ({
   getSchema,
@@ -30,37 +33,50 @@ const OrganizationDetailsSellers = ({
    * Hooks
    */
   const { formatMessage } = useIntl()
+  const toast = useToast()
 
   /**
    * States
    */
-  const [sellerOptions, setSellerOptions] = useState([] as Seller[])
+  const [sellerOptions, setSellerOptions] = useState<Seller[]>([])
+
+  const [from, setFrom] = useState(0)
+  const [to, setTo] = useState(25)
 
   /**
    * Queries
    */
-  const { data: sellersData, loading } = useQuery(GET_SELLERS)
-
-  /**
-   * Effects
-   */
-  useEffect(() => {
-    if (!sellersData?.getSellers?.length) {
-      return
-    }
-
-    const options = [] as Seller[]
-
-    sellersData.getSellers.forEach(({ name, id }: SellerItem) => {
-      if (!options.find(option => option.sellerId === id)) {
-        options.push({ name, sellerId: id })
+  const { data: sellersData, loading, refetch } = useQuery<{
+    getSellersPaginated: {
+      pagination: {
+        page: number
+        pageSize: number
+        total: number
       }
-    })
-    options.sort(
-      (a: Seller, b: Seller) => a.name?.localeCompare(b.name ?? '') ?? 0
-    )
-    setSellerOptions(options)
-  }, [sellersData])
+      items: SellerItem[]
+    }
+  }>(GET_SELLERS_PAGINATED, {
+    variables: { page: from, pageSize: to },
+    onCompleted: data => {
+      if (!data?.getSellersPaginated?.items) {
+        return
+      }
+
+      const options = data.getSellersPaginated.items.map(
+        ({ name, id }: SellerItem) => ({
+          name,
+          sellerId: id,
+        })
+      )
+
+      setSellerOptions(options)
+    },
+    onError: error => {
+      toast({ variant: 'critical', message: error.message })
+    },
+  })
+
+  const totalItems = sellersData?.getSellersPaginated?.pagination?.total ?? 0
 
   /**
    * Functions
@@ -96,6 +112,40 @@ const OrganizationDetailsSellers = ({
     setSellersState((prevState: any) => [...prevState, ...newSellers])
   }
 
+  const handlePrev = () => {
+    if (from === 0) return
+
+    setFrom(Math.max(from - pageSize, 0))
+    setTo(Math.max(to - pageSize, pageSize))
+
+    refetch({
+      page: from,
+      pageSize: to,
+    })
+  }
+
+  const handleNext = () => {
+    if (totalItems === to) return
+
+    setFrom(from + pageSize)
+    setTo(to + pageSize)
+
+    refetch({
+      page: from,
+      pageSize: to,
+    })
+  }
+
+  const handleRowsChange = (newPageSize: number) => {
+    setFrom(0)
+    setTo(newPageSize)
+
+    refetch({
+      page: 0,
+      pageSize: newPageSize,
+    })
+  }
+
   return (
     <Fragment>
       <PageBlock variation="half" title={formatMessage(messages.sellers)}>
@@ -107,7 +157,6 @@ const OrganizationDetailsSellers = ({
             fullWidth
             schema={getSchema()}
             items={sellersState}
-            loading={loading}
             bulkActions={organizationBulkAction(
               handleRemoveSellers,
               messages.removeFromOrg,
@@ -115,12 +164,14 @@ const OrganizationDetailsSellers = ({
             )}
           />
         </div>
+
         <div>
           <h4 className="t-heading-4 mt0 mb0">
             <FormattedMessage id="admin/b2b-organizations.organization-details.available" />
           </h4>
           <Table
             fullWidth
+            loading={loading}
             schema={getSchema('availableSellers')}
             bulkActions={organizationBulkAction(
               handleAddSellers,
@@ -128,6 +179,17 @@ const OrganizationDetailsSellers = ({
               formatMessage
             )}
             items={sellerOptions}
+            pagination={{
+              onNextClick: handleNext,
+              onPrevClick: handlePrev,
+              onRowsChange: handleRowsChange,
+              currentItemFrom: from + 1,
+              currentItemTo: Math.min(to, totalItems),
+              textShowRows: formatMessage(messages.showRows),
+              textOf: formatMessage(messages.of),
+              totalItems,
+              rowsOptions: [25, 50, 100],
+            }}
           />
         </div>
       </PageBlock>
