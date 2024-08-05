@@ -18,7 +18,16 @@ export interface SellerItem {
   name: string
 }
 
-const pageSize = 25
+interface GetSellersPaginatedQueryResponse {
+  getSellersPaginated: {
+    items: SellerItem[]
+    pagination: {
+      page: number
+      pageSize: number
+      total: number
+    }
+  }
+}
 
 const OrganizationDetailsSellers = ({
   getSchema,
@@ -32,31 +41,22 @@ const OrganizationDetailsSellers = ({
   /**
    * Hooks
    */
-  const { formatMessage } = useIntl()
   const toast = useToast()
+  const { formatMessage } = useIntl()
 
   /**
    * States
    */
+  const [variables, setVariables] = useState({ page: 1, pageSize: 25 })
   const [sellerOptions, setSellerOptions] = useState<Seller[]>([])
-
-  const [from, setFrom] = useState(0)
-  const [to, setTo] = useState(25)
 
   /**
    * Queries
    */
-  const { data: sellersData, loading, refetch } = useQuery<{
-    getSellersPaginated: {
-      pagination: {
-        page: number
-        pageSize: number
-        total: number
-      }
-      items: SellerItem[]
-    }
-  }>(GET_SELLERS_PAGINATED, {
-    variables: { page: from, pageSize: to },
+  const { data: sellersData, loading, refetch } = useQuery<
+    GetSellersPaginatedQueryResponse
+  >(GET_SELLERS_PAGINATED, {
+    variables,
     onCompleted: data => {
       if (!data?.getSellersPaginated?.items) {
         return
@@ -112,37 +112,32 @@ const OrganizationDetailsSellers = ({
     setSellersState((prevState: any) => [...prevState, ...newSellers])
   }
 
-  const handlePrev = () => {
-    if (from === 0) return
-
-    setFrom(Math.max(from - pageSize, 0))
-    setTo(Math.max(to - pageSize, pageSize))
-
-    refetch({
-      page: from,
-      pageSize: to,
-    })
-  }
-
   const handleNext = () => {
-    if (totalItems === to) return
+    if (variables.page * variables.pageSize >= totalItems) return
 
-    setFrom(from + pageSize)
-    setTo(to + pageSize)
+    setVariables(prev => ({ ...prev, page: prev.page + 1 }))
 
-    refetch({
-      page: from,
-      pageSize: to,
-    })
+    refetch({ page: variables.page + 1, pageSize: variables.pageSize })
   }
 
-  const handleRowsChange = (newPageSize: number) => {
-    setFrom(0)
-    setTo(newPageSize)
+  const handlePrev = () => {
+    if (variables.page === 1) return
+
+    setVariables(prev => ({ ...prev, page: prev.page - 1 }))
+
+    refetch({ page: variables.page - 1, pageSize: variables.pageSize })
+  }
+
+  const handleRowsChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const {
+      target: { value },
+    } = e
+
+    setVariables({ page: 1, pageSize: +value })
 
     refetch({
-      page: 0,
-      pageSize: newPageSize,
+      page: 1,
+      pageSize: +value,
     })
   }
 
@@ -183,12 +178,15 @@ const OrganizationDetailsSellers = ({
               onNextClick: handleNext,
               onPrevClick: handlePrev,
               onRowsChange: handleRowsChange,
-              currentItemFrom: from + 1,
-              currentItemTo: Math.min(to, totalItems),
+              currentItemFrom: (variables.page - 1) * variables.pageSize + 1,
+              currentItemTo: Math.min(
+                variables.page * variables.pageSize,
+                totalItems
+              ),
               textShowRows: formatMessage(messages.showRows),
               textOf: formatMessage(messages.of),
-              totalItems,
               rowsOptions: [25, 50, 100],
+              totalItems,
             }}
           />
         </div>

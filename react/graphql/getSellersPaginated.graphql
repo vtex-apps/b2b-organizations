@@ -1,5 +1,5 @@
 query GetSellersPaginated($page: Int, $pageSize: Int) {
-  getSellersPaginated(args: { page: $page, pageSize: $pageSize }) {
+  getSellersPaginated(page: $page, pageSize: $pageSize) {
     pagination {
       page
       pageSize
