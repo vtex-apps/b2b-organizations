@@ -17,11 +17,13 @@ const initialState = {
   sortedBy: 'name',
 }
 
+type OnChangeParams = { value: string | null; label: string }
+
 interface Props {
-  onChange: (value: { value: string | null; label: string }) => void
   organizationId: string
   isAdmin: boolean
   disabled?: boolean
+  onChange: (value: OnChangeParams) => void
 }
 
 const OrganizationsAutocomplete = ({
@@ -48,7 +50,7 @@ const OrganizationsAutocomplete = ({
   const { formatMessage } = useIntl()
 
   const options = {
-    onSelect: (value: any) => onChange(value),
+    onSelect: (value: OnChangeParams) => onChange(value),
     loading,
     value: values,
   }

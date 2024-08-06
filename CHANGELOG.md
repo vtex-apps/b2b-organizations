@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Feat
+
+- Change placeholder, add title tag and check organization search input search
+
 ## [1.33.0] - 2024-07-18
 
 ### Feat
