@@ -256,7 +256,7 @@ const OrganizationRequestDetails: FunctionComponent = () => {
             </>
           )}
           {data?.getOrganizationRequestById?.defaultCostCenter?.customFields
-            .length > 0 && (
+            ?.length > 0 && (
             <>
               <h5>
                 <FormattedMessage id="admin/b2b-organizations.organization-request-admin.customFieldsCostCenter" />
