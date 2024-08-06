@@ -255,7 +255,34 @@ const OrganizationRequestDetails: FunctionComponent = () => {
               )}
             </>
           )}
+          {data?.getOrganizationRequestById?.defaultCostCenter?.customFields
+            .length > 0 && (
+            <>
+              <h5>
+                <FormattedMessage id="admin/b2b-organizations.organization-request-admin.customFieldsCostCenter" />
+              </h5>
+              {data?.getOrganizationRequestById?.defaultCostCenter?.customFields.map(
+                (customField: CustomField) => (
+                  <div className="pt2 pb2">
+                    <div>
+                      <FormattedMessage id="admin/b2b-organizations.organization-request-admin.customFields.name" />
+                      : {customField.name}
+                    </div>
+                    <div>
+                      <FormattedMessage id="admin/b2b-organizations.organization-request-admin.customFields.type" />
+                      : {customField.type}
+                    </div>
+                    <div>
+                      <FormattedMessage id="admin/b2b-organizations.organization-request-admin.customFields.value" />
+                      : {customField.value}
+                    </div>
+                  </div>
+                )
+              )}
+            </>
+          )}
         </div>
+
         <div className="mt3">
           <Textarea
             label={

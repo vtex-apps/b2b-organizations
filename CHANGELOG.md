@@ -11,7 +11,53 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 - Change placeholder, add title tag and check organization search input search
 
+## [1.33.0] - 2024-07-18
+
+### Feat
+
+- Changes listing of custom fields from organization to cost center
+
+## [1.32.0] - 2024-07-17
+
+### Fixed
+
+- Adjust search list many organations at change organization modal
+
+## [1.31.11] - 2024-07-05
+
+## [1.31.10] - 2024-07-03
+
+### Feat
+
+- Implement 'none' option at trade policy organization
+
+## [1.31.9] - 2024-06-20
+### Fixed
+
+- Adjusts list organization and research screening according to input at autocomplete
+
+## [1.31.8] - 2024-06-05
+
+## [1.31.7] - 2024-05-29
+
+## [1.31.6] - 2024-05-28
+
+## [1.31.5] - 2024-05-28
+### Fixed
+
+- Save new address within the Cost Center in the store
+
+## [1.31.4] - 2024-05-23
+
+### Fixed
+
+Arabic, Bulgarian, Catalan, Czech, Danish, German, Greek, English, Spanish, Finnish, French, Indonesian, Italian, Japanese, Korean, Dutch, Norwegian, Polish, Portuguese, Romanian, Russian, Slovak, Slovenian, Swedish, Thai and Ukrainian translations.
+
 ## [1.31.3] - 2024-04-22
+
+### Fixed
+
+- Save add, edit and delete address within the Cost Center in admin
 
 ### Fixed
 

@@ -1,5 +1,5 @@
 import type { FunctionComponent } from 'react'
-import React, { useEffect, useState, useContext } from 'react'
+import React, { useEffect, useState, useContext, useCallback } from 'react'
 import { useQuery, useMutation, useLazyQuery } from 'react-apollo'
 import {
   Layout,
@@ -137,8 +137,9 @@ const CostCenterDetails: FunctionComponent<RouterProps> = ({
 
   const { data: permissionsData } = useQuery(GET_PERMISSIONS, { ssr: false })
 
-  const [updateCostCenter] = useMutation(UPDATE_COST_CENTER)
   const [deleteCostCenter] = useMutation(DELETE_COST_CENTER)
+
+  const [updateCostCenter] = useMutation(UPDATE_COST_CENTER)
 
   const handleSetAddresses = (_addresses: Address[]) => {
     setAddresses(
@@ -231,9 +232,10 @@ const CostCenterDetails: FunctionComponent<RouterProps> = ({
       input: {
         name: costCenterName,
         addresses: _addresses.map(item => {
-          delete item.checked
-
-          return item
+          return {
+            ...item,
+            checked: undefined,
+          }
         }),
         paymentTerms,
         phoneNumber,
@@ -303,57 +305,88 @@ const CostCenterDetails: FunctionComponent<RouterProps> = ({
     setDeleteCostCenterModalState({ isOpen: true })
   }
 
-  const handleAddNewAddress = (address: AddressFormFields) => {
-    const uid = setGUID(address)
+  const handleAddNewAddress = useCallback(
+    (address: AddressFormFields) => {
+      const uid = setGUID(address)
 
-    const duplicated = data?.getCostCenterByIdStorefront?.addresses?.find(
-      (item: any) => item.addressId === uid
-    )
-
-    let isDuplicatedError = false
-
-    if (duplicated !== undefined) {
-      isDuplicatedError = duplicated.postalCode === address.postalCode.value
-    }
-
-    if (!isDuplicatedError) {
-      const newAddress = {
-        addressId: uid,
-        addressType: address.addressType.value,
-        city: address.city.value,
-        complement: address.complement.value,
-        country: address.country.value,
-        receiverName: address.receiverName.value,
-        geoCoordinates: address.geoCoordinates.value,
-        neighborhood: address.neighborhood.value,
-        number: address.number.value,
-        postalCode: address.postalCode.value,
-        reference: address.reference.value,
-        state: address.state.value,
-        street: address.street.value,
-        addressQuery: address.addressQuery.value,
-      } as Address
-
-      const newAddresses = [...addresses, newAddress]
-
-      setAddresses(
-        newAddresses.map(item => {
-          if (address.checked) {
-            item.checked = item === newAddress
-          }
-
-          return item
-        })
+      const duplicated = data?.getCostCenterByIdStorefront?.addresses?.find(
+        ({ addressId }: { addressId: string }) => addressId === uid
       )
 
-      handleCloseModals()
-    } else {
-      showToast({
-        variant: 'critical',
-        message: formatMessage(messages.duplicateAddress),
-      })
-    }
-  }
+      let isDuplicatedError = false
+
+      if (duplicated !== undefined) {
+        isDuplicatedError = duplicated.postalCode === address.postalCode.value
+      }
+
+      if (!isDuplicatedError) {
+        const newAddress = {
+          addressId: uid,
+          addressType: address.addressType.value,
+          city: address.city.value,
+          complement: address.complement.value,
+          country: address.country.value,
+          receiverName: address.receiverName.value,
+          geoCoordinates: address.geoCoordinates.value,
+          neighborhood: address.neighborhood.value,
+          number: address.number.value,
+          postalCode: address.postalCode.value,
+          reference: address.reference.value,
+          state: address.state.value,
+          street: address.street.value,
+          addressQuery: address.addressQuery.value,
+        } as Address
+
+        const newAddresses = [...addresses, newAddress]
+
+        const variables = {
+          id: params.id,
+          input: {
+            addresses: newAddresses.map(item => {
+              return {
+                ...item,
+                checked: undefined,
+              }
+            }),
+          },
+        }
+
+        setLoadingState(true)
+
+        updateCostCenter({
+          variables,
+        })
+          .then(() => {
+            toastMessage(messages.toastUpdateSuccess)
+            refetch()
+
+            setLoadingState(false)
+            handleCloseModals()
+
+            setAddresses(
+              newAddresses.map(item => {
+                if (address.checked) {
+                  item.checked = item === newAddress
+                }
+
+                return item
+              })
+            )
+          })
+          .catch(error => {
+            console.error(error)
+            toastMessage(messages.toastUpdateFailure)
+            setLoadingState(false)
+          })
+      } else {
+        showToast({
+          variant: 'critical',
+          message: formatMessage(messages.duplicateAddress),
+        })
+      }
+    },
+    [addresses]
+  )
 
   const handleCheckDefault = (address: Address) => {
     setAddresses(
@@ -390,11 +423,40 @@ const CostCenterDetails: FunctionComponent<RouterProps> = ({
       addressQuery: modifiedAddress.addressQuery.value,
     } as Address
 
-    setAddresses(addressArray)
-    handleCloseModals()
+    const variables = {
+      id: params.id,
+      input: {
+        addresses: addressArray.map(item => {
+          return {
+            ...item,
+            checked: undefined,
+          }
+        }),
+      },
+    }
+
+    setLoadingState(true)
+
+    updateCostCenter({
+      variables,
+    })
+      .then(() => {
+        toastMessage(messages.toastUpdateSuccess)
+        refetch()
+
+        setLoadingState(false)
+
+        setAddresses(addressArray)
+        handleCloseModals()
+      })
+      .catch(error => {
+        console.error(error)
+        toastMessage(messages.toastUpdateFailure)
+        setLoadingState(false)
+      })
   }
 
-  const handleDeleteAddress = () => {
+  const handleDeleteAddress = useCallback(() => {
     const { addressId } = deleteAddressModalState
     const addressArray = addresses
 
@@ -403,9 +465,39 @@ const CostCenterDetails: FunctionComponent<RouterProps> = ({
     )
 
     addresses.splice(addressIndex, 1)
-    setAddresses(addressArray)
-    handleCloseModals()
-  }
+
+    const variables = {
+      id: params.id,
+      input: {
+        addresses: addressArray.map(item => {
+          return {
+            ...item,
+            checked: undefined,
+          }
+        }),
+      },
+    }
+
+    setLoadingState(true)
+
+    updateCostCenter({
+      variables,
+    })
+      .then(() => {
+        toastMessage(messages.toastUpdateSuccess)
+        refetch()
+
+        setLoadingState(false)
+
+        setAddresses(addressArray)
+        handleCloseModals()
+      })
+      .catch(error => {
+        console.error(error)
+        toastMessage(messages.toastUpdateFailure)
+        setLoadingState(false)
+      })
+  }, [addresses])
 
   const handleTogglePaymentTerm = (id: string) => {
     let newTerms = paymentTerms

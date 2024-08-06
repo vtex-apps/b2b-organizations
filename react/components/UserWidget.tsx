@@ -108,10 +108,8 @@ const CustomOrganizationOption = (props: any) => {
       disabled={value.status !== 'active'}
     >
       <div className="flex items-center">
-        <span className="pr2">{renderOptionHighlightedText()}</span>
-        {typeof value !== 'string' && (
-          <div className="t-mini c-muted-1">{value.caption}</div>
-        )}
+        <span className="pr2 c-on-base">{renderOptionHighlightedText()}</span>
+        {typeof value !== 'string' && <div>{value.caption}</div>}
       </div>
     </button>
   )
@@ -285,6 +283,25 @@ const UserWidget: VtexFunctionComponent<UserWidgetProps> = ({
       setOrganizationsState({
         ...organizationsState,
         organizationInput: text,
+        organizationOptions:
+          userWidgetData?.getOrganizationsByEmail
+            ?.filter((organization: any) => {
+              return organization?.organizationName
+                ?.toLowerCase()
+                .includes(text?.toLowerCase())
+            })
+            .map(
+              (organization: {
+                orgId: string
+                organizationName: string
+                organizationStatus: string
+              }) => ({
+                value: organization.orgId,
+                label: organization.organizationName,
+                status: organization.organizationStatus,
+              })
+            )
+            .slice(0, 15) ?? [],
       })
     },
     placeholder: `${formatMessage(storeMessages.autocompleteSearching)}...`,
@@ -303,27 +320,6 @@ const UserWidget: VtexFunctionComponent<UserWidgetProps> = ({
     )}...`,
     value: organizationsState.costCenterInput,
   }
-
-  useEffect(() => {
-    const dataList = userWidgetData?.getOrganizationsByEmail
-      ?.filter((organization: any) => {
-        return (
-          organization.organizationName
-            .toLowerCase()
-            .includes(searchTerm.toLowerCase()) ||
-          organization.costCenterName
-            .toLowerCase()
-            .includes(searchTerm.toLowerCase())
-        )
-      })
-      .sort(sortOrganizations)
-
-    setOrganizationsState({
-      ...organizationsState,
-      dataList,
-      totalDataList: dataList?.length,
-    })
-  }, [searchTerm])
 
   useEffect(() => {
     if (!userWidgetData?.getOrganizationsByEmail) {
@@ -354,17 +350,10 @@ const UserWidget: VtexFunctionComponent<UserWidgetProps> = ({
       organizationInput: userWidgetData?.getOrganizationByIdStorefront?.name,
       organizationOptions: userWidgetData?.getOrganizationsByEmail
         .slice(0, 15)
-        .map(
-          (organization: {
-            orgId: string
-            organizationName: string
-            organizationStatus: string
-          }) => ({
-            value: organization.orgId,
-            label: organization.organizationName,
-            status: organization.organizationStatus,
-          })
-        ),
+        .map((organization: { orgId: string; organizationName: string }) => ({
+          value: organization.orgId,
+          label: organization.organizationName,
+        })),
       currentRoleName: userWidgetData?.getOrganizationsByEmail?.find(
         (organizations: any) => organizations.costId === currentCostCenter
       )?.role?.name,
@@ -429,10 +418,17 @@ const UserWidget: VtexFunctionComponent<UserWidgetProps> = ({
             (organization: { orgId: string }) =>
               organization.orgId === itemSelected.value
           )
-          .map((organization: { costId: string; costCenterName: string }) => ({
-            value: organization.costId,
-            label: organization.costCenterName,
-          })) as [],
+          .map(
+            (organization: {
+              costId: string
+              costCenterName: string
+              organizationStatus: string
+            }) => ({
+              value: organization.costId,
+              label: organization.costCenterName,
+              status: organization.organizationStatus,
+            })
+          ) as [],
       })
     },
   }
@@ -463,6 +459,37 @@ const UserWidget: VtexFunctionComponent<UserWidgetProps> = ({
   )
     return null
 
+  const handleSearchOrganizations = (e: any) => {
+    const { value }: { value: string } = e.target
+    let dataList
+
+    setSearchTerm(e.target.value)
+
+    dataList = userWidgetData?.getOrganizationsByEmail?.sort(sortOrganizations)
+
+    if (value.trim() !== '') {
+      dataList =
+        userWidgetData?.getOrganizationsByEmail
+          ?.filter((organization: any) => {
+            return (
+              organization.organizationName
+                .toLowerCase()
+                .includes(value.toLowerCase()) ||
+              organization.costCenterName
+                .toLowerCase()
+                .includes(value.toLowerCase())
+            )
+          })
+          ?.slice(0, 15) ?? []
+    }
+
+    setOrganizationsState({
+      ...organizationsState,
+      dataList,
+      totalDataList: dataList?.length,
+    })
+  }
+
   return (
     <div
       className={`${handles.userWidgetContainer} w-100 flex flex-column mv3 bg-base--inverted`}
@@ -481,13 +508,15 @@ const UserWidget: VtexFunctionComponent<UserWidgetProps> = ({
               </h1>
               <div className={`${handles.userWidgetModalInput} flex`}>
                 <Input
-                  onChange={(e: any) => setSearchTerm(e.target.value)}
+                  onChange={handleSearchOrganizations}
                   value={searchTerm}
                   placeholder={`${formatMessage(messages.search)}...`}
                 />
-                <Button variation="primary">
-                  {formatMessage(messages.search)}
-                </Button>
+                <div className="ml4">
+                  <Button variation="primary">
+                    {formatMessage(messages.search)}
+                  </Button>
+                </div>
               </div>
               <div className={`${handles.userWidgetModalTotal} pt4 mb4`}>
                 {organizationsState?.totalDataList}{' '}
@@ -604,14 +633,12 @@ const UserWidget: VtexFunctionComponent<UserWidgetProps> = ({
             <div
               className={`${handles.userWidgetItem} pa3 br2 bg-base--inverted hover-bg-base--inverted active-bg-base--inverted c-on-base--inverted hover-c-on-base--inverted active-c-on-base--inverted dib mr3`}
             >
-              {(!userWidgetData?.checkImpersonation?.email &&
-                organizationsState.organizationOptions.length > 1 &&
-                showDropdown && (
-                  <AutocompleteInput
-                    input={organizationAutoCompleteInput}
-                    options={autoCompleteOrganizationOptions}
-                  />
-                )) || (
+              {(!userWidgetData?.checkImpersonation?.email && showDropdown && (
+                <AutocompleteInput
+                  input={organizationAutoCompleteInput}
+                  options={autoCompleteOrganizationOptions}
+                />
+              )) || (
                 <Fragment>
                   {`${formatMessage(messages.organization)} ${
                     userWidgetData?.getOrganizationByIdStorefront?.name
@@ -625,14 +652,12 @@ const UserWidget: VtexFunctionComponent<UserWidgetProps> = ({
             <div
               className={`${handles.userWidgetItem} pa3 br2 bg-base--inverted hover-bg-base--inverted active-bg-base--inverted c-on-base--inverted hover-c-on-base--inverted active-c-on-base--inverted dib mr3`}
             >
-              {(!userWidgetData?.checkImpersonation?.email &&
-                organizationsState.organizationOptions.length > 1 &&
-                showDropdown && (
-                  <AutocompleteInput
-                    input={costCenterAutoCompleteInput}
-                    options={autoCompleteCostCentersOptions}
-                  />
-                )) || (
+              {(!userWidgetData?.checkImpersonation?.email && showDropdown && (
+                <AutocompleteInput
+                  input={costCenterAutoCompleteInput}
+                  options={autoCompleteCostCentersOptions}
+                />
+              )) || (
                 <Fragment>
                   {`${formatMessage(messages.costCenter)} ${
                     userWidgetData?.getCostCenterByIdStorefront?.name
@@ -640,33 +665,31 @@ const UserWidget: VtexFunctionComponent<UserWidgetProps> = ({
                 </Fragment>
               )}
             </div>
-            {!userWidgetData?.checkImpersonation?.email &&
-              organizationsState.organizationOptions.length > 1 &&
-              showDropdown && (
-                <div
-                  className={`${handles.userWidgetItem} pa3 br2 bg-base--inverted hover-bg-base--inverted active-bg-base--inverted c-on-base--inverted hover-c-on-base--inverted active-c-on-base--inverted dib mr3`}
+            {!userWidgetData?.checkImpersonation?.email && showDropdown && (
+              <div
+                className={`${handles.userWidgetItem} pa3 br2 bg-base--inverted hover-bg-base--inverted active-bg-base--inverted c-on-base--inverted hover-c-on-base--inverted active-c-on-base--inverted dib mr3`}
+              >
+                <Button
+                  variation="primary"
+                  size="small"
+                  disabled={
+                    organizationsState.currentCostCenter ===
+                    userWidgetData?.getCostCenterByIdStorefront?.id
+                  }
+                  isLoading={loadingState}
+                  onClick={() => handleSetCurrentOrganization()}
                 >
-                  <Button
-                    variation="primary"
-                    size="small"
-                    disabled={
-                      organizationsState.currentCostCenter ===
-                      userWidgetData?.getCostCenterByIdStorefront?.id
-                    }
-                    isLoading={loadingState}
-                    onClick={() => handleSetCurrentOrganization()}
+                  {formatMessage(messages.setCurrentOrganization)}
+                </Button>
+                {errorOrganization && (
+                  <div
+                    className={`${handles.userWidgetOrganizationError} error`}
                   >
-                    {formatMessage(messages.setCurrentOrganization)}
-                  </Button>
-                  {errorOrganization && (
-                    <div
-                      className={`${handles.userWidgetOrganizationError} error`}
-                    >
-                      <FormattedMessage id="store/b2b-organizations.set-organization-error" />
-                    </div>
-                  )}
-                </div>
-              )}
+                    <FormattedMessage id="store/b2b-organizations.set-organization-error" />
+                  </div>
+                )}
+              </div>
+            )}
             <div
               className={`${handles.userWidgetItem} pa3 br2 bg-base--inverted hover-bg-base--inverted active-bg-base--inverted c-on-base--inverted hover-c-on-base--inverted active-c-on-base--inverted dib mr3`}
             >
