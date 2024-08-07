@@ -20,6 +20,7 @@ query GetOrganizationRequests(
     data {
       id
       name
+      tradeName
       b2bCustomerAdmin {
         email
       }
