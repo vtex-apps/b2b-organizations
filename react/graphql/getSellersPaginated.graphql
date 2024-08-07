@@ -1,0 +1,14 @@
+query GetSellersPaginated($page: Int, $pageSize: Int) {
+  getSellersPaginated(page: $page, pageSize: $pageSize) {
+    pagination {
+      page
+      pageSize
+      total
+    }
+    items {
+      id
+      name
+      email
+    }
+  }
+}
