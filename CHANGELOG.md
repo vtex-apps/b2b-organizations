@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Added
+
+- Add Trade Name to Organizations listing page
+
 ## [1.33.1] - 2024-08-06
 
 ### Fixed
