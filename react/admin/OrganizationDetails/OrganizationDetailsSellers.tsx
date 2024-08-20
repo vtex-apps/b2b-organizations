@@ -178,6 +178,7 @@ const OrganizationDetailsSellers = ({
               onNextClick: handleNext,
               onPrevClick: handlePrev,
               onRowsChange: handleRowsChange,
+              selectedOption: variables.pageSize,
               currentItemFrom: (variables.page - 1) * variables.pageSize + 1,
               currentItemTo: Math.min(
                 variables.page * variables.pageSize,

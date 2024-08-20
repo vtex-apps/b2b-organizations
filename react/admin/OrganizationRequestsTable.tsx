@@ -325,6 +325,7 @@ const OrganizationRequestsTable: FunctionComponent = () => {
           onNextClick: handleNextClick,
           onPrevClick: handlePrevClick,
           onRowsChange: handleRowsChange,
+          selectedOption: pageSize,
           currentItemFrom: (page - 1) * pageSize + 1,
           currentItemTo: total < page * pageSize ? total : page * pageSize,
           textShowRows: formatMessage(messages.showRows),

@@ -139,6 +139,7 @@ const OrganizationsWithoutSalesManager = () => {
             pagination={{
               onNextClick: handleNextClick,
               onPrevClick: handlePrevClick,
+              selectedOption: paginationState.tableLength,
               currentItemFrom: paginationState.currentItemFrom,
               currentItemTo: paginationState.currentItemTo,
               onRowsChange: handleRowsChange,

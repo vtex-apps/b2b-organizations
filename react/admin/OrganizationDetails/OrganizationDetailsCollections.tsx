@@ -178,6 +178,7 @@ const OrganizationDetailsCollections = ({
               onNextClick: handleCollectionsNextClick,
               onPrevClick: handleCollectionsPrevClick,
               onRowsChange: handleRowsChange,
+              selectedOption: collectionPaginationState.pageSize,
               currentItemFrom:
                 (collectionPaginationState.page - 1) *
                   collectionPaginationState.pageSize +
