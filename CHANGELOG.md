@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [1.34.1] - 2024-08-21
+
 ### Fixed
 - Update pagination selected option in Organization Details pages
 
