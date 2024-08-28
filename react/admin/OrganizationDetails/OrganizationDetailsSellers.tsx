@@ -1,9 +1,11 @@
 import React, { Fragment, useState } from 'react'
-import { FormattedMessage, useIntl } from 'react-intl'
-import { PageBlock, Table } from 'vtex.styleguide'
 import { useQuery } from 'react-apollo'
 import { useToast } from '@vtex/admin-ui'
+import { PageBlock, Table } from 'vtex.styleguide'
+import { FormattedMessage, useIntl } from 'react-intl'
 
+import type { GetSchemaTypes } from '../OrganizationDetails'
+import GET_ACCOUNT from '../../graphql/getAccount.graphql'
 import { organizationMessages as messages } from '../utils/messages'
 import { organizationBulkAction } from '../utils/organizationBulkAction'
 import GET_SELLERS_PAGINATED from '../../graphql/getSellersPaginated.graphql'
@@ -16,6 +18,17 @@ export interface Seller {
 export interface SellerItem {
   id: string
   name: string
+}
+
+interface RowParams {
+  selectedRows: Seller[]
+}
+
+interface GetAccountResponse {
+  getAccount: {
+    id: string
+    name: string
+  }
 }
 
 interface GetSellersPaginatedQueryResponse {
@@ -34,9 +47,9 @@ const OrganizationDetailsSellers = ({
   sellersState,
   setSellersState,
 }: {
-  getSchema: (argument?: any) => any
+  getSchema: (type?: GetSchemaTypes) => unknown
   sellersState: Seller[]
-  setSellersState: (value: any) => void
+  setSellersState: React.Dispatch<React.SetStateAction<Seller[]>>
 }) => {
   /**
    * Hooks
@@ -53,6 +66,12 @@ const OrganizationDetailsSellers = ({
   /**
    * Queries
    */
+  const { data: accountData } = useQuery<GetAccountResponse>(GET_ACCOUNT, {
+    onError: error => {
+      toast({ variant: 'critical', message: error.message })
+    },
+  })
+
   const { data: sellersData, loading, refetch } = useQuery<
     GetSellersPaginatedQueryResponse
   >(GET_SELLERS_PAGINATED, {
@@ -62,12 +81,19 @@ const OrganizationDetailsSellers = ({
         return
       }
 
-      const options = data.getSellersPaginated.items.map(
-        ({ name, id }: SellerItem) => ({
+      const options = data.getSellersPaginated.items.map(({ name, id }) => {
+        if (id === '1' && accountData) {
+          return {
+            name: accountData.getAccount.name,
+            sellerId: id,
+          }
+        }
+
+        return {
           name,
           sellerId: id,
-        })
-      )
+        }
+      })
 
       setSellerOptions(options)
     },
@@ -76,14 +102,17 @@ const OrganizationDetailsSellers = ({
     },
   })
 
+  /**
+   * Constants
+   */
   const totalItems = sellersData?.getSellersPaginated?.pagination?.total ?? 0
 
   /**
    * Functions
    */
-  const handleRemoveSellers = (rowParams: any) => {
+  const handleRemoveSellers = (rowParams: RowParams) => {
     const { selectedRows = [] } = rowParams
-    const sellersToRemove = [] as Seller[]
+    const sellersToRemove: Seller[] = []
 
     selectedRows.forEach((row: Seller) => {
       sellersToRemove.push(row)
@@ -99,9 +128,9 @@ const OrganizationDetailsSellers = ({
     setSellersState(newSellersList)
   }
 
-  const handleAddSellers = (rowParams: any) => {
+  const handleAddSellers = (rowParams: RowParams) => {
     const { selectedRows = [] } = rowParams
-    const newSellers = [] as Seller[]
+    const newSellers: Seller[] = []
 
     selectedRows.forEach((row: Seller) => {
       if (!sellersState.some(seller => seller.sellerId === row.sellerId)) {
@@ -109,7 +138,7 @@ const OrganizationDetailsSellers = ({
       }
     })
 
-    setSellersState((prevState: any) => [...prevState, ...newSellers])
+    setSellersState(prevState => [...prevState, ...newSellers])
   }
 
   const handleNext = () => {
