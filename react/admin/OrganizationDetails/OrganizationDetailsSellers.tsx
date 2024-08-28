@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from 'react'
+import React, { Fragment, useEffect, useState } from 'react'
 import { useQuery } from 'react-apollo'
 import { useToast } from '@vtex/admin-ui'
 import { PageBlock, Table } from 'vtex.styleguide'
@@ -66,16 +66,21 @@ const OrganizationDetailsSellers = ({
   /**
    * Queries
    */
-  const { data: accountData } = useQuery<GetAccountResponse>(GET_ACCOUNT, {
+  const { data: accountData, loading: loadingAccountData } = useQuery<
+    GetAccountResponse
+  >(GET_ACCOUNT, {
     onError: error => {
       toast({ variant: 'critical', message: error.message })
     },
   })
 
-  const { data: sellersData, loading, refetch } = useQuery<
-    GetSellersPaginatedQueryResponse
-  >(GET_SELLERS_PAGINATED, {
+  const {
+    data: sellersData,
+    loading: loadingSellersData,
+    refetch: refetchSellersData,
+  } = useQuery<GetSellersPaginatedQueryResponse>(GET_SELLERS_PAGINATED, {
     variables,
+    skip: !accountData,
     onCompleted: data => {
       if (!data?.getSellersPaginated?.items) {
         return
@@ -146,7 +151,10 @@ const OrganizationDetailsSellers = ({
 
     setVariables(prev => ({ ...prev, page: prev.page + 1 }))
 
-    refetch({ page: variables.page + 1, pageSize: variables.pageSize })
+    refetchSellersData({
+      page: variables.page + 1,
+      pageSize: variables.pageSize,
+    })
   }
 
   const handlePrev = () => {
@@ -154,7 +162,10 @@ const OrganizationDetailsSellers = ({
 
     setVariables(prev => ({ ...prev, page: prev.page - 1 }))
 
-    refetch({ page: variables.page - 1, pageSize: variables.pageSize })
+    refetchSellersData({
+      page: variables.page - 1,
+      pageSize: variables.pageSize,
+    })
   }
 
   const handleRowsChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -164,11 +175,17 @@ const OrganizationDetailsSellers = ({
 
     setVariables({ page: 1, pageSize: +value })
 
-    refetch({
+    refetchSellersData({
       page: 1,
       pageSize: +value,
     })
   }
+
+  useEffect(() => {
+    if (accountData) {
+      refetchSellersData()
+    }
+  }, [accountData, refetchSellersData])
 
   return (
     <Fragment>
@@ -195,7 +212,7 @@ const OrganizationDetailsSellers = ({
           </h4>
           <Table
             fullWidth
-            loading={loading}
+            loading={loadingAccountData || loadingSellersData}
             schema={getSchema('availableSellers')}
             bulkActions={organizationBulkAction(
               handleAddSellers,
