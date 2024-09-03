@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [1.34.2] - 2024-09-03
+
 ### Fixed
 
 - Fix English and Spanish string for payment terms
