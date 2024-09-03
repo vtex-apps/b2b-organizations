@@ -42,7 +42,7 @@ export interface CellRendererProps<RowType> {
   updateCellMeasurements: () => void
 }
 
-export type GetSchemaTypes =
+export type AvailabilityTypes =
   | 'availablePriceTables'
   | 'availableCollections'
   | 'availablePayments'
@@ -172,7 +172,7 @@ const OrganizationDetails: FunctionComponent = () => {
       })
   }
 
-  const getSchema = (type?: GetSchemaTypes) => {
+  const getSchema = (type?: AvailabilityTypes) => {
     let cellRenderer
 
     switch (type) {

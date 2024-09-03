@@ -4,7 +4,7 @@ import { useToast } from '@vtex/admin-ui'
 import { PageBlock, Table } from 'vtex.styleguide'
 import { FormattedMessage, useIntl } from 'react-intl'
 
-import type { GetSchemaTypes } from '../OrganizationDetails'
+import type { AvailabilityTypes } from '../OrganizationDetails'
 import GET_ACCOUNT from '../../graphql/getAccount.graphql'
 import { organizationMessages as messages } from '../utils/messages'
 import { organizationBulkAction } from '../utils/organizationBulkAction'
@@ -47,7 +47,7 @@ const OrganizationDetailsSellers = ({
   sellersState,
   setSellersState,
 }: {
-  getSchema: (type?: GetSchemaTypes) => unknown
+  getSchema: (type?: AvailabilityTypes) => unknown
   sellersState: Seller[]
   setSellersState: React.Dispatch<React.SetStateAction<Seller[]>>
 }) => {
@@ -87,6 +87,9 @@ const OrganizationDetailsSellers = ({
       }
 
       const options = data.getSellersPaginated.items.map(({ name, id }) => {
+        // This is a workaround to show the account name in the seller list only for the first seller.
+        // This is because the first seller is created with the account name,
+        // and in turn the trade name is indexed to the product catalogs.
         if (id === '1' && accountData) {
           return {
             name: accountData.getAccount.name,
