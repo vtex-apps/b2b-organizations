@@ -149,6 +149,7 @@ const OrganizationDetails: FunctionComponent = () => {
 
     updateOrganization({ variables })
       .then(() => {
+        console.info({ data: { message: 'Organization updated successfully' } })
         setLoadingState(false)
         showToast({
           variant: 'positive',
