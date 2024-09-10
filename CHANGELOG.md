@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [1.35.0] - 2024-09-10
+
 ### Added
 - Added `getAccount` query on OrganizationDetailsSellers component to get the account data
 
