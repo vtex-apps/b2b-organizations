@@ -49,7 +49,10 @@ export function getSession() {
 }
 
 export const useSessionResponse = () => {
-  const [session, setSession] = useState<unknown>()
+  const [session, setSession] = useState<
+    Session | SessionUnauthorized | SessionForbidden
+  >()
+
   const sessionPromise = getSession()
 
   useEffect(() => {

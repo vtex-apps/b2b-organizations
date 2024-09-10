@@ -42,6 +42,12 @@ export interface CellRendererProps<RowType> {
   updateCellMeasurements: () => void
 }
 
+export type AvailabilityTypes =
+  | 'availablePriceTables'
+  | 'availableCollections'
+  | 'availablePayments'
+  | 'availableSellers'
+
 const SESSION_STORAGE_KEY = 'organization-details-tab'
 
 // combines defaultCustomFields and customFields input from the organization data to fill input fields
@@ -166,13 +172,7 @@ const OrganizationDetails: FunctionComponent = () => {
       })
   }
 
-  const getSchema = (
-    type?:
-      | 'availablePriceTables'
-      | 'availableCollections'
-      | 'availablePayments'
-      | 'availableSellers'
-  ) => {
+  const getSchema = (type?: AvailabilityTypes) => {
     let cellRenderer
 
     switch (type) {

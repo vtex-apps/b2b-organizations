@@ -1,9 +1,11 @@
-import React, { Fragment, useState } from 'react'
-import { FormattedMessage, useIntl } from 'react-intl'
-import { PageBlock, Table } from 'vtex.styleguide'
+import React, { Fragment, useEffect, useState } from 'react'
 import { useQuery } from 'react-apollo'
 import { useToast } from '@vtex/admin-ui'
+import { PageBlock, Table } from 'vtex.styleguide'
+import { FormattedMessage, useIntl } from 'react-intl'
 
+import type { AvailabilityTypes } from '../OrganizationDetails'
+import GET_ACCOUNT from '../../graphql/getAccount.graphql'
 import { organizationMessages as messages } from '../utils/messages'
 import { organizationBulkAction } from '../utils/organizationBulkAction'
 import GET_SELLERS_PAGINATED from '../../graphql/getSellersPaginated.graphql'
@@ -16,6 +18,17 @@ export interface Seller {
 export interface SellerItem {
   id: string
   name: string
+}
+
+interface RowParams {
+  selectedRows: Seller[]
+}
+
+interface GetAccountResponse {
+  getAccount: {
+    id: string
+    name: string
+  }
 }
 
 interface GetSellersPaginatedQueryResponse {
@@ -34,9 +47,9 @@ const OrganizationDetailsSellers = ({
   sellersState,
   setSellersState,
 }: {
-  getSchema: (argument?: any) => any
+  getSchema: (type?: AvailabilityTypes) => unknown
   sellersState: Seller[]
-  setSellersState: (value: any) => void
+  setSellersState: React.Dispatch<React.SetStateAction<Seller[]>>
 }) => {
   /**
    * Hooks
@@ -53,21 +66,42 @@ const OrganizationDetailsSellers = ({
   /**
    * Queries
    */
-  const { data: sellersData, loading, refetch } = useQuery<
-    GetSellersPaginatedQueryResponse
-  >(GET_SELLERS_PAGINATED, {
+  const { data: accountData, loading: loadingAccountData } = useQuery<
+    GetAccountResponse
+  >(GET_ACCOUNT, {
+    onError: error => {
+      toast({ variant: 'critical', message: error.message })
+    },
+  })
+
+  const {
+    data: sellersData,
+    loading: loadingSellersData,
+    refetch: refetchSellersData,
+  } = useQuery<GetSellersPaginatedQueryResponse>(GET_SELLERS_PAGINATED, {
     variables,
+    skip: !accountData,
     onCompleted: data => {
       if (!data?.getSellersPaginated?.items) {
         return
       }
 
-      const options = data.getSellersPaginated.items.map(
-        ({ name, id }: SellerItem) => ({
+      const options = data.getSellersPaginated.items.map(({ name, id }) => {
+        // This is a workaround to show the account name in the seller list only for the first seller.
+        // This is because the first seller is created with the account name,
+        // and in turn the trade name is indexed to the product catalogs.
+        if (id === '1' && accountData) {
+          return {
+            name: accountData.getAccount.name,
+            sellerId: id,
+          }
+        }
+
+        return {
           name,
           sellerId: id,
-        })
-      )
+        }
+      })
 
       setSellerOptions(options)
     },
@@ -76,14 +110,17 @@ const OrganizationDetailsSellers = ({
     },
   })
 
+  /**
+   * Constants
+   */
   const totalItems = sellersData?.getSellersPaginated?.pagination?.total ?? 0
 
   /**
    * Functions
    */
-  const handleRemoveSellers = (rowParams: any) => {
+  const handleRemoveSellers = (rowParams: RowParams) => {
     const { selectedRows = [] } = rowParams
-    const sellersToRemove = [] as Seller[]
+    const sellersToRemove: Seller[] = []
 
     selectedRows.forEach((row: Seller) => {
       sellersToRemove.push(row)
@@ -99,9 +136,9 @@ const OrganizationDetailsSellers = ({
     setSellersState(newSellersList)
   }
 
-  const handleAddSellers = (rowParams: any) => {
+  const handleAddSellers = (rowParams: RowParams) => {
     const { selectedRows = [] } = rowParams
-    const newSellers = [] as Seller[]
+    const newSellers: Seller[] = []
 
     selectedRows.forEach((row: Seller) => {
       if (!sellersState.some(seller => seller.sellerId === row.sellerId)) {
@@ -109,7 +146,7 @@ const OrganizationDetailsSellers = ({
       }
     })
 
-    setSellersState((prevState: any) => [...prevState, ...newSellers])
+    setSellersState(prevState => [...prevState, ...newSellers])
   }
 
   const handleNext = () => {
@@ -117,7 +154,10 @@ const OrganizationDetailsSellers = ({
 
     setVariables(prev => ({ ...prev, page: prev.page + 1 }))
 
-    refetch({ page: variables.page + 1, pageSize: variables.pageSize })
+    refetchSellersData({
+      page: variables.page + 1,
+      pageSize: variables.pageSize,
+    })
   }
 
   const handlePrev = () => {
@@ -125,7 +165,10 @@ const OrganizationDetailsSellers = ({
 
     setVariables(prev => ({ ...prev, page: prev.page - 1 }))
 
-    refetch({ page: variables.page - 1, pageSize: variables.pageSize })
+    refetchSellersData({
+      page: variables.page - 1,
+      pageSize: variables.pageSize,
+    })
   }
 
   const handleRowsChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -135,11 +178,17 @@ const OrganizationDetailsSellers = ({
 
     setVariables({ page: 1, pageSize: +value })
 
-    refetch({
+    refetchSellersData({
       page: 1,
       pageSize: +value,
     })
   }
+
+  useEffect(() => {
+    if (accountData) {
+      refetchSellersData()
+    }
+  }, [accountData, refetchSellersData])
 
   return (
     <Fragment>
@@ -166,7 +215,7 @@ const OrganizationDetailsSellers = ({
           </h4>
           <Table
             fullWidth
-            loading={loading}
+            loading={loadingAccountData || loadingSellersData}
             schema={getSchema('availableSellers')}
             bulkActions={organizationBulkAction(
               handleAddSellers,
