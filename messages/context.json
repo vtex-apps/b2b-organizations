@@ -108,6 +108,8 @@
   "admin/b2b-organizations.of": "admin/b2b-organizations.of",
   "admin/b2b-organizations.organization-details.add-costCenter": "admin/b2b-organizations.organization-details.add-costCenter",
   "admin/b2b-organizations.organization-details.add-costCenter.helpText": "admin/b2b-organizations.organization-details.add-costCenter.helpText",
+  "admin/b2b-organizations.organization-details.settings": "admin/b2b-organizations.organization-details.settings",
+  "admin/b2b-organizations.organization-details.settings.createQuote": "admin/b2b-organizations.organization-details.settings.createQuote",
   "admin/b2b-organizations.organization-details.add-to-org": "admin/b2b-organizations.organization-details.add-to-org",
   "admin/b2b-organizations.organization-details.add-user": "admin/b2b-organizations.organization-details.add-user",
   "admin/b2b-organizations.organization-details.add-user.helpText": "admin/b2b-organizations.organization-details.add-user.helpText",

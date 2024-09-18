@@ -436,7 +436,7 @@ const OrganizationDetails: FunctionComponent = () => {
       ),
     },
     {
-      label: 'Configurações',
+      label: formatMessage(messages.settings),
       tab: 'settings',
       component: (
         <OrganizationDetailsSettings
