@@ -121,6 +121,8 @@
   "admin/b2b-organizations.organization-details.button.save": "Сохранить",
   "admin/b2b-organizations.organization-details.collections": "Коллекции",
   "admin/b2b-organizations.organization-details.costCenters": "Финансовые центры",
+  "admin/b2b-organizations.organization-details.settings": "Настройки",
+  "admin/b2b-organizations.organization-details.settings.createQuote": "Создать котировку",
   "admin/b2b-organizations.organization-details.created": "Создано",
   "admin/b2b-organizations.organization-details.default": "Общее",
   "admin/b2b-organizations.organization-details.edit-user": "Редактировать пользователя",

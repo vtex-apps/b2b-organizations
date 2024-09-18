@@ -121,6 +121,8 @@
   "admin/b2b-organizations.organization-details.button.save": "Spara",
   "admin/b2b-organizations.organization-details.collections": "Samlingar",
   "admin/b2b-organizations.organization-details.costCenters": "Kostnadsställe",
+  "admin/b2b-organizations.organization-details.settings": "Inställningar",
+  "admin/b2b-organizations.organization-details.settings.createQuote": "Skapa offert",
   "admin/b2b-organizations.organization-details.created": "Skapad",
   "admin/b2b-organizations.organization-details.default": "Allmänt",
   "admin/b2b-organizations.organization-details.edit-user": "Ändra användare",

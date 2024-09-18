@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Added
+
+- Add new tab called 'settings' at organization details
+
 ## [1.35.0] - 2024-09-10
 
 ### Added

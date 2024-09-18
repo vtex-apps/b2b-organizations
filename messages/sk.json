@@ -121,6 +121,8 @@
   "admin/b2b-organizations.organization-details.button.save": "Uložiť",
   "admin/b2b-organizations.organization-details.collections": "Vyzdvihnutia",
   "admin/b2b-organizations.organization-details.costCenters": "Nákladové strediská",
+  "admin/b2b-organizations.organization-details.settings": "Nastavenia",
+  "admin/b2b-organizations.organization-details.settings.createQuote": "Vytvoriť ponuku",
   "admin/b2b-organizations.organization-details.created": "Vytvorené",
   "admin/b2b-organizations.organization-details.default": "Všeobecné",
   "admin/b2b-organizations.organization-details.edit-user": "Upraviť používateľa",

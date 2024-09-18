@@ -1,5 +1,8 @@
 import { PageBlock, Checkbox } from 'vtex.styleguide'
 import React, { Fragment } from 'react'
+import { useIntl } from 'react-intl'
+
+import { organizationMessages as messages } from '../utils/messages'
 
 export interface PermissionsOptions {
   value: boolean
@@ -15,14 +18,16 @@ interface OrganizationDetailsSettingsProps {
   >
 }
 
-const simulateTranslate: Record<Permission, string> = {
-  createQuote: 'Criar cota',
-}
-
 const OrganizationDetailsSettings = ({
   permissionsOptions,
   setPermissionsOptions,
 }: OrganizationDetailsSettingsProps) => {
+  const { formatMessage } = useIntl()
+
+  const simulateTranslate: Record<Permission, string> = {
+    createQuote: formatMessage(messages.createQuote),
+  }
+
   const handleCheckboxChange = (label: string) => {
     setPermissionsOptions(prevOptions =>
       prevOptions.map(option =>

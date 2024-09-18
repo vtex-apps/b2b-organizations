@@ -121,6 +121,8 @@
   "admin/b2b-organizations.organization-details.button.save": "Guardar",
   "admin/b2b-organizations.organization-details.collections": "Colecciones",
   "admin/b2b-organizations.organization-details.costCenters": "Centros de costos",
+  "admin/b2b-organizations.organization-details.settings": "Configuración",
+  "admin/b2b-organizations.organization-details.settings.createQuote": "Crear cotización",
   "admin/b2b-organizations.organization-details.created": "Creada",
   "admin/b2b-organizations.organization-details.default": "General",
   "admin/b2b-organizations.organization-details.edit-user": "Editar usuario",

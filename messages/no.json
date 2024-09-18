@@ -121,6 +121,8 @@
   "admin/b2b-organizations.organization-details.button.save": "Lagre",
   "admin/b2b-organizations.organization-details.collections": "Samlinger",
   "admin/b2b-organizations.organization-details.costCenters": "Kostnadssentre",
+  "admin/b2b-organizations.organization-details.settings": "Innstillinger",
+  "admin/b2b-organizations.organization-details.settings.createQuote": "Opprett tilbud",
   "admin/b2b-organizations.organization-details.created": "Opprettet",
   "admin/b2b-organizations.organization-details.default": "Generell",
   "admin/b2b-organizations.organization-details.edit-user": "Rediger bruker",
