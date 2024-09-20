@@ -36,6 +36,7 @@ const OrganizationRequestDetails: FunctionComponent = () => {
   const { data, loading, refetch } = useQuery(GET_ORGANIZATION_REQUEST, {
     variables: { id: params?.id },
     skip: !params?.id,
+    ssr: false,
   })
 
   const [updateOrganizationRequest] = useMutation(UPDATE_ORGANIZATION_REQUEST)
