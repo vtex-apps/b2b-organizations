@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Fixed
+- do not use `ssr` on `getOrganizationRequests` requests so cookies are passed along
+
 ## [1.35.0] - 2024-09-10
 
 ### Added
