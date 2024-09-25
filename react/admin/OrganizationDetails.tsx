@@ -35,6 +35,8 @@ import OrganizationDetailsDefault from './OrganizationDetails/OrganizationDetail
 import useHashRouter from './OrganizationDetails/useHashRouter'
 import type { Seller } from './OrganizationDetails/OrganizationDetailsSellers'
 import OrganizationDetailsSellers from './OrganizationDetails/OrganizationDetailsSellers'
+import type { PermissionsOptions } from './OrganizationDetails/OrganizationDetailsSettings'
+import OrganizationDetailsSettings from './OrganizationDetails/OrganizationDetailsSettings'
 
 export interface CellRendererProps<RowType> {
   cellData: unknown
@@ -89,6 +91,10 @@ const OrganizationDetails: FunctionComponent = () => {
     [] as PaymentTerm[]
   )
 
+  const [permissionsOptions, setPermissionsOptions] = useState(
+    [] as PermissionsOptions[]
+  )
+
   // const routerRef = useRef(null as any)
 
   const [loadingState, setLoadingState] = useState(false)
@@ -102,6 +108,24 @@ const OrganizationDetails: FunctionComponent = () => {
     variables: { id: params?.id },
     skip: !params?.id,
     ssr: false,
+    onCompleted(insideData) {
+      if (!insideData?.getOrganizationById?.permissions) {
+        return
+      }
+
+      const permissionsArray = Object.entries(
+        insideData.getOrganizationById.permissions
+      ).filter(key => {
+        return !(key[0] === '__typename')
+      })
+
+      setPermissionsOptions(() => {
+        return permissionsArray.map(p => ({
+          label: p[0],
+          value: p[1] as boolean,
+        }))
+      })
+    },
   })
 
   const { data: defaultCustomFieldsData } = useQuery(GET_B2B_CUSTOM_FIELDS, {
@@ -151,6 +175,11 @@ const OrganizationDetails: FunctionComponent = () => {
         id: seller.sellerId,
         name: seller.name,
       })),
+      permissions: permissionsOptions.reduce((acc, current) => {
+        acc[current.label] = current.value
+
+        return acc
+      }, {} as Record<string, boolean>),
     }
 
     updateOrganization({ variables })
@@ -404,6 +433,16 @@ const OrganizationDetails: FunctionComponent = () => {
       tab: 'users',
       component: (
         <OrganizationDetailsUsers params={params} loadingState={loadingState} />
+      ),
+    },
+    {
+      label: formatMessage(messages.settings),
+      tab: 'settings',
+      component: (
+        <OrganizationDetailsSettings
+          permissionsOptions={permissionsOptions}
+          setPermissionsOptions={setPermissionsOptions}
+        />
       ),
     },
   ]

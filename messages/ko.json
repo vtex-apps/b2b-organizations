@@ -121,6 +121,8 @@
   "admin/b2b-organizations.organization-details.button.save": "저장",
   "admin/b2b-organizations.organization-details.collections": "컬렉션",
   "admin/b2b-organizations.organization-details.costCenters": "비용 센터",
+  "admin/b2b-organizations.organization-details.settings": "설정",
+  "admin/b2b-organizations.organization-details.settings.createQuote": "견적 생성",
   "admin/b2b-organizations.organization-details.created": "생성됨",
   "admin/b2b-organizations.organization-details.default": "일반",
   "admin/b2b-organizations.organization-details.edit-user": "사용자 편집",

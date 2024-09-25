@@ -121,6 +121,8 @@
   "admin/b2b-organizations.organization-details.button.save": "Save",
   "admin/b2b-organizations.organization-details.collections": "Collections",
   "admin/b2b-organizations.organization-details.costCenters": "Cost Centers",
+  "admin/b2b-organizations.organization-details.settings": "Settings",
+  "admin/b2b-organizations.organization-details.settings.createQuote": "Create quote",
   "admin/b2b-organizations.organization-details.created": "Created",
   "admin/b2b-organizations.organization-details.default": "General",
   "admin/b2b-organizations.organization-details.edit-user": "Edit User",

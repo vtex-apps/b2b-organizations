@@ -42,6 +42,12 @@ export const organizationMessages = defineMessages({
   costCenters: {
     id: `${adminPrefix}organization-details.costCenters`,
   },
+  settings: {
+    id: `${adminPrefix}organization-details.settings`,
+  },
+  createQuote: {
+    id: `${adminPrefix}organization-details.settings.createQuote`,
+  },
   showRows: {
     id: `${adminPrefix}showRows`,
   },

@@ -121,6 +121,8 @@
   "admin/b2b-organizations.organization-details.button.save": "Salvează",
   "admin/b2b-organizations.organization-details.collections": "Colecții",
   "admin/b2b-organizations.organization-details.costCenters": "Centru de cost",
+  "admin/b2b-organizations.organization-details.settings": "Setări",
+  "admin/b2b-organizations.organization-details.settings.createQuote": "Crează ofertă",
   "admin/b2b-organizations.organization-details.created": "Creată",
   "admin/b2b-organizations.organization-details.default": "General",
   "admin/b2b-organizations.organization-details.edit-user": "Editează utilizatorul",

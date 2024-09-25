@@ -121,6 +121,8 @@
   "admin/b2b-organizations.organization-details.button.save": "Salvar",
   "admin/b2b-organizations.organization-details.collections": "Coleções",
   "admin/b2b-organizations.organization-details.costCenters": "Centros de custo",
+  "admin/b2b-organizations.organization-details.settings": "Configurações",
+  "admin/b2b-organizations.organization-details.settings.createQuote": "Criar cota",
   "admin/b2b-organizations.organization-details.created": "Criado",
   "admin/b2b-organizations.organization-details.default": "Gerais",
   "admin/b2b-organizations.organization-details.edit-user": "Editar usuário",

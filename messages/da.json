@@ -121,6 +121,8 @@
   "admin/b2b-organizations.organization-details.button.save": "Gem",
   "admin/b2b-organizations.organization-details.collections": "Kollektioner",
   "admin/b2b-organizations.organization-details.costCenters": "Omkostningscenter",
+  "admin/b2b-organizations.organization-details.settings": "Indstillinger",
+  "admin/b2b-organizations.organization-details.settings.createQuote": "Opret tilbud",
   "admin/b2b-organizations.organization-details.created": "Oprettet",
   "admin/b2b-organizations.organization-details.default": "Generelt",
   "admin/b2b-organizations.organization-details.edit-user": "Redigér bruger",

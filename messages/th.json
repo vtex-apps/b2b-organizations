@@ -121,6 +121,8 @@
   "admin/b2b-organizations.organization-details.button.save": "บันทึก",
   "admin/b2b-organizations.organization-details.collections": "คอลเล็กชัน",
   "admin/b2b-organizations.organization-details.costCenters": "ศูนย์ต้นทุน",
+  "admin/b2b-organizations.organization-details.settings": "การตั้งค่า",
+  "admin/b2b-organizations.organization-details.settings.createQuote": "สร้างใบเสนอราคา",
   "admin/b2b-organizations.organization-details.created": "สร้างแล้ว",
   "admin/b2b-organizations.organization-details.default": "ทั่วไป",
   "admin/b2b-organizations.organization-details.edit-user": "แก้ไขผู้ใช้",

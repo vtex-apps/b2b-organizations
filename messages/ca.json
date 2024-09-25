@@ -121,6 +121,8 @@
   "admin/b2b-organizations.organization-details.button.save": "Desa",
   "admin/b2b-organizations.organization-details.collections": "Col·leccions",
   "admin/b2b-organizations.organization-details.costCenters": "Centres de costs",
+  "admin/b2b-organizations.organization-details.settings": "Configuració",
+  "admin/b2b-organizations.organization-details.settings.createQuote": "Crear pressupost",
   "admin/b2b-organizations.organization-details.created": "Creat",
   "admin/b2b-organizations.organization-details.default": "General",
   "admin/b2b-organizations.organization-details.edit-user": "Edita l'usuari",

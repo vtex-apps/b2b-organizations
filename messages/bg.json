@@ -121,6 +121,8 @@
   "admin/b2b-organizations.organization-details.button.save": "Запазване",
   "admin/b2b-organizations.organization-details.collections": "Колекции",
   "admin/b2b-organizations.organization-details.costCenters": "Разходни центрове",
+  "admin/b2b-organizations.organization-details.settings": "Настройки",
+  "admin/b2b-organizations.organization-details.settings.createQuote": "Създаване на оферта",
   "admin/b2b-organizations.organization-details.created": "Създадено",
   "admin/b2b-organizations.organization-details.default": "Общ",
   "admin/b2b-organizations.organization-details.edit-user": "Редактиране на потребител",

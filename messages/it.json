@@ -121,6 +121,8 @@
   "admin/b2b-organizations.organization-details.button.save": "Salva",
   "admin/b2b-organizations.organization-details.collections": "Collezioni",
   "admin/b2b-organizations.organization-details.costCenters": "Centri di costo",
+  "admin/b2b-organizations.organization-details.settings": "Impostazioni",
+  "admin/b2b-organizations.organization-details.settings.createQuote": "Crea preventivo",
   "admin/b2b-organizations.organization-details.created": "Creata",
   "admin/b2b-organizations.organization-details.default": "Generali",
   "admin/b2b-organizations.organization-details.edit-user": "Modifica utente",
