@@ -215,7 +215,7 @@ The **B2B Organizations** app adds the following functionalities and components 
 </tbody>
 </table>
 
-> 9 This app can also be used together with [B2B Quotes](https://developers.vtex.com/vtex-developer-docs/docs/vtex-orderquote), allowing order quotes to be managed at the organization level. Please read our B2B Quotes documentation for more details.
+> ℹ️ This app can also be used together with [B2B Quotes](https://developers.vtex.com/vtex-developer-docs/docs/vtex-orderquote), allowing order quotes to be managed at the organization level. Please read our B2B Quotes documentation for more details.
 
 ### VTEX Admin
 
@@ -285,7 +285,7 @@ You can manually create a new organization on the **Organizations** page. Follow
 
 ![05-add-organization](https://user-images.githubusercontent.com/77292838/159766663-e1b2005a-0c2d-4bec-84ad-612007f17d64.gif)
 
-> 9 Additional cost centers and addresses may be added after creating the organization, as explained in the next section of this documentation.
+> ℹ️ Additional cost centers and addresses may be added after creating the organization, as explained in the next section of this documentation.
 
 #### Organization Details
 
@@ -300,7 +300,7 @@ In the **Organizations Details** page, you can see and edit the information of a
 
 You can access this page by going to **Account Settings** > **B2B Organizations & Cost Centers** > **Organizations** in the VTEX Admin and clicking on the organization whose details you want to view, or on <img src="https://user-images.githubusercontent.com/77292838/159766633-dfcb818f-6bd7-4cd0-92dc-9c682fb50d04.png" width="10" alt-text="00-ellipsis"/> > `View`.
 
-> 9 Note that assigning collections, payment terms, and price tables to an organization is optional. If these are not assigned, users of the organization will see the stores default catalog, have access to all payment methods, and see the store's default pricing.
+> ℹ️ Note that assigning collections, payment terms, and price tables to an organization is optional. If these are not assigned, users of the organization will see the stores default catalog, have access to all payment methods, and see the store's default pricing.
 
 ##### Organization Name and Status
 
@@ -318,7 +318,7 @@ In the **Cost Centers** section, you can view all the cost centers associated wi
 
 ![07-cost-centers](https://user-images.githubusercontent.com/77292838/159766678-0fd6c361-e1e6-470b-a9fc-c98b530c05e9.png)
 
-> 9 Each organization must have at least one cost center.
+> ℹ️ Each organization must have at least one cost center.
 
 By default, each cost center will allow all of the [payment terms](#payment-terms) that have been assigned to the parent organization. However, **Organization Admin** users have the ability to enable or disable individual payment terms at the cost center level  see [Manage Cost Centers](#manage-cost-centers) for more information on this.
 
@@ -353,7 +353,7 @@ This will lead you to the **Cost Center Details** page, where you can:
 
 The optional **Business Document** field may be used to store a Tax ID, VAT ID, CNPJ, or similar business identifier. If a Business Document is present in a user's cost center, it will be applied as the `corporateDocument` in the user's profile and therefore attached to any orders placed by the user.
 
-> � The shipping addresses assigned to a cost center will be available to that cost center's users at checkout if you install [B2B Checkout Settings](https://developers.vtex.com/vtex-developer-docs/docs/vtex-b2b-checkout-settings). No other addresses will be available. Therefore, each cost center must have at least one shipping address.
+> ℹ️ The shipping addresses assigned to a cost center will be available to that cost center's users at checkout if you install [B2B Checkout Settings](https://developers.vtex.com/vtex-developer-docs/docs/vtex-b2b-checkout-settings). No other addresses will be available. Therefore, each cost center must have at least one shipping address.
 
 To edit or delete an existing address, click <img src="https://user-images.githubusercontent.com/77292838/159766633-dfcb818f-6bd7-4cd0-92dc-9c682fb50d04.png" width="10" alt-text="00-ellipsis"/> next to it and select **Edit** or **Delete**.
 
@@ -376,7 +376,7 @@ If you want to delete the cost center, click on `Delete` instead.
 
 ##### Collections
 
-> 9 You must use the **Collections Beta** solution to be able to associate collections to organizations using **B2B Organizations**. Read our article on [Creating Collections Beta](https://help.vtex.com/tutorial/creating-collections-beta--yJBHqNMViOAnnnq4fyOye) for more information.
+> ℹ️ You must use the **Collections Beta** solution to be able to associate collections to organizations using **B2B Organizations**. Read our article on [Creating Collections Beta](https://help.vtex.com/tutorial/creating-collections-beta--yJBHqNMViOAnnnq4fyOye) for more information.
 
 This section allows you to manage the [product collections](https://help.vtex.com/tutorial/creating-collections-beta--yJBHqNMViOAnnnq4fyOye) assigned to the organization. Your selections define the assortment of products the organization users will see in the storefront.
 
@@ -398,11 +398,13 @@ To remove a payment term, select the option you want to remove from the **Assign
 
 ![11-payment-terms](https://user-images.githubusercontent.com/77292838/159766697-27de2f5b-18b3-4067-a4f1-81da8fb61bc0.gif)
 
-> 9 To customize the checkout according to each organization users role, you need to install and configure [B2B Checkout Settings](https://github.com/vtex-apps/b2b-checkout-settings).
+> ℹ️ To customize the checkout according to each organization users role, you need to install and configure [B2B Checkout Settings](https://github.com/vtex-apps/b2b-checkout-settings).
 
 ##### Price Tables
 
 This section allows you to choose which [price tables](https://help.vtex.com/en/tutorial/creating-price-tables--58YmY2Iwggyw4WeSCGg24S) are assigned to the organization. The price tables you select determine the prices the organization users will see in the storefront.
+
+Price tables associated with an organization override the base price only when fulfillment is performed by the main account. When franchises perform the fulfillment, the price table is not applied, resulting in incorrect price displays. To ensure correct operation, configure both the logistics and the price tables directly in the main account, avoiding the use of franchises that inherit price settings.
 
 To add a price table, select the option you want to add from the **Available** list and click `Add to org`.
 
@@ -445,7 +447,7 @@ To edit or remove an existing user, follow these steps:
 
 If a user is removed from an organization, their account will continue to exist in the store, but they will no longer be assigned to an organization, a cost center, and a B2B role. Thus, they will no longer have access to details of their organization in the **My Organization** page. Instead, they will have the ability to [request the creation of a new organization](#request-new-organization), if necessary.
 
-> 9 As an optional feature, you can install the [Admin Customers](https://developers.vtex.com/vtex-developer-docs/docs/vtex-admin-customers) app for additional customer management capabilities on the VTEX Admin.
+> ℹ️ As an optional feature, you can install the [Admin Customers](https://developers.vtex.com/vtex-developer-docs/docs/vtex-admin-customers) app for additional customer management capabilities on the VTEX Admin.
 
 #### Email templates
 
@@ -548,7 +550,7 @@ To add a new cost center, they should go to **My Account > My Organization**, wh
 
 In addition, **Organization Admins** can enable specific payment terms for a cost center, by using the toggle button to activate or deactivate the payment terms assigned to the organization, as shown below.
 
-> � This section will only be available on the **My Organization** page if [payment terms](#payment-terms) have previously been assigned to the organization by the VTEX Admin users.
+> ℹ️ This section will only be available on the **My Organization** page if [payment terms](#payment-terms) have previously been assigned to the organization by the VTEX Admin users.
 
 ![19-payment-terms-cost-center](https://user-images.githubusercontent.com/77292838/159766775-dd0a17bd-8418-401b-a377-7d4c9ed0cf11.png)
 
@@ -585,7 +587,7 @@ To give storefront users visibility into their currently assigned organization, 
 
 ![21-user-widget](https://user-images.githubusercontent.com/77292838/159766781-8edabb7e-292c-4c8e-a88e-ae937ec7db86.png)
 
-> 9 To display the user widget, it is necessary to follow the instructions in the [User widget configuration](#user-widget-configuration) section.
+> ℹ️ To display the user widget, it is necessary to follow the instructions in the [User widget configuration](#user-widget-configuration) section.
 
 If users click `Manage organization`, they can access the **My Organization** page directly.
 
@@ -596,13 +598,11 @@ In case impersonation is currently active, this block will also show the email o
 
 #### Seller Wrapper Block
 
-> 10 This topic is related to the Seller functionality.
+> ℹ️ 10 This topic is related to the Seller functionality.
 
 To persist the Organization seller throughout the PDP and shelves, it must have the "seller-wrapper" block in the store theme configuration. 
 
 Please check [Seller wrapper configuration](#seller-wrapper)
-
-
 
 <!-- DOCS-IGNORE:start -->
 
@@ -621,7 +621,6 @@ Thanks goes to these wonderful people:
 This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind are welcome!
 
 <!-- DOCS-IGNORE:end -->
-
 
 **Upcoming documentation:**
 
