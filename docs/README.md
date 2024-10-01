@@ -404,6 +404,8 @@ To remove a payment term, select the option you want to remove from the **Assign
 
 This section allows you to choose which [price tables](https://help.vtex.com/en/tutorial/creating-price-tables--58YmY2Iwggyw4WeSCGg24S) are assigned to the organization. The price tables you select determine the prices the organization users will see in the storefront.
 
+Price tables associated with an organization override the base price only when fulfillment is performed by the main account. When franchises perform the fulfillment, the price table is not applied, resulting in incorrect price displays. To ensure correct operation, configure both the logistics and the price tables directly in the main account, avoiding the use of franchises that inherit price settings.
+
 To add a price table, select the option you want to add from the **Available** list and click `Add to org`.
 
 To remove a price table, select the option you want to remove from the **Assigned to organization** list and click `Remove from org`.
