@@ -208,6 +208,7 @@
   "admin/b2b-organizations.organization-settings-admin.toast.update-success": "設定の更新が成功しました",
   "admin/b2b-organizations.organization-settings-autoApprove": "新しい組織を自動的に承認する",
   "admin/b2b-organizations.organization-settings-clearCart": "会社の切り替え時やログイン時にカートをクリアする",
+  "admin/b2b-organizations.organization-settings-fullImpersonation": "フルインパーソネーション",
   "admin/b2b-organizations.organization-settings-select.add-to-binding": "Add to binding",
   "admin/b2b-organizations.organization-settings-select.binding.available": "Available bindings",
   "admin/b2b-organizations.organization-settings-select.binding.selected": "Selected bindings",

@@ -326,7 +326,7 @@ const UserWidget: VtexFunctionComponent<UserWidgetProps> = ({
       return
     }
 
-    const uiSettings = userWidgetData?.getB2BSettings?.uiSettings
+    const uiSettings = userWidgetData?.getB2BSettings
 
     if (uiSettings?.showModal) {
       const totalCompanies = userWidgetData?.getOrganizationsByEmail?.length
@@ -633,12 +633,15 @@ const UserWidget: VtexFunctionComponent<UserWidgetProps> = ({
             <div
               className={`${handles.userWidgetItem} pa3 br2 bg-base--inverted hover-bg-base--inverted active-bg-base--inverted c-on-base--inverted hover-c-on-base--inverted active-c-on-base--inverted dib mr3`}
             >
-              {(!userWidgetData?.checkImpersonation?.email && showDropdown && (
-                <AutocompleteInput
-                  input={organizationAutoCompleteInput}
-                  options={autoCompleteOrganizationOptions}
-                />
-              )) || (
+              {((!userWidgetData?.checkImpersonation?.email ||
+                userWidgetData?.getB2BSettings?.uiSettings
+                  ?.fullImpersonation === true) &&
+                showDropdown && (
+                  <AutocompleteInput
+                    input={organizationAutoCompleteInput}
+                    options={autoCompleteOrganizationOptions}
+                  />
+                )) || (
                 <Fragment>
                   {`${formatMessage(messages.organization)} ${
                     userWidgetData?.getOrganizationByIdStorefront?.name
@@ -652,12 +655,15 @@ const UserWidget: VtexFunctionComponent<UserWidgetProps> = ({
             <div
               className={`${handles.userWidgetItem} pa3 br2 bg-base--inverted hover-bg-base--inverted active-bg-base--inverted c-on-base--inverted hover-c-on-base--inverted active-c-on-base--inverted dib mr3`}
             >
-              {(!userWidgetData?.checkImpersonation?.email && showDropdown && (
-                <AutocompleteInput
-                  input={costCenterAutoCompleteInput}
-                  options={autoCompleteCostCentersOptions}
-                />
-              )) || (
+              {((!userWidgetData?.checkImpersonation?.email ||
+                userWidgetData?.getB2BSettings?.uiSettings
+                  ?.fullImpersonation === true) &&
+                showDropdown && (
+                  <AutocompleteInput
+                    input={costCenterAutoCompleteInput}
+                    options={autoCompleteCostCentersOptions}
+                  />
+                )) || (
                 <Fragment>
                   {`${formatMessage(messages.costCenter)} ${
                     userWidgetData?.getCostCenterByIdStorefront?.name
@@ -665,31 +671,34 @@ const UserWidget: VtexFunctionComponent<UserWidgetProps> = ({
                 </Fragment>
               )}
             </div>
-            {!userWidgetData?.checkImpersonation?.email && showDropdown && (
-              <div
-                className={`${handles.userWidgetItem} pa3 br2 bg-base--inverted hover-bg-base--inverted active-bg-base--inverted c-on-base--inverted hover-c-on-base--inverted active-c-on-base--inverted dib mr3`}
-              >
-                <Button
-                  variation="primary"
-                  size="small"
-                  disabled={
-                    organizationsState.currentCostCenter ===
-                    userWidgetData?.getCostCenterByIdStorefront?.id
-                  }
-                  isLoading={loadingState}
-                  onClick={() => handleSetCurrentOrganization()}
+            {(!userWidgetData?.checkImpersonation?.email ||
+              userWidgetData?.getB2BSettings?.uiSettings?.fullImpersonation ===
+                true) &&
+              showDropdown && (
+                <div
+                  className={`${handles.userWidgetItem} pa3 br2 bg-base--inverted hover-bg-base--inverted active-bg-base--inverted c-on-base--inverted hover-c-on-base--inverted active-c-on-base--inverted dib mr3`}
                 >
-                  {formatMessage(messages.setCurrentOrganization)}
-                </Button>
-                {errorOrganization && (
-                  <div
-                    className={`${handles.userWidgetOrganizationError} error`}
+                  <Button
+                    variation="primary"
+                    size="small"
+                    disabled={
+                      organizationsState.currentCostCenter ===
+                      userWidgetData?.getCostCenterByIdStorefront?.id
+                    }
+                    isLoading={loadingState}
+                    onClick={() => handleSetCurrentOrganization()}
                   >
-                    <FormattedMessage id="store/b2b-organizations.set-organization-error" />
-                  </div>
-                )}
-              </div>
-            )}
+                    {formatMessage(messages.setCurrentOrganization)}
+                  </Button>
+                  {errorOrganization && (
+                    <div
+                      className={`${handles.userWidgetOrganizationError} error`}
+                    >
+                      <FormattedMessage id="store/b2b-organizations.set-organization-error" />
+                    </div>
+                  )}
+                </div>
+              )}
             <div
               className={`${handles.userWidgetItem} pa3 br2 bg-base--inverted hover-bg-base--inverted active-bg-base--inverted c-on-base--inverted hover-c-on-base--inverted active-c-on-base--inverted dib mr3`}
             >

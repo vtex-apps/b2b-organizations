@@ -208,6 +208,7 @@
   "admin/b2b-organizations.organization-settings-admin.toast.update-success": "Nastavení bylo úspěšně aktualizováno",
   "admin/b2b-organizations.organization-settings-autoApprove": "Automatické schvalování nových organizací",
   "admin/b2b-organizations.organization-settings-clearCart": "Vyprázdnit košík při změně společnosti nebo přihlášení",
+  "admin/b2b-organizations.organization-settings-fullImpersonation": "Přepínání mezi organizacemi",
   "admin/b2b-organizations.organization-settings-select.add-to-binding": "Přidat do vazby",
   "admin/b2b-organizations.organization-settings-select.binding.available": "Dostupné vazby",
   "admin/b2b-organizations.organization-settings-select.binding.selected": "Vybrané vazby",

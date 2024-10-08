@@ -7,16 +7,22 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Added
+
+- `Full Impersonation` Organization Setting, this will allow a Impersonator to also Switch between the User's Organization/Cost Center
+
 ## [1.35.1] - 2024-10-01
 
 ## [1.35.0] - 2024-09-10
 
 ### Added
+
 - Added `getAccount` query on OrganizationDetailsSellers component to get the account data
 
 ## [1.34.3] - 2024-09-05
 
 ### Fixed
+
 - Review and reorder translations for better maintainability
 
 ## [1.34.2] - 2024-09-03
@@ -34,6 +40,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [1.34.0] - 2024-08-20
 
 ### Fixed
+
 - Implement pagination for sellers in Organization Details page
 
 ## [1.33.1] - 2024-08-06
@@ -63,6 +70,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Implement 'none' option at trade policy organization
 
 ## [1.31.9] - 2024-06-20
+
 ### Fixed
 
 - Adjusts list organization and research screening according to input at autocomplete
@@ -74,6 +82,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [1.31.6] - 2024-05-28
 
 ## [1.31.5] - 2024-05-28
+
 ### Fixed
 
 - Save new address within the Cost Center in the store
