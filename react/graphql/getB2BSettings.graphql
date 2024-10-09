@@ -11,6 +11,7 @@ query GetB2BSettings {
     uiSettings {
       showModal
       clearCart
+      fullImpersonation
     }
     organizationCustomFields {
       name

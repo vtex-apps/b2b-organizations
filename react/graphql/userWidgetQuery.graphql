@@ -69,6 +69,7 @@ query userWidgetQuery($orgId: ID) {
   getB2BSettings @context(provider: "vtex.b2b-organizations-graphql") {
     uiSettings {
       showModal
+      fullImpersonation
     }
   }
 }
