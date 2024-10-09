@@ -208,7 +208,7 @@
   "admin/b2b-organizations.organization-settings-admin.toast.update-success": "Paramètres mis à jour avec succès",
   "admin/b2b-organizations.organization-settings-autoApprove": "Approuver automatiquement les nouvelles organisations",
   "admin/b2b-organizations.organization-settings-clearCart": "Vider le panier lors du changement d'entreprise ou de connexion",
-  "admin/b2b-organizations.organization-settings-fullImpersonation": "Usurpation d'identité complète",
+  "admin/b2b-organizations.organization-settings-fullImpersonation": "Permettre la sélection de l’Organisation et du Centre de Coûts lors de l’imitation",
   "admin/b2b-organizations.organization-settings-select.add-to-binding": "Ajouter à la liaison",
   "admin/b2b-organizations.organization-settings-select.binding.available": "Liaisons disponibles",
   "admin/b2b-organizations.organization-settings-select.binding.selected": "Liaisons sélectionnées",

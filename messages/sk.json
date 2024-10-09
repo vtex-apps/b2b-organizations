@@ -208,7 +208,7 @@
   "admin/b2b-organizations.organization-settings-admin.toast.update-success": "Nastavenia boli úspešne aktualizované",
   "admin/b2b-organizations.organization-settings-autoApprove": "Automatické schvaľovanie nových organizácií",
   "admin/b2b-organizations.organization-settings-clearCart": "Vymazať košík pri zmene spoločnosti alebo prihlásení",
-  "admin/b2b-organizations.organization-settings-fullImpersonation": "Plné zastúpenie",
+  "admin/b2b-organizations.organization-settings-fullImpersonation": "Povoliť výber organizácie a nákladového strediska počas imitácie",
   "admin/b2b-organizations.organization-settings-select.add-to-binding": "Pridať do väzby",
   "admin/b2b-organizations.organization-settings-select.binding.available": "Dostupné väzby",
   "admin/b2b-organizations.organization-settings-select.binding.selected": "Vybrané väzby",

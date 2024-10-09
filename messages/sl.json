@@ -208,7 +208,7 @@
   "admin/b2b-organizations.organization-settings-admin.toast.update-success": "Nastavitve uspešno posodobljene",
   "admin/b2b-organizations.organization-settings-autoApprove": "Samodejno odobravanje novih organizacij",
   "admin/b2b-organizations.organization-settings-clearCart": "Izbriši košarico, ko zamenjaš podjetje ali se prijaviš",
-  "admin/b2b-organizations.organization-settings-fullImpersonation": "Popolna lažna predstavitev",
+  "admin/b2b-organizations.organization-settings-fullImpersonation": "Dovoli izbiro organizacije in stroškovnega centra med imitacijo",
   "admin/b2b-organizations.organization-settings-select.add-to-binding": "Dodaj vezavo",
   "admin/b2b-organizations.organization-settings-select.binding.available": "Vezave na voljo",
   "admin/b2b-organizations.organization-settings-select.binding.selected": "Izbrane vezave",

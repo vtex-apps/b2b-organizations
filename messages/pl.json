@@ -208,7 +208,7 @@
   "admin/b2b-organizations.organization-settings-admin.toast.update-success": "Pomyślnie zaktualizowano ustawienia",
   "admin/b2b-organizations.organization-settings-autoApprove": "Automatycznie zatwierdzaj nowe organizacje",
   "admin/b2b-organizations.organization-settings-clearCart": "Wyczyść koszyk podczas zmiany firmy lub logowania",
-  "admin/b2b-organizations.organization-settings-fullImpersonation": "Pełna imitacja",
+  "admin/b2b-organizations.organization-settings-fullImpersonation": "Zezwól na wybór organizacji i centrum kosztów podczas imitacji",
   "admin/b2b-organizations.organization-settings-select.add-to-binding": "Dodaj do powiązania",
   "admin/b2b-organizations.organization-settings-select.binding.available": "Dostępne powiązania",
   "admin/b2b-organizations.organization-settings-select.binding.selected": "Wybrane powiązania",

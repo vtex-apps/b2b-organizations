@@ -208,7 +208,7 @@
   "admin/b2b-organizations.organization-settings-admin.toast.update-success": "Indstillinger opdateret succesfuldt",
   "admin/b2b-organizations.organization-settings-autoApprove": "Godkend nye organisationer automatisk",
   "admin/b2b-organizations.organization-settings-clearCart": "Ryd indkøbskurven, når du skifter virksomhed eller logger ind",
-  "admin/b2b-organizations.organization-settings-fullImpersonation": "Fuldstændig personificering",
+  "admin/b2b-organizations.organization-settings-fullImpersonation": "Tillad valg af organisation og omkostningscenter under imitation",
   "admin/b2b-organizations.organization-settings-select.add-to-binding": "Føj til binding",
   "admin/b2b-organizations.organization-settings-select.binding.available": "Tilgængelige bindinger",
   "admin/b2b-organizations.organization-settings-select.binding.selected": "Valgte bindinger",

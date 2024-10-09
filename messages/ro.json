@@ -208,7 +208,7 @@
   "admin/b2b-organizations.organization-settings-admin.toast.update-success": "Setările au fost actualizate cu succes",
   "admin/b2b-organizations.organization-settings-autoApprove": "Aprobă automat noile organizații",
   "admin/b2b-organizations.organization-settings-clearCart": "Golește coșul atunci când se schimbă compania sau la autentificare",
-  "admin/b2b-organizations.organization-settings-fullImpersonation": "Uzurparea identității deplină",
+  "admin/b2b-organizations.organization-settings-fullImpersonation": "Permite selecția Organizației și Centrului de Cost în timpul imitației",
   "admin/b2b-organizations.organization-settings-select.add-to-binding": "Adaugă la legătură",
   "admin/b2b-organizations.organization-settings-select.binding.available": "Legături disponibile",
   "admin/b2b-organizations.organization-settings-select.binding.selected": "Legături selectate",

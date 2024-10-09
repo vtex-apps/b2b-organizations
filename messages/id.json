@@ -208,7 +208,7 @@
   "admin/b2b-organizations.organization-settings-admin.toast.update-success": "Seting berhasil disimpan",
   "admin/b2b-organizations.organization-settings-autoApprove": "Setujui organisasi baru secara otomatis",
   "admin/b2b-organizations.organization-settings-clearCart": "Kosongkan troli saat berganti perusahaan atau saat masuk",
-  "admin/b2b-organizations.organization-settings-fullImpersonation": "Peniruan identitas penuh",
+  "admin/b2b-organizations.organization-settings-fullImpersonation": "Izinkan pemilihan Organisasi dan Pusat Biaya saat melakukan peniruan",
   "admin/b2b-organizations.organization-settings-select.add-to-binding": "Tambah ke binding",
   "admin/b2b-organizations.organization-settings-select.binding.available": "Binding yang tersedia",
   "admin/b2b-organizations.organization-settings-select.binding.selected": "Binding yang dipilih",
