@@ -326,7 +326,7 @@ const UserWidget: VtexFunctionComponent<UserWidgetProps> = ({
       return
     }
 
-    const uiSettings = userWidgetData?.getB2BSettings
+    const uiSettings = userWidgetData?.getB2BSettings?.uiSettings
 
     if (uiSettings?.showModal) {
       const totalCompanies = userWidgetData?.getOrganizationsByEmail?.length
