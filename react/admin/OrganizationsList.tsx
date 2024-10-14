@@ -18,6 +18,7 @@ import {
   useTableState,
 } from '@vtex/admin-ui'
 import type { TagProps } from '@vtex/admin-ui'
+import { Alert, Link, Button } from 'vtex.styleguide'
 
 import {
   INITIAL_FETCH_LIST_OPTIONS,
@@ -146,6 +147,34 @@ const OrganizationsList: FunctionComponent = () => {
           <FlexSpacer />
           <Pagination state={paginationState} loading={loading} />
         </Flex>
+        <Alert type="warning">
+          <div
+            className={csx({
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'start',
+            })}
+          >
+            <p className={csx({ fontWeight: '500', width: '70%' })}>
+              Soon, the “Trade Name”search will be required on this screen. To
+              prevent any disruptions, please set the ‘Trade Name’ field as ‘Is
+              Filterable?’in the Masterdata now.{' '}
+              <Link href="https://help.vtex.com/tutorial/como-a-reserva-funciona">
+                Learn more
+              </Link>
+            </p>
+
+            <Button
+              size="small"
+              variation="tertiary"
+              href="https://b2bstore005.ds.vtexcrm.com.br/#RGF0YUVudGl0eSNGb3JtRGF0YSNyb3dJZD1DTCMjI0Zvcm1EYXRhX1N1Y2VzcyNBamF4UmVxdWVz%0adEVycm9yI2NvbnRlbnQ%3d"
+              className={csx({ fontWeight: '500', whiteSpace: 'nowrap' })}
+              target="_blank"
+            >
+              Edit Settings
+            </Button>
+          </div>
+        </Alert>
       </DataViewHeader>
       <Table width="100%" {...getTable()}>
         <THead>
