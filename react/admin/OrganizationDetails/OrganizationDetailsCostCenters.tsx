@@ -304,6 +304,7 @@ const OrganizationDetailsCostCenters = ({
             onNextClick: handleCostCentersNextClick,
             onPrevClick: handleCostCentersPrevClick,
             onRowsChange: handleCostCentersRowsChange,
+            selectedOption: costCenterPaginationState.pageSize,
             currentItemFrom:
               (costCenterPaginationState.page - 1) *
                 costCenterPaginationState.pageSize +

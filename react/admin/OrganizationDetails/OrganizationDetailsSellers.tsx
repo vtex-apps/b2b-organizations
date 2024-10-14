@@ -1,11 +1,14 @@
 import React, { Fragment, useEffect, useState } from 'react'
-import { FormattedMessage, useIntl } from 'react-intl'
-import { PageBlock, Table } from 'vtex.styleguide'
 import { useQuery } from 'react-apollo'
+import { useToast } from '@vtex/admin-ui'
+import { PageBlock, Table } from 'vtex.styleguide'
+import { FormattedMessage, useIntl } from 'react-intl'
 
+import type { AvailabilityTypes } from '../OrganizationDetails'
+import GET_ACCOUNT from '../../graphql/getAccount.graphql'
 import { organizationMessages as messages } from '../utils/messages'
 import { organizationBulkAction } from '../utils/organizationBulkAction'
-import GET_SELLERS from '../../graphql/getSellers.graphql'
+import GET_SELLERS_PAGINATED from '../../graphql/getSellersPaginated.graphql'
 
 export interface Seller {
   sellerId: string
@@ -17,57 +20,107 @@ export interface SellerItem {
   name: string
 }
 
+interface RowParams {
+  selectedRows: Seller[]
+}
+
+interface GetAccountResponse {
+  getAccount: {
+    id: string
+    name: string
+  }
+}
+
+interface GetSellersPaginatedQueryResponse {
+  getSellersPaginated: {
+    items: SellerItem[]
+    pagination: {
+      page: number
+      pageSize: number
+      total: number
+    }
+  }
+}
+
 const OrganizationDetailsSellers = ({
   getSchema,
   sellersState,
   setSellersState,
 }: {
-  getSchema: (argument?: any) => any
+  getSchema: (type?: AvailabilityTypes) => unknown
   sellersState: Seller[]
-  setSellersState: (value: any) => void
+  setSellersState: React.Dispatch<React.SetStateAction<Seller[]>>
 }) => {
   /**
    * Hooks
    */
+  const toast = useToast()
   const { formatMessage } = useIntl()
 
   /**
    * States
    */
-  const [sellerOptions, setSellerOptions] = useState([] as Seller[])
+  const [variables, setVariables] = useState({ page: 1, pageSize: 25 })
+  const [sellerOptions, setSellerOptions] = useState<Seller[]>([])
 
   /**
    * Queries
    */
-  const { data: sellersData, loading } = useQuery(GET_SELLERS)
+  const { data: accountData, loading: loadingAccountData } = useQuery<
+    GetAccountResponse
+  >(GET_ACCOUNT, {
+    onError: error => {
+      toast({ variant: 'critical', message: error.message })
+    },
+  })
+
+  const {
+    data: sellersData,
+    loading: loadingSellersData,
+    refetch: refetchSellersData,
+  } = useQuery<GetSellersPaginatedQueryResponse>(GET_SELLERS_PAGINATED, {
+    variables,
+    skip: !accountData,
+    onCompleted: data => {
+      if (!data?.getSellersPaginated?.items) {
+        return
+      }
+
+      const options = data.getSellersPaginated.items.map(({ name, id }) => {
+        // This is a workaround to show the account name in the seller list only for the first seller.
+        // This is because the first seller is created with the account name,
+        // and in turn the trade name is indexed to the product catalogs.
+        if (id === '1' && accountData) {
+          return {
+            name: accountData.getAccount.name,
+            sellerId: id,
+          }
+        }
+
+        return {
+          name,
+          sellerId: id,
+        }
+      })
+
+      setSellerOptions(options)
+    },
+    onError: error => {
+      toast({ variant: 'critical', message: error.message })
+    },
+  })
 
   /**
-   * Effects
+   * Constants
    */
-  useEffect(() => {
-    if (!sellersData?.getSellers?.length) {
-      return
-    }
-
-    const options = [] as Seller[]
-
-    sellersData.getSellers.forEach(({ name, id }: SellerItem) => {
-      if (!options.find(option => option.sellerId === id)) {
-        options.push({ name, sellerId: id })
-      }
-    })
-    options.sort(
-      (a: Seller, b: Seller) => a.name?.localeCompare(b.name ?? '') ?? 0
-    )
-    setSellerOptions(options)
-  }, [sellersData])
+  const totalItems = sellersData?.getSellersPaginated?.pagination?.total ?? 0
 
   /**
    * Functions
    */
-  const handleRemoveSellers = (rowParams: any) => {
+  const handleRemoveSellers = (rowParams: RowParams) => {
     const { selectedRows = [] } = rowParams
-    const sellersToRemove = [] as Seller[]
+    const sellersToRemove: Seller[] = []
 
     selectedRows.forEach((row: Seller) => {
       sellersToRemove.push(row)
@@ -83,9 +136,9 @@ const OrganizationDetailsSellers = ({
     setSellersState(newSellersList)
   }
 
-  const handleAddSellers = (rowParams: any) => {
+  const handleAddSellers = (rowParams: RowParams) => {
     const { selectedRows = [] } = rowParams
-    const newSellers = [] as Seller[]
+    const newSellers: Seller[] = []
 
     selectedRows.forEach((row: Seller) => {
       if (!sellersState.some(seller => seller.sellerId === row.sellerId)) {
@@ -93,8 +146,49 @@ const OrganizationDetailsSellers = ({
       }
     })
 
-    setSellersState((prevState: any) => [...prevState, ...newSellers])
+    setSellersState(prevState => [...prevState, ...newSellers])
   }
+
+  const handleNext = () => {
+    if (variables.page * variables.pageSize >= totalItems) return
+
+    setVariables(prev => ({ ...prev, page: prev.page + 1 }))
+
+    refetchSellersData({
+      page: variables.page + 1,
+      pageSize: variables.pageSize,
+    })
+  }
+
+  const handlePrev = () => {
+    if (variables.page === 1) return
+
+    setVariables(prev => ({ ...prev, page: prev.page - 1 }))
+
+    refetchSellersData({
+      page: variables.page - 1,
+      pageSize: variables.pageSize,
+    })
+  }
+
+  const handleRowsChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const {
+      target: { value },
+    } = e
+
+    setVariables({ page: 1, pageSize: +value })
+
+    refetchSellersData({
+      page: 1,
+      pageSize: +value,
+    })
+  }
+
+  useEffect(() => {
+    if (accountData) {
+      refetchSellersData()
+    }
+  }, [accountData, refetchSellersData])
 
   return (
     <Fragment>
@@ -107,7 +201,6 @@ const OrganizationDetailsSellers = ({
             fullWidth
             schema={getSchema()}
             items={sellersState}
-            loading={loading}
             bulkActions={organizationBulkAction(
               handleRemoveSellers,
               messages.removeFromOrg,
@@ -115,12 +208,14 @@ const OrganizationDetailsSellers = ({
             )}
           />
         </div>
+
         <div>
           <h4 className="t-heading-4 mt0 mb0">
             <FormattedMessage id="admin/b2b-organizations.organization-details.available" />
           </h4>
           <Table
             fullWidth
+            loading={loadingAccountData || loadingSellersData}
             schema={getSchema('availableSellers')}
             bulkActions={organizationBulkAction(
               handleAddSellers,
@@ -128,6 +223,21 @@ const OrganizationDetailsSellers = ({
               formatMessage
             )}
             items={sellerOptions}
+            pagination={{
+              onNextClick: handleNext,
+              onPrevClick: handlePrev,
+              onRowsChange: handleRowsChange,
+              selectedOption: variables.pageSize,
+              currentItemFrom: (variables.page - 1) * variables.pageSize + 1,
+              currentItemTo: Math.min(
+                variables.page * variables.pageSize,
+                totalItems
+              ),
+              textShowRows: formatMessage(messages.showRows),
+              textOf: formatMessage(messages.of),
+              rowsOptions: [25, 50, 100],
+              totalItems,
+            }}
           />
         </div>
       </PageBlock>
