@@ -9,6 +9,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Feat
 
+- Add warning holding to organizations list, show holding message and link to documentation
+
+### Feat
+
 - Change placeholder, add title tag and check organization search input search
 
 ## [1.33.0] - 2024-07-18
