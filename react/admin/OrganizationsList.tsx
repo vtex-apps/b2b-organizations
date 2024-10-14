@@ -19,6 +19,7 @@ import {
 } from '@vtex/admin-ui'
 import type { TagProps } from '@vtex/admin-ui'
 import { Alert, Link, Button } from 'vtex.styleguide'
+import { FormattedMessage, useIntl } from 'react-intl'
 
 import {
   INITIAL_FETCH_LIST_OPTIONS,
@@ -39,6 +40,7 @@ export const TagVariantByStatus: Record<string, TagProps['variant']> = {
 const OrganizationsList: FunctionComponent = () => {
   const navigateToDetailsPage = useNavigateToDetailsPage()
   const columns = useOrgsTableColumns()
+  const { formatMessage } = useIntl()
 
   const [refetchOptions, setRefetchOptions] = useState(
     INITIAL_FETCH_LIST_OPTIONS
@@ -156,11 +158,12 @@ const OrganizationsList: FunctionComponent = () => {
             })}
           >
             <p className={csx({ fontWeight: '500', width: '70%' })}>
-              Soon, the “Trade Name”search will be required on this screen. To
-              prevent any disruptions, please set the ‘Trade Name’ field as ‘Is
-              Filterable?’in the Masterdata now.{' '}
-              <Link href="https://help.vtex.com/tutorial/como-a-reserva-funciona">
-                Learn more
+              <FormattedMessage id="admin/b2b-organizations.organizations.warning-holding.message" />{' '}
+              <Link
+                href="https://developers.vtex.com/docs/guides/querying-documents-in-master-data-v1"
+                target="_blank"
+              >
+                <FormattedMessage id="admin/b2b-organizations.organizations.warning-holding.link" />
               </Link>
             </p>
 
@@ -171,7 +174,7 @@ const OrganizationsList: FunctionComponent = () => {
               className={csx({ fontWeight: '500', whiteSpace: 'nowrap' })}
               target="_blank"
             >
-              Edit Settings
+              <FormattedMessage id="admin/b2b-organizations.organizations.warning-holding.action" />
             </Button>
           </div>
         </Alert>
