@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Feat
+
+- Add warning holding to organizations list, show holding message and link to documentation
+
 ## [1.35.2] - 2024-10-15
 ### Added
 
