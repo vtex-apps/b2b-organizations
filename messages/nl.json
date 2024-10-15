@@ -121,6 +121,8 @@
   "admin/b2b-organizations.organization-details.button.save": "Opslaan",
   "admin/b2b-organizations.organization-details.collections": "Collecties",
   "admin/b2b-organizations.organization-details.costCenters": "Kostencentra",
+  "admin/b2b-organizations.organization-details.settings": "Instellingen",
+  "admin/b2b-organizations.organization-details.settings.createQuote": "Offerte maken",
   "admin/b2b-organizations.organization-details.created": "Gecreëerd",
   "admin/b2b-organizations.organization-details.default": "Algemeen",
   "admin/b2b-organizations.organization-details.edit-user": "Gebruiker bewerken",

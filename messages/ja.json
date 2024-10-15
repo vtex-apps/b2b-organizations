@@ -121,6 +121,8 @@
   "admin/b2b-organizations.organization-details.button.save": "保存",
   "admin/b2b-organizations.organization-details.collections": "コレクション",
   "admin/b2b-organizations.organization-details.costCenters": "コストセンター",
+  "admin/b2b-organizations.organization-details.settings": "設定",
+  "admin/b2b-organizations.organization-details.settings.createQuote": "見積もりを作成する",
   "admin/b2b-organizations.organization-details.created": "作成済み",
   "admin/b2b-organizations.organization-details.default": "全般",
   "admin/b2b-organizations.organization-details.edit-user": "ユーザーを編集する",

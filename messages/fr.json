@@ -121,6 +121,8 @@
   "admin/b2b-organizations.organization-details.button.save": "Sauvegarder",
   "admin/b2b-organizations.organization-details.collections": "Collections",
   "admin/b2b-organizations.organization-details.costCenters": "Centres de coûts",
+  "admin/b2b-organizations.organization-details.settings": "Paramètres",
+  "admin/b2b-organizations.organization-details.settings.createQuote": "Créer un devis",
   "admin/b2b-organizations.organization-details.created": "Créée",
   "admin/b2b-organizations.organization-details.default": "Général",
   "admin/b2b-organizations.organization-details.edit-user": "Modifier l’utilisateur",
