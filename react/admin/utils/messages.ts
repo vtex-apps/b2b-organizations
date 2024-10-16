@@ -468,6 +468,9 @@ export const organizationSettingsMessages = defineMessages({
   clearCart: {
     id: `${adminPrefix}organization-settings-clearCart`,
   },
+  fullImpersonation: {
+    id: `${adminPrefix}organization-settings-fullImpersonation`,
+  },
 })
 
 export const organizationCustomFieldsMessages = defineMessages({

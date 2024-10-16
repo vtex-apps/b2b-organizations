@@ -210,6 +210,7 @@
   "admin/b2b-organizations.organization-settings-admin.toast.update-success": "설정이 성공적으로 업데이트되었습니다.",
   "admin/b2b-organizations.organization-settings-autoApprove": "새 조직 자동 승인",
   "admin/b2b-organizations.organization-settings-clearCart": "회사 전환 또는 로그인 시 장바구니 지우기",
+  "admin/b2b-organizations.organization-settings-fullImpersonation": "임시로 가장하는 동안 조직 및 비용 센터 선택 허용",
   "admin/b2b-organizations.organization-settings-select.add-to-binding": "바인딩에 추가",
   "admin/b2b-organizations.organization-settings-select.binding.available": "사용 가능한 바인딩",
   "admin/b2b-organizations.organization-settings-select.binding.selected": "선택한 바인딩",

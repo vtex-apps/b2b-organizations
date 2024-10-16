@@ -210,6 +210,7 @@
   "admin/b2b-organizations.organization-settings-admin.toast.update-success": "Настройките са актуализирани успешно",
   "admin/b2b-organizations.organization-settings-autoApprove": "Автоматично одобряване на нови организации",
   "admin/b2b-organizations.organization-settings-clearCart": "Изчистване на количката при смяна на компанията или влизане",
+  "admin/b2b-organizations.organization-settings-fullImpersonation": "Позволяване на избор на организация и разходен център при империране",
   "admin/b2b-organizations.organization-settings-select.add-to-binding": "Добавяне към обвързване",
   "admin/b2b-organizations.organization-settings-select.binding.available": "Налични обвързвания",
   "admin/b2b-organizations.organization-settings-select.binding.selected": "Избрани обвързвания",

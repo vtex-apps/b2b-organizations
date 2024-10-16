@@ -210,6 +210,7 @@
   "admin/b2b-organizations.organization-settings-admin.toast.update-success": "Asetukset päivitetty onnistuneesti",
   "admin/b2b-organizations.organization-settings-autoApprove": "Hyväksy uudet organisaatiot automaattisesti",
   "admin/b2b-organizations.organization-settings-clearCart": "Tyhjennä ostoskori vaihdettaessa yritystä tai kirjauduttaessa sisään",
+  "admin/b2b-organizations.organization-settings-fullImpersonation": "Salli organisaation ja kustannuspaikan valinta jäljiteltäessä",
   "admin/b2b-organizations.organization-settings-select.add-to-binding": "Lisää sidokseen",
   "admin/b2b-organizations.organization-settings-select.binding.available": "Saatavilla olevat sidokset",
   "admin/b2b-organizations.organization-settings-select.binding.selected": "Valitut sidokset",

@@ -210,6 +210,7 @@
   "admin/b2b-organizations.organization-settings-admin.toast.update-success": "Einstellungen erfolgreich aktualisiert",
   "admin/b2b-organizations.organization-settings-autoApprove": "Neue Organisationen automatisch genehmigen",
   "admin/b2b-organizations.organization-settings-clearCart": "Warenkorb löschen, wenn Sie das Unternehmen wechseln oder sich anmelden",
+  "admin/b2b-organizations.organization-settings-fullImpersonation": "Erlaube die Auswahl von Organisation und Kostenstelle während der Imitation",
   "admin/b2b-organizations.organization-settings-select.add-to-binding": "Zur Bindung hinzufügen",
   "admin/b2b-organizations.organization-settings-select.binding.available": "Verfügbare Bindungen",
   "admin/b2b-organizations.organization-settings-select.binding.selected": "Ausgewählte Bindungen",

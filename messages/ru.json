@@ -210,6 +210,7 @@
   "admin/b2b-organizations.organization-settings-admin.toast.update-success": "Настройки обновлены",
   "admin/b2b-organizations.organization-settings-autoApprove": "Автоматически подтверждать новые организации",
   "admin/b2b-organizations.organization-settings-clearCart": "Очищать корзину при переключении компании или входе в систему",
+  "admin/b2b-organizations.organization-settings-fullImpersonation": "Разрешить выбор организации и центра затрат во время имитации",
   "admin/b2b-organizations.organization-settings-select.add-to-binding": "Добавить к привязкам",
   "admin/b2b-organizations.organization-settings-select.binding.available": "Доступные привязки",
   "admin/b2b-organizations.organization-settings-select.binding.selected": "Выбранные привязки",

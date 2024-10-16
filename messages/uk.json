@@ -210,6 +210,7 @@
   "admin/b2b-organizations.organization-settings-admin.toast.update-success": "Налаштування оновлено",
   "admin/b2b-organizations.organization-settings-autoApprove": "Автоматично підтверджувати нові організації",
   "admin/b2b-organizations.organization-settings-clearCart": "Очищати кошик при перемиканні компанії або вході в систему",
+  "admin/b2b-organizations.organization-settings-fullImpersonation": "Дозволити вибір організації та центру витрат під час імітації",
   "admin/b2b-organizations.organization-settings-select.add-to-binding": "Додати до прив’язок",
   "admin/b2b-organizations.organization-settings-select.binding.available": "Доступні прив’язки",
   "admin/b2b-organizations.organization-settings-select.binding.selected": "Вибрані прив’язки",

@@ -210,6 +210,7 @@
   "admin/b2b-organizations.organization-settings-admin.toast.update-success": "Configuración actualizada con éxito",
   "admin/b2b-organizations.organization-settings-autoApprove": "Aprobar nuevas organizaciones automáticamente",
   "admin/b2b-organizations.organization-settings-clearCart": "Limpiar carrito al cambiar de empresa o iniciar sesión",
+  "admin/b2b-organizations.organization-settings-fullImpersonation": "Permitir la selección de Organización y Centro de Costos mientras se suplanta",
   "admin/b2b-organizations.organization-settings-select.add-to-binding": "Agregar al vínculo",
   "admin/b2b-organizations.organization-settings-select.binding.available": "Vínculos disponibles",
   "admin/b2b-organizations.organization-settings-select.binding.selected": "Vínculos seleccionados",
