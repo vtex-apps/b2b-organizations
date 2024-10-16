@@ -507,17 +507,6 @@ const CostCenterDetails: FunctionComponent = () => {
     setTags(tags.filter(_tag => _tag !== tagValue))
   }
 
-  // const options = (addressId: string) => [
-  //   {
-  //     label: formatMessage(messages.addressEdit),
-  //     onClick: () => handleEditAddressModal(addressId),
-  //   },
-  //   {
-  //     label: formatMessage(messages.addressDelete),
-  //     onClick: () => handleDeleteAddressModal(addressId),
-  //   },
-  // ]
-
   // CostCenter custom fields
 
   useEffect(() => {
@@ -695,56 +684,6 @@ const CostCenterDetails: FunctionComponent = () => {
           handleEditAddressModal={handleEditAddressModal}
           handleDeleteAddressModal={handleDeleteAddressModal}
         />
-
-        {/* {addresses.map((address: any, index) => {
-            return (
-              <div key={index} className="w-25 ma3">
-                <Card>
-                  <div className="flex justify-between">
-                    <div>
-                      <AddressRules
-                        shouldUseIOFetching
-                        country={address.country}
-                        useGeolocation={false}
-                      >
-                        <AddressSummary canEditData={false} address={address} />
-                      </AddressRules>
-                      <div className="mt5">
-                        <Toggle
-                          label={formatMessage(messages.defaultAddress)}
-                          semantic
-                          onChange={() => handleCheckDefault(address)}
-                          checked={address.checked}
-                          disabled={loadingState}
-                        />
-                      </div>
-                    </div>
-                    <div>
-                      <ActionMenu
-                        buttonProps={{
-                          variation: 'tertiary',
-                          icon: <IconOptionsDots color="currentColor" />,
-                        }}
-                        options={options(address.addressId)}
-                      />
-                    </div>
-                  </div>
-                </Card>
-              </div>
-            )
-          })} */}
-        {/* <div className="w-25 ma3">
-            <Card>
-              <div className="flex justify-center">
-                <Button
-                  variation="primary"
-                  onClick={() => handleNewAddressModal()}
-                >
-                  <FormattedMessage id="admin/b2b-organizations.costCenter-details.address.new" />
-                </Button>
-              </div>
-            </Card>
-          </div> */}
       </PageBlock>
 
       <PageBlock title={formatMessage(orgaizationMessages.customFieldsTitle)}>
