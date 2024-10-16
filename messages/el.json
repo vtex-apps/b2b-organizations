@@ -121,6 +121,8 @@
   "admin/b2b-organizations.organization-details.button.save": "Αποθήκευση",
   "admin/b2b-organizations.organization-details.collections": "Συλλογές",
   "admin/b2b-organizations.organization-details.costCenters": "Κέντρα κόστους",
+  "admin/b2b-organizations.organization-details.settings": "Ρυθμίσεις",
+  "admin/b2b-organizations.organization-details.settings.createQuote": "Δημιουργία προσφοράς",
   "admin/b2b-organizations.organization-details.created": "Δημιουργήθηκε",
   "admin/b2b-organizations.organization-details.default": "Γενικά",
   "admin/b2b-organizations.organization-details.edit-user": "Επεξεργασία χρήστη",

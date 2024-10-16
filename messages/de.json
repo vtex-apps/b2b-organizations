@@ -121,6 +121,8 @@
   "admin/b2b-organizations.organization-details.button.save": "Speichern",
   "admin/b2b-organizations.organization-details.collections": "Kollektionen",
   "admin/b2b-organizations.organization-details.costCenters": "Kostenstellen",
+  "admin/b2b-organizations.organization-details.settings": "Einstellungen",
+  "admin/b2b-organizations.organization-details.settings.createQuote": "Angebot erstellen",
   "admin/b2b-organizations.organization-details.created": "Erstellt",
   "admin/b2b-organizations.organization-details.default": "Allgemein",
   "admin/b2b-organizations.organization-details.edit-user": "Benutzer bearbeiten",

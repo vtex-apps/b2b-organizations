@@ -121,6 +121,8 @@
   "admin/b2b-organizations.organization-details.button.save": "Simpan",
   "admin/b2b-organizations.organization-details.collections": "Pengumpulan",
   "admin/b2b-organizations.organization-details.costCenters": "Pusat Biaya",
+  "admin/b2b-organizations.organization-details.settings": "Pengaturan",
+  "admin/b2b-organizations.organization-details.settings.createQuote": "Buat kutipan",
   "admin/b2b-organizations.organization-details.created": "Dibuat",
   "admin/b2b-organizations.organization-details.default": "Umum",
   "admin/b2b-organizations.organization-details.edit-user": "Edit Pengguna",

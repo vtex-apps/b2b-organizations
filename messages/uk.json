@@ -121,6 +121,8 @@
   "admin/b2b-organizations.organization-details.button.save": "Зберегти",
   "admin/b2b-organizations.organization-details.collections": "Колекції",
   "admin/b2b-organizations.organization-details.costCenters": "Фінансові центри",
+  "admin/b2b-organizations.organization-details.settings": "Налаштування",
+  "admin/b2b-organizations.organization-details.settings.createQuote": "Створити котирування",
   "admin/b2b-organizations.organization-details.created": "Створено",
   "admin/b2b-organizations.organization-details.default": "Загальне",
   "admin/b2b-organizations.organization-details.edit-user": "Редагувати користувача",

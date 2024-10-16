@@ -121,6 +121,8 @@
   "admin/b2b-organizations.organization-details.button.save": "Tallenna",
   "admin/b2b-organizations.organization-details.collections": "Kokoelmat",
   "admin/b2b-organizations.organization-details.costCenters": "Kustannuspaikat",
+  "admin/b2b-organizations.organization-details.settings": "Asetukset",
+  "admin/b2b-organizations.organization-details.settings.createQuote": "Luo tarjous",
   "admin/b2b-organizations.organization-details.created": "Luotu",
   "admin/b2b-organizations.organization-details.default": "Yleiset",
   "admin/b2b-organizations.organization-details.edit-user": "Muokkaa käyttäjää",

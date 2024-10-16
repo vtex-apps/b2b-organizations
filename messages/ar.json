@@ -121,6 +121,8 @@
   "admin/b2b-organizations.organization-details.button.save": "حفظ",
   "admin/b2b-organizations.organization-details.collections": "المجموعات",
   "admin/b2b-organizations.organization-details.costCenters": "مراكز التكلفة",
+  "admin/b2b-organizations.organization-details.settings": "الإعدادات",
+  "admin/b2b-organizations.organization-details.settings.createQuote": "إنشاء عرض سعر",
   "admin/b2b-organizations.organization-details.created": "إنشاء",
   "admin/b2b-organizations.organization-details.default": "عــام",
   "admin/b2b-organizations.organization-details.edit-user": "تعديل المستخدم",

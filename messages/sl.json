@@ -121,6 +121,8 @@
   "admin/b2b-organizations.organization-details.button.save": "Shrani",
   "admin/b2b-organizations.organization-details.collections": "Zbirke",
   "admin/b2b-organizations.organization-details.costCenters": "Stroškovna mesta",
+  "admin/b2b-organizations.organization-details.settings": "Nastavitve",
+  "admin/b2b-organizations.organization-details.settings.createQuote": "Ustvari ponudbo",
   "admin/b2b-organizations.organization-details.created": "Ustvarjeno",
   "admin/b2b-organizations.organization-details.default": "Splošno",
   "admin/b2b-organizations.organization-details.edit-user": "Uredi uporabnika",
