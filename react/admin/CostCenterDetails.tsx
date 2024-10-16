@@ -5,9 +5,6 @@ import {
   Layout,
   PageHeader,
   PageBlock,
-  Card,
-  ActionMenu,
-  IconOptionsDots,
   Button,
   Spinner,
   Input,
@@ -22,7 +19,6 @@ import { useRuntime } from 'vtex.render-runtime'
 import { useCssHandles } from 'vtex.css-handles'
 import {
   AddressRules,
-  AddressSummary,
   AddressForm,
   AddressContainer,
   CountrySelector,
@@ -47,6 +43,7 @@ import GET_LOGISTICS from '../graphql/getLogistics.graphql'
 import GET_B2B_CUSTOM_FIELDS from '../graphql/getB2BCustomFields.graphql'
 import { joinById } from './OrganizationDetails'
 import CustomFieldInput from './OrganizationDetailsCustomField'
+import CostCenterAddressList from './CostCenterAddressList'
 
 const CSS_HANDLES = ['businessDocument', 'stateRegistration'] as const
 
@@ -510,16 +507,16 @@ const CostCenterDetails: FunctionComponent = () => {
     setTags(tags.filter(_tag => _tag !== tagValue))
   }
 
-  const options = (addressId: string) => [
-    {
-      label: formatMessage(messages.addressEdit),
-      onClick: () => handleEditAddressModal(addressId),
-    },
-    {
-      label: formatMessage(messages.addressDelete),
-      onClick: () => handleDeleteAddressModal(addressId),
-    },
-  ]
+  // const options = (addressId: string) => [
+  //   {
+  //     label: formatMessage(messages.addressEdit),
+  //     onClick: () => handleEditAddressModal(addressId),
+  //   },
+  //   {
+  //     label: formatMessage(messages.addressDelete),
+  //     onClick: () => handleDeleteAddressModal(addressId),
+  //   },
+  // ]
 
   // CostCenter custom fields
 
@@ -691,8 +688,15 @@ const CostCenterDetails: FunctionComponent = () => {
         </div>
       </PageBlock>
       <PageBlock title={formatMessage(messages.addresses)}>
-        <div className="flex">
-          {addresses.map((address: any, index) => {
+        <CostCenterAddressList
+          addressList={addresses}
+          handleCheckDefault={handleCheckDefault}
+          handleNewAddressModal={handleNewAddressModal}
+          handleEditAddressModal={handleEditAddressModal}
+          handleDeleteAddressModal={handleDeleteAddressModal}
+        />
+
+        {/* {addresses.map((address: any, index) => {
             return (
               <div key={index} className="w-25 ma3">
                 <Card>
@@ -728,8 +732,8 @@ const CostCenterDetails: FunctionComponent = () => {
                 </Card>
               </div>
             )
-          })}
-          <div className="w-25 ma3">
+          })} */}
+        {/* <div className="w-25 ma3">
             <Card>
               <div className="flex justify-center">
                 <Button
@@ -740,8 +744,7 @@ const CostCenterDetails: FunctionComponent = () => {
                 </Button>
               </div>
             </Card>
-          </div>
-        </div>
+          </div> */}
       </PageBlock>
 
       <PageBlock title={formatMessage(orgaizationMessages.customFieldsTitle)}>
