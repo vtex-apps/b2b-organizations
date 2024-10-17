@@ -3,6 +3,7 @@ import { useQuery } from 'react-apollo'
 import { FormattedMessage } from 'react-intl'
 
 import GET_B2B_SETTINGS from '../graphql/getB2BSettings.graphql'
+import storageFactory from '../utils/storage'
 
 function getContrastColor(hexColor: string) {
   const color = hexColor.replace('#', '')
@@ -16,12 +17,21 @@ function getContrastColor(hexColor: string) {
   return brightness > 128 ? '#000000' : '#FFFFFF'
 }
 
+const localStore = storageFactory(() => localStorage)
+const isAuthenticated =
+  JSON.parse(String(localStore.getItem('b2b-organizations_isAuthenticated'))) ??
+  false
+
 const WarningTopbarInactiveOrganization = () => {
   const { data, loading } = useQuery(GET_B2B_SETTINGS, {
     ssr: false,
   })
 
-  if (loading || data?.getB2BSettings?.uiSettings?.autoApprove) {
+  if (
+    loading ||
+    data?.getB2BSettings?.uiSettings?.autoApprove ||
+    !isAuthenticated
+  ) {
     return <></>
   }
 
