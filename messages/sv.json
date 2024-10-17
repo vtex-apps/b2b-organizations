@@ -270,6 +270,11 @@
   "admin/b2b-organizations.user-details.placeholder-costCenter": "Välj ett kostnadsställe",
   "admin/b2b-organizations.user-details.placeholder-role": "Välj en roll",
   "admin/b2b-organizations.user-details.role": "Roll",
+  "admin/b2b-organizations.warning-topbar-inative-org.form.title": "Topbar customization",
+  "admin/b2b-organizations.warning-topbar-inative-org.form.help-text": "Customize the message and color of the top bar notifications that are displayed when the organization is disabled",
+  "admin/b2b-organizations.warning-topbar-inative-org.form.color-picker-label": "Topbar color",
+  "admin/b2b-organizations.warning-topbar-inative-org.form.textarea-label": "Message",
+  "admin/b2b-organizations.warning-topbar-inative-org.form.textarea-help-text": "If no message is entered, a default message will be displayed.",
   "store/b2b-organizations.autocomplete-searching": "Sök i organisation",
   "store/b2b-organizations.autocomplete-searching.cost-center": "Sök i kostnadsställe",
   "store/b2b-organizations.back": "Återgå",
@@ -411,5 +416,6 @@
   "store/b2b-organizations.user-widget.status": "Organisation Status:",
   "store/b2b-organizations.user-widget.status.active": "Aktiv",
   "store/b2b-organizations.user-widget.status.inactive": "Inaktiv",
-  "store/b2b-organizations.user-widget.status.on-hold": "På is"
+  "store/b2b-organizations.user-widget.status.on-hold": "På is",
+  "store/b2b-organizations.warning-topbar-inative-org.message": "Your organization's account is paused, and you cannot complete purchases now."
 }

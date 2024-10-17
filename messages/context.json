@@ -270,6 +270,11 @@
   "admin/b2b-organizations.user-details.placeholder-costCenter": "admin/b2b-organizations.user-details.placeholder-costCenter",
   "admin/b2b-organizations.user-details.placeholder-role": "admin/b2b-organizations.user-details.placeholder-role",
   "admin/b2b-organizations.user-details.role": "admin/b2b-organizations.user-details.role",
+  "admin/b2b-organizations.warning-topbar-inative-org.form.title": "store/b2b-organizations.warning-topbar-inative-org.form.title",
+  "admin/b2b-organizations.warning-topbar-inative-org.form.help-text": "store/b2b-organizations.warning-topbar-inative-org.form.help-text",
+  "admin/b2b-organizations.warning-topbar-inative-org.form.color-picker-label": "store/b2b-organizations.warning-topbar-inative-org.form.color-picker-label",
+  "admin/b2b-organizations.warning-topbar-inative-org.form.textarea-label": "store/b2b-organizations.warning-topbar-inative-org.form.textarea-label",
+  "admin/b2b-organizations.warning-topbar-inative-org.form.textarea-help-text": "store/b2b-organizations.warning-topbar-inative-org.form.textarea-help-text",
   "store/b2b-organizations.autocomplete-searching": "store/b2b-organizations.autocomplete-searching",
   "store/b2b-organizations.autocomplete-searching.cost-center": "store/b2b-organizations.autocomplete-searching.cost-center",
   "store/b2b-organizations.back": "store/b2b-organizations.back",
@@ -411,5 +416,6 @@
   "store/b2b-organizations.user-widget.status": "store/b2b-organizations.user-widget.status",
   "store/b2b-organizations.user-widget.status.active": "store/b2b-organizations.user-widget.status.active",
   "store/b2b-organizations.user-widget.status.inactive": "store/b2b-organizations.user-widget.status.inactive",
-  "store/b2b-organizations.user-widget.status.on-hold": "store/b2b-organizations.user-widget.status.on-hold"
+  "store/b2b-organizations.user-widget.status.on-hold": "store/b2b-organizations.user-widget.status.on-hold",
+  "store/b2b-organizations.warning-topbar-inative-org.message": "store/b2b-organizations.warning-topbar-inative-org.message"
 }
