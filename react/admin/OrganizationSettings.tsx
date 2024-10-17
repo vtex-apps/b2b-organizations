@@ -54,6 +54,7 @@ const OrganizationSettings: FunctionComponent = () => {
     uiSettings: {
       clearCart: false,
       showModal: false,
+      fullImpersonation: false,
     },
   })
 
@@ -129,6 +130,7 @@ const OrganizationSettings: FunctionComponent = () => {
       uiSettings: {
         clearCart: getB2BSettings?.uiSettings?.clearCart,
         showModal: getB2BSettings?.uiSettings?.showModal,
+        fullImpersonation: getB2BSettings?.uiSettings?.fullImpersonation,
       },
     })
   }, [dataSettings])
@@ -319,7 +321,7 @@ const OrganizationSettings: FunctionComponent = () => {
               label={formatMessage(messages.showModal)}
             />
           </div>
-          <div className="mb6">
+          <div className="mb4">
             <Checkbox
               checked={settings.uiSettings.clearCart}
               id="clearCart"
@@ -334,6 +336,23 @@ const OrganizationSettings: FunctionComponent = () => {
                 })
               }}
               label={formatMessage(messages.clearCart)}
+            />
+          </div>
+          <div className="mb6">
+            <Checkbox
+              checked={settings.uiSettings.fullImpersonation}
+              id="fullImpersonation"
+              name="fullImpersonation"
+              onChange={() => {
+                setSettings({
+                  ...settings,
+                  uiSettings: {
+                    ...settings.uiSettings,
+                    fullImpersonation: !settings.uiSettings.fullImpersonation,
+                  },
+                })
+              }}
+              label={formatMessage(messages.fullImpersonation)}
             />
           </div>
           <div className="flex br3 pa6 b--muted-4 ba">

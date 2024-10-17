@@ -215,6 +215,7 @@
   "admin/b2b-organizations.organization-settings-admin.toast.update-success": "Instellingen zijn met succes bijgewerkt",
   "admin/b2b-organizations.organization-settings-autoApprove": "Automatisch nieuwe organisaties goedkeuren",
   "admin/b2b-organizations.organization-settings-clearCart": "Winkelwagen leegmaken wanneer u van bedrijf wisselt of inlogt",
+  "admin/b2b-organizations.organization-settings-fullImpersonation": "Toestaan dat Organisatie en Kostenplaats geselecteerd worden tijdens impersonatie",
   "admin/b2b-organizations.organization-settings-select.add-to-binding": "Toevoegen aan binding",
   "admin/b2b-organizations.organization-settings-select.binding.available": "Beschikbare bindingen",
   "admin/b2b-organizations.organization-settings-select.binding.selected": "Geselecteerde bindingen",

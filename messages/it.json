@@ -215,6 +215,7 @@
   "admin/b2b-organizations.organization-settings-admin.toast.update-success": "Impostazioni aggiornate correttamente",
   "admin/b2b-organizations.organization-settings-autoApprove": "Approva automaticamente le nuove organizzazioni",
   "admin/b2b-organizations.organization-settings-clearCart": "Svuota il carrello quando cambi azienda o effettui l'accesso",
+  "admin/b2b-organizations.organization-settings-fullImpersonation": "Consenti la selezione dell’Organizzazione e del Centro di Costo durante l’imitazione",
   "admin/b2b-organizations.organization-settings-select.add-to-binding": "Aggiungi all'associazione",
   "admin/b2b-organizations.organization-settings-select.binding.available": "Associazioni disponibili",
   "admin/b2b-organizations.organization-settings-select.binding.selected": "Associazioni selezionate",

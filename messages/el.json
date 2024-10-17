@@ -215,6 +215,7 @@
   "admin/b2b-organizations.organization-settings-admin.toast.update-success": "Οι ρυθμίσεις ενημερωθηκαν επιτυχώς",
   "admin/b2b-organizations.organization-settings-autoApprove": "Αυτόματη έγκριση νέων οργανισμών",
   "admin/b2b-organizations.organization-settings-clearCart": "Εκκαθάριση καλαθιού κατά την εναλλαγή εταιρείας ή την είσοδο",
+  "admin/b2b-organizations.organization-settings-fullImpersonation": "Επιτρέψτε την επιλογή Οργάνωσης και Κέντρου Κόστους κατά την μίμηση",
   "admin/b2b-organizations.organization-settings-select.add-to-binding": "Προσθήκη στις δεσμεύσεις",
   "admin/b2b-organizations.organization-settings-select.binding.available": "Διαθέσιμες δεσμεύσεις",
   "admin/b2b-organizations.organization-settings-select.binding.selected": "Επιλεγμένες δεσμεύσεις",

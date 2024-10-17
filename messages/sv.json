@@ -215,6 +215,7 @@
   "admin/b2b-organizations.organization-settings-admin.toast.update-success": "Inställningarna uppdaterades framgångsrikt",
   "admin/b2b-organizations.organization-settings-autoApprove": "Godkänn nya organisationer automatiskt",
   "admin/b2b-organizations.organization-settings-clearCart": "Rensa kundvagn när du byter företag eller loggar in",
+  "admin/b2b-organizations.organization-settings-fullImpersonation": "Tillåt val av organisation och kostnadscenter under imitation",
   "admin/b2b-organizations.organization-settings-select.add-to-binding": "Lägg till i bindning",
   "admin/b2b-organizations.organization-settings-select.binding.available": "Tillgängliga bindningar",
   "admin/b2b-organizations.organization-settings-select.binding.selected": "Utvalda bindningar",

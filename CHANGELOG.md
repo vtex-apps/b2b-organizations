@@ -11,6 +11,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 - Admin Cost Center addresses UI
 
+## [1.36.0] - 2024-10-16
+
+### Added
+
+- `Full Impersonation` Organization Setting, this will allow a Impersonator to also Switch between the User's Organization/Cost Center
+
 ## [1.35.2] - 2024-10-15
 
 ### Added
