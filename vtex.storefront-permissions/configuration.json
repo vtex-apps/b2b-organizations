@@ -7,17 +7,17 @@
       "roles": ["customer-admin"]
     },
     {
-      "label": "Create and Edit Cost Centers in Same Organization",
+      "label": "Create and Edit Organization Units in Same Organization",
       "value": "create-cost-center-organization",
       "roles": ["customer-admin"]
     },
     {
-      "label": "Add Organization Users to any Cost Center in Same Organization",
+      "label": "Add Organization Users to any Organization Unit in Same Organization",
       "value": "add-users-organization",
       "roles": ["customer-admin"]
     },
     {
-      "label": "Remove Organization Users from any Cost Center in Same Organization",
+      "label": "Remove Organization Users from any Organization Unit in Same Organization",
       "value": "remove-users-organization",
       "roles": ["customer-admin"]
     },
@@ -37,7 +37,7 @@
       "roles": ["sales-admin"]
     },
     {
-      "label": "Impersonate Organization Users in Same Cost Center",
+      "label": "Impersonate Organization Users in Same Organization Unit",
       "value": "impersonate-users-costcenter",
       "roles": ["sales-representative"]
     },

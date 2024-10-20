@@ -175,7 +175,7 @@ const CustomFields: React.FC = () => {
           variant="primary"
           items={customFieldsLocation}
           state={customFieldsDropdownState}
-          label="Organization or Cost Center"
+          label="Organization or Unit"
         />
         <Button
           variation="primary"
