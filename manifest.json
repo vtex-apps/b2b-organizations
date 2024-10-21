@@ -1,7 +1,7 @@
 {
   "name": "b2b-organizations",
   "vendor": "vtex",
-  "version": "1.31.1-beta1.hkignore",
+  "version": "1.35.3-beta.1-hkignore",
   "title": "B2B Organizations",
   "description": "App to create and manage B2B Organizations and Cost Centers",
   "mustUpdateAt": "2022-08-28",
