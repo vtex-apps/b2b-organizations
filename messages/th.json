@@ -215,6 +215,7 @@
   "admin/b2b-organizations.organization-settings-admin.toast.update-success": "อัปเดตการตั้งค่าเรียบร้อยแล้ว",
   "admin/b2b-organizations.organization-settings-autoApprove": "อนุมัติองค์กรใหม่โดยอัตโนมัติ",
   "admin/b2b-organizations.organization-settings-clearCart": "เคลียร์ล้อเข็นเมื่อเปลี่ยนบริษัทหรือเข้าสู่ระบบ",
+  "admin/b2b-organizations.organization-settings-fullImpersonation": "อนุญาตให้เลือกองค์กรและศูนย์ต้นทุนในขณะที่เลียนแบบ",
   "admin/b2b-organizations.organization-settings-select.add-to-binding": "เพิ่่มเข้าในการผูกข้อมูล",
   "admin/b2b-organizations.organization-settings-select.binding.available": "การผูกข้อมูลที่มี",
   "admin/b2b-organizations.organization-settings-select.binding.selected": "การผูกข้อมูลที่เลือก",
