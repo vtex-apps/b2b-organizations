@@ -77,7 +77,7 @@ const CostCenterAddressList: React.FC<AddressListProps> = ({
   }
 
   useEffect(() => {
-    if (addressList.length > 0) {
+    if (addressList?.length > 0) {
       setState(prevState => ({
         ...prevState,
         filteredItems: addressList,
@@ -185,6 +185,18 @@ const CostCenterAddressList: React.FC<AddressListProps> = ({
     },
   ]
 
+  const onClearHandle = () => {
+    const filteredItems = filterItems('')
+
+    setState({
+      ...state,
+      searchValue: '',
+      filteredItems,
+      slicedData: filteredItems.slice(0, state.tableLength),
+      itemsLength: filteredItems.length,
+    })
+  }
+
   return (
     <Table
       fullWidth
@@ -197,17 +209,7 @@ const CostCenterAddressList: React.FC<AddressListProps> = ({
           placeholder: formatMessage(messages.searchAddress),
           onChange: (e: any) =>
             setState({ ...state, searchValue: e.target.value }),
-          onClear: () => {
-            const filteredItems = filterItems('')
-
-            setState({
-              ...state,
-              searchValue: '',
-              filteredItems,
-              slicedData: filteredItems.slice(0, state.tableLength),
-              itemsLength: filteredItems.length,
-            })
-          },
+          onClear: onClearHandle,
           onSubmit: handleInputSearchSubmit,
         },
         newLine: {
