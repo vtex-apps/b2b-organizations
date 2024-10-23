@@ -262,6 +262,7 @@
   "admin/b2b-organizations.user-details.placeholder-costCenter": "Selectează un centru de cost",
   "admin/b2b-organizations.user-details.placeholder-role": "Selectează un rol",
   "admin/b2b-organizations.user-details.role": "Rol",
+  "admin/b2b-organizations.topbar-suite-management-message": "⚠️ Atenție: În curând, modificări în gestionarea organizațiilor B2B! Începând cu [Data], doar utilizatorii administratori și cei cu resursele 'Buyer Organization View' sau 'Buyer Organization Edit' vor putea accesa și modifica organizațiile B2B. Verificați dacă aveți permisiunile necesare sau contactați administratorul contului dvs. pentru a vă asigura accesul continuu. Mulțumim.",
   "store/b2b-organizations.autocomplete-searching": "Caută organizație",
   "store/b2b-organizations.autocomplete-searching.cost-center": "Caută centru de cost",
   "store/b2b-organizations.back": "Înapoi",

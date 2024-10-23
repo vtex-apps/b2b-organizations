@@ -262,6 +262,7 @@
   "admin/b2b-organizations.user-details.placeholder-costCenter": "Välj ett kostnadsställe",
   "admin/b2b-organizations.user-details.placeholder-role": "Välj en roll",
   "admin/b2b-organizations.user-details.role": "Roll",
+  "admin/b2b-organizations.topbar-suite-management-message": "⚠️ Varning: Snart kommer det att finnas ändringar i hanteringen av B2B-organisationer! Från [Datum] kommer endast administratörer och användare med resurserna 'Buyer Organization View' eller 'Buyer Organization Edit' att kunna komma åt och ändra B2B-organisationer. Kontrollera om du har de nödvändiga behörigheterna eller kontakta administratören för din konto för att säkerställa kontinuerlig åtkomst. Tack.",
   "store/b2b-organizations.autocomplete-searching": "Sök i organisation",
   "store/b2b-organizations.autocomplete-searching.cost-center": "Sök i kostnadsställe",
   "store/b2b-organizations.back": "Återgå",

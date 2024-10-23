@@ -262,6 +262,7 @@
   "admin/b2b-organizations.user-details.placeholder-costCenter": "Вибрати фінансовий центр",
   "admin/b2b-organizations.user-details.placeholder-role": "Вибрати роль",
   "admin/b2b-organizations.user-details.role": "Роль",
+  "admin/b2b-organizations.topbar-suite-management-message": "⚠️ Увага: Скоро будуть внесені зміни в управління організаціями B2B! Починаючи з [Дата], доступ до організацій B2B буде обмежений користувачами з правами адміністратора і користувачами, які мають ресурси 'Buyer Organization View' або 'Buyer Organization Edit'. Перевірте, чи маєте ви необхідні права доступу, або зверніться до адміністратора вашого облікового запису, щоб забезпечити безперервний доступ. Дякуємо.",
   "store/b2b-organizations.autocomplete-searching": "Пошук організацій",
   "store/b2b-organizations.autocomplete-searching.cost-center": "Пошук фінансового центру",
   "store/b2b-organizations.back": "Назад",

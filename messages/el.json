@@ -262,6 +262,7 @@
   "admin/b2b-organizations.user-details.placeholder-costCenter": "Επιλογή κέντρου κόστους",
   "admin/b2b-organizations.user-details.placeholder-role": "Επιλογή ρόλου",
   "admin/b2b-organizations.user-details.role": "Ρόλος",
+  "admin/b2b-organizations.topbar-suite-management-message": "⚠️ Προσοχή: Επί του παρόντος γίνεται αλλαγή στη διαχείριση οργανισμών B2B! Από [Ημερομηνία] μόνο οι διαχειριστές και οι χρήστες με τα δικαιώματα 'Buyer Organization View' ή 'Buyer Organization Edit' θα μπορούν να έχουν πρόσβαση και να τροποποιούν οργανισμούς B2B. Ελέγξτε αν έχετε τα απαιτούμενα δικαιώματα ή επικοινωνήστε με τον διαχειριστή του λογαριασμού σας για να εξασφαλίσετε συνεχή πρόσβαση. Ευχαριστούμε.",
   "store/b2b-organizations.autocomplete-searching": "Αναζήτηση οργανισμού",
   "store/b2b-organizations.autocomplete-searching.cost-center": "Αναζήτηση κέντρου κόστους",
   "store/b2b-organizations.back": "Πίσω",

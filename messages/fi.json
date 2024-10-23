@@ -262,6 +262,7 @@
   "admin/b2b-organizations.user-details.placeholder-costCenter": "Valitse kustannuspaikka",
   "admin/b2b-organizations.user-details.placeholder-role": "Valitse tehtävä",
   "admin/b2b-organizations.user-details.role": "Rooli",
+  "admin/b2b-organizations.topbar-suite-management-message": "⚠️ Huomautus: B2B-organisaatiohallintaan tulevaisuudessa tapahtuu muutoksia! Alkaen [Päivämäärä], vain admin ja käyttäjät, joilla on 'Buyer Organization View' tai 'Buyer Organization Edit' -oikeudet, voivat päästä sisään ja muuttaa B2B-organisaatioita. Tarkista, oletko saanut tarvittavat oikeudet, tai ota yhteyttä tilinhallinnallisesi, jotta jatkuva pääsy voidaan varmistaa. Kiitos.",
   "store/b2b-organizations.autocomplete-searching": "Hae organisaatiota",
   "store/b2b-organizations.autocomplete-searching.cost-center": "Hae kustannuspaikkaa",
   "store/b2b-organizations.back": "Takaisin",

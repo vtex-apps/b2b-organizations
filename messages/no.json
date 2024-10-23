@@ -262,6 +262,7 @@
   "admin/b2b-organizations.user-details.placeholder-costCenter": "Velg kostnadssenter",
   "admin/b2b-organizations.user-details.placeholder-role": "Velg en rolle",
   "admin/b2b-organizations.user-details.role": "Rolle",
+  "admin/b2b-organizations.topbar-suite-management-message": "⚠️ Vær oppmerksom: Om litt vil det komme endringer i B2B-organisasjonsstyringen! Fra [Dato] vil bare administratorer og brukere med resursene 'Buyer Organization View' eller 'Buyer Organization Edit' kunne få tilgang til og endre B2B-organisasjoner. Sjekk om du har de nødvendige rettighetene eller kontakt administratoren for din konto for å sikre kontinuerlig tilgang. Takk.",
   "store/b2b-organizations.autocomplete-searching": "Søk etter organisasjon",
   "store/b2b-organizations.autocomplete-searching.cost-center": "Søk i kostnadssted",
   "store/b2b-organizations.back": "Tilbake",

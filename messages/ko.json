@@ -262,6 +262,7 @@
   "admin/b2b-organizations.user-details.placeholder-costCenter": "비용 센터 선택",
   "admin/b2b-organizations.user-details.placeholder-role": "역할 선택",
   "admin/b2b-organizations.user-details.role": "역할",
+  "admin/b2b-organizations.topbar-suite-management-message": "⚠️ 주의: 조직 B2B 관리자 기능에 대한 변경이 곧 이루어집니다! [날짜]부터 B2B 조직에 대한 액세스는 관리자 및 'Buyer Organization View' 또는 'Buyer Organization Edit' 권한이 있는 사용자만 가능합니다. 필요한 권한이 있는지 확인하거나 계정 관리자에게 문의하여 지속적인 액세스를 보장하세요. 감사합니다.",
   "store/b2b-organizations.autocomplete-searching": "조직 검색",
   "store/b2b-organizations.autocomplete-searching.cost-center": "비용 센터 검색",
   "store/b2b-organizations.back": "뒤로 가기",

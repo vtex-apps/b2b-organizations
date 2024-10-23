@@ -262,6 +262,7 @@
   "admin/b2b-organizations.user-details.placeholder-costCenter": "Select a cost center",
   "admin/b2b-organizations.user-details.placeholder-role": "Select a role",
   "admin/b2b-organizations.user-details.role": "Role",
+  "admin/b2b-organizations.topbar-suite-management-message": "⚠️ Attention: Soon there will be changes to the B2B organization management! Starting from [Date], only administrators and users with the 'Buyer Organization View' or 'Buyer Organization Edit' resources will be able to access and modify B2B organizations. Check if you have the necessary permissions or contact your account administrator to ensure continuous access. Thank you.",
   "store/b2b-organizations.autocomplete-searching": "Search organization",
   "store/b2b-organizations.autocomplete-searching.cost-center": "Search cost center",
   "store/b2b-organizations.back": "Back",
