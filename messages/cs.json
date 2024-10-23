@@ -262,6 +262,7 @@
   "admin/b2b-organizations.user-details.placeholder-costCenter": "Vyberte nákladové středisko",
   "admin/b2b-organizations.user-details.placeholder-role": "Vyberte roli",
   "admin/b2b-organizations.user-details.role": "Role",
+  "admin/b2b-organizations.topbar-suite-management-message": "⚠️ Pozor: Během příštích dnů dojde ke změnám v administraci organizací B2B! Od [Datum] budou mít přístup k organizacím B2B pouze administrátoři a uživatelé s oprávněními 'Buyer Organization View' nebo 'Buyer Organization Edit'. Zkontrolujte, zda máte potřebná oprávnění, nebo se obraťte na administrátora vašeho účtu, abyste zajistili nepřerušovaný přístup. Děkujeme.",
   "store/b2b-organizations.autocomplete-searching": "Hledat organizaci",
   "store/b2b-organizations.autocomplete-searching.cost-center": "Vyhledat nákladové středisko",
   "store/b2b-organizations.back": "Zpět",

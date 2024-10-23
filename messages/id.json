@@ -262,6 +262,7 @@
   "admin/b2b-organizations.user-details.placeholder-costCenter": "Pilih pusat biaya",
   "admin/b2b-organizations.user-details.placeholder-role": "Pilih peran",
   "admin/b2b-organizations.user-details.role": "Peran",
+  "admin/b2b-organizations.topbar-suite-management-message": "⚠️ Peringatan: Segera akan ada perubahan dalam pengelolaan organisasi B2B! Mulai [Tanggal], hanya admin dan pengguna dengan izin 'Buyer Organization View' atau 'Buyer Organization Edit' yang dapat mengakses dan mengubah organisasi B2B. Periksa apakah Anda memiliki izin yang diperlukan atau hubungi admin akun Anda untuk memastikan akses kontinu. Terima kasih.",
   "store/b2b-organizations.autocomplete-searching": "Cari organisasi",
   "store/b2b-organizations.autocomplete-searching.cost-center": "Pusat biaya header",
   "store/b2b-organizations.back": "Kembali",

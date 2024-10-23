@@ -262,6 +262,7 @@
   "admin/b2b-organizations.user-details.placeholder-costCenter": "Wählen Sie eine Kostenstelle",
   "admin/b2b-organizations.user-details.placeholder-role": "Eine Rolle auswählen",
   "admin/b2b-organizations.user-details.role": "Funktion",
+  "admin/b2b-organizations.topbar-suite-management-message": "⚠️ Warnung: Es gibt bald Änderungen an der B2B-Organisationsverwaltung! Ab [Datum] können nur Administratoren und Benutzer mit den Berechtigungen 'Buyer Organization View' oder 'Buyer Organization Edit' auf B2B-Organisationen zugreifen und ändern. Überprüfen Sie, ob Sie die erforderlichen Berechtigungen haben, oder wenden Sie sich an den Administrator Ihres Kontos, um eine fortlaufende Zugang sicherzustellen. Vielen Dank.",
   "store/b2b-organizations.autocomplete-searching": "Organisation suchen",
   "store/b2b-organizations.autocomplete-searching.cost-center": "Kostenstelle suchen",
   "store/b2b-organizations.back": "Zurück",

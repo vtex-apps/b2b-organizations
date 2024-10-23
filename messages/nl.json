@@ -262,6 +262,7 @@
   "admin/b2b-organizations.user-details.placeholder-costCenter": "Selecteer een kostencentrum",
   "admin/b2b-organizations.user-details.placeholder-role": "Selecteer een rol",
   "admin/b2b-organizations.user-details.role": "Rol",
+  "admin/b2b-organizations.topbar-suite-management-message": "⚠️ Waarschuwing: Er zijn snel wijzigingen in de B2B-organisatiebeheerder! Vanaf [Datum] kunnen alleen beheerders en gebruikers met de rechten 'Buyer Organization View' of 'Buyer Organization Edit' toegang krijgen tot en wijzigen B2B-organisaties. Controleer of u de vereiste rechten heeft of neem contact op met de beheerder van uw account om een continue toegang te garanderen. Bedankt.",
   "store/b2b-organizations.autocomplete-searching": "Organisatie zoeken",
   "store/b2b-organizations.autocomplete-searching.cost-center": "Kostencentrum zoeken",
   "store/b2b-organizations.back": "Terug",

@@ -262,6 +262,7 @@
   "admin/b2b-organizations.user-details.placeholder-costCenter": "เลือกศูนย์ต้นทุน",
   "admin/b2b-organizations.user-details.placeholder-role": "เลือกบทบาท",
   "admin/b2b-organizations.user-details.role": "บทบาท",
+  "admin/b2b-organizations.topbar-suite-management-message": "⚠️ คำเตือน: ในอนาคต จะมีการเปลี่ยนแปลงในการจัดการองค์กร B2B! ตั้งแต่ [วันที่] เท่านั้นผู้ใช้ที่มีสิทธิ์จัดการองค์กร B2B เท่านั้นที่จะสามารถเข้าถึงและแก้ไของค์กร B2B ได้ ตรวจสอบว่าคุณมีสิทธิ์ที่จำเป็นหรือติดต่อผู้ดูแลระบบของคุณเพื่อรับการเข้าถึงต่อไป ขอขอบคุณ.",
   "store/b2b-organizations.autocomplete-searching": "ค้นหาองค์กร",
   "store/b2b-organizations.autocomplete-searching.cost-center": "ค้นหาศูนย์ต้นทุน",
   "store/b2b-organizations.back": "กลับ",

@@ -262,6 +262,7 @@
   "admin/b2b-organizations.user-details.placeholder-costCenter": "Seleziona un centro di costo",
   "admin/b2b-organizations.user-details.placeholder-role": "Seleziona un ruolo",
   "admin/b2b-organizations.user-details.role": "Ruolo",
+  "admin/b2b-organizations.topbar-suite-management-message": "⚠️ Attenzione: Presto ci saranno modifiche nella gestione delle organizzazioni B2B! A partire da [Data], solo gli utenti con i privilegi di amministratore e gli utenti con i privilegi 'Buyer Organization View' o 'Buyer Organization Edit' potranno accedere e modificare le organizzazioni B2B. Controlla se hai i privilegi necessari o contatta l'amministratore del tuo account per assicurarti un accesso continuo. Grazie.",
   "store/b2b-organizations.autocomplete-searching": "Cerca organizzazione",
   "store/b2b-organizations.autocomplete-searching.cost-center": "Cerca centro di costo",
   "store/b2b-organizations.back": "Indietro",
