@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Added
+
+- Add a new component to show the topbar message about the upcoming changes in the B2B organization management
+
 ## [1.36.0] - 2024-10-16
 
 ### Added
