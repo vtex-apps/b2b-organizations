@@ -336,6 +336,24 @@ export const costCenterMessages = defineMessages({
   marketingTags: {
     id: `${adminPrefix}costCenter-details.marketing-tags`,
   },
+  nothingToShow: {
+    id: `${adminPrefix}costCenter-details.addresses.nothing-to-show`,
+  },
+  searchAddress: {
+    id: `${adminPrefix}costCenter-details.addresses.search-address`,
+  },
+  showRows: {
+    id: `${adminPrefix}costCenter-details.addresses.show-rows`,
+  },
+  of: {
+    id: `${adminPrefix}costCenter-details.addresses.pagination.of`,
+  },
+  address: {
+    id: `${adminPrefix}costCenter-details.table.column-address.title`,
+  },
+  receiverName: {
+    id: `${adminPrefix}costCenter-details.table.column-address.receiverName`,
+  },
 })
 
 export const organizationRequestMessages = defineMessages({
