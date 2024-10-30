@@ -284,7 +284,7 @@ const UserWidget: VtexFunctionComponent<UserWidgetProps> = ({
         ...organizationsState,
         organizationInput: text,
         organizationOptions:
-          userWidgetData?.getOrganizationsByEmail
+          userWidgetData?.getActiveOrganizationsByEmail
             ?.filter((organization: any) => {
               return organization?.organizationName
                 ?.toLowerCase()
@@ -322,14 +322,16 @@ const UserWidget: VtexFunctionComponent<UserWidgetProps> = ({
   }
 
   useEffect(() => {
-    if (!userWidgetData?.getOrganizationsByEmail) {
+    if (!userWidgetData?.getActiveOrganizationsByEmail) {
       return
     }
 
     const uiSettings = userWidgetData?.getB2BSettings?.uiSettings
 
     if (uiSettings?.showModal) {
-      const totalCompanies = userWidgetData?.getOrganizationsByEmail?.length
+      const totalCompanies =
+        userWidgetData?.getActiveOrganizationsByEmail?.length
+
       const storageShowModal = sessionStorage.getItem(
         SESSION_STORAGE_SHOW_MODAL
       )
@@ -348,16 +350,16 @@ const UserWidget: VtexFunctionComponent<UserWidgetProps> = ({
       ...organizationsState,
       costCenterInput: userWidgetData?.getCostCenterByIdStorefront?.name,
       organizationInput: userWidgetData?.getOrganizationByIdStorefront?.name,
-      organizationOptions: userWidgetData?.getOrganizationsByEmail
+      organizationOptions: userWidgetData?.getActiveOrganizationsByEmail
         .slice(0, 15)
         .map((organization: { orgId: string; organizationName: string }) => ({
           value: organization.orgId,
           label: organization.organizationName,
         })),
-      currentRoleName: userWidgetData?.getOrganizationsByEmail?.find(
+      currentRoleName: userWidgetData?.getActiveOrganizationsByEmail?.find(
         (organizations: any) => organizations.costId === currentCostCenter
       )?.role?.name,
-      costCenterOptions: userWidgetData?.getOrganizationsByEmail
+      costCenterOptions: userWidgetData?.getActiveOrganizationsByEmail
         .filter(
           (organization: { orgId: string }) =>
             organization.orgId === currentOrganization
@@ -368,10 +370,10 @@ const UserWidget: VtexFunctionComponent<UserWidgetProps> = ({
         })),
       currentOrganization,
       currentCostCenter,
-      dataList: userWidgetData?.getOrganizationsByEmail?.sort(
+      dataList: userWidgetData?.getActiveOrganizationsByEmail?.sort(
         sortOrganizations
       ),
-      totalDataList: userWidgetData?.getOrganizationsByEmail?.length,
+      totalDataList: userWidgetData?.getActiveOrganizationsByEmail?.length,
       currentOrganizationStatus:
         userWidgetData?.getOrganizationByIdStorefront?.status,
     })
@@ -413,7 +415,7 @@ const UserWidget: VtexFunctionComponent<UserWidgetProps> = ({
         ...organizationsState,
         costCenterInput: '',
         currentOrganization: itemSelected.value,
-        costCenterOptions: userWidgetData?.getOrganizationsByEmail
+        costCenterOptions: userWidgetData?.getActiveOrganizationsByEmail
           .filter(
             (organization: { orgId: string }) =>
               organization.orgId === itemSelected.value
@@ -465,11 +467,13 @@ const UserWidget: VtexFunctionComponent<UserWidgetProps> = ({
 
     setSearchTerm(e.target.value)
 
-    dataList = userWidgetData?.getOrganizationsByEmail?.sort(sortOrganizations)
+    dataList = userWidgetData?.getActiveOrganizationsByEmail?.sort(
+      sortOrganizations
+    )
 
     if (value.trim() !== '') {
       dataList =
-        userWidgetData?.getOrganizationsByEmail
+        userWidgetData?.getActiveOrganizationsByEmail
           ?.filter((organization: any) => {
             return (
               organization.organizationName
@@ -615,7 +619,7 @@ const UserWidget: VtexFunctionComponent<UserWidgetProps> = ({
                 }`}
               </div>
               <div className="ml-auto">
-                {userWidgetData?.getOrganizationsByEmail?.length > 1 && (
+                {userWidgetData?.getActiveOrganizationsByEmail?.length > 1 && (
                   <Button variant="primary" onClick={() => setShowModal(true)}>
                     {formatMessage(messages.changeOrganization)}
                   </Button>

@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Fixed
+
+- Change `getOrganizationsByEmail` to `getActiveOrganizationsByEmail` to only allow listings from active organizations
+
 ## [1.37.0] - 2024-10-24
 
 ### Changed
