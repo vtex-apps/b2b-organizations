@@ -19,6 +19,7 @@ import { organizationRequestMessages as messages } from './utils/messages'
 import { labelTypeByStatusMap } from './OrganizationRequestsTable'
 import GET_ORGANIZATION_REQUEST from '../graphql/getOrganizationRequest.graphql'
 import UPDATE_ORGANIZATION_REQUEST from '../graphql/updateOrganizationRequest.graphql'
+import { useOrgPermission } from '../hooks/useOrgPermission'
 
 const OrganizationRequestDetails: FunctionComponent = () => {
   const { formatMessage, formatDate } = useIntl()
@@ -36,6 +37,10 @@ const OrganizationRequestDetails: FunctionComponent = () => {
   const { data, loading, refetch } = useQuery(GET_ORGANIZATION_REQUEST, {
     variables: { id: params?.id },
     skip: !params?.id,
+  })
+
+  const { data: canEditBuyerOrgEdit } = useOrgPermission({
+    resourceCode: 'buyer_organization_edit',
   })
 
   const [updateOrganizationRequest] = useMutation(UPDATE_ORGANIZATION_REQUEST)
@@ -310,7 +315,10 @@ const OrganizationRequestDetails: FunctionComponent = () => {
             variation="primary"
             onClick={() => handleUpdateRequest('approved')}
             isLoading={loadingState}
-            disabled={data.getOrganizationRequestById.status !== 'pending'}
+            disabled={
+              data.getOrganizationRequestById.status !== 'pending' ||
+              !canEditBuyerOrgEdit
+            }
           >
             <FormattedMessage id="admin/b2b-organizations.organization-request-details.button.approve" />
           </Button>
@@ -319,7 +327,10 @@ const OrganizationRequestDetails: FunctionComponent = () => {
               variation="danger"
               onClick={() => handleUpdateRequest('declined')}
               isLoading={loadingState}
-              disabled={data.getOrganizationRequestById.status !== 'pending'}
+              disabled={
+                data.getOrganizationRequestById.status !== 'pending' ||
+                !canEditBuyerOrgEdit
+              }
             >
               <FormattedMessage id="admin/b2b-organizations.organization-request-details.button.decline" />
             </Button>

@@ -267,6 +267,7 @@
   "admin/b2b-organizations.user-details.placeholder-costCenter": "コストセンターを選択する",
   "admin/b2b-organizations.user-details.placeholder-role": "役割を選択する",
   "admin/b2b-organizations.user-details.role": "役割",
+  "admin/b2b-organizations.organizations.not-allow-view-message": "You do not have access to viewing organizations due to the lack of the “Buyer Organization View” feature. Consult your account administrator.",
   "store/b2b-organizations.autocomplete-searching": "組織を検索する",
   "store/b2b-organizations.autocomplete-searching.cost-center": "Search cost center",
   "store/b2b-organizations.back": "戻る",

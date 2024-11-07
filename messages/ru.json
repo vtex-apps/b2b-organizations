@@ -267,6 +267,7 @@
   "admin/b2b-organizations.user-details.placeholder-costCenter": "Выбрать финансовый центр",
   "admin/b2b-organizations.user-details.placeholder-role": "Выбрать роль",
   "admin/b2b-organizations.user-details.role": "Роль",
+  "admin/b2b-organizations.organizations.not-allow-view-message": "You do not have access to viewing organizations due to the lack of the “Buyer Organization View” feature. Consult your account administrator.",
   "store/b2b-organizations.autocomplete-searching": "Поиск организаций",
   "store/b2b-organizations.autocomplete-searching.cost-center": "Поиск финансового центра",
   "store/b2b-organizations.back": "Назад",

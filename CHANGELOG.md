@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Feat
+
+- Implements `Buyer Organization View` and `Buyer Organization Edit` permission to enable or restrict components
+
 ## [1.37.0] - 2024-10-24
 
 ### Changed

@@ -267,6 +267,7 @@
   "admin/b2b-organizations.user-details.placeholder-costCenter": "Izberite stroškovno mesto",
   "admin/b2b-organizations.user-details.placeholder-role": "Izberite vlogo",
   "admin/b2b-organizations.user-details.role": "Vloga",
+  "admin/b2b-organizations.organizations.not-allow-view-message": "You do not have access to viewing organizations due to the lack of the “Buyer Organization View” feature. Consult your account administrator.",
   "store/b2b-organizations.autocomplete-searching": "Išči organizacijo",
   "store/b2b-organizations.autocomplete-searching.cost-center": "Izberite stroškovno mesto",
   "store/b2b-organizations.back": "Nazaj",

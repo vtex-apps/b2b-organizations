@@ -267,6 +267,7 @@
   "admin/b2b-organizations.user-details.placeholder-costCenter": "비용 센터 선택",
   "admin/b2b-organizations.user-details.placeholder-role": "역할 선택",
   "admin/b2b-organizations.user-details.role": "역할",
+  "admin/b2b-organizations.organizations.not-allow-view-message": "You do not have access to viewing organizations due to the lack of the “Buyer Organization View” feature. Consult your account administrator.",
   "store/b2b-organizations.autocomplete-searching": "조직 검색",
   "store/b2b-organizations.autocomplete-searching.cost-center": "비용 센터 검색",
   "store/b2b-organizations.back": "뒤로 가기",

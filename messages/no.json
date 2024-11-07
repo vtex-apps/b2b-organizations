@@ -267,6 +267,7 @@
   "admin/b2b-organizations.user-details.placeholder-costCenter": "Velg kostnadssenter",
   "admin/b2b-organizations.user-details.placeholder-role": "Velg en rolle",
   "admin/b2b-organizations.user-details.role": "Rolle",
+  "admin/b2b-organizations.organizations.not-allow-view-message": "You do not have access to viewing organizations due to the lack of the “Buyer Organization View” feature. Consult your account administrator.",
   "store/b2b-organizations.autocomplete-searching": "Søk etter organisasjon",
   "store/b2b-organizations.autocomplete-searching.cost-center": "Søk i kostnadssted",
   "store/b2b-organizations.back": "Tilbake",

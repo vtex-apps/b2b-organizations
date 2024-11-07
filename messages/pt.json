@@ -267,6 +267,7 @@
   "admin/b2b-organizations.user-details.placeholder-costCenter": "Selecione um centro de custo",
   "admin/b2b-organizations.user-details.placeholder-role": "Selecione um perfil de acesso",
   "admin/b2b-organizations.user-details.role": "Perfil de acesso",
+  "admin/b2b-organizations.organizations.not-allow-view-message": "Você não possui acesso a visualização das organizações devido a falta do recurso “Buyer Organization View”. Consulte o administrador da sua conta.",
   "store/b2b-organizations.autocomplete-searching": "Buscar organização",
   "store/b2b-organizations.autocomplete-searching.cost-center": "Buscar centro de custo",
   "store/b2b-organizations.back": "Voltar",

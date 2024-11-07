@@ -267,6 +267,7 @@
   "admin/b2b-organizations.user-details.placeholder-costCenter": "admin/b2b-organizations.user-details.placeholder-costCenter",
   "admin/b2b-organizations.user-details.placeholder-role": "admin/b2b-organizations.user-details.placeholder-role",
   "admin/b2b-organizations.user-details.role": "admin/b2b-organizations.user-details.role",
+  "admin/b2b-organizations.organizations.not-allow-view-message": "admin/b2b-organizations.organizations.not-allow-view-message",
   "store/b2b-organizations.autocomplete-searching": "store/b2b-organizations.autocomplete-searching",
   "store/b2b-organizations.autocomplete-searching.cost-center": "store/b2b-organizations.autocomplete-searching.cost-center",
   "store/b2b-organizations.back": "store/b2b-organizations.back",

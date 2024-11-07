@@ -18,6 +18,7 @@ import GET_B2B_SETTINGS from '../graphql/getB2BSettings.graphql'
 import GET_PAYMENT_TERMS from '../graphql/getPaymentTerms.graphql'
 import type { PaymentTerm } from './OrganizationDetails/OrganizationDetailsPayTerms'
 import GET_PRICE_TABLES from '../graphql/getPriceTables.graphql'
+import { useOrgPermission } from '../hooks/useOrgPermission'
 
 interface SalesChannel {
   channelId: string
@@ -81,6 +82,10 @@ const OrganizationSettings: FunctionComponent = () => {
 
   const [updateSalesChannels] = useMutation(UPDATE_SALES_CHANNELS)
   const [updateB2BSettings] = useMutation(UPDATE_B2B_SETTINGS)
+
+  const { data: canEditBuyerOrgEdit } = useOrgPermission({
+    resourceCode: 'buyer_organization_edit',
+  })
 
   useEffect(() => {
     if (data) {
@@ -256,6 +261,7 @@ const OrganizationSettings: FunctionComponent = () => {
             isLoading={loading}
             variation="primary"
             onClick={() => handleUpdateRequest()}
+            disabled={!canEditBuyerOrgEdit}
           >
             <FormattedMessage id="admin/b2b-organizations.costCenter-details.button.save" />
           </Button>
