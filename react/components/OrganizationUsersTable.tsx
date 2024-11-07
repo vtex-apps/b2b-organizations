@@ -124,7 +124,7 @@ const OrganizationUsersTable: FunctionComponent<Props> = ({
     'impersonate-users-organization'
   )
 
-  const canEditBuyerOrgEdit = useOrgPermission({
+  const { data: canEditBuyerOrgEdit } = useOrgPermission({
     resourceCode: 'buyer_organization_edit',
   })
 

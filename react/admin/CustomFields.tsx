@@ -61,7 +61,7 @@ const CustomFields: React.FC = () => {
     }
   )
 
-  const canEditBuyerOrgEdit = useOrgPermission({
+  const { data: canEditBuyerOrgEdit } = useOrgPermission({
     resourceCode: 'buyer_organization_edit',
   })
 

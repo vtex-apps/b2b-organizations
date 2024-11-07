@@ -267,6 +267,7 @@
   "admin/b2b-organizations.user-details.placeholder-costCenter": "Vyberte nákladové stredisko",
   "admin/b2b-organizations.user-details.placeholder-role": "Vyberte rolu",
   "admin/b2b-organizations.user-details.role": "Rola",
+  "admin/b2b-organizations.organizations.not-allow-view-message": "You do not have access to viewing organizations due to the lack of the “Buyer Organization View” feature. Consult your account administrator.",
   "store/b2b-organizations.autocomplete-searching": "Vyhľadať organizáciu",
   "store/b2b-organizations.autocomplete-searching.cost-center": "Vyhľadávanie nákladového strediska",
   "store/b2b-organizations.back": "Späť",

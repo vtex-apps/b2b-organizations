@@ -135,7 +135,7 @@ const OrganizationDetails: FunctionComponent = () => {
     ssr: false,
   })
 
-  const canEditBuyerOrgEdit = useOrgPermission({
+  const { data: canEditBuyerOrgEdit } = useOrgPermission({
     resourceCode: 'buyer_organization_edit',
   })
 

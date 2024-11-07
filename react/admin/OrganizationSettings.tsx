@@ -83,7 +83,7 @@ const OrganizationSettings: FunctionComponent = () => {
   const [updateSalesChannels] = useMutation(UPDATE_SALES_CHANNELS)
   const [updateB2BSettings] = useMutation(UPDATE_B2B_SETTINGS)
 
-  const canEditBuyerOrgEdit = useOrgPermission({
+  const { data: canEditBuyerOrgEdit } = useOrgPermission({
     resourceCode: 'buyer_organization_edit',
   })
 

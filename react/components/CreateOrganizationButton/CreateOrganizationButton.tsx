@@ -43,7 +43,7 @@ const CreateOrganizationButton = () => {
   const { startBulkImport } = useStartBulkImport()
 
   const { data } = useBulkImportsQuery()
-  const canEditBuyerOrgEdit = useOrgPermission({
+  const { data: canEditBuyerOrgEdit } = useOrgPermission({
     resourceCode: 'buyer_organization_edit',
   })
 
