@@ -18,6 +18,8 @@ import {
   useTableState,
 } from '@vtex/admin-ui'
 import type { TagProps } from '@vtex/admin-ui'
+import { Alert, Link, Button } from 'vtex.styleguide'
+import { FormattedMessage } from 'react-intl'
 
 import {
   INITIAL_FETCH_LIST_OPTIONS,
@@ -42,6 +44,8 @@ const OrganizationsList: FunctionComponent = () => {
   const [refetchOptions, setRefetchOptions] = useState(
     INITIAL_FETCH_LIST_OPTIONS
   )
+
+  const [isOpenWarning, setIsOpenWarning] = useState(true)
 
   const { data: fetchedOrgs, loading, refetch } = useOrganizationsList()
 
@@ -146,6 +150,37 @@ const OrganizationsList: FunctionComponent = () => {
           <FlexSpacer />
           <Pagination state={paginationState} loading={loading} />
         </Flex>
+        {isOpenWarning && (
+          <Alert type="warning" onClose={() => setIsOpenWarning(false)}>
+            <div
+              className={csx({
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'start',
+              })}
+            >
+              <p className={csx({ fontWeight: '500', width: '70%' })}>
+                <FormattedMessage id="admin/b2b-organizations.organizations.warning-holding.message" />{' '}
+                <Link
+                  href="https://developers.vtex.com/docs/guides/querying-documents-in-master-data-v1"
+                  target="_blank"
+                >
+                  <FormattedMessage id="admin/b2b-organizations.organizations.warning-holding.link" />
+                </Link>
+              </p>
+
+              <Button
+                size="small"
+                variation="tertiary"
+                href="https://b2bstore005.ds.vtexcrm.com.br/#RGF0YUVudGl0eSNGb3JtRGF0YSNyb3dJZD1DTCMjI0Zvcm1EYXRhX1N1Y2VzcyNBamF4UmVxdWVz%0adEVycm9yI2NvbnRlbnQ%3d"
+                className={csx({ fontWeight: '500', whiteSpace: 'nowrap' })}
+                target="_blank"
+              >
+                <FormattedMessage id="admin/b2b-organizations.organizations.warning-holding.action" />
+              </Button>
+            </div>
+          </Alert>
+        )}
       </DataViewHeader>
       <Table width="100%" {...getTable()}>
         <THead>
