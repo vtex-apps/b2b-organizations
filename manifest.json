@@ -21,8 +21,7 @@
     "vtex.storefront-permissions": "1.x",
     "vtex.my-account": "1.x",
     "vtex.my-account-commons": "1.x",
-    "vtex.product-context": "0.x",
-    "vtex.session-client": "1.x"
+    "vtex.product-context": "0.x"
   },
   "builders": {
     "react": "3.x",

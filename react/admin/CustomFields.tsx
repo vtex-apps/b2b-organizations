@@ -12,7 +12,6 @@ import {
   organizationMessages as messages,
 } from './utils/messages'
 import CustomFieldsTable from './CustomFieldsTable'
-import { useOrgPermission } from '../hooks/useOrgPermission'
 
 const CustomFields: React.FC = () => {
   /**
@@ -60,10 +59,6 @@ const CustomFields: React.FC = () => {
       ssr: false,
     }
   )
-
-  const canEditBuyerOrgEdit = useOrgPermission({
-    resourceCode: 'buyer_organization_edit',
-  })
 
   /**
    * Mutations
@@ -187,7 +182,6 @@ const CustomFields: React.FC = () => {
           onClick={() => {
             saveB2BSettings()
           }}
-          disabled={!canEditBuyerOrgEdit}
         >
           Save Settings
         </Button>
@@ -208,11 +202,7 @@ const CustomFields: React.FC = () => {
       )}
 
       <div className="mt6 flex flex-row-reverse">
-        <Button
-          variation="primary"
-          onClick={() => addCustomField()}
-          disabled={!canEditBuyerOrgEdit}
-        >
+        <Button variation="primary" onClick={() => addCustomField()}>
           <FormattedMessage id="admin/b2b-organizations.custom-fields.addField" />
         </Button>
       </div>

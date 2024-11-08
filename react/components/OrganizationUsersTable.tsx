@@ -18,7 +18,6 @@ import GET_COST_CENTER from '../graphql/getCostCenterStorefront.graphql'
 import IMPERSONATE_USER from '../graphql/impersonateB2BUser.graphql'
 import { B2B_CHECKOUT_SESSION_KEY } from '../utils/constants'
 import { sendImpersonateMetric } from '../utils/metrics/impersonate'
-import { useOrgPermission } from '../hooks/useOrgPermission'
 
 interface Props {
   organizationId: string
@@ -123,10 +122,6 @@ const OrganizationUsersTable: FunctionComponent<Props> = ({
   const canImpersonateOrg = permissions.includes(
     'impersonate-users-organization'
   )
-
-  const canEditBuyerOrgEdit = useOrgPermission({
-    resourceCode: 'buyer_organization_edit',
-  })
 
   const { data, loading, refetch } = useQuery(GET_USERS, {
     variables: {
@@ -609,7 +604,7 @@ const OrganizationUsersTable: FunctionComponent<Props> = ({
     newLine: {
       label: formatMessage(isAdmin ? adminMessages.new : storeMessages.new),
       handleCallback: () => setAddUserModalOpen(true),
-      disabled: (!canEdit && !canEditSales) || !canEditBuyerOrgEdit,
+      disabled: !canEdit && !canEditSales,
     },
   }
 

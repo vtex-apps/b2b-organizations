@@ -37,7 +37,6 @@ import type { Seller } from './OrganizationDetails/OrganizationDetailsSellers'
 import OrganizationDetailsSellers from './OrganizationDetails/OrganizationDetailsSellers'
 import type { PermissionsOptions } from './OrganizationDetails/OrganizationDetailsSettings'
 import OrganizationDetailsSettings from './OrganizationDetails/OrganizationDetailsSettings'
-import { useOrgPermission } from '../hooks/useOrgPermission'
 
 export interface CellRendererProps<RowType> {
   cellData: unknown
@@ -133,10 +132,6 @@ const OrganizationDetails: FunctionComponent = () => {
     variables: { id: params?.id },
     skip: !params?.id,
     ssr: false,
-  })
-
-  const canEditBuyerOrgEdit = useOrgPermission({
-    resourceCode: 'buyer_organization_edit',
   })
 
   /**
@@ -475,7 +470,6 @@ const OrganizationDetails: FunctionComponent = () => {
             variation="primary"
             isLoading={loadingState}
             onClick={() => handleUpdateOrganization()}
-            disabled={!canEditBuyerOrgEdit}
           >
             <FormattedMessage id="admin/b2b-organizations.organization-details.button.save" />
           </Button>
