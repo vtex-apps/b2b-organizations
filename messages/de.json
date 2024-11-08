@@ -257,7 +257,7 @@
   "admin/b2b-organizations.organizations-admin.title": "Organisationen",
   "admin/b2b-organizations.organizations-admin.toast.add-organization-failure": "Organisationserstellung fehlgeschlagen, siehe Konsole für Details.",
   "admin/b2b-organizations.organizations-admin.toast.add-organization-success": "Organisation erfolgreich erstellt",
-  "admin/b2b-organizations.organizations.warning-holding.message": "Bald wird die Suche nach “Handelsname” auf dieser Seite erforderlich. Um Unterbrechungen zu vermeiden, setzen Sie bitte das Feld “Handelsname” auf “Erforderlich” in der Masterdaten jetzt.",
+  "admin/b2b-organizations.organizations.warning-holding.message": "Bald wird die Suche nach “Handelsname” auf dieser Seite erforderlich. Um Unterbrechungen zu vermeiden, setzen Sie bitte das Feld “Handelsname” auf “Ist filterbar” in der Masterdaten jetzt.",
   "admin/b2b-organizations.organizations.warning-holding.link": "Weitere Informationen",
   "admin/b2b-organizations.organizations.warning-holding.action": "Einstellungen bearbeiten",
   "admin/b2b-organizations.organizations.navigation.label": "Organisationen",

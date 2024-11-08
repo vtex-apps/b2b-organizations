@@ -257,7 +257,7 @@
   "admin/b2b-organizations.organizations-admin.title": "Organizzazioni",
   "admin/b2b-organizations.organizations-admin.toast.add-organization-failure": "Creazione dell'organizzazione non riuscita. Visualizza la console per i dettagli.",
   "admin/b2b-organizations.organizations-admin.toast.add-organization-success": "Organizzazione creata correttamente",
-  "admin/b2b-organizations.organizations.warning-holding.message": "Presto, la ricerca con “Nome commerciale” sarà obbligatoria in questa schermata. Per evitare qualsiasi interruzione, impostare il campo “Nome commerciale” su “Obbligatorio” in Masterdata ora.",
+  "admin/b2b-organizations.organizations.warning-holding.message": "Presto, la ricerca con “Nome commerciale” sarà obbligatoria in questa schermata. Per evitare qualsiasi interruzione, impostare il campo “Nome commerciale” su “È filtrabile” in Masterdata ora.",
   "admin/b2b-organizations.organizations.warning-holding.link": "Maggiori informazioni",
   "admin/b2b-organizations.organizations.warning-holding.action": "Modifica impostazioni",
   "admin/b2b-organizations.organizations.navigation.label": "Organizzazioni",

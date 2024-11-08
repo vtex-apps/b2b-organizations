@@ -257,7 +257,7 @@
   "admin/b2b-organizations.organizations-admin.title": "Организации",
   "admin/b2b-organizations.organizations-admin.toast.add-organization-failure": "Не удалось создать организацию. Подробная информация доступна на консоли.",
   "admin/b2b-organizations.organizations-admin.toast.add-organization-success": "Организация создана",
-  "admin/b2b-organizations.organizations.warning-holding.message": "В ближайшее время поиск с “Названием организации” будет обязательным на этой странице. Чтобы избежать любых прерываний, установите поле “Название организации” как “Обязательно” в Masterdata сейчас.",
+  "admin/b2b-organizations.organizations.warning-holding.message": "В ближайшее время поиск с “Названием организации” будет обязательным на этой странице. Чтобы избежать любых прерываний, установите поле “Название организации” как “Можно отфильтровать” в Masterdata сейчас.",
   "admin/b2b-organizations.organizations.warning-holding.link": "Узнать больше",
   "admin/b2b-organizations.organizations.warning-holding.action": "Изменить настройки",
   "admin/b2b-organizations.organizations.navigation.label": "Организации",
