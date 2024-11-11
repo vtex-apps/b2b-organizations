@@ -257,7 +257,7 @@
   "admin/b2b-organizations.organizations-admin.title": "Организации",
   "admin/b2b-organizations.organizations-admin.toast.add-organization-failure": "Неуспешно създаване на организацията. Вижте конзолата за подробности.",
   "admin/b2b-organizations.organizations-admin.toast.add-organization-success": "Организацията е създадена успешно",
-  "admin/b2b-organizations.organizations.warning-holding.message": "Soon, the “Trade Name” search will be required on this screen. To prevent any disruptions, please set the ‘Trade Name’ field as ‘Is Required’ in the Masterdata now.",
+  "admin/b2b-organizations.organizations.warning-holding.message": "Soon, the “Trade Name” search will be required on this screen. To prevent any disruptions, please set the ‘Trade Name’ field as  ‘Is Filterable' in the Masterdata now.",
   "admin/b2b-organizations.organizations.warning-holding.link": "Learn more",
   "admin/b2b-organizations.organizations.warning-holding.action": "Edit Settings",
   "admin/b2b-organizations.organizations.navigation.label": "Организации",

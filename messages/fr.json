@@ -257,7 +257,7 @@
   "admin/b2b-organizations.organizations-admin.title": "Organisations",
   "admin/b2b-organizations.organizations-admin.toast.add-organization-failure": "La création de l’organisation a échoué, consultez la console pour plus de détails.",
   "admin/b2b-organizations.organizations-admin.toast.add-organization-success": "Organisation créée",
-  "admin/b2b-organizations.organizations.warning-holding.message": "Bientôt, la recherche par “Nom commercial” sera requise sur cette écran. Pour éviter toute perturbation, veuillez définir le champ “Nom commercial” sur “Obligatoire” dans les données maîtres maintenant.",
+  "admin/b2b-organizations.organizations.warning-holding.message": "Bientôt, la recherche par “Nom commercial” sera requise sur cette écran. Pour éviter toute perturbation, veuillez définir le champ “Nom commercial” sur “Est Filtrable” dans les données maîtres maintenant.",
   "admin/b2b-organizations.organizations.warning-holding.link": "Apprendre encore plus",
   "admin/b2b-organizations.organizations.warning-holding.action": "Modifier les paramètres",
   "admin/b2b-organizations.organizations.navigation.label": "Organisations",

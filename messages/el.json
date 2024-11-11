@@ -257,7 +257,7 @@
   "admin/b2b-organizations.organizations-admin.title": "Οργανισμοί",
   "admin/b2b-organizations.organizations-admin.toast.add-organization-failure": "Η δημιουργία οργανισμού απέτυχε. Δείτε την κονσόλα για λεπτομέρειες.",
   "admin/b2b-organizations.organizations-admin.toast.add-organization-success": "Ο οργανισμός δημιουργήθηκε με επιτυχία",
-  "admin/b2b-organizations.organizations.warning-holding.message": "Λίγο πριν, η αναζήτηση με “Εμπορικό όνομα” θα είναι απαραίτητη σε αυτήν την οθόνη. Για να αποφύγετε οποιεσδήποτε διακοπές, ορίστε το πεδίο “Εμπορικό όνομα” σε “Απαιτούμενο” στα Μητρώα τώρα.",
+  "admin/b2b-organizations.organizations.warning-holding.message": "Λίγο πριν, η αναζήτηση με “Εμπορικό όνομα” θα είναι απαραίτητη σε αυτήν την οθόνη. Για να αποφύγετε οποιεσδήποτε διακοπές, ορίστε το πεδίο “Εμπορικό όνομα” σε “Είναι φιλτράρισμο” στα Μητρώα τώρα.",
   "admin/b2b-organizations.organizations.warning-holding.link": "Μάθετε περισσότερα",
   "admin/b2b-organizations.organizations.warning-holding.action": "Επεξεργασία ρυθμίσεων",
   "admin/b2b-organizations.organizations.navigation.label": "Οργανισμοί",
