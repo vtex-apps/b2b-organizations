@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [1.37.2] - 2024-11-11
+
 ### Fix
 
 - Fixed the change `Is Required` text to `Is Filterable` present in warning 
