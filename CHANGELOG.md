@@ -6,12 +6,15 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Fixed
+- Fix action url that was hard coded
+
 
 ## [1.37.2] - 2024-11-11
 
 ### Fix
 
-- Fixed the change `Is Required` text to `Is Filterable` present in warning 
+- Fixed the change `Is Required` text to `Is Filterable` present in warning
 
 ## [1.37.1] - 2024-11-07
 ### Feat
