@@ -21,6 +21,8 @@ import type { TagProps } from '@vtex/admin-ui'
 import { Alert, Link, Button } from 'vtex.styleguide'
 import { FormattedMessage } from 'react-intl'
 
+import { useSessionResponse } from '../modules/session'
+import type { Session } from '../modules/session'
 import {
   INITIAL_FETCH_LIST_OPTIONS,
   useOrganizationsList,
@@ -44,6 +46,10 @@ const OrganizationsList: FunctionComponent = () => {
   const [refetchOptions, setRefetchOptions] = useState(
     INITIAL_FETCH_LIST_OPTIONS
   )
+
+  const session = useSessionResponse() as Session
+
+  const account = session?.namespaces?.account?.accountName?.value
 
   const [isOpenWarning, setIsOpenWarning] = useState(true)
 
@@ -172,7 +178,7 @@ const OrganizationsList: FunctionComponent = () => {
               <Button
                 size="small"
                 variation="tertiary"
-                href="https://b2bstore005.ds.vtexcrm.com.br/#RGF0YUVudGl0eSNGb3JtRGF0YSNyb3dJZD1DTCMjI0Zvcm1EYXRhX1N1Y2VzcyNBamF4UmVxdWVz%0adEVycm9yI2NvbnRlbnQ%3d"
+                href={`https://${account}.ds.vtexcrm.com.br/#RGF0YUVudGl0eSNGb3JtRGF0YSNyb3dJZD1DTCMjI0Zvcm1EYXRhX1N1Y2VzcyNBamF4UmVxdWVz%0adEVycm9yI2NvbnRlbnQ%3d`}
                 className={csx({ fontWeight: '500', whiteSpace: 'nowrap' })}
                 target="_blank"
               >
