@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Changed
+- Remove payment terms and price table configuration
+
 ## [1.37.3] - 2024-11-14
 ### Fixed
 - Fix action url that was hard coded
