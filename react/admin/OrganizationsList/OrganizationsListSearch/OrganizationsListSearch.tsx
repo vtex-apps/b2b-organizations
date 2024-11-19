@@ -12,9 +12,13 @@ export const TagVariantByStatus: Record<string, TagProps['variant']> = {
 
 interface Props {
   onSearch: (options: Partial<FetchListOptions>) => void
+  placeholder?: string
 }
 
-const OrganizationsListSearch: React.FC<Props> = ({ onSearch }) => {
+const OrganizationsListSearch: React.FC<Props> = ({
+  onSearch,
+  placeholder,
+}) => {
   const search = useSearchState()
 
   const handleSearchKeyDown: React.KeyboardEventHandler<HTMLFormElement> = event => {
@@ -44,6 +48,7 @@ const OrganizationsListSearch: React.FC<Props> = ({ onSearch }) => {
       onClear={handleSearchClear}
       onKeyDown={handleSearchKeyDown}
       className={csx({ marginRight: '$space-5' })}
+      placeholder={placeholder}
     />
   )
 }

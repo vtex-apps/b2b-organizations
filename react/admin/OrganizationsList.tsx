@@ -19,7 +19,7 @@ import {
 } from '@vtex/admin-ui'
 import type { TagProps } from '@vtex/admin-ui'
 import { Alert, Link, Button } from 'vtex.styleguide'
-import { FormattedMessage } from 'react-intl'
+import { FormattedMessage, useIntl } from 'react-intl'
 
 import { useSessionResponse } from '../modules/session'
 import type { Session } from '../modules/session'
@@ -32,6 +32,7 @@ import { useNavigateToDetailsPage } from '../organizations/navigate'
 import { useOrgsTableColumns } from '../organizations/table'
 import OrganizationsListSearch from './OrganizationsList/OrganizationsListSearch'
 import OrganizationsListStatusFilter from './OrganizationsList/OrganizationsListStatusFilter'
+import { organizationMessages as messages } from './utils/messages'
 
 export const TagVariantByStatus: Record<string, TagProps['variant']> = {
   active: 'green',
@@ -40,6 +41,8 @@ export const TagVariantByStatus: Record<string, TagProps['variant']> = {
 }
 
 const OrganizationsList: FunctionComponent = () => {
+  const { formatMessage } = useIntl()
+
   const navigateToDetailsPage = useNavigateToDetailsPage()
   const columns = useOrgsTableColumns()
 
@@ -143,21 +146,8 @@ const OrganizationsList: FunctionComponent = () => {
   return (
     <DataView state={view}>
       <DataViewHeader>
-        <Flex className={csx({ width: '100%' })}>
-          <OrganizationsListSearch onSearch={updateTableItems} />
-          <OrganizationsListStatusFilter
-            onChange={value => {
-              updateTableItems({
-                status: value,
-                page: 1,
-              })
-            }}
-          />
-          <FlexSpacer />
-          <Pagination state={paginationState} loading={loading} />
-        </Flex>
         {isOpenWarning && (
-          <Alert type="warning" onClose={() => setIsOpenWarning(false)}>
+          <Alert type="error" onClose={() => setIsOpenWarning(false)}>
             <div
               className={csx({
                 display: 'flex',
@@ -187,6 +177,22 @@ const OrganizationsList: FunctionComponent = () => {
             </div>
           </Alert>
         )}
+        <Flex className={csx({ width: '100%' })}>
+          <OrganizationsListSearch
+            placeholder={formatMessage(messages.searchPlaceholder)}
+            onSearch={updateTableItems}
+          />
+          <OrganizationsListStatusFilter
+            onChange={value => {
+              updateTableItems({
+                status: value,
+                page: 1,
+              })
+            }}
+          />
+          <FlexSpacer />
+          <Pagination state={paginationState} loading={loading} />
+        </Flex>
       </DataViewHeader>
       <Table width="100%" {...getTable()}>
         <THead>
