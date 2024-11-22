@@ -21,6 +21,7 @@ const MyOrganizationLink: FC = ({ render }: any) => {
 
   const { data } = useQuery(GetBinding, {
     variables: { email: userEmail },
+    skip: !userEmail,
   })
 
   useEffect(() => {
