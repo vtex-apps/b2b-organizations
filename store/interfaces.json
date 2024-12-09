@@ -26,6 +26,9 @@
   "b2b-user-widget": {
     "component": "StorefrontUserWidget"
   },
+  "b2b-warning-topbar-inactive-organization": {
+    "component": "StorefrontWarningTopbarInactiveOrganization"
+  },
   "b2b-seller-wrapper": {
     "component": "SellerWrapper",
     "allowed": "*",

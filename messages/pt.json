@@ -270,6 +270,11 @@
   "admin/b2b-organizations.user-details.placeholder-costCenter": "Selecione um centro de custo",
   "admin/b2b-organizations.user-details.placeholder-role": "Selecione um perfil de acesso",
   "admin/b2b-organizations.user-details.role": "Perfil de acesso",
+  "admin/b2b-organizations.warning-topbar-inative-org.form.title": "Personalização da barra superior",
+  "admin/b2b-organizations.warning-topbar-inative-org.form.help-text": "Personalize a mensagem e a cor das notificações da barra superior que são exibidas quando a organização está desabilitada",
+  "admin/b2b-organizations.warning-topbar-inative-org.form.color-picker-label": "Cor da barra superior",
+  "admin/b2b-organizations.warning-topbar-inative-org.form.textarea-label": "Mensagem",
+  "admin/b2b-organizations.warning-topbar-inative-org.form.textarea-help-text": "Caso não seja inserido nenhuma mensagem, uma mensagem padrão será exibida",
   "store/b2b-organizations.autocomplete-searching": "Buscar organização",
   "store/b2b-organizations.autocomplete-searching.cost-center": "Buscar centro de custo",
   "store/b2b-organizations.back": "Voltar",
@@ -411,5 +416,6 @@
   "store/b2b-organizations.user-widget.status": "Situação da organização:",
   "store/b2b-organizations.user-widget.status.active": "Ativa",
   "store/b2b-organizations.user-widget.status.inactive": "Inativa",
-  "store/b2b-organizations.user-widget.status.on-hold": "Em espera"
+  "store/b2b-organizations.user-widget.status.on-hold": "Em espera",
+  "store/b2b-organizations.warning-topbar-inative-org.message": "A conta da sua organização está pausada e você não pode concluir compras agora. Entre em contato conosco para obter mais informações."
 }

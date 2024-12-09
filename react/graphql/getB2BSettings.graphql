@@ -12,6 +12,10 @@ query GetB2BSettings {
       showModal
       clearCart
       fullImpersonation
+      topBar {
+        name
+        hexColor
+      }
     }
     organizationCustomFields {
       name

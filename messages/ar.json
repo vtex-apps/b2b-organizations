@@ -270,6 +270,11 @@
   "admin/b2b-organizations.user-details.placeholder-costCenter": "حدد مركز التكلفة",
   "admin/b2b-organizations.user-details.placeholder-role": "حدد دور",
   "admin/b2b-organizations.user-details.role": "الدور",
+  "admin/b2b-organizations.warning-topbar-inative-org.form.title": "Topbar customization",
+  "admin/b2b-organizations.warning-topbar-inative-org.form.help-text": "Customize the message and color of the top bar notifications that are displayed when the organization is disabled",
+  "admin/b2b-organizations.warning-topbar-inative-org.form.color-picker-label": "Topbar color",
+  "admin/b2b-organizations.warning-topbar-inative-org.form.textarea-label": "Message",
+  "admin/b2b-organizations.warning-topbar-inative-org.form.textarea-help-text": "If no message is entered, a default message will be displayed.",
   "store/b2b-organizations.autocomplete-searching": "البحث عن منظمة",
   "store/b2b-organizations.autocomplete-searching.cost-center": "مركز تكلفة البحث",
   "store/b2b-organizations.back": "عودة",
@@ -411,5 +416,6 @@
   "store/b2b-organizations.user-widget.status": "الحالة المنظمة:",
   "store/b2b-organizations.user-widget.status.active": "نشطة",
   "store/b2b-organizations.user-widget.status.inactive": "غير مفعّلة",
-  "store/b2b-organizations.user-widget.status.on-hold": "قيد الانتظار"
+  "store/b2b-organizations.user-widget.status.on-hold": "قيد الانتظار",
+  "store/b2b-organizations.warning-topbar-inative-org.message": "Your organization's account is paused, and you cannot complete purchases now. Please contact us for more information."
 }

@@ -1,23 +1,25 @@
+/* eslint-disable vtex/prefer-early-return */
 import type { FunctionComponent } from 'react'
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
 import { useQuery, useMutation } from 'react-apollo'
 import { PageBlock, Table, IconCheck, Button, Checkbox } from 'vtex.styleguide'
-import { useToast } from '@vtex/admin-ui'
+import { Spinner, useToast } from '@vtex/admin-ui'
 
 import {
   organizationSettingsMessages as messages,
   organizationMessages,
-} from './utils/messages'
-import { organizationBulkAction } from './utils/organizationBulkAction'
-import GET_SALES_CHANNELS from '../graphql/getSalesChannels.graphql'
-import SELECTED_SALES_CHANNELS from '../graphql/getSelectedChannels.graphql'
-import UPDATE_SALES_CHANNELS from '../graphql/updateSalesChannels.graphql'
-import UPDATE_B2B_SETTINGS from '../graphql/updateB2BSettings.graphql'
-import GET_B2B_SETTINGS from '../graphql/getB2BSettings.graphql'
-import GET_PAYMENT_TERMS from '../graphql/getPaymentTerms.graphql'
-import type { PaymentTerm } from './OrganizationDetails/OrganizationDetailsPayTerms'
-import GET_PRICE_TABLES from '../graphql/getPriceTables.graphql'
+} from '../utils/messages'
+import { organizationBulkAction } from '../utils/organizationBulkAction'
+import GET_SALES_CHANNELS from '../../graphql/getSalesChannels.graphql'
+import SELECTED_SALES_CHANNELS from '../../graphql/getSelectedChannels.graphql'
+import UPDATE_SALES_CHANNELS from '../../graphql/updateSalesChannels.graphql'
+import UPDATE_B2B_SETTINGS from '../../graphql/updateB2BSettings.graphql'
+import GET_B2B_SETTINGS from '../../graphql/getB2BSettings.graphql'
+import GET_PAYMENT_TERMS from '../../graphql/getPaymentTerms.graphql'
+import type { PaymentTerm } from '../OrganizationDetails/OrganizationDetailsPayTerms'
+import GET_PRICE_TABLES from '../../graphql/getPriceTables.graphql'
+import { TopbarCustom } from './TopbarCustom'
 
 interface SalesChannel {
   channelId: string
@@ -58,6 +60,13 @@ const OrganizationSettings: FunctionComponent = () => {
     },
   })
 
+  const [warningTopbarColor, setWarningTopbarColor] = useState({
+    color: { hex: '#141E7A' },
+    history: [],
+  })
+
+  const [warningTopbarMessage, setWarningTopbarMessage] = useState('')
+
   const { data } = useQuery(GET_SALES_CHANNELS, {
     ssr: false,
   })
@@ -72,12 +81,13 @@ const OrganizationSettings: FunctionComponent = () => {
 
   const { data: priceTablesData } = useQuery(GET_PRICE_TABLES, { ssr: false })
 
-  const { data: dataSettings, refetch: refetchSettings } = useQuery(
-    GET_B2B_SETTINGS,
-    {
-      ssr: false,
-    }
-  )
+  const {
+    data: dataSettings,
+    loading: loadingSettings,
+    refetch: refetchSettings,
+  } = useQuery(GET_B2B_SETTINGS, {
+    ssr: false,
+  })
 
   const [updateSalesChannels] = useMutation(UPDATE_SALES_CHANNELS)
   const [updateB2BSettings] = useMutation(UPDATE_B2B_SETTINGS)
@@ -133,6 +143,14 @@ const OrganizationSettings: FunctionComponent = () => {
         fullImpersonation: getB2BSettings?.uiSettings?.fullImpersonation,
       },
     })
+
+    setWarningTopbarColor({
+      color: {
+        hex: getB2BSettings?.uiSettings?.topBar?.hexColor ?? '#656896',
+      },
+      history: [],
+    })
+    setWarningTopbarMessage(getB2BSettings?.uiSettings?.topBar?.name ?? '')
   }, [dataSettings])
 
   const getSchema = () => {
@@ -189,7 +207,16 @@ const OrganizationSettings: FunctionComponent = () => {
     promises.push(
       updateB2BSettings({
         variables: {
-          input: settings,
+          input: {
+            ...settings,
+            uiSettings: {
+              ...settings.uiSettings,
+              topBar: {
+                name: warningTopbarMessage,
+                hexColor: warningTopbarColor.color.hex,
+              },
+            },
+          },
         },
       })
     )
@@ -247,6 +274,20 @@ const OrganizationSettings: FunctionComponent = () => {
     setSelectedChannel(newBindingList)
   }
 
+  const handleChangeWarningTopbarColor = useCallback(
+    (color: { hex: string }) => {
+      setWarningTopbarColor(prevState => ({
+        ...prevState,
+        color,
+      }))
+    },
+    []
+  )
+
+  const handleChangeWarningTopbarMessage = useCallback((text: string) => {
+    setWarningTopbarMessage(text)
+  }, [])
+
   return (
     <PageBlock
       title={formatMessage(messages.tablePageTitle)}
@@ -276,6 +317,21 @@ const OrganizationSettings: FunctionComponent = () => {
               label={formatMessage(messages.autoApprove)}
             />
           </div>
+          {loadingSettings ? (
+            <Spinner />
+          ) : (
+            <>
+              {!settings.autoApprove && (
+                <TopbarCustom
+                  colorState={warningTopbarColor}
+                  message={warningTopbarMessage}
+                  onChangeColor={handleChangeWarningTopbarColor}
+                  onChangeMessage={handleChangeWarningTopbarMessage}
+                />
+              )}
+            </>
+          )}
+
           <div className="mb4">
             <Checkbox
               checked={settings.businessReadOnly}
