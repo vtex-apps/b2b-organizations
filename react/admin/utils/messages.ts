@@ -497,15 +497,15 @@ export const organizationSettingsMessages = defineMessages({
   },
   fullImpersonation: {
     id: `${adminPrefix}organization-settings-fullImpersonation`,
-    formColorPickerLabel: {
-      id: `${adminPrefix}warning-topbar-inative-org.form.color-picker-label`,
-    },
-    formTextareaLabel: {
-      id: `${adminPrefix}warning-topbar-inative-org.form.textarea-label`,
-    },
-    formTextareaHelpText: {
-      id: `${adminPrefix}warning-topbar-inative-org.form.textarea-help-text`,
-    },
+  },
+  formColorPickerLabel: {
+    id: `${adminPrefix}warning-topbar-inative-org.form.color-picker-label`,
+  },
+  formTextareaLabel: {
+    id: `${adminPrefix}warning-topbar-inative-org.form.textarea-label`,
+  },
+  formTextareaHelpText: {
+    id: `${adminPrefix}warning-topbar-inative-org.form.textarea-help-text`,
   },
 })
 
