@@ -267,15 +267,6 @@ export const organizationMessages = defineMessages({
   organizationsTitle: {
     id: `${adminPrefix}organizations.navigation.label`,
   },
-  organizationsWarningHoldingMessage: {
-    id: `${adminPrefix}organizations.warning-holding.message`,
-  },
-  organizationsWarningHoldingLink: {
-    id: `${adminPrefix}organizations.warning-holding.link`,
-  },
-  organizationsWarningHoldingAction: {
-    id: `${adminPrefix}organizations.warning-holding.action`,
-  },
 })
 
 export const costCenterMessages = defineMessages({
