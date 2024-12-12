@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [1.39.4] - 2024-12-12
+
 ## [1.39.3] - 2024-12-12
 ### Changed
 - Remove warning about tradeName from organizations screen
