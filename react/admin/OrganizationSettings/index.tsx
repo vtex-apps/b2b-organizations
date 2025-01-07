@@ -15,7 +15,6 @@ import UPDATE_B2B_SETTINGS from '../graphql/updateB2BSettings.graphql'
 import GET_B2B_SETTINGS from '../graphql/getB2BSettings.graphql'
 import { TopbarCustom } from './TopbarCustom'
 
-
 interface SalesChannel {
   channelId: string
   name: string
@@ -68,12 +67,13 @@ const OrganizationSettings: FunctionComponent = () => {
     ssr: false,
   })
 
-  const { data: dataSettings, loading: loadingSettings, refetch: refetchSettings } = useQuery(
-    GET_B2B_SETTINGS,
-    {
-      ssr: false,
-    }
-  )
+  const {
+    data: dataSettings,
+    loading: loadingSettings,
+    refetch: refetchSettings,
+  } = useQuery(GET_B2B_SETTINGS, {
+    ssr: false,
+  })
 
   const [updateSalesChannels] = useMutation(UPDATE_SALES_CHANNELS)
   const [updateB2BSettings] = useMutation(UPDATE_B2B_SETTINGS)
