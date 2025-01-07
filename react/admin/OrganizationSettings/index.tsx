@@ -8,11 +8,11 @@ import { Spinner, useToast } from '@vtex/admin-ui'
 
 import { organizationSettingsMessages as messages } from '../utils/messages'
 import { organizationBulkAction } from '../utils/organizationBulkAction'
-import GET_SALES_CHANNELS from '../graphql/getSalesChannels.graphql'
-import SELECTED_SALES_CHANNELS from '../graphql/getSelectedChannels.graphql'
-import UPDATE_SALES_CHANNELS from '../graphql/updateSalesChannels.graphql'
-import UPDATE_B2B_SETTINGS from '../graphql/updateB2BSettings.graphql'
-import GET_B2B_SETTINGS from '../graphql/getB2BSettings.graphql'
+import GET_SALES_CHANNELS from '../../graphql/getSalesChannels.graphql'
+import SELECTED_SALES_CHANNELS from '../../graphql/getSelectedChannels.graphql'
+import UPDATE_SALES_CHANNELS from '../../graphql/updateSalesChannels.graphql'
+import UPDATE_B2B_SETTINGS from '../../graphql/updateB2BSettings.graphql'
+import GET_B2B_SETTINGS from '../../graphql/getB2BSettings.graphql'
 import { TopbarCustom } from './TopbarCustom'
 
 interface SalesChannel {
