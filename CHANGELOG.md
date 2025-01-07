@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [1.39.6] - 2025-01-07
+
 ### Changed
 - Remove payment terms and price table configuration
 
