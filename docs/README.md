@@ -223,7 +223,7 @@ After installing and setting up the **B2B Organizations** app, its VTEX Admin ca
 
 #### Organization Requests
 
-To request the creation of an organization, B2B customers must fill in the [Request New Organization form](#request-new-organization).
+To request the creation of an organization, B2B customers can use the page available at `/organization-request`. This page allows customers to request an organization creation and its cost center. Add `/organization-request` to your store’s domain to access it.
 
 Once this step is done by the customer, B2B store administrators may review the organization request by going to **VTEX Admin** > **Account Settings** > **B2B Organizations & Cost Centers** > **Organization Requests** (or at `/admin/b2b-organizations/requests`).
 
