@@ -180,6 +180,7 @@
   "admin/b2b-organizations.organization-request-details.title": "Organisation forespørgsel",
   "admin/b2b-organizations.organization-request-details.toast.created-success": "Organisation oprettet med succes",
   "admin/b2b-organizations.organization-request-details.toast.update-failure": "Opdatering mislykkedes. Se konsollen for detaljer.",
+  "admin/b2b-organizations.organization-request-details.toast.update-failure-missing-email": "Missing B2B Customer Admin in organization, unable to approve it",
   "admin/b2b-organizations.organization-request-details.toast.update-success": "Organisation forespørgsel opdateret med succes",
   "admin/b2b-organizations.organization-request-details.tradeName": "Handelsnavn",
   "admin/b2b-organizations.organization-request-details.tradeName.helpText": "Angiv organisationens firmanavn, som vil blive anvendt i kassen, hvis det er muligt. (Valgfrit)",

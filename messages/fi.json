@@ -180,6 +180,7 @@
   "admin/b2b-organizations.organization-request-details.title": "Organisaation pyyntö",
   "admin/b2b-organizations.organization-request-details.toast.created-success": "Organisaatio luotu onnistuneesti",
   "admin/b2b-organizations.organization-request-details.toast.update-failure": "Päivitys epäonnistui. Katso lisätietoja konsolista.",
+  "admin/b2b-organizations.organization-request-details.toast.update-failure-missing-email": "Missing B2B Customer Admin in organization, unable to approve it",
   "admin/b2b-organizations.organization-request-details.toast.update-success": "Organisaation pyyntö päivitetty onnistuneesti",
   "admin/b2b-organizations.organization-request-details.tradeName": "Kauppanimi",
   "admin/b2b-organizations.organization-request-details.tradeName.helpText": "Anna organisaation toiminimi, joka otetaan tarvittaessa käyttöön kassalla. (Valinnainen)",

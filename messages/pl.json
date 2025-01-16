@@ -180,6 +180,7 @@
   "admin/b2b-organizations.organization-request-details.title": "Żądanie organizacji",
   "admin/b2b-organizations.organization-request-details.toast.created-success": "Organizacja została pomyślnie utworzona",
   "admin/b2b-organizations.organization-request-details.toast.update-failure": "Aktualizacja nie powiodła się. Zobacz konsolę, aby uzyskać więcej informacji.",
+  "admin/b2b-organizations.organization-request-details.toast.update-failure-missing-email": "Missing B2B Customer Admin in organization, unable to approve it",
   "admin/b2b-organizations.organization-request-details.toast.update-success": "Żądanie organizacji zostało pomyślnie zaktualizowane",
   "admin/b2b-organizations.organization-request-details.tradeName": "Nazwa handlowa",
   "admin/b2b-organizations.organization-request-details.tradeName.helpText": "Podaj nazwę handlową organizacji, która zostanie zastosowana w kasie, jeśli jest obecna. (Opcjonalnie)",

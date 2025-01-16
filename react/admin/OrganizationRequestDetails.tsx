@@ -48,6 +48,20 @@ const OrganizationRequestDetails: FunctionComponent = () => {
       notes: notesState,
     }
 
+    if (
+      !data.getOrganizationRequestById.b2bCustomerAdmin &&
+      status === 'approved'
+    ) {
+      showToast({
+        variant: 'critical',
+        message: formatMessage(messages.toastUpdateFailureNoEmail),
+      })
+
+      setLoadingState(false)
+
+      return
+    }
+
     updateOrganizationRequest({ variables })
       .then(() => {
         setLoadingState(false)
@@ -151,7 +165,7 @@ const OrganizationRequestDetails: FunctionComponent = () => {
           <FormattedMessage id="admin/b2b-organizations.organization-request-details.b2b-customer-admin" />
         </h4>
         <div className="mv3">
-          {data.getOrganizationRequestById.b2bCustomerAdmin.email}
+          {data.getOrganizationRequestById.b2bCustomerAdmin?.email}
         </div>
         <h4 className="t-heading-5 mb0 pt4">
           <FormattedMessage id="admin/b2b-organizations.organization-request-details.default-cost-center" />

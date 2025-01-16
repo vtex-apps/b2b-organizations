@@ -366,6 +366,9 @@ export const organizationRequestMessages = defineMessages({
   toastUpdateFailure: {
     id: `${adminPrefix}organization-request-details.toast.update-failure`,
   },
+  toastUpdateFailureNoEmail: {
+    id: `${adminPrefix}organization-request-details.toast.update-failure-missing-email`,
+  },
   detailsPageTitle: {
     id: `${adminPrefix}organization-request-details.title`,
   },

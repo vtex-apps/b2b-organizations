@@ -180,6 +180,7 @@
   "admin/b2b-organizations.organization-request-details.title": "Organisationsförfrågan",
   "admin/b2b-organizations.organization-request-details.toast.created-success": "Organisationen skapades",
   "admin/b2b-organizations.organization-request-details.toast.update-failure": "Uppdateringen misslyckades. Se konsolen för detaljer.",
+  "admin/b2b-organizations.organization-request-details.toast.update-failure-missing-email": "Missing B2B Customer Admin in organization, unable to approve it",
   "admin/b2b-organizations.organization-request-details.toast.update-success": "Organisationsförfrågan har uppdaterats",
   "admin/b2b-organizations.organization-request-details.tradeName": "Handelsnamn",
   "admin/b2b-organizations.organization-request-details.tradeName.helpText": "Ange organisationens handelsbetckning, som kommer att tillämpas i kassan, om någon. (Valfritt)",

@@ -180,6 +180,7 @@
   "admin/b2b-organizations.organization-request-details.title": "طلب المنظمة",
   "admin/b2b-organizations.organization-request-details.toast.created-success": "تم إنشاء المنظمة بنجاح",
   "admin/b2b-organizations.organization-request-details.toast.update-failure": "فشل التحديث. راجع وحدة التحكم للحصول على التفاصيل.",
+  "admin/b2b-organizations.organization-request-details.toast.update-failure-missing-email": "Missing B2B Customer Admin in organization, unable to approve it",
   "admin/b2b-organizations.organization-request-details.toast.update-success": "تم تحديث طلب المنظمة بنجاح",
   "admin/b2b-organizations.organization-request-details.tradeName": "الإسم التجاري",
   "admin/b2b-organizations.organization-request-details.tradeName.helpText": "قم بتوفير الاسم التجاري للمنظمة، والذي سيتم تطبيقه في الدفع، إن وجد. (اختياري)",

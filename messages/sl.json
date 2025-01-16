@@ -180,6 +180,7 @@
   "admin/b2b-organizations.organization-request-details.title": "Zahteva organizacije",
   "admin/b2b-organizations.organization-request-details.toast.created-success": "Organizacija je bila uspešno ustvarjena",
   "admin/b2b-organizations.organization-request-details.toast.update-failure": "Posodobitev ni uspela. Za podrobnosti glejte konzolo.",
+  "admin/b2b-organizations.organization-request-details.toast.update-failure-missing-email": "Missing B2B Customer Admin in organization, unable to approve it",
   "admin/b2b-organizations.organization-request-details.toast.update-success": "Zahteva organizacije je bila uspešno posodobljena",
   "admin/b2b-organizations.organization-request-details.tradeName": "Blagovna znamka",
   "admin/b2b-organizations.organization-request-details.tradeName.helpText": "Navedite trgovsko ime organizacije, ki bo uporabljeno na blagajni, če obstaja. (Neobvezno)",

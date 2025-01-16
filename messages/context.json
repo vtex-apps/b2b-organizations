@@ -180,6 +180,7 @@
   "admin/b2b-organizations.organization-request-details.title": "admin/b2b-organizations.organization-request-details.title",
   "admin/b2b-organizations.organization-request-details.toast.created-success": "admin/b2b-organizations.organization-request-details.toast.created-success",
   "admin/b2b-organizations.organization-request-details.toast.update-failure": "admin/b2b-organizations.organization-request-details.toast.update-failure",
+  "admin/b2b-organizations.organization-request-details.toast.update-failure-missing-email": "admin/b2b-organizations.organization-request-details.toast.update-failure-missing-email",
   "admin/b2b-organizations.organization-request-details.toast.update-success": "admin/b2b-organizations.organization-request-details.toast.update-success",
   "admin/b2b-organizations.organization-request-details.tradeName": "admin/b2b-organizations.organization-request-details.tradeName",
   "admin/b2b-organizations.organization-request-details.tradeName.helpText": "admin/b2b-organizations.organization-request-details.tradeName.helpText",
