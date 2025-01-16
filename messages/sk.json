@@ -180,6 +180,7 @@
   "admin/b2b-organizations.organization-request-details.title": "Požiadavka organizácie",
   "admin/b2b-organizations.organization-request-details.toast.created-success": "Organizácia bola úspešne vytvorená",
   "admin/b2b-organizations.organization-request-details.toast.update-failure": "Aktualizacia bola neuspešná. Podrobnosti nájdete v konzole.",
+  "admin/b2b-organizations.organization-request-details.toast.update-failure-missing-email": "Missing B2B Customer Admin in organization, unable to approve it",
   "admin/b2b-organizations.organization-request-details.toast.update-success": "Požiadavka organizácie bola úspešne aktualizovaná",
   "admin/b2b-organizations.organization-request-details.tradeName": "Obchodné meno",
   "admin/b2b-organizations.organization-request-details.tradeName.helpText": "Uveďte obchodný názov organizácie, ktorý bude použitý v pokladni, ak existuje. (Voliteľné)",

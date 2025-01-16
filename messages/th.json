@@ -180,6 +180,7 @@
   "admin/b2b-organizations.organization-request-details.title": "คำขอองค์กร",
   "admin/b2b-organizations.organization-request-details.toast.created-success": "สร้างองค์กรเรียบร้อยแล้ว",
   "admin/b2b-organizations.organization-request-details.toast.update-failure": "อัปเดตไม่สำเร็จ โปรดดูรายละเอียดในคอนโซล",
+  "admin/b2b-organizations.organization-request-details.toast.update-failure-missing-email": "Missing B2B Customer Admin in organization, unable to approve it",
   "admin/b2b-organizations.organization-request-details.toast.update-success": "อัปเดตคำขอองค์กรเรียบร้อยแล้ว",
   "admin/b2b-organizations.organization-request-details.tradeName": "ชื่อการค้า",
   "admin/b2b-organizations.organization-request-details.tradeName.helpText": "ให้ชื่อการค้าขององค์กร หากมี จะใช้ในการเช็คเอาต์ (ไม่บังคับ)",

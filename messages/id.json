@@ -180,6 +180,7 @@
   "admin/b2b-organizations.organization-request-details.title": "Permintaan Organisasi",
   "admin/b2b-organizations.organization-request-details.toast.created-success": "Berhasil membuat organisasi",
   "admin/b2b-organizations.organization-request-details.toast.update-failure": "Pembaruan gagal. Lihat konsol untuk detailnya.",
+  "admin/b2b-organizations.organization-request-details.toast.update-failure-missing-email": "Missing B2B Customer Admin in organization, unable to approve it",
   "admin/b2b-organizations.organization-request-details.toast.update-success": "Permintaan organisasi berhasil diperbarui",
   "admin/b2b-organizations.organization-request-details.tradeName": "Nama dagang",
   "admin/b2b-organizations.organization-request-details.tradeName.helpText": "Masukkan nama dagang organisasi yang akan diterapkan di checkout. (Opsional)",

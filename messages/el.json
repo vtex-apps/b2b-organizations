@@ -180,6 +180,7 @@
   "admin/b2b-organizations.organization-request-details.title": "Αίτημα οργανισμού",
   "admin/b2b-organizations.organization-request-details.toast.created-success": "Ο οργανισμός δημιουργήθηκε με επιτυχία",
   "admin/b2b-organizations.organization-request-details.toast.update-failure": "Η ενημέρωση απέτυχε. Βλέπε κονσόλα για λεπτομέρειες.",
+  "admin/b2b-organizations.organization-request-details.toast.update-failure-missing-email": "Missing B2B Customer Admin in organization, unable to approve it",
   "admin/b2b-organizations.organization-request-details.toast.update-success": "Το αίτημα οργανισμού ενημερώθηκε με επιτυχία",
   "admin/b2b-organizations.organization-request-details.tradeName": "Εμπορική ονομασία",
   "admin/b2b-organizations.organization-request-details.tradeName.helpText": "Παρέχετε το εμπορικό όνομα του οργανισμού, το οποίο θα εφαρμοστεί στην ολοκλήρωση αγοράς, αν υπάρχει. (Προαιρετικό)",

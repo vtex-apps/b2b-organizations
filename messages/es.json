@@ -180,6 +180,7 @@
   "admin/b2b-organizations.organization-request-details.title": "Solicitud de organización",
   "admin/b2b-organizations.organization-request-details.toast.created-success": "Organización creada con éxito.",
   "admin/b2b-organizations.organization-request-details.toast.update-failure": "La actualización falló. Consulta la consola para ver los detalles.",
+  "admin/b2b-organizations.organization-request-details.toast.update-failure-missing-email": "Missing B2B Customer Admin in organization, unable to approve it",
   "admin/b2b-organizations.organization-request-details.toast.update-success": "La solicitud de organización se actualizó con éxito",
   "admin/b2b-organizations.organization-request-details.tradeName": "Nombre comercial",
   "admin/b2b-organizations.organization-request-details.tradeName.helpText": "Proporciona el nombre comercial de la organización que se aplicará en el checkout, si alguno. (Opcional)",

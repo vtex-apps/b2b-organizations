@@ -180,6 +180,7 @@
   "admin/b2b-organizations.organization-request-details.title": "조직 요청",
   "admin/b2b-organizations.organization-request-details.toast.created-success": "조직이 생성되었습니다.",
   "admin/b2b-organizations.organization-request-details.toast.update-failure": "업데이트 실패. 자세한 내용은 콘솔을 참조하세요.",
+  "admin/b2b-organizations.organization-request-details.toast.update-failure-missing-email": "Missing B2B Customer Admin in organization, unable to approve it",
   "admin/b2b-organizations.organization-request-details.toast.update-success": "조직 요청이 성공적으로 업데이트되었습니다.",
   "admin/b2b-organizations.organization-request-details.tradeName": "거래명",
   "admin/b2b-organizations.organization-request-details.tradeName.helpText": "체크아웃 시 적용될 조직의 상호(있는 경우)를 제공합니다. (선택사항)",

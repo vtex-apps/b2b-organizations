@@ -180,6 +180,7 @@
   "admin/b2b-organizations.organization-request-details.title": "Заявка за организация",
   "admin/b2b-organizations.organization-request-details.toast.created-success": "Организацията е създадена успешно",
   "admin/b2b-organizations.organization-request-details.toast.update-failure": "Неуспешно актуализиране. Вижте конзолата за подробности.",
+  "admin/b2b-organizations.organization-request-details.toast.update-failure-missing-email": "Missing B2B Customer Admin in organization, unable to approve it",
   "admin/b2b-organizations.organization-request-details.toast.update-success": "Заявката за организация е актуализирана успешно",
   "admin/b2b-organizations.organization-request-details.tradeName": "Търговско наименование",
   "admin/b2b-organizations.organization-request-details.tradeName.helpText": "Предоставете търговското наименование на организацията, което ще бъде приложено при финализирането, ако има такова. (По желание)",

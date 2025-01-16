@@ -180,6 +180,7 @@
   "admin/b2b-organizations.organization-request-details.title": "組織のリクエスト",
   "admin/b2b-organizations.organization-request-details.toast.created-success": "組織の作成が完了しました",
   "admin/b2b-organizations.organization-request-details.toast.update-failure": "更新できませんでした。詳細はコンソールを確認してください。",
+  "admin/b2b-organizations.organization-request-details.toast.update-failure-missing-email": "Missing B2B Customer Admin in organization, unable to approve it",
   "admin/b2b-organizations.organization-request-details.toast.update-success": "組織リクエストの更新が完了しました",
   "admin/b2b-organizations.organization-request-details.tradeName": "商号",
   "admin/b2b-organizations.organization-request-details.tradeName.helpText": "チェックアウト時に適用される組織の商号があれば、入力してください。 (任意)",

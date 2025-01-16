@@ -180,6 +180,7 @@
   "admin/b2b-organizations.organization-request-details.title": "Запрос организации",
   "admin/b2b-organizations.organization-request-details.toast.created-success": "Организация создана",
   "admin/b2b-organizations.organization-request-details.toast.update-failure": "Не удалось обновить. Подробная информация доступна на консоли.",
+  "admin/b2b-organizations.organization-request-details.toast.update-failure-missing-email": "Missing B2B Customer Admin in organization, unable to approve it",
   "admin/b2b-organizations.organization-request-details.toast.update-success": "Запрос организации обновлён",
   "admin/b2b-organizations.organization-request-details.tradeName": "Торговое наименование",
   "admin/b2b-organizations.organization-request-details.tradeName.helpText": "Укажите коммерческое название организации, которое будет указываться при оформлении заказа. (Необязательно)",

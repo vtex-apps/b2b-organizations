@@ -180,6 +180,7 @@
   "admin/b2b-organizations.organization-request-details.title": "Solicitare organizație",
   "admin/b2b-organizations.organization-request-details.toast.created-success": "Organizație creată cu succes",
   "admin/b2b-organizations.organization-request-details.toast.update-failure": "Actualizarea a eșuat. Vezi consola pentru detalii.",
+  "admin/b2b-organizations.organization-request-details.toast.update-failure-missing-email": "Missing B2B Customer Admin in organization, unable to approve it",
   "admin/b2b-organizations.organization-request-details.toast.update-success": "Solicitare organizație actualizată cu succes",
   "admin/b2b-organizations.organization-request-details.tradeName": "Denumire comercială",
   "admin/b2b-organizations.organization-request-details.tradeName.helpText": "Furnizează denumirea comercială a organizației, care se va aplica la finalizarea comenzii, dacă e cazul. (Opțional)",

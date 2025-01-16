@@ -63,11 +63,8 @@ const OrganizationRequestsTable: FunctionComponent = () => {
       },
       b2bCustomerAdmin: {
         title: formatMessage(messages.columnAdmin),
-        cellRenderer: ({
-          rowData: {
-            b2bCustomerAdmin: { email },
-          },
-        }: CellRendererProps) => email,
+        cellRenderer: ({ rowData: { b2bCustomerAdmin } }: CellRendererProps) =>
+          b2bCustomerAdmin?.email ?? '',
       },
       status: {
         title: formatMessage(messages.columnStatus),

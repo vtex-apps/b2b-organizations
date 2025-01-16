@@ -180,6 +180,7 @@
   "admin/b2b-organizations.organization-request-details.title": "Sol·licitud de l'organització",
   "admin/b2b-organizations.organization-request-details.toast.created-success": "S'ha creat correctament l'organització",
   "admin/b2b-organizations.organization-request-details.toast.update-failure": "S'ha produït un error en fer l'actualització. Per obtenir-ne més informació, consulteu la consola.",
+  "admin/b2b-organizations.organization-request-details.toast.update-failure-missing-email": "Missing B2B Customer Admin in organization, unable to approve it",
   "admin/b2b-organizations.organization-request-details.toast.update-success": "S'ha actualitzat correctament la sol·licitud de l'organització",
   "admin/b2b-organizations.organization-request-details.tradeName": "Nom comercial",
   "admin/b2b-organizations.organization-request-details.tradeName.helpText": "Proporcioneu el nom comercial de l'organització, que s'aplicarà en el procés de pagament, si n'hi ha cap. (Opcional)",

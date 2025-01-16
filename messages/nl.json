@@ -180,6 +180,7 @@
   "admin/b2b-organizations.organization-request-details.title": "Organisatieverzoek",
   "admin/b2b-organizations.organization-request-details.toast.created-success": "Organisatie aangemaakt",
   "admin/b2b-organizations.organization-request-details.toast.update-failure": "Update is mislukt. Zie de console voor meer informatie.",
+  "admin/b2b-organizations.organization-request-details.toast.update-failure-missing-email": "Missing B2B Customer Admin in organization, unable to approve it",
   "admin/b2b-organizations.organization-request-details.toast.update-success": "Organisatieverzoek bijgewerkt",
   "admin/b2b-organizations.organization-request-details.tradeName": "Handelsnaam",
   "admin/b2b-organizations.organization-request-details.tradeName.helpText": "Geef de handelsnaam van de organisatie aan, die zal worden toegepast bij het afrekenen, indien van toepassing. (optioneel)",
