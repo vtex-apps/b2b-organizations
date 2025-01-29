@@ -463,17 +463,16 @@ const UserWidget: VtexFunctionComponent<UserWidgetProps> = ({
 
   const handleSearchOrganizations = (e: any) => {
     const { value }: { value: string } = e.target
-    let dataList
+    let dataList;
 
     setSearchTerm(e.target.value)
 
     dataList = userWidgetData?.getActiveOrganizationsByEmail?.sort(
       sortOrganizations
     )
-
     if (value.trim() !== '') {
       dataList =
-        userWidgetData?.getOrganizationsByEmail
+        userWidgetData?.getActiveOrganizationsByEmail
           ?.filter((organization: any) => {
             const organizationName = organization.organizationName?.toLowerCase() || '';
             const costCenterName = organization.costCenterName?.toLowerCase() || '';
