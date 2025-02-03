@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [1.39.11] - 2025-02-03
+
 ## [1.39.10] - 2025-01-16
 ### Fixed
 - Fix render on organization requests when admin customer is missing from organization
