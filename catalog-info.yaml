@@ -5,6 +5,7 @@ metadata:
   annotations:
     github.com/project-slug: vtex-apps/b2b-organizations
     backstage.io/techdocs-ref: dir:./
+    vtex.com/application-id: HY9DHFLM
 spec:
   system: b2b-suite
   type: frontend-ui
