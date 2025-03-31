@@ -1,6 +1,6 @@
 {
   "name": "vtex.b2b-organizations",
-  "version": "1.39.11",
+  "version": "1.39.12",
   "license": "UNLICENSED",
   "scripts": {
     "test": "vtex-test-tools test --passWithNoTests"
