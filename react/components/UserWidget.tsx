@@ -475,15 +475,15 @@ const UserWidget: VtexFunctionComponent<UserWidgetProps> = ({
         userWidgetData?.getActiveOrganizationsByEmail
           ?.filter((organization: any) => {
             const organizationName =
-              organization.organizationName?.toLowerCase() || ''
+              organization.organizationName?.toLowerCase() ?? ''
 
             const costCenterName =
-              organization.costCenterName?.toLowerCase() || ''
+              organization.costCenterName?.toLowerCase() ?? ''
 
             const searchValue = value.toLowerCase()
 
             return (
-              organizationName.includes(searchValue) ||
+              organizationName.includes(searchValue) ??
               costCenterName.includes(searchValue)
             )
           })
