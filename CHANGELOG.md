@@ -7,16 +7,24 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Fixed
+
+- Spanish translation
+
 ## [1.39.12] - 2025-03-31
 
 ## [1.39.11] - 2025-02-03
 
 ## [1.39.10] - 2025-01-16
+
 ### Fixed
+
 - Fix render on organization requests when admin customer is missing from organization
 
 ## [1.39.9] - 2025-01-07
+
 ### Fixed
+
 - Update imports
 
 ## [1.39.8] - 2025-01-07
@@ -26,6 +34,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [1.39.6] - 2025-01-07
 
 ### Changed
+
 - Remove payment terms and price table configuration
 
 ## [1.39.5] - 2024-12-12
@@ -33,28 +42,36 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [1.39.4] - 2024-12-12
 
 ## [1.39.3] - 2024-12-12
+
 ### Changed
+
 - Remove warning about tradeName from organizations screen
 
 ## [1.39.2] - 2024-12-09
+
 ### Fixed
+
 - Fix object estructure
 
 ## [1.39.1] - 2024-12-09
 
 ## [1.39.0] - 2024-12-09
+
 ### Fixed
 
 - Change `getOrganizationsByEmail` to `getActiveOrganizationsByEmail` to only allow listings from active organizations
 
 ## [1.38.0] - 2024-12-09
+
 ### Added
+
 - Add topbar and allow customization of content and colors by the merchant via storeframework.
 
 ## [1.37.3] - 2024-11-14
-### Fixed
-- Fix action url that was hard coded
 
+### Fixed
+
+- Fix action url that was hard coded
 
 ## [1.37.2] - 2024-11-11
 
@@ -63,6 +80,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Fixed the change `Is Required` text to `Is Filterable` present in warning
 
 ## [1.37.1] - 2024-11-07
+
 ### Feat
 
 - Add warning holding to organizations list, show holding message and link to documentation
