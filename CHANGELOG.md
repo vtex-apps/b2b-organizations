@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Fixed
+
+- Fixed users table not updating when search returns no results. 
+
 ## [2.0.0] - 2025-05-27
 
 ### Changed
