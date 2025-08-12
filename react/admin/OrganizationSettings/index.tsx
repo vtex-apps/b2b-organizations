@@ -14,6 +14,7 @@ import UPDATE_SALES_CHANNELS from '../../graphql/updateSalesChannels.graphql'
 import UPDATE_B2B_SETTINGS from '../../graphql/updateB2BSettings.graphql'
 import GET_B2B_SETTINGS from '../../graphql/getB2BSettings.graphql'
 import { TopbarCustom } from './TopbarCustom'
+import { useOrgPermission } from '../../hooks/useOrgPermission'
 
 interface SalesChannel {
   channelId: string
@@ -77,6 +78,10 @@ const OrganizationSettings: FunctionComponent = () => {
 
   const [updateSalesChannels] = useMutation(UPDATE_SALES_CHANNELS)
   const [updateB2BSettings] = useMutation(UPDATE_B2B_SETTINGS)
+
+  const canEditBuyerOrgEdit = useOrgPermission({
+    resourceCode: 'buyer_organization_edit',
+  })
 
   useEffect(() => {
     if (!data) return
@@ -281,6 +286,7 @@ const OrganizationSettings: FunctionComponent = () => {
             isLoading={loading}
             variation="primary"
             onClick={() => handleUpdateRequest()}
+            disabled={!canEditBuyerOrgEdit}
           >
             <FormattedMessage id="admin/b2b-organizations.costCenter-details.button.save" />
           </Button>

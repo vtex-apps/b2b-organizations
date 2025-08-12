@@ -32,6 +32,7 @@ import {
   B2B_BULK_IMPORT_TEMPLATE_LINK,
   B2B_BULK_IMPORT_BEST_PRACTICES_LINK,
 } from '../../utils/constants'
+import { useOrgPermission } from '../../hooks/useOrgPermission'
 
 const CreateOrganizationButton = () => {
   const { formatMessage, translate: t } = useTranslate()
@@ -42,6 +43,9 @@ const CreateOrganizationButton = () => {
   const { startBulkImport } = useStartBulkImport()
 
   const { data } = useBulkImportsQuery()
+  const canEditBuyerOrgEdit = useOrgPermission({
+    resourceCode: 'buyer_organization_edit',
+  })
 
   const handleUploadFinish = async (result: UploadFileData) => {
     if (result.status === 'success' && result.data?.fileData?.importId) {
@@ -57,6 +61,7 @@ const CreateOrganizationButton = () => {
         label={formatMessage(messages.new)}
         labelHidden={false}
         variant="primary"
+        disabled={!canEditBuyerOrgEdit}
       />
       <Menu state={menuState} aria-label="actions">
         <MenuItem
