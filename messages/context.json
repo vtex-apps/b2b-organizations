@@ -264,6 +264,7 @@
   "admin/b2b-organizations.user-details.costCenter": "admin/b2b-organizations.user-details.costCenter",
   "admin/b2b-organizations.user-details.email": "admin/b2b-organizations.user-details.email",
   "admin/b2b-organizations.user-details.name": "admin/b2b-organizations.user-details.name",
+  "admin/b2b-organizations.organizations.not-allow-view-message": "admin/b2b-organizations.organizations.not-allow-view-message",
   "admin/b2b-organizations.user-details.organization": "admin/b2b-organizations.user-details.organization",
   "admin/b2b-organizations.user-details.placeholder-costCenter": "admin/b2b-organizations.user-details.placeholder-costCenter",
   "admin/b2b-organizations.user-details.placeholder-role": "admin/b2b-organizations.user-details.placeholder-role",

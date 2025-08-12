@@ -264,6 +264,7 @@
   "admin/b2b-organizations.user-details.costCenter": "Разходен център",
   "admin/b2b-organizations.user-details.email": "Имейл адрес",
   "admin/b2b-organizations.user-details.name": "Име",
+  "admin/b2b-organizations.organizations.not-allow-view-message": "Нямате достъп за разглеждане на организации поради липсата на функцията „Преглед на организация на купувача“. Обратете се с администратора на вашия акаунт.",
   "admin/b2b-organizations.user-details.organization": "Организация",
   "admin/b2b-organizations.user-details.placeholder-costCenter": "Избор на разходен център",
   "admin/b2b-organizations.user-details.placeholder-role": "Избор на роля",

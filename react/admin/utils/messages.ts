@@ -267,6 +267,9 @@ export const organizationMessages = defineMessages({
   organizationsTitle: {
     id: `${adminPrefix}organizations.navigation.label`,
   },
+  notAllowViewMessage: {
+    id: `${adminPrefix}organizations.not-allow-view-message`,
+  },
 })
 
 export const costCenterMessages = defineMessages({

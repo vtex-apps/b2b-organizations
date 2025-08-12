@@ -264,6 +264,7 @@
   "admin/b2b-organizations.user-details.costCenter": "Κέντρο κόστους",
   "admin/b2b-organizations.user-details.email": "Email",
   "admin/b2b-organizations.user-details.name": "Όνομα",
+  "admin/b2b-organizations.organizations.not-allow-view-message": "Δεν έχετε πρόσβαση στις οργανισμούς, επειδή η λειτουργία “Οργανισμοί αγοραστών” δεν είναι ενεργοποιημένη. Επικοινωνήστε με τον διαχειριστή του λογαριασμού σας.",
   "admin/b2b-organizations.user-details.organization": "Οργανισμός",
   "admin/b2b-organizations.user-details.placeholder-costCenter": "Επιλογή κέντρου κόστους",
   "admin/b2b-organizations.user-details.placeholder-role": "Επιλογή ρόλου",

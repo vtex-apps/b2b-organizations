@@ -264,6 +264,7 @@
   "admin/b2b-organizations.user-details.costCenter": "Nákladové středisko",
   "admin/b2b-organizations.user-details.email": "E-mail",
   "admin/b2b-organizations.user-details.name": "Název",
+  "admin/b2b-organizations.organizations.not-allow-view-message": "Nemáte přístup k zobrazení organizací kvůli nedostatečné funkci „Pohled organizace kupujícího“. Kontaktujte svého správce účtu.",
   "admin/b2b-organizations.user-details.organization": "Organizace",
   "admin/b2b-organizations.user-details.placeholder-costCenter": "Vyberte nákladové středisko",
   "admin/b2b-organizations.user-details.placeholder-role": "Vyberte roli",
