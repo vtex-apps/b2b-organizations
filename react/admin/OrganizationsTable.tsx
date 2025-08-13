@@ -42,16 +42,10 @@ const OrganizationsTable = () => {
 
   const tabsState = useTabState({ selectedId: tab })
 
-  const showTopbarMessage =
-    routerRef.current?.history.location.pathname === '/organizations' ||
-    routerRef.current?.history.location.pathname === '/requests'
-
   return (
     <HashRouter ref={routerRef}>
       <Can>
         <Page>
-          {showTopbarMessage && <TopbarSuiteManagementMessage />}
-
           <PageHeader>
             <PageHeaderTop>
               <PageHeaderTitle>
