@@ -12,7 +12,6 @@ const TopbarSuiteManagementMessage = () => {
       }}
     >
       <FormattedMessage id="admin/b2b-organizations.topbar-suite-management-message" />
-      lalala
     </div>
   )
 }
