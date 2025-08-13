@@ -27,7 +27,6 @@ import OrganizationCustomFields from './CustomFields'
 import CheckCustomerSchema from '../components/CheckCustomerSchema'
 import BulkImportList from '../components/BulkImportList'
 import CreateOrganizationButton from '../components/CreateOrganizationButton'
-import TopbarSuiteManagementMessage from './TopbarSuiteManagementMessage'
 import Can from './Can'
 
 const SESSION_STORAGE_KEY = 'organization-tab'
