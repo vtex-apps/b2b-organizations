@@ -268,6 +268,7 @@
   "admin/b2b-organizations.user-details.placeholder-costCenter": "admin/b2b-organizations.user-details.placeholder-costCenter",
   "admin/b2b-organizations.user-details.placeholder-role": "admin/b2b-organizations.user-details.placeholder-role",
   "admin/b2b-organizations.user-details.role": "admin/b2b-organizations.user-details.role",
+  "admin/b2b-organizations.topbar-suite-management-message": "⚠️ Attention: Soon there will be changes to the B2B organization management! Starting from [Date], only administrators and users with the 'Buyer Organization View' or 'Buyer Organization Edit' resources will be able to access and modify B2B organizations. Check if you have the necessary permissions or contact your account administrator to ensure continuous access. Thank you.",
   "admin/b2b-organizations.warning-topbar-inative-org.form.title": "store/b2b-organizations.warning-topbar-inative-org.form.title",
   "admin/b2b-organizations.warning-topbar-inative-org.form.help-text": "store/b2b-organizations.warning-topbar-inative-org.form.help-text",
   "admin/b2b-organizations.warning-topbar-inative-org.form.color-picker-label": "store/b2b-organizations.warning-topbar-inative-org.form.color-picker-label",

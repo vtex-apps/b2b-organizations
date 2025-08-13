@@ -268,6 +268,7 @@
   "admin/b2b-organizations.user-details.placeholder-costCenter": "Välj ett kostnadsställe",
   "admin/b2b-organizations.user-details.placeholder-role": "Välj en roll",
   "admin/b2b-organizations.user-details.role": "Roll",
+  "admin/b2b-organizations.topbar-suite-management-message": "⚠️ Varning: Snart kommer det att finnas ändringar i hanteringen av B2B-organisationer! Från [Datum] kommer endast administratörer och användare med resurserna 'Buyer Organization View' eller 'Buyer Organization Edit' att kunna komma åt och ändra B2B-organisationer. Kontrollera om du har de nödvändiga behörigheterna eller kontakta administratören för din konto för att säkerställa kontinuerlig åtkomst. Tack.",
   "admin/b2b-organizations.warning-topbar-inative-org.form.title": "Topbar customization",
   "admin/b2b-organizations.warning-topbar-inative-org.form.help-text": "Customize the message and color of the top bar notifications that are displayed when the organization is disabled",
   "admin/b2b-organizations.warning-topbar-inative-org.form.color-picker-label": "Topbar color",

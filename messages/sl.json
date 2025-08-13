@@ -268,6 +268,7 @@
   "admin/b2b-organizations.user-details.placeholder-costCenter": "Izberite stroškovno mesto",
   "admin/b2b-organizations.user-details.placeholder-role": "Izberite vlogo",
   "admin/b2b-organizations.user-details.role": "Vloga",
+  "admin/b2b-organizations.topbar-suite-management-message": "⚠️ Pozor: V blízkem času dojde k zmene v správe o organizáciách B2B! Od [Datum] bude k organizáciám B2B přístup omezen pouze uživatelům s oprávněními správce a uživatelům s oprávněními 'Buyer Organization View' nebo 'Buyer Organization Edit'. Zkontrolujte, zda máte potřebná oprávnění, nebo se obrátíte na administrátora vašeho účtu, abyste zajistili nepřerušovaný přístup. Děkujeme.",
   "admin/b2b-organizations.warning-topbar-inative-org.form.title": "Topbar customization",
   "admin/b2b-organizations.warning-topbar-inative-org.form.help-text": "Customize the message and color of the top bar notifications that are displayed when the organization is disabled",
   "admin/b2b-organizations.warning-topbar-inative-org.form.color-picker-label": "Topbar color",

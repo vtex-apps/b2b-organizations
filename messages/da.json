@@ -268,6 +268,7 @@
   "admin/b2b-organizations.user-details.placeholder-costCenter": "Vælg et omkostningscenter",
   "admin/b2b-organizations.user-details.placeholder-role": "Vælg en rolle",
   "admin/b2b-organizations.user-details.role": "Rolle",
+  "admin/b2b-organizations.topbar-suite-management-message": "⚠️ Bemærk: Der er snart ændringer i B2B-organisationsstyringen! Fra [Dato] kan kun administratorer og brugere med tilladelserne 'Buyer Organization View' eller 'Buyer Organization Edit' få adgang til og ændre B2B-organisationer. Kontrollér, om du har de nødvendige tilladelser, eller kontakt din kontoadministrator for at sikre en kontinuerlig adgang. Tak.",
   "admin/b2b-organizations.warning-topbar-inative-org.form.title": "Topbar customization",
   "admin/b2b-organizations.warning-topbar-inative-org.form.help-text": "Customize the message and color of the top bar notifications that are displayed when the organization is disabled",
   "admin/b2b-organizations.warning-topbar-inative-org.form.color-picker-label": "Topbar color",
