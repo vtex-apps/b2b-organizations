@@ -39,7 +39,7 @@ const OrganizationRequestDetails: FunctionComponent = () => {
     skip: !params?.id,
   })
 
-  const canEditBuyerOrgEdit = useOrgPermission({
+  const { data: canEditBuyerOrgEdit } = useOrgPermission({
     resourceCode: 'buyer_organization_edit',
   })
 

@@ -269,6 +269,7 @@
   "admin/b2b-organizations.user-details.placeholder-costCenter": "Selecione um centro de custo",
   "admin/b2b-organizations.user-details.placeholder-role": "Selecione um perfil de acesso",
   "admin/b2b-organizations.user-details.role": "Perfil de acesso",
+  "admin/b2b-organizations.topbar-suitgite-management-message": "⚠️ Atenção: Em breve haverá mudanças na gestão de organizações B2B! A partir de [Data], apenas administradores e usuários com os recursos 'Visualização da Organização do Comprador' ou 'Edição da Organização do Comprador' poderão acessar e modificar organizações B2B. Verifique se você tem as permissões necessárias ou entre em contato com seu administrador de conta para garantir acesso contínuo. Obrigado.",
   "admin/b2b-organizations.warning-topbar-inative-org.form.title": "Personalização da barra superior",
   "admin/b2b-organizations.warning-topbar-inative-org.form.help-text": "Personalize a mensagem e a cor das notificações da barra superior que são exibidas quando a organização está desabilitada",
   "admin/b2b-organizations.warning-topbar-inative-org.form.color-picker-label": "Cor da barra superior",

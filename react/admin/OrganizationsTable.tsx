@@ -27,6 +27,7 @@ import OrganizationCustomFields from './CustomFields'
 import CheckCustomerSchema from '../components/CheckCustomerSchema'
 import BulkImportList from '../components/BulkImportList'
 import CreateOrganizationButton from '../components/CreateOrganizationButton'
+import TopbarSuiteManagementMessage from './TopbarSuiteManagementMessage'
 import Can from './Can'
 
 const SESSION_STORAGE_KEY = 'organization-tab'
@@ -41,10 +42,16 @@ const OrganizationsTable = () => {
 
   const tabsState = useTabState({ selectedId: tab })
 
+  const showTopbarMessage =
+    routerRef.current?.history.location.pathname === '/organizations' ||
+    routerRef.current?.history.location.pathname === '/requests'
+
   return (
     <HashRouter ref={routerRef}>
       <Can>
         <Page>
+          {showTopbarMessage && <TopbarSuiteManagementMessage />}
+
           <PageHeader>
             <PageHeaderTop>
               <PageHeaderTitle>

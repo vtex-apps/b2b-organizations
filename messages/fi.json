@@ -269,6 +269,7 @@
   "admin/b2b-organizations.user-details.placeholder-costCenter": "Valitse kustannuspaikka",
   "admin/b2b-organizations.user-details.placeholder-role": "Valitse tehtävä",
   "admin/b2b-organizations.user-details.role": "Rooli",
+  "admin/b2b-organizations.topbar-suitgite-management-message": "⚠️ Attention: Soon there will be changes to the B2B organization management! Starting from [Date], only administrators and users with the 'Buyer Organization View' or 'Buyer Organization Edit' resources will be able to access and modify B2B organizations. Check if you have the necessary permissions or contact your account administrator to ensure continuous access. Thank you.",
   "admin/b2b-organizations.warning-topbar-inative-org.form.title": "Topbar customization",
   "admin/b2b-organizations.warning-topbar-inative-org.form.help-text": "Customize the message and color of the top bar notifications that are displayed when the organization is disabled",
   "admin/b2b-organizations.warning-topbar-inative-org.form.color-picker-label": "Topbar color",
