@@ -44,6 +44,7 @@ import GET_B2B_CUSTOM_FIELDS from '../graphql/getB2BCustomFields.graphql'
 import { joinById } from './OrganizationDetails'
 import CustomFieldInput from './OrganizationDetailsCustomField'
 import CostCenterAddressList from './CostCenterAddressList'
+import { useOrgPermission } from '../hooks/useOrgPermission'
 
 const CSS_HANDLES = ['businessDocument', 'stateRegistration'] as const
 
@@ -133,6 +134,13 @@ const CostCenterDetails: FunctionComponent = () => {
   const [updateCostCenter] = useMutation(UPDATE_COST_CENTER)
   const [deleteCostCenter] = useMutation(DELETE_COST_CENTER)
   const [setMarktingTags] = useMutation(SET_MARKETING_TAGS)
+
+  const {
+    data: canEditBuyerOrgEdit,
+    isLoading: permissionLoading,
+  } = useOrgPermission({
+    resourceCode: 'buyer_organization_edit',
+  })
 
   const translateCountries = () => {
     const { shipsTo = [] } = logisticsData?.logistics ?? {}
@@ -579,7 +587,9 @@ const CostCenterDetails: FunctionComponent = () => {
               disabled={
                 !costCenterName ||
                 !addresses.length ||
-                (phoneNumber && !validatePhoneNumber(phoneNumber))
+                (phoneNumber && !validatePhoneNumber(phoneNumber)) ||
+                !canEditBuyerOrgEdit ||
+                permissionLoading
               }
               onClick={() => handleUpdateCostCenter()}
             >
@@ -589,6 +599,7 @@ const CostCenterDetails: FunctionComponent = () => {
           <Button
             variation="danger"
             isLoading={loadingState}
+            disabled={!canEditBuyerOrgEdit || permissionLoading}
             onClick={() => handleDeleteCostCenterModal()}
           >
             <FormattedMessage id="admin/b2b-organizations.costCenter-details.button.delete" />

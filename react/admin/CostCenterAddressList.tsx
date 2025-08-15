@@ -3,8 +3,28 @@ import { useIntl, FormattedMessage } from 'react-intl'
 import { Table, Toggle } from 'vtex.styleguide'
 
 import { costCenterMessages as messages } from './utils/messages'
+import { useOrgPermission } from '../hooks/useOrgPermission'
 
 const tableLength = 5
+
+interface CellRendererProps {
+  rowData: Address
+  cellData: unknown
+  updateCellMeasurements: () => void
+}
+
+interface TableState {
+  tableLength: number
+  currentPage: number
+  filteredItems: Address[]
+  slicedData: Address[]
+  currentItemFrom: number
+  currentItemTo: number
+  searchValue: string
+  itemsLength: number
+  emptyStateLabel: string
+  filterStatements: unknown[]
+}
 
 interface AddressListProps {
   addressList: Address[]
@@ -22,7 +42,15 @@ const CostCenterAddressList: React.FC<AddressListProps> = ({
   handleDeleteAddressModal,
 }) => {
   const { formatMessage } = useIntl()
-  const initialState = {
+
+  const {
+    data: canEditBuyerOrgEdit,
+    isLoading: permissionLoading,
+  } = useOrgPermission({
+    resourceCode: 'buyer_organization_edit',
+  })
+
+  const initialState: TableState = {
     tableLength,
     currentPage: 1,
     filteredItems: addressList,
@@ -35,34 +63,34 @@ const CostCenterAddressList: React.FC<AddressListProps> = ({
     filterStatements: [],
   }
 
-  const [state, setState] = useState(initialState)
+  const [state, setState] = useState<TableState>(initialState)
   const jsonschema = {
     properties: {
       street: {
         title: formatMessage(messages.address),
-        cellRenderer: ({ rowData }: any) => {
+        cellRenderer: ({ rowData }: CellRendererProps) => {
           return `${rowData.street}, ${rowData.city}, ${rowData.state}, ${rowData.postalCode}`
         },
       },
       receiverName: {
         title: formatMessage(messages.receiverName),
-        cellRenderer: ({ rowData }: any) => {
+        cellRenderer: ({ rowData }: CellRendererProps) => {
           try {
-            const receiver = JSON.parse(rowData?.receiverName)
+            const receiver = JSON.parse(rowData.receiverName)
             const strings = Object.keys(receiver).map(
               (key: string) => receiver[key]
             )
 
             return strings.join(' - ')
           } catch (e) {
-            return rowData?.receiverName
+            return rowData.receiverName
           }
         },
       },
       checked: {
         title: formatMessage(messages.defaultAddress),
         width: 150,
-        cellRenderer: ({ rowData }: any) => {
+        cellRenderer: ({ rowData }: CellRendererProps) => {
           return (
             <Toggle
               onChange={() => {
@@ -110,8 +138,8 @@ const CostCenterAddressList: React.FC<AddressListProps> = ({
     })
   }
 
-  const handleRowsChange = (_: any, value: string) => {
-    const newTableLength = parseInt(value, 10)
+  const handleRowsChange = (_: unknown, value: string) => {
+    const newTableLength: number = parseInt(value, 10)
 
     setState({
       ...state,
@@ -124,23 +152,23 @@ const CostCenterAddressList: React.FC<AddressListProps> = ({
   }
 
   const handleInputSearchSubmit = (e: { target: { value: string } }) => {
-    const searchValue = e?.target?.value
+    const searchValue = e.target.value
     const filteredItems = filterItems(searchValue)
 
     setState({
       ...state,
       searchValue,
       filteredItems,
-      slicedData: filteredItems.slice(0, state.tableLength),
+      slicedData: filteredItems.slice(0, state.tableLength as number),
       itemsLength: filteredItems.length,
     })
   }
 
   const handleNextClick = () => {
-    const newPage = state.currentPage + 1
-    const itemFrom = state.currentItemTo + 1
-    const itemTo = Math.min(
-      itemFrom + state.tableLength - 1,
+    const newPage: number = (state.currentPage as number) + 1
+    const itemFrom: number = (state.currentItemTo as number) + 1
+    const itemTo: number = Math.min(
+      itemFrom + (state.tableLength as number) - 1,
       state.filteredItems.length
     )
 
@@ -156,9 +184,11 @@ const CostCenterAddressList: React.FC<AddressListProps> = ({
   const handlePrevClick = () => {
     if (state.currentPage === 1) return
 
-    const newPage = state.currentPage - 1
-    const itemFrom = state.currentItemFrom - state.tableLength
-    const itemTo = state.currentItemFrom - 1
+    const newPage: number = (state.currentPage as number) - 1
+    const itemFrom: number =
+      (state.currentItemFrom as number) - (state.tableLength as number)
+
+    const itemTo: number = (state.currentItemFrom as number) - 1
 
     setState({
       ...state,
@@ -169,21 +199,24 @@ const CostCenterAddressList: React.FC<AddressListProps> = ({
     })
   }
 
-  const lineActions = [
-    {
-      label: () => `${formatMessage(messages.addressEdit)}`,
-      onClick: ({ rowData }: any) => {
-        handleEditAddressModal(rowData.addressId)
-      },
-    },
-    {
-      label: () => formatMessage(messages.addressDelete),
-      isDangerous: true,
-      onClick: ({ rowData }: any) => {
-        handleDeleteAddressModal(rowData.addressId)
-      },
-    },
-  ]
+  const lineActions =
+    canEditBuyerOrgEdit && !permissionLoading
+      ? [
+          {
+            label: () => `${formatMessage(messages.addressEdit)}`,
+            onClick: ({ rowData }: CellRendererProps) => {
+              handleEditAddressModal(rowData.addressId)
+            },
+          },
+          {
+            label: () => formatMessage(messages.addressDelete),
+            isDangerous: true,
+            onClick: ({ rowData }: CellRendererProps) => {
+              handleDeleteAddressModal(rowData.addressId)
+            },
+          },
+        ]
+      : []
 
   const onClearHandle = () => {
     const filteredItems = filterItems('')
@@ -192,7 +225,7 @@ const CostCenterAddressList: React.FC<AddressListProps> = ({
       ...state,
       searchValue: '',
       filteredItems,
-      slicedData: filteredItems.slice(0, state.tableLength),
+      slicedData: filteredItems.slice(0, state.tableLength as number),
       itemsLength: filteredItems.length,
     })
   }
@@ -207,7 +240,7 @@ const CostCenterAddressList: React.FC<AddressListProps> = ({
         inputSearch: {
           value: state.searchValue,
           placeholder: formatMessage(messages.searchAddress),
-          onChange: (e: any) =>
+          onChange: (e: { target: { value: string } }) =>
             setState({ ...state, searchValue: e.target.value }),
           onClear: onClearHandle,
           onSubmit: handleInputSearchSubmit,
@@ -219,6 +252,7 @@ const CostCenterAddressList: React.FC<AddressListProps> = ({
           handleCallback: () => {
             handleNewAddressModal()
           },
+          disabled: !canEditBuyerOrgEdit || permissionLoading,
         },
       }}
       pagination={{
@@ -233,7 +267,9 @@ const CostCenterAddressList: React.FC<AddressListProps> = ({
         rowsOptions: [5, 10, 15, 25],
       }}
       lineActions={lineActions}
-      onRowClick={() => {}}
+      onRowClick={
+        canEditBuyerOrgEdit && !permissionLoading ? () => {} : undefined
+      }
     />
   )
 }
