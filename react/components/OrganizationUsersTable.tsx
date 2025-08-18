@@ -594,6 +594,14 @@ const OrganizationUsersTable: FunctionComponent<Props> = ({
 
   const { page, pageSize, search, sortedBy, sortOrder } = variableState
   const { total } = data?.getUsersPaginated?.pagination ?? 0
+
+  const isAddUserButtonDisabled = () => {
+    const hasEditPermissions = canEdit || canEditSales
+    const hasOrganizationEditPermission = caneditbuyerorg
+
+    return !hasEditPermissions || !hasOrganizationEditPermission
+  }
+
   const toolbar = {
     inputSearch: {
       value: search,
@@ -609,7 +617,7 @@ const OrganizationUsersTable: FunctionComponent<Props> = ({
     newLine: {
       label: formatMessage(isAdmin ? adminMessages.new : storeMessages.new),
       handleCallback: () => setAddUserModalOpen(true),
-      disabled: (!canEdit && !canEditSales) || !caneditbuyerorg,
+      disabled: isAddUserButtonDisabled(),
     },
   }
 
