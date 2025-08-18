@@ -13,6 +13,7 @@ import {
 } from './utils/messages'
 import CustomFieldsTable from './CustomFieldsTable'
 import { useOrgPermission } from '../hooks/useOrgPermission'
+import { ORGANIZATION_EDIT } from '../utils/constants'
 
 const CustomFields: React.FC = () => {
   /**
@@ -62,7 +63,7 @@ const CustomFields: React.FC = () => {
   )
 
   const { data: caneditbuyerorg } = useOrgPermission({
-    resourceCode: 'buyer_organization_edit',
+    resourceCode: ORGANIZATION_EDIT,
   })
 
   /**

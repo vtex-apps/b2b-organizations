@@ -16,7 +16,7 @@ import UPDATE_USER from '../graphql/updateUser.graphql'
 import REMOVE_USER from '../graphql/removeUser.graphql'
 import GET_COST_CENTER from '../graphql/getCostCenterStorefront.graphql'
 import IMPERSONATE_USER from '../graphql/impersonateB2BUser.graphql'
-import { B2B_CHECKOUT_SESSION_KEY } from '../utils/constants'
+import { B2B_CHECKOUT_SESSION_KEY, ORGANIZATION_EDIT } from '../utils/constants'
 import { sendImpersonateMetric } from '../utils/metrics/impersonate'
 import { useOrgPermission } from '../hooks/useOrgPermission'
 
@@ -125,7 +125,7 @@ const OrganizationUsersTable: FunctionComponent<Props> = ({
   )
 
   const { data: caneditbuyerorg } = useOrgPermission({
-    resourceCode: 'buyer_organization_edit',
+    resourceCode: ORGANIZATION_EDIT,
   })
 
   const { data, loading, refetch } = useQuery(GET_USERS, {
@@ -451,7 +451,7 @@ const OrganizationUsersTable: FunctionComponent<Props> = ({
   }
 
   const handleNextClick = () => {
-    const newPage = variableState.page + 1
+    const newPage: number = (variableState.page as number) + 1
 
     setVariables({
       ...variableState,
@@ -468,7 +468,7 @@ const OrganizationUsersTable: FunctionComponent<Props> = ({
   const handlePrevClick = () => {
     if (variableState.page === 1) return
 
-    const newPage = variableState.page - 1
+    const newPage: number = (variableState.page as number) - 1
 
     setVariables({
       ...variableState,

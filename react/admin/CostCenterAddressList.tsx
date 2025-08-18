@@ -4,6 +4,7 @@ import { Table, Toggle } from 'vtex.styleguide'
 
 import { costCenterMessages as messages } from './utils/messages'
 import { useOrgPermission } from '../hooks/useOrgPermission'
+import { ORGANIZATION_EDIT } from '../utils/constants'
 
 const tableLength = 5
 
@@ -47,7 +48,7 @@ const CostCenterAddressList: React.FC<AddressListProps> = ({
     data: caneditbuyerorg,
     isLoading: permissionLoading,
   } = useOrgPermission({
-    resourceCode: 'buyer_organization_edit',
+    resourceCode: ORGANIZATION_EDIT,
   })
 
   const initialState: TableState = {

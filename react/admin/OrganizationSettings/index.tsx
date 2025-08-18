@@ -15,6 +15,7 @@ import UPDATE_B2B_SETTINGS from '../../graphql/updateB2BSettings.graphql'
 import GET_B2B_SETTINGS from '../../graphql/getB2BSettings.graphql'
 import { TopbarCustom } from './TopbarCustom'
 import { useOrgPermission } from '../../hooks/useOrgPermission'
+import { ORGANIZATION_EDIT } from '../../utils/constants'
 
 interface SalesChannel {
   channelId: string
@@ -80,7 +81,7 @@ const OrganizationSettings: FunctionComponent = () => {
   const [updateB2BSettings] = useMutation(UPDATE_B2B_SETTINGS)
 
   const { data: caneditbuyerorg } = useOrgPermission({
-    resourceCode: 'buyer_organization_edit',
+    resourceCode: ORGANIZATION_EDIT,
   })
 
   useEffect(() => {

@@ -20,6 +20,7 @@ import { labelTypeByStatusMap } from './OrganizationRequestsTable'
 import GET_ORGANIZATION_REQUEST from '../graphql/getOrganizationRequest.graphql'
 import UPDATE_ORGANIZATION_REQUEST from '../graphql/updateOrganizationRequest.graphql'
 import { useOrgPermission } from '../hooks/useOrgPermission'
+import { ORGANIZATION_EDIT } from '../utils/constants'
 
 const OrganizationRequestDetails: FunctionComponent = () => {
   const { formatMessage, formatDate } = useIntl()
@@ -40,7 +41,7 @@ const OrganizationRequestDetails: FunctionComponent = () => {
   })
 
   const { data: caneditbuyerorg } = useOrgPermission({
-    resourceCode: 'buyer_organization_edit',
+    resourceCode: ORGANIZATION_EDIT,
   })
 
   const [updateOrganizationRequest] = useMutation(UPDATE_ORGANIZATION_REQUEST)

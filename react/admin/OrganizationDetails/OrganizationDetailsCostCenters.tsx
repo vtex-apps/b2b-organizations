@@ -32,6 +32,7 @@ import { validatePhoneNumber } from '../../modules/formValidators'
 import GET_B2B_CUSTOM_FIELDS from '../../graphql/getB2BCustomFields.graphql'
 import CustomFieldInput from '../OrganizationDetailsCustomField'
 import { useOrgPermission } from '../../hooks/useOrgPermission'
+import { ORGANIZATION_EDIT } from '../../utils/constants'
 
 interface CostCenterSimple {
   id: string
@@ -109,7 +110,7 @@ const OrganizationDetailsCostCenters = ({
   })
 
   const { data: caneditbuyerorg } = useOrgPermission({
-    resourceCode: 'buyer_organization_edit',
+    resourceCode: ORGANIZATION_EDIT,
   })
 
   const [

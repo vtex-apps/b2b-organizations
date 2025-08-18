@@ -45,6 +45,7 @@ import { joinById } from './OrganizationDetails'
 import CustomFieldInput from './OrganizationDetailsCustomField'
 import CostCenterAddressList from './CostCenterAddressList'
 import { useOrgPermission } from '../hooks/useOrgPermission'
+import { ORGANIZATION_EDIT } from '../utils/constants'
 
 const CSS_HANDLES = ['businessDocument', 'stateRegistration'] as const
 
@@ -139,7 +140,7 @@ const CostCenterDetails: FunctionComponent = () => {
     data: caneditbuyerorg,
     isLoading: permissionLoading,
   } = useOrgPermission({
-    resourceCode: 'buyer_organization_edit',
+    resourceCode: ORGANIZATION_EDIT,
   })
 
   const translateCountries = () => {

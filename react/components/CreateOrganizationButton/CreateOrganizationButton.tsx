@@ -31,6 +31,7 @@ import { ImportInBulkTooltip } from '../ImportInBulkTooltip'
 import {
   B2B_BULK_IMPORT_TEMPLATE_LINK,
   B2B_BULK_IMPORT_BEST_PRACTICES_LINK,
+  ORGANIZATION_EDIT,
 } from '../../utils/constants'
 import { useOrgPermission } from '../../hooks/useOrgPermission'
 
@@ -44,7 +45,7 @@ const CreateOrganizationButton = () => {
 
   const { data } = useBulkImportsQuery()
   const { data: caneditbuyerorg } = useOrgPermission({
-    resourceCode: 'buyer_organization_edit',
+    resourceCode: ORGANIZATION_EDIT,
   })
 
   const handleUploadFinish = async (result: UploadFileData) => {

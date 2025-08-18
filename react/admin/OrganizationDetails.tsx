@@ -38,6 +38,7 @@ import OrganizationDetailsSellers from './OrganizationDetails/OrganizationDetail
 import type { PermissionsOptions } from './OrganizationDetails/OrganizationDetailsSettings'
 import OrganizationDetailsSettings from './OrganizationDetails/OrganizationDetailsSettings'
 import { useOrgPermission } from '../hooks/useOrgPermission'
+import { ORGANIZATION_EDIT } from '../utils/constants'
 
 export interface CellRendererProps<RowType> {
   cellData: unknown
@@ -136,7 +137,7 @@ const OrganizationDetails: FunctionComponent = () => {
   })
 
   const { data: caneditbuyerorg } = useOrgPermission({
-    resourceCode: 'buyer_organization_edit',
+    resourceCode: ORGANIZATION_EDIT,
   })
 
   /**
