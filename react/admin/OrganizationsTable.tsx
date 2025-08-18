@@ -27,7 +27,7 @@ import OrganizationCustomFields from './CustomFields'
 import CheckCustomerSchema from '../components/CheckCustomerSchema'
 import BulkImportList from '../components/BulkImportList'
 import CreateOrganizationButton from '../components/CreateOrganizationButton'
-import Can from './Can'
+import HasAccess from './HasAccess'
 
 const SESSION_STORAGE_KEY = 'organization-tab'
 
@@ -43,7 +43,7 @@ const OrganizationsTable = () => {
 
   return (
     <HashRouter ref={routerRef}>
-      <Can>
+      <HasAccess>
         <Page>
           <PageHeader>
             <PageHeaderTop>
@@ -107,7 +107,7 @@ const OrganizationsTable = () => {
             </Switch>
           </PageContent>
         </Page>
-      </Can>
+      </HasAccess>
     </HashRouter>
   )
 }

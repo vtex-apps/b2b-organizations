@@ -124,7 +124,7 @@ const OrganizationUsersTable: FunctionComponent<Props> = ({
     'impersonate-users-organization'
   )
 
-  const { data: canEditBuyerOrgEdit } = useOrgPermission({
+  const { data: caneditbuyerorg } = useOrgPermission({
     resourceCode: 'buyer_organization_edit',
   })
 
@@ -545,7 +545,7 @@ const OrganizationUsersTable: FunctionComponent<Props> = ({
         isSalesAdmin,
       })
 
-    if (!canClick || !canEditBuyerOrgEdit) return
+    if (!canClick || !caneditbuyerorg) return
 
     setEditUserDetails({
       id: rowData.id,
@@ -609,7 +609,7 @@ const OrganizationUsersTable: FunctionComponent<Props> = ({
     newLine: {
       label: formatMessage(isAdmin ? adminMessages.new : storeMessages.new),
       handleCallback: () => setAddUserModalOpen(true),
-      disabled: (!canEdit && !canEditSales) || !canEditBuyerOrgEdit,
+      disabled: (!canEdit && !canEditSales) || !caneditbuyerorg,
     },
   }
 

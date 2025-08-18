@@ -61,7 +61,7 @@ const CustomFields: React.FC = () => {
     }
   )
 
-  const { data: canEditBuyerOrgEdit } = useOrgPermission({
+  const { data: caneditbuyerorg } = useOrgPermission({
     resourceCode: 'buyer_organization_edit',
   })
 
@@ -187,7 +187,7 @@ const CustomFields: React.FC = () => {
           onClick={() => {
             saveB2BSettings()
           }}
-          disabled={!canEditBuyerOrgEdit}
+          disabled={!caneditbuyerorg}
         >
           Save Settings
         </Button>
@@ -211,7 +211,7 @@ const CustomFields: React.FC = () => {
         <Button
           variation="primary"
           onClick={() => addCustomField()}
-          disabled={!canEditBuyerOrgEdit}
+          disabled={!caneditbuyerorg}
         />
         <FormattedMessage id="admin/b2b-organizations.custom-fields.addField" />
       </div>

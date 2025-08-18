@@ -136,7 +136,7 @@ const CostCenterDetails: FunctionComponent = () => {
   const [setMarktingTags] = useMutation(SET_MARKETING_TAGS)
 
   const {
-    data: canEditBuyerOrgEdit,
+    data: caneditbuyerorg,
     isLoading: permissionLoading,
   } = useOrgPermission({
     resourceCode: 'buyer_organization_edit',
@@ -588,7 +588,7 @@ const CostCenterDetails: FunctionComponent = () => {
                 !costCenterName ||
                 !addresses.length ||
                 (phoneNumber && !validatePhoneNumber(phoneNumber)) ||
-                !canEditBuyerOrgEdit ||
+                !caneditbuyerorg ||
                 permissionLoading
               }
               onClick={() => handleUpdateCostCenter()}
@@ -599,7 +599,7 @@ const CostCenterDetails: FunctionComponent = () => {
           <Button
             variation="danger"
             isLoading={loadingState}
-            disabled={!canEditBuyerOrgEdit || permissionLoading}
+            disabled={!caneditbuyerorg || permissionLoading}
             onClick={() => handleDeleteCostCenterModal()}
           >
             <FormattedMessage id="admin/b2b-organizations.costCenter-details.button.delete" />

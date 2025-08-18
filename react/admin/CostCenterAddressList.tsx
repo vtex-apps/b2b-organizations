@@ -44,7 +44,7 @@ const CostCenterAddressList: React.FC<AddressListProps> = ({
   const { formatMessage } = useIntl()
 
   const {
-    data: canEditBuyerOrgEdit,
+    data: caneditbuyerorg,
     isLoading: permissionLoading,
   } = useOrgPermission({
     resourceCode: 'buyer_organization_edit',
@@ -200,7 +200,7 @@ const CostCenterAddressList: React.FC<AddressListProps> = ({
   }
 
   const lineActions =
-    canEditBuyerOrgEdit && !permissionLoading
+    caneditbuyerorg && !permissionLoading
       ? [
           {
             label: () => `${formatMessage(messages.addressEdit)}`,
@@ -252,7 +252,7 @@ const CostCenterAddressList: React.FC<AddressListProps> = ({
           handleCallback: () => {
             handleNewAddressModal()
           },
-          disabled: !canEditBuyerOrgEdit || permissionLoading,
+          disabled: !caneditbuyerorg || permissionLoading,
         },
       }}
       pagination={{
@@ -267,9 +267,7 @@ const CostCenterAddressList: React.FC<AddressListProps> = ({
         rowsOptions: [5, 10, 15, 25],
       }}
       lineActions={lineActions}
-      onRowClick={
-        canEditBuyerOrgEdit && !permissionLoading ? () => {} : undefined
-      }
+      onRowClick={caneditbuyerorg && !permissionLoading ? () => {} : undefined}
     />
   )
 }

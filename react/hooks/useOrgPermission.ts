@@ -1,25 +1,26 @@
 import useSWR from 'swr'
 import { useFullSession } from 'vtex.session-client'
 
-import type { Session } from '../modules/session'
-import { useSessionResponse } from '../modules/session'
 import { checkUserAdminPermission } from '../services'
+import type { ORGANIZATION_EDIT } from '../utils/constants'
+import { ORGANIZATION_VIEW } from '../utils/constants'
 
 interface UseOrgPermissionParams {
-  resourceCode?: 'buyer_organization_edit' | 'buyer_organization_view'
+  resourceCode?: typeof ORGANIZATION_EDIT | typeof ORGANIZATION_VIEW
 }
 
 export function useOrgPermission({
-  resourceCode = 'buyer_organization_view',
+  resourceCode = ORGANIZATION_VIEW,
 }: UseOrgPermissionParams) {
-  const session = useSessionResponse() as Session
   const fullSession = useFullSession({
     variables: {
-      items: ['authentication.adminUserEmail'],
+      items: ['authentication.adminUserEmail', 'account.accountName'],
     },
   })
 
-  const account = session?.namespaces?.account?.accountName?.value
+  const account =
+    fullSession.data?.session?.namespaces?.account?.accountName?.value
+
   const userEmail =
     fullSession.data?.session?.namespaces?.authentication?.adminUserEmail?.value
 

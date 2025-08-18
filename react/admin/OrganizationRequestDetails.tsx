@@ -39,7 +39,7 @@ const OrganizationRequestDetails: FunctionComponent = () => {
     skip: !params?.id,
   })
 
-  const { data: canEditBuyerOrgEdit } = useOrgPermission({
+  const { data: caneditbuyerorg } = useOrgPermission({
     resourceCode: 'buyer_organization_edit',
   })
 
@@ -331,7 +331,7 @@ const OrganizationRequestDetails: FunctionComponent = () => {
             isLoading={loadingState}
             disabled={
               data.getOrganizationRequestById.status !== 'pending' ||
-              !canEditBuyerOrgEdit
+              !caneditbuyerorg
             }
           >
             <FormattedMessage id="admin/b2b-organizations.organization-request-details.button.approve" />
@@ -343,7 +343,7 @@ const OrganizationRequestDetails: FunctionComponent = () => {
               isLoading={loadingState}
               disabled={
                 data.getOrganizationRequestById.status !== 'pending' ||
-                !canEditBuyerOrgEdit
+                !caneditbuyerorg
               }
             >
               <FormattedMessage id="admin/b2b-organizations.organization-request-details.button.decline" />
