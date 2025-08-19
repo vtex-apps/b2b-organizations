@@ -567,6 +567,18 @@ const CostCenterDetails: FunctionComponent = () => {
     )
   }
 
+  const isSaveButtonDisabled = () => {
+    const hasRequiredFields = costCenterName && addresses.length > 0
+    const hasValidPhoneNumber = !phoneNumber || validatePhoneNumber(phoneNumber)
+    const hasPermission = caneditbuyerorg && !permissionLoading
+
+    return !hasRequiredFields || !hasValidPhoneNumber || !hasPermission
+  }
+
+  const isDeleteButtonDisabled = () => {
+    return !caneditbuyerorg || permissionLoading
+  }
+
   return (
     <Layout
       fullWidth
@@ -585,13 +597,7 @@ const CostCenterDetails: FunctionComponent = () => {
             <Button
               variation="primary"
               isLoading={loadingState}
-              disabled={
-                !costCenterName ||
-                !addresses.length ||
-                (phoneNumber && !validatePhoneNumber(phoneNumber)) ||
-                !caneditbuyerorg ||
-                permissionLoading
-              }
+              disabled={isSaveButtonDisabled()}
               onClick={() => handleUpdateCostCenter()}
             >
               <FormattedMessage id="admin/b2b-organizations.costCenter-details.button.save" />
@@ -600,7 +606,7 @@ const CostCenterDetails: FunctionComponent = () => {
           <Button
             variation="danger"
             isLoading={loadingState}
-            disabled={!caneditbuyerorg || permissionLoading}
+            disabled={isDeleteButtonDisabled()}
             onClick={() => handleDeleteCostCenterModal()}
           >
             <FormattedMessage id="admin/b2b-organizations.costCenter-details.button.delete" />
