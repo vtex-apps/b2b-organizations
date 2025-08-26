@@ -74,3 +74,9 @@ interface CustomFieldSetting {
 interface Window {
   __RUNTIME__: any
 }
+
+interface CellRendererProps {
+  rowData: Address
+  cellData: unknown
+  updateCellMeasurements: () => void
+}

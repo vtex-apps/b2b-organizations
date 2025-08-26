@@ -8,12 +8,6 @@ import { ORGANIZATION_EDIT } from '../utils/constants'
 
 const tableLength = 5
 
-interface CellRendererProps {
-  rowData: Address
-  cellData: unknown
-  updateCellMeasurements: () => void
-}
-
 interface TableState {
   tableLength: number
   currentPage: number
