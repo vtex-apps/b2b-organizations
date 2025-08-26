@@ -109,7 +109,7 @@ const OrganizationDetailsCostCenters = ({
     ssr: false,
   })
 
-  const { data: caneditbuyerorg } = useOrgPermission({
+  const { data: canEditBuyerOrg } = useOrgPermission({
     resourceCode: ORGANIZATION_EDIT,
   })
 
@@ -335,7 +335,7 @@ const OrganizationDetailsCostCenters = ({
             newLine: {
               label: formatMessage(messages.new),
               handleCallback: () => setNewCostCenterModalState(true),
-              disabled: !caneditbuyerorg,
+              disabled: !canEditBuyerOrg,
             },
           }}
         />

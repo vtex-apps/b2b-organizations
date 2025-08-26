@@ -136,7 +136,7 @@ const OrganizationDetails: FunctionComponent = () => {
     ssr: false,
   })
 
-  const { data: caneditbuyerorg } = useOrgPermission({
+  const { data: canEditBuyerOrg } = useOrgPermission({
     resourceCode: ORGANIZATION_EDIT,
   })
 
@@ -476,7 +476,7 @@ const OrganizationDetails: FunctionComponent = () => {
             variation="primary"
             isLoading={loadingState}
             onClick={() => handleUpdateOrganization()}
-            disabled={!caneditbuyerorg}
+            disabled={!canEditBuyerOrg}
           >
             <FormattedMessage id="admin/b2b-organizations.organization-details.button.save" />
           </Button>

@@ -80,7 +80,7 @@ const OrganizationSettings: FunctionComponent = () => {
   const [updateSalesChannels] = useMutation(UPDATE_SALES_CHANNELS)
   const [updateB2BSettings] = useMutation(UPDATE_B2B_SETTINGS)
 
-  const { data: caneditbuyerorg } = useOrgPermission({
+  const { data: canEditBuyerOrg } = useOrgPermission({
     resourceCode: ORGANIZATION_EDIT,
   })
 
@@ -287,7 +287,7 @@ const OrganizationSettings: FunctionComponent = () => {
             isLoading={loading}
             variation="primary"
             onClick={() => handleUpdateRequest()}
-            disabled={!caneditbuyerorg}
+            disabled={!canEditBuyerOrg}
           >
             <FormattedMessage id="admin/b2b-organizations.costCenter-details.button.save" />
           </Button>

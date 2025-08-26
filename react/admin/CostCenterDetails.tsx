@@ -137,7 +137,7 @@ const CostCenterDetails: FunctionComponent = () => {
   const [setMarktingTags] = useMutation(SET_MARKETING_TAGS)
 
   const {
-    data: caneditbuyerorg,
+    data: canEditBuyerOrg,
     isLoading: permissionLoading,
   } = useOrgPermission({
     resourceCode: ORGANIZATION_EDIT,
@@ -570,13 +570,13 @@ const CostCenterDetails: FunctionComponent = () => {
   const isSaveButtonDisabled = () => {
     const hasRequiredFields = costCenterName && addresses.length > 0
     const hasValidPhoneNumber = !phoneNumber || validatePhoneNumber(phoneNumber)
-    const hasPermission = caneditbuyerorg && !permissionLoading
+    const hasPermission = canEditBuyerOrg && !permissionLoading
 
     return !hasRequiredFields || !hasValidPhoneNumber || !hasPermission
   }
 
   const isDeleteButtonDisabled = () => {
-    return !caneditbuyerorg || permissionLoading
+    return !canEditBuyerOrg || permissionLoading
   }
 
   return (

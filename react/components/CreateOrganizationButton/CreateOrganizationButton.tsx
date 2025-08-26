@@ -44,7 +44,7 @@ const CreateOrganizationButton = () => {
   const { startBulkImport } = useStartBulkImport()
 
   const { data } = useBulkImportsQuery()
-  const { data: caneditbuyerorg } = useOrgPermission({
+  const { data: canEditBuyerOrg } = useOrgPermission({
     resourceCode: ORGANIZATION_EDIT,
   })
 
@@ -62,7 +62,7 @@ const CreateOrganizationButton = () => {
         label={formatMessage(messages.new)}
         labelHidden={false}
         variant="primary"
-        disabled={!caneditbuyerorg}
+        disabled={!canEditBuyerOrg}
       />
       <Menu state={menuState} aria-label="actions">
         <MenuItem

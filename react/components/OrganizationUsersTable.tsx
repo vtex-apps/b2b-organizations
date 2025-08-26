@@ -124,7 +124,7 @@ const OrganizationUsersTable: FunctionComponent<Props> = ({
     'impersonate-users-organization'
   )
 
-  const { data: caneditbuyerorg } = useOrgPermission({
+  const { data: canEditBuyerOrg } = useOrgPermission({
     resourceCode: ORGANIZATION_EDIT,
   })
 
@@ -545,7 +545,7 @@ const OrganizationUsersTable: FunctionComponent<Props> = ({
         isSalesAdmin,
       })
 
-    if (!canClick || !caneditbuyerorg) return
+    if (!canClick || !canEditBuyerOrg) return
 
     setEditUserDetails({
       id: rowData.id,
@@ -597,7 +597,7 @@ const OrganizationUsersTable: FunctionComponent<Props> = ({
 
   const isAddUserButtonDisabled = () => {
     const hasEditPermissions = canEdit || canEditSales
-    const hasOrganizationEditPermission = caneditbuyerorg
+    const hasOrganizationEditPermission = canEditBuyerOrg
 
     return !hasEditPermissions || !hasOrganizationEditPermission
   }
