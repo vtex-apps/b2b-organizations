@@ -247,7 +247,7 @@ const CostCenterAddressList: React.FC<AddressListProps> = ({
         rowsOptions: [5, 10, 15, 25],
       }}
       lineActions={lineActions}
-      onRowClick={canEditBuyerOrg && !permissionLoading ? () => {} : undefined}
+      onRowClick={() => {}}
     />
   )
 }
