@@ -141,16 +141,16 @@ const CostCenterAddressList: React.FC<AddressListProps> = ({
       ...state,
       searchValue,
       filteredItems,
-      slicedData: filteredItems.slice(0, state.tableLength as number),
+      slicedData: filteredItems.slice(0, state.tableLength),
       itemsLength: filteredItems.length,
     })
   }
 
   const handleNextClick = () => {
-    const newPage: number = (state.currentPage as number) + 1
-    const itemFrom: number = (state.currentItemTo as number) + 1
-    const itemTo: number = Math.min(
-      itemFrom + (state.tableLength as number) - 1,
+    const newPage = state.currentPage + 1
+    const itemFrom = state.currentItemTo + 1
+    const itemTo = Math.min(
+      itemFrom + state.tableLength - 1,
       state.filteredItems.length
     )
 
@@ -166,11 +166,9 @@ const CostCenterAddressList: React.FC<AddressListProps> = ({
   const handlePrevClick = () => {
     if (state.currentPage === 1) return
 
-    const newPage: number = (state.currentPage as number) - 1
-    const itemFrom: number =
-      (state.currentItemFrom as number) - (state.tableLength as number)
-
-    const itemTo: number = (state.currentItemFrom as number) - 1
+    const newPage = state.currentPage - 1
+    const itemFrom = state.currentItemFrom - state.tableLength
+    const itemTo = state.currentItemFrom - 1
 
     setState({
       ...state,
@@ -207,7 +205,7 @@ const CostCenterAddressList: React.FC<AddressListProps> = ({
       ...state,
       searchValue: '',
       filteredItems,
-      slicedData: filteredItems.slice(0, state.tableLength as number),
+      slicedData: filteredItems.slice(0, state.tableLength),
       itemsLength: filteredItems.length,
     })
   }
