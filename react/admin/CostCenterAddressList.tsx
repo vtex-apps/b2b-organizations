@@ -8,19 +8,6 @@ import { ORGANIZATION_EDIT } from '../utils/constants'
 
 const tableLength = 5
 
-interface TableState {
-  tableLength: number
-  currentPage: number
-  filteredItems: Address[]
-  slicedData: Address[]
-  currentItemFrom: number
-  currentItemTo: number
-  searchValue: string
-  itemsLength: number
-  emptyStateLabel: string
-  filterStatements: unknown[]
-}
-
 interface AddressListProps {
   addressList: Address[]
   handleNewAddressModal: () => void
