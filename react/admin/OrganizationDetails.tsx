@@ -42,7 +42,6 @@ import { ORGANIZATION_EDIT } from '../utils/constants'
 
 export interface CellRendererProps<RowType> {
   rowData: RowType
-  updateCellMeasurements: () => void
 }
 
 export type AvailabilityTypes =

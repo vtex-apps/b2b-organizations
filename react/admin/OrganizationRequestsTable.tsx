@@ -10,7 +10,6 @@ import GET_ORGANIZATION_REQUESTS from '../graphql/getOrganizationRequests.graphq
 
 interface CellRendererProps {
   rowData: OrganizationRequestSimple
-  updateCellMeasurements: () => void
 }
 
 interface OrganizationRequestSimple {
