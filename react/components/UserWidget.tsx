@@ -27,6 +27,8 @@ import '../css/user-widget.css'
 import { sendStopImpersonateMetric } from '../utils/metrics/impersonate'
 import type { ChangeTeamParams } from '../utils/metrics/changeTeam'
 import { sendChangeTeamMetric } from '../utils/metrics/changeTeam'
+import { UserWidgetTable } from './UserWidget/UserWidgetTable'
+import { useDebounceValue } from '../hooks/useDebounce'
 
 const CSS_HANDLES = [
   'userWidgetContainer',
@@ -51,12 +53,6 @@ const CSS_HANDLES = [
   'userWidgetModalInput',
   'userWidgetModalJoinButton',
   'userWidgetModalTotal',
-  'userWidgetModalTable',
-  'userWidgetModalTableContainer',
-  'userWidgetModalTableRow',
-  'userWidgetModalTableRowChecked',
-  'userWidgetModalTableCell',
-  'userWidgetModalTableRadio',
 ] as const
 
 const SESSION_STORAGE_SHOW_MODAL = 'b2b-organizations-showModal'
@@ -131,6 +127,8 @@ interface UserWidgetProps {
 const sortOrganizations = (a: any, b: any) =>
   a.organizationName < b.organizationName ? -1 : 1
 
+const SEARCH_DELAY = 500
+
 const UserWidget: VtexFunctionComponent<UserWidgetProps> = ({
   showDropdown = true,
   showLoadingIndicator = false,
@@ -145,6 +143,7 @@ const UserWidget: VtexFunctionComponent<UserWidgetProps> = ({
   const [searchTerm, setSearchTerm] = useState('')
   const [radioValue, setRadioValue] = useState('')
   const [checkSession, setCheckSession] = useState(false)
+  const searchTermDebounced = useDebounceValue(searchTerm, SEARCH_DELAY)
 
   const [organizationsState, setOrganizationsState] = useState({
     organizationOptions: [],
@@ -155,8 +154,6 @@ const UserWidget: VtexFunctionComponent<UserWidgetProps> = ({
     currentRoleName: '',
     currentCostCenter: '',
     currentOrganizationStatus: '',
-    dataList: [],
-    totalDataList: 0,
   })
 
   const sessionResponse: any = useSessionResponse()
@@ -370,10 +367,6 @@ const UserWidget: VtexFunctionComponent<UserWidgetProps> = ({
         })),
       currentOrganization,
       currentCostCenter,
-      dataList: userWidgetData?.getActiveOrganizationsByEmail?.sort(
-        sortOrganizations
-      ),
-      totalDataList: userWidgetData?.getActiveOrganizationsByEmail?.length,
       currentOrganizationStatus:
         userWidgetData?.getOrganizationByIdStorefront?.status,
     })
@@ -461,41 +454,26 @@ const UserWidget: VtexFunctionComponent<UserWidgetProps> = ({
   )
     return null
 
-  const handleSearchOrganizations = (e: any) => {
-    const { value }: { value: string } = e.target
-    let dataList
+  const handleSearchOrganizations = (e: any) => setSearchTerm(e.target.value)
 
-    setSearchTerm(e.target.value)
+  const dataList =
+    userWidgetData?.getActiveOrganizationsByEmail
+      ?.sort(sortOrganizations)
+      ?.filter((organization: any) => {
+        if (!searchTermDebounced) return true
 
-    dataList = userWidgetData?.getActiveOrganizationsByEmail?.sort(
-      sortOrganizations
-    )
-    if (value.trim() !== '') {
-      dataList =
-        userWidgetData?.getActiveOrganizationsByEmail
-          ?.filter((organization: any) => {
-            const organizationName =
-              organization.organizationName?.toLowerCase() ?? ''
+        const organizationName =
+          organization.organizationName?.toLowerCase() ?? ''
 
-            const costCenterName =
-              organization.costCenterName?.toLowerCase() ?? ''
+        const costCenterName = organization.costCenterName?.toLowerCase() ?? ''
 
-            const searchValue = value.toLowerCase()
+        const searchValue = searchTermDebounced.toLowerCase()
 
-            return (
-              organizationName.includes(searchValue) ??
-              costCenterName.includes(searchValue)
-            )
-          })
-          ?.slice(0, 15) ?? []
-    }
-
-    setOrganizationsState({
-      ...organizationsState,
-      dataList,
-      totalDataList: dataList?.length,
-    })
-  }
+        return (
+          organizationName.includes(searchValue) ||
+          costCenterName.includes(searchValue)
+        )
+      }) ?? []
 
   return (
     <div
@@ -526,55 +504,15 @@ const UserWidget: VtexFunctionComponent<UserWidgetProps> = ({
                 </div>
               </div>
               <div className={`${handles.userWidgetModalTotal} pt4 mb4`}>
-                {organizationsState?.totalDataList}{' '}
-                {formatMessage(messages.organizationsFound)}
+                {dataList.length} {formatMessage(messages.organizationsFound)}
               </div>
-              <div className={handles.userWidgetModalTableContainer}>
-                <table className={handles.userWidgetModalTable}>
-                  <tbody>
-                    {organizationsState?.dataList?.map((organization: any) => {
-                      const id = [organization.orgId, organization.costId].join(
-                        ','
-                      )
-
-                      return (
-                        <tr
-                          key={id}
-                          className={`${handles.userWidgetModalTableRow} ${
-                            id === radioValue
-                              ? handles.userWidgetModalTableRowChecked
-                              : ''
-                          }`}
-                          onClick={() => setRadioValue(id)}
-                        >
-                          <td className={handles.userWidgetModalTableCell}>
-                            <input
-                              id={id}
-                              value={id}
-                              checked={id === radioValue}
-                              onChange={(e: any) =>
-                                setRadioValue(e.target.value)
-                              }
-                              type="radio"
-                              className={handles.userWidgetModalTableRadio}
-                            />
-                          </td>
-                          <td className={handles.userWidgetModalTableCell}>
-                            <label htmlFor={id}>
-                              {organization.organizationName}
-                            </label>
-                          </td>
-                          <td className={handles.userWidgetModalTableCell}>
-                            <label htmlFor={id}>
-                              {organization.costCenterName}
-                            </label>
-                          </td>
-                        </tr>
-                      )
-                    })}
-                  </tbody>
-                </table>
-              </div>
+              {showModal && (
+                <UserWidgetTable
+                  list={dataList}
+                  radioValue={radioValue}
+                  setRadioValue={setRadioValue}
+                />
+              )}
             </div>
             <div className={handles.userWidgetModalJoinButton}>
               <Button
