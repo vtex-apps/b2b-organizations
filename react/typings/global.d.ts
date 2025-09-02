@@ -77,7 +77,6 @@ interface Window {
 
 interface CellRendererProps {
   rowData: Address
-  cellData: unknown
   updateCellMeasurements: () => void
 }
 
