@@ -41,7 +41,6 @@ import { useOrgPermission } from '../hooks/useOrgPermission'
 import { ORGANIZATION_EDIT } from '../utils/constants'
 
 export interface CellRendererProps<RowType> {
-  cellData: unknown
   rowData: RowType
   updateCellMeasurements: () => void
 }

@@ -29,7 +29,6 @@ interface Props {
 }
 
 interface CellRendererProps {
-  cellData: unknown
   rowData: B2BUserSimple
   updateCellMeasurements: () => void
 }

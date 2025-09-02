@@ -24,7 +24,6 @@ interface SalesChannel {
 }
 
 interface CellRendererProps<RowType> {
-  cellData: unknown
   rowData: RowType
   updateCellMeasurements: () => void
 }
