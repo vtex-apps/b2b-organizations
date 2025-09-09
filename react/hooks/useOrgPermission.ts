@@ -26,12 +26,17 @@ export function useOrgPermission({
 
   const { data, isLoading, isValidating, error } = useSWR<{ data: boolean }>(
     userEmail && account ? `/granted?${resourceCode}` : null,
-    () =>
-      checkUserAdminPermission({
+    () => {
+      if (!userEmail || !account) {
+        throw new Error('Missing required parameters for permission check')
+      }
+
+      return checkUserAdminPermission({
         account,
         userEmail,
         resourceCode,
-      }),
+      })
+    },
     {
       dedupingInterval: 0,
     }
