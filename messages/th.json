@@ -268,6 +268,7 @@
   "admin/b2b-organizations.user-details.placeholder-costCenter": "เลือกศูนย์ต้นทุน",
   "admin/b2b-organizations.user-details.placeholder-role": "เลือกบทบาท",
   "admin/b2b-organizations.user-details.role": "บทบาท",
+  "admin/b2b-organizations.topbar-suite-management-message": "⚠️ คำเตือน: ในอนาคต จะมีการเปลี่ยนแปลงในการจัดการองค์กร B2B! ตั้งแต่ [วันที่] เท่านั้นผู้ใช้ที่มีสิทธิ์จัดการองค์กร B2B เท่านั้นที่จะสามารถเข้าถึงและแก้ไของค์กร B2B ได้ ตรวจสอบว่าคุณมีสิทธิ์ที่จำเป็นหรือติดต่อผู้ดูแลระบบของคุณเพื่อรับการเข้าถึงต่อไป ขอขอบคุณ.",
   "admin/b2b-organizations.warning-topbar-inative-org.form.title": "Topbar customization",
   "admin/b2b-organizations.warning-topbar-inative-org.form.help-text": "Customize the message and color of the top bar notifications that are displayed when the organization is disabled",
   "admin/b2b-organizations.warning-topbar-inative-org.form.color-picker-label": "Topbar color",

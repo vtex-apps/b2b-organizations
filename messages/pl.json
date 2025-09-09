@@ -268,6 +268,7 @@
   "admin/b2b-organizations.user-details.placeholder-costCenter": "Wybierz centrum kosztów",
   "admin/b2b-organizations.user-details.placeholder-role": "Wybierz rolę",
   "admin/b2b-organizations.user-details.role": "Rola",
+  "admin/b2b-organizations.topbar-suite-management-message": "⚠️ Uwaga: Wkrótce nastąpi zmiana w zarządzaniu organizacjami B2B! Od [Data] dostęp do organizacji B2B będzie ograniczony do użytkowników z uprawnieniami administratora i użytkowników z uprawnieniami 'Buyer Organization View' lub 'Buyer Organization Edit'. Sprawdź, czy masz wymagane uprawnienia, lub skontaktuj się z administratorem swojego konta, aby zapewnić ciągły dostęp. Dziękujemy.",
   "admin/b2b-organizations.warning-topbar-inative-org.form.title": "Topbar customization",
   "admin/b2b-organizations.warning-topbar-inative-org.form.help-text": "Customize the message and color of the top bar notifications that are displayed when the organization is disabled",
   "admin/b2b-organizations.warning-topbar-inative-org.form.color-picker-label": "Topbar color",

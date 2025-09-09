@@ -268,6 +268,7 @@
   "admin/b2b-organizations.user-details.placeholder-costCenter": "Pilih pusat biaya",
   "admin/b2b-organizations.user-details.placeholder-role": "Pilih peran",
   "admin/b2b-organizations.user-details.role": "Peran",
+  "admin/b2b-organizations.topbar-suite-management-message": "⚠️ Peringatan: Segera akan ada perubahan dalam pengelolaan organisasi B2B! Mulai [Tanggal], hanya admin dan pengguna dengan izin 'Buyer Organization View' atau 'Buyer Organization Edit' yang dapat mengakses dan mengubah organisasi B2B. Periksa apakah Anda memiliki izin yang diperlukan atau hubungi admin akun Anda untuk memastikan akses kontinu. Terima kasih.",
   "admin/b2b-organizations.warning-topbar-inative-org.form.title": "Topbar customization",
   "admin/b2b-organizations.warning-topbar-inative-org.form.help-text": "Customize the message and color of the top bar notifications that are displayed when the organization is disabled",
   "admin/b2b-organizations.warning-topbar-inative-org.form.color-picker-label": "Topbar color",

@@ -268,6 +268,7 @@
   "admin/b2b-organizations.user-details.placeholder-costCenter": "Selecteer een kostencentrum",
   "admin/b2b-organizations.user-details.placeholder-role": "Selecteer een rol",
   "admin/b2b-organizations.user-details.role": "Rol",
+  "admin/b2b-organizations.topbar-suite-management-message": "⚠️ Waarschuwing: Er zijn snel wijzigingen in de B2B-organisatiebeheerder! Vanaf [Datum] kunnen alleen beheerders en gebruikers met de rechten 'Buyer Organization View' of 'Buyer Organization Edit' toegang krijgen tot en wijzigen B2B-organisaties. Controleer of u de vereiste rechten heeft of neem contact op met de beheerder van uw account om een continue toegang te garanderen. Bedankt.",
   "admin/b2b-organizations.warning-topbar-inative-org.form.title": "Topbar customization",
   "admin/b2b-organizations.warning-topbar-inative-org.form.help-text": "Customize the message and color of the top bar notifications that are displayed when the organization is disabled",
   "admin/b2b-organizations.warning-topbar-inative-org.form.color-picker-label": "Topbar color",
