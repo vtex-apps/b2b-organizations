@@ -14,6 +14,8 @@ import UPDATE_SALES_CHANNELS from '../../graphql/updateSalesChannels.graphql'
 import UPDATE_B2B_SETTINGS from '../../graphql/updateB2BSettings.graphql'
 import GET_B2B_SETTINGS from '../../graphql/getB2BSettings.graphql'
 import { TopbarCustom } from './TopbarCustom'
+import { useOrgPermission } from '../../hooks/useOrgPermission'
+import { ORGANIZATION_EDIT } from '../../utils/constants'
 
 interface SalesChannel {
   channelId: string
@@ -22,7 +24,6 @@ interface SalesChannel {
 }
 
 interface CellRendererProps<RowType> {
-  cellData: unknown
   rowData: RowType
   updateCellMeasurements: () => void
 }
@@ -77,6 +78,10 @@ const OrganizationSettings: FunctionComponent = () => {
 
   const [updateSalesChannels] = useMutation(UPDATE_SALES_CHANNELS)
   const [updateB2BSettings] = useMutation(UPDATE_B2B_SETTINGS)
+
+  const { data: canEditBuyerOrg } = useOrgPermission({
+    resourceCode: ORGANIZATION_EDIT,
+  })
 
   useEffect(() => {
     if (!data) return
@@ -281,6 +286,7 @@ const OrganizationSettings: FunctionComponent = () => {
             isLoading={loading}
             variation="primary"
             onClick={() => handleUpdateRequest()}
+            disabled={!canEditBuyerOrg}
           >
             <FormattedMessage id="admin/b2b-organizations.costCenter-details.button.save" />
           </Button>

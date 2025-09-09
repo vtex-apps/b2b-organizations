@@ -44,6 +44,8 @@ import GET_B2B_CUSTOM_FIELDS from '../graphql/getB2BCustomFields.graphql'
 import { joinById } from './OrganizationDetails'
 import CustomFieldInput from './OrganizationDetailsCustomField'
 import CostCenterAddressList from './CostCenterAddressList'
+import { useOrgPermission } from '../hooks/useOrgPermission'
+import { ORGANIZATION_EDIT } from '../utils/constants'
 
 const CSS_HANDLES = ['businessDocument', 'stateRegistration'] as const
 
@@ -133,6 +135,13 @@ const CostCenterDetails: FunctionComponent = () => {
   const [updateCostCenter] = useMutation(UPDATE_COST_CENTER)
   const [deleteCostCenter] = useMutation(DELETE_COST_CENTER)
   const [setMarktingTags] = useMutation(SET_MARKETING_TAGS)
+
+  const {
+    data: canEditBuyerOrg,
+    isLoading: permissionLoading,
+  } = useOrgPermission({
+    resourceCode: ORGANIZATION_EDIT,
+  })
 
   const translateCountries = () => {
     const { shipsTo = [] } = logisticsData?.logistics ?? {}
@@ -558,6 +567,18 @@ const CostCenterDetails: FunctionComponent = () => {
     )
   }
 
+  const isSaveButtonDisabled = () => {
+    const hasRequiredFields = costCenterName && addresses.length > 0
+    const hasValidPhoneNumber = !phoneNumber || validatePhoneNumber(phoneNumber)
+    const hasPermission = canEditBuyerOrg && !permissionLoading
+
+    return !hasRequiredFields || !hasValidPhoneNumber || !hasPermission
+  }
+
+  const isDeleteButtonDisabled = () => {
+    return !canEditBuyerOrg || permissionLoading
+  }
+
   return (
     <Layout
       fullWidth
@@ -576,11 +597,7 @@ const CostCenterDetails: FunctionComponent = () => {
             <Button
               variation="primary"
               isLoading={loadingState}
-              disabled={
-                !costCenterName ||
-                !addresses.length ||
-                (phoneNumber && !validatePhoneNumber(phoneNumber))
-              }
+              disabled={isSaveButtonDisabled()}
               onClick={() => handleUpdateCostCenter()}
             >
               <FormattedMessage id="admin/b2b-organizations.costCenter-details.button.save" />
@@ -589,6 +606,7 @@ const CostCenterDetails: FunctionComponent = () => {
           <Button
             variation="danger"
             isLoading={loadingState}
+            disabled={isDeleteButtonDisabled()}
             onClick={() => handleDeleteCostCenterModal()}
           >
             <FormattedMessage id="admin/b2b-organizations.costCenter-details.button.delete" />

@@ -264,6 +264,7 @@
   "admin/b2b-organizations.user-details.costCenter": "Kostenstelle",
   "admin/b2b-organizations.user-details.email": "E-Mail",
   "admin/b2b-organizations.user-details.name": "Name",
+  "admin/b2b-organizations.organizations.not-allow-view-message": "Sie haben keinen Zugriff auf die Organisationen, da die Funktion „Kundenorganisationen“ nicht aktiviert ist. Wenden Sie sich an Ihren Kontoadministrator.",
   "admin/b2b-organizations.user-details.organization": "Organisation",
   "admin/b2b-organizations.user-details.placeholder-costCenter": "Wählen Sie eine Kostenstelle",
   "admin/b2b-organizations.user-details.placeholder-role": "Eine Rolle auswählen",

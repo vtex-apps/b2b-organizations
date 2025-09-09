@@ -264,6 +264,7 @@
   "admin/b2b-organizations.user-details.costCenter": "Centru de Cost",
   "admin/b2b-organizations.user-details.email": "E-mail",
   "admin/b2b-organizations.user-details.name": "Nume",
+  "admin/b2b-organizations.organizations.not-allow-view-message": "Nu ai acces pentru a vedea organizații din cauza lipsei funcționalității “Organizații de cumpărători”. Contactează administratorul contului tău.",
   "admin/b2b-organizations.user-details.organization": "Organizație",
   "admin/b2b-organizations.user-details.placeholder-costCenter": "Selectează un centru de cost",
   "admin/b2b-organizations.user-details.placeholder-role": "Selectează un rol",

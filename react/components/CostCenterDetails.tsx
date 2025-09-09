@@ -573,6 +573,24 @@ const CostCenterDetails: FunctionComponent<RouterProps> = ({
     )
   }
 
+  const isSaveButtonDisabled = () => {
+    const hasRequiredFields = costCenterName && addresses.length > 0
+    const hasValidPaymentTerms =
+      paymentTermOptions.length === 0 || paymentTerms.length > 0
+
+    const hasValidPhoneNumber = !phoneNumber || validatePhoneNumber(phoneNumber)
+    const hasPermission = permissionsState.includes(
+      'create-cost-center-organization'
+    )
+
+    return (
+      !hasRequiredFields ||
+      !hasValidPaymentTerms ||
+      !hasValidPhoneNumber ||
+      !hasPermission
+    )
+  }
+
   return (
     <Layout
       fullWidth
@@ -593,13 +611,7 @@ const CostCenterDetails: FunctionComponent<RouterProps> = ({
             <Button
               variation="primary"
               isLoading={loadingState}
-              disabled={
-                !costCenterName ||
-                !addresses.length ||
-                (paymentTermOptions.length > 0 && paymentTerms.length === 0) ||
-                (phoneNumber && !validatePhoneNumber(phoneNumber)) ||
-                !permissionsState.includes('create-cost-center-organization')
-              }
+              disabled={isSaveButtonDisabled()}
               onClick={() => handleUpdateCostCenter()}
             >
               <FormattedMessage id="store/b2b-organizations.costCenter-details.button.save" />

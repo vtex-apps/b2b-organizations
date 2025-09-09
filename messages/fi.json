@@ -264,6 +264,7 @@
   "admin/b2b-organizations.user-details.costCenter": "Kustannuspaikka",
   "admin/b2b-organizations.user-details.email": "Sähköpostiosoite",
   "admin/b2b-organizations.user-details.name": "Nimi",
+  "admin/b2b-organizations.organizations.not-allow-view-message": "Sinulla ei ole pääsyä organisaatioiden näkymiseen, koska ominaisuutta ”Käyttäjän organisaatiot” ei ole käytössä. Ota yhteyttä tilinhallintasiin.",
   "admin/b2b-organizations.user-details.organization": "Organisaatio",
   "admin/b2b-organizations.user-details.placeholder-costCenter": "Valitse kustannuspaikka",
   "admin/b2b-organizations.user-details.placeholder-role": "Valitse tehtävä",

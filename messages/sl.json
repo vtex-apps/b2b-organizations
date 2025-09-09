@@ -264,6 +264,7 @@
   "admin/b2b-organizations.user-details.costCenter": "Stroškovno mesto",
   "admin/b2b-organizations.user-details.email": "E-pošta",
   "admin/b2b-organizations.user-details.name": "Ime",
+  "admin/b2b-organizations.organizations.not-allow-view-message": "Nimate dostopa do organizacij, ker funkcija „Organizacije kupcev“ ni omogočena. Obrnite se na administratorja računa.",
   "admin/b2b-organizations.user-details.organization": "Organizacija",
   "admin/b2b-organizations.user-details.placeholder-costCenter": "Izberite stroškovno mesto",
   "admin/b2b-organizations.user-details.placeholder-role": "Izberite vlogo",
