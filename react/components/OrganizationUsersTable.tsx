@@ -155,7 +155,7 @@ const OrganizationUsersTable: FunctionComponent<Props> = ({
   const [impersonateUser] = useMutation(IMPERSONATE_USER)
 
   useEffect(() => {
-    if (!data?.getUsersPaginated?.data?.length) return
+    if (!data?.getUsersPaginated?.data) return
 
     const users = data.getUsersPaginated.data.sort(compareUsers)
 

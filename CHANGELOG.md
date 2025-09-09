@@ -10,6 +10,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Added
 - Added functionality to apply access control according to License Manage Buyer Organization Product roles Buyer Organization View and Buyer Organization Edit distinguishing between both permission types. 
 
+## [2.0.1] - 2025-09-09
+
+### Fixed
+
+- Fixed users table not updating when search returns no results. 
+
 ## [2.0.0] - 2025-05-27
 
 ### Changed
@@ -532,8 +538,6 @@ Custom Fields:
 ### Fixed
 
 - Some yarn package vulnerabilities reported by Dependabot
-
-=======
 
 ## [1.16.2] - 2022-11-07
 
