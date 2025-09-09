@@ -19,12 +19,6 @@ const checkUserAdminPermission = async ({
   userEmail,
   resourceCode,
 }: CheckUserAdminPermissionParams) => {
-  if (!account || !userEmail || !resourceCode) {
-    throw new Error(
-      'Missing required parameters: account, userEmail, or resourceCode'
-    )
-  }
-
   const checkOrgPermission = await orgPermissionClient.get(
     `${account}/products/${B2B_LM_PRODUCT_CODE}/logins/${userEmail}/resources/${resourceCode}/granted`
   )

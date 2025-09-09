@@ -37,6 +37,7 @@ interface Match {
 
 interface CellRendererProps {
   rowData: CostCenterSimple
+  updateCellMeasurements: () => void
 }
 
 interface CostCenterSimple {

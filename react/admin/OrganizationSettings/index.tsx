@@ -25,6 +25,7 @@ interface SalesChannel {
 
 interface CellRendererProps<RowType> {
   rowData: RowType
+  updateCellMeasurements: () => void
 }
 
 const OrganizationSettings: FunctionComponent = () => {

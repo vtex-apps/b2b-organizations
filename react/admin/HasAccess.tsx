@@ -4,8 +4,8 @@ import { FormattedMessage } from 'react-intl'
 import { Spinner } from '@vtex/admin-ui'
 
 import { useOrgPermission } from '../hooks/useOrgPermission'
-import { ORGANIZATION_VIEW } from '../utils/constants'
 import type { ORGANIZATION_EDIT } from '../utils/constants'
+import { ORGANIZATION_VIEW } from '../utils/constants'
 
 interface HasAccessProps {
   children: React.ReactElement

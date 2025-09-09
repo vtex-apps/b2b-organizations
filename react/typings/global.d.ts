@@ -77,6 +77,7 @@ interface Window {
 
 interface CellRendererProps {
   rowData: Address
+  updateCellMeasurements: () => void
 }
 
 interface TableState {

@@ -30,6 +30,7 @@ interface Props {
 
 interface CellRendererProps {
   rowData: B2BUserSimple
+  updateCellMeasurements: () => void
 }
 
 export interface B2BUserSimple extends UserDetails {
