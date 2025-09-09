@@ -1,7 +1,5 @@
 import axios from 'axios'
 
-import { B2B_LM_PRODUCT_CODE } from '../utils/constants'
-
 const LICENSE_MANAGER_BASE_URL = `/api/license-manager/pvt/accounts/`
 
 const orgPermissionClient = axios.create()
@@ -13,6 +11,7 @@ interface CheckUserAdminPermissionParams {
   userEmail: string
   resourceCode: string
 }
+const productCode = '97'
 
 const checkUserAdminPermission = async ({
   account,
@@ -20,7 +19,7 @@ const checkUserAdminPermission = async ({
   resourceCode,
 }: CheckUserAdminPermissionParams) => {
   const checkOrgPermission = await orgPermissionClient.get(
-    `${account}/products/${B2B_LM_PRODUCT_CODE}/logins/${userEmail}/resources/${resourceCode}/granted`
+    `${account}/products/${productCode}/logins/${userEmail}/resources/${resourceCode}/granted`
   )
 
   return checkOrgPermission.data
