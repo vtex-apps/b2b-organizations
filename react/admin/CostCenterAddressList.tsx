@@ -58,14 +58,14 @@ const CostCenterAddressList: React.FC<AddressListProps> = ({
         title: formatMessage(messages.receiverName),
         cellRenderer: ({ rowData }: CellRendererProps) => {
           try {
-            const receiver = JSON.parse(rowData.receiverName)
+            const receiver = JSON.parse(rowData?.receiverName)
             const strings = Object.keys(receiver).map(
               (key: string) => receiver[key]
             )
 
             return strings.join(' - ')
           } catch (e) {
-            return rowData.receiverName
+            return rowData?.receiverName
           }
         },
       },
@@ -134,7 +134,7 @@ const CostCenterAddressList: React.FC<AddressListProps> = ({
   }
 
   const handleInputSearchSubmit = (e: { target: { value: string } }) => {
-    const searchValue = e.target.value
+    const searchValue = e?.target?.value
     const filteredItems = filterItems(searchValue)
 
     setState({
