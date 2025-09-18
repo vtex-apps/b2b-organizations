@@ -8,7 +8,8 @@ const SELECT_ITEM_EVENT = 'SET_SELECTED_ITEM'
 
 export const useSelectSeller = () => {
   const { seller } = useSeller()
-  const { product } = useProduct() ?? {}
+  const productContext = useProduct()
+  const { product } = productContext ?? {}
   const latestItem = useRef((null as unknown) as Item)
   const [loading, setLoading] = useState(true)
   const productDispatch = useProductDispatch()

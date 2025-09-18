@@ -264,6 +264,7 @@
   "admin/b2b-organizations.user-details.costCenter": "Kostencentrum",
   "admin/b2b-organizations.user-details.email": "E-mail",
   "admin/b2b-organizations.user-details.name": "Naam",
+  "admin/b2b-organizations.organizations.not-allow-view-message": "U heeft geen toegang tot organisaties omdat de functie “Kopersorganisaties” niet is ingeschakeld. Neem contact op met uw accountbeheerder.",
   "admin/b2b-organizations.user-details.organization": "Organisatie",
   "admin/b2b-organizations.user-details.placeholder-costCenter": "Selecteer een kostencentrum",
   "admin/b2b-organizations.user-details.placeholder-role": "Selecteer een rol",

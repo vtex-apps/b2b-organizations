@@ -3,6 +3,8 @@ import { useIntl, FormattedMessage } from 'react-intl'
 import { Table, Toggle } from 'vtex.styleguide'
 
 import { costCenterMessages as messages } from './utils/messages'
+import { useOrgPermission } from '../hooks/useOrgPermission'
+import { ORGANIZATION_EDIT } from '../utils/constants'
 
 const tableLength = 5
 
@@ -22,7 +24,15 @@ const CostCenterAddressList: React.FC<AddressListProps> = ({
   handleDeleteAddressModal,
 }) => {
   const { formatMessage } = useIntl()
-  const initialState = {
+
+  const {
+    data: canEditBuyerOrg,
+    isLoading: permissionLoading,
+  } = useOrgPermission({
+    resourceCode: ORGANIZATION_EDIT,
+  })
+
+  const initialState: TableState = {
     tableLength,
     currentPage: 1,
     filteredItems: addressList,
@@ -35,18 +45,18 @@ const CostCenterAddressList: React.FC<AddressListProps> = ({
     filterStatements: [],
   }
 
-  const [state, setState] = useState(initialState)
+  const [state, setState] = useState<TableState>(initialState)
   const jsonschema = {
     properties: {
       street: {
         title: formatMessage(messages.address),
-        cellRenderer: ({ rowData }: any) => {
+        cellRenderer: ({ rowData }: CellRendererProps) => {
           return `${rowData.street}, ${rowData.city}, ${rowData.state}, ${rowData.postalCode}`
         },
       },
       receiverName: {
         title: formatMessage(messages.receiverName),
-        cellRenderer: ({ rowData }: any) => {
+        cellRenderer: ({ rowData }: CellRendererProps) => {
           try {
             const receiver = JSON.parse(rowData?.receiverName)
             const strings = Object.keys(receiver).map(
@@ -62,7 +72,7 @@ const CostCenterAddressList: React.FC<AddressListProps> = ({
       checked: {
         title: formatMessage(messages.defaultAddress),
         width: 150,
-        cellRenderer: ({ rowData }: any) => {
+        cellRenderer: ({ rowData }: CellRendererProps) => {
           return (
             <Toggle
               onChange={() => {
@@ -110,8 +120,8 @@ const CostCenterAddressList: React.FC<AddressListProps> = ({
     })
   }
 
-  const handleRowsChange = (_: any, value: string) => {
-    const newTableLength = parseInt(value, 10)
+  const handleRowsChange = (_: unknown, value: string) => {
+    const newTableLength: number = parseInt(value, 10)
 
     setState({
       ...state,
@@ -169,21 +179,24 @@ const CostCenterAddressList: React.FC<AddressListProps> = ({
     })
   }
 
-  const lineActions = [
-    {
-      label: () => `${formatMessage(messages.addressEdit)}`,
-      onClick: ({ rowData }: any) => {
-        handleEditAddressModal(rowData.addressId)
-      },
-    },
-    {
-      label: () => formatMessage(messages.addressDelete),
-      isDangerous: true,
-      onClick: ({ rowData }: any) => {
-        handleDeleteAddressModal(rowData.addressId)
-      },
-    },
-  ]
+  const lineActions =
+    canEditBuyerOrg && !permissionLoading
+      ? [
+          {
+            label: () => `${formatMessage(messages.addressEdit)}`,
+            onClick: ({ rowData }: CellRendererProps) => {
+              handleEditAddressModal(rowData.addressId)
+            },
+          },
+          {
+            label: () => formatMessage(messages.addressDelete),
+            isDangerous: true,
+            onClick: ({ rowData }: CellRendererProps) => {
+              handleDeleteAddressModal(rowData.addressId)
+            },
+          },
+        ]
+      : []
 
   const onClearHandle = () => {
     const filteredItems = filterItems('')
@@ -207,7 +220,7 @@ const CostCenterAddressList: React.FC<AddressListProps> = ({
         inputSearch: {
           value: state.searchValue,
           placeholder: formatMessage(messages.searchAddress),
-          onChange: (e: any) =>
+          onChange: (e: { target: { value: string } }) =>
             setState({ ...state, searchValue: e.target.value }),
           onClear: onClearHandle,
           onSubmit: handleInputSearchSubmit,
@@ -219,6 +232,7 @@ const CostCenterAddressList: React.FC<AddressListProps> = ({
           handleCallback: () => {
             handleNewAddressModal()
           },
+          disabled: !canEditBuyerOrg || permissionLoading,
         },
       }}
       pagination={{

@@ -74,3 +74,21 @@ interface CustomFieldSetting {
 interface Window {
   __RUNTIME__: any
 }
+
+interface CellRendererProps {
+  rowData: Address
+  updateCellMeasurements: () => void
+}
+
+interface TableState {
+  tableLength: number
+  currentPage: number
+  filteredItems: Address[]
+  slicedData: Address[]
+  currentItemFrom: number
+  currentItemTo: number
+  searchValue: string
+  itemsLength: number
+  emptyStateLabel: string
+  filterStatements: unknown[]
+}

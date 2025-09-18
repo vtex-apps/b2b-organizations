@@ -264,6 +264,7 @@
   "admin/b2b-organizations.user-details.costCenter": "Kostnadsställe",
   "admin/b2b-organizations.user-details.email": "E-post",
   "admin/b2b-organizations.user-details.name": "Namn",
+  "admin/b2b-organizations.organizations.not-allow-view-message": "Du har inte tillgång till att se organisationer på grund av att funktionen “Köpersorganisationer” inte är aktiverad. Kontakta din kontoadministratör.",
   "admin/b2b-organizations.user-details.organization": "Organisation",
   "admin/b2b-organizations.user-details.placeholder-costCenter": "Välj ett kostnadsställe",
   "admin/b2b-organizations.user-details.placeholder-role": "Välj en roll",

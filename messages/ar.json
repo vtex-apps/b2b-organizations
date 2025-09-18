@@ -264,6 +264,7 @@
   "admin/b2b-organizations.user-details.costCenter": "مركز التكلفة",
   "admin/b2b-organizations.user-details.email": "البريد الإلكتروني",
   "admin/b2b-organizations.user-details.name": "الإسم",
+  "admin/b2b-organizations.organizations.not-allow-view-message": "ليس لديك إمكانية الوصول لعرض المؤسسات بسبب عدم وجود ميزة \"عرض مؤسسة المشتري\". استشر مدير حسابك.",
   "admin/b2b-organizations.user-details.organization": "المنظمة",
   "admin/b2b-organizations.user-details.placeholder-costCenter": "حدد مركز التكلفة",
   "admin/b2b-organizations.user-details.placeholder-role": "حدد دور",

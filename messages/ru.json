@@ -264,6 +264,7 @@
   "admin/b2b-organizations.user-details.costCenter": "Финансовый центр",
   "admin/b2b-organizations.user-details.email": "Эл. почта",
   "admin/b2b-organizations.user-details.name": "Имя",
+  "admin/b2b-organizations.organizations.not-allow-view-message": "У вас нет доступа к просмотру организаций из-за отсутствия функции «Организации покупателей». Обратитесь к администратору вашей учетной записи.",
   "admin/b2b-organizations.user-details.organization": "Организация",
   "admin/b2b-organizations.user-details.placeholder-costCenter": "Выбрать финансовый центр",
   "admin/b2b-organizations.user-details.placeholder-role": "Выбрать роль",

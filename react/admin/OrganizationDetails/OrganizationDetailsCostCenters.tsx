@@ -31,6 +31,8 @@ import GET_LOGISTICS from '../../graphql/getLogistics.graphql'
 import { validatePhoneNumber } from '../../modules/formValidators'
 import GET_B2B_CUSTOM_FIELDS from '../../graphql/getB2BCustomFields.graphql'
 import CustomFieldInput from '../OrganizationDetailsCustomField'
+import { useOrgPermission } from '../../hooks/useOrgPermission'
+import { ORGANIZATION_EDIT } from '../../utils/constants'
 
 interface CostCenterSimple {
   id: string
@@ -105,6 +107,10 @@ const OrganizationDetailsCostCenters = ({
     loading: defaultCustomFieldsDataLoading,
   } = useQuery(GET_B2B_CUSTOM_FIELDS, {
     ssr: false,
+  })
+
+  const { data: canEditBuyerOrg } = useOrgPermission({
+    resourceCode: ORGANIZATION_EDIT,
   })
 
   const [
@@ -329,6 +335,7 @@ const OrganizationDetailsCostCenters = ({
             newLine: {
               label: formatMessage(messages.new),
               handleCallback: () => setNewCostCenterModalState(true),
+              disabled: !canEditBuyerOrg,
             },
           }}
         />
