@@ -264,6 +264,7 @@
   "admin/b2b-organizations.user-details.costCenter": "Omkostningscenter",
   "admin/b2b-organizations.user-details.email": "E-mail",
   "admin/b2b-organizations.user-details.name": "Navn",
+  "admin/b2b-organizations.organizations.not-allow-view-message": "Du har ikke adgang til at se organisationer på grund af manglen af funktionen \"Købers organisationer\". Kontakt din kontoadministrator.",
   "admin/b2b-organizations.user-details.organization": "Organisation",
   "admin/b2b-organizations.user-details.placeholder-costCenter": "Vælg et omkostningscenter",
   "admin/b2b-organizations.user-details.placeholder-role": "Vælg en rolle",

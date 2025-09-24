@@ -264,6 +264,7 @@
   "admin/b2b-organizations.user-details.costCenter": "Фінансовий центр",
   "admin/b2b-organizations.user-details.email": "Ел. пошта",
   "admin/b2b-organizations.user-details.name": "Ім’я",
+  "admin/b2b-organizations.organizations.not-allow-view-message": "У вас немає доступу до перегляду організацій через відсутність функції «Організації покупців». Обратися до адміністратора вашого облікового запису.",
   "admin/b2b-organizations.user-details.organization": "Організація",
   "admin/b2b-organizations.user-details.placeholder-costCenter": "Вибрати фінансовий центр",
   "admin/b2b-organizations.user-details.placeholder-role": "Вибрати роль",

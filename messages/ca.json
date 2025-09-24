@@ -264,6 +264,7 @@
   "admin/b2b-organizations.user-details.costCenter": "Centre de costs",
   "admin/b2b-organizations.user-details.email": "Adreça electrònica",
   "admin/b2b-organizations.user-details.name": "Nom",
+  "admin/b2b-organizations.organizations.not-allow-view-message": "No teniu accés per veure les organitzacions degut a la falta de la funcionalitat \"Vista d'organització de comprador\". Contacteu amb l'administrador de la vostra compta.",
   "admin/b2b-organizations.user-details.organization": "Organització",
   "admin/b2b-organizations.user-details.placeholder-costCenter": "Seleccioneu un centre de costs",
   "admin/b2b-organizations.user-details.placeholder-role": "Seleccioneu un rol",

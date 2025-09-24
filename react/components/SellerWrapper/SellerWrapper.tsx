@@ -14,7 +14,8 @@ const SellerWrapper = ({ children }: SellerWrapperProps) => {
   const handles = useCssHandles(CSS_HANDLES)
   const { currentSelectedItem, selectSeller } = useSelectSeller()
 
-  const { selectedItem } = useProduct() ?? {}
+  const productContext = useProduct()
+  const { selectedItem } = productContext ?? {}
 
   useEffect(() => {
     selectSeller({ selectedItem })

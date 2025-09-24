@@ -6,7 +6,8 @@ const decode = (str: string): string =>
 
 export default function useSeller() {
   const [seller, setSeller] = useState<string[] | null>(null)
-  const { selectedItem, product } = useProduct() ?? {}
+  const productContext = useProduct()
+  const { selectedItem, product } = productContext ?? {}
 
   useEffect(() => {
     try {

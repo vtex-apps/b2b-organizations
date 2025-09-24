@@ -264,6 +264,7 @@
   "admin/b2b-organizations.user-details.costCenter": "Centrum kosztów",
   "admin/b2b-organizations.user-details.email": "E-mail",
   "admin/b2b-organizations.user-details.name": "Nazwa",
+  "admin/b2b-organizations.organizations.not-allow-view-message": "Nie masz dostępu do widoku organizacji, ponieważ funkcja „Organizacje kupujących” jest wyłączona. Skontaktuj się z administratorem konta.",
   "admin/b2b-organizations.user-details.organization": "Organizacja",
   "admin/b2b-organizations.user-details.placeholder-costCenter": "Wybierz centrum kosztów",
   "admin/b2b-organizations.user-details.placeholder-role": "Wybierz rolę",

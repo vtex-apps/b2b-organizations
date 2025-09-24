@@ -264,6 +264,7 @@
   "admin/b2b-organizations.user-details.costCenter": "비용 센터",
   "admin/b2b-organizations.user-details.email": "이메일",
   "admin/b2b-organizations.user-details.name": "이름",
+  "admin/b2b-organizations.organizations.not-allow-view-message": "조직 보기 기능이 비활성화되어 있어 조직을 볼 수 없습니다. 계정 관리자에게 문의하세요.",
   "admin/b2b-organizations.user-details.organization": "단체",
   "admin/b2b-organizations.user-details.placeholder-costCenter": "비용 센터 선택",
   "admin/b2b-organizations.user-details.placeholder-role": "역할 선택",

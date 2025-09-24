@@ -264,6 +264,7 @@
   "admin/b2b-organizations.user-details.costCenter": "Centro de custo",
   "admin/b2b-organizations.user-details.email": "Email",
   "admin/b2b-organizations.user-details.name": "Nome",
+  "admin/b2b-organizations.organizations.not-allow-view-message": "Você não tem acesso para ver organizações devido à falta da funcionalidade “Organizações de compradores”. Entre em contato com o administrador da sua conta.",
   "admin/b2b-organizations.user-details.organization": "Organização",
   "admin/b2b-organizations.user-details.placeholder-costCenter": "Selecione um centro de custo",
   "admin/b2b-organizations.user-details.placeholder-role": "Selecione um perfil de acesso",
