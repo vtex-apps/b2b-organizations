@@ -15,6 +15,37 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 - Creates infinite scroll of user active organizations in user widget
 
+## [3.0.1] - 2025-10-06
+
+### Added
+- Added buyer organization policy view and edit
+
+## [3.0.0] - 2025-09-24
+
+### Changed
+- Update dependency major version. If you are updating to this major version, make sure to update the following apps (if you have then installed) to the following major versions:
+    - vtex.b2b-admin-customers@2.x
+    - vtex.b2b-checkout-settings@3.x
+    - vtex.b2b-my-account@2.x
+    - vtex.b2b-orders-history@2.x
+    - vtex.b2b-organizations@3.x
+    - vtex.b2b-organizations-graphql@2.x
+    - vtex.b2b-quotes@3.x
+    - vtex.b2b-quotes-graphql@4.x
+    - vtex.b2b-suite@2.x
+    - vtex.b2b-theme@5.x
+    - vtex.storefront-permissions-components@2.x
+    - vtex.storefront-permissions-ui@1.x
+
+### Added
+- Added functionality to apply access control according to License Manage Buyer Organization Product roles Buyer Organization View and Buyer Organization Edit distinguishing between both permission types. 
+
+## [2.0.1] - 2025-09-09
+
+### Fixed
+
+- Fixed users table not updating when search returns no results. 
+
 ## [2.0.0] - 2025-05-27
 
 ### Changed
@@ -537,8 +568,6 @@ Custom Fields:
 ### Fixed
 
 - Some yarn package vulnerabilities reported by Dependabot
-
-=======
 
 ## [1.16.2] - 2022-11-07
 

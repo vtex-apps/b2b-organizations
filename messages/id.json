@@ -264,6 +264,7 @@
   "admin/b2b-organizations.user-details.costCenter": "Pusat Biaya",
   "admin/b2b-organizations.user-details.email": "Email",
   "admin/b2b-organizations.user-details.name": "Nama",
+  "admin/b2b-organizations.organizations.not-allow-view-message": "Anda tidak memiliki akses untuk melihat organisasi karena fitur “Organisasi Pembeli” tidak aktif. Silakan hubungi administrator akun Anda.",
   "admin/b2b-organizations.user-details.organization": "Organisasi",
   "admin/b2b-organizations.user-details.placeholder-costCenter": "Pilih pusat biaya",
   "admin/b2b-organizations.user-details.placeholder-role": "Pilih peran",

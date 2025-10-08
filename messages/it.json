@@ -264,6 +264,7 @@
   "admin/b2b-organizations.user-details.costCenter": "Centro di costo",
   "admin/b2b-organizations.user-details.email": "Email",
   "admin/b2b-organizations.user-details.name": "Nome",
+  "admin/b2b-organizations.organizations.not-allow-view-message": "Non hai accesso per visualizzare le organizzazioni a causa della mancanza della funzione “Organizzazioni di venditore”. Contatta il tuo amministratore di account.",
   "admin/b2b-organizations.user-details.organization": "Organizzazione",
   "admin/b2b-organizations.user-details.placeholder-costCenter": "Seleziona un centro di costo",
   "admin/b2b-organizations.user-details.placeholder-role": "Seleziona un ruolo",

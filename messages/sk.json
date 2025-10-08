@@ -264,6 +264,7 @@
   "admin/b2b-organizations.user-details.costCenter": "Nákladové stredisko",
   "admin/b2b-organizations.user-details.email": "E-mail",
   "admin/b2b-organizations.user-details.name": "Meno",
+  "admin/b2b-organizations.organizations.not-allow-view-message": "Nemáte prístup na zobrazenie organizácií, pretože funkcia „Organizácie kupujúcich“ je vypnutá. Kontaktujte správcu svojho účtu.",
   "admin/b2b-organizations.user-details.organization": "Organizácia",
   "admin/b2b-organizations.user-details.placeholder-costCenter": "Vyberte nákladové stredisko",
   "admin/b2b-organizations.user-details.placeholder-role": "Vyberte rolu",

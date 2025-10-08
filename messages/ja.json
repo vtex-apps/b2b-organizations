@@ -264,6 +264,7 @@
   "admin/b2b-organizations.user-details.costCenter": "コストセンター",
   "admin/b2b-organizations.user-details.email": "メール",
   "admin/b2b-organizations.user-details.name": "名前",
+  "admin/b2b-organizations.organizations.not-allow-view-message": "買い手組織の表示機能が無効になっているため、組織を表示できません。アカウント管理者にお問い合わせください。",
   "admin/b2b-organizations.user-details.organization": "組織",
   "admin/b2b-organizations.user-details.placeholder-costCenter": "コストセンターを選択する",
   "admin/b2b-organizations.user-details.placeholder-role": "役割を選択する",
