@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Fixed
+
+- Fix bugs in search by term of user active organizations in user widget
+
+### Added
+
+- Creates infinite scroll of user active organizations in user widget
+
 ## [3.0.1] - 2025-10-06
 
 ### Added
