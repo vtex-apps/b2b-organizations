@@ -267,14 +267,8 @@ export const organizationMessages = defineMessages({
   organizationsTitle: {
     id: `${adminPrefix}organizations.navigation.label`,
   },
-  organizationsWarningHoldingMessage: {
-    id: `${adminPrefix}organizations.warning-holding.message`,
-  },
-  organizationsWarningHoldingLink: {
-    id: `${adminPrefix}organizations.warning-holding.link`,
-  },
-  organizationsWarningHoldingAction: {
-    id: `${adminPrefix}organizations.warning-holding.action`,
+  notAllowViewMessage: {
+    id: `${adminPrefix}organizations.not-allow-view-message`,
   },
 })
 
@@ -374,6 +368,9 @@ export const organizationRequestMessages = defineMessages({
   },
   toastUpdateFailure: {
     id: `${adminPrefix}organization-request-details.toast.update-failure`,
+  },
+  toastUpdateFailureNoEmail: {
+    id: `${adminPrefix}organization-request-details.toast.update-failure-missing-email`,
   },
   detailsPageTitle: {
     id: `${adminPrefix}organization-request-details.title`,
@@ -497,6 +494,15 @@ export const organizationSettingsMessages = defineMessages({
   },
   fullImpersonation: {
     id: `${adminPrefix}organization-settings-fullImpersonation`,
+  },
+  formColorPickerLabel: {
+    id: `${adminPrefix}warning-topbar-inative-org.form.color-picker-label`,
+  },
+  formTextareaLabel: {
+    id: `${adminPrefix}warning-topbar-inative-org.form.textarea-label`,
+  },
+  formTextareaHelpText: {
+    id: `${adminPrefix}warning-topbar-inative-org.form.textarea-help-text`,
   },
 })
 

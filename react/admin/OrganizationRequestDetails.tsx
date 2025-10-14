@@ -19,6 +19,8 @@ import { organizationRequestMessages as messages } from './utils/messages'
 import { labelTypeByStatusMap } from './OrganizationRequestsTable'
 import GET_ORGANIZATION_REQUEST from '../graphql/getOrganizationRequest.graphql'
 import UPDATE_ORGANIZATION_REQUEST from '../graphql/updateOrganizationRequest.graphql'
+import { useOrgPermission } from '../hooks/useOrgPermission'
+import { ORGANIZATION_EDIT } from '../utils/constants'
 
 const OrganizationRequestDetails: FunctionComponent = () => {
   const { formatMessage, formatDate } = useIntl()
@@ -38,6 +40,10 @@ const OrganizationRequestDetails: FunctionComponent = () => {
     skip: !params?.id,
   })
 
+  const { data: canEditBuyerOrg } = useOrgPermission({
+    resourceCode: ORGANIZATION_EDIT,
+  })
+
   const [updateOrganizationRequest] = useMutation(UPDATE_ORGANIZATION_REQUEST)
 
   const handleUpdateRequest = (status: string) => {
@@ -46,6 +52,20 @@ const OrganizationRequestDetails: FunctionComponent = () => {
       id: params?.id,
       status,
       notes: notesState,
+    }
+
+    if (
+      !data.getOrganizationRequestById.b2bCustomerAdmin &&
+      status === 'approved'
+    ) {
+      showToast({
+        variant: 'critical',
+        message: formatMessage(messages.toastUpdateFailureNoEmail),
+      })
+
+      setLoadingState(false)
+
+      return
     }
 
     updateOrganizationRequest({ variables })
@@ -151,7 +171,7 @@ const OrganizationRequestDetails: FunctionComponent = () => {
           <FormattedMessage id="admin/b2b-organizations.organization-request-details.b2b-customer-admin" />
         </h4>
         <div className="mv3">
-          {data.getOrganizationRequestById.b2bCustomerAdmin.email}
+          {data.getOrganizationRequestById.b2bCustomerAdmin?.email}
         </div>
         <h4 className="t-heading-5 mb0 pt4">
           <FormattedMessage id="admin/b2b-organizations.organization-request-details.default-cost-center" />
@@ -310,7 +330,10 @@ const OrganizationRequestDetails: FunctionComponent = () => {
             variation="primary"
             onClick={() => handleUpdateRequest('approved')}
             isLoading={loadingState}
-            disabled={data.getOrganizationRequestById.status !== 'pending'}
+            disabled={
+              data.getOrganizationRequestById.status !== 'pending' ||
+              !canEditBuyerOrg
+            }
           >
             <FormattedMessage id="admin/b2b-organizations.organization-request-details.button.approve" />
           </Button>
@@ -319,7 +342,10 @@ const OrganizationRequestDetails: FunctionComponent = () => {
               variation="danger"
               onClick={() => handleUpdateRequest('declined')}
               isLoading={loadingState}
-              disabled={data.getOrganizationRequestById.status !== 'pending'}
+              disabled={
+                data.getOrganizationRequestById.status !== 'pending' ||
+                !canEditBuyerOrg
+              }
             >
               <FormattedMessage id="admin/b2b-organizations.organization-request-details.button.decline" />
             </Button>

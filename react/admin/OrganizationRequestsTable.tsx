@@ -9,7 +9,6 @@ import { organizationRequestMessages as messages } from './utils/messages'
 import GET_ORGANIZATION_REQUESTS from '../graphql/getOrganizationRequests.graphql'
 
 interface CellRendererProps {
-  cellData: unknown
   rowData: OrganizationRequestSimple
   updateCellMeasurements: () => void
 }
@@ -63,11 +62,8 @@ const OrganizationRequestsTable: FunctionComponent = () => {
       },
       b2bCustomerAdmin: {
         title: formatMessage(messages.columnAdmin),
-        cellRenderer: ({
-          rowData: {
-            b2bCustomerAdmin: { email },
-          },
-        }: CellRendererProps) => email,
+        cellRenderer: ({ rowData: { b2bCustomerAdmin } }: CellRendererProps) =>
+          b2bCustomerAdmin?.email ?? '',
       },
       status: {
         title: formatMessage(messages.columnStatus),

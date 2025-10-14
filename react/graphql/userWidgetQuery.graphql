@@ -1,5 +1,6 @@
 query userWidgetQuery($orgId: ID) {
-  getOrganizationsByEmail @context(provider: "vtex.b2b-organizations-graphql") {
+  getActiveOrganizationsByEmail
+    @context(provider: "vtex.b2b-organizations-graphql") {
     id
     costCenterName
     costId

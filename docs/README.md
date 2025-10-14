@@ -223,7 +223,7 @@ After installing and setting up the **B2B Organizations** app, its VTEX Admin ca
 
 #### Organization Requests
 
-To request the creation of an organization, B2B customers must fill in the [Request New Organization form](#request-new-organization).
+To request the creation of an organization, B2B customers can use the page available at `/organization-request`. This page allows customers to request an organization creation and its cost center. Add `/organization-request` to your store’s domain to access it.
 
 Once this step is done by the customer, B2B store administrators may review the organization request by going to **VTEX Admin** > **Account Settings** > **B2B Organizations & Cost Centers** > **Organization Requests** (or at `/admin/b2b-organizations/requests`).
 
@@ -447,7 +447,7 @@ To edit or remove an existing user, follow these steps:
 
 If a user is removed from an organization, their account will continue to exist in the store, but they will no longer be assigned to an organization, a cost center, and a B2B role. Thus, they will no longer have access to details of their organization in the **My Organization** page. Instead, they will have the ability to [request the creation of a new organization](#request-new-organization), if necessary.
 
-> ℹ️ As an optional feature, you can install the [Admin Customers](https://developers.vtex.com/vtex-developer-docs/docs/vtex-admin-customers) app for additional customer management capabilities on the VTEX Admin.
+> ℹ️ As an optional feature, you can install the [Admin Customers](https://developers.vtex.com/docs/apps/vtex.admin-customers) app for additional customer management capabilities on the VTEX Admin.
 
 #### Email templates
 

@@ -1,23 +1,21 @@
+/* eslint-disable vtex/prefer-early-return */
 import type { FunctionComponent } from 'react'
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
 import { useQuery, useMutation } from 'react-apollo'
 import { PageBlock, Table, IconCheck, Button, Checkbox } from 'vtex.styleguide'
-import { useToast } from '@vtex/admin-ui'
+import { Spinner, useToast } from '@vtex/admin-ui'
 
-import {
-  organizationSettingsMessages as messages,
-  organizationMessages,
-} from './utils/messages'
-import { organizationBulkAction } from './utils/organizationBulkAction'
-import GET_SALES_CHANNELS from '../graphql/getSalesChannels.graphql'
-import SELECTED_SALES_CHANNELS from '../graphql/getSelectedChannels.graphql'
-import UPDATE_SALES_CHANNELS from '../graphql/updateSalesChannels.graphql'
-import UPDATE_B2B_SETTINGS from '../graphql/updateB2BSettings.graphql'
-import GET_B2B_SETTINGS from '../graphql/getB2BSettings.graphql'
-import GET_PAYMENT_TERMS from '../graphql/getPaymentTerms.graphql'
-import type { PaymentTerm } from './OrganizationDetails/OrganizationDetailsPayTerms'
-import GET_PRICE_TABLES from '../graphql/getPriceTables.graphql'
+import { organizationSettingsMessages as messages } from '../utils/messages'
+import { organizationBulkAction } from '../utils/organizationBulkAction'
+import GET_SALES_CHANNELS from '../../graphql/getSalesChannels.graphql'
+import SELECTED_SALES_CHANNELS from '../../graphql/getSelectedChannels.graphql'
+import UPDATE_SALES_CHANNELS from '../../graphql/updateSalesChannels.graphql'
+import UPDATE_B2B_SETTINGS from '../../graphql/updateB2BSettings.graphql'
+import GET_B2B_SETTINGS from '../../graphql/getB2BSettings.graphql'
+import { TopbarCustom } from './TopbarCustom'
+import { useOrgPermission } from '../../hooks/useOrgPermission'
+import { ORGANIZATION_EDIT } from '../../utils/constants'
 
 interface SalesChannel {
   channelId: string
@@ -26,7 +24,6 @@ interface SalesChannel {
 }
 
 interface CellRendererProps<RowType> {
-  cellData: unknown
   rowData: RowType
   updateCellMeasurements: () => void
 }
@@ -49,14 +46,19 @@ const OrganizationSettings: FunctionComponent = () => {
     autoApprove: false,
     businessReadOnly: false,
     stateReadOnly: false,
-    defaultPaymentTerms: [] as any,
-    defaultPriceTables: [] as any,
     uiSettings: {
       clearCart: false,
       showModal: false,
       fullImpersonation: false,
     },
   })
+
+  const [warningTopbarColor, setWarningTopbarColor] = useState({
+    color: { hex: '#141E7A' },
+    history: [],
+  })
+
+  const [warningTopbarMessage, setWarningTopbarMessage] = useState('')
 
   const { data } = useQuery(GET_SALES_CHANNELS, {
     ssr: false,
@@ -66,52 +68,51 @@ const OrganizationSettings: FunctionComponent = () => {
     ssr: false,
   })
 
-  const { data: paymentTermsData } = useQuery<{
-    getPaymentTerms: PaymentTerm[]
-  }>(GET_PAYMENT_TERMS, { ssr: false })
-
-  const { data: priceTablesData } = useQuery(GET_PRICE_TABLES, { ssr: false })
-
-  const { data: dataSettings, refetch: refetchSettings } = useQuery(
-    GET_B2B_SETTINGS,
-    {
-      ssr: false,
-    }
-  )
+  const {
+    data: dataSettings,
+    loading: loadingSettings,
+    refetch: refetchSettings,
+  } = useQuery(GET_B2B_SETTINGS, {
+    ssr: false,
+  })
 
   const [updateSalesChannels] = useMutation(UPDATE_SALES_CHANNELS)
   const [updateB2BSettings] = useMutation(UPDATE_B2B_SETTINGS)
 
-  useEffect(() => {
-    if (data) {
-      const options: any[] = []
+  const { data: canEditBuyerOrg } = useOrgPermission({
+    resourceCode: ORGANIZATION_EDIT,
+  })
 
-      data.salesChannels.forEach((item: { id: string; name: string }) => {
-        options.push({
+  useEffect(() => {
+    if (!data) return
+
+    const options: SalesChannel[] = []
+
+    data.salesChannels.forEach((item: { id: string; name: string }) => {
+      options.push({
+        channelId: item.id,
+        name: item.name,
+        tableName: `${item.name} (${item.id})`,
+      })
+    })
+    setSalesChannels(options)
+  }, [data])
+
+  useEffect(() => {
+    if (!selectedData) return
+
+    const selectedOptions: any[] = []
+
+    selectedData.getSalesChannels.forEach(
+      (item: { id: string; name: string }) => {
+        selectedOptions.push({
           channelId: item.id,
           name: item.name,
           tableName: `${item.name} (${item.id})`,
         })
-      })
-      setSalesChannels(options)
-    }
-  }, [data])
-
-  useEffect(() => {
-    if (selectedData) {
-      const selectedOptions: any[] = []
-
-      selectedData.getSalesChannels.forEach(
-        (item: { id: string; name: string }) => {
-          selectedOptions.push({
-            channelId: item.id,
-            name: item.name,
-            tableName: `${item.name} (${item.id})`,
-          })
-        }
-      )
-      setSelectedChannel(selectedOptions)
-    }
+      }
+    )
+    setSelectedChannel(selectedOptions)
   }, [selectedData])
 
   useEffect(() => {
@@ -125,14 +126,20 @@ const OrganizationSettings: FunctionComponent = () => {
       autoApprove: getB2BSettings?.autoApprove,
       businessReadOnly: getB2BSettings?.businessReadOnly,
       stateReadOnly: getB2BSettings?.stateReadOnly,
-      defaultPaymentTerms: getB2BSettings?.defaultPaymentTerms ?? [],
-      defaultPriceTables: getB2BSettings?.defaultPriceTables ?? [],
       uiSettings: {
         clearCart: getB2BSettings?.uiSettings?.clearCart,
         showModal: getB2BSettings?.uiSettings?.showModal,
         fullImpersonation: getB2BSettings?.uiSettings?.fullImpersonation,
       },
     })
+
+    setWarningTopbarColor({
+      color: {
+        hex: getB2BSettings?.uiSettings?.topBar?.hexColor ?? '#656896',
+      },
+      history: [],
+    })
+    setWarningTopbarMessage(getB2BSettings?.uiSettings?.topBar?.name ?? '')
   }, [dataSettings])
 
   const getSchema = () => {
@@ -189,7 +196,16 @@ const OrganizationSettings: FunctionComponent = () => {
     promises.push(
       updateB2BSettings({
         variables: {
-          input: settings,
+          input: {
+            ...settings,
+            uiSettings: {
+              ...settings.uiSettings,
+              topBar: {
+                name: warningTopbarMessage,
+                hexColor: warningTopbarColor.color.hex,
+              },
+            },
+          },
         },
       })
     )
@@ -247,6 +263,20 @@ const OrganizationSettings: FunctionComponent = () => {
     setSelectedChannel(newBindingList)
   }
 
+  const handleChangeWarningTopbarColor = useCallback(
+    (color: { hex: string }) => {
+      setWarningTopbarColor(prevState => ({
+        ...prevState,
+        color,
+      }))
+    },
+    []
+  )
+
+  const handleChangeWarningTopbarMessage = useCallback((text: string) => {
+    setWarningTopbarMessage(text)
+  }, [])
+
   return (
     <PageBlock
       title={formatMessage(messages.tablePageTitle)}
@@ -256,6 +286,7 @@ const OrganizationSettings: FunctionComponent = () => {
             isLoading={loading}
             variation="primary"
             onClick={() => handleUpdateRequest()}
+            disabled={!canEditBuyerOrg}
           >
             <FormattedMessage id="admin/b2b-organizations.costCenter-details.button.save" />
           </Button>
@@ -276,6 +307,21 @@ const OrganizationSettings: FunctionComponent = () => {
               label={formatMessage(messages.autoApprove)}
             />
           </div>
+          {loadingSettings ? (
+            <Spinner />
+          ) : (
+            <>
+              {!settings.autoApprove && (
+                <TopbarCustom
+                  colorState={warningTopbarColor}
+                  message={warningTopbarMessage}
+                  onChangeColor={handleChangeWarningTopbarColor}
+                  onChangeMessage={handleChangeWarningTopbarMessage}
+                />
+              )}
+            </>
+          )}
+
           <div className="mb4">
             <Checkbox
               checked={settings.businessReadOnly}
@@ -354,74 +400,6 @@ const OrganizationSettings: FunctionComponent = () => {
               }}
               label={formatMessage(messages.fullImpersonation)}
             />
-          </div>
-          <div className="flex br3 pa6 b--muted-4 ba">
-            <div className="mb4 w-50">
-              <h2 className="mb4">
-                {formatMessage(organizationMessages.paymentTerms)}
-              </h2>
-              {paymentTermsData?.getPaymentTerms
-                .sort((a: PaymentTerm, b: PaymentTerm) => {
-                  return a.name > b.name ? 1 : -1
-                })
-                .map((payment: PaymentTerm) => (
-                  <div className="mb4">
-                    <Checkbox
-                      name={payment.name}
-                      id={payment.name}
-                      label={payment.name}
-                      checked={settings?.defaultPaymentTerms?.some(
-                        (item: PaymentTerm) => item.id === payment.id
-                      )}
-                      onChange={() => {
-                        const defaultPaymentTerms = settings.defaultPaymentTerms?.some(
-                          (item: PaymentTerm) => item.id === payment.id
-                        )
-                          ? settings.defaultPaymentTerms?.filter(
-                              (item: PaymentTerm) => item.id !== payment.id
-                            )
-                          : [...settings.defaultPaymentTerms, payment]
-
-                        setSettings({
-                          ...settings,
-                          defaultPaymentTerms,
-                        })
-                      }}
-                    />
-                  </div>
-                ))}
-            </div>
-            <div className="mb4 w-50">
-              <h2 className="mb4">
-                {formatMessage(organizationMessages.priceTables)}
-              </h2>
-              {priceTablesData?.priceTables.map((priceTable: string) => (
-                <div className="mb4">
-                  <Checkbox
-                    name={priceTable}
-                    id={priceTable}
-                    label={priceTable}
-                    checked={settings?.defaultPriceTables?.some(
-                      (item: string) => item === priceTable
-                    )}
-                    onChange={() => {
-                      const defaultPriceTables = settings.defaultPriceTables?.some(
-                        (item: string) => item === priceTable
-                      )
-                        ? settings.defaultPriceTables?.filter(
-                            (item: string) => item !== priceTable
-                          )
-                        : [...settings.defaultPriceTables, priceTable]
-
-                      setSettings({
-                        ...settings,
-                        defaultPriceTables,
-                      })
-                    }}
-                  />
-                </div>
-              ))}
-            </div>
           </div>
         </div>
       </div>

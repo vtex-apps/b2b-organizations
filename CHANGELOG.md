@@ -10,10 +10,131 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Fixed
 - Skip graphl query if parameter is null
 
-## [1.37.3] - 2024-11-14
-### Fixed
-- Fix action url that was hard coded
+## [3.1.0] - 2025-10-09
 
+### Fixed
+
+- Fix bugs in search by term of user active organizations in user widget
+
+### Added
+
+- Creates infinite scroll of user active organizations in user widget
+
+## [3.0.1] - 2025-10-06
+
+### Added
+- Added buyer organization policy view and edit
+
+## [3.0.0] - 2025-09-24
+
+### Changed
+- Update dependency major version. If you are updating to this major version, make sure to update the following apps (if you have then installed) to the following major versions:
+    - vtex.b2b-admin-customers@2.x
+    - vtex.b2b-checkout-settings@3.x
+    - vtex.b2b-my-account@2.x
+    - vtex.b2b-orders-history@2.x
+    - vtex.b2b-organizations@3.x
+    - vtex.b2b-organizations-graphql@2.x
+    - vtex.b2b-quotes@3.x
+    - vtex.b2b-quotes-graphql@4.x
+    - vtex.b2b-suite@2.x
+    - vtex.b2b-theme@5.x
+    - vtex.storefront-permissions-components@2.x
+    - vtex.storefront-permissions-ui@1.x
+
+### Added
+- Added functionality to apply access control according to License Manage Buyer Organization Product roles Buyer Organization View and Buyer Organization Edit distinguishing between both permission types. 
+
+## [2.0.1] - 2025-09-09
+
+### Fixed
+
+- Fixed users table not updating when search returns no results. 
+
+## [2.0.0] - 2025-05-27
+
+### Changed
+- Update dependency major version. If you are updating to this major version, make sure to update the following apps (if you have then installed) to the following major versions:
+    - vtex.b2b-admin-customers@1.x
+    - vtex.b2b-checkout-settings@2.x
+    - vtex.b2b-my-account@1.x
+    - vtex.b2b-orders-history@1.x
+    - vtex.b2b-organizations-graphql@1.x
+    - vtex.b2b-quotes@2.x
+    - vtex.b2b-quotes-graphql@3.x
+    - vtex.b2b-suite@1.x
+    - vtex.b2b-theme@4.x
+    - vtex.storefront-permissions@2.x
+    - vtex.storefront-permissions-components@1.x
+    - vtex.storefront-permissions-ui@2.x
+
+## [1.39.13] - 2025-04-29
+
+### Fixed
+
+- Spanish translation
+
+## [1.39.12] - 2025-03-31
+
+## [1.39.11] - 2025-02-03
+
+## [1.39.10] - 2025-01-16
+
+### Fixed
+
+- Fix render on organization requests when admin customer is missing from organization
+
+## [1.39.9] - 2025-01-07
+
+### Fixed
+
+- Update imports
+
+## [1.39.8] - 2025-01-07
+
+## [1.39.7] - 2025-01-07
+
+## [1.39.6] - 2025-01-07
+
+### Changed
+
+- Remove payment terms and price table configuration
+
+## [1.39.5] - 2024-12-12
+
+## [1.39.4] - 2024-12-12
+
+## [1.39.3] - 2024-12-12
+
+### Changed
+
+- Remove warning about tradeName from organizations screen
+
+## [1.39.2] - 2024-12-09
+
+### Fixed
+
+- Fix object estructure
+
+## [1.39.1] - 2024-12-09
+
+## [1.39.0] - 2024-12-09
+
+### Fixed
+
+- Change `getOrganizationsByEmail` to `getActiveOrganizationsByEmail` to only allow listings from active organizations
+
+## [1.38.0] - 2024-12-09
+
+### Added
+
+- Add topbar and allow customization of content and colors by the merchant via storeframework.
+
+## [1.37.3] - 2024-11-14
+
+### Fixed
+
+- Fix action url that was hard coded
 
 ## [1.37.2] - 2024-11-11
 
@@ -22,6 +143,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Fixed the change `Is Required` text to `Is Filterable` present in warning
 
 ## [1.37.1] - 2024-11-07
+
 ### Feat
 
 - Add warning holding to organizations list, show holding message and link to documentation
@@ -451,8 +573,6 @@ Custom Fields:
 ### Fixed
 
 - Some yarn package vulnerabilities reported by Dependabot
-
-=======
 
 ## [1.16.2] - 2022-11-07
 

@@ -1,7 +1,7 @@
 {
   "name": "b2b-organizations",
   "vendor": "vtex",
-  "version": "1.37.3",
+  "version": "3.1.0",
   "title": "B2B Organizations",
   "description": "App to create and manage B2B Organizations and Cost Centers",
   "mustUpdateAt": "2022-08-28",
@@ -9,7 +9,7 @@
     "postreleasy": "vtex publish"
   },
   "dependencies": {
-    "vtex.b2b-organizations-graphql": "0.x",
+    "vtex.b2b-organizations-graphql": "2.x",
     "vtex.catalog-graphql": "1.x",
     "vtex.admin-graphql": "2.x",
     "vtex.store-graphql": "2.x",
@@ -18,10 +18,11 @@
     "vtex.store": "2.x",
     "vtex.css-handles": "0.x",
     "vtex.styleguide": "9.x",
-    "vtex.storefront-permissions": "1.x",
+    "vtex.storefront-permissions": "3.x",
     "vtex.my-account": "1.x",
     "vtex.my-account-commons": "1.x",
-    "vtex.product-context": "0.x"
+    "vtex.product-context": "0.x",
+    "vtex.session-client": "1.x"
   },
   "builders": {
     "react": "3.x",
@@ -29,7 +30,15 @@
     "messages": "1.x",
     "docs": "0.x",
     "store": "0.x",
-    "vtex.storefront-permissions": "1.x"
+    "vtex.storefront-permissions": "3.x"
   },
+  "policies": [
+    {
+      "name": "buyer_organization_view"
+    },
+    {
+      "name": "buyer_organization_edit"
+    }
+  ],
   "$schema": "https://raw.githubusercontent.com/vtex/node-vtex-api/master/gen/manifest.schema"
 }

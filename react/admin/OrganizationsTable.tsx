@@ -27,6 +27,7 @@ import OrganizationCustomFields from './CustomFields'
 import CheckCustomerSchema from '../components/CheckCustomerSchema'
 import BulkImportList from '../components/BulkImportList'
 import CreateOrganizationButton from '../components/CreateOrganizationButton'
+import HasAccess from './HasAccess'
 
 const SESSION_STORAGE_KEY = 'organization-tab'
 
@@ -42,66 +43,71 @@ const OrganizationsTable = () => {
 
   return (
     <HashRouter ref={routerRef}>
-      <Page>
-        <PageHeader>
-          <PageHeaderTop>
-            <PageHeaderTitle>
-              {formatMessage(messages.tablePageTitle)}
-            </PageHeaderTitle>
+      <HasAccess>
+        <Page>
+          <PageHeader>
+            <PageHeaderTop>
+              <PageHeaderTitle>
+                {formatMessage(messages.tablePageTitle)}
+              </PageHeaderTitle>
+              <PageHeaderActions>
+                <Route
+                  path="/organizations"
+                  exact
+                  component={CreateOrganizationButton}
+                />
+              </PageHeaderActions>
+            </PageHeaderTop>
+            <PageHeaderBottom>
+              <TabList state={tabsState}>
+                <Tab
+                  id="organizations"
+                  onClick={() => handleTabChange('organizations')}
+                >
+                  {formatMessage(messages.tablePageTitle)}
+                </Tab>
 
-            <PageHeaderActions>
+                <Tab id="requests" onClick={() => handleTabChange('requests')}>
+                  {formatMessage(requestMessages.tablePageTitle)}
+                </Tab>
+
+                <Tab id="settings" onClick={() => handleTabChange('settings')}>
+                  {formatMessage(settingsMessages.tablePageTitle)}
+                </Tab>
+
+                <Tab
+                  id="custom-fields"
+                  onClick={() => handleTabChange('custom-fields')}
+                >
+                  {formatMessage(settingsMessages.customFieldsTitle)}
+                </Tab>
+              </TabList>
+            </PageHeaderBottom>
+          </PageHeader>
+          <PageContent layout="wide">
+            <BulkImportList />
+            <CheckCustomerSchema isAdmin={true} />
+            <Switch>
               <Route
                 path="/organizations"
                 exact
-                component={CreateOrganizationButton}
+                component={OrganizationsList}
               />
-            </PageHeaderActions>
-          </PageHeaderTop>
-          <PageHeaderBottom>
-            <TabList state={tabsState}>
-              <Tab
-                id="organizations"
-                onClick={() => handleTabChange('organizations')}
-              >
-                {formatMessage(messages.tablePageTitle)}
-              </Tab>
-
-              <Tab id="requests" onClick={() => handleTabChange('requests')}>
-                {formatMessage(requestMessages.tablePageTitle)}
-              </Tab>
-
-              <Tab id="settings" onClick={() => handleTabChange('settings')}>
-                {formatMessage(settingsMessages.tablePageTitle)}
-              </Tab>
-
-              <Tab
-                id="custom-fields"
-                onClick={() => handleTabChange('custom-fields')}
-              >
-                {formatMessage(settingsMessages.customFieldsTitle)}
-              </Tab>
-            </TabList>
-          </PageHeaderBottom>
-        </PageHeader>
-        <PageContent layout="wide">
-          <BulkImportList />
-          <CheckCustomerSchema isAdmin={true} />
-          <Switch>
-            <Route path="/organizations" exact component={OrganizationsList} />
-            <Route
-              path="/requests"
-              exact
-              component={OrganizationRequestsTable}
-            />
-            <Route path="/settings" exact component={OrganizationSettings} />
-            <Route
-              path="/custom-fields"
-              exact
-              component={OrganizationCustomFields}
-            />
-          </Switch>
-        </PageContent>
-      </Page>
+              <Route
+                path="/requests"
+                exact
+                component={OrganizationRequestsTable}
+              />
+              <Route path="/settings" exact component={OrganizationSettings} />
+              <Route
+                path="/custom-fields"
+                exact
+                component={OrganizationCustomFields}
+              />
+            </Switch>
+          </PageContent>
+        </Page>
+      </HasAccess>
     </HashRouter>
   )
 }

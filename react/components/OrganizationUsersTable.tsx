@@ -16,8 +16,9 @@ import UPDATE_USER from '../graphql/updateUser.graphql'
 import REMOVE_USER from '../graphql/removeUser.graphql'
 import GET_COST_CENTER from '../graphql/getCostCenterStorefront.graphql'
 import IMPERSONATE_USER from '../graphql/impersonateB2BUser.graphql'
-import { B2B_CHECKOUT_SESSION_KEY } from '../utils/constants'
+import { B2B_CHECKOUT_SESSION_KEY, ORGANIZATION_EDIT } from '../utils/constants'
 import { sendImpersonateMetric } from '../utils/metrics/impersonate'
+import { useOrgPermission } from '../hooks/useOrgPermission'
 
 interface Props {
   organizationId: string
@@ -28,7 +29,6 @@ interface Props {
 }
 
 interface CellRendererProps {
-  cellData: unknown
   rowData: B2BUserSimple
   updateCellMeasurements: () => void
 }
@@ -123,6 +123,10 @@ const OrganizationUsersTable: FunctionComponent<Props> = ({
     'impersonate-users-organization'
   )
 
+  const { data: canEditBuyerOrg } = useOrgPermission({
+    resourceCode: ORGANIZATION_EDIT,
+  })
+
   const { data, loading, refetch } = useQuery(GET_USERS, {
     variables: {
       ...initialState,
@@ -151,7 +155,7 @@ const OrganizationUsersTable: FunctionComponent<Props> = ({
   const [impersonateUser] = useMutation(IMPERSONATE_USER)
 
   useEffect(() => {
-    if (!data?.getUsersPaginated?.data?.length) return
+    if (!data?.getUsersPaginated?.data) return
 
     const users = data.getUsersPaginated.data.sort(compareUsers)
 
@@ -446,7 +450,7 @@ const OrganizationUsersTable: FunctionComponent<Props> = ({
   }
 
   const handleNextClick = () => {
-    const newPage = variableState.page + 1
+    const newPage: number = (variableState.page as number) + 1
 
     setVariables({
       ...variableState,
@@ -463,7 +467,7 @@ const OrganizationUsersTable: FunctionComponent<Props> = ({
   const handlePrevClick = () => {
     if (variableState.page === 1) return
 
-    const newPage = variableState.page - 1
+    const newPage: number = (variableState.page as number) - 1
 
     setVariables({
       ...variableState,
@@ -540,7 +544,7 @@ const OrganizationUsersTable: FunctionComponent<Props> = ({
         isSalesAdmin,
       })
 
-    if (!canClick) return
+    if (!canClick || !canEditBuyerOrg) return
 
     setEditUserDetails({
       id: rowData.id,
@@ -589,6 +593,14 @@ const OrganizationUsersTable: FunctionComponent<Props> = ({
 
   const { page, pageSize, search, sortedBy, sortOrder } = variableState
   const { total } = data?.getUsersPaginated?.pagination ?? 0
+
+  const isAddUserButtonDisabled = () => {
+    const hasEditPermissions = canEdit || canEditSales
+    const hasOrganizationEditPermission = canEditBuyerOrg
+
+    return !hasEditPermissions || !hasOrganizationEditPermission
+  }
+
   const toolbar = {
     inputSearch: {
       value: search,
@@ -604,7 +616,7 @@ const OrganizationUsersTable: FunctionComponent<Props> = ({
     newLine: {
       label: formatMessage(isAdmin ? adminMessages.new : storeMessages.new),
       handleCallback: () => setAddUserModalOpen(true),
-      disabled: !canEdit && !canEditSales,
+      disabled: isAddUserButtonDisabled(),
     },
   }
 
