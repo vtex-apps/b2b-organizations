@@ -141,7 +141,7 @@
   "admin/b2b-organizations.organization-details.remove-user": "Remove user",
   "admin/b2b-organizations.organization-details.remove-user.helpText": "Are you sure you want to remove the user {email}? Their user account will continue to exist, but they will no longer have access to this organization.",
   "admin/b2b-organizations.organization-details.sales-admin-title": "Manage Sales Users",
-  "admin/b2b-organizations.organization-details.sales-channel": "Trade Policy",
+  "admin/b2b-organizations.organization-details.sales-channel": "Sales channel",
   "admin/b2b-organizations.organization-details.sellers": "Sellers",
   "admin/b2b-organizations.organization-details.status": "Status",
   "admin/b2b-organizations.organization-details.status.active": "Active",
