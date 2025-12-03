@@ -38,7 +38,7 @@ const OrganizationDetailsSettings = ({
 
   return (
     <Fragment>
-      <PageBlock title="Configurações de permissão">
+      <PageBlock title={formatMessage(messages.permissionSettings)}>
         {permissionsOptions.map(permissionOption => (
           <div>
             <Checkbox

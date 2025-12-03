@@ -294,7 +294,9 @@ const OrganizationSettings: FunctionComponent = () => {
       }
     >
       <div>
-        <h3 className="t-heading-3">General Settings</h3>
+        <h3 className="t-heading-3">
+          {formatMessage(messages.generalSettings)}
+        </h3>
         <div className="pa6">
           <div className="mb4">
             <Checkbox

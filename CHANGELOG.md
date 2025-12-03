@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Added
+
+- Translations to previously hardcoded strings
+
+### Fixed
+
+- German translations
+
 ## [3.1.1] - 2025-10-16
 
 ### Fixed

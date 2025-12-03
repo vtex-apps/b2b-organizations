@@ -270,6 +270,9 @@ export const organizationMessages = defineMessages({
   notAllowViewMessage: {
     id: `${adminPrefix}organizations.not-allow-view-message`,
   },
+  permissionSettings: {
+    id: `${adminPrefix}organization-details.permission-settings`,
+  },
 })
 
 export const costCenterMessages = defineMessages({
@@ -503,6 +506,9 @@ export const organizationSettingsMessages = defineMessages({
   },
   formTextareaHelpText: {
     id: `${adminPrefix}warning-topbar-inative-org.form.textarea-help-text`,
+  },
+  generalSettings: {
+    id: `${adminPrefix}organization-settings-admin.generalSettings`,
   },
 })
 
