@@ -198,6 +198,7 @@ const UserWidget: VtexFunctionComponent<UserWidgetProps> = ({
     {
       ssr: false,
       skip: !isAuthenticated,
+      errorPolicy: 'all',
     }
   ) as any
 
@@ -324,6 +325,8 @@ const UserWidget: VtexFunctionComponent<UserWidgetProps> = ({
     }
 
     const uiSettings = userWidgetData?.getB2BSettings?.uiSettings
+    const currentOrgStatus = userWidgetData?.getOrganizationByIdStorefront?.status
+    const isCurrentOrgOnHold = currentOrgStatus === 'on-hold' || currentOrgStatus === 'inactive'
 
     if (uiSettings?.showModal) {
       const totalCompanies =
@@ -333,9 +336,12 @@ const UserWidget: VtexFunctionComponent<UserWidgetProps> = ({
         SESSION_STORAGE_SHOW_MODAL
       )
 
-      setShowModal(totalCompanies > 1 && !storageShowModal)
+      // Forçar modal se organização atual está on-hold/inactive OU se há múltiplas organizações
+      setShowModal((totalCompanies > 1 && !storageShowModal) || isCurrentOrgOnHold)
 
-      sessionStorage.setItem(SESSION_STORAGE_SHOW_MODAL, 'true')
+      if (!isCurrentOrgOnHold) {
+        sessionStorage.setItem(SESSION_STORAGE_SHOW_MODAL, 'true')
+      }
     }
 
     const currentOrganization =
@@ -446,13 +452,24 @@ const UserWidget: VtexFunctionComponent<UserWidgetProps> = ({
     )
   }
 
+  // Permitir renderização se houver organizações ativas, mesmo que a atual esteja on-hold
+  // Quando organização está on-hold, o cost center pode ser null, mas ainda assim deve mostrar o modal
   if (
     !isAuthenticated ||
     !userWidgetData?.checkUserPermission ||
-    !userWidgetData?.getOrganizationByIdStorefront ||
-    !userWidgetData?.getCostCenterByIdStorefront
+    !userWidgetData?.getActiveOrganizationsByEmail
   )
     return null
+
+  // Se não há cost center e a org está on-hold/inactive, ainda permitir renderização para trocar
+  const isOrgOnHoldOrInactive =
+    userWidgetData?.getOrganizationByIdStorefront?.status === 'on-hold' ||
+    userWidgetData?.getOrganizationByIdStorefront?.status === 'inactive'
+
+  if (!userWidgetData?.getCostCenterByIdStorefront && !isOrgOnHoldOrInactive) {
+    return null
+  }
+
 
   const handleSearchOrganizations = (e: any) => setSearchTerm(e.target.value)
 
@@ -529,12 +546,29 @@ const UserWidget: VtexFunctionComponent<UserWidgetProps> = ({
             <h2 className={`${handles.userWidgetModalH2} flex`}>
               {formatMessage(messages.currentOrganization)}
             </h2>
+            {userWidgetData?.getOrganizationByIdStorefront?.status !== 'active' && (
+              <div className="bg-warning--faded pa4 br2 mb4">
+                <p className="f5 fw6 c-warning">
+                  {userWidgetData?.getOrganizationByIdStorefront?.status === 'on-hold'
+                    ? formatMessage(messages.organizationOnHoldWarning)
+                    : formatMessage(messages.organizationInactiveWarning)
+                  }
+                </p>
+              </div>
+            )}
             <h3
               className={`${handles.userWidgetModalH3} flex`}
-            >{`${userWidgetData?.getOrganizationByIdStorefront?.name}`}</h3>
-            <h4
-              className={`${handles.userWidgetModalH4} flex`}
-            >{`${userWidgetData?.getCostCenterByIdStorefront?.name}`}</h4>
+            >{`${userWidgetData?.getOrganizationByIdStorefront?.name ?? ''}`}</h3>
+            {userWidgetData?.getCostCenterByIdStorefront?.name && (
+              <h4
+                className={`${handles.userWidgetModalH4} flex`}
+              >{`${userWidgetData?.getCostCenterByIdStorefront?.name}`}</h4>
+            )}
+            {userWidgetData?.getOrganizationByIdStorefront?.status && (
+              <div className="mt3">
+                {handleStatusMessage(userWidgetData.getOrganizationByIdStorefront.status)}
+              </div>
+            )}
           </div>
         </div>
       </Modal>
@@ -546,21 +580,25 @@ const UserWidget: VtexFunctionComponent<UserWidgetProps> = ({
             >
               <div className={`${handles.userWidgetCompanyName} mr4`}>
                 {`${formatMessage(messages.organization)} ${
-                  userWidgetData?.getOrganizationByIdStorefront?.name
+                  userWidgetData?.getOrganizationByIdStorefront?.name ?? ''
                 }`}
               </div>
-              <div className={`${handles.userWidgetCostCenterName} mr4`}>
-                {`${formatMessage(messages.costCenter)} ${
-                  userWidgetData?.getCostCenterByIdStorefront?.name
-                }`}
-              </div>
+              {userWidgetData?.getCostCenterByIdStorefront?.name && (
+                <div className={`${handles.userWidgetCostCenterName} mr4`}>
+                  {`${formatMessage(messages.costCenter)} ${
+                    userWidgetData?.getCostCenterByIdStorefront?.name
+                  }`}
+                </div>
+              )}
               <div className={`${handles.userWidgetRole}`}>
                 {`${formatMessage(messages.role)} ${
-                  organizationsState.currentRoleName
+                  organizationsState.currentRoleName ?? ''
                 }`}
               </div>
               <div className="ml-auto">
-                {userWidgetData?.getActiveOrganizationsByEmail?.length > 1 && (
+                {(userWidgetData?.getActiveOrganizationsByEmail?.length > 1 ||
+                  userWidgetData?.getOrganizationByIdStorefront?.status === 'on-hold' ||
+                  userWidgetData?.getOrganizationByIdStorefront?.status === 'inactive') && (
                   <Button variant="primary" onClick={() => setShowModal(true)}>
                     {formatMessage(messages.changeOrganization)}
                   </Button>

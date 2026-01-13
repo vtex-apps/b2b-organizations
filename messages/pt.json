@@ -418,5 +418,7 @@
   "store/b2b-organizations.user-widget.status.active": "Ativa",
   "store/b2b-organizations.user-widget.status.inactive": "Inativa",
   "store/b2b-organizations.user-widget.status.on-hold": "Em espera",
+  "store/b2b-organizations.user-widget.organization-on-hold-warning": "Sua organização atual está em espera. Por favor, selecione uma organização ativa para continuar.",
+  "store/b2b-organizations.user-widget.organization-inactive-warning": "Sua organização atual está inativa. Por favor, selecione uma organização ativa para continuar.",
   "store/b2b-organizations.warning-topbar-inative-org.message": "A conta da sua organização está pausada e você não pode concluir compras agora. Entre em contato conosco para obter mais informações."
 }

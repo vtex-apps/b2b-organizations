@@ -418,5 +418,7 @@
   "store/b2b-organizations.user-widget.status.active": "Active",
   "store/b2b-organizations.user-widget.status.inactive": "Inactive",
   "store/b2b-organizations.user-widget.status.on-hold": "On Hold",
+  "store/b2b-organizations.user-widget.organization-on-hold-warning": "Your current organization is on hold. Please select an active organization to continue.",
+  "store/b2b-organizations.user-widget.organization-inactive-warning": "Your current organization is inactive. Please select an active organization to continue.",
   "store/b2b-organizations.warning-topbar-inative-org.message": "Your organization's account is paused, and you cannot complete purchases now."
 }
