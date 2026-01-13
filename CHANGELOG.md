@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Fixed
 
-- English messages displaying in French
+- English messages present in the French translation file
 
 ## [3.1.2] - 2025-12-03
 
