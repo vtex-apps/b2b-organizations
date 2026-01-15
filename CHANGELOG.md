@@ -17,6 +17,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - "Change Organization" button now appears when organization is "on-hold" or "inactive", even with single organization
 - ErrorPolicy 'all' to GraphQL query to handle partial data when organization has non-active status
 
+## [3.1.3] - 2026-01-15
+
+### Fixed
+
+- English messages present in the French translation file
+
 ## [3.1.2] - 2025-12-03
 
 ### Added
