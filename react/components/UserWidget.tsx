@@ -477,6 +477,9 @@ const UserWidget: VtexFunctionComponent<UserWidgetProps> = ({
 
   const handleSearchOrganizations = (e: any) => setSearchTerm(e.target.value)
 
+  const hasMultipleOrganizations =
+    (userWidgetData?.getActiveOrganizationsByEmail?.length ?? 0) > 1
+
   const dataList =
     userWidgetData?.getActiveOrganizationsByEmail
       ?.sort(sortOrganizations)
@@ -561,13 +564,15 @@ const UserWidget: VtexFunctionComponent<UserWidgetProps> = ({
                 </p>
               </div>
             )}
-            <h3 className={`${handles.userWidgetModalH3} flex`}>{`${
-              userWidgetData?.getOrganizationByIdStorefront?.name ?? ''
-            }`}</h3>
+            {userWidgetData?.getOrganizationByIdStorefront?.name && (
+              <h3 className={`${handles.userWidgetModalH3} flex`}>
+                {userWidgetData.getOrganizationByIdStorefront.name}
+              </h3>
+            )}
             {userWidgetData?.getCostCenterByIdStorefront?.name && (
-              <h4
-                className={`${handles.userWidgetModalH4} flex`}
-              >{`${userWidgetData?.getCostCenterByIdStorefront?.name}`}</h4>
+              <h4 className={`${handles.userWidgetModalH4} flex`}>
+                {userWidgetData.getCostCenterByIdStorefront.name}
+              </h4>
             )}
             {userWidgetData?.getOrganizationByIdStorefront?.status && (
               <div className="mt3">
@@ -603,11 +608,7 @@ const UserWidget: VtexFunctionComponent<UserWidgetProps> = ({
                 }`}
               </div>
               <div className="ml-auto">
-                {(userWidgetData?.getActiveOrganizationsByEmail?.length > 1 ||
-                  userWidgetData?.getOrganizationByIdStorefront?.status ===
-                    'on-hold' ||
-                  userWidgetData?.getOrganizationByIdStorefront?.status ===
-                    'inactive') && (
+                {(hasMultipleOrganizations || isOrgOnHoldOrInactive) && (
                   <Button variant="primary" onClick={() => setShowModal(true)}>
                     {formatMessage(messages.changeOrganization)}
                   </Button>
