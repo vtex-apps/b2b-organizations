@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [3.1.4] - 2026-01-15
+
 ### Fixed
 - UserWidget now displays organization selector modal when current organization status is "on-hold" or "inactive"
 - Allow widget rendering even when cost center is unavailable for organizations with "on-hold" or "inactive" status
