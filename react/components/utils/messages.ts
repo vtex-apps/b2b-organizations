@@ -375,4 +375,10 @@ export const userWidgetMessages = defineMessages({
   organizationsFound: {
     id: `${storePrefix}organizations-found`,
   },
+  organizationOnHoldWarning: {
+    id: `${storePrefix}user-widget.organization-on-hold-warning`,
+  },
+  organizationInactiveWarning: {
+    id: `${storePrefix}user-widget.organization-inactive-warning`,
+  },
 })

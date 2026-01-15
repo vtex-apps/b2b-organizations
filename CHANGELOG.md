@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Fixed
+- UserWidget now displays organization selector modal when current organization status is "on-hold" or "inactive"
+- Allow widget rendering even when cost center is unavailable for organizations with "on-hold" or "inactive" status
+- Add visual warning messages in modal for organizations with "on-hold" or "inactive" status
+
+### Added
+- New translation keys for organization status warnings: `user-widget.organization-on-hold-warning` and `user-widget.organization-inactive-warning`
+- "Change Organization" button now appears when organization is "on-hold" or "inactive", even with single organization
+- ErrorPolicy 'all' to GraphQL query to handle partial data when organization has non-active status
+
 ## [3.1.3] - 2026-01-15
 
 ### Fixed
