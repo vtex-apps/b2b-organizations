@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Fixed
+
+- Default address not being set when creating a new address with "default" checkbox enabled in cost center details storefront page
+
 ## [3.1.4] - 2026-01-15
 
 ### Fixed

@@ -337,7 +337,11 @@ const CostCenterDetails: FunctionComponent<RouterProps> = ({
           addressQuery: address.addressQuery.value,
         } as Address
 
-        const newAddresses = [...addresses, newAddress]
+        // If the new address is marked as default, place it at the beginning of the array
+        // The backend considers the first address in the array as the default
+        const newAddresses = address.checked
+          ? [newAddress, ...addresses]
+          : [...addresses, newAddress]
 
         const variables = {
           id: params.id,
