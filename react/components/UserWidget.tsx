@@ -586,6 +586,18 @@ const UserWidget: VtexFunctionComponent<UserWidgetProps> = ({
       </Modal>
       {userWidgetData?.getB2BSettings?.uiSettings?.showModal && (
         <Fragment>
+          {isOrgOnHoldOrInactive && (
+            <div className={`${handles.userWidgetRow} flex pr4 pl4 pt4`}>
+              <div className="bg-warning--faded pa4 br2 w-100">
+                <p className="f6 fw6 c-warning ma0">
+                  {userWidgetData?.getOrganizationByIdStorefront?.status ===
+                  'on-hold'
+                    ? formatMessage(messages.organizationOnHoldWarning)
+                    : formatMessage(messages.organizationInactiveWarning)}
+                </p>
+              </div>
+            </div>
+          )}
           <div className={`${handles.userWidgetRow} flex pr4 pl4 items-center`}>
             <div
               className={`${handles.userWidgetItem} pa3 br2 bg-base--inverted hover-bg-base--inverted active-bg-base--inverted c-on-base--inverted hover-c-on-base--inverted active-c-on-base--inverted dib mr3 flex items-center w-100`}
@@ -602,11 +614,18 @@ const UserWidget: VtexFunctionComponent<UserWidgetProps> = ({
                   }`}
                 </div>
               )}
-              <div className={`${handles.userWidgetRole}`}>
+              <div className={`${handles.userWidgetRole} mr4`}>
                 {`${formatMessage(messages.role)} ${
                   organizationsState.currentRoleName ?? ''
                 }`}
               </div>
+              {userWidgetData?.getOrganizationByIdStorefront?.status && (
+                <div className="mr4">
+                  {handleStatusMessage(
+                    userWidgetData.getOrganizationByIdStorefront.status
+                  )}
+                </div>
+              )}
               <div className="ml-auto">
                 {(hasMultipleOrganizations || isOrgOnHoldOrInactive) && (
                   <Button variant="primary" onClick={() => setShowModal(true)}>
