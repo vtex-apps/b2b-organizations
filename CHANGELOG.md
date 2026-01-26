@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [3.1.5] - 2026-01-26
+
 ### Added
 - Persistent status indicator and warning banner in UserWidget when organization is "on-hold" or "inactive"
 - Organization status tag now visible in the main widget even when modal is closed
