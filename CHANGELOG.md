@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [3.1.6] - 2026-01-29
+
 ### Changed
 
 - Updated GitHub Actions quality-engineering workflow to v3.1.0
