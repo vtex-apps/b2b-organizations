@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Updated
+
+- Change Cost Centers Dropdown to new limit of a thousand.
+
 ## [3.1.7] - 2026-02-24
 
 ## [3.1.6] - 2026-01-29
@@ -18,17 +22,20 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [3.1.5] - 2026-01-26
 
 ### Added
+
 - Persistent status indicator and warning banner in UserWidget when organization is "on-hold" or "inactive"
 - Organization status tag now visible in the main widget even when modal is closed
 
 ## [3.1.4] - 2026-01-15
 
 ### Fixed
+
 - UserWidget now displays organization selector modal when current organization status is "on-hold" or "inactive"
 - Allow widget rendering even when cost center is unavailable for organizations with "on-hold" or "inactive" status
 - Add visual warning messages in modal for organizations with "on-hold" or "inactive" status
 
 ### Added
+
 - New translation keys for organization status warnings: `user-widget.organization-on-hold-warning` and `user-widget.organization-inactive-warning`
 - "Change Organization" button now appears when organization is "on-hold" or "inactive", even with single organization
 - ErrorPolicy 'all' to GraphQL query to handle partial data when organization has non-active status
@@ -52,6 +59,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [3.1.1] - 2025-10-16
 
 ### Fixed
+
 - Skip graphl query if parameter is null
 
 ## [3.1.0] - 2025-10-09
@@ -67,50 +75,54 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [3.0.1] - 2025-10-06
 
 ### Added
+
 - Added buyer organization policy view and edit
 
 ## [3.0.0] - 2025-09-24
 
 ### Changed
+
 - Update dependency major version. If you are updating to this major version, make sure to update the following apps (if you have then installed) to the following major versions:
-    - vtex.b2b-admin-customers@2.x
-    - vtex.b2b-checkout-settings@3.x
-    - vtex.b2b-my-account@2.x
-    - vtex.b2b-orders-history@2.x
-    - vtex.b2b-organizations@3.x
-    - vtex.b2b-organizations-graphql@2.x
-    - vtex.b2b-quotes@3.x
-    - vtex.b2b-quotes-graphql@4.x
-    - vtex.b2b-suite@2.x
-    - vtex.b2b-theme@5.x
-    - vtex.storefront-permissions-components@2.x
-    - vtex.storefront-permissions-ui@1.x
+  - vtex.b2b-admin-customers@2.x
+  - vtex.b2b-checkout-settings@3.x
+  - vtex.b2b-my-account@2.x
+  - vtex.b2b-orders-history@2.x
+  - vtex.b2b-organizations@3.x
+  - vtex.b2b-organizations-graphql@2.x
+  - vtex.b2b-quotes@3.x
+  - vtex.b2b-quotes-graphql@4.x
+  - vtex.b2b-suite@2.x
+  - vtex.b2b-theme@5.x
+  - vtex.storefront-permissions-components@2.x
+  - vtex.storefront-permissions-ui@1.x
 
 ### Added
-- Added functionality to apply access control according to License Manage Buyer Organization Product roles Buyer Organization View and Buyer Organization Edit distinguishing between both permission types. 
+
+- Added functionality to apply access control according to License Manage Buyer Organization Product roles Buyer Organization View and Buyer Organization Edit distinguishing between both permission types.
 
 ## [2.0.1] - 2025-09-09
 
 ### Fixed
 
-- Fixed users table not updating when search returns no results. 
+- Fixed users table not updating when search returns no results.
 
 ## [2.0.0] - 2025-05-27
 
 ### Changed
+
 - Update dependency major version. If you are updating to this major version, make sure to update the following apps (if you have then installed) to the following major versions:
-    - vtex.b2b-admin-customers@1.x
-    - vtex.b2b-checkout-settings@2.x
-    - vtex.b2b-my-account@1.x
-    - vtex.b2b-orders-history@1.x
-    - vtex.b2b-organizations-graphql@1.x
-    - vtex.b2b-quotes@2.x
-    - vtex.b2b-quotes-graphql@3.x
-    - vtex.b2b-suite@1.x
-    - vtex.b2b-theme@4.x
-    - vtex.storefront-permissions@2.x
-    - vtex.storefront-permissions-components@1.x
-    - vtex.storefront-permissions-ui@2.x
+  - vtex.b2b-admin-customers@1.x
+  - vtex.b2b-checkout-settings@2.x
+  - vtex.b2b-my-account@1.x
+  - vtex.b2b-orders-history@1.x
+  - vtex.b2b-organizations-graphql@1.x
+  - vtex.b2b-quotes@2.x
+  - vtex.b2b-quotes-graphql@3.x
+  - vtex.b2b-suite@1.x
+  - vtex.b2b-theme@4.x
+  - vtex.storefront-permissions@2.x
+  - vtex.storefront-permissions-components@1.x
+  - vtex.storefront-permissions-ui@2.x
 
 ## [1.39.13] - 2025-04-29
 
