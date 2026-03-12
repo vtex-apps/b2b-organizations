@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [3.1.8] - 2026-03-12
+
 ### Updated
 
 - Change Cost Centers Dropdown to new limit of a thousand.
