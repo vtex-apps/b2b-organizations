@@ -65,7 +65,7 @@ const EditUserModal: FunctionComponent<Props> = ({
   } = useQuery(isAdmin ? GET_COST_CENTERS_ADMIN : GET_COST_CENTERS, {
     variables: {
       id: organizationId,
-      pageSize: 100,
+      pageSize: 1000,
     },
     fetchPolicy: 'network-only',
     ssr: false,
@@ -84,7 +84,7 @@ const EditUserModal: FunctionComponent<Props> = ({
 
     refetch({
       id: organizationState,
-      pageSize: 100,
+      pageSize: 1000,
     })
   }, [organizationState])
 
