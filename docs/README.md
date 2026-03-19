@@ -123,6 +123,17 @@ if we have more than one associated organization:
 
 In order to apply CSS customizations in this and other apps, follow the instructions on [Using CSS Handles for store customization](https://developers.vtex.com/vtex-developer-docs/docs/vtex-io-documentation-using-css-handles-for-store-customization).
 
+If your store adds images to pages rendered by this app, make sure they are responsive in your storefront CSS. Otherwise, they may keep their native width and overlap the page navigation. For example:
+
+```css
+img {
+  max-width: 100%;
+  height: auto;
+}
+```
+
+You can scope this rule to the page or CSS handle you are customizing.
+
 CSS handles are available for the **Organization Request Form** component and the **User Widget** component.
 
 | **CSS Handles**                   |
