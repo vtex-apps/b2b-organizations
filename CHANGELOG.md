@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Fixed
+
+- "NEW" user button on My Organization (storefront) when session has no `adminUserEmail`.
+
 ## [3.1.9] - 2026-03-19
 
 ## [3.1.8] - 2026-03-12

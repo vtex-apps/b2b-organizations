@@ -14,15 +14,27 @@ export function useOrgPermission({
 }: UseOrgPermissionParams) {
   const fullSession = useFullSession({
     variables: {
-      items: ['authentication.adminUserEmail', 'account.accountName'],
+      items: [
+        'authentication.adminUserEmail',
+        'authentication.storeUserEmail',
+        'profile.email',
+        'account.accountName',
+      ],
     },
   })
 
   const account =
     fullSession.data?.session?.namespaces?.account?.accountName?.value
 
-  const userEmail =
-    fullSession.data?.session?.namespaces?.authentication?.adminUserEmail?.value
+  const namespaces = fullSession.data?.session?.namespaces
+
+  const adminUserEmail =
+    namespaces?.authentication?.adminUserEmail?.value
+  const storeUserEmail =
+    namespaces?.authentication?.storeUserEmail?.value
+  const profileEmail = namespaces?.profile?.email?.value
+
+  const userEmail = adminUserEmail || storeUserEmail || profileEmail
 
   const { data, isLoading, isValidating, error } = useSWR<{ data: boolean }>(
     userEmail && account ? `/granted?${resourceCode}` : null,
