@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [3.1.10] - 2026-04-27
+
 ### Fixed
 
 - "NEW" user button on My Organization (storefront): License Manager `granted` check now sends `VtexIdclientAutCookie` from the session cookie namespace (by account), so the request is authorized on the public domain.
