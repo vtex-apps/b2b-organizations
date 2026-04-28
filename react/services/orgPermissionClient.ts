@@ -14,7 +14,8 @@ interface CheckUserAdminPermissionParams {
   account: string
   userEmail: string
   resourceCode: string
-  authCookie: string
+  /** Set on storefront; Admin UI omits (browser session cookies apply). */
+  authCookie?: string
 }
 
 const checkUserAdminPermission = async ({
