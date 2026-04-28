@@ -8,11 +8,12 @@ import { ORGANIZATION_VIEW } from '../utils/constants'
 
 interface UseOrgPermissionParams {
   resourceCode?: typeof ORGANIZATION_EDIT | typeof ORGANIZATION_VIEW
+  authContext?: 'admin' | 'storefront'
 }
 
 const VTEX_ID_CLIENT_AUT_COOKIE_KEY_PREFIX = 'VtexIdclientAutCookie'
 
-const BASE_SESSION_ITEMS = [
+const STOREFRONT_SESSION_ITEMS_BASE = [
   'authentication.adminUserEmail',
   'authentication.storeUserEmail',
   'profile.email',
@@ -21,25 +22,35 @@ const BASE_SESSION_ITEMS = [
 
 export function useOrgPermission({
   resourceCode = ORGANIZATION_VIEW,
+  authContext = 'admin',
 }: UseOrgPermissionParams) {
   const [accountForSessionItems, setAccountForSessionItems] = useState<
     string | undefined
   >()
 
+  const isStorefrontPublicSession = authContext === 'storefront'
+
   const sessionItems = useMemo(() => {
+    if (!isStorefrontPublicSession) {
+      return [
+        'authentication.adminUserEmail',
+        'account.accountName',
+      ] as const
+    }
+
     if (!accountForSessionItems) {
-      return [...BASE_SESSION_ITEMS]
+      return [...STOREFRONT_SESSION_ITEMS_BASE]
     }
 
     return [
-      ...BASE_SESSION_ITEMS,
+      ...STOREFRONT_SESSION_ITEMS_BASE,
       `cookie.${VTEX_ID_CLIENT_AUT_COOKIE_KEY_PREFIX}_${accountForSessionItems}`,
     ]
-  }, [accountForSessionItems])
+  }, [accountForSessionItems, isStorefrontPublicSession])
 
   const fullSession = useFullSession({
     variables: {
-      items: sessionItems,
+      items: [...sessionItems],
     },
   })
 
@@ -47,10 +58,15 @@ export function useOrgPermission({
     fullSession.data?.session?.namespaces?.account?.accountName?.value
 
   useEffect(() => {
-    if (account && account !== accountForSessionItems) {
-      setAccountForSessionItems(account)
+    if (
+      !isStorefrontPublicSession ||
+      !(account && account !== accountForSessionItems)
+    ) {
+      return
     }
-  }, [account, accountForSessionItems])
+
+    setAccountForSessionItems(account)
+  }, [account, accountForSessionItems, isStorefrontPublicSession])
 
   const namespaces = fullSession.data?.session?.namespaces
 
@@ -60,17 +76,22 @@ export function useOrgPermission({
     namespaces?.authentication?.storeUserEmail?.value
   const profileEmail = namespaces?.profile?.email?.value
 
-  const userEmail = adminUserEmail || storeUserEmail || profileEmail
+  const userEmail = isStorefrontPublicSession
+    ? adminUserEmail || storeUserEmail || profileEmail
+    : adminUserEmail
 
-  const vtexAuthCookie = account
-    ? namespaces?.cookie?.[`${VTEX_ID_CLIENT_AUT_COOKIE_KEY_PREFIX}_${account}`]
-        ?.value
-    : undefined
+  const vtexAuthCookie =
+    isStorefrontPublicSession && account
+      ? namespaces?.cookie?.[`${VTEX_ID_CLIENT_AUT_COOKIE_KEY_PREFIX}_${account}`]
+          ?.value
+      : undefined
+
+  const shouldFetchGranted = isStorefrontPublicSession
+    ? userEmail && account && vtexAuthCookie
+    : userEmail && account
 
   const { data, isLoading, isValidating, error } = useSWR<{ data: boolean }>(
-    userEmail && account && vtexAuthCookie
-      ? `/granted?${resourceCode}`
-      : null,
+    shouldFetchGranted ? `/granted?${resourceCode}` : null,
     () =>
       checkUserAdminPermission({
         account,

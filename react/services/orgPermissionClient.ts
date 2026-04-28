@@ -14,7 +14,7 @@ interface CheckUserAdminPermissionParams {
   account: string
   userEmail: string
   resourceCode: string
-  authCookie: string
+  authCookie?: string
 }
 
 const checkUserAdminPermission = async ({

@@ -125,6 +125,7 @@ const OrganizationUsersTable: FunctionComponent<Props> = ({
 
   const { data: canEditBuyerOrg } = useOrgPermission({
     resourceCode: ORGANIZATION_EDIT,
+    authContext: isAdmin ? 'admin' : 'storefront',
   })
 
   const { data, loading, refetch } = useQuery(GET_USERS, {
