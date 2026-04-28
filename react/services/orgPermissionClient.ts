@@ -14,7 +14,6 @@ interface CheckUserAdminPermissionParams {
   account: string
   userEmail: string
   resourceCode: string
-  /** Set on storefront; Admin UI omits (browser session cookies apply). */
   authCookie?: string
 }
 

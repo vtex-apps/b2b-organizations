@@ -8,11 +8,6 @@ import { ORGANIZATION_VIEW } from '../utils/constants'
 
 interface UseOrgPermissionParams {
   resourceCode?: typeof ORGANIZATION_EDIT | typeof ORGANIZATION_VIEW
-  /**
-   * `'storefront'` (My Organization / account area): resolves store user email and sends
-   * License Manager cookie from session — required on the public storefront domain.
-   * `'admin'`: VTEX Admin UI session only (matches pre–3.1.10 behavior).
-   */
   authContext?: 'admin' | 'storefront'
 }
 
