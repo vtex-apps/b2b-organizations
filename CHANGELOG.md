@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [3.1.11] - 2026-05-06
+
 ### Changed
 
 - `useOrgPermission`: **Admin** (`authContext: 'admin'`, default) uses License Manager **`/granted`** again via `checkUserAdminPermission`. **Storefront** (`authContext: 'storefront'`) uses `vtex.storefront-permissions` **`checkUserPermission`** (GraphQL query in `getPermissions.graphql`) plus local permission allow-lists for `buyer_organization_edit` / `buyer_organization_view` — no LM call on the storefront.
