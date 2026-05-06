@@ -1,90 +1,119 @@
-import { useEffect, useMemo, useState } from 'react'
 import useSWR from 'swr'
+import { useQuery } from 'react-apollo'
 import { useFullSession } from 'vtex.session-client'
 
+import GET_PERMISSIONS from '../graphql/getPermissions.graphql'
 import { checkUserAdminPermission } from '../services'
 import type { ORGANIZATION_EDIT } from '../utils/constants'
 import { ORGANIZATION_VIEW } from '../utils/constants'
 
 interface UseOrgPermissionParams {
   resourceCode?: typeof ORGANIZATION_EDIT | typeof ORGANIZATION_VIEW
+  /** Admin: License Manager `granted`. Storefront: `checkUserPermission` (storefront-permissions). */
+  authContext?: 'admin' | 'storefront'
 }
 
-const VTEX_ID_CLIENT_AUT_COOKIE_KEY_PREFIX = 'VtexIdclientAutCookie'
-
-const BASE_SESSION_ITEMS = [
+const ADMIN_SESSION_ITEMS = [
   'authentication.adminUserEmail',
-  'authentication.storeUserEmail',
-  'profile.email',
   'account.accountName',
 ] as const
 
+/** Permissions that imply buyer-organization *edit* actions on the storefront (aligns with LM `buyer_organization_edit` usage in UI). */
+const STOREFRONT_ORG_EDIT_PERMISSIONS: string[] = [
+  'manage-organization',
+  'create-cost-center-organization',
+  'add-users-organization',
+  'remove-users-organization',
+  'add-sales-users-all',
+  'add-sales-users-current',
+]
+
+/** Any B2B storefront feature from org settings — used for `buyer_organization_view`-style gating on the storefront. */
+const STOREFRONT_ORG_VIEW_PERMISSIONS: string[] = [
+  ...STOREFRONT_ORG_EDIT_PERMISSIONS,
+  'remove-sales-users-all',
+  'impersonate-users-costcenter',
+  'impersonate-users-organization',
+  'impersonate-users-all',
+]
+
+function hasStorefrontPermissionForResource(
+  permissions: string[] | undefined,
+  resourceCode: typeof ORGANIZATION_EDIT | typeof ORGANIZATION_VIEW
+) {
+  const list =
+    resourceCode === 'buyer_organization_edit'
+      ? STOREFRONT_ORG_EDIT_PERMISSIONS
+      : STOREFRONT_ORG_VIEW_PERMISSIONS
+
+  return (permissions ?? []).some(p => list.includes(p))
+}
+
 export function useOrgPermission({
   resourceCode = ORGANIZATION_VIEW,
+  authContext = 'admin',
 }: UseOrgPermissionParams) {
-  const [accountForSessionItems, setAccountForSessionItems] = useState<
-    string | undefined
-  >()
+  const isStorefront = authContext === 'storefront'
 
-  const sessionItems = useMemo(() => {
-    if (!accountForSessionItems) {
-      return [...BASE_SESSION_ITEMS]
-    }
-
-    return [
-      ...BASE_SESSION_ITEMS,
-      `cookie.${VTEX_ID_CLIENT_AUT_COOKIE_KEY_PREFIX}_${accountForSessionItems}`,
-    ]
-  }, [accountForSessionItems])
+  const {
+    data: storefrontPermData,
+    loading: storefrontPermLoading,
+    error: storefrontPermError,
+  } = useQuery(GET_PERMISSIONS, {
+    ssr: false,
+    skip: !isStorefront,
+  })
 
   const fullSession = useFullSession({
     variables: {
-      items: sessionItems,
+      items: isStorefront
+        ? ['account.accountName']
+        : [...ADMIN_SESSION_ITEMS],
     },
   })
 
   const account =
     fullSession.data?.session?.namespaces?.account?.accountName?.value
 
-  useEffect(() => {
-    if (account && account !== accountForSessionItems) {
-      setAccountForSessionItems(account)
-    }
-  }, [account, accountForSessionItems])
-
-  const namespaces = fullSession.data?.session?.namespaces
-
   const adminUserEmail =
-    namespaces?.authentication?.adminUserEmail?.value
-  const storeUserEmail =
-    namespaces?.authentication?.storeUserEmail?.value
-  const profileEmail = namespaces?.profile?.email?.value
+    fullSession.data?.session?.namespaces?.authentication?.adminUserEmail
+      ?.value
 
-  const userEmail = adminUserEmail || storeUserEmail || profileEmail
+  const shouldFetchGranted =
+    !isStorefront && Boolean(adminUserEmail && account)
 
-  const vtexAuthCookie = account
-    ? namespaces?.cookie?.[`${VTEX_ID_CLIENT_AUT_COOKIE_KEY_PREFIX}_${account}`]
-        ?.value
-    : undefined
-
-  const { data, isLoading, isValidating, error } = useSWR<{ data: boolean }>(
-    userEmail && account && vtexAuthCookie
-      ? `/granted?${resourceCode}`
-      : null,
+  const { data: grantedData, isLoading, isValidating, error } = useSWR(
+    shouldFetchGranted ? `/granted?${resourceCode}` : null,
     () =>
       checkUserAdminPermission({
-        account,
-        userEmail,
+        account: account as string,
+        userEmail: adminUserEmail as string,
         resourceCode,
-        authCookie: vtexAuthCookie,
       }),
     {
       dedupingInterval: 0,
     }
   )
 
+  if (isStorefront) {
+    const permissions =
+      storefrontPermData?.checkUserPermission?.permissions ?? undefined
+
+    const allowed = hasStorefrontPermissionForResource(
+      permissions,
+      resourceCode
+    )
+
+    return {
+      data: storefrontPermLoading ? undefined : allowed,
+      error: storefrontPermError,
+      isLoading: storefrontPermLoading,
+      isValidating: false,
+    }
+  }
+
   return {
-    data,
+    data: grantedData,
     error,
     isLoading,
     isValidating,
