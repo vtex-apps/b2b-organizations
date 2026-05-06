@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Changed
 
-- `useOrgPermission` with `authContext: 'storefront'` no longer calls License Manager `granted`; storefront authorization uses `vtex.storefront-permissions` at component level (e.g. `checkUserPermission`). Admin UI keeps the LM `granted` check (`authContext: 'admin'`, default).
+- Removed client-side License Manager `granted` calls (`checkUserAdminPermission` / `orgPermissionClient`). `useOrgPermission` now only exists for backward compatibility with call sites; authorization should use `vtex.storefront-permissions` on the storefront and Admin VTEX / GraphQL enforcement elsewhere.
 
 ## [3.1.10] - 2026-04-27
 
