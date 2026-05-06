@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useMemo } from 'react'
 import useSWR from 'swr'
 import { useFullSession } from 'vtex.session-client'
 
@@ -11,12 +11,8 @@ interface UseOrgPermissionParams {
   authContext?: 'admin' | 'storefront'
 }
 
-const VTEX_ID_CLIENT_AUT_COOKIE_KEY_PREFIX = 'VtexIdclientAutCookie'
-
-const STOREFRONT_SESSION_ITEMS_BASE = [
+const ADMIN_SESSION_ITEMS = [
   'authentication.adminUserEmail',
-  'authentication.storeUserEmail',
-  'profile.email',
   'account.accountName',
 ] as const
 
@@ -24,29 +20,13 @@ export function useOrgPermission({
   resourceCode = ORGANIZATION_VIEW,
   authContext = 'admin',
 }: UseOrgPermissionParams) {
-  const [accountForSessionItems, setAccountForSessionItems] = useState<
-    string | undefined
-  >()
+  const isStorefront = authContext === 'storefront'
 
-  const isStorefrontPublicSession = authContext === 'storefront'
-
-  const sessionItems = useMemo(() => {
-    if (!isStorefrontPublicSession) {
-      return [
-        'authentication.adminUserEmail',
-        'account.accountName',
-      ] as const
-    }
-
-    if (!accountForSessionItems) {
-      return [...STOREFRONT_SESSION_ITEMS_BASE]
-    }
-
-    return [
-      ...STOREFRONT_SESSION_ITEMS_BASE,
-      `cookie.${VTEX_ID_CLIENT_AUT_COOKIE_KEY_PREFIX}_${accountForSessionItems}`,
-    ]
-  }, [accountForSessionItems, isStorefrontPublicSession])
+  const sessionItems = useMemo(
+    () =>
+      isStorefront ? ['account.accountName'] : [...ADMIN_SESSION_ITEMS],
+    [isStorefront]
+  )
 
   const fullSession = useFullSession({
     variables: {
@@ -57,52 +37,34 @@ export function useOrgPermission({
   const account =
     fullSession.data?.session?.namespaces?.account?.accountName?.value
 
-  useEffect(() => {
-    if (
-      !isStorefrontPublicSession ||
-      !(account && account !== accountForSessionItems)
-    ) {
-      return
-    }
-
-    setAccountForSessionItems(account)
-  }, [account, accountForSessionItems, isStorefrontPublicSession])
-
-  const namespaces = fullSession.data?.session?.namespaces
-
   const adminUserEmail =
-    namespaces?.authentication?.adminUserEmail?.value
-  const storeUserEmail =
-    namespaces?.authentication?.storeUserEmail?.value
-  const profileEmail = namespaces?.profile?.email?.value
+    fullSession.data?.session?.namespaces?.authentication?.adminUserEmail?.value
 
-  const userEmail = isStorefrontPublicSession
-    ? adminUserEmail || storeUserEmail || profileEmail
-    : adminUserEmail
+  const userEmail = adminUserEmail
 
-  const vtexAuthCookie =
-    isStorefrontPublicSession && account
-      ? namespaces?.cookie?.[`${VTEX_ID_CLIENT_AUT_COOKIE_KEY_PREFIX}_${account}`]
-          ?.value
-      : undefined
+  const shouldFetchGranted = !isStorefront && Boolean(userEmail && account)
 
-  const shouldFetchGranted = isStorefrontPublicSession
-    ? userEmail && account && vtexAuthCookie
-    : userEmail && account
-
-  const { data, isLoading, isValidating, error } = useSWR<{ data: boolean }>(
+  const { data, isLoading, isValidating, error } = useSWR(
     shouldFetchGranted ? `/granted?${resourceCode}` : null,
     () =>
       checkUserAdminPermission({
-        account,
-        userEmail,
+        account: account as string,
+        userEmail: userEmail as string,
         resourceCode,
-        authCookie: vtexAuthCookie,
       }),
     {
       dedupingInterval: 0,
     }
   )
+
+  if (isStorefront) {
+    return {
+      data: true,
+      error: undefined,
+      isLoading: false,
+      isValidating: false,
+    }
+  }
 
   return {
     data,

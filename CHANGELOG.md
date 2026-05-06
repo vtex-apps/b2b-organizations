@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Changed
 
-- `useOrgPermission` accepts optional `authContext`: `'storefront'` (My Organization) applies the storefront License Manager cookie flow introduced in 3.1.10; `'admin'` (default, Admin UI and shared components when `isAdmin`) keeps session items and granted checks aligned with behaviour before that change.
+- `useOrgPermission` with `authContext: 'storefront'` no longer calls License Manager `granted`; storefront authorization uses `vtex.storefront-permissions` at component level (e.g. `checkUserPermission`). Admin UI keeps the LM `granted` check (`authContext: 'admin'`, default).
 
 ## [3.1.10] - 2026-04-27
 
