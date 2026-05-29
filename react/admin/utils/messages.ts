@@ -597,4 +597,61 @@ export const exportMessages = defineMessages({
   modalDownloading: {
     id: `${adminPrefix}export.modal.downloading`,
   },
+  modalReady: {
+    id: `${adminPrefix}export.modal.ready`,
+  },
+  modalDownloadButton: {
+    id: `${adminPrefix}export.modal.downloadButton`,
+  },
+  selectAll: {
+    id: `${adminPrefix}export.modal.selectAll`,
+  },
+  startExport: {
+    id: `${adminPrefix}export.modal.startExport`,
+  },
+  tableType: {
+    id: `${adminPrefix}export.modal.table.type`,
+  },
+  tableProgress: {
+    id: `${adminPrefix}export.modal.table.progress`,
+  },
+  tablePercentage: {
+    id: `${adminPrefix}export.modal.table.percentage`,
+  },
+  tableStatus: {
+    id: `${adminPrefix}export.modal.table.status`,
+  },
+  tableAction: {
+    id: `${adminPrefix}export.modal.table.action`,
+  },
+  typeOrganizations: {
+    id: `${adminPrefix}export.type.organizations`,
+  },
+  typeCostCenters: {
+    id: `${adminPrefix}export.type.cost_centers`,
+  },
+  typeMembers: {
+    id: `${adminPrefix}export.type.members`,
+  },
+  typeAddresses: {
+    id: `${adminPrefix}export.type.addresses`,
+  },
+  statusCreating: {
+    id: `${adminPrefix}export.status.creating`,
+  },
+  statusGenerating: {
+    id: `${adminPrefix}export.status.generating`,
+  },
+  statusDownloading: {
+    id: `${adminPrefix}export.status.downloading`,
+  },
+  statusReady: {
+    id: `${adminPrefix}export.status.ready`,
+  },
+  statusError: {
+    id: `${adminPrefix}export.status.error`,
+  },
+  buttonExportingCount: {
+    id: `${adminPrefix}export.button.exportingCount`,
+  },
 })

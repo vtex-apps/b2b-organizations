@@ -7,6 +7,19 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Added
+
+- Unified **Export CSV** action on the **Organizations** admin page (`New` > `Export CSV`): select one or more data types (Organizations, Cost Centers, Users, Addresses), run exports in parallel, and track per-type progress in a modal table with row-level download when ready.
+- Export job persistence in browser session storage, with automatic resume after page refresh and retry on transient status polling failures.
+
+### Changed
+
+- Removed separate export buttons from Organization Details (Cost Centers, Users, and Addresses); all CSV exports are initiated from the Organizations list.
+
+### Documentation
+
+- Documented the CSV export flow in `docs/README.md`.
+
 ## [3.1.11] - 2026-05-06
 
 ### Changed

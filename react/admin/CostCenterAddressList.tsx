@@ -5,7 +5,6 @@ import { Table, Toggle } from 'vtex.styleguide'
 import { costCenterMessages as messages } from './utils/messages'
 import { useOrgPermission } from '../hooks/useOrgPermission'
 import { ORGANIZATION_EDIT } from '../utils/constants'
-import ExportButton from '../components/ExportButton'
 
 const tableLength = 5
 
@@ -213,9 +212,6 @@ const CostCenterAddressList: React.FC<AddressListProps> = ({
 
   return (
     <>
-      <div className="flex justify-end mb4">
-        <ExportButton exportType="addresses" />
-      </div>
       <Table
       fullWidth
       schema={jsonschema}

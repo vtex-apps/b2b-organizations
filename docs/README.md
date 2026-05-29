@@ -174,7 +174,7 @@ The **B2B Organizations** app adds the following functionalities and components 
   </tr>
   <tr>
     <td>Organizations page</td>
-    <td>Manage Organizations<br></td>
+    <td>Manage Organizations<br>Export organization data as CSV<br></td>
   </tr>
   <tr>
     <td rowspan="5">Organization Details page</td>
@@ -263,6 +263,7 @@ If the organization request is declined, the request status will be changed to *
 The **Organizations** page includes a list of all the organizations created in your store and their respective status, and also allows store administrators to:
 
 - [Add organizations](#add-organization).
+- [Export data as CSV](#export-csv).
 - Access the [Organization details](#organization-details) page, which includes organization data, cost centers, collections, payment terms, price tables and users.
 
 To access the page, go to **Account Settings** > **B2B Organizations & Cost Centers** > **Organizations** in the VTEX Admin (or at `/admin/b2b-organizations/organizations`).
@@ -299,6 +300,56 @@ You can manually create a new organization on the **Organizations** page. Follow
 ![05-add-organization](https://user-images.githubusercontent.com/77292838/159766663-e1b2005a-0c2d-4bec-84ad-612007f17d64.gif)
 
 > ℹ️ Additional cost centers and addresses may be added after creating the organization, as explained in the next section of this documentation.
+
+##### Export CSV
+
+Store administrators can export B2B data from the **Organizations** page as CSV files. The export is initiated from a single entry point and supports multiple data types in parallel.
+
+To export data, follow these steps:
+
+1. Go to **Account Settings** > **B2B Organizations & Cost Centers** > **Organizations** in the VTEX Admin (or at `/admin/b2b-organizations/organizations`).
+2. Click on the `New` button.
+3. Select `Export CSV`.
+4. In the modal, use the checkboxes to select the data you want to export. You can select one or more of the following types, or use **Select all** to mark every available type:
+   - **Organizations**
+   - **Cost centers**
+   - **Users**
+   - **Addresses**
+5. Click on `Start export`.
+
+Each selected export runs independently. Progress is shown in a table with the following columns:
+
+| **Column**   | **Description**                                                                 |
+| ------------ | ------------------------------------------------------------------------------- |
+| **Type**     | Data type being exported.                                                       |
+| **Progress** | Individual progress bar for that export.                                          |
+| **Percentage** | Current completion percentage for that export.                                |
+| **Status**   | Current state, such as *Starting...*, *Generating...*, *Ready*, or *Failed*.   |
+| **Action**   | When the export is ready, a `Download file` button is available on that row.   |
+
+> ℹ️ Exports are **account-wide** for each selected type. They are not limited to the organization or cost center currently open in the VTEX Admin.
+
+While an export is in progress, the `Export CSV` menu item displays how many exports are currently running (for example, `Exporting (2)...`). You can close the modal and continue working in the VTEX Admin; progress remains visible on the menu item and in the modal when you open it again.
+
+**Re-exporting and completed files**
+
+- Types that have already finished remain listed in the progress table with a `Download file` action.
+- To generate a new file for a type that is already **Ready** or **Failed**, select its checkbox again and click `Start export`. The previous progress for that type is cleared and a new export begins.
+- Checkboxes are disabled only while an export is actively running (*Starting...*, *Generating...*, or *Downloading...*).
+
+**Progress and completion**
+
+- The frontend polls the export status every 2 seconds until the backend returns `COMPLETED` with a download link, or `FAILED`.
+- Progress percentage is calculated from exported rows and list totals when available. If the API returns `progressPercentage: 0` while rows are still being exported, the UI uses the row-based calculation as a fallback.
+- An export is considered complete only when the backend status is `COMPLETED` and a file link is available—not when the percentage reaches 100% while the job is still finalizing.
+- If a status request fails temporarily, the app retries up to 5 consecutive times before showing an error for that export. The retry count is reset after a successful status response.
+- There is no fixed time limit for polling on the frontend; large exports remain in progress until the backend finishes or reports failure.
+
+**Session persistence**
+
+Export jobs are stored in the browser session. If you refresh the page or lose connectivity briefly, in-progress exports resume automatically when you return to the **Organizations** page. Completed exports awaiting download are also restored until you download the file or start a new export for that type.
+
+> ℹ️ CSV export requires the **B2B Organizations GraphQL** app (`vtex.b2b-organizations-graphql`) and the appropriate admin permissions. The export flow uses the `createExport` and `exportStatus` GraphQL operations exposed by that app.
 
 #### Organization Details
 

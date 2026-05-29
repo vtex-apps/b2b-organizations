@@ -34,6 +34,7 @@ import {
   ORGANIZATION_EDIT,
 } from '../../utils/constants'
 import { useOrgPermission } from '../../hooks/useOrgPermission'
+import { useOrganizationsList } from '../../organizations/hooks'
 import ExportButton from '../ExportButton'
 
 const CreateOrganizationButton = () => {
@@ -45,6 +46,7 @@ const CreateOrganizationButton = () => {
   const { startBulkImport } = useStartBulkImport()
 
   const { data } = useBulkImportsQuery()
+  const { data: organizationsData } = useOrganizationsList()
   const { data: canEditBuyerOrg } = useOrgPermission({
     resourceCode: ORGANIZATION_EDIT,
   })
@@ -58,29 +60,41 @@ const CreateOrganizationButton = () => {
 
   return (
     <>
-      <PageHeaderMenuButton
-        state={menuState}
-        label={formatMessage(messages.new)}
-        labelHidden={false}
-        variant="primary"
-        disabled={!canEditBuyerOrg}
+      <ExportButton
+        variant="menuItem"
+        totalsByType={{
+          organizations:
+            organizationsData?.getOrganizations?.pagination?.total,
+        }}
+        renderLayout={(trigger, modal) => (
+          <>
+            <PageHeaderMenuButton
+              state={menuState}
+              label={formatMessage(messages.new)}
+              labelHidden={false}
+              variant="primary"
+              disabled={!canEditBuyerOrg}
+            />
+            <Menu state={menuState} aria-label="actions">
+              <MenuItem
+                label={formatMessage(messages.addSingle)}
+                icon={<IconPencil />}
+                onClick={() => setOpen(true)}
+              />
+              <ImportInBulkTooltip visible={!data}>
+                <MenuItem
+                  label={formatMessage(messages.addBulk)}
+                  icon={<IconCloudArrowUp />}
+                  onClick={() => setUploadModalOpen(true)}
+                  disabled={!data}
+                />
+              </ImportInBulkTooltip>
+              {trigger}
+            </Menu>
+            {modal}
+          </>
+        )}
       />
-      <Menu state={menuState} aria-label="actions">
-        <MenuItem
-          label={formatMessage(messages.addSingle)}
-          icon={<IconPencil />}
-          onClick={() => setOpen(true)}
-        />
-        <ImportInBulkTooltip visible={!data}>
-          <MenuItem
-            label={formatMessage(messages.addBulk)}
-            icon={<IconCloudArrowUp />}
-            onClick={() => setUploadModalOpen(true)}
-            disabled={!data}
-          />
-        </ImportInBulkTooltip>
-        <ExportButton exportType="organizations" variant="menuItem" />
-      </Menu>
       <CreateOrganizationModal open={open} onOpenChange={setOpen} />
       <UploadModal
         helpContent={
