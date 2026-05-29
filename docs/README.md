@@ -344,6 +344,7 @@ While an export is in progress, the `Export CSV` menu item displays how many exp
 - An export is considered complete only when the backend status is `COMPLETED` and a file link is available—not when the percentage reaches 100% while the job is still finalizing.
 - If a status request fails temporarily, the app retries up to 5 consecutive times before showing an error for that export. The retry count is reset after a successful status response.
 - There is no fixed time limit for polling on the frontend; large exports remain in progress until the backend finishes or reports failure.
++- If an export stays **IN_PROGRESS** with no change in status data for **5 minutes** (based on `lastUpdate` and other progress fields), the UI marks it as **Failed** and shows a retry action.
 
 **Session persistence**
 

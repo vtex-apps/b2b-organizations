@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 - Unified **Export CSV** action on the **Organizations** admin page (`New` > `Export CSV`): select one or more data types (Organizations, Cost Centers, Users, Addresses), run exports in parallel, and track per-type progress in a modal table with row-level download when ready.
 - Export job persistence in browser session storage, with automatic resume after page refresh and retry on transient status polling failures.
+- Stale export detection: marks an export as failed when status data does not change for 5 minutes while still `IN_PROGRESS`.
 
 ### Changed
 

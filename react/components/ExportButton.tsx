@@ -33,8 +33,11 @@ import type { ExportJobUIState, ExportType } from '../utils/exportTypes'
 import {
   downloadCsvFile,
   getDisplayProgressPercentage,
+  getExportStatusSnapshot,
   getGraphQLErrorMessage,
+  getStatusActivityTimestamp,
   isExportInProgress,
+  isExportStatusStale,
   MAX_STATUS_POLL_FAILURES,
   POLL_INTERVAL_MS,
 } from '../utils/exportHelpers'
@@ -70,6 +73,8 @@ const ExportButton = ({
     {}
   )
   const pollingInProgressRef = useRef<Partial<Record<ExportType, boolean>>>({})
+  const statusSnapshotRef = useRef<Partial<Record<ExportType, string>>>({})
+  const statusSnapshotSinceRef = useRef<Partial<Record<ExportType, number>>>({})
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null)
   const isMountedRef = useRef(true)
 
@@ -88,6 +93,30 @@ const ExportButton = ({
       updateJob(exportType, createIdleExportJob())
     },
     [updateJob]
+  )
+
+  const clearStatusSnapshot = useCallback((exportType: ExportType) => {
+    delete statusSnapshotRef.current[exportType]
+    delete statusSnapshotSinceRef.current[exportType]
+  }, [])
+
+  const trackStatusSnapshot = useCallback(
+    (exportType: ExportType, statusData: ExportStatusResult): boolean => {
+      const snapshot = getExportStatusSnapshot(statusData)
+      const previousSnapshot = statusSnapshotRef.current[exportType]
+
+      if (previousSnapshot !== snapshot) {
+        statusSnapshotRef.current[exportType] = snapshot
+        statusSnapshotSinceRef.current[exportType] =
+          getStatusActivityTimestamp(statusData) ?? Date.now()
+      }
+
+      return isExportStatusStale(
+        statusData,
+        statusSnapshotSinceRef.current[exportType]
+      )
+    },
+    []
   )
 
   const openModal = useCallback(() => {
@@ -175,6 +204,7 @@ const ExportButton = ({
       delete pollStartRef.current[exportType]
       delete statusPollFailureCountRef.current[exportType]
       delete pollingInProgressRef.current[exportType]
+      clearStatusSnapshot(exportType)
 
       if (!hasActivePolling()) {
         clearPollingInterval()
@@ -195,6 +225,7 @@ const ExportButton = ({
     },
     [
       clearPollingInterval,
+      clearStatusSnapshot,
       hasActivePolling,
       resetJob,
       showErrorToast,
@@ -314,6 +345,7 @@ const ExportButton = ({
     ) => {
       delete exportIdRef.current[exportType]
       delete pollStartRef.current[exportType]
+      clearStatusSnapshot(exportType)
 
       if (!hasActivePolling()) {
         clearPollingInterval()
@@ -325,7 +357,7 @@ const ExportButton = ({
         linkToFile: statusData.linkToFile,
       })
     },
-    [applyStatusData, clearPollingInterval, hasActivePolling, updateJob]
+    [applyStatusData, clearPollingInterval, clearStatusSnapshot, hasActivePolling, updateJob]
   )
 
   const pollExportStatus = useCallback(
@@ -351,6 +383,16 @@ const ExportButton = ({
         }
 
         statusPollFailureCountRef.current[exportType] = 0
+
+        if (
+          statusData.status === 'IN_PROGRESS' &&
+          trackStatusSnapshot(exportType, statusData)
+        ) {
+          handleExportError(exportType)
+
+          return
+        }
+
         applyStatusData(exportType, statusData, pollStartedAt)
 
         if (statusData.status === 'FAILED') {
@@ -376,6 +418,7 @@ const ExportButton = ({
       handleExportError,
       handleStatusPollFailure,
       markExportReady,
+      trackStatusSnapshot,
       updateJob,
     ]
   )
@@ -461,6 +504,7 @@ const ExportButton = ({
   const startExportForType = useCallback(
     async (exportType: ExportType) => {
       clearStoredExportJob(exportType)
+      clearStatusSnapshot(exportType)
       statusPollFailureCountRef.current[exportType] = 0
       updateJob(exportType, {
         ...createIdleExportJob(),
@@ -499,6 +543,7 @@ const ExportButton = ({
       }
     },
     [
+      clearStatusSnapshot,
       createExport,
       ensurePollingInterval,
       handleExportError,

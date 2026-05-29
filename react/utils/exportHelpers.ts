@@ -2,6 +2,7 @@ import type { ExportType } from './exportTypes'
 
 export const POLL_INTERVAL_MS = 2000
 export const MAX_STATUS_POLL_FAILURES = 5
+export const STALE_STATUS_TIMEOUT_MS = 5 * 60 * 1000
 
 export interface ExportStatusData {
   exportStatus: {
@@ -16,6 +17,38 @@ export interface ExportStatusData {
 }
 
 export type ExportStatusResult = ExportStatusData['exportStatus']
+
+export const getExportStatusSnapshot = (status: ExportStatusResult): string =>
+  JSON.stringify({
+    status: status.status,
+    progressPercentage: status.progressPercentage,
+    exportedRows: status.exportedRows,
+    linkToFile: status.linkToFile,
+    lastUpdate: status.lastUpdate,
+  })
+
+export const getStatusActivityTimestamp = (
+  status: ExportStatusResult
+): number | null => {
+  if (!status.lastUpdate) {
+    return null
+  }
+
+  const timestamp = Date.parse(status.lastUpdate)
+
+  return Number.isFinite(timestamp) ? timestamp : null
+}
+
+export const isExportStatusStale = (
+  statusData: ExportStatusResult,
+  snapshotSinceMs: number | undefined,
+  now = Date.now()
+): boolean => {
+  const activityTimestamp = getStatusActivityTimestamp(statusData)
+  const sinceMs = snapshotSinceMs ?? activityTimestamp ?? now
+
+  return now - sinceMs >= STALE_STATUS_TIMEOUT_MS
+}
 
 export const getGraphQLErrorMessage = (error: unknown): string | undefined => {
   if (!error || typeof error !== 'object') return undefined
