@@ -1,9 +1,18 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import {
   Button,
+  csx,
+  Flex,
   IconArrowLineDown,
   IconWarningCircle,
+  MenuItem,
+  Modal,
+  ModalContent,
+  ModalHeader,
+  ModalTitle,
   Spinner,
+  Text,
+  useModalState,
   useToast,
 } from '@vtex/admin-ui'
 import { useMutation, useApolloClient } from 'react-apollo'
@@ -23,6 +32,7 @@ type ExportState = 'IDLE' | 'CREATING' | 'POLLING' | 'DOWNLOADING' | 'ERROR'
 interface ExportButtonProps {
   exportType: ExportType
   label?: string
+  variant?: 'button' | 'menuItem'
 }
 
 interface ExportStatusData {
@@ -82,16 +92,22 @@ const downloadCsvFile = async (linkToFile: string, exportType: ExportType) => {
   URL.revokeObjectURL(url)
 }
 
-const ExportButton = ({ exportType, label }: ExportButtonProps) => {
+const ExportButton = ({
+  exportType,
+  label,
+  variant = 'button',
+}: ExportButtonProps) => {
   const { formatMessage } = useIntl()
   const toast = useToast()
   const client = useApolloClient()
+  const modalState = useModalState()
   const [createExport] = useMutation(CREATE_EXPORT)
 
   const [state, setState] = useState<ExportState>('IDLE')
   const [progressPercentage, setProgressPercentage] = useState<number | null>(
     null
   )
+  const [exportedRows, setExportedRows] = useState<number | null>(null)
 
   const exportIdRef = useRef<string | null>(null)
   const pollStartRef = useRef<number | null>(null)
@@ -104,6 +120,11 @@ const ExportButton = ({ exportType, label }: ExportButtonProps) => {
       clearInterval(intervalRef.current)
       intervalRef.current = null
     }
+  }, [])
+
+  const resetExportProgress = useCallback(() => {
+    setProgressPercentage(null)
+    setExportedRows(null)
   }, [])
 
   const showErrorToast = useCallback(
@@ -125,7 +146,7 @@ const ExportButton = ({ exportType, label }: ExportButtonProps) => {
       clearPolling()
       exportIdRef.current = null
       pollStartRef.current = null
-      setProgressPercentage(null)
+      resetExportProgress()
 
       if (isMountedRef.current) {
         setState('ERROR')
@@ -133,7 +154,7 @@ const ExportButton = ({ exportType, label }: ExportButtonProps) => {
 
       showErrorToast(error)
     },
-    [clearPolling, showErrorToast]
+    [clearPolling, resetExportProgress, showErrorToast]
   )
 
   const handleDownload = useCallback(
@@ -153,14 +174,14 @@ const ExportButton = ({ exportType, label }: ExportButtonProps) => {
         })
 
         setState('IDLE')
-        setProgressPercentage(null)
+        resetExportProgress()
         exportIdRef.current = null
         pollStartRef.current = null
       } catch (error) {
         handleExportError(error)
       }
     },
-    [exportType, formatMessage, handleExportError, toast]
+    [exportType, formatMessage, handleExportError, resetExportProgress, toast]
   )
 
   const pollExportStatus = useCallback(async () => {
@@ -196,6 +217,7 @@ const ExportButton = ({ exportType, label }: ExportButtonProps) => {
       }
 
       setProgressPercentage(statusData.progressPercentage ?? null)
+      setExportedRows(statusData.exportedRows ?? null)
 
       if (statusData.status === 'FAILED') {
         handleExportError()
@@ -224,7 +246,7 @@ const ExportButton = ({ exportType, label }: ExportButtonProps) => {
 
   const startExport = useCallback(async () => {
     setState('CREATING')
-    setProgressPercentage(null)
+    resetExportProgress()
 
     try {
       const { data } = await createExport({
@@ -253,6 +275,7 @@ const ExportButton = ({ exportType, label }: ExportButtonProps) => {
     exportType,
     handleExportError,
     pollExportStatus,
+    resetExportProgress,
     startPolling,
   ])
 
@@ -265,43 +288,133 @@ const ExportButton = ({ exportType, label }: ExportButtonProps) => {
     }
   }, [clearPolling])
 
-  const buttonLabel = label ?? formatMessage(messages.buttonLabel)
+  useEffect(() => {
+    const isModalOpen =
+      state === 'CREATING' || state === 'POLLING' || state === 'DOWNLOADING'
 
-  if (state === 'ERROR') {
+    if (isModalOpen) {
+      modalState.show()
+    } else {
+      modalState.hide()
+    }
+  }, [modalState, state])
+
+  const buttonLabel = label ?? formatMessage(messages.buttonLabel)
+  const generatingLabel =
+    progressPercentage != null
+      ? formatMessage(messages.buttonGenerating, {
+          percentage: progressPercentage,
+        })
+      : formatMessage(messages.buttonGeneratingNoProgress)
+
+  const modalProgressLabel =
+    state === 'DOWNLOADING'
+      ? formatMessage(messages.modalDownloading)
+      : progressPercentage != null
+      ? formatMessage(messages.modalProgress, {
+          percentage: progressPercentage,
+        })
+      : formatMessage(messages.modalProgressUnknown)
+
+  const renderTrigger = () => {
+    if (variant === 'menuItem') {
+      if (state === 'ERROR') {
+        return (
+          <MenuItem
+            label={`${formatMessage(messages.buttonError)} — ${formatMessage(messages.buttonRetry)}`}
+            icon={<IconWarningCircle />}
+            onClick={() => startExport()}
+          />
+        )
+      }
+
+      if (
+        state === 'CREATING' ||
+        state === 'POLLING' ||
+        state === 'DOWNLOADING'
+      ) {
+        return (
+          <MenuItem
+            label={generatingLabel}
+            icon={<Spinner size={16} />}
+            disabled
+          />
+        )
+      }
+
+      return (
+        <MenuItem
+          label={buttonLabel}
+          icon={<IconArrowLineDown />}
+          onClick={() => startExport()}
+        />
+      )
+    }
+
+    if (state === 'ERROR') {
+      return (
+        <Button
+          variant="tertiary"
+          icon={<IconWarningCircle />}
+          onClick={() => startExport()}
+        >
+          {formatMessage(messages.buttonError)} —{' '}
+          {formatMessage(messages.buttonRetry)}
+        </Button>
+      )
+    }
+
+    if (state === 'CREATING' || state === 'POLLING' || state === 'DOWNLOADING') {
+      return (
+        <Button variant="tertiary" disabled icon={<Spinner size={16} />}>
+          {generatingLabel}
+        </Button>
+      )
+    }
+
     return (
       <Button
         variant="tertiary"
-        icon={<IconWarningCircle />}
+        icon={<IconArrowLineDown />}
         onClick={() => startExport()}
       >
-        {formatMessage(messages.buttonError)} — {formatMessage(messages.buttonRetry)}
-      </Button>
-    )
-  }
-
-  if (state === 'CREATING' || state === 'POLLING' || state === 'DOWNLOADING') {
-    const generatingLabel =
-      progressPercentage != null
-        ? formatMessage(messages.buttonGenerating, {
-            percentage: progressPercentage,
-          })
-        : formatMessage(messages.buttonGeneratingNoProgress)
-
-    return (
-      <Button variant="tertiary" disabled icon={<Spinner size={16} />}>
-        {generatingLabel}
+        {buttonLabel}
       </Button>
     )
   }
 
   return (
-    <Button
-      variant="tertiary"
-      icon={<IconArrowLineDown />}
-      onClick={() => startExport()}
-    >
-      {buttonLabel}
-    </Button>
+    <>
+      {renderTrigger()}
+      <Modal state={modalState} size="small">
+        <ModalHeader>
+          <ModalTitle>{formatMessage(messages.modalTitle)}</ModalTitle>
+        </ModalHeader>
+        <ModalContent>
+          <Flex
+            align="center"
+            direction="column"
+            className={csx({
+              gap: '$space-4',
+              paddingTop: '$space-2',
+              paddingBottom: '$space-6',
+            })}
+          >
+            <Spinner className={csx({ color: '$blue40' })} size={48} />
+            <Text variant="body" className={csx({ textAlign: 'center' })}>
+              {modalProgressLabel}
+            </Text>
+            {exportedRows != null && (
+              <Text tone="secondary" className={csx({ textAlign: 'center' })}>
+                {formatMessage(messages.modalExportedRows, {
+                  exportedRows,
+                })}
+              </Text>
+            )}
+          </Flex>
+        </ModalContent>
+      </Modal>
+    </>
   )
 }
 

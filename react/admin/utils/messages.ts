@@ -582,4 +582,19 @@ export const exportMessages = defineMessages({
   toastError: {
     id: `${adminPrefix}export.toast.error`,
   },
+  modalTitle: {
+    id: `${adminPrefix}export.modal.title`,
+  },
+  modalProgress: {
+    id: `${adminPrefix}export.modal.progress`,
+  },
+  modalProgressUnknown: {
+    id: `${adminPrefix}export.modal.progressUnknown`,
+  },
+  modalExportedRows: {
+    id: `${adminPrefix}export.modal.exportedRows`,
+  },
+  modalDownloading: {
+    id: `${adminPrefix}export.modal.downloading`,
+  },
 })

@@ -34,6 +34,7 @@ import {
   ORGANIZATION_EDIT,
 } from '../../utils/constants'
 import { useOrgPermission } from '../../hooks/useOrgPermission'
+import ExportButton from '../ExportButton'
 
 const CreateOrganizationButton = () => {
   const { formatMessage, translate: t } = useTranslate()
@@ -78,6 +79,7 @@ const CreateOrganizationButton = () => {
             disabled={!data}
           />
         </ImportInBulkTooltip>
+        <ExportButton exportType="organizations" variant="menuItem" />
       </Menu>
       <CreateOrganizationModal open={open} onOpenChange={setOpen} />
       <UploadModal

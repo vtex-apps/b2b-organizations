@@ -10,7 +10,6 @@ import {
   PageContent,
   useTabState,
   PageHeaderActions,
-  Flex,
 } from '@vtex/admin-ui'
 import { useIntl } from 'react-intl'
 import { HashRouter, Switch, Route } from 'react-router-dom'
@@ -28,7 +27,6 @@ import OrganizationCustomFields from './CustomFields'
 import CheckCustomerSchema from '../components/CheckCustomerSchema'
 import BulkImportList from '../components/BulkImportList'
 import CreateOrganizationButton from '../components/CreateOrganizationButton'
-import ExportButton from '../components/ExportButton'
 import HasAccess from './HasAccess'
 
 const SESSION_STORAGE_KEY = 'organization-tab'
@@ -56,12 +54,7 @@ const OrganizationsTable = () => {
                 <Route
                   path="/organizations"
                   exact
-                  render={() => (
-                    <Flex>
-                      <ExportButton exportType="organizations" />
-                      <CreateOrganizationButton />
-                    </Flex>
-                  )}
+                  component={CreateOrganizationButton}
                 />
               </PageHeaderActions>
             </PageHeaderTop>
