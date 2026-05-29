@@ -19,6 +19,7 @@ import IMPERSONATE_USER from '../graphql/impersonateB2BUser.graphql'
 import { B2B_CHECKOUT_SESSION_KEY, ORGANIZATION_EDIT } from '../utils/constants'
 import { sendImpersonateMetric } from '../utils/metrics/impersonate'
 import { useOrgPermission } from '../hooks/useOrgPermission'
+import ExportButton from './ExportButton'
 
 interface Props {
   organizationId: string
@@ -637,6 +638,11 @@ const OrganizationUsersTable: FunctionComponent<Props> = ({
 
   return (
     <Fragment>
+      {isAdmin && (
+        <div className="flex justify-end mb4">
+          <ExportButton exportType="members" />
+        </div>
+      )}
       <Table
         fullWidth
         schema={getSchema()}

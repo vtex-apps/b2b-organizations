@@ -33,6 +33,7 @@ import GET_B2B_CUSTOM_FIELDS from '../../graphql/getB2BCustomFields.graphql'
 import CustomFieldInput from '../OrganizationDetailsCustomField'
 import { useOrgPermission } from '../../hooks/useOrgPermission'
 import { ORGANIZATION_EDIT } from '../../utils/constants'
+import ExportButton from '../../components/ExportButton'
 
 interface CostCenterSimple {
   id: string
@@ -291,6 +292,9 @@ const OrganizationDetailsCostCenters = ({
   return (
     <Fragment>
       <PageBlock title={formatMessage(messages.costCenters)}>
+        <div className="flex justify-end mb4">
+          <ExportButton exportType="cost_centers" />
+        </div>
         <Table
           fullWidth
           schema={getCostCenterSchema()}
