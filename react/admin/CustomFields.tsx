@@ -213,8 +213,9 @@ const CustomFields: React.FC = () => {
           variation="primary"
           onClick={() => addCustomField()}
           disabled={!canEditBuyerOrg}
-        />
-        <FormattedMessage id="admin/b2b-organizations.custom-fields.addField" />
+        >
+          <FormattedMessage id="admin/b2b-organizations.custom-fields.addField" />
+        </Button>
       </div>
     </>
   )
