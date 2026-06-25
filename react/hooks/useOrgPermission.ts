@@ -3,7 +3,10 @@ import { useQuery } from 'react-apollo'
 import { useFullSession } from 'vtex.session-client'
 
 import GET_PERMISSIONS from '../graphql/getPermissions.graphql'
-import { checkUserAdminPermission } from '../services'
+import {
+  checkUserAdminPermission,
+  checkUserIsAdminSuper,
+} from '../services'
 import type { ORGANIZATION_EDIT } from '../utils/constants'
 import { ORGANIZATION_VIEW } from '../utils/constants'
 
@@ -15,6 +18,7 @@ interface UseOrgPermissionParams {
 
 const ADMIN_SESSION_ITEMS = [
   'authentication.adminUserEmail',
+  'authentication.adminUserId',
   'account.accountName',
 ] as const
 
@@ -72,6 +76,8 @@ export function useOrgPermission({
     },
   })
 
+  const sessionLoading = fullSession.loading
+
   const account =
     fullSession.data?.session?.namespaces?.account?.accountName?.value
 
@@ -79,10 +85,18 @@ export function useOrgPermission({
     fullSession.data?.session?.namespaces?.authentication?.adminUserEmail
       ?.value
 
+  const adminUserId =
+    fullSession.data?.session?.namespaces?.authentication?.adminUserId?.value
+
   const shouldFetchGranted =
     !isStorefront && Boolean(adminUserEmail && account)
 
-  const { data: grantedData, isLoading, isValidating, error } = useSWR(
+  const {
+    data: grantedData,
+    isLoading: grantedLoading,
+    isValidating,
+    error,
+  } = useSWR(
     shouldFetchGranted ? `/granted?${resourceCode}` : null,
     () =>
       checkUserAdminPermission({
@@ -92,6 +106,22 @@ export function useOrgPermission({
       }),
     {
       dedupingInterval: 0,
+    }
+  )
+
+  const shouldCheckAdminSuper =
+    shouldFetchGranted && grantedData === false && Boolean(adminUserId)
+
+  const {
+    data: isAdminSuper,
+    isLoading: adminSuperLoading,
+  } = useSWR(
+    shouldCheckAdminSuper
+      ? `/admin-super/${adminUserId}?${resourceCode}`
+      : null,
+    () => checkUserIsAdminSuper(adminUserId as string),
+    {
+      dedupingInterval: 60_000,
     }
   )
 
@@ -112,8 +142,23 @@ export function useOrgPermission({
     }
   }
 
+  const isLoading =
+    sessionLoading || grantedLoading || (shouldCheckAdminSuper && adminSuperLoading)
+
+  let data: boolean | undefined
+
+  if (isLoading) {
+    data = undefined
+  } else if (grantedData === true || isAdminSuper === true) {
+    data = true
+  } else if (grantedData === false && (!shouldCheckAdminSuper || isAdminSuper === false)) {
+    data = false
+  } else {
+    data = grantedData
+  }
+
   return {
-    data: grantedData,
+    data,
     error,
     isLoading,
     isValidating,

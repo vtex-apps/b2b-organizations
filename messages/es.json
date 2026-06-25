@@ -112,7 +112,7 @@
   "admin/b2b-organizations.export.button.error": "Error al exportar",
   "admin/b2b-organizations.export.button.generating": "Generando... {percentage}%",
   "admin/b2b-organizations.export.button.generatingNoProgress": "Generando...",
-  "admin/b2b-organizations.export.button.label": "Exportar CSV",
+  "admin/b2b-organizations.export.button.label": "Exportar",
   "admin/b2b-organizations.export.button.retry": "Reintentar",
   "admin/b2b-organizations.export.modal.downloading": "Preparando archivo para descarga...",
   "admin/b2b-organizations.export.modal.downloadButton": "Descargar archivo",
@@ -120,7 +120,7 @@
   "admin/b2b-organizations.export.modal.exportedRows": "{exportedRows} filas exportadas",
   "admin/b2b-organizations.export.modal.progress": "{percentage}% completado",
   "admin/b2b-organizations.export.modal.progressUnknown": "Generando exportación...",
-  "admin/b2b-organizations.export.modal.title": "Exportando CSV",
+  "admin/b2b-organizations.export.modal.title": "Exportando",
   "admin/b2b-organizations.export.toast.error": "No se pudo generar la exportación. Inténtalo de nuevo.",
   "admin/b2b-organizations.export.toast.success": "Exportación completada. Descarga iniciada.",
   "admin/b2b-organizations.invalid-schema": "La creación de usuarios B2B está actualmente desactivada porque el esquema MasterData CL (perfil de usuario) no es válido en esta cuenta. Consulta la documentación de B2B Suite (Preguntas frecuentes) para obtener más información.",
@@ -449,5 +449,10 @@
   "admin/b2b-organizations.export.type.addresses": "Addresses",
   "admin/b2b-organizations.export.type.cost_centers": "Cost centers",
   "admin/b2b-organizations.export.type.members": "Users",
-  "admin/b2b-organizations.export.type.organizations": "Organizations"
+  "admin/b2b-organizations.export.type.organizations": "Organizations",
+  "admin/b2b-organizations.export.toast.startError": "Unable to start export. Please try again.",
+  "admin/b2b-organizations.export.toast.failed": "Export failed. Please try again.",
+  "admin/b2b-organizations.export.toast.statusError": "Unable to retrieve export status.",
+  "admin/b2b-organizations.export.toast.completedNoFile": "Export completed but file is unavailable.",
+  "admin/b2b-organizations.export.toast.downloadError": "Unable to download export file. Please try again."
 }

@@ -12,18 +12,17 @@ import {
   Checkbox,
   Table,
 } from 'vtex.styleguide'
-import { useMutation, useApolloClient } from 'react-apollo'
 import { useIntl } from 'react-intl'
 
-import CREATE_EXPORT from '../graphql/createExport.graphql'
-import EXPORT_STATUS from '../graphql/exportStatus.graphql'
+import ExportDownloadLink from './ExportDownloadLink'
 import { exportMessages as messages } from '../admin/utils/messages'
+import type { Session } from '../modules/session'
+import { useSessionResponse } from '../modules/session'
 import {
-  clearStoredExportJob,
-  getStoredExportJob,
-  saveStoredExportJob,
-} from '../utils/exportJobStorage'
-import type { StoredExportJob } from '../utils/exportJobStorage'
+  createBulkExport,
+  extractApiErrorMessage,
+  getBulkExportStatusWithRetry,
+} from '../services/bulkExportApi'
 import {
   ALL_EXPORT_TYPES,
   createIdleExportJob,
@@ -31,35 +30,33 @@ import {
 } from '../utils/exportTypes'
 import type { ExportJobUIState, ExportType } from '../utils/exportTypes'
 import {
-  downloadCsvFile,
   getDisplayProgressPercentage,
-  getExportStatusSnapshot,
-  getGraphQLErrorMessage,
-  getStatusActivityTimestamp,
   isExportInProgress,
-  isExportStatusStale,
-  MAX_STATUS_POLL_FAILURES,
   POLL_INTERVAL_MS,
 } from '../utils/exportHelpers'
-import type { ExportStatusData, ExportStatusResult } from '../utils/exportHelpers'
+import type { BulkExportStatusResult } from '../utils/exportHelpers'
+import { getExportDownloadHref, openExternalDownloadUrl } from '../services/bulkExportClient'
+import {
+  loadExportJobsSession,
+  restoreExportJobsSession,
+  saveExportJobsSession,
+} from '../utils/exportJobStorage'
 
 interface ExportButtonProps {
   label?: string
   variant?: 'button' | 'menuItem'
-  totalsByType?: Partial<Record<ExportType, number>>
   renderLayout?: (trigger: React.ReactNode, modal: React.ReactNode) => React.ReactNode
 }
 
 const ExportButton = ({
   label,
   variant = 'button',
-  totalsByType,
   renderLayout,
 }: ExportButtonProps) => {
   const { formatMessage } = useIntl()
   const toast = useToast()
-  const client = useApolloClient()
-  const [createExport] = useMutation(CREATE_EXPORT)
+  const session = useSessionResponse() as Session
+  const account = session?.namespaces?.account?.accountName?.value
 
   const [jobs, setJobs] = useState<Record<ExportType, ExportJobUIState>>(
     createInitialExportJobs
@@ -68,15 +65,11 @@ const ExportButton = ({
   const [selectedTypes, setSelectedTypes] = useState<ExportType[]>([])
 
   const exportIdRef = useRef<Partial<Record<ExportType, string>>>({})
-  const pollStartRef = useRef<Partial<Record<ExportType, number>>>({})
-  const statusPollFailureCountRef = useRef<Partial<Record<ExportType, number>>>(
-    {}
-  )
   const pollingInProgressRef = useRef<Partial<Record<ExportType, boolean>>>({})
-  const statusSnapshotRef = useRef<Partial<Record<ExportType, string>>>({})
-  const statusSnapshotSinceRef = useRef<Partial<Record<ExportType, number>>>({})
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null)
   const isMountedRef = useRef(true)
+  const hasHydratedFromStorageRef = useRef(false)
+  const loadedAccountRef = useRef<string | null>(null)
 
   const updateJob = useCallback(
     (exportType: ExportType, patch: Partial<ExportJobUIState>) => {
@@ -84,37 +77,6 @@ const ExportButton = ({
         ...prev,
         [exportType]: { ...prev[exportType], ...patch },
       }))
-    },
-    []
-  )
-
-  const resetJob = useCallback(
-    (exportType: ExportType) => {
-      updateJob(exportType, createIdleExportJob())
-    },
-    [updateJob]
-  )
-
-  const clearStatusSnapshot = useCallback((exportType: ExportType) => {
-    delete statusSnapshotRef.current[exportType]
-    delete statusSnapshotSinceRef.current[exportType]
-  }, [])
-
-  const trackStatusSnapshot = useCallback(
-    (exportType: ExportType, statusData: ExportStatusResult): boolean => {
-      const snapshot = getExportStatusSnapshot(statusData)
-      const previousSnapshot = statusSnapshotRef.current[exportType]
-
-      if (previousSnapshot !== snapshot) {
-        statusSnapshotRef.current[exportType] = snapshot
-        statusSnapshotSinceRef.current[exportType] =
-          getStatusActivityTimestamp(statusData) ?? Date.now()
-      }
-
-      return isExportStatusStale(
-        statusData,
-        statusSnapshotSinceRef.current[exportType]
-      )
     },
     []
   )
@@ -159,19 +121,13 @@ const ExportButton = ({
     }, POLL_INTERVAL_MS)
   }, [hasActivePolling])
 
-  const persistExportJob = useCallback(
-    (exportType: ExportType, job: StoredExportJob) => {
-      saveStoredExportJob(exportType, job)
-    },
-    []
-  )
-
   const showErrorToast = useCallback(
-    (error?: unknown) => {
+    (messageId?: keyof typeof messages, error?: unknown) => {
       toast({
         variant: 'critical',
         message:
-          getGraphQLErrorMessage(error) ??
+          extractApiErrorMessage(error) ??
+          (messageId ? formatMessage(messages[messageId]) : undefined) ??
           formatMessage(messages.toastError),
       })
     },
@@ -180,86 +136,32 @@ const ExportButton = ({
 
   const fetchExportStatus = useCallback(
     async (exportId: string) => {
-      const { data } = await client.query<ExportStatusData>({
-        query: EXPORT_STATUS,
-        variables: { exportId },
-        fetchPolicy: 'network-only',
-        errorPolicy: 'all',
-      })
+      if (!account) {
+        throw new Error('MISSING_ACCOUNT')
+      }
 
-      return data?.exportStatus ?? null
+      return getBulkExportStatusWithRetry(account, exportId)
     },
-    [client]
+    [account]
   )
 
-  const handleExportError = useCallback(
-    (
-      exportType: ExportType,
-      error?: unknown,
-      options?: { clearStoredJob?: boolean }
-    ) => {
-      const clearStoredJob = options?.clearStoredJob ?? true
-
+  const clearActiveExport = useCallback(
+    (exportType: ExportType) => {
       delete exportIdRef.current[exportType]
-      delete pollStartRef.current[exportType]
-      delete statusPollFailureCountRef.current[exportType]
       delete pollingInProgressRef.current[exportType]
-      clearStatusSnapshot(exportType)
 
       if (!hasActivePolling()) {
         clearPollingInterval()
       }
-
-      if (clearStoredJob) {
-        clearStoredExportJob(exportType)
-        resetJob(exportType)
-      } else if (isMountedRef.current) {
-        updateJob(exportType, { state: 'IDLE' })
-      }
-
-      if (clearStoredJob) {
-        updateJob(exportType, { ...createIdleExportJob(), state: 'ERROR' })
-      }
-
-      showErrorToast(error)
     },
-    [
-      clearPollingInterval,
-      clearStatusSnapshot,
-      hasActivePolling,
-      resetJob,
-      showErrorToast,
-      updateJob,
-    ]
-  )
-
-  const handleStatusPollFailure = useCallback(
-    (exportType: ExportType, error?: unknown): boolean => {
-      statusPollFailureCountRef.current[exportType] =
-        (statusPollFailureCountRef.current[exportType] ?? 0) + 1
-
-      if (
-        (statusPollFailureCountRef.current[exportType] ?? 0) >=
-        MAX_STATUS_POLL_FAILURES
-      ) {
-        handleExportError(exportType, error, { clearStoredJob: false })
-
-        return true
-      }
-
-      return false
-    },
-    [handleExportError]
+    [clearPollingInterval, hasActivePolling]
   )
 
   const applyStatusData = useCallback(
-    (
-      exportType: ExportType,
-      statusData: ExportStatusResult,
-      pollStartedAt: number
-    ) => {
+    (exportType: ExportType, statusData: BulkExportStatusResult) => {
+      const inProgress = statusData.status === 'IN_PROGRESS'
       const patch: Partial<ExportJobUIState> = {
-        progressPercentage: statusData.progressPercentage ?? null,
+        progressPercentage: getDisplayProgressPercentage(statusData, inProgress),
         exportedRows: statusData.exportedRows ?? null,
       }
 
@@ -268,104 +170,60 @@ const ExportButton = ({
       }
 
       updateJob(exportType, patch)
-
-      persistExportJob(exportType, {
-        exportId: statusData.exportId,
-        pollStartedAt,
-        status: statusData.status,
-        linkToFile: statusData.linkToFile,
-        progressPercentage: statusData.progressPercentage ?? null,
-        exportedRows: statusData.exportedRows ?? null,
-      })
     },
-    [persistExportJob, updateJob]
+    [updateJob]
   )
 
-  const resolveDownloadLink = useCallback(
-    (exportType: ExportType): string | null => {
-      const job = jobs[exportType]
-
-      if (job.linkToFile) {
-        return job.linkToFile
-      }
-
-      return getStoredExportJob(exportType)?.linkToFile ?? null
+  const markExportFailed = useCallback(
+    (exportType: ExportType, messageId?: keyof typeof messages, error?: unknown) => {
+      clearActiveExport(exportType)
+      updateJob(exportType, { ...createIdleExportJob(), state: 'ERROR' })
+      showErrorToast(messageId ?? 'toastFailed', error)
     },
-    [jobs]
+    [clearActiveExport, showErrorToast, updateJob]
   )
 
-  const handleDownload = useCallback(
-    async (exportType: ExportType) => {
-      const downloadLink = resolveDownloadLink(exportType)
+  const markExportReady = useCallback(
+    (exportType: ExportType, statusData: BulkExportStatusResult) => {
+      clearActiveExport(exportType)
+      applyStatusData(exportType, statusData)
 
-      if (!downloadLink) {
-        showErrorToast()
+      if (!statusData.linkToFile || !account) {
+        markExportFailed(exportType, 'toastCompletedNoFile')
 
         return
       }
 
-      updateJob(exportType, { state: 'DOWNLOADING' })
+      updateJob(exportType, {
+        state: 'READY',
+        linkToFile: statusData.linkToFile,
+      })
 
-      try {
-        await downloadCsvFile(downloadLink, exportType)
+      openExternalDownloadUrl(
+        getExportDownloadHref(statusData.linkToFile, account)
+      )
 
-        if (!isMountedRef.current) return
-
-        toast({
-          variant: 'positive',
-          message: formatMessage(messages.toastSuccess),
-        })
-
-        clearStoredExportJob(exportType)
-        resetJob(exportType)
-        delete statusPollFailureCountRef.current[exportType]
-      } catch (error) {
-        updateJob(exportType, {
-          state: 'READY',
-          linkToFile: downloadLink,
-        })
-        showErrorToast(error)
-      }
+      toast({
+        variant: 'positive',
+        message: formatMessage(messages.toastSuccess),
+      })
     },
     [
+      account,
+      applyStatusData,
+      clearActiveExport,
       formatMessage,
-      resetJob,
-      resolveDownloadLink,
-      showErrorToast,
+      markExportFailed,
       toast,
       updateJob,
     ]
   )
 
-  const markExportReady = useCallback(
-    (
-      exportType: ExportType,
-      statusData: ExportStatusResult,
-      pollStartedAt: number
-    ) => {
-      delete exportIdRef.current[exportType]
-      delete pollStartRef.current[exportType]
-      clearStatusSnapshot(exportType)
-
-      if (!hasActivePolling()) {
-        clearPollingInterval()
-      }
-
-      applyStatusData(exportType, statusData, pollStartedAt)
-      updateJob(exportType, {
-        state: 'READY',
-        linkToFile: statusData.linkToFile,
-      })
-    },
-    [applyStatusData, clearPollingInterval, clearStatusSnapshot, hasActivePolling, updateJob]
-  )
-
   const pollExportStatus = useCallback(
     async (exportType: ExportType) => {
       const exportId = exportIdRef.current[exportType]
-      const pollStartedAt = pollStartRef.current[exportType]
 
-      if (!exportId || !pollStartedAt || pollingInProgressRef.current[exportType]) {
+      if (!exportId || pollingInProgressRef.current[exportType]) {
         return
       }
 
@@ -376,38 +234,23 @@ const ExportButton = ({
 
         if (!isMountedRef.current) return
 
-        if (!statusData) {
-          handleStatusPollFailure(exportType)
-
-          return
-        }
-
-        statusPollFailureCountRef.current[exportType] = 0
-
-        if (
-          statusData.status === 'IN_PROGRESS' &&
-          trackStatusSnapshot(exportType, statusData)
-        ) {
-          handleExportError(exportType)
-
-          return
-        }
-
-        applyStatusData(exportType, statusData, pollStartedAt)
+        applyStatusData(exportType, statusData)
 
         if (statusData.status === 'FAILED') {
-          handleExportError(exportType)
+          markExportFailed(exportType)
 
           return
         }
 
-        if (statusData.status === 'COMPLETED' && statusData.linkToFile) {
-          markExportReady(exportType, statusData, pollStartedAt)
-        } else if (statusData.status === 'IN_PROGRESS') {
-          updateJob(exportType, { state: 'POLLING' })
+        if (statusData.status === 'COMPLETED') {
+          markExportReady(exportType, statusData)
+
+          return
         }
+
+        updateJob(exportType, { state: 'POLLING' })
       } catch (error) {
-        handleStatusPollFailure(exportType, error)
+        showErrorToast('toastStatusError', error)
       } finally {
         pollingInProgressRef.current[exportType] = false
       }
@@ -415,10 +258,9 @@ const ExportButton = ({
     [
       applyStatusData,
       fetchExportStatus,
-      handleExportError,
-      handleStatusPollFailure,
+      markExportFailed,
       markExportReady,
-      trackStatusSnapshot,
+      showErrorToast,
       updateJob,
     ]
   )
@@ -427,128 +269,88 @@ const ExportButton = ({
 
   pollExportStatusRef.current = pollExportStatus
 
-  const resumeStoredExport = useCallback(
-    async (exportType: ExportType, storedJob: StoredExportJob) => {
-      try {
-        const statusData = await fetchExportStatus(storedJob.exportId)
+  useEffect(() => {
+    if (!account) {
+      hasHydratedFromStorageRef.current = false
+      loadedAccountRef.current = null
 
-        if (!isMountedRef.current) {
-          return false
-        }
+      return
+    }
 
-        if (!statusData) {
-          const exhausted = handleStatusPollFailure(exportType)
+    if (loadedAccountRef.current === account) {
+      return
+    }
 
-          if (!exhausted) {
-            exportIdRef.current[exportType] = storedJob.exportId
-            pollStartRef.current[exportType] = storedJob.pollStartedAt
-            updateJob(exportType, { state: 'POLLING' })
-            ensurePollingInterval()
-          }
+    loadedAccountRef.current = account
 
-          return !exhausted
-        }
+    const stored = loadExportJobsSession(account)
+    const { jobs: restoredJobs, exportIds } = restoreExportJobsSession(stored)
 
-        statusPollFailureCountRef.current[exportType] = 0
-        applyStatusData(exportType, statusData, storedJob.pollStartedAt)
+    setJobs(restoredJobs)
+    exportIdRef.current = exportIds
+    hasHydratedFromStorageRef.current = true
 
-        if (statusData.status === 'FAILED') {
-          clearStoredExportJob(exportType)
-          resetJob(exportType)
+    const typesToResume = ALL_EXPORT_TYPES.filter(type => exportIds[type])
 
-          return false
-        }
+    if (typesToResume.length === 0) {
+      return
+    }
 
-        if (statusData.status === 'COMPLETED' && statusData.linkToFile) {
-          markExportReady(exportType, statusData, storedJob.pollStartedAt)
+    typesToResume.forEach(exportType => {
+      void pollExportStatusRef.current(exportType)
+    })
+    ensurePollingInterval()
+  }, [account, ensurePollingInterval])
 
-          return true
-        }
+  useEffect(() => {
+    if (!account || !hasHydratedFromStorageRef.current) {
+      return
+    }
 
-        if (statusData.status === 'IN_PROGRESS') {
-          exportIdRef.current[exportType] = storedJob.exportId
-          pollStartRef.current[exportType] = storedJob.pollStartedAt
-          updateJob(exportType, { state: 'POLLING' })
-          await pollExportStatus(exportType)
-          ensurePollingInterval()
-
-          return true
-        }
-      } catch (error) {
-        const exhausted = handleStatusPollFailure(exportType, error)
-
-        if (!exhausted) {
-          exportIdRef.current[exportType] = storedJob.exportId
-          pollStartRef.current[exportType] = storedJob.pollStartedAt
-          updateJob(exportType, { state: 'POLLING' })
-          ensurePollingInterval()
-        }
-
-        return !exhausted
-      }
-
-      return false
-    },
-    [
-      applyStatusData,
-      ensurePollingInterval,
-      fetchExportStatus,
-      handleStatusPollFailure,
-      markExportReady,
-      pollExportStatus,
-      resetJob,
-      updateJob,
-    ]
-  )
+    saveExportJobsSession(account, {
+      jobs,
+      exportIds: { ...exportIdRef.current },
+    })
+  }, [account, jobs])
 
   const startExportForType = useCallback(
     async (exportType: ExportType) => {
-      clearStoredExportJob(exportType)
-      clearStatusSnapshot(exportType)
-      statusPollFailureCountRef.current[exportType] = 0
+      if (!account) {
+        showErrorToast('toastStartError')
+
+        return
+      }
+
       updateJob(exportType, {
         ...createIdleExportJob(),
         state: 'CREATING',
       })
 
       try {
-        const { data } = await createExport({
-          variables: { exportType },
-        })
+        const exportId = await createBulkExport(account, exportType)
 
         if (!isMountedRef.current) return
 
-        const exportId = data?.createExport?.exportId
-
         if (!exportId) {
-          handleExportError(exportType)
+          markExportFailed(exportType, 'toastStartError')
 
           return
         }
 
-        const pollStartedAt = Date.now()
-
         exportIdRef.current[exportType] = exportId
-        pollStartRef.current[exportType] = pollStartedAt
-        persistExportJob(exportType, {
-          exportId,
-          pollStartedAt,
-          status: 'IN_PROGRESS',
-        })
         updateJob(exportType, { state: 'POLLING' })
         await pollExportStatus(exportType)
         ensurePollingInterval()
       } catch (error) {
-        handleExportError(exportType, error)
+        markExportFailed(exportType, 'toastStartError', error)
       }
     },
     [
-      clearStatusSnapshot,
-      createExport,
+      account,
       ensurePollingInterval,
-      handleExportError,
-      persistExportJob,
+      markExportFailed,
       pollExportStatus,
+      showErrorToast,
       updateJob,
     ]
   )
@@ -570,41 +372,14 @@ const ExportButton = ({
     await Promise.all(typesToStart.map(type => startExportForType(type)))
   }, [isTypeSelectable, selectedTypes, startExportForType])
 
-  const restoreStoredJobs = useCallback(async () => {
-    await Promise.all(
-      ALL_EXPORT_TYPES.map(async exportType => {
-        const storedJob = getStoredExportJob(exportType)
-
-        if (!storedJob?.exportId) {
-          return
-        }
-
-        if (storedJob.status === 'IN_PROGRESS') {
-          await resumeStoredExport(exportType, storedJob)
-        } else if (storedJob.status === 'COMPLETED' && storedJob.linkToFile) {
-          updateJob(exportType, {
-            state: 'READY',
-            progressPercentage: storedJob.progressPercentage ?? null,
-            exportedRows: storedJob.exportedRows ?? null,
-            linkToFile: storedJob.linkToFile,
-          })
-        } else if (storedJob.status === 'FAILED') {
-          clearStoredExportJob(exportType)
-        }
-      })
-    )
-  }, [resumeStoredExport, updateJob])
-
   useEffect(() => {
     isMountedRef.current = true
-    void restoreStoredJobs()
 
     return () => {
       isMountedRef.current = false
       clearPollingInterval()
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [clearPollingInterval])
 
   const selectableTypes = useMemo(
     () => ALL_EXPORT_TYPES.filter(type => isTypeSelectable(type)),
@@ -663,17 +438,6 @@ const ExportButton = ({
       default:
         return '—'
     }
-  }
-
-  const getJobPercentage = (exportType: ExportType, job: ExportJobUIState) => {
-    const inProgress = isExportInProgress(job.state)
-
-    return getDisplayProgressPercentage(
-      job.progressPercentage,
-      job.exportedRows,
-      totalsByType?.[exportType],
-      inProgress
-    )
   }
 
   const activeExportCount = useMemo(
@@ -738,7 +502,7 @@ const ExportButton = ({
 
   const tableItems = activeTypes.map(exportType => {
     const job = jobs[exportType]
-    const percentage = getJobPercentage(exportType, job)
+    const percentage = job.progressPercentage
     const progressValue = percentage ?? 0
 
     return {
@@ -760,17 +524,12 @@ const ExportButton = ({
       percentage: percentage != null ? `${percentage}%` : '—',
       status: getStatusLabel(job),
       action:
-        job.state === 'READY' ? (
-          <StyleguideButton
-            type="button"
-            size="small"
-            variation="secondary"
-            onClick={() => {
-              void handleDownload(exportType)
-            }}
-          >
-            {formatMessage(messages.modalDownloadButton)}
-          </StyleguideButton>
+        job.state === 'READY' && job.linkToFile && account ? (
+          <ExportDownloadLink
+            account={account}
+            downloadLink={job.linkToFile}
+            label={formatMessage(messages.modalDownloadButton)}
+          />
         ) : job.state === 'ERROR' ? (
           <StyleguideButton
             type="button"
@@ -793,9 +552,7 @@ const ExportButton = ({
       centered
       isOpen={isModalOpen}
       onClose={closeModal}
-      closeOnOverlayClick={!ALL_EXPORT_TYPES.some(type =>
-        jobs[type].state === 'DOWNLOADING'
-      )}
+      closeOnOverlayClick
       containerClassName="w-60-ns w-90"
       bottomBar={
         selectableTypes.length > 0 ? (

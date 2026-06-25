@@ -174,7 +174,7 @@ The **B2B Organizations** app adds the following functionalities and components 
   </tr>
   <tr>
     <td>Organizations page</td>
-    <td>Manage Organizations<br>Export organization data as CSV<br></td>
+    <td>Manage Organizations<br>Export organization data as XLSX<br></td>
   </tr>
   <tr>
     <td rowspan="5">Organization Details page</td>
@@ -263,7 +263,7 @@ If the organization request is declined, the request status will be changed to *
 The **Organizations** page includes a list of all the organizations created in your store and their respective status, and also allows store administrators to:
 
 - [Add organizations](#add-organization).
-- [Export data as CSV](#export-csv).
+- [Export data as XLSX](#export-xlsx).
 - Access the [Organization details](#organization-details) page, which includes organization data, cost centers, collections, payment terms, price tables and users.
 
 To access the page, go to **Account Settings** > **B2B Organizations & Cost Centers** > **Organizations** in the VTEX Admin (or at `/admin/b2b-organizations/organizations`).
@@ -301,15 +301,15 @@ You can manually create a new organization on the **Organizations** page. Follow
 
 > ℹ️ Additional cost centers and addresses may be added after creating the organization, as explained in the next section of this documentation.
 
-##### Export CSV
+##### Export XLSX
 
-Store administrators can export B2B data from the **Organizations** page as CSV files. The export is initiated from a single entry point and supports multiple data types in parallel.
+Store administrators can export B2B data from the **Organizations** page as XLSX files. The export is initiated from a single entry point and supports multiple data types in parallel.
 
 To export data, follow these steps:
 
 1. Go to **Account Settings** > **B2B Organizations & Cost Centers** > **Organizations** in the VTEX Admin (or at `/admin/b2b-organizations/organizations`).
 2. Click on the `New` button.
-3. Select `Export CSV`.
+3. Select `Export`.
 4. In the modal, use the checkboxes to select the data you want to export. You can select one or more of the following types, or use **Select all** to mark every available type:
    - **Organizations**
    - **Cost centers**
@@ -329,7 +329,7 @@ Each selected export runs independently. Progress is shown in a table with the f
 
 > ℹ️ Exports are **account-wide** for each selected type. They are not limited to the organization or cost center currently open in the VTEX Admin.
 
-While an export is in progress, the `Export CSV` menu item displays how many exports are currently running (for example, `Exporting (2)...`). You can close the modal and continue working in the VTEX Admin; progress remains visible on the menu item and in the modal when you open it again.
+While an export is in progress, the `Export` menu item displays how many exports are currently running (for example, `Exporting (2)...`). You can close the modal and continue working in the VTEX Admin; progress remains visible on the menu item and in the modal when you open it again.
 
 **Re-exporting and completed files**
 
@@ -339,18 +339,14 @@ While an export is in progress, the `Export CSV` menu item displays how many exp
 
 **Progress and completion**
 
-- The frontend polls the export status every 2 seconds until the backend returns `COMPLETED` with a download link, or `FAILED`.
-- Progress percentage is calculated from exported rows and list totals when available. If the API returns `progressPercentage: 0` while rows are still being exported, the UI uses the row-based calculation as a fallback.
-- An export is considered complete only when the backend status is `COMPLETED` and a file link is available—not when the percentage reaches 100% while the job is still finalizing.
-- If a status request fails temporarily, the app retries up to 5 consecutive times before showing an error for that export. The retry count is reset after a successful status response.
-- There is no fixed time limit for polling on the frontend; large exports remain in progress until the backend finishes or reports failure.
-+- If an export stays **IN_PROGRESS** with no change in status data for **5 minutes** (based on `lastUpdate` and other progress fields), the UI marks it as **Failed** and shows a retry action.
+- The frontend calls `/api/b2b/export/?an={account}` (create) and `/api/b2b/export/{exportId}/?an={account}` (status) on the same Admin origin. Janus routes these paths to **b2b-bulk-import** (`{account}.myvtex.com` / workspace host). Requests send the admin JWT from `VtexIdclientAutCookie` (or `VtexIdclientAutCookie_{account}`) when readable from the session, and use `credentials: 'include'` for same-origin cookies.
+- Status polling runs every 4 seconds until the API reports `status: 1` (completed) with a download link, or `status: 2` (failed). While `status: 0`, the export is still in progress.
+- Progress is derived from `progressPercentage`, `percentage`, or `exportedRows` / `totalRows` when available. If the API reports `0%` while rows are already being exported, the UI shows an indeterminate state instead of a misleading zero.
+- An export is considered complete only when the API status is **completed** and `linkToFile` is present—not when the percentage reaches 100% while the job is still finalizing.
+- When complete, the XLSX file downloads automatically. You can use **Download file** on that row to download it again.
+- If a status request fails temporarily, the app retries up to 3 times with backoff (1s, 2s, 3s) before showing a status retrieval error while keeping the last known progress.
 
-**Session persistence**
-
-Export jobs are stored in the browser session. If you refresh the page or lose connectivity briefly, in-progress exports resume automatically when you return to the **Organizations** page. Completed exports awaiting download are also restored until you download the file or start a new export for that type.
-
-> ℹ️ CSV export requires the **B2B Organizations GraphQL** app (`vtex.b2b-organizations-graphql`) and the appropriate admin permissions. The export flow uses the `createExport` and `exportStatus` GraphQL operations exposed by that app.
+> ℹ️ Bulk export/import API calls use same-origin paths (`/api/b2b/export/`, `/api/b2b/import/`) so Janus proxies them to **b2b-bulk-import** without browser CORS. Relative `linkToFile` paths from the export API are also fetched on the Admin origin; S3 presigned links open in a new tab without extra auth.
 
 #### Organization Details
 

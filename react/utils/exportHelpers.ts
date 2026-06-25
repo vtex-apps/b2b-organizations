@@ -1,126 +1,75 @@
-import type { ExportType } from './exportTypes'
+export const POLL_INTERVAL_MS = 4000
 
-export const POLL_INTERVAL_MS = 2000
-export const MAX_STATUS_POLL_FAILURES = 5
-export const STALE_STATUS_TIMEOUT_MS = 5 * 60 * 1000
+export type BulkExportStatusCode = 'IN_PROGRESS' | 'COMPLETED' | 'FAILED'
 
-export interface ExportStatusData {
-  exportStatus: {
-    exportId: string
-    status: 'IN_PROGRESS' | 'COMPLETED' | 'FAILED'
-    progressPercentage: number | null
-    exportedRows: number | null
-    linkToFile: string | null
-    lastUpdate: string | null
-    startDate: string | null
-  }
+export interface BulkExportStatusResult {
+  exportId: string
+  status: BulkExportStatusCode
+  progressPercentage: number | null
+  percentage: number | null
+  exportedRows: number | null
+  totalRows: number | null
+  linkToFile: string | null
+  lastUpdate: string | null
+  startDate: string | null
 }
 
-export type ExportStatusResult = ExportStatusData['exportStatus']
-
-export const getExportStatusSnapshot = (status: ExportStatusResult): string =>
-  JSON.stringify({
-    status: status.status,
-    progressPercentage: status.progressPercentage,
-    exportedRows: status.exportedRows,
-    linkToFile: status.linkToFile,
-    lastUpdate: status.lastUpdate,
-  })
-
-export const getStatusActivityTimestamp = (
-  status: ExportStatusResult
-): number | null => {
-  if (!status.lastUpdate) {
+const parseNumber = (value: unknown): number | null => {
+  if (value == null || value === '') {
     return null
   }
 
-  const timestamp = Date.parse(status.lastUpdate)
+  const parsed = Number(value)
 
-  return Number.isFinite(timestamp) ? timestamp : null
+  return Number.isFinite(parsed) ? parsed : null
 }
 
-export const isExportStatusStale = (
-  statusData: ExportStatusResult,
-  snapshotSinceMs: number | undefined,
-  now = Date.now()
-): boolean => {
-  const activityTimestamp = getStatusActivityTimestamp(statusData)
-  const sinceMs = snapshotSinceMs ?? activityTimestamp ?? now
+export const resolveProgressPercentage = (
+  response: BulkExportStatusResult
+): number | null => {
+  let progress =
+    parseNumber(response.progressPercentage) ??
+    parseNumber(response.percentage)
 
-  return now - sinceMs >= STALE_STATUS_TIMEOUT_MS
-}
+  if (progress != null && progress > 0 && progress <= 1) {
+    progress = Math.round(progress * 100)
+  } else if (progress != null) {
+    progress = Math.round(progress)
+  }
 
-export const getGraphQLErrorMessage = (error: unknown): string | undefined => {
-  if (!error || typeof error !== 'object') return undefined
+  const exportedRows = parseNumber(response.exportedRows)
+  const totalRows = parseNumber(response.totalRows)
 
-  const graphQLErrors = (error as { graphQLErrors?: Array<{ message?: string }> })
-    .graphQLErrors
+  if (
+    (progress == null || progress === 0) &&
+    exportedRows != null &&
+    totalRows != null &&
+    totalRows > 0
+  ) {
+    progress = Math.round((exportedRows / totalRows) * 100)
+  }
 
-  return graphQLErrors?.[0]?.message
-}
+  if (
+    progress == null ||
+    (progress === 0 && exportedRows != null && exportedRows > 0)
+  ) {
+    return null
+  }
 
-const getFilenameFromContentDisposition = (header: string | null): string | null => {
-  if (!header) return null
-
-  const filenameMatch = header.match(/filename="?([^";]+)"?/i)
-
-  return filenameMatch?.[1] ?? null
-}
-
-const getDefaultFilename = (exportType: ExportType) => {
-  const date = new Date().toISOString().slice(0, 10)
-
-  return `b2b-export-${exportType}-${date}.csv`
+  return Math.min(100, Math.max(0, progress))
 }
 
 export const getDisplayProgressPercentage = (
-  apiPercentage: number | null,
-  rowsExported: number | null,
-  totalItems?: number,
+  statusData: BulkExportStatusResult,
   isInProgress?: boolean
 ): number | null => {
-  let percentage: number | null = null
-  const rowsBasedPercentage =
-    rowsExported != null && totalItems != null && totalItems > 0
-      ? Math.min(100, Math.round((rowsExported / totalItems) * 100))
-      : null
+  const progress = resolveProgressPercentage(statusData)
 
-  if (rowsBasedPercentage != null) {
-    percentage = rowsBasedPercentage
-  } else if (apiPercentage != null) {
-    percentage = apiPercentage
-  }
-
-  if (isInProgress && percentage === 100) {
+  if (isInProgress && progress === 100) {
     return 99
   }
 
-  return percentage
-}
-
-export const downloadCsvFile = async (
-  linkToFile: string,
-  exportType: ExportType
-) => {
-  const response = await fetch(linkToFile, { credentials: 'include' })
-
-  if (!response.ok) {
-    throw new Error(response.status === 403 ? 'FORBIDDEN' : 'DOWNLOAD_FAILED')
-  }
-
-  const blob = await response.blob()
-  const filename =
-    getFilenameFromContentDisposition(
-      response.headers.get('Content-Disposition')
-    ) ?? getDefaultFilename(exportType)
-
-  const url = URL.createObjectURL(blob)
-  const anchor = document.createElement('a')
-
-  anchor.href = url
-  anchor.download = filename
-  anchor.click()
-  URL.revokeObjectURL(url)
+  return progress
 }
 
 export const isExportInProgress = (state: string) =>

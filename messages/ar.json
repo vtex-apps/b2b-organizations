@@ -112,7 +112,7 @@
   "admin/b2b-organizations.export.button.error": "فشل التصدير",
   "admin/b2b-organizations.export.button.generating": "جارٍ الإنشاء... {percentage}%",
   "admin/b2b-organizations.export.button.generatingNoProgress": "جارٍ الإنشاء...",
-  "admin/b2b-organizations.export.button.label": "تصدير CSV",
+  "admin/b2b-organizations.export.button.label": "تصدير",
   "admin/b2b-organizations.export.button.retry": "حاول من جديد",
   "admin/b2b-organizations.export.modal.downloading": "جارٍ تجهيز الملف للتنزيل...",
   "admin/b2b-organizations.export.modal.downloadButton": "تنزيل الملف",
@@ -120,7 +120,7 @@
   "admin/b2b-organizations.export.modal.exportedRows": "تم تصدير {exportedRows} صفًا",
   "admin/b2b-organizations.export.modal.progress": "{percentage}% مكتمل",
   "admin/b2b-organizations.export.modal.progressUnknown": "جارٍ إنشاء التصدير...",
-  "admin/b2b-organizations.export.modal.title": "تصدير CSV",
+  "admin/b2b-organizations.export.modal.title": "تصدير",
   "admin/b2b-organizations.export.toast.error": "فشل إنشاء التصدير. يُرجى المحاولة مرة أخرى.",
   "admin/b2b-organizations.export.toast.success": "اكتمل التصدير. بدأ التنزيل.",
   "admin/b2b-organizations.invalid-schema": "إنشاء مستخدم B2B معطل حاليًا لأن مخطط البيانات الرئيسية (ملف تعريف المستخدم) غير صالح على هذا الحساب. يُرجى الاطلاع على وثائق مجموعة B2B (الأسئلة الشائعة) للحصول على مزيد من المعلومات.",
@@ -449,5 +449,10 @@
   "admin/b2b-organizations.export.type.addresses": "Addresses",
   "admin/b2b-organizations.export.type.cost_centers": "Cost centers",
   "admin/b2b-organizations.export.type.members": "Users",
-  "admin/b2b-organizations.export.type.organizations": "Organizations"
+  "admin/b2b-organizations.export.type.organizations": "Organizations",
+  "admin/b2b-organizations.export.toast.startError": "Unable to start export. Please try again.",
+  "admin/b2b-organizations.export.toast.failed": "Export failed. Please try again.",
+  "admin/b2b-organizations.export.toast.statusError": "Unable to retrieve export status.",
+  "admin/b2b-organizations.export.toast.completedNoFile": "Export completed but file is unavailable.",
+  "admin/b2b-organizations.export.toast.downloadError": "Unable to download export file. Please try again."
 }

@@ -112,7 +112,7 @@
   "admin/b2b-organizations.export.button.error": "내보내기 실패",
   "admin/b2b-organizations.export.button.generating": "생성 중... {percentage}%",
   "admin/b2b-organizations.export.button.generatingNoProgress": "생성 중...",
-  "admin/b2b-organizations.export.button.label": "CSV 내보내기",
+  "admin/b2b-organizations.export.button.label": "내보내기",
   "admin/b2b-organizations.export.button.retry": "다시 시도",
   "admin/b2b-organizations.export.modal.downloading": "다운로드할 파일 준비 중...",
   "admin/b2b-organizations.export.modal.downloadButton": "파일 다운로드",
@@ -120,7 +120,7 @@
   "admin/b2b-organizations.export.modal.exportedRows": "{exportedRows}개 행 내보냄",
   "admin/b2b-organizations.export.modal.progress": "{percentage}% 완료",
   "admin/b2b-organizations.export.modal.progressUnknown": "내보내기 생성 중...",
-  "admin/b2b-organizations.export.modal.title": "CSV 내보내기",
+  "admin/b2b-organizations.export.modal.title": "내보내기",
   "admin/b2b-organizations.export.toast.error": "내보내기 생성에 실패했습니다. 다시 시도해 주세요.",
   "admin/b2b-organizations.export.toast.success": "내보내기가 완료되었습니다. 다운로드가 시작되었습니다.",
   "admin/b2b-organizations.invalid-schema": "MasterData CL(사용자 프로필) 스키마가 이 계정에서 유효하지 않아 현재 B2B 사용자 생성이 비활성화되어 있습니다. 자세한 내용은 B2B Suite 설명서(자주 묻는 질문)를 참조하세요.",
@@ -449,5 +449,10 @@
   "admin/b2b-organizations.export.type.addresses": "Addresses",
   "admin/b2b-organizations.export.type.cost_centers": "Cost centers",
   "admin/b2b-organizations.export.type.members": "Users",
-  "admin/b2b-organizations.export.type.organizations": "Organizations"
+  "admin/b2b-organizations.export.type.organizations": "Organizations",
+  "admin/b2b-organizations.export.toast.startError": "Unable to start export. Please try again.",
+  "admin/b2b-organizations.export.toast.failed": "Export failed. Please try again.",
+  "admin/b2b-organizations.export.toast.statusError": "Unable to retrieve export status.",
+  "admin/b2b-organizations.export.toast.completedNoFile": "Export completed but file is unavailable.",
+  "admin/b2b-organizations.export.toast.downloadError": "Unable to download export file. Please try again."
 }

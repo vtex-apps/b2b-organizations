@@ -112,7 +112,7 @@
   "admin/b2b-organizations.export.button.error": "エクスポートに失敗しました",
   "admin/b2b-organizations.export.button.generating": "生成中... {percentage}%",
   "admin/b2b-organizations.export.button.generatingNoProgress": "生成中...",
-  "admin/b2b-organizations.export.button.label": "CSV をエクスポート",
+  "admin/b2b-organizations.export.button.label": "をエクスポート",
   "admin/b2b-organizations.export.button.retry": "もう一度やり直す",
   "admin/b2b-organizations.export.modal.downloading": "ダウンロード用ファイルを準備中...",
   "admin/b2b-organizations.export.modal.downloadButton": "ファイルをダウンロード",
@@ -120,7 +120,7 @@
   "admin/b2b-organizations.export.modal.exportedRows": "{exportedRows} 行をエクスポートしました",
   "admin/b2b-organizations.export.modal.progress": "{percentage}% 完了",
   "admin/b2b-organizations.export.modal.progressUnknown": "エクスポートを生成中...",
-  "admin/b2b-organizations.export.modal.title": "CSV をエクスポート中",
+  "admin/b2b-organizations.export.modal.title": "をエクスポート中",
   "admin/b2b-organizations.export.toast.error": "エクスポートの生成に失敗しました。もう一度お試しください。",
   "admin/b2b-organizations.export.toast.success": "エクスポートが完了しました。ダウンロードを開始しました。",
   "admin/b2b-organizations.invalid-schema": "B2B user creation is currently disabled because the MasterData CL (user profile) schema is invalid on this account. Please see the B2B Suite documentation (Frequently Asked Questions) for more information.",
@@ -449,5 +449,10 @@
   "admin/b2b-organizations.export.type.addresses": "Addresses",
   "admin/b2b-organizations.export.type.cost_centers": "Cost centers",
   "admin/b2b-organizations.export.type.members": "Users",
-  "admin/b2b-organizations.export.type.organizations": "Organizations"
+  "admin/b2b-organizations.export.type.organizations": "Organizations",
+  "admin/b2b-organizations.export.toast.startError": "Unable to start export. Please try again.",
+  "admin/b2b-organizations.export.toast.failed": "Export failed. Please try again.",
+  "admin/b2b-organizations.export.toast.statusError": "Unable to retrieve export status.",
+  "admin/b2b-organizations.export.toast.completedNoFile": "Export completed but file is unavailable.",
+  "admin/b2b-organizations.export.toast.downloadError": "Unable to download export file. Please try again."
 }

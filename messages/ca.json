@@ -112,7 +112,7 @@
   "admin/b2b-organizations.export.button.error": "Error en exportar",
   "admin/b2b-organizations.export.button.generating": "Generant... {percentage}%",
   "admin/b2b-organizations.export.button.generatingNoProgress": "Generant...",
-  "admin/b2b-organizations.export.button.label": "Exportar CSV",
+  "admin/b2b-organizations.export.button.label": "Exportar",
   "admin/b2b-organizations.export.button.retry": "Torneu-ho a provar",
   "admin/b2b-organizations.export.modal.downloading": "Preparant el fitxer per a la baixada...",
   "admin/b2b-organizations.export.modal.downloadButton": "Baixa el fitxer",
@@ -120,7 +120,7 @@
   "admin/b2b-organizations.export.modal.exportedRows": "{exportedRows} files exportades",
   "admin/b2b-organizations.export.modal.progress": "{percentage}% completat",
   "admin/b2b-organizations.export.modal.progressUnknown": "Generant exportació...",
-  "admin/b2b-organizations.export.modal.title": "Exportant CSV",
+  "admin/b2b-organizations.export.modal.title": "Exportant",
   "admin/b2b-organizations.export.toast.error": "No s'ha pogut generar l'exportació. Torneu-ho a provar.",
   "admin/b2b-organizations.export.toast.success": "Exportació completada. S'ha iniciat la baixada.",
   "admin/b2b-organizations.invalid-schema": "En aquest moment, l'opció de crear usuaris B2B està desactivada perquè l'esquema de MasterData CL (perfil de l'usuari) no és vàlid en aquest compte. Per obtenir més informació, consulteu la documentació sobre B2B Suite (preguntes freqüents).",
@@ -449,5 +449,10 @@
   "admin/b2b-organizations.export.type.addresses": "Addresses",
   "admin/b2b-organizations.export.type.cost_centers": "Cost centers",
   "admin/b2b-organizations.export.type.members": "Users",
-  "admin/b2b-organizations.export.type.organizations": "Organizations"
+  "admin/b2b-organizations.export.type.organizations": "Organizations",
+  "admin/b2b-organizations.export.toast.startError": "Unable to start export. Please try again.",
+  "admin/b2b-organizations.export.toast.failed": "Export failed. Please try again.",
+  "admin/b2b-organizations.export.toast.statusError": "Unable to retrieve export status.",
+  "admin/b2b-organizations.export.toast.completedNoFile": "Export completed but file is unavailable.",
+  "admin/b2b-organizations.export.toast.downloadError": "Unable to download export file. Please try again."
 }

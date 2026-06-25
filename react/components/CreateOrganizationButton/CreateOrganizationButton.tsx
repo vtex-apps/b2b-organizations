@@ -14,6 +14,8 @@ import { useSWRConfig } from 'swr'
 import CreateOrganizationModal from '../CreateOrganizationModal'
 import { organizationMessages as messages } from '../../admin/utils/messages'
 import { useBulkImportsQuery, useTranslate } from '../../hooks'
+import type { Session } from '../../modules/session'
+import { useSessionResponse } from '../../modules/session'
 import ReportErrorScreen from '../UploadModal/ReportErrorScreen'
 import ReportScreen from '../UploadModal/ReportScreen'
 import ReportSuccessScreen from '../UploadModal/ReportSuccessScreen'
@@ -34,7 +36,6 @@ import {
   ORGANIZATION_EDIT,
 } from '../../utils/constants'
 import { useOrgPermission } from '../../hooks/useOrgPermission'
-import { useOrganizationsList } from '../../organizations/hooks'
 import ExportButton from '../ExportButton'
 
 const CreateOrganizationButton = () => {
@@ -44,9 +45,10 @@ const CreateOrganizationButton = () => {
   const [uploadModalOpen, setUploadModalOpen] = useState(false)
   const { mutate } = useSWRConfig()
   const { startBulkImport } = useStartBulkImport()
+  const session = useSessionResponse() as Session
+  const account = session?.namespaces?.account?.accountName?.value
 
   const { data } = useBulkImportsQuery()
-  const { data: organizationsData } = useOrganizationsList()
   const { data: canEditBuyerOrg } = useOrgPermission({
     resourceCode: ORGANIZATION_EDIT,
   })
@@ -62,10 +64,6 @@ const CreateOrganizationButton = () => {
     <>
       <ExportButton
         variant="menuItem"
-        totalsByType={{
-          organizations:
-            organizationsData?.getOrganizations?.pagination?.total,
-        }}
         renderLayout={(trigger, modal) => (
           <>
             <PageHeaderMenuButton
@@ -111,7 +109,7 @@ const CreateOrganizationButton = () => {
         }
         open={uploadModalOpen}
         onOpenChange={setUploadModalOpen}
-        uploadFile={uploadBulkImportFile}
+        uploadFile={file => uploadBulkImportFile(file, account!)}
         onUploadFinish={handleUploadFinish}
         uploadingScreen={props => <UploadingScreen {...props} />}
         errorScreen={props => (

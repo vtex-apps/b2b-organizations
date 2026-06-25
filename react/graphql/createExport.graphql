@@ -1,6 +1,0 @@
-mutation CreateExport($exportType: ExportType!) {
-  createExport(exportType: $exportType)
-    @context(provider: "vtex.b2b-organizations-graphql") {
-    exportId
-  }
-}
