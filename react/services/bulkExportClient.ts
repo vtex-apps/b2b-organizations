@@ -82,9 +82,6 @@ export const getExportDownloadHref = (
   return appendBulkApiAccountQuery(resolved, account)
 }
 
-export const isPresignedS3Url = (url: string): boolean =>
-  url.includes('s3.amazonaws.com') || url.includes('.amazonaws.com/')
-
 export const openExternalDownloadUrl = (url: string): void => {
   const anchor = document.createElement('a')
 
