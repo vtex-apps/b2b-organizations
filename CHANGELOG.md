@@ -7,7 +7,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
-- Fix `custom-fields.addField` button formatting in `react/admin/CustomFields.tsx` to make text clickable inside button shape.
+### Fixed
+
+- `custom-fields.addField` button formatting in `react/admin/CustomFields.tsx` making text clickable inside button shape.
 
 ## [3.1.11] - 2026-05-06
 
