@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [3.2.0] - 2026-07-01
+
 ### Added
 
 - Unified **Export** action on the **Organizations** admin page (`New` > `Export`): select one or more data types (Organizations, Cost Centers, Users, Addresses), run exports in parallel via the **B2B Bulk Import** export API, and track per-type progress in a modal table with automatic XLSX download when ready.
