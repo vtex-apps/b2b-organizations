@@ -1,12 +1,8 @@
-import axios, { AxiosHeaders, AxiosRequestConfig } from 'axios'
+import type { AxiosRequestConfig } from 'axios'
+import axios, { AxiosHeaders } from 'axios'
 
 import { getAdminAuthToken } from '../utils/getAdminAuthToken'
-import {
-  logBulkApiRequest,
-  logBulkApiResponse,
-  serializeAxiosHeaders,
-} from '../utils/httpDebugLog'
-import { BULK_IMPORT_API_PATH } from './bulkExportClient'
+import { BULK_IMPORT_API_PATH } from './bulkApiPaths'
 
 export interface BulkImportRequestConfig extends AxiosRequestConfig {
   account?: string
@@ -32,7 +28,9 @@ const setRequestHeader = (
     return
   }
 
-  ;(config.headers as Record<string, string>)[name] = value
+  const legacyHeaders = config.headers as Record<string, string>
+
+  legacyHeaders[name] = value
 }
 
 bulkImportClient.interceptors.request.use(config => {
@@ -57,43 +55,7 @@ bulkImportClient.interceptors.request.use(config => {
 
   delete requestConfig.account
 
-  logBulkApiRequest('Import', {
-    method: config.method,
-    url: `${config.baseURL ?? ''}${config.url ?? ''}`,
-    account,
-    hasAuthToken: Boolean(token),
-    headers: serializeAxiosHeaders(config.headers),
-    body: config.data,
-  })
-
   return config
 })
-
-bulkImportClient.interceptors.response.use(
-  response => {
-    logBulkApiResponse('Import', {
-      method: response.config.method,
-      url: `${response.config.baseURL ?? ''}${response.config.url ?? ''}`,
-      status: response.status,
-      statusText: response.statusText,
-      body: response.data,
-    })
-
-    return response
-  },
-  error => {
-    const { config, response } = error
-
-    logBulkApiResponse('Import', {
-      method: config?.method,
-      url: `${config?.baseURL ?? ''}${config?.url ?? ''}`,
-      status: response?.status ?? 0,
-      statusText: response?.statusText ?? error.message,
-      body: response?.data ?? { message: error.message },
-    })
-
-    return Promise.reject(error)
-  }
-)
 
 export default bulkImportClient

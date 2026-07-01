@@ -1,6 +1,6 @@
-export const BULK_EXPORT_API_PATH = '/api/b2b/export/'
+import { BULK_EXPORT_API_PATH } from './bulkApiPaths'
 
-export const BULK_IMPORT_API_PATH = '/api/b2b/import'
+export { BULK_EXPORT_API_PATH, BULK_IMPORT_API_PATH } from './bulkApiPaths'
 
 export const buildBulkExportUrl = (
   account: string,

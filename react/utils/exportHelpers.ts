@@ -28,8 +28,7 @@ export const resolveProgressPercentage = (
   response: BulkExportStatusResult
 ): number | null => {
   let progress =
-    parseNumber(response.progressPercentage) ??
-    parseNumber(response.percentage)
+    parseNumber(response.progressPercentage) ?? parseNumber(response.percentage)
 
   if (progress != null && progress > 0 && progress <= 1) {
     progress = Math.round(progress * 100)
@@ -73,4 +72,4 @@ export const getDisplayProgressPercentage = (
 }
 
 export const isExportInProgress = (state: string) =>
-  state === 'CREATING' || state === 'POLLING' || state === 'DOWNLOADING'
+  state === 'CREATING' || state === 'POLLING'

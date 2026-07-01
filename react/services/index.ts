@@ -16,7 +16,6 @@ export {
 export {
   createBulkExport,
   extractApiErrorMessage,
-  fetchBulkExportFile,
   getBulkExportStatusWithRetry,
 } from './bulkExportApi'
 export {

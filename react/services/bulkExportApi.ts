@@ -1,10 +1,4 @@
-import {
-  appendBulkApiAccountQuery,
-  buildBulkExportUrl,
-  isSameOriginBulkApiUrl,
-  openExternalDownloadUrl,
-  resolveBulkImportFileUrl,
-} from './bulkExportClient'
+import { buildBulkExportUrl } from './bulkExportClient'
 import {
   BulkExportRequestError,
   BulkExportSessionError,
@@ -12,15 +6,12 @@ import {
 import type { ExportType } from '../utils/exportTypes'
 import { getAdminAuthToken } from '../utils/getAdminAuthToken'
 import type { BulkExportStatusResult } from '../utils/exportHelpers'
-import {
-  logBulkApiRequest,
-  logBulkApiResponse,
-  parseResponseBodyForLog,
-} from '../utils/httpDebugLog'
 
 const sleep = (ms: number) =>
   new Promise<void>(resolve => {
-    window.setTimeout(resolve, ms)
+    setTimeout(() => {
+      resolve()
+    }, ms)
   })
 
 const parseNumber = (value: unknown): number | null => {
@@ -154,27 +145,10 @@ const bulkImportFetch = async (
 
   const url = buildBulkExportUrl(account, exportId)
 
-  logBulkApiRequest('Export', {
-    method: init.method,
-    url,
-    account,
-    hasAuthToken: Boolean(token),
-    headers,
-    body: init.body,
-  })
-
   const response = await fetch(url, {
     ...init,
     headers,
     credentials: 'include',
-  })
-
-  logBulkApiResponse('Export', {
-    method: init.method,
-    url,
-    status: response.status,
-    statusText: response.statusText,
-    body: await parseResponseBodyForLog(response),
   })
 
   if (response.status === 401 || response.status === 403) {
@@ -258,92 +232,39 @@ export const getBulkExportStatus = async (
   account: string,
   exportId: string
 ): Promise<BulkExportStatusResult> => {
-  const data = await requestJson<Record<string, unknown>>(
-    account,
-    exportId,
-    { method: 'GET' }
-  )
+  const data = await requestJson<Record<string, unknown>>(account, exportId, {
+    method: 'GET',
+  })
 
   return normalizeBulkExportStatus(data ?? {})
 }
 
-export const fetchBulkExportFile = async (
-  account: string,
-  linkToFile: string
-): Promise<Response> => {
-  const downloadUrl = resolveBulkImportFileUrl(linkToFile)
-
-  if (!isSameOriginBulkApiUrl(downloadUrl)) {
-    openExternalDownloadUrl(downloadUrl)
-
-    return new Response(null, { status: 204 })
-  }
-
-  const token = getAdminAuthToken(account)
-  const headers: Record<string, string> = {}
-
-  if (token) {
-    headers.VtexIdclientAutCookie = token
-  }
-
-  const url = appendBulkApiAccountQuery(downloadUrl, account)
-
-  logBulkApiRequest('Export Download', {
-    method: 'GET',
-    url,
-    account,
-    hasAuthToken: Boolean(token),
-    headers,
-  })
-
-  const response = await fetch(url, {
-    headers,
-    credentials: 'include',
-  })
-
-  logBulkApiResponse('Export Download', {
-    method: 'GET',
-    url,
-    status: response.status,
-    statusText: response.statusText,
-    body:
-      response.ok && response.headers.get('content-type')?.includes('json')
-        ? await parseResponseBodyForLog(response)
-        : `[${response.headers.get('content-type') ?? 'unknown'}, ${response.headers.get('content-length') ?? 'unknown size'}]`,
-  })
-
-  if (response.status === 401 || response.status === 403) {
-    throw new BulkExportSessionError()
-  }
-
-  return response
-}
-
 export const POLL_STATUS_RETRY_DELAYS_MS = [1000, 2000, 3000]
 
-export const getBulkExportStatusWithRetry = async (
+const getBulkExportStatusWithRetryAttempt = async (
+  account: string,
+  exportId: string,
+  delayIndex: number
+): Promise<BulkExportStatusResult> => {
+  try {
+    return await getBulkExportStatus(account, exportId)
+  } catch (error) {
+    if (delayIndex >= POLL_STATUS_RETRY_DELAYS_MS.length) {
+      throw error
+    }
+
+    await sleep(POLL_STATUS_RETRY_DELAYS_MS[delayIndex])
+
+    return getBulkExportStatusWithRetryAttempt(
+      account,
+      exportId,
+      delayIndex + 1
+    )
+  }
+}
+
+export const getBulkExportStatusWithRetry = (
   account: string,
   exportId: string
-): Promise<BulkExportStatusResult> => {
-  let lastError: unknown
-
-  for (
-    let attempt = 0;
-    attempt <= POLL_STATUS_RETRY_DELAYS_MS.length;
-    attempt += 1
-  ) {
-    try {
-      return await getBulkExportStatus(account, exportId)
-    } catch (error) {
-      lastError = error
-
-      if (attempt >= POLL_STATUS_RETRY_DELAYS_MS.length) {
-        break
-      }
-
-      await sleep(POLL_STATUS_RETRY_DELAYS_MS[attempt])
-    }
-  }
-
-  throw lastError
-}
+): Promise<BulkExportStatusResult> =>
+  getBulkExportStatusWithRetryAttempt(account, exportId, 0)

@@ -35,7 +35,10 @@ import {
   POLL_INTERVAL_MS,
 } from '../utils/exportHelpers'
 import type { BulkExportStatusResult } from '../utils/exportHelpers'
-import { getExportDownloadHref, openExternalDownloadUrl } from '../services/bulkExportClient'
+import {
+  getExportDownloadHref,
+  openExternalDownloadUrl,
+} from '../services/bulkExportClient'
 import {
   loadExportJobsSession,
   restoreExportJobsSession,
@@ -45,7 +48,10 @@ import {
 interface ExportButtonProps {
   label?: string
   variant?: 'button' | 'menuItem'
-  renderLayout?: (trigger: React.ReactNode, modal: React.ReactNode) => React.ReactNode
+  renderLayout?: (
+    trigger: React.ReactNode,
+    modal: React.ReactNode
+  ) => React.ReactNode
 }
 
 const ExportButton = ({
@@ -61,6 +67,7 @@ const ExportButton = ({
   const [jobs, setJobs] = useState<Record<ExportType, ExportJobUIState>>(
     createInitialExportJobs
   )
+
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [selectedTypes, setSelectedTypes] = useState<ExportType[]>([])
 
@@ -70,6 +77,9 @@ const ExportButton = ({
   const isMountedRef = useRef(true)
   const hasHydratedFromStorageRef = useRef(false)
   const loadedAccountRef = useRef<string | null>(null)
+  const pollExportStatusRef = useRef<
+    ((exportType: ExportType) => Promise<void>) | undefined
+  >()
 
   const updateJob = useCallback(
     (exportType: ExportType, patch: Partial<ExportJobUIState>) => {
@@ -115,7 +125,7 @@ const ExportButton = ({
     intervalRef.current = setInterval(() => {
       ALL_EXPORT_TYPES.forEach(exportType => {
         if (exportIdRef.current[exportType]) {
-          void pollExportStatusRef.current?.(exportType)
+          pollExportStatusRef.current?.(exportType)?.catch(() => undefined)
         }
       })
     }, POLL_INTERVAL_MS)
@@ -161,7 +171,10 @@ const ExportButton = ({
     (exportType: ExportType, statusData: BulkExportStatusResult) => {
       const inProgress = statusData.status === 'IN_PROGRESS'
       const patch: Partial<ExportJobUIState> = {
-        progressPercentage: getDisplayProgressPercentage(statusData, inProgress),
+        progressPercentage: getDisplayProgressPercentage(
+          statusData,
+          inProgress
+        ),
         exportedRows: statusData.exportedRows ?? null,
       }
 
@@ -175,7 +188,11 @@ const ExportButton = ({
   )
 
   const markExportFailed = useCallback(
-    (exportType: ExportType, messageId?: keyof typeof messages, error?: unknown) => {
+    (
+      exportType: ExportType,
+      messageId?: keyof typeof messages,
+      error?: unknown
+    ) => {
       clearActiveExport(exportType)
       updateJob(exportType, { ...createIdleExportJob(), state: 'ERROR' })
       showErrorToast(messageId ?? 'toastFailed', error)
@@ -265,8 +282,6 @@ const ExportButton = ({
     ]
   )
 
-  const pollExportStatusRef = useRef(pollExportStatus)
-
   pollExportStatusRef.current = pollExportStatus
 
   useEffect(() => {
@@ -297,7 +312,7 @@ const ExportButton = ({
     }
 
     typesToResume.forEach(exportType => {
-      void pollExportStatusRef.current(exportType)
+      pollExportStatusRef.current?.(exportType)?.catch(() => undefined)
     })
     ensurePollingInterval()
   }, [account, ensurePollingInterval])
@@ -321,10 +336,32 @@ const ExportButton = ({
         return
       }
 
-      updateJob(exportType, {
-        ...createIdleExportJob(),
-        state: 'CREATING',
+      let previousReadyJob: ExportJobUIState | null = null
+
+      setJobs(prev => {
+        const current = prev[exportType]
+
+        if (current.state === 'READY' && current.linkToFile) {
+          previousReadyJob = current
+        }
+
+        return {
+          ...prev,
+          [exportType]: { ...createIdleExportJob(), state: 'CREATING' },
+        }
       })
+
+      const restorePreviousReadyOrFail = (
+        messageId?: keyof typeof messages,
+        error?: unknown
+      ) => {
+        if (previousReadyJob) {
+          updateJob(exportType, { ...previousReadyJob, state: 'READY' })
+          showErrorToast(messageId ?? 'toastStartError', error)
+        } else {
+          markExportFailed(exportType, messageId ?? 'toastStartError', error)
+        }
+      }
 
       try {
         const exportId = await createBulkExport(account, exportType)
@@ -332,7 +369,7 @@ const ExportButton = ({
         if (!isMountedRef.current) return
 
         if (!exportId) {
-          markExportFailed(exportType, 'toastStartError')
+          restorePreviousReadyOrFail('toastStartError')
 
           return
         }
@@ -342,7 +379,7 @@ const ExportButton = ({
         await pollExportStatus(exportType)
         ensurePollingInterval()
       } catch (error) {
-        markExportFailed(exportType, 'toastStartError', error)
+        restorePreviousReadyOrFail('toastStartError', error)
       }
     },
     [
@@ -426,9 +463,6 @@ const ExportButton = ({
       case 'POLLING':
         return formatMessage(messages.statusGenerating)
 
-      case 'DOWNLOADING':
-        return formatMessage(messages.statusDownloading)
-
       case 'READY':
         return formatMessage(messages.statusReady)
 
@@ -460,13 +494,7 @@ const ExportButton = ({
       activeExportCount > 0 ? <Spinner size={16} /> : <IconArrowLineDown />
 
     if (variant === 'menuItem') {
-      return (
-        <MenuItem
-          label={triggerLabel}
-          icon={icon}
-          onClick={openModal}
-        />
-      )
+      return <MenuItem label={triggerLabel} icon={icon} onClick={openModal} />
     }
 
     return (
@@ -536,7 +564,7 @@ const ExportButton = ({
             size="small"
             variation="tertiary"
             onClick={() => {
-              void startExportForType(exportType)
+              startExportForType(exportType).catch(() => undefined)
             }}
           >
             {formatMessage(messages.buttonRetry)}
@@ -562,7 +590,7 @@ const ExportButton = ({
               variation="primary"
               disabled={selectedTypes.length === 0}
               onClick={() => {
-                void startSelectedExports()
+                startSelectedExports().catch(() => undefined)
               }}
             >
               {formatMessage(messages.startExport)}
@@ -607,7 +635,12 @@ const ExportButton = ({
       </div>
 
       {tableItems.length > 0 && (
-        <Table schema={tableSchema} items={tableItems} hidePagination fullWidth />
+        <Table
+          schema={tableSchema}
+          items={tableItems}
+          hidePagination
+          fullWidth
+        />
       )}
     </Modal>
   )

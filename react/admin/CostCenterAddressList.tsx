@@ -211,8 +211,7 @@ const CostCenterAddressList: React.FC<AddressListProps> = ({
   }
 
   return (
-    <>
-      <Table
+    <Table
       fullWidth
       schema={jsonschema}
       items={state.slicedData}
@@ -250,7 +249,6 @@ const CostCenterAddressList: React.FC<AddressListProps> = ({
       lineActions={lineActions}
       onRowClick={() => {}}
     />
-    </>
   )
 }
 

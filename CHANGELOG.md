@@ -15,7 +15,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 - Export flow migrated from GraphQL (`createExport` / `exportStatus`) to the **B2B Bulk Import** export API at `/api/b2b/export/?an={account}` and `/api/b2b/export/{exportId}/?an={account}` on the Admin origin (Janus), with `VtexIdclientAutCookie` from the admin session when available; XLSX downloads use same-origin file URLs (S3 presigned links open in a new tab).
 - Removed separate export buttons from Organization Details (Cost Centers, Users, and Addresses); all exports are initiated from the Organizations list.
-- Removed browser session persistence and stale-export detection for export jobs; polling uses 4-second intervals with per-request network retry backoff.
+- Export job UI state persists in `sessionStorage` per account for the browser tab session; polling uses 4-second intervals with per-request network retry backoff.
 
 ### Fixed
 

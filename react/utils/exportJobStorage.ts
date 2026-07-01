@@ -77,14 +77,7 @@ const normalizeRestoredJob = (
   job: ExportJobUIState,
   exportId?: string
 ): ExportJobUIState => {
-  if (job.state === 'DOWNLOADING' && job.linkToFile) {
-    return { ...job, state: 'READY' }
-  }
-
-  if (
-    (job.state === 'CREATING' || job.state === 'POLLING') &&
-    !exportId
-  ) {
+  if ((job.state === 'CREATING' || job.state === 'POLLING') && !exportId) {
     return createIdleExportJob()
   }
 

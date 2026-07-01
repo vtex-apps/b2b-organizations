@@ -11,13 +11,7 @@ export const ALL_EXPORT_TYPES: ExportType[] = [
   'addresses',
 ]
 
-export type ExportState =
-  | 'IDLE'
-  | 'CREATING'
-  | 'POLLING'
-  | 'DOWNLOADING'
-  | 'READY'
-  | 'ERROR'
+export type ExportState = 'IDLE' | 'CREATING' | 'POLLING' | 'READY' | 'ERROR'
 
 export interface ExportJobUIState {
   state: ExportState
