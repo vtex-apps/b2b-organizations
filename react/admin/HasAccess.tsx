@@ -10,14 +10,17 @@ import { ORGANIZATION_VIEW } from '../utils/constants'
 interface HasAccessProps {
   children: React.ReactElement
   permission?: typeof ORGANIZATION_EDIT | typeof ORGANIZATION_VIEW
+  /** Admin pages rely on VTEX Admin access; storefront uses B2B permission checks. */
+  authContext?: 'admin' | 'storefront'
 }
 
-export default function HasAccess({
+function StorefrontHasAccess({
   children,
   permission = ORGANIZATION_VIEW,
-}: HasAccessProps) {
+}: Omit<HasAccessProps, 'authContext'>) {
   const { data: canBuyerOrgPermission, isLoading } = useOrgPermission({
     resourceCode: permission,
+    authContext: 'storefront',
   })
 
   const [showTimeoutError, setShowTimeoutError] = useState(false)
@@ -25,9 +28,7 @@ export default function HasAccess({
   useEffect(() => {
     let timeoutId: ReturnType<typeof setTimeout>
 
-    // Only set timeout if data is undefined (not loading)
     if (!isLoading && canBuyerOrgPermission === undefined) {
-      // Set a timeout of 10 seconds to show an error message
       timeoutId = setTimeout(() => {
         setShowTimeoutError(true)
       }, 10000)
@@ -73,5 +74,19 @@ export default function HasAccess({
         <FormattedMessage id="admin/b2b-organizations.organizations.not-allow-view-message" />
       </Alert>
     </div>
+  )
+}
+
+export default function HasAccess({
+  children,
+  permission,
+  authContext = 'admin',
+}: HasAccessProps) {
+  if (authContext === 'admin') {
+    return children
+  }
+
+  return (
+    <StorefrontHasAccess permission={permission}>{children}</StorefrontHasAccess>
   )
 }

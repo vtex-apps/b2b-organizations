@@ -1,13 +1,14 @@
-import type { AxiosRequestConfig } from 'axios'
-
-import bulkImportClient from '.'
+import bulkImportClient, { BulkImportRequestConfig } from './bulkImportClient'
 import type {
   BulkImportUploadError,
   ImportDetails,
   UploadFileData,
 } from '../types/BulkImport'
 
-const uploadBulkImportFile = async (file: File): Promise<UploadFileData> => {
+const uploadBulkImportFile = async (
+  file: File,
+  account: string
+): Promise<UploadFileData> => {
   const formData = new FormData()
 
   formData.append('file', file)
@@ -17,10 +18,11 @@ const uploadBulkImportFile = async (file: File): Promise<UploadFileData> => {
       `/buyer-orgs`,
       formData,
       {
+        account,
         headers: {
           'Content-Type': 'multipart/form-data',
         },
-      } as AxiosRequestConfig<FormData>
+      } as BulkImportRequestConfig
     )
 
     return {

@@ -1,4 +1,4 @@
-import bulkImportClient from '.'
+import bulkImportClient, { BulkImportRequestConfig } from './bulkImportClient'
 import type { ImportDetails, ImportReportData } from '../types/BulkImport'
 
 export type BulkImportDetails = Omit<ImportDetails, 'percentage'> & {
@@ -7,10 +7,12 @@ export type BulkImportDetails = Omit<ImportDetails, 'percentage'> & {
 }
 
 const getBulkImportDetails = async (
-  importId?: string
+  importId: string,
+  account: string
 ): Promise<BulkImportDetails> => {
   const importListResponse = await bulkImportClient.get<ImportDetails>(
-    `/buyer-orgs/${importId}`
+    `/buyer-orgs/${importId}`,
+    { account } as BulkImportRequestConfig
   )
 
   const { data } = importListResponse
