@@ -1,5 +1,5 @@
 import type { ImportDetails } from '../types/BulkImport'
-import bulkImportClient from '.'
+import bulkImportClient, { BulkImportRequestConfig } from './bulkImportClient'
 
 const statusMap = {
   InProgress: 'pending',
@@ -8,9 +8,9 @@ const statusMap = {
 } as const
 
 const getBulkImportList = async (account: string) => {
-  const importListResponse = await bulkImportClient.get(
-    `/buyer-orgs?an=${account}`
-  )
+  const importListResponse = await bulkImportClient.get(`/buyer-orgs`, {
+    account,
+  } as BulkImportRequestConfig)
 
   const importListData = importListResponse.data as ImportDetails[]
 

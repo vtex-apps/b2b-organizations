@@ -1,6 +1,6 @@
 {
   "name": "vtex.b2b-organizations",
-  "version": "3.1.11",
+  "version": "3.2.0",
   "license": "UNLICENSED",
   "scripts": {
     "test": "vtex-test-tools test --passWithNoTests"
@@ -12,6 +12,7 @@
     "@types/lodash": "^4.14.185",
     "@types/node": "^13.9.8",
     "@types/react": "^16.9.31",
+    "@types/react-dom": "^16.9.8",
     "@types/react-router": "^5.1.11",
     "@types/react-router-dom": "^5.1.11",
     "@vtex/test-tools": "^3.3.2",

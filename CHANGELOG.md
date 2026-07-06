@@ -10,6 +10,28 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Fixed
 
 - `custom-fields.addField` button formatting in `react/admin/CustomFields.tsx` making text clickable inside button shape.
+## [3.2.0] - 2026-07-01
+
+### Added
+
+- Unified **Export** action on the **Organizations** admin page (`New` > `Export`): select one or more data types (Organizations, Cost Centers, Users, Addresses), run exports in parallel via the **B2B Bulk Import** export API, and track per-type progress in a modal table with automatic XLSX download when ready.
+
+### Changed
+
+- Export flow migrated from GraphQL (`createExport` / `exportStatus`) to the **B2B Bulk Import** export API at `/api/b2b/export/?an={account}` and `/api/b2b/export/{exportId}/?an={account}` on the Admin origin (Janus), with `VtexIdclientAutCookie` from the admin session when available; XLSX downloads use same-origin file URLs (S3 presigned links open in a new tab).
+- Removed separate export buttons from Organization Details (Cost Centers, Users, and Addresses); all exports are initiated from the Organizations list.
+- Export job UI state persists in `sessionStorage` per account for the browser tab session; polling uses 4-second intervals with per-request network retry backoff.
+
+### Fixed
+
+- `HasAccess` no longer blocks VTEX Admin pages: permission gating applies only on the storefront (`authContext: 'storefront'`). Admin relies on VTEX Admin access as before.
+- `useOrgPermission` in admin now treats **Owner (Admin Super)** users as granted when the product-specific License Manager `/granted` check returns false, so Super Users are not incorrectly denied view/edit actions.
+- Export modal keeps completed and failed export rows (with download links) in `sessionStorage` per account for the browser tab session, including after closing and reopening the modal or refreshing the page.
+- Export file download opens external links (for example S3 presigned URLs from Reports) in a new tab instead of `fetch`, avoiding CORS failures on **Download file**.
+
+### Documentation
+
+- Documented the XLSX export flow (REST API, progress rules, and download behavior) in `docs/README.md`.
 
 ## [3.1.11] - 2026-05-06
 

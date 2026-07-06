@@ -1,5 +1,7 @@
 import useSWR from 'swr'
 
+import type { Session } from '../modules/session'
+import { useSessionResponse } from '../modules/session'
 import { getBulkImportDetails } from '../services'
 import type { BulkImportDetails } from '../services/getBulkImportDetails'
 
@@ -14,9 +16,12 @@ const useBulkImportDetailsQuery = ({
   onSuccess = () => {},
   refreshInterval = 0,
 }: UseBulkImportDetailsQueryProps) => {
+  const session = useSessionResponse() as Session
+  const account = session?.namespaces?.account?.accountName?.value
+
   return useSWR(
-    importId ? `/buyer-orgs/${importId}` : null,
-    () => getBulkImportDetails(importId),
+    importId && account ? `/buyer-orgs/${importId}` : null,
+    () => getBulkImportDetails(importId!, account!),
     {
       refreshInterval,
       revalidateOnFocus: false,
