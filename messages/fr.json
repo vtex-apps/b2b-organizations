@@ -141,7 +141,7 @@
   "admin/b2b-organizations.organization-details.remove-user": "Supprimer l’utilisateur",
   "admin/b2b-organizations.organization-details.remove-user.helpText": "Êtes-vous sûr de vouloir supprimer l'utilisateur {email}? Leur compte d’utilisateur continuera d’exister, mais ils n’auront plus accès à cette organisation.",
   "admin/b2b-organizations.organization-details.sales-admin-title": "Gérer les commerciaux",
-  "admin/b2b-organizations.organization-details.sales-channel": "Politique commerciale",
+  "admin/b2b-organizations.organization-details.sales-channel": "Canal de vente",
   "admin/b2b-organizations.organization-details.sellers": "Vendeurs",
   "admin/b2b-organizations.organization-details.status": "Statut",
   "admin/b2b-organizations.organization-details.status.active": "Actif",

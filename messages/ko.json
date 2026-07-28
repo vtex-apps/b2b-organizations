@@ -141,7 +141,7 @@
   "admin/b2b-organizations.organization-details.remove-user": "사용자 삭제",
   "admin/b2b-organizations.organization-details.remove-user.helpText": "{email} 사용자를 삭제하시겠습니까? 사용자 계정은 계속 존재하지만 더 이상 이 조직에 액세스할 수 없습니다.",
   "admin/b2b-organizations.organization-details.sales-admin-title": "영업 담당자 관리",
-  "admin/b2b-organizations.organization-details.sales-channel": "무역 정책",
+  "admin/b2b-organizations.organization-details.sales-channel": "판매 채널",
   "admin/b2b-organizations.organization-details.sellers": "판매자",
   "admin/b2b-organizations.organization-details.status": "상태",
   "admin/b2b-organizations.organization-details.status.active": "활성",

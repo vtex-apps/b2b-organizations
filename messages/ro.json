@@ -141,7 +141,7 @@
   "admin/b2b-organizations.organization-details.remove-user": "Elimină utilizatorul",
   "admin/b2b-organizations.organization-details.remove-user.helpText": "Ești sigur că vrei să ștergi utilizatorul {email}? Acest cont de utilizator va continua să existe, dar nu va mai avea acces la organizația ta.",
   "admin/b2b-organizations.organization-details.sales-admin-title": "Gestionează utilizatorii de vânzări",
-  "admin/b2b-organizations.organization-details.sales-channel": "Politică comercială",
+  "admin/b2b-organizations.organization-details.sales-channel": "Canal de vânzări",
   "admin/b2b-organizations.organization-details.sellers": "Comercianți",
   "admin/b2b-organizations.organization-details.status": "Status",
   "admin/b2b-organizations.organization-details.status.active": "Activ",
