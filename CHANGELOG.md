@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [3.2.2] - 2026-09-02
+
 ### Changed
 
 - Updated translations for export UI keys (`export.button.exportingCount`, `export.modal.*`, `export.status.*`, `export.type.*`, `export.toast.*`) across all supported locales (ar, bg, ca, cs, da, de, el, en, es, fi, fr, id, it, ja, ko, nl, no, pl, pt, ro, ru, sk, sl, sv, th, uk).
