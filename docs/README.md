@@ -174,7 +174,7 @@ The **B2B Organizations** app adds the following functionalities and components 
   </tr>
   <tr>
     <td>Organizations page</td>
-    <td>Manage Organizations<br>Export organization data as XLSX<br></td>
+    <td>Manage Organizations<br>Search organizations by name or custom field value<br>Export organization data as XLSX<br></td>
   </tr>
   <tr>
     <td rowspan="5">Organization Details page</td>
@@ -272,7 +272,37 @@ To access the page, go to **Account Settings** > **B2B Organizations & Cost Cent
 
 You can click `Refetch` to refresh the organizations list on this page, fetching information about recently created organizations.
 
-It is possible to use the search bar to find an organization by name or filter the organizations by status.
+Use the search bar and status filter to narrow the list. Press **Enter** in the search field to apply a search term.
+
+##### Search organizations (name or custom field)
+
+When your store has at least one **organization custom field** defined (see the **Custom Fields** tab under **B2B Organizations & Cost Centers**), the organizations list shows a **Search by** dropdown next to the search bar.
+
+| **Search by** selection | What the search term matches |
+| ----------------------- | ---------------------------- |
+| **Name** (default) | Organization **name** and **trade name**, same as before this feature. |
+| A custom field (for example, SAP ID) | The **value** stored on that organization for the selected field definition. The search placeholder updates to indicate the field name. |
+
+How it works in the VTEX Admin UI:
+
+1. Optionally choose a field in **Search by** (leave **Name** for the previous behavior).
+2. Type the value you are looking for in the search bar.
+3. Press **Enter** to run the search.
+
+The list calls `getOrganizations` from [`vtex.b2b-organizations-graphql`](https://github.com/vtex-apps/b2b-organizations-graphql). Field definitions for the dropdown come from `getOrganizationCustomFields` (also available as `getB2BSettings.organizationCustomFields`).
+
+| GraphQL operation | Role |
+| ----------------- | ---- |
+| `getOrganizationCustomFields` | Lists organization custom field definitions (`name`, `type`, …). Each option uses `name` as the definition key. |
+| `getOrganizations(search, customFieldName, …)` | When `customFieldName` is set together with `search`, filters organizations where `customFields.name` equals the selected definition and `customFields.value` matches the search term. When `customFieldName` is omitted, `search` matches name and trade name only. |
+
+**Requirements for deployers and operators**
+
+- Install or upgrade **`vtex.b2b-organizations-graphql`** with support for `getOrganizationCustomFields` and `getOrganizations(customFieldName)` (for example, [b2b-organizations-graphql#235](https://github.com/vtex-apps/b2b-organizations-graphql/pull/235)).
+- Custom field search relies on the Master Data `organizations` entity schema: `customFields` must be typed and indexed (`customFields.name`, `customFields.value`). After schema changes, existing organization documents may need a real update before values are searchable, and Master Data reindexing can take a few minutes.
+- If the **Search by** dropdown does not appear, confirm that organization custom fields are configured in the **Custom Fields** tab and that `getOrganizationCustomFields` returns at least one definition.
+
+You can filter organizations by status using the status filter.
 
 Each organization can have one of the following statuses:
 
