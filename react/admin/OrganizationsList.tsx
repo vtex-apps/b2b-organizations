@@ -26,6 +26,7 @@ import {
 import type { FetchListOptions } from '../organizations/hooks'
 import { useNavigateToDetailsPage } from '../organizations/navigate'
 import { useOrgsTableColumns } from '../organizations/table'
+import OrganizationsListCustomFieldFilter from './OrganizationsList/OrganizationsListCustomFieldFilter'
 import OrganizationsListSearch from './OrganizationsList/OrganizationsListSearch'
 import OrganizationsListStatusFilter from './OrganizationsList/OrganizationsListStatusFilter'
 
@@ -134,7 +135,19 @@ const OrganizationsList: FunctionComponent = () => {
     <DataView state={view}>
       <DataViewHeader>
         <Flex className={csx({ width: '100%' })}>
-          <OrganizationsListSearch onSearch={updateTableItems} />
+          <OrganizationsListCustomFieldFilter
+            selectedCustomFieldName={refetchOptions.customFieldName}
+            onChange={customFieldName => {
+              updateTableItems({
+                customFieldName,
+                page: 1,
+              })
+            }}
+          />
+          <OrganizationsListSearch
+            onSearch={updateTableItems}
+            customFieldName={refetchOptions.customFieldName}
+          />
           <OrganizationsListStatusFilter
             onChange={value => {
               updateTableItems({

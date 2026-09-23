@@ -5,6 +5,7 @@ import GET_ORGANIZATIONS from '../graphql/getOrganizations.graphql'
 export interface FetchListOptions {
   status: string[]
   search: string
+  customFieldName: string
   page: number
   pageSize: number
   sortOrder: 'ASC' | 'DESC'
@@ -14,6 +15,7 @@ export interface FetchListOptions {
 export const INITIAL_FETCH_LIST_OPTIONS: FetchListOptions = {
   status: ['active', 'on-hold', 'inactive'],
   search: '',
+  customFieldName: '',
   page: 1,
   pageSize: 25,
   sortOrder: 'ASC',

@@ -249,6 +249,15 @@ export const organizationMessages = defineMessages({
   filterStatus: {
     id: `${adminPrefix}organizations-admin.table.statusFilter.label`,
   },
+  customFieldFilterLabel: {
+    id: `${adminPrefix}organizations-admin.table.customFieldFilter.label`,
+  },
+  customFieldFilterName: {
+    id: `${adminPrefix}organizations-admin.table.customFieldFilter.name`,
+  },
+  searchCustomFieldPlaceholder: {
+    id: `${adminPrefix}organizations-admin.table.search.customField.placeholder`,
+  },
   filtersAll: {
     id: `${adminPrefix}organizations-admin.table.filters.all`,
   },
