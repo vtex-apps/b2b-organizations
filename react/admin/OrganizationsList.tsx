@@ -21,6 +21,7 @@ import type { TagProps } from '@vtex/admin-ui'
 
 import {
   INITIAL_FETCH_LIST_OPTIONS,
+  toGetOrganizationsVariables,
   useOrganizationsList,
 } from '../organizations/hooks'
 import type { FetchListOptions } from '../organizations/hooks'
@@ -107,7 +108,7 @@ const OrganizationsList: FunctionComponent = () => {
     }
 
     setRefetchOptions(newRefetchOptions)
-    refetch(newRefetchOptions)
+    refetch(toGetOrganizationsVariables(newRefetchOptions))
 
     if (options.page !== refetchOptions.page && options.page === 1) {
       paginationState.paginate({ type: 'reset' })

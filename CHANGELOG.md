@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Added
 
-- Organizations admin: dropdown to search organizations by organization custom field value (B2BTEAM-3594).
+- Organizations admin: dropdown to search organizations by organization custom field value via `getOrganizationCustomFields` and `getOrganizations(customFieldName)` (B2BTEAM-3594; requires `vtex.b2b-organizations-graphql` with `getOrganizationCustomFields`).
 
 ## [3.2.2] - 2026-09-02
 

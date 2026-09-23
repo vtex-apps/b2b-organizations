@@ -3,7 +3,7 @@ import { Dropdown, csx, useDropdownState } from '@vtex/admin-ui'
 import { useQuery } from 'react-apollo'
 import { useIntl } from 'react-intl'
 
-import GET_B2B_CUSTOM_FIELDS from '../../../graphql/getB2BCustomFields.graphql'
+import GET_ORGANIZATION_CUSTOM_FIELDS from '../../../graphql/getOrganizationCustomFields.graphql'
 import { organizationMessages as messages } from '../../utils/messages'
 
 const NAME_SEARCH_OPTION_ID = ''
@@ -24,7 +24,7 @@ const OrganizationsListCustomFieldFilter: React.FC<Props> = ({
 }) => {
   const { formatMessage } = useIntl()
 
-  const { data, loading } = useQuery(GET_B2B_CUSTOM_FIELDS, {
+  const { data, loading } = useQuery(GET_ORGANIZATION_CUSTOM_FIELDS, {
     ssr: false,
   })
 
@@ -37,8 +37,7 @@ const OrganizationsListCustomFieldFilter: React.FC<Props> = ({
   )
 
   const customFieldOptions = useMemo<CustomFieldSearchOption[]>(() => {
-    const organizationCustomFields =
-      data?.getB2BSettings?.organizationCustomFields ?? []
+    const organizationCustomFields = data?.getOrganizationCustomFields ?? []
 
     return organizationCustomFields.map((field: CustomFieldSetting) => ({
       id: field.name,

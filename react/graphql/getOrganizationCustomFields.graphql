@@ -1,0 +1,7 @@
+query GetOrganizationCustomFields {
+  getOrganizationCustomFields
+    @context(provider: "vtex.b2b-organizations-graphql") {
+    name
+    type
+  }
+}

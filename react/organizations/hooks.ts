@@ -22,9 +22,19 @@ export const INITIAL_FETCH_LIST_OPTIONS: FetchListOptions = {
   sortedBy: 'name',
 }
 
+export const toGetOrganizationsVariables = (options: FetchListOptions) => {
+  const { customFieldName, search, ...rest } = options
+
+  return {
+    ...rest,
+    search: search || null,
+    customFieldName: customFieldName || null,
+  }
+}
+
 export const useOrganizationsList = () => {
   return useQuery(GET_ORGANIZATIONS, {
-    variables: INITIAL_FETCH_LIST_OPTIONS,
+    variables: toGetOrganizationsVariables(INITIAL_FETCH_LIST_OPTIONS),
     ssr: false,
   })
 }
