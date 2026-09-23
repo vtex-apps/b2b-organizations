@@ -1,6 +1,7 @@
 query GetOrganizations(
   $status: [String]
   $search: String
+  $customFieldName: String
   $page: Int
   $pageSize: Int
   $sortOrder: String
@@ -9,6 +10,7 @@ query GetOrganizations(
   getOrganizations(
     status: $status
     search: $search
+    customFieldName: $customFieldName
     page: $page
     pageSize: $pageSize
     sortOrder: $sortOrder

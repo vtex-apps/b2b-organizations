@@ -21,11 +21,13 @@ import type { TagProps } from '@vtex/admin-ui'
 
 import {
   INITIAL_FETCH_LIST_OPTIONS,
+  toGetOrganizationsVariables,
   useOrganizationsList,
 } from '../organizations/hooks'
 import type { FetchListOptions } from '../organizations/hooks'
 import { useNavigateToDetailsPage } from '../organizations/navigate'
 import { useOrgsTableColumns } from '../organizations/table'
+import OrganizationsListCustomFieldFilter from './OrganizationsList/OrganizationsListCustomFieldFilter'
 import OrganizationsListSearch from './OrganizationsList/OrganizationsListSearch'
 import OrganizationsListStatusFilter from './OrganizationsList/OrganizationsListStatusFilter'
 
@@ -106,7 +108,7 @@ const OrganizationsList: FunctionComponent = () => {
     }
 
     setRefetchOptions(newRefetchOptions)
-    refetch(newRefetchOptions)
+    refetch(toGetOrganizationsVariables(newRefetchOptions))
 
     if (options.page !== refetchOptions.page && options.page === 1) {
       paginationState.paginate({ type: 'reset' })
@@ -134,7 +136,19 @@ const OrganizationsList: FunctionComponent = () => {
     <DataView state={view}>
       <DataViewHeader>
         <Flex className={csx({ width: '100%' })}>
-          <OrganizationsListSearch onSearch={updateTableItems} />
+          <OrganizationsListCustomFieldFilter
+            selectedCustomFieldName={refetchOptions.customFieldName}
+            onChange={customFieldName => {
+              updateTableItems({
+                customFieldName,
+                page: 1,
+              })
+            }}
+          />
+          <OrganizationsListSearch
+            onSearch={updateTableItems}
+            customFieldName={refetchOptions.customFieldName}
+          />
           <OrganizationsListStatusFilter
             onChange={value => {
               updateTableItems({
