@@ -176,7 +176,7 @@
   "admin/b2b-organizations.organization-details.remove-user": "Benutzer entfernen",
   "admin/b2b-organizations.organization-details.remove-user.helpText": "Sind Sie sicher, dass Sie den Benutzer {email} entfernen möchten? Ihr Benutzerkonto wird weiterhin existieren, aber sie haben keinen Zugriff mehr auf Ihre Organisation.",
   "admin/b2b-organizations.organization-details.sales-admin-title": "Verwalten von Vertriebsbenutzern",
-  "admin/b2b-organizations.organization-details.sales-channel": "Handelspolitik",
+  "admin/b2b-organizations.organization-details.sales-channel": "Vertriebskanal",
   "admin/b2b-organizations.organization-details.sellers": "Verkäufer",
   "admin/b2b-organizations.organization-details.settings": "Einstellungen",
   "admin/b2b-organizations.organization-details.settings.createQuote": "Angebot erstellen",

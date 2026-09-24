@@ -176,7 +176,7 @@
   "admin/b2b-organizations.organization-details.remove-user": "ユーザーを削除する",
   "admin/b2b-organizations.organization-details.remove-user.helpText": "ユーザー {email} を削除してもよろしいですか？ ユーザーアカウントは残りますが、この組織にアクセスできなくなります。",
   "admin/b2b-organizations.organization-details.sales-admin-title": "販売ユーザーを管理する",
-  "admin/b2b-organizations.organization-details.sales-channel": "Sales Channel",
+  "admin/b2b-organizations.organization-details.sales-channel": "販売チャネル",
   "admin/b2b-organizations.organization-details.sellers": "販売者",
   "admin/b2b-organizations.organization-details.settings": "設定",
   "admin/b2b-organizations.organization-details.settings.createQuote": "見積もりを作成する",

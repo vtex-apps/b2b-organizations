@@ -176,7 +176,7 @@
   "admin/b2b-organizations.organization-details.remove-user": "Премахване на потребител",
   "admin/b2b-organizations.organization-details.remove-user.helpText": "Наистина ли искате да премахнете потребителя {email}? Потребителският му акаунт ще продължи да съществува, но той вече няма да има достъп до тази организация.",
   "admin/b2b-organizations.organization-details.sales-admin-title": "Управление на потребители на продажби",
-  "admin/b2b-organizations.organization-details.sales-channel": "Търговска политика",
+  "admin/b2b-organizations.organization-details.sales-channel": "Канал за продажби",
   "admin/b2b-organizations.organization-details.sellers": "Продавачи",
   "admin/b2b-organizations.organization-details.settings": "Настройки",
   "admin/b2b-organizations.organization-details.settings.createQuote": "Създаване на оферта",

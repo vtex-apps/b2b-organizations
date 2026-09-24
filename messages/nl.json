@@ -176,7 +176,7 @@
   "admin/b2b-organizations.organization-details.remove-user": "Gebruiker verwijderen",
   "admin/b2b-organizations.organization-details.remove-user.helpText": "Weet u zeker dat u gebruiker {email} wilt verwijderen? Hun gebruikersaccount zal blijven bestaan, maar ze zullen geen toegang meer hebben tot deze organisatie.",
   "admin/b2b-organizations.organization-details.sales-admin-title": "Verkoopgebruikers beheren",
-  "admin/b2b-organizations.organization-details.sales-channel": "Verkoopbeleid",
+  "admin/b2b-organizations.organization-details.sales-channel": "Verkoopkanaal",
   "admin/b2b-organizations.organization-details.sellers": "Verkopers",
   "admin/b2b-organizations.organization-details.settings": "Instellingen",
   "admin/b2b-organizations.organization-details.settings.createQuote": "Offerte maken",

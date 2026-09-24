@@ -176,7 +176,7 @@
   "admin/b2b-organizations.organization-details.remove-user": "ลบผู้ใช้ออก",
   "admin/b2b-organizations.organization-details.remove-user.helpText": "คุณยืนยันหรือไม่ว่าต้องการลบผู้ใช้ {email} บัญชีผู้ใช้ของพวกเขาจะยังคงมีอยู่แต่ไม่สามารถใช้เข้าถึงองค์กรนี้ได้อีกต่อไป",
   "admin/b2b-organizations.organization-details.sales-admin-title": "บริหารจัดการผู้ใช้ด้านการขาย",
-  "admin/b2b-organizations.organization-details.sales-channel": "นโยบายการซื้อขาย",
+  "admin/b2b-organizations.organization-details.sales-channel": "ช่องทางการขาย",
   "admin/b2b-organizations.organization-details.sellers": "ผู้ขาย",
   "admin/b2b-organizations.organization-details.settings": "การตั้งค่า",
   "admin/b2b-organizations.organization-details.settings.createQuote": "สร้างใบเสนอราคา",
