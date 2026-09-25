@@ -385,7 +385,7 @@ const CostCenterDetails: FunctionComponent<RouterProps> = ({
         })
       }
     },
-    [addresses]
+    [addresses, data]
   )
 
   const handleCheckDefault = (address: Address) => {
@@ -400,13 +400,8 @@ const CostCenterDetails: FunctionComponent<RouterProps> = ({
 
   const handleEditAddress = (modifiedAddress: AddressFormFields) => {
     const { addressId } = editAddressModalState
-    const addressArray = addresses
 
-    const addressIndex = addresses.findIndex(
-      address => address.addressId === addressId
-    )
-
-    addressArray[addressIndex] = {
+    const updatedAddress = {
       addressId: modifiedAddress.addressId.value,
       addressType: modifiedAddress.addressType.value,
       city: modifiedAddress.city.value,
@@ -423,6 +418,12 @@ const CostCenterDetails: FunctionComponent<RouterProps> = ({
       addressQuery: modifiedAddress.addressQuery.value,
     } as Address
 
+    const addressArray = addresses.map(address =>
+      address.addressId === addressId
+        ? { ...updatedAddress, checked: address.checked }
+        : address
+    )
+
     const variables = {
       id: params.id,
       input: {
@@ -456,15 +457,16 @@ const CostCenterDetails: FunctionComponent<RouterProps> = ({
       })
   }
 
-  const handleDeleteAddress = useCallback(() => {
+  const handleDeleteAddress = () => {
     const { addressId } = deleteAddressModalState
-    const addressArray = addresses
 
-    const addressIndex = addresses.findIndex(
-      address => address.addressId === addressId
+    if (!addressId) return
+
+    const addressArray = addresses.filter(
+      address => address.addressId !== addressId
     )
 
-    addresses.splice(addressIndex, 1)
+    if (addressArray.length === addresses.length) return
 
     const variables = {
       id: params.id,
@@ -497,7 +499,7 @@ const CostCenterDetails: FunctionComponent<RouterProps> = ({
         toastMessage(messages.toastUpdateFailure)
         setLoadingState(false)
       })
-  }, [addresses])
+  }
 
   const handleTogglePaymentTerm = (id: string) => {
     let newTerms = paymentTerms

@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Fixed
+
+- Storefront cost center details (`/account#/cost-center/{id}`): deleting an address always removed the last address instead of the selected one. `handleDeleteAddress` was memoized with `useCallback([addresses])` and read a stale `deleteAddressModalState` (empty `addressId`), so `findIndex` returned `-1` and `splice(-1, 1)` dropped the last entry. The handler now reads the current state and filters by `addressId`, and does nothing if the id is empty or not found.
+- Storefront cost center details: editing an address no longer mutates the `addresses` state array in place. `handleEditAddress` now builds a new array and keeps the edited address's default (`checked`) flag.
+- Storefront cost center details: the duplicate-address check in `handleAddNewAddress` now uses the latest cost center query data instead of a stale value (`data` added to the `useCallback` dependencies).
+- Admin cost center details: `handleDeleteAddress` no longer mutates the `addresses` state array with `splice`. It now filters by `addressId` and does nothing if the id is empty or not found, matching the storefront behavior.
+
 ## [3.3.0] - 2026-09-23
 
 ### Added

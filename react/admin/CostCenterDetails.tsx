@@ -464,20 +464,21 @@ const CostCenterDetails: FunctionComponent = () => {
 
   const handleDeleteAddress = () => {
     const { addressId } = deleteAddressModalState
-    const addressArray = addresses
 
-    const addressIndex = addresses.findIndex(
-      address => address.addressId === addressId
+    if (!addressId) return
+
+    const addressArray = addresses.filter(
+      address => address.addressId !== addressId
     )
 
-    addresses.splice(addressIndex, 1)
+    if (addressArray.length === addresses.length) return
 
     setLoadingState(true)
 
     const variables = {
       id: params.id,
       input: {
-        addresses: addresses.map(item => {
+        addresses: addressArray.map(item => {
           return {
             ...item,
             checked: undefined,
