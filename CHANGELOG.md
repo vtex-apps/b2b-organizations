@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [3.3.1] - 2026-10-28
+
 ### Changed
 
 - Update German (de) translations following the Admin German grammar review (3 strings, e.g. "Zufügen" → "Hinzufügen", "Handelspolitik" → "Vertriebskanal")
